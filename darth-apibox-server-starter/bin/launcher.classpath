@@ -1,0 +1,5 @@
+main is com.chexiang.venus.demo.provider.DemoProviderApplication from venus
+
+[venus]
+load ${project.home}/lib/*.jar
+load ${project.home}/conf

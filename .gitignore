@@ -1,0 +1,9 @@
+target/
+.settings/
+LOG_HOME_IS_UNDEFINED/
+.DS_Store
+.classpath
+.project
+.idea
+*.iml
+.springBeans
