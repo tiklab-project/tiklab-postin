@@ -7,7 +7,7 @@ import com.darthcloud.dal.jpa.annotation.Table;
 
 import java.io.Serializable;
 
-@Table(name="feniks_workspace")
+@Table(name="apibox_workspace")
 public class WorkspacePo implements Serializable {
 
     @Id

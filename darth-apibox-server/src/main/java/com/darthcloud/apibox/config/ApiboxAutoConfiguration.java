@@ -24,7 +24,7 @@ import org.springframework.context.annotation.Configuration;
 import javax.sql.DataSource;
 
 @Configuration
-@ConditionalOnProperty(name="feniks.server.enabled",havingValue = "true")
+@ConditionalOnProperty(name="apibox.server.enabled",havingValue = "true")
 //基础组件
 @EnableFramework
 @EnableWeb
@@ -39,10 +39,10 @@ import javax.sql.DataSource;
 @EnableDssServer
 //业务组件
 @EnableOrgaServer
-@ComponentScan({"com.darthcloud.feniks"})
-public class FeniksAutoConfiguration {
+@ComponentScan({"com.darthcloud.apibox"})
+public class ApiboxAutoConfiguration {
 
-    private static Logger logger = LoggerFactory.getLogger(FeniksAutoConfiguration.class);
+    private static Logger logger = LoggerFactory.getLogger(ApiboxAutoConfiguration.class);
 
     @Bean
     public DataInitializer dataInitializer(DataSource dataSource) {

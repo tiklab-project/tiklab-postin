@@ -1,26 +1,26 @@
 package com.darthcloud.apibox.config;
 
-import com.darthcloud.apibox.client.builder.FeniksBuilder;
-import com.darthcloud.apibox.config.annotation.EnableFeniksServer;
+import com.darthcloud.apibox.client.builder.ApiboxBuilder;
+import com.darthcloud.apibox.config.annotation.EnableApiboxServer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 
 @Configuration
-@EnableFeniksServer
+@EnableApiboxServer
 public class ApiboxInitAutoConfiguration {
 
-    @Value("${feniks.scan.package}")
+    @Value("${apibox.scan.package}")
     private String scanPackage;
 
-    @Value("${feniks.doc.path}")
+    @Value("${apibox.doc.path}")
     private String docPath;
 
     @Bean
     @DependsOn("joinQuery")
     public BeanIniter beanIniter(){
-        new FeniksBuilder()
+        new ApiboxBuilder()
                 .scan(scanPackage)
                 .docPath(docPath)
                 .build();

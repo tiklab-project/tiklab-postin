@@ -1,6 +1,6 @@
 package com.darthcloud.apibox.client.reporter;
 
-public class FeniksDocReporter {
+public class ApiboxDocReporter {
 
     public void report(){
         //TODO

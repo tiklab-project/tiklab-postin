@@ -7,3 +7,4 @@ LOG_HOME_IS_UNDEFINED/
 .idea
 *.iml
 .springBeans
+doc/

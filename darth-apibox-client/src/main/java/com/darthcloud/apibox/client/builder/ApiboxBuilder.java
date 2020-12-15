@@ -12,9 +12,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class FeniksBuilder {
+public class ApiboxBuilder {
 
-    private static Logger logger = LoggerFactory.getLogger(FeniksBuilder.class);
+    private static Logger logger = LoggerFactory.getLogger(ApiboxBuilder.class);
 
     ApiParser apiParser = new ApiParser();
 
@@ -24,12 +24,12 @@ public class FeniksBuilder {
 
     private int formater = 2;//1:json;2:html
 
-    public FeniksBuilder scan(String scanPackage) {
+    public ApiboxBuilder scan(String scanPackage) {
         this.scanPackage = scanPackage;
         return this;
     }
 
-    public FeniksBuilder docPath(String docPath) {
+    public ApiboxBuilder docPath(String docPath) {
         this.docPath = docPath;
         return this;
     }

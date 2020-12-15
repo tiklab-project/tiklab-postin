@@ -4,7 +4,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
-@Import(FeniksAutoConfiguration.class)
+@Import(ApiboxAutoConfiguration.class)
 public class TestConfig {
 
 }
