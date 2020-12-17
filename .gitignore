@@ -8,3 +8,4 @@ LOG_HOME_IS_UNDEFINED/
 *.iml
 .springBeans
 doc/
+/darth-apibox-server-starter/src/main/resources/static/api/
