@@ -7,7 +7,7 @@ import com.darthcloud.dal.jpa.annotation.Table;
 
 import java.io.Serializable;
 
-@Table(name="apibox_api_method")
+@Table(name="apibox_method")
 public class ApxMethodPo implements Serializable {
 
     @Id

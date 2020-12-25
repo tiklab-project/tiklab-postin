@@ -45,9 +45,12 @@ public class ApiboxAutoConfiguration {
     private static Logger logger = LoggerFactory.getLogger(ApiboxAutoConfiguration.class);
 
     @Bean
-    public DataInitializer dataInitializer(DataSource dataSource) {
+    public DataInitializer dataInitializerForApibox(DataSource dataSource) {
         return new DataInitializer(dataSource,new String[]{
-                "scripts/Workspace.sql"
+                "scripts/Workspace.sql",
+                "scripts/Node.sql",
+                "scripts/Category.sql",
+                "scripts/ApxMethod.sql"
         });
     }
 }
