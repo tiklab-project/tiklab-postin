@@ -1,9 +1,10 @@
 package com.darthcloud.apibox.generator;
 
+import com.darthcloud.apibox.category.entity.CategoryPo;
 import com.darthcloud.apibox.generator.config.CodeGeneratorTestConfig;
+import com.darthcloud.apibox.node.entity.NodePo;
 import com.darthcloud.code.generator.CodeGeneratorTemplate;
 import com.darthcloud.code.generator.config.CodeGeneratorConfig;
-import com.darthcloud.apibox.workspace.entity.WorkspacePo;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = CodeGeneratorTestConfig.class)
-public class WorkspaceMoudleCodeGeneratorTest extends CodeGeneratorTemplate {
+public class NodeCodeGeneratorTest extends CodeGeneratorTemplate {
 
     @Autowired
     CodeGeneratorTestConfig codeGeneratorTestConfig;
@@ -23,9 +24,9 @@ public class WorkspaceMoudleCodeGeneratorTest extends CodeGeneratorTemplate {
         config.setApiMoudlePath(codeGeneratorTestConfig.getApiMoudlePath());
         config.setServerMoudlePath(codeGeneratorTestConfig.getServerMoudlePath());
         config.setSubsystem(codeGeneratorTestConfig.getSubsystem());
-        config.setMoudle("workspace");
-        config.setModel("Workspace");
-        config.setModelPo(WorkspacePo.class);
+        config.setMoudle("node");
+        config.setModel("Node");
+        config.setModelPo(NodePo.class);
         return config;
     }
 
@@ -35,9 +36,4 @@ public class WorkspaceMoudleCodeGeneratorTest extends CodeGeneratorTemplate {
         super.generateForAll();
     }
 
-//    @Test
-//    @Override
-//    public void generateForSQL() {
-//        super.generateForSQL();
-//    }
 }
