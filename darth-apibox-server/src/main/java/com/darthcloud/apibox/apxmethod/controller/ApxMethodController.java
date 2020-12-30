@@ -27,7 +27,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/apxMethod")
-@Api(name = "ApxMethodController",desc = "ApxMethodController")
+@Api(name = "ApxMethodController",desc = "接口管理")
 public class ApxMethodController {
 
     private static Logger logger = LoggerFactory.getLogger(ApxMethodController.class);
@@ -36,8 +36,8 @@ public class ApxMethodController {
     private ApxMethodService apxMethodService;
 
     @RequestMapping(path="/createApxMethod",method = RequestMethod.POST)
-    @ApiMethod(name = "createApxMethod",desc = "createApxMethod")
-    @ApiParam(name = "apxMethod",desc = "apxMethod",required = true)
+    @ApiMethod(name = "createApxMethod",desc = "创建接口")
+    @ApiParam(name = "apxMethod",desc = "接口DTO",required = true)
     public Result<String> createApxMethod(@RequestBody @NotNull @Valid ApxMethod apxMethod){
         String id = apxMethodService.createApxMethod(apxMethod);
 
@@ -45,17 +45,17 @@ public class ApxMethodController {
     }
 
     @RequestMapping(path="/updateApxMethod",method = RequestMethod.POST)
-    @ApiMethod(name = "updateApxMethod",desc = "updateApxMethod")
-    @ApiParam(name = "apxMethod",desc = "apxMethod",required = true)
-    public Result<Void> updateApxMethod(@RequestBody @NotNull @Valid ApxMethod apxMethod){
+    @ApiMethod(name = "updateApxMethod",desc = "更新接口")
+    @ApiParam(name = "apxMethod",desc = "接口DTO",required = true)
+    public Result<Void> updateApxMethod(@RequestBody @NotNull ApxMethod apxMethod){
         apxMethodService.updateApxMethod(apxMethod);
 
         return Result.ok();
     }
 
     @RequestMapping(path="/deleteApxMethod",method = RequestMethod.POST)
-    @ApiMethod(name = "deleteApxMethod",desc = "deleteApxMethod")
-    @ApiParam(name = "id",desc = "id",required = true)
+    @ApiMethod(name = "deleteApxMethod",desc = "根据接口ID删除接口")
+    @ApiParam(name = "id",desc = "接口ID",required = true)
     public Result<Void> deleteApxMethod(@NotNull String id){
         apxMethodService.deleteApxMethod(id);
 
@@ -63,8 +63,8 @@ public class ApxMethodController {
     }
 
     @RequestMapping(path="/findApxMethod",method = RequestMethod.POST)
-    @ApiMethod(name = "findApxMethod",desc = "findApxMethod")
-    @ApiParam(name = "id",desc = "id",required = true)
+    @ApiMethod(name = "findApxMethod",desc = "根据接口ID查找接口")
+    @ApiParam(name = "id",desc = "接口ID",required = true)
     public Result<ApxMethod> findApxMethod(@NotNull String id){
         ApxMethod apxMethod = apxMethodService.findApxMethod(id);
 
@@ -72,7 +72,7 @@ public class ApxMethodController {
     }
 
     @RequestMapping(path="/findAllApxMethod",method = RequestMethod.POST)
-    @ApiMethod(name = "findAllApxMethod",desc = "findAllApxMethod")
+    @ApiMethod(name = "findAllApxMethod",desc = "查找所有接口")
     public Result<List<ApxMethod>> findAllApxMethod(){
         List<ApxMethod> apxMethodList = apxMethodService.findAllApxMethod();
 
@@ -81,8 +81,8 @@ public class ApxMethodController {
 
     @Validator
     @RequestMapping(path = "/findApxMethodList",method = RequestMethod.POST)
-    @ApiMethod(name = "findApxMethodList",desc = "findApxMethodList")
-    @ApiParam(name = "apxMethodQuery",desc = "apxMethodQuery",required = true)
+    @ApiMethod(name = "findApxMethodList",desc = "根据查询对象查找接口列表")
+    @ApiParam(name = "apxMethodQuery",desc = "查询对象",required = true)
     public Result<List<ApxMethod>> findApxMethodList(@RequestBody @Valid @NotNull ApxMethodQuery apxMethodQuery){
         List<ApxMethod> apxMethodList = apxMethodService.findApxMethodList(apxMethodQuery);
 
@@ -91,8 +91,8 @@ public class ApxMethodController {
 
     @Validator
     @RequestMapping(path = "/findApxMethodPage",method = RequestMethod.POST)
-    @ApiMethod(name = "findApxMethodPage",desc = "findApxMethodPage")
-    @ApiParam(name = "apxMethodQuery",desc = "apxMethodQuery",required = true)
+    @ApiMethod(name = "findApxMethodPage",desc = "根据查询对象按分页查询接口列表")
+    @ApiParam(name = "apxMethodQuery",desc = "查询对象",required = true)
     public Result<Pagination<List<ApxMethod>>> findApxMethodPage(@RequestBody @Valid @NotNull ApxMethodQuery apxMethodQuery){
         Pagination<List<ApxMethod>> pagination = apxMethodService.findApxMethodPage(apxMethodQuery);
 

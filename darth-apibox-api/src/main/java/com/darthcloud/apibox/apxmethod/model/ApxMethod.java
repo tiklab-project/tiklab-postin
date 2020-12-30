@@ -16,21 +16,32 @@ import javax.validation.constraints.NotNull;
 @Join
 public class ApxMethod {
 
-    @ApiProperty(name="id",desc="id")
+    @ApiProperty(name="id",desc="唯一ID")
     private java.lang.String id;
 
-    @NotNull
-    @ApiProperty(name="name",desc="name",eg="@text32",required = true)
-    private java.lang.String name;
-
-    @ApiProperty(name="parentCategory",desc="上级分类",eg="@selectOne")
+    @ApiProperty(name="category",desc="所属分类",eg="@selectOne")
     @Mappings({
-            @Mapping(source = "id",target = "parentCategoryId")
+            @Mapping(source = "id",target = "categoryId")
     })
     @JoinQuery(id = "id")
-    private Category parentCategory;
+    private Category category;
 
-    @ApiProperty(name="sort",desc="sort",eg="@int16")
+    @NotNull
+    @ApiProperty(name="name",desc="接口名称",eg="@text32",required = true)
+    private java.lang.String name;
+
+    @NotNull
+    @ApiProperty(name="requestType",desc="请求类型",required = true)
+    private java.lang.String requestType;
+
+    @NotNull
+    @ApiProperty(name="path",desc="接口路径",required = true)
+    private java.lang.String path;
+
+    @ApiProperty(name="desc",desc="描述")
+    private java.lang.String desc;
+
+    @ApiProperty(name="sort",desc="排序")
     private java.lang.Integer sort;
 
     public String getId() {
@@ -49,12 +60,12 @@ public class ApxMethod {
         this.name = name;
     }
 
-    public Category getParentCategory() {
-        return parentCategory;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setParentCategory(Category parentCategory) {
-        this.parentCategory = parentCategory;
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public Integer getSort() {
@@ -63,5 +74,29 @@ public class ApxMethod {
 
     public void setSort(Integer sort) {
         this.sort = sort;
+    }
+
+    public String getRequestType() {
+        return requestType;
+    }
+
+    public void setRequestType(String requestType) {
+        this.requestType = requestType;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 }
