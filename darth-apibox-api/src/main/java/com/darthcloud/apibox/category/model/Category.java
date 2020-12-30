@@ -1,5 +1,6 @@
 package com.darthcloud.apibox.category.model;
 
+import com.alibaba.fastjson.support.odps.udf.CodecCheck;
 import com.darthcloud.apibox.annotation.ApiModel;
 import com.darthcloud.apibox.annotation.ApiProperty;
 import com.darthcloud.apibox.workspace.model.Workspace;
@@ -10,6 +11,8 @@ import com.darthcloud.join.annotation.Join;
 import com.darthcloud.join.annotation.JoinQuery;
 
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 @ApiModel
 @Mapper(targetClass = "com.darthcloud.apibox.category.entity.CategoryPo")
@@ -39,6 +42,9 @@ public class Category {
 
     @ApiProperty(name="sort",desc="排序")
     private java.lang.Integer sort;
+
+    @ApiProperty(name="children",desc="下级分类列表")
+    private List<Category> children = new ArrayList<>();
 
     public String getId() {
         return id;
@@ -78,5 +84,13 @@ public class Category {
 
     public void setSort(Integer sort) {
         this.sort = sort;
+    }
+
+    public List<Category> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<Category> children) {
+        this.children = children;
     }
 }

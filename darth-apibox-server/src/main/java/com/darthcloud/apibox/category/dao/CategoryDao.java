@@ -65,10 +65,10 @@ public class CategoryDao{
     }
 
     public List<CategoryPo> findCategoryList(CategoryQuery categoryQuery) {
-        return jpaTemplate.criteriaQuery(CategoryPo.class,categoryQuery);
+        return jpaTemplate.createCriteriaForQuery(CategoryPo.class).list(categoryQuery);
     }
 
     public Pagination<List<CategoryPo>> findCategoryPage(CategoryQuery categoryQuery) { 
-        return jpaTemplate.criteriaPageQuery(CategoryPo.class,categoryQuery);
+        return jpaTemplate.createCriteriaForQuery(CategoryPo.class).page(categoryQuery);
     }
 }

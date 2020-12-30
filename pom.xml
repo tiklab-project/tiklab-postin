@@ -84,12 +84,12 @@
             </dependency>
             <dependency>
                 <groupId>com.darthcloud</groupId>
-                <artifactId>darth-framework-join-annotation</artifactId>
+                <artifactId>darth-service-join-annotation</artifactId>
                 <version>${darth-join.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.darthcloud</groupId>
-                <artifactId>darth-framework-join</artifactId>
+                <artifactId>darth-service-join</artifactId>
                 <version>${darth-join.version}</version>
             </dependency>
             <dependency>

@@ -66,4 +66,11 @@ public interface CategoryService {
     */
     Pagination<List<Category>> findCategoryPage(CategoryQuery categoryQuery);
 
+    /**
+     * 查询列表树
+     * @param categoryQuery
+     * @return
+     */
+    List<Category> findCategoryListTree(CategoryQuery categoryQuery);
+
 }

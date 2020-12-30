@@ -65,10 +65,10 @@ public class ApxMethodDao{
     }
 
     public List<ApxMethodPo> findApxMethodList(ApxMethodQuery apxMethodQuery) {
-        return jpaTemplate.criteriaQuery(ApxMethodPo.class,apxMethodQuery);
+        return jpaTemplate.createCriteriaForQuery(ApxMethodPo.class).list(apxMethodQuery);
     }
 
     public Pagination<List<ApxMethodPo>> findApxMethodPage(ApxMethodQuery apxMethodQuery) { 
-        return jpaTemplate.criteriaPageQuery(ApxMethodPo.class,apxMethodQuery);
+        return jpaTemplate.createCriteriaForQuery(ApxMethodPo.class).page(apxMethodQuery);
     }
 }

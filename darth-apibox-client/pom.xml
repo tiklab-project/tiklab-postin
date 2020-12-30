@@ -51,7 +51,7 @@
     </dependency>
     <dependency>
       <groupId>com.darthcloud</groupId>
-      <artifactId>darth-framework-join</artifactId>
+      <artifactId>darth-service-join</artifactId>
     </dependency>
     <dependency>
       <groupId>com.darthcloud</groupId>

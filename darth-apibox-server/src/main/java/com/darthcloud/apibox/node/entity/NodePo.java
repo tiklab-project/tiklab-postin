@@ -10,6 +10,7 @@ import java.io.Serializable;
 @Table(name="apibox_node")
 public class NodePo implements Serializable {
 
+    @Id
     @Column(name = "id",length = 32)
     private String id;
 

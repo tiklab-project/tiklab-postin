@@ -1,12 +1,12 @@
 package com.darthcloud.apibox.workspace.model;
 
-import com.darthcloud.dal.jpa.annotation.criteria.Criteria;
-import com.darthcloud.dal.jpa.annotation.criteria.PageField;
-import com.darthcloud.dal.jpa.annotation.criteria.QueryField;
-import com.darthcloud.dal.jpa.annotation.criteria.SortField;
-import com.darthcloud.dal.jpa.model.criteria.*;
 import com.darthcloud.apibox.annotation.ApiModel;
 import com.darthcloud.apibox.annotation.ApiProperty;
+import com.darthcloud.dal.jpa.criteria.annotation.Criteria;
+import com.darthcloud.dal.jpa.criteria.annotation.OrderField;
+import com.darthcloud.dal.jpa.criteria.annotation.PageField;
+import com.darthcloud.dal.jpa.criteria.annotation.QueryField;
+import com.darthcloud.dal.jpa.criteria.model.*;
 
 import java.util.List;
 
@@ -18,9 +18,9 @@ public class WorkspaceQuery {
     @QueryField(type = QueryTypeEnum.like)
     private String workspaceName;
 
-    @ApiProperty(name ="sortParams",desc = "排序参数")
-    @SortField
-    private List<SortParam> sortParams = SortParamBuilder.instance().add("workspaceName", SortTypeEnum.asc).get();
+    @ApiProperty(name ="orderParams",desc = "排序参数")
+    @OrderField
+    private List<OrderParam> orderParams = OrderParamBuilder.instance().add("workspaceName", OrderTypeEnum.asc).get();
 
     @ApiProperty(name ="pageParam",desc = "分页参数")
     @PageField
@@ -34,12 +34,12 @@ public class WorkspaceQuery {
         this.workspaceName = workspaceName;
     }
 
-    public List<SortParam> getSortParams() {
-        return sortParams;
+    public List<OrderParam> getOrderParams() {
+        return orderParams;
     }
 
-    public void setSortParams(List<SortParam> sortParams) {
-        this.sortParams = sortParams;
+    public void setOrderParams(List<OrderParam> orderParams) {
+        this.orderParams = orderParams;
     }
 
     public PageParam getPageParam() {

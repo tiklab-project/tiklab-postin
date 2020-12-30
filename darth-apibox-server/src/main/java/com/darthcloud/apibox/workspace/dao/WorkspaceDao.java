@@ -65,10 +65,10 @@ public class WorkspaceDao{
     }
 
     public List<WorkspacePo> findWorkspaceList(WorkspaceQuery workspaceQuery) {
-        return jpaTemplate.criteriaQuery(WorkspacePo.class,workspaceQuery);
+        return jpaTemplate.createCriteriaForQuery(WorkspacePo.class).list(workspaceQuery);
     }
 
     public Pagination<List<WorkspacePo>> findWorkspacePage(WorkspaceQuery workspaceQuery) { 
-        return jpaTemplate.criteriaPageQuery(WorkspacePo.class,workspaceQuery);
+        return jpaTemplate.createCriteriaForQuery(WorkspacePo.class).page(workspaceQuery);
     }
 }
