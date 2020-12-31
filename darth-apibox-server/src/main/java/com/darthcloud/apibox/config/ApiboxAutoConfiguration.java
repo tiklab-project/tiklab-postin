@@ -50,7 +50,9 @@ public class ApiboxAutoConfiguration {
                 "scripts/Workspace.sql",
                 "scripts/Node.sql",
                 "scripts/Category.sql",
-                "scripts/ApxMethod.sql"
+                "scripts/ApxMethod.sql",
+                "scripts/RequestParam.sql",
+                "scripts/ResponseResult.sql"
         });
     }
 }

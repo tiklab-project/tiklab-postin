@@ -20,10 +20,10 @@ public class ApxMethodPo implements Serializable {
     @Column(name = "name",length = 64,notNull = true)
     private String name;
 
-    @Column(name = "request_type",length = 32)
+    @Column(name = "request_type",length = 32,notNull = true)
     private String requestType;
 
-    @Column(name = "path",length = 256)
+    @Column(name = "path",length = 256,notNull = true)
     private String path;
 
     @Column(name = "desc",length = 256)

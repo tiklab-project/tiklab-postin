@@ -4,6 +4,9 @@ import com.darthcloud.common.Pagination;
 
 import com.darthcloud.apibox.apxmethod.model.ApxMethod;
 import com.darthcloud.apibox.apxmethod.model.ApxMethodQuery;
+import com.darthcloud.join.annotation.Provider;
+import com.darthcloud.join.annotation.QueryAll;
+import com.darthcloud.join.annotation.QueryOne;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -12,6 +15,7 @@ import java.util.List;
 /**
 * 用户服务接口
 */
+@Provider(model = ApxMethod.class)
 public interface ApxMethodService {
 
     /**
@@ -38,12 +42,14 @@ public interface ApxMethodService {
     * @param id
     * @return
     */
+    @QueryOne
     ApxMethod findApxMethod(@NotNull String id);
 
     /**
     * 查找所有
     * @return
     */
+    @QueryAll
     List<ApxMethod> findAllApxMethod();
 
     /**

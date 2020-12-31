@@ -19,7 +19,8 @@ public class ApxMethod {
     @ApiProperty(name="id",desc="唯一ID")
     private java.lang.String id;
 
-    @ApiProperty(name="category",desc="所属分类",eg="@selectOne")
+    @NotNull
+    @ApiProperty(name="category",desc="所属分类",eg="@selectOne",required = true)
     @Mappings({
             @Mapping(source = "id",target = "categoryId")
     })
