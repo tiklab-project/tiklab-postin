@@ -14,13 +14,13 @@ import java.util.List;
 @Criteria
 public class ApxMethodQuery {
 
-    @ApiProperty(name ="name",desc = "接口名称，模糊匹配")
-    @QueryField(type = QueryTypeEnum.like)
-    private String name;
-
     @ApiProperty(name ="categoryId",desc = "分类ID，精确匹配")
     @QueryField(type = QueryTypeEnum.equal)
     private String categoryId;
+
+    @ApiProperty(name ="name",desc = "接口名称，模糊匹配")
+    @QueryField(type = QueryTypeEnum.like)
+    private String name;
 
     @ApiProperty(name ="orderParams",desc = "排序参数")
     @OrderField

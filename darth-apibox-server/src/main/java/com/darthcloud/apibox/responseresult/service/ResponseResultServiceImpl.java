@@ -7,6 +7,7 @@ import com.darthcloud.apibox.responseresult.model.ResponseResultQuery;
 
 import com.darthcloud.common.Pagination;
 import com.darthcloud.beans.BeanMapper;
+import com.darthcloud.join.joinquery.JoinQueryProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +25,9 @@ public class ResponseResultServiceImpl implements ResponseResultService {
 
     @Autowired
     ResponseResultDao responseResultDao;
+
+    @Autowired
+    JoinQueryProcessor joinQuery;
 
     @Override
     public String createResponseResult(@NotNull @Valid ResponseResult responseResult) {
@@ -48,21 +52,33 @@ public class ResponseResultServiceImpl implements ResponseResultService {
     public ResponseResult findResponseResult(@NotNull String id) {
         ResponseResultPo responseResultPo = responseResultDao.findResponseResult(id);
 
-        return BeanMapper.map(responseResultPo, ResponseResult.class);
+        ResponseResult responseResult = BeanMapper.map(responseResultPo, ResponseResult.class);
+
+        joinQuery.queryOne(responseResult);
+
+        return responseResult;
     }
 
     @Override
     public List<ResponseResult> findAllResponseResult() {
         List<ResponseResultPo> responseResultPoList =  responseResultDao.findAllResponseResult();
 
-        return BeanMapper.mapList(responseResultPoList,ResponseResult.class);
+        List<ResponseResult> responseResultList = BeanMapper.mapList(responseResultPoList,ResponseResult.class);
+
+        joinQuery.queryList(responseResultList);
+
+        return responseResultList;
     }
 
     @Override
     public List<ResponseResult> findResponseResultList(ResponseResultQuery responseResultQuery) {
         List<ResponseResultPo> responseResultPoList = responseResultDao.findResponseResultList(responseResultQuery);
 
-        return BeanMapper.mapList(responseResultPoList,ResponseResult.class);
+        List<ResponseResult> responseResultList = BeanMapper.mapList(responseResultPoList,ResponseResult.class);
+
+        joinQuery.queryList(responseResultList);
+
+        return responseResultList;
     }
 
     @Override
@@ -73,6 +89,9 @@ public class ResponseResultServiceImpl implements ResponseResultService {
         BeanUtils.copyProperties(pagination,pg);
 
         List<ResponseResult> responseResultList = BeanMapper.mapList(pagination.getDataList(),ResponseResult.class);
+
+        joinQuery.queryList(responseResultList);
+
         pg.setDataList(responseResultList);
         return pg;
     }

@@ -7,6 +7,7 @@ import com.darthcloud.apibox.requestparam.model.RequestParamQuery;
 
 import com.darthcloud.common.Pagination;
 import com.darthcloud.beans.BeanMapper;
+import com.darthcloud.join.joinquery.JoinQueryProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +25,9 @@ public class RequestParamServiceImpl implements RequestParamService {
 
     @Autowired
     RequestParamDao requestParamDao;
+
+    @Autowired
+    JoinQueryProcessor joinQuery;
 
     @Override
     public String createRequestParam(@NotNull @Valid RequestParam requestParam) {
@@ -48,21 +52,33 @@ public class RequestParamServiceImpl implements RequestParamService {
     public RequestParam findRequestParam(@NotNull String id) {
         RequestParamPo requestParamPo = requestParamDao.findRequestParam(id);
 
-        return BeanMapper.map(requestParamPo, RequestParam.class);
+        RequestParam requestParam = BeanMapper.map(requestParamPo, RequestParam.class);
+
+        joinQuery.queryOne(requestParam);
+
+        return requestParam;
     }
 
     @Override
     public List<RequestParam> findAllRequestParam() {
         List<RequestParamPo> requestParamPoList =  requestParamDao.findAllRequestParam();
 
-        return BeanMapper.mapList(requestParamPoList,RequestParam.class);
+        List<RequestParam> requestParamList = BeanMapper.mapList(requestParamPoList,RequestParam.class);
+
+        joinQuery.queryList(requestParamList);
+
+        return requestParamList;
     }
 
     @Override
     public List<RequestParam> findRequestParamList(RequestParamQuery requestParamQuery) {
         List<RequestParamPo> requestParamPoList = requestParamDao.findRequestParamList(requestParamQuery);
 
-        return BeanMapper.mapList(requestParamPoList,RequestParam.class);
+        List<RequestParam> requestParamList = BeanMapper.mapList(requestParamPoList,RequestParam.class);
+
+        joinQuery.queryList(requestParamList);
+
+        return requestParamList;
     }
 
     @Override
@@ -73,6 +89,9 @@ public class RequestParamServiceImpl implements RequestParamService {
         BeanUtils.copyProperties(pagination,pg);
 
         List<RequestParam> requestParamList = BeanMapper.mapList(pagination.getDataList(),RequestParam.class);
+
+        joinQuery.queryList(requestParamList);
+
         pg.setDataList(requestParamList);
         return pg;
     }

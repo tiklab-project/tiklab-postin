@@ -7,6 +7,7 @@ import com.darthcloud.apibox.apxmethod.model.ApxMethodQuery;
 
 import com.darthcloud.common.Pagination;
 import com.darthcloud.beans.BeanMapper;
+import com.darthcloud.join.joinquery.JoinQueryProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +25,9 @@ public class ApxMethodServiceImpl implements ApxMethodService {
 
     @Autowired
     ApxMethodDao apxMethodDao;
+
+    @Autowired
+    JoinQueryProcessor joinQuery;
 
     @Override
     public String createApxMethod(@NotNull @Valid ApxMethod apxMethod) {
@@ -48,21 +52,33 @@ public class ApxMethodServiceImpl implements ApxMethodService {
     public ApxMethod findApxMethod(@NotNull String id) {
         ApxMethodPo apxMethodPo = apxMethodDao.findApxMethod(id);
 
-        return BeanMapper.map(apxMethodPo, ApxMethod.class);
+        ApxMethod apxMethod = BeanMapper.map(apxMethodPo, ApxMethod.class);
+
+        joinQuery.queryOne(apxMethod);
+
+        return apxMethod;
     }
 
     @Override
     public List<ApxMethod> findAllApxMethod() {
         List<ApxMethodPo> apxMethodPoList =  apxMethodDao.findAllApxMethod();
 
-        return BeanMapper.mapList(apxMethodPoList,ApxMethod.class);
+        List<ApxMethod> apxMethodList = BeanMapper.mapList(apxMethodPoList,ApxMethod.class);
+
+        joinQuery.queryList(apxMethodList);
+
+        return apxMethodList;
     }
 
     @Override
     public List<ApxMethod> findApxMethodList(ApxMethodQuery apxMethodQuery) {
         List<ApxMethodPo> apxMethodPoList = apxMethodDao.findApxMethodList(apxMethodQuery);
 
-        return BeanMapper.mapList(apxMethodPoList,ApxMethod.class);
+        List<ApxMethod> apxMethodList = BeanMapper.mapList(apxMethodPoList,ApxMethod.class);
+
+        joinQuery.queryList(apxMethodList);
+
+        return apxMethodList;
     }
 
     @Override
@@ -73,6 +89,9 @@ public class ApxMethodServiceImpl implements ApxMethodService {
         BeanUtils.copyProperties(pagination,pg);
 
         List<ApxMethod> apxMethodList = BeanMapper.mapList(pagination.getDataList(),ApxMethod.class);
+
+        joinQuery.queryList(apxMethodList);
+
         pg.setDataList(apxMethodList);
         return pg;
     }

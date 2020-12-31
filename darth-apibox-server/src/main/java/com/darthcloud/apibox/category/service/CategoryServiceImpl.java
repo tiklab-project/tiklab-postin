@@ -11,6 +11,7 @@ import com.darthcloud.apibox.node.model.Node;
 import com.darthcloud.apibox.node.service.NodeService;
 import com.darthcloud.common.Pagination;
 import com.darthcloud.beans.BeanMapper;
+import com.darthcloud.join.joinquery.JoinQueryProcessor;
 import com.darthcloud.rpc.client.nodeprovider.NodeProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,6 +34,9 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Autowired
     NodeDao nodeDao;
+
+    @Autowired
+    JoinQueryProcessor joinQuery;
 
     @Override
     public String createCategory(@NotNull @Valid Category category) {
@@ -71,21 +75,33 @@ public class CategoryServiceImpl implements CategoryService {
     public Category findCategory(@NotNull String id) {
         CategoryPo categoryPo = categoryDao.findCategory(id);
 
-        return BeanMapper.map(categoryPo, Category.class);
+        Category category = BeanMapper.map(categoryPo, Category.class);
+
+        joinQuery.queryOne(category);
+
+        return category;
     }
 
     @Override
     public List<Category> findAllCategory() {
         List<CategoryPo> categoryPoList =  categoryDao.findAllCategory();
 
-        return BeanMapper.mapList(categoryPoList,Category.class);
+        List<Category> categoryList = BeanMapper.mapList(categoryPoList,Category.class);
+
+        joinQuery.queryList(categoryList);
+
+        return categoryList;
     }
 
     @Override
     public List<Category> findCategoryList(CategoryQuery categoryQuery) {
         List<CategoryPo> categoryPoList = categoryDao.findCategoryList(categoryQuery);
 
-        return BeanMapper.mapList(categoryPoList,Category.class);
+        List<Category> categoryList = BeanMapper.mapList(categoryPoList,Category.class);
+
+        joinQuery.queryList(categoryList);
+
+        return categoryList;
     }
 
     @Override
@@ -97,6 +113,9 @@ public class CategoryServiceImpl implements CategoryService {
 
         List<Category> categoryList = BeanMapper.mapList(pagination.getDataList(),Category.class);
         pg.setDataList(categoryList);
+
+        joinQuery.queryList(categoryList);
+
         return pg;
     }
 
