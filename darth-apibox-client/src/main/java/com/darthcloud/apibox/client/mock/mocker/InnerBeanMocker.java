@@ -9,7 +9,7 @@ import java.util.List;
 
 public class InnerBeanMocker {
 
-    static JoinProvider modelProvider = new DefaultJoinProvider();
+    static JoinProvider joinProvider = new DefaultJoinProvider();
 
     /**
      * 构造内部bean，如project.user
@@ -40,7 +40,7 @@ public class InnerBeanMocker {
     }
 
     static Object selectOne(Class<?> paramType){
-        List<?> list = modelProvider.queryAll(paramType);
+        List<?> list = joinProvider.queryAll(paramType);
         if(list == null || list.size()==0){
             return null;
         }

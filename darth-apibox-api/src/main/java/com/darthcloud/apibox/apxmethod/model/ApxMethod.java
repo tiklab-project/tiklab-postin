@@ -3,7 +3,6 @@ package com.darthcloud.apibox.apxmethod.model;
 import com.darthcloud.apibox.annotation.ApiModel;
 import com.darthcloud.apibox.annotation.ApiProperty;
 import com.darthcloud.apibox.category.model.Category;
-import com.darthcloud.beans.annotation.Mapper;
 import com.darthcloud.beans.annotation.Mapping;
 import com.darthcloud.beans.annotation.Mappings;
 import com.darthcloud.join.annotation.Join;
@@ -12,7 +11,6 @@ import com.darthcloud.join.annotation.JoinField;
 import javax.validation.constraints.NotNull;
 
 @ApiModel
-@Mapper(targetClass = "com.darthcloud.apibox.apxmethod.entity.ApxMethodPo")
 @Join
 public class ApxMethod {
 

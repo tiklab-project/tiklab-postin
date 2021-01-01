@@ -19,13 +19,13 @@ public class ApiboxInitAutoConfiguration {
 
     @Bean
     @DependsOn("joinQuery")
-    public BeanIniter beanIniter(){
+    public ApiboxIniter apiboxIniter(){
         new ApiboxBuilder()
                 .scan(scanPackage)
                 .docPath(docPath)
                 .build();
-        return new BeanIniter();
+        return new ApiboxIniter();
     }
 
-    class BeanIniter{}
+    class ApiboxIniter {}
 }

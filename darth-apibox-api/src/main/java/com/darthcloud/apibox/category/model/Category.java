@@ -3,7 +3,6 @@ package com.darthcloud.apibox.category.model;
 import com.darthcloud.apibox.annotation.ApiModel;
 import com.darthcloud.apibox.annotation.ApiProperty;
 import com.darthcloud.apibox.workspace.model.Workspace;
-import com.darthcloud.beans.annotation.Mapper;
 import com.darthcloud.beans.annotation.Mapping;
 import com.darthcloud.beans.annotation.Mappings;
 import com.darthcloud.join.annotation.Join;
@@ -14,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @ApiModel
-@Mapper(targetClass = "com.darthcloud.apibox.category.entity.CategoryPo")
 @Join
 public class Category {
 
