@@ -7,7 +7,7 @@ import com.darthcloud.beans.annotation.Mapper;
 import com.darthcloud.beans.annotation.Mapping;
 import com.darthcloud.beans.annotation.Mappings;
 import com.darthcloud.join.annotation.Join;
-import com.darthcloud.join.annotation.JoinQuery;
+import com.darthcloud.join.annotation.JoinField;
 
 import javax.validation.constraints.NotNull;
 
@@ -24,7 +24,7 @@ public class ApxMethod {
     @Mappings({
             @Mapping(source = "id",target = "categoryId")
     })
-    @JoinQuery(id = "id")
+    @JoinField(id = "id")
     private Category category;
 
     @NotNull

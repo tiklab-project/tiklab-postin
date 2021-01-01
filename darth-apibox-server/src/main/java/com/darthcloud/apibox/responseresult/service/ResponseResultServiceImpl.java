@@ -7,7 +7,7 @@ import com.darthcloud.apibox.responseresult.model.ResponseResultQuery;
 
 import com.darthcloud.common.Pagination;
 import com.darthcloud.beans.BeanMapper;
-import com.darthcloud.join.joinquery.JoinQueryProcessor;
+import com.darthcloud.join.join.JoinQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +27,7 @@ public class ResponseResultServiceImpl implements ResponseResultService {
     ResponseResultDao responseResultDao;
 
     @Autowired
-    JoinQueryProcessor joinQuery;
+    JoinQuery joinQuery;
 
     @Override
     public String createResponseResult(@NotNull @Valid ResponseResult responseResult) {

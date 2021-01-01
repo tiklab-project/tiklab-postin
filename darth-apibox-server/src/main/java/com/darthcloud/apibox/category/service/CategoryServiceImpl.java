@@ -6,13 +6,9 @@ import com.darthcloud.apibox.category.model.Category;
 import com.darthcloud.apibox.category.model.CategoryQuery;
 
 import com.darthcloud.apibox.node.dao.NodeDao;
-import com.darthcloud.apibox.node.entity.NodePo;
-import com.darthcloud.apibox.node.model.Node;
-import com.darthcloud.apibox.node.service.NodeService;
 import com.darthcloud.common.Pagination;
 import com.darthcloud.beans.BeanMapper;
-import com.darthcloud.join.joinquery.JoinQueryProcessor;
-import com.darthcloud.rpc.client.nodeprovider.NodeProvider;
+import com.darthcloud.join.join.JoinQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,7 +32,7 @@ public class CategoryServiceImpl implements CategoryService {
     NodeDao nodeDao;
 
     @Autowired
-    JoinQueryProcessor joinQuery;
+    JoinQuery joinQuery;
 
     @Override
     public String createCategory(@NotNull @Valid Category category) {

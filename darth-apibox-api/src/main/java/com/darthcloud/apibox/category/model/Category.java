@@ -1,6 +1,5 @@
 package com.darthcloud.apibox.category.model;
 
-import com.alibaba.fastjson.support.odps.udf.CodecCheck;
 import com.darthcloud.apibox.annotation.ApiModel;
 import com.darthcloud.apibox.annotation.ApiProperty;
 import com.darthcloud.apibox.workspace.model.Workspace;
@@ -8,7 +7,7 @@ import com.darthcloud.beans.annotation.Mapper;
 import com.darthcloud.beans.annotation.Mapping;
 import com.darthcloud.beans.annotation.Mappings;
 import com.darthcloud.join.annotation.Join;
-import com.darthcloud.join.annotation.JoinQuery;
+import com.darthcloud.join.annotation.JoinField;
 
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
@@ -30,14 +29,14 @@ public class Category {
     @Mappings({
             @Mapping(source = "id",target = "workspaceId")
     })
-    @JoinQuery(id = "id")
+    @JoinField(id = "id")
     private Workspace workspace;
 
     @ApiProperty(name="parentCategory",desc="上级分类",eg="@selectOne")
     @Mappings({
             @Mapping(source = "id",target = "parentCategoryId")
     })
-    @JoinQuery(id = "id")
+    @JoinField(id = "id")
     private Category parentCategory;
 
     @ApiProperty(name="sort",desc="排序")

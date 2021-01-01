@@ -1,15 +1,15 @@
 package com.darthcloud.apibox.client.mock.mocker;
 
 
-import com.darthcloud.join.modelprovider.DefaultModelProviderProcessor;
-import com.darthcloud.join.modelprovider.ModelProviderProcessor;
+import com.darthcloud.join.joinprovider.DefaultJoinProvider;
+import com.darthcloud.join.joinprovider.JoinProvider;
 
 import java.lang.reflect.Type;
 import java.util.List;
 
 public class InnerBeanMocker {
 
-    static ModelProviderProcessor modelProvider = new DefaultModelProviderProcessor();
+    static JoinProvider modelProvider = new DefaultJoinProvider();
 
     /**
      * 构造内部bean，如project.user
