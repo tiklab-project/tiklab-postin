@@ -18,7 +18,7 @@ public class ApiboxInitAutoConfiguration {
     private String docPath;
 
     @Bean
-    @DependsOn("joinQuery")
+    @DependsOn({"joinQuery","dataInitializerForApibox","beanIniterForApibox"})
     public ApiboxIniter apiboxIniter(){
         new ApiboxBuilder()
                 .scan(scanPackage)

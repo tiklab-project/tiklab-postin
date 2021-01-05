@@ -5,6 +5,7 @@ import com.darthcloud.apibox.apxmethod.entity.ApxMethodPo;
 import com.darthcloud.apibox.apxmethod.model.ApxMethod;
 import com.darthcloud.apibox.category.entity.CategoryPo;
 import com.darthcloud.apibox.category.model.Category;
+import com.darthcloud.apibox.requestparam.entity.RequestParamPo;
 import com.darthcloud.apibox.requestparam.model.RequestParam;
 import com.darthcloud.apibox.responseresult.entity.ResponseResultPo;
 import com.darthcloud.apibox.responseresult.model.ResponseResult;
@@ -30,6 +31,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 
 import javax.sql.DataSource;
 
@@ -54,7 +56,7 @@ public class ApiboxAutoConfiguration {
 
     private static Logger logger = LoggerFactory.getLogger(ApiboxAutoConfiguration.class);
 
-    @Bean
+    @Bean("dataInitializerForApibox")
     public DataInitializer dataInitializerForApibox(DataSource dataSource) {
         return new DataInitializer(dataSource,new String[]{
                 "scripts/Workspace.sql",
@@ -66,13 +68,13 @@ public class ApiboxAutoConfiguration {
         });
     }
 
-    @Bean
+    @Bean("beanIniterForApibox")
     public BeanIniter beanIniterForApibox(){
         BeanMapperMetaRegister.getInstance()
                 .add(Workspace.class, WorkspacePo.class)
                 .add(Category.class, CategoryPo.class)
                 .add(ApxMethod.class, ApxMethodPo.class)
-                .add(RequestParam.class,RequestParam.class)
+                .add(RequestParam.class, RequestParamPo.class)
                 .add(ResponseResult.class, ResponseResultPo.class)
         ;
         return new BeanIniter();
