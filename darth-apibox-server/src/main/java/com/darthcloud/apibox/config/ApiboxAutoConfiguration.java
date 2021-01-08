@@ -5,10 +5,10 @@ import com.darthcloud.apibox.apxmethod.entity.ApxMethodPo;
 import com.darthcloud.apibox.apxmethod.model.ApxMethod;
 import com.darthcloud.apibox.category.entity.CategoryPo;
 import com.darthcloud.apibox.category.model.Category;
-import com.darthcloud.apibox.requestparam.entity.RequestParamPo;
-import com.darthcloud.apibox.requestparam.model.RequestParam;
-import com.darthcloud.apibox.responseresult.entity.ResponseResultPo;
-import com.darthcloud.apibox.responseresult.model.ResponseResult;
+import com.darthcloud.apibox.jsonparam.entity.JsonParamPo;
+import com.darthcloud.apibox.jsonparam.model.JsonParam;
+import com.darthcloud.apibox.jsonresponse.entity.JsonResponsePo;
+import com.darthcloud.apibox.jsonresponse.model.JsonResponse;
 import com.darthcloud.apibox.workspace.entity.WorkspacePo;
 import com.darthcloud.apibox.workspace.model.Workspace;
 import com.darthcloud.beans.register.BeanMapperMetaRegister;
@@ -31,7 +31,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.DependsOn;
 
 import javax.sql.DataSource;
 
@@ -63,8 +62,8 @@ public class ApiboxAutoConfiguration {
                 "scripts/Node.sql",
                 "scripts/Category.sql",
                 "scripts/ApxMethod.sql",
-                "scripts/RequestParam.sql",
-                "scripts/ResponseResult.sql"
+                "scripts/JsonParam.sql",
+                "scripts/JsonResponse.sql"
         });
     }
 
@@ -74,8 +73,8 @@ public class ApiboxAutoConfiguration {
                 .add(Workspace.class, WorkspacePo.class)
                 .add(Category.class, CategoryPo.class)
                 .add(ApxMethod.class, ApxMethodPo.class)
-                .add(RequestParam.class, RequestParamPo.class)
-                .add(ResponseResult.class, ResponseResultPo.class)
+                .add(JsonParam.class, JsonParamPo.class)
+                .add(JsonResponse.class, JsonResponsePo.class)
         ;
         return new BeanIniter();
     }
