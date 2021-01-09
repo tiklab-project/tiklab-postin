@@ -2,16 +2,17 @@ package com.darthcloud.apibox.workspace.model;
 
 import com.darthcloud.apibox.annotation.ApiModel;
 import com.darthcloud.apibox.annotation.ApiProperty;
-import com.darthcloud.dal.jpa.criteria.annotation.Criteria;
+import com.darthcloud.dal.jpa.criteria.annotation.CriteriaQuery;
 import com.darthcloud.dal.jpa.criteria.annotation.OrderField;
 import com.darthcloud.dal.jpa.criteria.annotation.PageField;
 import com.darthcloud.dal.jpa.criteria.annotation.QueryField;
 import com.darthcloud.dal.jpa.criteria.model.*;
+import com.darthcloud.dal.jpa.criteria.support.Orders;
 
 import java.util.List;
 
 @ApiModel
-@Criteria
+@CriteriaQuery
 public class WorkspaceQuery {
 
     @ApiProperty(name ="workspaceName",desc = "空间名称，模糊匹配")
@@ -20,7 +21,7 @@ public class WorkspaceQuery {
 
     @ApiProperty(name ="orderParams",desc = "排序参数")
     @OrderField
-    private List<OrderParam> orderParams = OrderParamBuilder.instance().add("workspaceName", OrderTypeEnum.asc).get();
+    private List<OrderParam> orderParams = Orders.instance().asc("workspaceName").get();
 
     @ApiProperty(name ="pageParam",desc = "分页参数")
     @PageField

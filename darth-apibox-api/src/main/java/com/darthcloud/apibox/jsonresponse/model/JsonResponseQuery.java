@@ -4,11 +4,12 @@ import com.darthcloud.dal.jpa.criteria.annotation.*;
 import com.darthcloud.dal.jpa.criteria.model.*;
 import com.darthcloud.apibox.annotation.ApiModel;
 import com.darthcloud.apibox.annotation.ApiProperty;
+import com.darthcloud.dal.jpa.criteria.support.Orders;
 
 import java.util.List;
 
 @ApiModel
-@Criteria
+@CriteriaQuery
 public class JsonResponseQuery {
 
     @ApiProperty(name ="methodId",desc = "接口ID，精确匹配")
@@ -17,7 +18,7 @@ public class JsonResponseQuery {
 
     @ApiProperty(name ="orderParams",desc = "排序参数")
     @OrderField
-    private List<OrderParam> orderParams = OrderParamBuilder.instance().add("propertyName", OrderTypeEnum.asc).get();
+    private List<OrderParam> orderParams = Orders.instance().asc("propertyName").get();
 
     @ApiProperty(name ="pageParam",desc = "分页参数")
     @PageField
