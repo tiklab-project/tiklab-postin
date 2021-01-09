@@ -1,8 +1,8 @@
 package com.darthcloud.apibox.apxmethod.dao;
 
-import com.darthcloud.common.Pagination;
 import com.darthcloud.apibox.apxmethod.entity.ApxMethodPo;
 import com.darthcloud.apibox.apxmethod.model.ApxMethodQuery;
+import com.darthcloud.common.Pagination;
 import com.darthcloud.dal.jpa.JpaTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -65,10 +65,10 @@ public class ApxMethodDao{
     }
 
     public List<ApxMethodPo> findApxMethodList(ApxMethodQuery apxMethodQuery) {
-        return jpaTemplate.createCriteriaForQuery(ApxMethodPo.class).list(apxMethodQuery);
+        return jpaTemplate.createCriteria(ApxMethodPo.class).params(apxMethodQuery).list();
     }
 
     public Pagination<List<ApxMethodPo>> findApxMethodPage(ApxMethodQuery apxMethodQuery) { 
-        return jpaTemplate.createCriteriaForQuery(ApxMethodPo.class).page(apxMethodQuery);
+        return jpaTemplate.createCriteria(ApxMethodPo.class).params(apxMethodQuery).page();
     }
 }

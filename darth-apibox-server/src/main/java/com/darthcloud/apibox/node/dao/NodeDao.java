@@ -1,8 +1,8 @@
 package com.darthcloud.apibox.node.dao;
 
-import com.darthcloud.common.Pagination;
 import com.darthcloud.apibox.node.entity.NodePo;
 import com.darthcloud.apibox.node.model.NodeQuery;
+import com.darthcloud.common.Pagination;
 import com.darthcloud.dal.jpa.JpaTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -65,10 +65,10 @@ public class NodeDao{
     }
 
     public List<NodePo> findNodeList(NodeQuery nodeQuery) {
-        return jpaTemplate.createCriteriaForQuery(NodePo.class).list(nodeQuery);
+        return jpaTemplate.createCriteria(NodePo.class).params(nodeQuery).list();
     }
 
     public Pagination<List<NodePo>> findNodePage(NodeQuery nodeQuery) { 
-        return jpaTemplate.createCriteriaForQuery(NodePo.class).page(nodeQuery);
+        return jpaTemplate.createCriteria(NodePo.class).params(nodeQuery).page();
     }
 }

@@ -1,8 +1,8 @@
 package com.darthcloud.apibox.jsonparam.dao;
 
-import com.darthcloud.common.Pagination;
 import com.darthcloud.apibox.jsonparam.entity.JsonParamPo;
 import com.darthcloud.apibox.jsonparam.model.JsonParamQuery;
+import com.darthcloud.common.Pagination;
 import com.darthcloud.dal.jpa.JpaTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -65,10 +65,10 @@ public class JsonParamDao{
     }
 
     public List<JsonParamPo> findJsonParamList(JsonParamQuery jsonParamQuery) {
-        return jpaTemplate.createCriteriaForQuery(JsonParamPo.class).list(jsonParamQuery);
+        return jpaTemplate.createCriteria(JsonParamPo.class).params(jsonParamQuery).list();
     }
 
     public Pagination<List<JsonParamPo>> findJsonParamPage(JsonParamQuery jsonParamQuery) {
-        return jpaTemplate.createCriteriaForQuery(JsonParamPo.class).page(jsonParamQuery);
+        return jpaTemplate.createCriteria(JsonParamPo.class).params(jsonParamQuery).page();
     }
 }

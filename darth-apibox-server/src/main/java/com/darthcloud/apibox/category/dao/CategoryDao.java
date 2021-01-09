@@ -1,8 +1,8 @@
 package com.darthcloud.apibox.category.dao;
 
-import com.darthcloud.common.Pagination;
 import com.darthcloud.apibox.category.entity.CategoryPo;
 import com.darthcloud.apibox.category.model.CategoryQuery;
+import com.darthcloud.common.Pagination;
 import com.darthcloud.dal.jpa.JpaTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -65,10 +65,12 @@ public class CategoryDao{
     }
 
     public List<CategoryPo> findCategoryList(CategoryQuery categoryQuery) {
-        return jpaTemplate.createCriteriaForQuery(CategoryPo.class).list(categoryQuery);
+        return jpaTemplate.createCriteria(CategoryPo.class)
+                .params(categoryQuery).list();
     }
 
     public Pagination<List<CategoryPo>> findCategoryPage(CategoryQuery categoryQuery) { 
-        return jpaTemplate.createCriteriaForQuery(CategoryPo.class).page(categoryQuery);
+        return jpaTemplate.createCriteria(CategoryPo.class)
+                .params(categoryQuery).page();
     }
 }

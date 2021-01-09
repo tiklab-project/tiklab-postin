@@ -1,8 +1,8 @@
 package com.darthcloud.apibox.workspace.dao;
 
-import com.darthcloud.common.Pagination;
 import com.darthcloud.apibox.workspace.entity.WorkspacePo;
 import com.darthcloud.apibox.workspace.model.WorkspaceQuery;
+import com.darthcloud.common.Pagination;
 import com.darthcloud.dal.jpa.JpaTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -65,10 +65,14 @@ public class WorkspaceDao{
     }
 
     public List<WorkspacePo> findWorkspaceList(WorkspaceQuery workspaceQuery) {
-        return jpaTemplate.createCriteriaForQuery(WorkspacePo.class).list(workspaceQuery);
+        return jpaTemplate.createCriteria(WorkspacePo.class)
+                .params(workspaceQuery)
+                .list();
     }
 
     public Pagination<List<WorkspacePo>> findWorkspacePage(WorkspaceQuery workspaceQuery) { 
-        return jpaTemplate.createCriteriaForQuery(WorkspacePo.class).page(workspaceQuery);
+        return jpaTemplate.createCriteria(WorkspacePo.class)
+                .params(workspaceQuery)
+                .page();
     }
 }
