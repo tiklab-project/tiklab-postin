@@ -5,6 +5,8 @@ import com.darthcloud.apibox.apxmethod.entity.ApxMethodPo;
 import com.darthcloud.apibox.apxmethod.model.ApxMethod;
 import com.darthcloud.apibox.category.entity.CategoryPo;
 import com.darthcloud.apibox.category.model.Category;
+import com.darthcloud.apibox.formparam.entity.FormParamPo;
+import com.darthcloud.apibox.formparam.model.FormParam;
 import com.darthcloud.apibox.jsonparam.entity.JsonParamPo;
 import com.darthcloud.apibox.jsonparam.model.JsonParam;
 import com.darthcloud.apibox.jsonresponse.entity.JsonResponsePo;
@@ -63,7 +65,8 @@ public class ApiboxAutoConfiguration {
                 "scripts/Category.sql",
                 "scripts/ApxMethod.sql",
                 "scripts/JsonParam.sql",
-                "scripts/JsonResponse.sql"
+                "scripts/JsonResponse.sql",
+                "scripts/FormParam.sql"
         });
     }
 
@@ -75,6 +78,7 @@ public class ApiboxAutoConfiguration {
                 .add(ApxMethod.class, ApxMethodPo.class)
                 .add(JsonParam.class, JsonParamPo.class)
                 .add(JsonResponse.class, JsonResponsePo.class)
+                .add(FormParam.class, FormParamPo.class)
         ;
         return new BeanIniter();
     }

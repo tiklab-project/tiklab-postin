@@ -1,4 +1,4 @@
-package com.darthcloud.apibox.jsonresponse.entity;
+package com.darthcloud.apibox.formparam.entity;
 
 
 import com.darthcloud.dal.jpa.annotation.Column;
@@ -7,21 +7,18 @@ import com.darthcloud.dal.jpa.annotation.Table;
 
 import java.io.Serializable;
 
-@Table(name="apibox_json_response")
-public class JsonResponsePo implements Serializable {
+@Table(name="apibox_form_param")
+public class FormParamPo implements Serializable {
 
     @Id
     @Column(name = "id",length = 32)
     private String id;
 
-    @Column(name = "parent_id",length = 32)
-    private String parentId;
-
     @Column(name = "method_id",length = 32,notNull = true)
     private String methodId;
 
-    @Column(name = "property_name",length = 64,notNull = true)
-    private String propertyName;
+    @Column(name = "param_name",length = 64,notNull = true)
+    private String paramName;
 
     @Column(name = "data_type",length = 32,notNull = true)
     private String dataType;
@@ -54,12 +51,12 @@ public class JsonResponsePo implements Serializable {
         this.methodId = methodId;
     }
 
-    public String getPropertyName() {
-        return propertyName;
+    public String getParamName() {
+        return paramName;
     }
 
-    public void setPropertyName(String propertyName) {
-        this.propertyName = propertyName;
+    public void setParamName(String paramName) {
+        this.paramName = paramName;
     }
 
     public String getDataType() {
@@ -86,14 +83,6 @@ public class JsonResponsePo implements Serializable {
         this.desc = desc;
     }
 
-    public Integer getSort() {
-        return sort;
-    }
-
-    public void setSort(Integer sort) {
-        this.sort = sort;
-    }
-
     public String getEg() {
         return eg;
     }
@@ -102,11 +91,11 @@ public class JsonResponsePo implements Serializable {
         this.eg = eg;
     }
 
-    public String getParentId() {
-        return parentId;
+    public Integer getSort() {
+        return sort;
     }
 
-    public void setParentId(String parentId) {
-        this.parentId = parentId;
+    public void setSort(Integer sort) {
+        this.sort = sort;
     }
 }

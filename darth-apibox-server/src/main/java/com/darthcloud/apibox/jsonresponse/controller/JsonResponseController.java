@@ -99,4 +99,14 @@ public class JsonResponseController {
         return Result.ok(pagination);
     }
 
+    @Validator
+    @RequestMapping(path = "/findJsonResponseListTree",method = RequestMethod.POST)
+    @ApiMethod(name = "findJsonResponseListTree",desc = "根据查询对象查询json响应结果列表树")
+    @ApiParam(name = "jsonResponseQuery",desc = "查询对象",required = true)
+    public Result<List<JsonResponse>> findJsonResponseListTree(@RequestBody @Valid @NotNull JsonResponseQuery jsonResponseQuery){
+        List<JsonResponse> jsonResponseList = jsonResponseService.findJsonResponseListTree(jsonResponseQuery);
+
+        return Result.ok(jsonResponseList);
+    }
+
 }

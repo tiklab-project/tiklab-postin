@@ -1,4 +1,4 @@
-package com.darthcloud.apibox.jsonresponse.model;
+package com.darthcloud.apibox.formparam.model;
 
 import com.darthcloud.apibox.annotation.ApiModel;
 import com.darthcloud.apibox.annotation.ApiProperty;
@@ -9,24 +9,16 @@ import com.darthcloud.join.annotation.Join;
 import com.darthcloud.join.annotation.JoinField;
 
 import javax.validation.constraints.NotNull;
-import java.util.List;
 
 @ApiModel
 @Join
-public class JsonResponse {
+public class FormParam {
 
-    @ApiProperty(name="id",desc="唯一ID")
+    @ApiProperty(name="id",desc="唯一标识")
     private java.lang.String id;
 
-    @ApiProperty(name="parent",desc="上级属性")
-    @Mappings({
-            @Mapping(source = "id",target = "parentId")
-    })
-    @JoinField(id = "id")
-    private JsonResponse parent;
-
     @NotNull
-    @ApiProperty(name="method",desc="所属接口",eg="@selectOne",required = true)
+    @ApiProperty(name="method",desc="所属接口",required = true)
     @Mappings({
             @Mapping(source = "id",target = "methodId")
     })
@@ -34,28 +26,25 @@ public class JsonResponse {
     private ApxMethod method;
 
     @NotNull
-    @ApiProperty(name="propertyName",desc="属性名称",required = true)
-    private java.lang.String propertyName;
+    @ApiProperty(name="paramName",desc="参数名称",eg="@text32",required = true)
+    private java.lang.String paramName;
 
     @NotNull
-    @ApiProperty(name="dataType",desc="数据类型,[int,string,boolean]",required = true)
+    @ApiProperty(name="dataType",desc="数据类型",eg="@text32",required = true)
     private java.lang.String dataType;
 
     @NotNull
-    @ApiProperty(name="required",desc="是否必须,0:非必须;1:必须",required = true)
+    @ApiProperty(name="required",desc="是否必须",eg="@int16",required = true)
     private java.lang.Integer required;
 
     @ApiProperty(name="desc",desc="描述",eg="@text32")
     private java.lang.String desc;
 
-    @ApiProperty(name="eg",desc="示例值")
+    @ApiProperty(name="eg",desc="示例值",eg="@text32")
     private java.lang.String eg;
 
-    @ApiProperty(name="sort",desc="排序")
+    @ApiProperty(name="sort",desc="排序",eg="@int16")
     private java.lang.Integer sort;
-
-    @ApiProperty(name="children",desc="下级属性列表")
-    private List<JsonResponse> children;
 
     public String getId() {
         return id;
@@ -73,12 +62,12 @@ public class JsonResponse {
         this.method = method;
     }
 
-    public String getPropertyName() {
-        return propertyName;
+    public String getParamName() {
+        return paramName;
     }
 
-    public void setPropertyName(String propertyName) {
-        this.propertyName = propertyName;
+    public void setParamName(String paramName) {
+        this.paramName = paramName;
     }
 
     public String getDataType() {
@@ -105,14 +94,6 @@ public class JsonResponse {
         this.desc = desc;
     }
 
-    public Integer getSort() {
-        return sort;
-    }
-
-    public void setSort(Integer sort) {
-        this.sort = sort;
-    }
-
     public String getEg() {
         return eg;
     }
@@ -121,19 +102,11 @@ public class JsonResponse {
         this.eg = eg;
     }
 
-    public JsonResponse getParent() {
-        return parent;
+    public Integer getSort() {
+        return sort;
     }
 
-    public void setParent(JsonResponse parent) {
-        this.parent = parent;
-    }
-
-    public List<JsonResponse> getChildren() {
-        return children;
-    }
-
-    public void setChildren(List<JsonResponse> children) {
-        this.children = children;
+    public void setSort(Integer sort) {
+        this.sort = sort;
     }
 }

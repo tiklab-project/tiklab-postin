@@ -6,5 +6,6 @@ CREATE TABLE apibox_json_param(
         required int NOT NULL,
         desc VARCHAR(128),
         eg VARCHAR(128),
-        sort int
+        sort int,
+        parent_id VARCHAR(32)
 );
