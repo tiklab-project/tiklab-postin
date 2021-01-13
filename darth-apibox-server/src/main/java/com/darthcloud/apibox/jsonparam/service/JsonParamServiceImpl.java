@@ -14,8 +14,10 @@ import org.springframework.stereotype.Service;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.BeanUtils;
+import springfox.documentation.spring.web.json.Json;
 
 /**
 * 用户服务业务处理
@@ -80,6 +82,57 @@ public class JsonParamServiceImpl implements JsonParamService {
 
         return jsonParamList;
     }
+
+    @Override
+    public List<JsonParam> findJsonParamListTree(JsonParamQuery jsonParamQuery) {
+        List<JsonParam> matchJsonParamList = this.findJsonParamList(jsonParamQuery);
+
+        //查找第一级参数列表
+        List<JsonParam> topJsonParamList = findTopJsonParamList(matchJsonParamList);
+
+        //设置下级节点列表
+        if(topJsonParamList != null && topJsonParamList.size() > 0){
+            for(JsonParam jsonParam:topJsonParamList){
+                setChildren(matchJsonParamList,jsonParam);
+            }
+        }
+
+        return topJsonParamList;
+    }
+
+    /**
+     * 查找第一级参数列表
+     * @param matchJsonParamList
+     * @return
+     */
+    List<JsonParam> findTopJsonParamList(List<JsonParam> matchJsonParamList) {
+        List<JsonParam> jsonParamList = matchJsonParamList.stream()
+                .filter(jsonParam -> (jsonParam.getParent() == null || jsonParam.getParent().getId() == null))
+                .collect(Collectors.toList());
+        return jsonParamList;
+    }
+
+    /**
+     * 设置下级节点列表
+     * @param matchJsonParamList
+     * @param parentJsonParam
+     */
+    void setChildren(List<JsonParam> matchJsonParamList,JsonParam parentJsonParam){
+        List<JsonParam> childList = matchJsonParamList.stream()
+                .filter(jsonParam -> (jsonParam.getParent() != null && jsonParam.getParent().getId() != null && jsonParam.getParent().getId().equals(parentJsonParam.getId())))
+                .collect(Collectors.toList());
+
+        if(childList != null && childList.size() > 0){
+            parentJsonParam.setChildren(childList);
+
+            //设置下级节点列表
+            for(JsonParam jsonParam:childList){
+                setChildren(matchJsonParamList,jsonParam);
+            }
+        }
+    }
+
+
 
     @Override
     public Pagination<List<JsonParam>> findJsonParamPage(JsonParamQuery jsonParamQuery) {

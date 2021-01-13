@@ -1,4 +1,4 @@
-CREATE TABLE apibox_request_param(
+CREATE TABLE apibox_json_param(
         id VARCHAR(32) PRIMARY KEY,
         method_id VARCHAR(32) NOT NULL,
         param_name VARCHAR(64) NOT NULL,

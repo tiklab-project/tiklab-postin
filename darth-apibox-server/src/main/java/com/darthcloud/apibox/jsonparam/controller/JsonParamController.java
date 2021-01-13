@@ -90,6 +90,16 @@ public class JsonParamController {
     }
 
     @Validator
+    @RequestMapping(path = "/findJsonParamListTree",method = RequestMethod.POST)
+    @ApiMethod(name = "findJsonParamListTree",desc = "根据查询对象查找json请求参数列表树")
+    @ApiParam(name = "jsonParamQuery",desc = "查询对象",required = true)
+    public Result<List<JsonParam>> findJsonParamListTree(@RequestBody @Valid @NotNull JsonParamQuery jsonParamQuery){
+        List<JsonParam> jsonParamList = jsonParamService.findJsonParamListTree(jsonParamQuery);
+
+        return Result.ok(jsonParamList);
+    }
+
+    @Validator
     @RequestMapping(path = "/findJsonParamPage",method = RequestMethod.POST)
     @ApiMethod(name = "findJsonParamPage",desc = "根据查询对象按分页查找json请求参数列表")
     @ApiParam(name = "jsonParamQuery",desc = "查询对象",required = true)

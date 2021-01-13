@@ -7,12 +7,15 @@ import com.darthcloud.dal.jpa.annotation.Table;
 
 import java.io.Serializable;
 
-@Table(name="apibox_request_param")
+@Table(name="apibox_json_param")
 public class JsonParamPo implements Serializable {
 
     @Id
     @Column(name = "id",length = 32)
     private String id;
+
+    @Column(name = "parent_id",length = 32)
+    private String parentId;
 
     @Column(name = "method_id",length = 32,notNull = true)
     private String methodId;
@@ -97,5 +100,13 @@ public class JsonParamPo implements Serializable {
 
     public void setEg(String eg) {
         this.eg = eg;
+    }
+
+    public String getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(String parentId) {
+        this.parentId = parentId;
     }
 }

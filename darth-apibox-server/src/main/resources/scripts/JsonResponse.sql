@@ -1,4 +1,4 @@
-CREATE TABLE apibox_response_result(
+CREATE TABLE apibox_json_response(
         id VARCHAR(32) PRIMARY KEY,
         method_id VARCHAR(32) NOT NULL,
         property_name VARCHAR(64) NOT NULL,

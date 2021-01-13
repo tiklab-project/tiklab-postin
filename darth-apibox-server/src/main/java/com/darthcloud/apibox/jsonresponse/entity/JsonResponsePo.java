@@ -7,7 +7,7 @@ import com.darthcloud.dal.jpa.annotation.Table;
 
 import java.io.Serializable;
 
-@Table(name="apibox_response_result")
+@Table(name="apibox_json_response")
 public class JsonResponsePo implements Serializable {
 
     @Id

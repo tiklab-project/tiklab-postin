@@ -9,6 +9,7 @@ import com.darthcloud.join.annotation.Join;
 import com.darthcloud.join.annotation.JoinField;
 
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @ApiModel
 @Join
@@ -16,6 +17,13 @@ public class JsonParam {
 
     @ApiProperty(name="id",desc="唯一ID")
     private java.lang.String id;
+
+    @ApiProperty(name="parent",desc="上级参数")
+    @Mappings({
+            @Mapping(source = "id",target = "parentId")
+    })
+    @JoinField(id = "id")
+    private JsonParam parent;
 
     @NotNull
     @ApiProperty(name="method",desc="所属接口",eg="@selectOne",required = true)
@@ -45,6 +53,9 @@ public class JsonParam {
 
     @ApiProperty(name="sort",desc="排序")
     private java.lang.Integer sort;
+
+    @ApiProperty(name="children",desc="子节点列表")
+    private List<JsonParam> children;
 
     public String getId() {
         return id;
@@ -108,5 +119,21 @@ public class JsonParam {
 
     public void setEg(String eg) {
         this.eg = eg;
+    }
+
+    public JsonParam getParent() {
+        return parent;
+    }
+
+    public void setParent(JsonParam parent) {
+        this.parent = parent;
+    }
+
+    public List<JsonParam> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<JsonParam> children) {
+        this.children = children;
     }
 }
