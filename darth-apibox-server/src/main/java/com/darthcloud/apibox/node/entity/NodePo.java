@@ -2,6 +2,7 @@ package com.darthcloud.apibox.node.entity;
 
 
 import com.darthcloud.dal.jpa.annotation.Column;
+import com.darthcloud.dal.jpa.annotation.GeneratorValue;
 import com.darthcloud.dal.jpa.annotation.Id;
 import com.darthcloud.dal.jpa.annotation.Table;
 
@@ -11,6 +12,7 @@ import java.io.Serializable;
 public class NodePo implements Serializable {
 
     @Id
+    @GeneratorValue
     @Column(name = "id",length = 32)
     private String id;
 

@@ -34,8 +34,8 @@ public class FormParam {
     private java.lang.String dataType;
 
     @NotNull
-    @ApiProperty(name="required",desc="是否必须",eg="@int16",required = true)
-    private java.lang.Integer required;
+    @ApiProperty(name="required",desc="是否必须,0:非必须;1:必须",eg="@int16",required = true)
+    private java.lang.Integer required = 0;
 
     @ApiProperty(name="desc",desc="描述",eg="@text32")
     private java.lang.String desc;

@@ -1,9 +1,9 @@
 package com.darthcloud.apibox.generator;
 
-import com.darthcloud.apibox.generator.config.CodeGeneratorTestConfig;
 import com.darthcloud.apibox.jsonparam.entity.JsonParamPo;
 import com.darthcloud.code.generator.CodeGeneratorTemplate;
-import com.darthcloud.code.generator.config.CodeGeneratorConfig;
+import com.darthcloud.code.generator.config.GeneratorConfigEnv;
+import com.darthcloud.code.generator.config.ModuleGeneratorConfig;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,18 +11,16 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = CodeGeneratorTestConfig.class)
+@ContextConfiguration(classes = GeneratorConfigEnv.class)
 public class JsonParamCodeGeneratorTest extends CodeGeneratorTemplate {
 
     @Autowired
-    CodeGeneratorTestConfig codeGeneratorTestConfig;
+    GeneratorConfigEnv generatorConfigEnv;
 
     @Override
-    protected CodeGeneratorConfig getCodeGeneratorConfig() {
-        CodeGeneratorConfig config = new CodeGeneratorConfig();
-        config.setApiMoudlePath(codeGeneratorTestConfig.getApiMoudlePath());
-        config.setServerMoudlePath(codeGeneratorTestConfig.getServerMoudlePath());
-        config.setSubsystem(codeGeneratorTestConfig.getSubsystem());
+    protected ModuleGeneratorConfig getModuleGeneratorConfig() {
+        ModuleGeneratorConfig config = new ModuleGeneratorConfig();
+        config.setGeneratorConfigEnv(generatorConfigEnv);
         config.setMoudle("requestparam");
         config.setModel("JsonParam");
         config.setModelPo(JsonParamPo.class);
