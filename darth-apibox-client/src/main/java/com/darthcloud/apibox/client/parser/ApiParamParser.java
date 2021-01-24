@@ -139,7 +139,7 @@ public class ApiParamParser {
             if(paramType == null){
                 return;
             }else{
-                List<ApiPropertyMeta> apiPropertyMetaList = ApiModelParser.parsePropertyMetas(paramType);
+                List<ApiPropertyMeta> apiPropertyMetaList = ApiModelParser.parsePropertyMetas(paramType, null);
                 if(apiPropertyMetaList != null && apiPropertyMetaList.size() > 0){
                     paramItem.setChildren(apiPropertyMetaList);
 
@@ -149,7 +149,7 @@ public class ApiParamParser {
                 }
             }
         }else{
-            List<ApiPropertyMeta> apiPropertyMetaList = ApiModelParser.parsePropertyMetas(type);
+            List<ApiPropertyMeta> apiPropertyMetaList = ApiModelParser.parsePropertyMetas(type, paramType);
             if(apiPropertyMetaList != null && apiPropertyMetaList.size() > 0){
                 paramItem.setChildren(apiPropertyMetaList);
 

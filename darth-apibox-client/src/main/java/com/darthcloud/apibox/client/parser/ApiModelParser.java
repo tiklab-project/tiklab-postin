@@ -1,10 +1,10 @@
 package com.darthcloud.apibox.client.parser;
 
 import com.darthcloud.apibox.annotation.ApiProperty;
-import com.darthcloud.apibox.client.builder.ApiboxBuilder;
 import com.darthcloud.apibox.client.model.ApiPropertyMeta;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
@@ -23,17 +23,17 @@ public class ApiModelParser {
     /**
      * 解析property注解定义
      * @param modelType
+     * @param actualType
      * @return
      */
-    public static List<ApiPropertyMeta> parsePropertyMetas(Type modelType){
+    public static List<ApiPropertyMeta> parsePropertyMetas(Type modelType, Type actualType){
         List<ApiPropertyMeta> apiPropertyMetaList = new ArrayList<>();
+
         Type beanType = null;
-        if (modelType instanceof ParameterizedType) {
+        if(modelType instanceof ParameterizedType){
             ParameterizedType parameterizedType = (ParameterizedType) modelType;
             beanType = parameterizedType.getRawType();
-        }else if(modelType instanceof TypeVariable){
-            TypeVariable typeVariable = (TypeVariable)modelType;
-            beanType = (Class)typeVariable.getGenericDeclaration();
+            for (Type type : parameterizedType.getActualTypeArguments()) {}
         }else{
             beanType = modelType;
         }
@@ -52,9 +52,6 @@ public class ApiModelParser {
             if(apiProperty == null){
                 continue;
             }
-            if(field.getType() == List.class){
-                logger.info("{}",field);
-            }
             Type fieldType = null;
             Type paramType = null;
             Type genericType = field.getGenericType();
@@ -64,15 +61,15 @@ public class ApiModelParser {
                 for (Type type : parameterizedType.getActualTypeArguments()) {
                     paramType = type;
                 }
-                //logger.info("{}",fieldType);
             }else if(genericType instanceof TypeVariable){
                 TypeVariable typeVariable = (TypeVariable)genericType;
-                fieldType = (Class)typeVariable.getGenericDeclaration();
-                //logger.info("{}",fieldType);
-                continue;
+                if(actualType != null){
+                    fieldType = actualType;
+                }else{
+                    continue;
+                }
             }else{
                 fieldType = field.getType();
-                //logger.info("{}",fieldType);
             }
 
 

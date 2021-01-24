@@ -47,7 +47,7 @@ public class InnerBeanPropertyDefiner {
     public static Map<String,Object> items(Type beanType, Type parameterType,DefType defType){
         Map<String,Object> map = new LinkedHashMap<>();
 
-        List<ApiPropertyMeta> apiPropertyMetaList = ApiModelParser.parsePropertyMetas(beanType);
+        List<ApiPropertyMeta> apiPropertyMetaList = ApiModelParser.parsePropertyMetas(beanType,null);
         for(ApiPropertyMeta apiPropertyMeta : apiPropertyMetaList){
             Type fieldType = apiPropertyMeta.getType();
             Type paramType = apiPropertyMeta.getParamType();

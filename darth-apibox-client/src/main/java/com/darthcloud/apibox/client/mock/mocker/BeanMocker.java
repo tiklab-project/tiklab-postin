@@ -28,7 +28,7 @@ public class BeanMocker {
             }
 
             instance = ((Class)modelType).newInstance();
-            List<ApiPropertyMeta> apiPropertyMetaList = ApiModelParser.parsePropertyMetas(beanType);
+            List<ApiPropertyMeta> apiPropertyMetaList = ApiModelParser.parsePropertyMetas(beanType, null);
             for(ApiPropertyMeta apiPropertyMeta : apiPropertyMetaList){
                 Type fieldType = apiPropertyMeta.getType();
                 if(fieldType instanceof ParameterizedType){

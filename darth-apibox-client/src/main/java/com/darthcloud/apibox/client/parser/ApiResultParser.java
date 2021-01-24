@@ -23,20 +23,28 @@ public class ApiResultParser {
         ApiResultMeta resultMeta = new ApiResultMeta();
         //ParameterNameDiscoverer parameterNameDiscoverer = new LocalVariableTableParameterNameDiscoverer();
         //String[] parameterNames  = parameterNameDiscoverer.getParameterNames(method);
+        if(method.getName().equalsIgnoreCase("findCategoryList")){
+            System.out.println(method);
+        }
 
-        Class returnType = method.getReturnType();
+        Type fieldType = null;
+        Type paramType = null;
         Type genericReturnType = method.getGenericReturnType();
-        //AnnotatedType annotatedType = method.getAnnotatedReturnType();
-        //Type returnAnnoType = annotatedType.getType();
-        if(genericReturnType instanceof ParameterizedTypeImpl){
+        if(genericReturnType instanceof ParameterizedType){
             ParameterizedType parameterizedType = (ParameterizedType) genericReturnType;
-            Type resultType = parameterizedType.getRawType();
+            fieldType = parameterizedType.getRawType();
+            for (Type type : parameterizedType.getActualTypeArguments()) {
+                paramType = type;
+            }
             String type = parameterizedType.toString();
             type = type.replaceAll("<","&lt;");
             type = type.replaceAll(">","&gt;");
-            resultMeta.setType(resultType);
+
+            resultMeta.setType(fieldType);
+            resultMeta.setParamType(paramType);
         }else{
-            resultMeta.setType(genericReturnType);
+            fieldType = method.getReturnType();
+            resultMeta.setType(fieldType);
         }
 
         //解析子节点列表
@@ -78,8 +86,18 @@ public class ApiResultParser {
         if(deep > 10){
             return;
         }
-        Type type = paramItem.getType();
-        Type paramType = paramItem.getParamType();
+        Type type = null;
+        Type paramType = null;
+        if(paramItem.getType() instanceof ParameterizedType && paramItem.getParamType() == null){
+            ParameterizedType parameterizedType = (ParameterizedType) paramItem.getType();
+            type = parameterizedType.getRawType();
+            for (Type actualType : parameterizedType.getActualTypeArguments()) {
+                paramType = actualType;
+            }
+        }else{
+            type = paramItem.getType();
+            paramType = paramItem.getParamType();
+        }
 
         if(MockUtils.isPrimitive(type)){
             return;
@@ -87,7 +105,7 @@ public class ApiResultParser {
             if(paramType == null){
                 return;
             }else{
-                List<ApiPropertyMeta> apiPropertyMetaList = ApiModelParser.parsePropertyMetas(paramType);
+                List<ApiPropertyMeta> apiPropertyMetaList = ApiModelParser.parsePropertyMetas(paramType,null);
                 if(apiPropertyMetaList != null && apiPropertyMetaList.size() > 0){
                     paramItem.setChildren(apiPropertyMetaList);
 
@@ -97,7 +115,7 @@ public class ApiResultParser {
                 }
             }
         }else{
-            List<ApiPropertyMeta> apiPropertyMetaList = ApiModelParser.parsePropertyMetas(type);
+            List<ApiPropertyMeta> apiPropertyMetaList = ApiModelParser.parsePropertyMetas(type, paramType);
             if(apiPropertyMetaList != null && apiPropertyMetaList.size() > 0){
                 paramItem.setChildren(apiPropertyMetaList);
 
