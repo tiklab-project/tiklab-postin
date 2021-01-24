@@ -72,21 +72,6 @@ public class ApiboxBuilder {
         paramMap.put("apiData", apiData);
 
         //输出api列表页
-        //模板文件路径
-        /*
-        String tplFilePath = FeniksBuilder.class.getResource("/template/apiList.ftl").getPath();
-        File tplFile = new File(tplFilePath);
-         */
-
-        /*
-        File tplFile = null;
-        try {
-            ClassPathResource resource = new ClassPathResource("template/apiList.ftl");
-            tplFile = resource.getFile();
-        } catch (IOException e) {
-            throw new DarthException(e);
-        }
-         */
         InputStream ips = this.getClass().getResourceAsStream("/template/ApiList.ftl");
         BufferedReader tplReader = new BufferedReader(new InputStreamReader(ips));
 

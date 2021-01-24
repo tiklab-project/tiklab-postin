@@ -23,13 +23,13 @@ public class ApiMethodParser {
 
     /**
      * parse method metas
-     * @param cls
+     * @param clz
      * @param apiMeta
      * @return
      */
-    public static List<ApiMethodMeta> parseMethodMetas(Class cls, ApiMeta apiMeta){
+    public static List<ApiMethodMeta> parseMethodMetas(Class clz, ApiMeta apiMeta){
         List<ApiMethodMeta> apiMethodMetaList = new ArrayList<>();
-        Method[] methods = cls.getDeclaredMethods();
+        Method[] methods = clz.getDeclaredMethods();
         if(methods == null  || methods.length==0){
             return apiMethodMetaList;
         }
@@ -68,6 +68,7 @@ public class ApiMethodParser {
                     methodMeta.setRequestType("GET");
                 }
             }
+
             //parse param metas
             List<ApiParamMeta> paramMetaList = ApiParamParser.parseParamMetas(method);
             methodMeta.setApiParamMetaList(paramMetaList);

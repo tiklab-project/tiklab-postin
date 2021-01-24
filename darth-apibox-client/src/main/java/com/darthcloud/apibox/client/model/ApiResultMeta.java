@@ -1,21 +1,12 @@
 package com.darthcloud.apibox.client.model;
 
-public class ApiResultMeta {
+public class ApiResultMeta extends ParamItem{
 
-    private String resultType;
-
+    //--------------
     private Object def;
     private String textDef="";
     private Object eg;
     private String textEg = "";
-
-    public String getResultType() {
-        return resultType;
-    }
-
-    public void setResultType(String resultType) {
-        this.resultType = resultType;
-    }
 
     public String getTextEg() {
         return textEg;

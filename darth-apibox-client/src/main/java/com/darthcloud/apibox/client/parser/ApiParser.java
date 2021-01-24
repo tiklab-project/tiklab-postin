@@ -18,22 +18,22 @@ public class ApiParser {
     public List<ApiMeta> parseApiMeta(String basePackage){
         List<ApiMeta> apiMetaList = new ArrayList();
 
-        Set<Class> apiClassSet = AnnotationScannerUtil.scan(basePackage, Api.class);
-        if(apiClassSet == null || apiClassSet.size()==0){
+        Set<Class> apiClzSet = AnnotationScannerUtil.scan(basePackage, Api.class);
+        if(apiClzSet == null || apiClzSet.size()==0){
             return apiMetaList;
         }
 
         //parse api meta
-        for(Class apiCls:apiClassSet){
+        for(Class apiClz:apiClzSet){
             ApiMeta apiMeta = new ApiMeta();
 
-            Api api = (Api)apiCls.getAnnotation(Api.class);
+            Api api = (Api)apiClz.getAnnotation(Api.class);
             apiMeta.setApi(api);
-            apiMeta.setCls(apiCls);
+            apiMeta.setCls(apiClz);
             apiMeta.setName(api.name());
             apiMeta.setDesc(api.desc());
 
-            RequestMapping requestMapping = (RequestMapping)apiCls.getDeclaredAnnotation(RequestMapping.class);
+            RequestMapping requestMapping = (RequestMapping)apiClz.getDeclaredAnnotation(RequestMapping.class);
             if(requestMapping != null){
                 String[] urls = requestMapping.path();
                 if(urls != null && urls.length > 0){
@@ -46,7 +46,7 @@ public class ApiParser {
             }
 
             //parse method meta
-            List<ApiMethodMeta> apiMethodMetaList = ApiMethodParser.parseMethodMetas(apiCls, apiMeta);
+            List<ApiMethodMeta> apiMethodMetaList = ApiMethodParser.parseMethodMetas(apiClz, apiMeta);
             apiMeta.setApiMethodMetaList(apiMethodMetaList);
 
             apiMetaList.add(apiMeta);

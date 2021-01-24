@@ -89,7 +89,7 @@
             <td width="20">${param.name}</td>
             <td width="50">${param.desc}</td>
             <td width="10">${param.required?string('是', '否')}</td>
-            <td width="50">${param.paramType}</td>
+            <td width="50">${param.dataType}</td>
             <td width="100" class="show-rough"><pre>${param.textDef}</pre></td>
         </tr>
         </#list>
@@ -104,7 +104,7 @@
             <td>返回类型JSON描述</td>
         </tr>
         <tr>
-            <td>${method.apiResultMeta.resultType}</td>
+            <td>${method.apiResultMeta.dataType}</td>
             <td class="show-rough"><pre>${method.apiResultMeta.textDef}</pre></td>
         </tr>
     </table>

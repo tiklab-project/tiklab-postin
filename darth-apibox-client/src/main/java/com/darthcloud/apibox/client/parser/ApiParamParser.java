@@ -3,20 +3,25 @@ package com.darthcloud.apibox.client.parser;
 import com.alibaba.fastjson.JSON;
 import com.darthcloud.apibox.annotation.ApiParam;
 import com.darthcloud.apibox.annotation.ApiParams;
-import com.darthcloud.apibox.client.definer.def.BeanDefiner;
-import com.darthcloud.apibox.client.model.ApiParamMeta;
-import com.darthcloud.apibox.client.definer.DefConfig;
 import com.darthcloud.apibox.client.mock.JMockit;
+import com.darthcloud.apibox.client.mock.support.MockUtils;
+import com.darthcloud.apibox.client.model.ApiParamMeta;
+import com.darthcloud.apibox.client.model.ApiPropertyMeta;
+import com.darthcloud.apibox.client.model.ParamItem;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.LocalVariableTableParameterNameDiscoverer;
 import org.springframework.core.ParameterNameDiscoverer;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class ApiParamParser {
+
+    private static Logger logger = LoggerFactory.getLogger(ApiParamParser.class);
 
     public static List<ApiParamMeta> parseParamMetas(Method method){
         List<ApiParamMeta> apiParamMetaList = new ArrayList<>();
@@ -37,7 +42,7 @@ public class ApiParamParser {
                 int paramIndex = getParamIndex(parameterNames,paramName);
                 Parameter parameter = parameters[paramIndex];
 
-                ApiParamMeta paramMeta = buildParamMeta(apiParam,parameter,paramName);
+                ApiParamMeta paramMeta = parseParamMeta(apiParam,parameter,paramName);
 
                 apiParamMetaList.add(paramMeta);
             }
@@ -49,7 +54,7 @@ public class ApiParamParser {
             int paramIndex = getParamIndex(parameterNames,paramName);
             Parameter parameter = parameters[paramIndex];
 
-            ApiParamMeta paramMeta = buildParamMeta(apiParam,parameter,paramName);
+            ApiParamMeta paramMeta = parseParamMeta(apiParam,parameter,paramName);
 
             apiParamMetaList.add(paramMeta);
         }else{//ApiParam参数定义方式
@@ -61,7 +66,7 @@ public class ApiParamParser {
                 }
                 String paramName = parameterNames[i];
 
-                ApiParamMeta paramMeta = buildParamMeta(apiParam,parameter,paramName);
+                ApiParamMeta paramMeta = parseParamMeta(apiParam,parameter,paramName);
 
                 apiParamMetaList.add(paramMeta);
             }
@@ -69,31 +74,90 @@ public class ApiParamParser {
         return apiParamMetaList;
     }
 
-    static ApiParamMeta buildParamMeta(ApiParam apiParam,Parameter parameter,String paramName){
+    static int deep = 0;
+
+    static ApiParamMeta parseParamMeta(ApiParam apiParam, Parameter parameter, String paramName){
         ApiParamMeta paramMeta = new ApiParamMeta();
         paramMeta.setApiParam(apiParam);
         paramMeta.setParameter(parameter);
         paramMeta.setName(paramName);
-        Class paramType = parameter.getType();
-        paramMeta.setParamType(paramType.getTypeName());
         paramMeta.setDesc(apiParam.desc());
         paramMeta.setRequired(apiParam.required());
-        //获取参数定义
-        Object def = getParamDef(paramType);
-        paramMeta.setDef(def);
-        if(def != null){
-            String textDef = JSON.toJSONString(def,true);
+        Class type = parameter.getType();
+        paramMeta.setType(type);
+//        Type type = null;
+//        Type paramType = null;
+//        ParameterizedType parameterizedType = (ParameterizedType)parameter.getParameterizedType();
+//        type = parameterizedType.getRawType();
+//        for (Type actualType : parameterizedType.getActualTypeArguments()) {
+//            paramType = actualType;
+//        }
+//        paramMeta.setType(type);
+//        paramMeta.setParamType(paramType);
+
+
+        //解析子节点列表
+        setChildren(paramMeta);
+
+        deep = 0;
+
+        logger.info("paramMeta:{}", paramMeta);
+
+        if(paramMeta.getChildren() != null && paramMeta.getChildren().size() > 0){
+            String textDef = JSON.toJSONString(paramMeta.getChildren(),true);
             paramMeta.setTextDef(textDef);
         }
-        //获取参数示例值
-        Object eg = getParamEgValue(paramType,apiParam.eg());
-        paramMeta.setEg(eg);
-        if(eg != null){
-            String textEg = JSON.toJSONString(eg,true);
-            paramMeta.setTextEg(textEg);
-        }
+//
+//        Object eg = parseParamEgValue(paramType,apiParam.eg());
+//        paramMeta.setEg(eg);
+//        if(eg != null){
+//            String textEg = JSON.toJSONString(eg,true);
+//            paramMeta.setTextEg(textEg);
+//        }
 
         return paramMeta;
+    }
+
+    /**
+     * 解析子节点列表
+     * @param paramItem
+     */
+    static void setChildren(ParamItem paramItem){
+        deep++;
+        if(deep > 10){
+            return;
+        }
+        Type type = paramItem.getType();
+        if(type.getTypeName().contains("CategoryQuery")){
+            System.out.println(type);
+        }
+        Type paramType = paramItem.getParamType();
+
+        if(MockUtils.isPrimitive(type)){
+            return;
+        }else if(MockUtils.isList(type)){
+            if(paramType == null){
+                return;
+            }else{
+                List<ApiPropertyMeta> apiPropertyMetaList = ApiModelParser.parsePropertyMetas(paramType);
+                if(apiPropertyMetaList != null && apiPropertyMetaList.size() > 0){
+                    paramItem.setChildren(apiPropertyMetaList);
+
+                    for(ApiPropertyMeta apiPropertyMeta:apiPropertyMetaList){
+                        setChildren(apiPropertyMeta);
+                    }
+                }
+            }
+        }else{
+            List<ApiPropertyMeta> apiPropertyMetaList = ApiModelParser.parsePropertyMetas(type);
+            if(apiPropertyMetaList != null && apiPropertyMetaList.size() > 0){
+                paramItem.setChildren(apiPropertyMetaList);
+
+                for(ApiPropertyMeta apiPropertyMeta:apiPropertyMetaList){
+                    setChildren(apiPropertyMeta);
+                }
+            }
+        }
     }
 
     static int getParamIndex(String[] parameterNames,String paramName){
@@ -106,28 +170,12 @@ public class ApiParamParser {
     }
 
     /**
-     * 获取参数定义
-     * @param paramType
-     * @return
-     */
-    static Object getParamDef(Class paramType){
-        if(paramType == java.lang.String.class){
-            return "";
-        }else if(paramType == int.class || paramType == java.lang.Integer.class){
-            return "";
-        }else{
-            Map<String,Object> map = BeanDefiner.def(paramType, new DefConfig(DefConfig.TYPE_INPUT));
-            return map;
-        }
-    }
-
-    /**
      * 获取参数示例值
      * @param paramType
      * @param eg
      * @return
      */
-    static Object getParamEgValue(Class paramType, String eg){
+    static Object parseParamEgValue(Class paramType, String eg){
         if(paramType == java.lang.String.class){
             Object egValue = JMockit.mock(paramType,eg);
             return egValue;

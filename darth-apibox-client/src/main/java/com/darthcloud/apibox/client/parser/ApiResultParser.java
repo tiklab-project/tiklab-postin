@@ -1,18 +1,23 @@
 package com.darthcloud.apibox.client.parser;
 
 import com.alibaba.fastjson.JSON;
-import com.darthcloud.apibox.client.definer.DefConfig;
-import com.darthcloud.apibox.client.definer.def.BeanDefiner;
-import com.darthcloud.apibox.client.model.ApiResultMeta;
 import com.darthcloud.apibox.client.mock.JMockitForGeneric;
+import com.darthcloud.apibox.client.mock.support.MockUtils;
+import com.darthcloud.apibox.client.model.ApiPropertyMeta;
+import com.darthcloud.apibox.client.model.ApiResultMeta;
+import com.darthcloud.apibox.client.model.ParamItem;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.util.Map;
+import java.util.List;
 
 public class ApiResultParser {
+
+    private static Logger logger = LoggerFactory.getLogger(ApiResultParser.class);
 
     public static ApiResultMeta parseResultMetas(Method method){
         ApiResultMeta resultMeta = new ApiResultMeta();
@@ -25,18 +30,32 @@ public class ApiResultParser {
         //Type returnAnnoType = annotatedType.getType();
         if(genericReturnType instanceof ParameterizedTypeImpl){
             ParameterizedType parameterizedType = (ParameterizedType) genericReturnType;
+            Type resultType = parameterizedType.getRawType();
             String type = parameterizedType.toString();
             type = type.replaceAll("<","&lt;");
             type = type.replaceAll(">","&gt;");
-            resultMeta.setResultType(type);
+            resultMeta.setType(resultType);
         }else{
-            resultMeta.setResultType(genericReturnType.getTypeName());
+            resultMeta.setType(genericReturnType);
         }
-        Object def = getResultDef(genericReturnType);
-        if(def != null){
-            String textDef = JSON.toJSONString(def,true);
+
+        //解析子节点列表
+        setChildren(resultMeta);
+
+        deep = 0;
+
+        logger.info("resultMeta:{}", resultMeta);
+
+        if(resultMeta.getChildren() != null && resultMeta.getChildren().size() > 0){
+            String textDef = JSON.toJSONString(resultMeta.getChildren(),true);
             resultMeta.setTextDef(textDef);
         }
+
+//        Object def = getResultDef(genericReturnType);
+//        if(def != null){
+//            String textDef = JSON.toJSONString(def,true);
+//            resultMeta.setTextDef(textDef);
+//        }
         /*
         Object eg = getResultEgValue(genericReturnType);
         resultMeta.setEg(eg);
@@ -48,19 +67,44 @@ public class ApiResultParser {
         return resultMeta;
     }
 
+    static int deep = 0;
+
     /**
-     * 获取结果扩展定义
-     * @param returnType
-     * @return
+     * 解析子节点列表
+     * @param paramItem
      */
-    static Object getResultDef(Type returnType){
-        if(returnType == java.lang.String.class){
-            return "";
-        }else if(returnType == int.class || returnType == java.lang.Integer.class){
-            return "";
+    static void setChildren(ParamItem paramItem){
+        deep++;
+        if(deep > 10){
+            return;
+        }
+        Type type = paramItem.getType();
+        Type paramType = paramItem.getParamType();
+
+        if(MockUtils.isPrimitive(type)){
+            return;
+        }else if(MockUtils.isList(type)){
+            if(paramType == null){
+                return;
+            }else{
+                List<ApiPropertyMeta> apiPropertyMetaList = ApiModelParser.parsePropertyMetas(paramType);
+                if(apiPropertyMetaList != null && apiPropertyMetaList.size() > 0){
+                    paramItem.setChildren(apiPropertyMetaList);
+
+                    for(ApiPropertyMeta apiPropertyMeta:apiPropertyMetaList){
+                        setChildren(apiPropertyMeta);
+                    }
+                }
+            }
         }else{
-            Map<String,Object> map = BeanDefiner.def(returnType, new DefConfig(DefConfig.TYPE_OUPUT));
-            return map;
+            List<ApiPropertyMeta> apiPropertyMetaList = ApiModelParser.parsePropertyMetas(type);
+            if(apiPropertyMetaList != null && apiPropertyMetaList.size() > 0){
+                paramItem.setChildren(apiPropertyMetaList);
+
+                for(ApiPropertyMeta apiPropertyMeta:apiPropertyMetaList){
+                    setChildren(apiPropertyMeta);
+                }
+            }
         }
     }
 

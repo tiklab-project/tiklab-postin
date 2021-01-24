@@ -4,22 +4,19 @@ import com.alibaba.fastjson.annotation.JSONField;
 import com.darthcloud.apibox.annotation.ApiParam;
 
 import java.lang.reflect.Parameter;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
-public class ApiParamMeta {
-
-    @JSONField(serialize = false)
-    private ApiParam apiParam;
+public class ApiParamMeta extends ParamItem{
 
     @JSONField(serialize = false)
     private Parameter parameter;
 
-    private String name;
+    @JSONField(serialize = false)
+    private ApiParam apiParam;
 
-    private String paramType;
-
-    private boolean required = false;
-
-    private String desc = "";
+    //----------------
 
     private Object def;
 
@@ -35,6 +32,13 @@ public class ApiParamMeta {
     public ApiParamMeta(Parameter parameter, ApiParam apiParam) {
         this.parameter = parameter;
         this.apiParam = apiParam;
+    }
+
+    public ApiParamMeta(Parameter parameter, ApiParam apiParam,Type type,Type paramType) {
+        this.parameter = parameter;
+        this.apiParam = apiParam;
+        super.setType(type);
+        super.setParamType(paramType);
     }
 
     public Parameter getParameter() {
@@ -53,46 +57,6 @@ public class ApiParamMeta {
         this.apiParam = apiParam;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getParamType() {
-        return paramType;
-    }
-
-    public void setParamType(String paramType) {
-        this.paramType = paramType;
-    }
-
-    public String getTextEg() {
-        return textEg;
-    }
-
-    public void setTextEg(String textEg) {
-        this.textEg = textEg;
-    }
-
-    public String getDesc() {
-        return desc;
-    }
-
-    public void setDesc(String desc) {
-        this.desc = desc;
-    }
-
-    public Object getEg() {
-        return eg;
-    }
-
-    public void setEg(Object eg) {
-        this.eg = eg;
-    }
-
     public Object getDef() {
         return def;
     }
@@ -109,11 +73,19 @@ public class ApiParamMeta {
         this.textDef = textDef;
     }
 
-    public boolean isRequired() {
-        return required;
+    public Object getEg() {
+        return eg;
     }
 
-    public void setRequired(boolean required) {
-        this.required = required;
+    public void setEg(Object eg) {
+        this.eg = eg;
+    }
+
+    public String getTextEg() {
+        return textEg;
+    }
+
+    public void setTextEg(String textEg) {
+        this.textEg = textEg;
     }
 }

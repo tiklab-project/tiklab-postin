@@ -12,6 +12,8 @@ public class PropertyDef {
 
     private String desc;
 
+    private Object mark;
+
     @JSONField(serialize = false)
     private String eg;
 
@@ -53,5 +55,13 @@ public class PropertyDef {
 
     public void setRequired(Boolean required) {
         this.required = required;
+    }
+
+    public Object getMark() {
+        return mark;
+    }
+
+    public void setMark(Object mark) {
+        this.mark = mark;
     }
 }
