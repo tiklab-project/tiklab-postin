@@ -4,10 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.darthcloud.apibox.annotation.ApiParam;
 import com.darthcloud.apibox.annotation.ApiParams;
 import com.darthcloud.apibox.client.mock.JMockit;
-import com.darthcloud.apibox.client.mock.support.MockUtils;
 import com.darthcloud.apibox.client.model.ApiParamMeta;
-import com.darthcloud.apibox.client.model.ApiPropertyMeta;
-import com.darthcloud.apibox.client.model.ParamItem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.LocalVariableTableParameterNameDiscoverer;
@@ -15,15 +12,14 @@ import org.springframework.core.ParameterNameDiscoverer;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ApiParamParser {
+public class ApiParamParser extends ParamItemParser{
 
     private static Logger logger = LoggerFactory.getLogger(ApiParamParser.class);
 
-    public static List<ApiParamMeta> parseParamMetas(Method method){
+    public List<ApiParamMeta> parseParamMetas(Method method){
         List<ApiParamMeta> apiParamMetaList = new ArrayList<>();
         Parameter[] parameters = method.getParameters();
         if(parameters == null || parameters.length == 0){
@@ -74,9 +70,7 @@ public class ApiParamParser {
         return apiParamMetaList;
     }
 
-    static int deep = 0;
-
-    static ApiParamMeta parseParamMeta(ApiParam apiParam, Parameter parameter, String paramName){
+    ApiParamMeta parseParamMeta(ApiParam apiParam, Parameter parameter, String paramName){
         ApiParamMeta paramMeta = new ApiParamMeta();
         paramMeta.setApiParam(apiParam);
         paramMeta.setParameter(parameter);
@@ -118,49 +112,7 @@ public class ApiParamParser {
         return paramMeta;
     }
 
-    /**
-     * 解析子节点列表
-     * @param paramItem
-     */
-    static void setChildren(ParamItem paramItem){
-        deep++;
-        if(deep > 10){
-            return;
-        }
-        Type type = paramItem.getType();
-        if(type.getTypeName().contains("CategoryQuery")){
-            System.out.println(type);
-        }
-        Type paramType = paramItem.getParamType();
-
-        if(MockUtils.isPrimitive(type)){
-            return;
-        }else if(MockUtils.isList(type)){
-            if(paramType == null){
-                return;
-            }else{
-                List<ApiPropertyMeta> apiPropertyMetaList = ApiModelParser.parsePropertyMetas(paramType, null);
-                if(apiPropertyMetaList != null && apiPropertyMetaList.size() > 0){
-                    paramItem.setChildren(apiPropertyMetaList);
-
-                    for(ApiPropertyMeta apiPropertyMeta:apiPropertyMetaList){
-                        setChildren(apiPropertyMeta);
-                    }
-                }
-            }
-        }else{
-            List<ApiPropertyMeta> apiPropertyMetaList = ApiModelParser.parsePropertyMetas(type, paramType);
-            if(apiPropertyMetaList != null && apiPropertyMetaList.size() > 0){
-                paramItem.setChildren(apiPropertyMetaList);
-
-                for(ApiPropertyMeta apiPropertyMeta:apiPropertyMetaList){
-                    setChildren(apiPropertyMeta);
-                }
-            }
-        }
-    }
-
-    static int getParamIndex(String[] parameterNames,String paramName){
+    int getParamIndex(String[] parameterNames,String paramName){
         for(int i=0;i<parameterNames.length;i++){
             if(paramName.equals(parameterNames[i])){
                 return i;
@@ -175,7 +127,7 @@ public class ApiParamParser {
      * @param eg
      * @return
      */
-    static Object parseParamEgValue(Class paramType, String eg){
+    Object parseParamEgValue(Class paramType, String eg){
         if(paramType == java.lang.String.class){
             Object egValue = JMockit.mock(paramType,eg);
             return egValue;
@@ -188,7 +140,7 @@ public class ApiParamParser {
         }
     }
 
-    static boolean isPrimitive(Class paramType){
+    boolean isPrimitive(Class paramType){
         if(paramType.isPrimitive()
                 || paramType == java.lang.Integer.class
                 || paramType == java.lang.String.class

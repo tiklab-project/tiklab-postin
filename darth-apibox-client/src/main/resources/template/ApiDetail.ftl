@@ -104,7 +104,7 @@
             <td>返回类型JSON描述</td>
         </tr>
         <tr>
-            <td>${method.apiResultMeta.dataType}</td>
+            <td>${method.apiResultMeta.returnTypeText}</td>
             <td class="show-rough"><pre>${method.apiResultMeta.textDef}</pre></td>
         </tr>
     </table>

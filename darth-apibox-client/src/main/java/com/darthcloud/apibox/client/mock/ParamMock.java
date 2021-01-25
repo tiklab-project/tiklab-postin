@@ -73,7 +73,7 @@ public class ParamMock {
 
     ApiParamMeta parseApiParamMeta(Class cls, String methodName, String paramName){
         //TODO 解析整个方法，建立映射表缓存
-        List<ApiMethodMeta> apiMethodMetaList = ApiMethodParser.parseMethodMetas(cls, null);
+        List<ApiMethodMeta> apiMethodMetaList = new ApiMethodParser().parseMethodMetas(cls, null);
         if(apiMethodMetaList == null || apiMethodMetaList.size()==0){
             return null;
         }

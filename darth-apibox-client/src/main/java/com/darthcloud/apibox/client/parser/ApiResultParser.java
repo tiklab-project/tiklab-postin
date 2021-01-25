@@ -2,29 +2,22 @@ package com.darthcloud.apibox.client.parser;
 
 import com.alibaba.fastjson.JSON;
 import com.darthcloud.apibox.client.mock.JMockitForGeneric;
-import com.darthcloud.apibox.client.mock.support.MockUtils;
-import com.darthcloud.apibox.client.model.ApiPropertyMeta;
 import com.darthcloud.apibox.client.model.ApiResultMeta;
-import com.darthcloud.apibox.client.model.ParamItem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.util.List;
 
-public class ApiResultParser {
+public class ApiResultParser extends ParamItemParser{
 
     private static Logger logger = LoggerFactory.getLogger(ApiResultParser.class);
 
-    public static ApiResultMeta parseResultMetas(Method method){
+    public ApiResultMeta parseResultMetas(Method method){
         ApiResultMeta resultMeta = new ApiResultMeta();
-        //ParameterNameDiscoverer parameterNameDiscoverer = new LocalVariableTableParameterNameDiscoverer();
-        //String[] parameterNames  = parameterNameDiscoverer.getParameterNames(method);
         if(method.getName().equalsIgnoreCase("findCategoryList")){
-            System.out.println(method);
+            logger.info("method:{}",method);
         }
 
         Type fieldType = null;
@@ -36,23 +29,23 @@ public class ApiResultParser {
             for (Type type : parameterizedType.getActualTypeArguments()) {
                 paramType = type;
             }
-            String type = parameterizedType.toString();
-            type = type.replaceAll("<","&lt;");
-            type = type.replaceAll(">","&gt;");
+            String returnTypeText = parameterizedType.toString();
+            returnTypeText = returnTypeText.replaceAll("<","&lt;");
+            returnTypeText = returnTypeText.replaceAll(">","&gt;");
 
             resultMeta.setType(fieldType);
             resultMeta.setParamType(paramType);
+            resultMeta.setReturnTypeText(returnTypeText);
         }else{
             fieldType = method.getReturnType();
             resultMeta.setType(fieldType);
+            resultMeta.setReturnTypeText(fieldType.getTypeName());
         }
 
         //解析子节点列表
         setChildren(resultMeta);
 
         deep = 0;
-
-        logger.info("resultMeta:{}", resultMeta);
 
         if(resultMeta.getChildren() != null && resultMeta.getChildren().size() > 0){
             String textDef = JSON.toJSONString(resultMeta.getChildren(),true);
@@ -64,66 +57,13 @@ public class ApiResultParser {
 //            String textDef = JSON.toJSONString(def,true);
 //            resultMeta.setTextDef(textDef);
 //        }
-        /*
-        Object eg = getResultEgValue(genericReturnType);
-        resultMeta.setEg(eg);
-        if(eg != null){
-            String textEg = JSON.toJSONString(eg,true);
-            resultMeta.setTextEg(textEg);
-        }
-         */
+//        Object eg = getResultEgValue(genericReturnType);
+//        resultMeta.setEg(eg);
+//        if(eg != null){
+//            String textEg = JSON.toJSONString(eg,true);
+//            resultMeta.setTextEg(textEg);
+//        }
         return resultMeta;
-    }
-
-    static int deep = 0;
-
-    /**
-     * 解析子节点列表
-     * @param paramItem
-     */
-    static void setChildren(ParamItem paramItem){
-        deep++;
-        if(deep > 10){
-            return;
-        }
-        Type type = null;
-        Type paramType = null;
-        if(paramItem.getType() instanceof ParameterizedType && paramItem.getParamType() == null){
-            ParameterizedType parameterizedType = (ParameterizedType) paramItem.getType();
-            type = parameterizedType.getRawType();
-            for (Type actualType : parameterizedType.getActualTypeArguments()) {
-                paramType = actualType;
-            }
-        }else{
-            type = paramItem.getType();
-            paramType = paramItem.getParamType();
-        }
-
-        if(MockUtils.isPrimitive(type)){
-            return;
-        }else if(MockUtils.isList(type)){
-            if(paramType == null){
-                return;
-            }else{
-                List<ApiPropertyMeta> apiPropertyMetaList = ApiModelParser.parsePropertyMetas(paramType,null);
-                if(apiPropertyMetaList != null && apiPropertyMetaList.size() > 0){
-                    paramItem.setChildren(apiPropertyMetaList);
-
-                    for(ApiPropertyMeta apiPropertyMeta:apiPropertyMetaList){
-                        setChildren(apiPropertyMeta);
-                    }
-                }
-            }
-        }else{
-            List<ApiPropertyMeta> apiPropertyMetaList = ApiModelParser.parsePropertyMetas(type, paramType);
-            if(apiPropertyMetaList != null && apiPropertyMetaList.size() > 0){
-                paramItem.setChildren(apiPropertyMetaList);
-
-                for(ApiPropertyMeta apiPropertyMeta:apiPropertyMetaList){
-                    setChildren(apiPropertyMeta);
-                }
-            }
-        }
     }
 
     /**
@@ -131,11 +71,11 @@ public class ApiResultParser {
      * @param returnType
      * @return
      */
-    static Object getResultEgValue(Type returnType){
+    Object getResultEgValue(Type returnType){
         return JMockitForGeneric.mock(returnType,null);
     }
 
-    static boolean isPrimitive(Class paramType){
+    boolean isPrimitive(Class paramType){
         if(paramType.isPrimitive()
                 || paramType == java.lang.Integer.class
                 || paramType == java.lang.String.class

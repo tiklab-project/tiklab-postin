@@ -46,7 +46,7 @@ public class ApiParser {
             }
 
             //parse method meta
-            List<ApiMethodMeta> apiMethodMetaList = ApiMethodParser.parseMethodMetas(apiClz, apiMeta);
+            List<ApiMethodMeta> apiMethodMetaList = new ApiMethodParser().parseMethodMetas(apiClz, apiMeta);
             apiMeta.setApiMethodMetaList(apiMethodMetaList);
 
             apiMetaList.add(apiMeta);

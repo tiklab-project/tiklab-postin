@@ -8,6 +8,9 @@ public class ApiResultMeta extends ParamItem{
     private Object eg;
     private String textEg = "";
 
+    //返回类型，字符串
+    private String returnTypeText;
+
     public String getTextEg() {
         return textEg;
     }
@@ -38,5 +41,13 @@ public class ApiResultMeta extends ParamItem{
 
     public void setTextDef(String textDef) {
         this.textDef = textDef;
+    }
+
+    public String getReturnTypeText() {
+        return returnTypeText;
+    }
+
+    public void setReturnTypeText(String returnTypeText) {
+        this.returnTypeText = returnTypeText;
     }
 }

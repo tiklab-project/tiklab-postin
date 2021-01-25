@@ -26,7 +26,7 @@ public class ApiModelParser {
      * @param actualType
      * @return
      */
-    public static List<ApiPropertyMeta> parsePropertyMetas(Type modelType, Type actualType){
+    public List<ApiPropertyMeta> parsePropertyMetas(Type modelType, Type actualType){
         List<ApiPropertyMeta> apiPropertyMetaList = new ArrayList<>();
 
         Type beanType = null;
@@ -39,7 +39,7 @@ public class ApiModelParser {
         }
 
         if(beanType.getTypeName().contains("PageParam")){
-            System.out.println(beanType);
+            logger.info("beanType:{}",beanType);
         }
 
         Field[] fields = ((Class)beanType).getDeclaredFields();

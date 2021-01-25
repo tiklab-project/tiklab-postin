@@ -27,7 +27,7 @@ public class ApiMethodParser {
      * @param apiMeta
      * @return
      */
-    public static List<ApiMethodMeta> parseMethodMetas(Class clz, ApiMeta apiMeta){
+    public List<ApiMethodMeta> parseMethodMetas(Class clz, ApiMeta apiMeta){
         List<ApiMethodMeta> apiMethodMetaList = new ArrayList<>();
         Method[] methods = clz.getDeclaredMethods();
         if(methods == null  || methods.length==0){
@@ -70,13 +70,13 @@ public class ApiMethodParser {
             }
 
             //parse param metas
-            List<ApiParamMeta> paramMetaList = ApiParamParser.parseParamMetas(method);
+            List<ApiParamMeta> paramMetaList = new ApiParamParser().parseParamMetas(method);
             methodMeta.setApiParamMetaList(paramMetaList);
             Map<String,Object> paramEgMap = getParamEgMap(paramMetaList);
             methodMeta.setParamEg(JSON.toJSONString(paramEgMap));
 
             //parse return metas
-            ApiResultMeta resultMeta = ApiResultParser.parseResultMetas(method);
+            ApiResultMeta resultMeta = new ApiResultParser().parseResultMetas(method);
             methodMeta.setApiResultMeta(resultMeta);
 
             //add to list
@@ -85,7 +85,7 @@ public class ApiMethodParser {
         return apiMethodMetaList;
     }
 
-    static Map<String,Object> getParamEgMap(List<ApiParamMeta> paramMetaList){
+    Map<String,Object> getParamEgMap(List<ApiParamMeta> paramMetaList){
         Map<String,Object> paramEgMap = new HashMap<>();
         if(paramMetaList != null && paramMetaList.size() > 0){
             for(ApiParamMeta paramMeta:paramMetaList){
