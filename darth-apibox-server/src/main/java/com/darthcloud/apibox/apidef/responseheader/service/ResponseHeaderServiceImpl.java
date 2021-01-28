@@ -7,6 +7,7 @@ import com.darthcloud.apibox.apidef.responseheader.model.ResponseHeaderQuery;
 
 import com.darthcloud.common.Pagination;
 import com.darthcloud.beans.BeanMapper;
+import com.darthcloud.join.join.JoinQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +25,9 @@ public class ResponseHeaderServiceImpl implements ResponseHeaderService {
 
     @Autowired
     ResponseHeaderDao responseHeaderDao;
+
+    @Autowired
+    JoinQuery joinQuery;
 
     @Override
     public String createResponseHeader(@NotNull @Valid ResponseHeader responseHeader) {
@@ -48,21 +52,33 @@ public class ResponseHeaderServiceImpl implements ResponseHeaderService {
     public ResponseHeader findResponseHeader(@NotNull String id) {
         ResponseHeaderPo responseHeaderPo = responseHeaderDao.findResponseHeader(id);
 
-        return BeanMapper.map(responseHeaderPo, ResponseHeader.class);
+        ResponseHeader responseHeader = BeanMapper.map(responseHeaderPo, ResponseHeader.class);
+
+        joinQuery.queryOne(responseHeader);
+
+        return responseHeader;
     }
 
     @Override
     public List<ResponseHeader> findAllResponseHeader() {
         List<ResponseHeaderPo> responseHeaderPoList =  responseHeaderDao.findAllResponseHeader();
 
-        return BeanMapper.mapList(responseHeaderPoList,ResponseHeader.class);
+        List<ResponseHeader> responseHeaderList = BeanMapper.mapList(responseHeaderPoList,ResponseHeader.class);
+
+        joinQuery.queryList(responseHeaderList);
+
+        return responseHeaderList;
     }
 
     @Override
     public List<ResponseHeader> findResponseHeaderList(ResponseHeaderQuery responseHeaderQuery) {
         List<ResponseHeaderPo> responseHeaderPoList = responseHeaderDao.findResponseHeaderList(responseHeaderQuery);
 
-        return BeanMapper.mapList(responseHeaderPoList,ResponseHeader.class);
+        List<ResponseHeader> responseHeaderList = BeanMapper.mapList(responseHeaderPoList,ResponseHeader.class);
+
+        joinQuery.queryList(responseHeaderList);
+
+        return responseHeaderList;
     }
 
     @Override
@@ -73,6 +89,9 @@ public class ResponseHeaderServiceImpl implements ResponseHeaderService {
         BeanUtils.copyProperties(pagination,pg);
 
         List<ResponseHeader> responseHeaderList = BeanMapper.mapList(pagination.getDataList(),ResponseHeader.class);
+
+        joinQuery.queryList(responseHeaderList);
+
         pg.setDataList(responseHeaderList);
         return pg;
     }

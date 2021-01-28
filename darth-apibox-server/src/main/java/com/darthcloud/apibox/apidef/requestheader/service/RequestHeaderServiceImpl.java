@@ -7,6 +7,7 @@ import com.darthcloud.apibox.apidef.requestheader.model.RequestHeaderQuery;
 
 import com.darthcloud.common.Pagination;
 import com.darthcloud.beans.BeanMapper;
+import com.darthcloud.join.join.JoinQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +25,9 @@ public class RequestHeaderServiceImpl implements RequestHeaderService {
 
     @Autowired
     RequestHeaderDao requestHeaderDao;
+
+    @Autowired
+    JoinQuery joinQuery;
 
     @Override
     public String createRequestHeader(@NotNull @Valid RequestHeader requestHeader) {
@@ -48,21 +52,33 @@ public class RequestHeaderServiceImpl implements RequestHeaderService {
     public RequestHeader findRequestHeader(@NotNull String id) {
         RequestHeaderPo requestHeaderPo = requestHeaderDao.findRequestHeader(id);
 
-        return BeanMapper.map(requestHeaderPo, RequestHeader.class);
+        RequestHeader requestHeader = BeanMapper.map(requestHeaderPo, RequestHeader.class);
+
+        joinQuery.queryOne(requestHeader);
+
+        return requestHeader;
     }
 
     @Override
     public List<RequestHeader> findAllRequestHeader() {
         List<RequestHeaderPo> requestHeaderPoList =  requestHeaderDao.findAllRequestHeader();
 
-        return BeanMapper.mapList(requestHeaderPoList,RequestHeader.class);
+        List<RequestHeader> requestHeaderList = BeanMapper.mapList(requestHeaderPoList,RequestHeader.class);
+
+        joinQuery.queryList(requestHeaderList);
+
+        return requestHeaderList;
     }
 
     @Override
     public List<RequestHeader> findRequestHeaderList(RequestHeaderQuery requestHeaderQuery) {
         List<RequestHeaderPo> requestHeaderPoList = requestHeaderDao.findRequestHeaderList(requestHeaderQuery);
 
-        return BeanMapper.mapList(requestHeaderPoList,RequestHeader.class);
+        List<RequestHeader> requestHeaderList = BeanMapper.mapList(requestHeaderPoList,RequestHeader.class);
+
+        joinQuery.queryList(requestHeaderList);
+
+        return requestHeaderList;
     }
 
     @Override
@@ -73,6 +89,9 @@ public class RequestHeaderServiceImpl implements RequestHeaderService {
         BeanUtils.copyProperties(pagination,pg);
 
         List<RequestHeader> requestHeaderList = BeanMapper.mapList(pagination.getDataList(),RequestHeader.class);
+
+        joinQuery.queryList(requestHeaderList);
+
         pg.setDataList(requestHeaderList);
         return pg;
     }

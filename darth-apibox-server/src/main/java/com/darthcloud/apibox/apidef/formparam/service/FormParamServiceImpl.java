@@ -7,6 +7,7 @@ import com.darthcloud.apibox.apidef.formparam.model.FormParamQuery;
 
 import com.darthcloud.common.Pagination;
 import com.darthcloud.beans.BeanMapper;
+import com.darthcloud.join.join.JoinQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +25,9 @@ public class FormParamServiceImpl implements FormParamService {
 
     @Autowired
     FormParamDao formParamDao;
+
+    @Autowired
+    JoinQuery joinQuery;
 
     @Override
     public String createFormParam(@NotNull @Valid FormParam formParam) {
@@ -48,21 +52,33 @@ public class FormParamServiceImpl implements FormParamService {
     public FormParam findFormParam(@NotNull String id) {
         FormParamPo formParamPo = formParamDao.findFormParam(id);
 
-        return BeanMapper.map(formParamPo, FormParam.class);
+        FormParam formParam = BeanMapper.map(formParamPo, FormParam.class);
+
+        joinQuery.queryOne(formParam);
+
+        return formParam;
     }
 
     @Override
     public List<FormParam> findAllFormParam() {
         List<FormParamPo> formParamPoList =  formParamDao.findAllFormParam();
 
-        return BeanMapper.mapList(formParamPoList,FormParam.class);
+        List<FormParam> formParamList = BeanMapper.mapList(formParamPoList,FormParam.class);
+
+        joinQuery.queryList(formParamList);
+
+        return formParamList;
     }
 
     @Override
     public List<FormParam> findFormParamList(FormParamQuery formParamQuery) {
         List<FormParamPo> formParamPoList = formParamDao.findFormParamList(formParamQuery);
 
-        return BeanMapper.mapList(formParamPoList,FormParam.class);
+        List<FormParam> formParamList = BeanMapper.mapList(formParamPoList,FormParam.class);
+
+        joinQuery.queryList(formParamList);
+
+        return formParamList;
     }
 
     @Override
@@ -73,6 +89,9 @@ public class FormParamServiceImpl implements FormParamService {
         BeanUtils.copyProperties(pagination,pg);
 
         List<FormParam> formParamList = BeanMapper.mapList(pagination.getDataList(),FormParam.class);
+
+        joinQuery.queryList(formParamList);
+
         pg.setDataList(formParamList);
         return pg;
     }

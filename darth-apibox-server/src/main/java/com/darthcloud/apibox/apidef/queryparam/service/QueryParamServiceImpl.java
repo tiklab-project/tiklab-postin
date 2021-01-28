@@ -7,6 +7,7 @@ import com.darthcloud.apibox.apidef.queryparam.model.QueryParamQuery;
 
 import com.darthcloud.common.Pagination;
 import com.darthcloud.beans.BeanMapper;
+import com.darthcloud.join.join.JoinQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +25,9 @@ public class QueryParamServiceImpl implements QueryParamService {
 
     @Autowired
     QueryParamDao queryParamDao;
+
+    @Autowired
+    JoinQuery joinQuery;
 
     @Override
     public String createQueryParam(@NotNull @Valid QueryParam queryParam) {
@@ -48,21 +52,33 @@ public class QueryParamServiceImpl implements QueryParamService {
     public QueryParam findQueryParam(@NotNull String id) {
         QueryParamPo queryParamPo = queryParamDao.findQueryParam(id);
 
-        return BeanMapper.map(queryParamPo, QueryParam.class);
+        QueryParam queryParam = BeanMapper.map(queryParamPo, QueryParam.class);
+
+        joinQuery.queryOne(queryParam);
+
+        return queryParam;
     }
 
     @Override
     public List<QueryParam> findAllQueryParam() {
         List<QueryParamPo> queryParamPoList =  queryParamDao.findAllQueryParam();
 
-        return BeanMapper.mapList(queryParamPoList,QueryParam.class);
+        List<QueryParam> queryParamList = BeanMapper.mapList(queryParamPoList,QueryParam.class);
+
+        joinQuery.queryList(queryParamList);
+
+        return queryParamList;
     }
 
     @Override
     public List<QueryParam> findQueryParamList(QueryParamQuery queryParamQuery) {
         List<QueryParamPo> queryParamPoList = queryParamDao.findQueryParamList(queryParamQuery);
 
-        return BeanMapper.mapList(queryParamPoList,QueryParam.class);
+        List<QueryParam> queryParamList = BeanMapper.mapList(queryParamPoList,QueryParam.class);
+
+        joinQuery.queryList(queryParamList);
+
+        return queryParamList;
     }
 
     @Override
@@ -73,6 +89,9 @@ public class QueryParamServiceImpl implements QueryParamService {
         BeanUtils.copyProperties(pagination,pg);
 
         List<QueryParam> queryParamList = BeanMapper.mapList(pagination.getDataList(),QueryParam.class);
+
+        joinQuery.queryList(queryParamList);
+
         pg.setDataList(queryParamList);
         return pg;
     }
