@@ -3,6 +3,8 @@ package com.darthcloud.apibox.config;
 
 import com.darthcloud.apibox.apidef.apxmethod.entity.ApxMethodPo;
 import com.darthcloud.apibox.apidef.apxmethod.model.ApxMethod;
+import com.darthcloud.apibox.apimock.mock.entity.MockPo;
+import com.darthcloud.apibox.apimock.mock.model.Mock;
 import com.darthcloud.apibox.category.entity.CategoryPo;
 import com.darthcloud.apibox.category.model.Category;
 import com.darthcloud.apibox.apidef.formparam.entity.FormParamPo;
@@ -75,7 +77,8 @@ public class ApiboxAutoConfiguration {
                 "scripts/FormParam.sql",
                 "scripts/JsonParam.sql",
                 "scripts/ResponseHeader.sql",
-                "scripts/JsonResponse.sql"
+                "scripts/JsonResponse.sql",
+                "scripts/Mock.sql"
 
         });
     }
@@ -92,6 +95,7 @@ public class ApiboxAutoConfiguration {
                 .add(JsonParam.class, JsonParamPo.class)
                 .add(ResponseHeader.class, ResponseHeaderPo.class)
                 .add(JsonResponse.class, JsonResponsePo.class)
+                .add(Mock.class, MockPo.class)
         ;
         return new BeanIniter();
     }
