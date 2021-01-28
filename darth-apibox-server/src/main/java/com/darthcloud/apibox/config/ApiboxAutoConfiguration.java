@@ -1,16 +1,22 @@
 package com.darthcloud.apibox.config;
 
 
-import com.darthcloud.apibox.apxmethod.entity.ApxMethodPo;
-import com.darthcloud.apibox.apxmethod.model.ApxMethod;
+import com.darthcloud.apibox.apidef.apxmethod.entity.ApxMethodPo;
+import com.darthcloud.apibox.apidef.apxmethod.model.ApxMethod;
 import com.darthcloud.apibox.category.entity.CategoryPo;
 import com.darthcloud.apibox.category.model.Category;
-import com.darthcloud.apibox.formparam.entity.FormParamPo;
-import com.darthcloud.apibox.formparam.model.FormParam;
-import com.darthcloud.apibox.jsonparam.entity.JsonParamPo;
-import com.darthcloud.apibox.jsonparam.model.JsonParam;
-import com.darthcloud.apibox.jsonresponse.entity.JsonResponsePo;
-import com.darthcloud.apibox.jsonresponse.model.JsonResponse;
+import com.darthcloud.apibox.apidef.formparam.entity.FormParamPo;
+import com.darthcloud.apibox.apidef.formparam.model.FormParam;
+import com.darthcloud.apibox.apidef.jsonparam.entity.JsonParamPo;
+import com.darthcloud.apibox.apidef.jsonparam.model.JsonParam;
+import com.darthcloud.apibox.apidef.jsonresponse.entity.JsonResponsePo;
+import com.darthcloud.apibox.apidef.jsonresponse.model.JsonResponse;
+import com.darthcloud.apibox.apidef.queryparam.entity.QueryParamPo;
+import com.darthcloud.apibox.apidef.queryparam.model.QueryParam;
+import com.darthcloud.apibox.apidef.requestheader.entity.RequestHeaderPo;
+import com.darthcloud.apibox.apidef.requestheader.model.RequestHeader;
+import com.darthcloud.apibox.apidef.responseheader.entity.ResponseHeaderPo;
+import com.darthcloud.apibox.apidef.responseheader.model.ResponseHeader;
 import com.darthcloud.apibox.workspace.entity.WorkspacePo;
 import com.darthcloud.apibox.workspace.model.Workspace;
 import com.darthcloud.beans.register.BeanMapperMetaRegister;
@@ -64,9 +70,13 @@ public class ApiboxAutoConfiguration {
                 "scripts/Node.sql",
                 "scripts/Category.sql",
                 "scripts/ApxMethod.sql",
+                "scripts/RequestHeader.sql",
+                "scripts/QueryParam.sql",
+                "scripts/FormParam.sql",
                 "scripts/JsonParam.sql",
-                "scripts/JsonResponse.sql",
-                "scripts/FormParam.sql"
+                "scripts/ResponseHeader.sql",
+                "scripts/JsonResponse.sql"
+
         });
     }
 
@@ -76,9 +86,12 @@ public class ApiboxAutoConfiguration {
                 .add(Workspace.class, WorkspacePo.class)
                 .add(Category.class, CategoryPo.class)
                 .add(ApxMethod.class, ApxMethodPo.class)
-                .add(JsonParam.class, JsonParamPo.class)
-                .add(JsonResponse.class, JsonResponsePo.class)
+                .add(RequestHeader.class, RequestHeaderPo.class)
+                .add(QueryParam.class, QueryParamPo.class)
                 .add(FormParam.class, FormParamPo.class)
+                .add(JsonParam.class, JsonParamPo.class)
+                .add(ResponseHeader.class, ResponseHeaderPo.class)
+                .add(JsonResponse.class, JsonResponsePo.class)
         ;
         return new BeanIniter();
     }

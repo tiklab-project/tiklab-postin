@@ -3,6 +3,7 @@ package com.darthcloud.apibox.client.parser;
 import com.darthcloud.apibox.client.mock.support.MockUtils;
 import com.darthcloud.apibox.client.model.ApiPropertyMeta;
 import com.darthcloud.apibox.client.model.ParamItem;
+import com.darthcloud.apibox.client.model.ParamItemType;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -10,17 +11,26 @@ import java.util.List;
 
 public class ParamItemParser {
 
-    protected int deep = 0;
+    //protected int deep = 0;
 
     /**
      * 解析子节点列表
      * @param paramItem
+     * @param deep
      */
-    protected void setChildren(ParamItem paramItem){
-        deep++;
-        if(deep > 10){
-            return;
+    protected void loop(ParamItem paramItem, int paramItemType,int deep){
+        if(paramItemType == ParamItemType.TYPE_INPUT){
+            //请求参数只解析两层嵌套模型
+            if(deep > 2){
+                return;
+            }
+        }else if(paramItemType == ParamItemType.TYPE_OUPUT){
+            //响应结果只解析三层嵌套模型，如分页查询结果集
+            if(deep > 3){
+                return;
+            }
         }
+
         Type type = null;
         Type paramType = null;
         if(paramItem.getType() instanceof ParameterizedType && paramItem.getParamType() == null){
@@ -44,8 +54,11 @@ public class ParamItemParser {
                 if(apiPropertyMetaList != null && apiPropertyMetaList.size() > 0){
                     paramItem.setChildren(apiPropertyMetaList);
 
+                    //深度+1
+                    deep++;
+
                     for(ApiPropertyMeta apiPropertyMeta:apiPropertyMetaList){
-                        setChildren(apiPropertyMeta);
+                        loop(apiPropertyMeta, paramItemType,deep);
                     }
                 }
             }
@@ -54,8 +67,11 @@ public class ParamItemParser {
             if(apiPropertyMetaList != null && apiPropertyMetaList.size() > 0){
                 paramItem.setChildren(apiPropertyMetaList);
 
+                //深度+1
+                deep++;
+
                 for(ApiPropertyMeta apiPropertyMeta:apiPropertyMetaList){
-                    setChildren(apiPropertyMeta);
+                    loop(apiPropertyMeta, paramItemType,deep);
                 }
             }
         }

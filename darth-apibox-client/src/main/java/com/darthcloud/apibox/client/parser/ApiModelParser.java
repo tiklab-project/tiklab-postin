@@ -38,10 +38,6 @@ public class ApiModelParser {
             beanType = modelType;
         }
 
-        if(beanType.getTypeName().contains("PageParam")){
-            logger.info("beanType:{}",beanType);
-        }
-
         Field[] fields = ((Class)beanType).getDeclaredFields();
         if(fields == null || fields.length == 0){
             return apiPropertyMetaList;

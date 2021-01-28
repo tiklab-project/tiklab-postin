@@ -3,6 +3,7 @@ package com.darthcloud.apibox.client.parser;
 import com.alibaba.fastjson.JSON;
 import com.darthcloud.apibox.client.mock.JMockitForGeneric;
 import com.darthcloud.apibox.client.model.ApiResultMeta;
+import com.darthcloud.apibox.client.model.ParamItemType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,9 +17,6 @@ public class ApiResultParser extends ParamItemParser{
 
     public ApiResultMeta parseResultMetas(Method method){
         ApiResultMeta resultMeta = new ApiResultMeta();
-        if(method.getName().equalsIgnoreCase("findCategoryList")){
-            logger.info("method:{}",method);
-        }
 
         Type fieldType = null;
         Type paramType = null;
@@ -43,26 +41,28 @@ public class ApiResultParser extends ParamItemParser{
         }
 
         //解析子节点列表
-        setChildren(resultMeta);
+        loop(resultMeta, ParamItemType.TYPE_OUPUT,1);
 
-        deep = 0;
+        //deep = 0;
 
         if(resultMeta.getChildren() != null && resultMeta.getChildren().size() > 0){
             String textDef = JSON.toJSONString(resultMeta.getChildren(),true);
             resultMeta.setTextDef(textDef);
         }
 
-//        Object def = getResultDef(genericReturnType);
-//        if(def != null){
-//            String textDef = JSON.toJSONString(def,true);
-//            resultMeta.setTextDef(textDef);
-//        }
-//        Object eg = getResultEgValue(genericReturnType);
-//        resultMeta.setEg(eg);
-//        if(eg != null){
-//            String textEg = JSON.toJSONString(eg,true);
-//            resultMeta.setTextEg(textEg);
-//        }
+        /*
+        Object def = getResultDef(genericReturnType);
+        if(def != null){
+            String textDef = JSON.toJSONString(def,true);
+            resultMeta.setTextDef(textDef);
+        }
+        Object eg = getResultEgValue(genericReturnType);
+        resultMeta.setEg(eg);
+        if(eg != null){
+            String textEg = JSON.toJSONString(eg,true);
+            resultMeta.setTextEg(textEg);
+        }
+         */
         return resultMeta;
     }
 

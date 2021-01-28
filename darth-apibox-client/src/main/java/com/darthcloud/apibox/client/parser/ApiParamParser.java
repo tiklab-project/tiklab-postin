@@ -5,6 +5,7 @@ import com.darthcloud.apibox.annotation.ApiParam;
 import com.darthcloud.apibox.annotation.ApiParams;
 import com.darthcloud.apibox.client.mock.JMockit;
 import com.darthcloud.apibox.client.model.ApiParamMeta;
+import com.darthcloud.apibox.client.model.ParamItemType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.LocalVariableTableParameterNameDiscoverer;
@@ -15,10 +16,18 @@ import java.lang.reflect.Parameter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * api参数解析
+ */
 public class ApiParamParser extends ParamItemParser{
 
     private static Logger logger = LoggerFactory.getLogger(ApiParamParser.class);
 
+    /**
+     * 解析方法参数列表
+     * @param method
+     * @return
+     */
     public List<ApiParamMeta> parseParamMetas(Method method){
         List<ApiParamMeta> apiParamMetaList = new ArrayList<>();
         Parameter[] parameters = method.getParameters();
@@ -70,6 +79,13 @@ public class ApiParamParser extends ParamItemParser{
         return apiParamMetaList;
     }
 
+    /**
+     * 解析参数项定义
+     * @param apiParam
+     * @param parameter
+     * @param paramName
+     * @return
+     */
     ApiParamMeta parseParamMeta(ApiParam apiParam, Parameter parameter, String paramName){
         ApiParamMeta paramMeta = new ApiParamMeta();
         paramMeta.setApiParam(apiParam);
@@ -79,35 +95,36 @@ public class ApiParamParser extends ParamItemParser{
         paramMeta.setRequired(apiParam.required());
         Class type = parameter.getType();
         paramMeta.setType(type);
-//        Type type = null;
-//        Type paramType = null;
-//        ParameterizedType parameterizedType = (ParameterizedType)parameter.getParameterizedType();
-//        type = parameterizedType.getRawType();
-//        for (Type actualType : parameterizedType.getActualTypeArguments()) {
-//            paramType = actualType;
-//        }
-//        paramMeta.setType(type);
-//        paramMeta.setParamType(paramType);
-
+        /*
+        Type type = null;
+        Type paramType = null;
+        ParameterizedType parameterizedType = (ParameterizedType)parameter.getParameterizedType();
+        type = parameterizedType.getRawType();
+        for (Type actualType : parameterizedType.getActualTypeArguments()) {
+            paramType = actualType;
+        }
+        paramMeta.setType(type);
+        paramMeta.setParamType(paramType);
+         */
 
         //解析子节点列表
-        setChildren(paramMeta);
+        loop(paramMeta, ParamItemType.TYPE_INPUT,1);
 
-        deep = 0;
-
-        logger.info("paramMeta:{}", paramMeta);
+        //deep = 0;
 
         if(paramMeta.getChildren() != null && paramMeta.getChildren().size() > 0){
             String textDef = JSON.toJSONString(paramMeta.getChildren(),true);
             paramMeta.setTextDef(textDef);
         }
-//
-//        Object eg = parseParamEgValue(paramType,apiParam.eg());
-//        paramMeta.setEg(eg);
-//        if(eg != null){
-//            String textEg = JSON.toJSONString(eg,true);
-//            paramMeta.setTextEg(textEg);
-//        }
+
+        /*
+        Object eg = parseParamEgValue(paramType,apiParam.eg());
+        paramMeta.setEg(eg);
+        if(eg != null){
+            String textEg = JSON.toJSONString(eg,true);
+            paramMeta.setTextEg(textEg);
+        }
+         */
 
         return paramMeta;
     }

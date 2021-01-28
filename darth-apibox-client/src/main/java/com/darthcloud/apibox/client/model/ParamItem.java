@@ -32,7 +32,7 @@ public class ParamItem {
     private boolean required = false;
 
     //子节点列表
-    @JSONField(ordinal = 5)
+    @JSONField(name = "model",ordinal = 5)
     private List<ApiPropertyMeta> children;
 
     public String getName() {
