@@ -3,10 +3,6 @@ package com.darthcloud.apibox.config;
 
 import com.darthcloud.apibox.apidef.apxmethod.entity.ApxMethodPo;
 import com.darthcloud.apibox.apidef.apxmethod.model.ApxMethod;
-import com.darthcloud.apibox.apimock.mock.entity.MockPo;
-import com.darthcloud.apibox.apimock.mock.model.Mock;
-import com.darthcloud.apibox.category.entity.CategoryPo;
-import com.darthcloud.apibox.category.model.Category;
 import com.darthcloud.apibox.apidef.formparam.entity.FormParamPo;
 import com.darthcloud.apibox.apidef.formparam.model.FormParam;
 import com.darthcloud.apibox.apidef.jsonparam.entity.JsonParamPo;
@@ -19,13 +15,21 @@ import com.darthcloud.apibox.apidef.requestheader.entity.RequestHeaderPo;
 import com.darthcloud.apibox.apidef.requestheader.model.RequestHeader;
 import com.darthcloud.apibox.apidef.responseheader.entity.ResponseHeaderPo;
 import com.darthcloud.apibox.apidef.responseheader.model.ResponseHeader;
+import com.darthcloud.apibox.apimock.formparammock.entity.FormParamMockPo;
+import com.darthcloud.apibox.apimock.formparammock.model.FormParamMock;
+import com.darthcloud.apibox.apimock.jsonresponsemock.entity.JsonResponseMockPo;
+import com.darthcloud.apibox.apimock.jsonresponsemock.model.JsonResponseMock;
+import com.darthcloud.apibox.apimock.mock.entity.MockPo;
+import com.darthcloud.apibox.apimock.mock.model.Mock;
+import com.darthcloud.apibox.category.entity.CategoryPo;
+import com.darthcloud.apibox.category.model.Category;
 import com.darthcloud.apibox.workspace.entity.WorkspacePo;
 import com.darthcloud.apibox.workspace.model.Workspace;
 import com.darthcloud.beans.register.BeanMapperMetaRegister;
-import com.darthcloud.cache.client.annotation.EnableDcsClient;
-import com.darthcloud.cache.server.annotation.EnableDcsServer;
 import com.darthcloud.dal.DataInitializer;
 import com.darthcloud.dal.annotation.EnableDal;
+import com.darthcloud.dcs.client.annotation.EnableDcsClient;
+import com.darthcloud.dcs.server.annotation.EnableDcsServer;
 import com.darthcloud.dfs.client.annotation.EnableDfsClient;
 import com.darthcloud.dfs.server.annotation.EnableDfsServer;
 import com.darthcloud.dss.client.annotation.EnableDssClient;
@@ -78,7 +82,9 @@ public class ApiboxAutoConfiguration {
                 "scripts/JsonParam.sql",
                 "scripts/ResponseHeader.sql",
                 "scripts/JsonResponse.sql",
-                "scripts/Mock.sql"
+                "scripts/Mock.sql",
+                "scripts/FormParamMock.sql",
+                "scripts/JsonResponseMock.sql"
 
         });
     }
@@ -96,6 +102,8 @@ public class ApiboxAutoConfiguration {
                 .add(ResponseHeader.class, ResponseHeaderPo.class)
                 .add(JsonResponse.class, JsonResponsePo.class)
                 .add(Mock.class, MockPo.class)
+                .add(FormParamMock.class, FormParamMockPo.class)
+                .add(JsonResponseMock.class, JsonResponseMockPo.class)
         ;
         return new BeanIniter();
     }

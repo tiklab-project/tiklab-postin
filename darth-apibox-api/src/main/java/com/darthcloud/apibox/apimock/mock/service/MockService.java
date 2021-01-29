@@ -4,6 +4,9 @@ import com.darthcloud.common.Pagination;
 
 import com.darthcloud.apibox.apimock.mock.model.Mock;
 import com.darthcloud.apibox.apimock.mock.model.MockQuery;
+import com.darthcloud.join.annotation.Provider;
+import com.darthcloud.join.annotation.QueryAll;
+import com.darthcloud.join.annotation.QueryOne;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -12,6 +15,7 @@ import java.util.List;
 /**
 * 用户服务接口
 */
+@Provider(model = Mock.class)
 public interface MockService {
 
     /**
@@ -38,12 +42,14 @@ public interface MockService {
     * @param id
     * @return
     */
+    @QueryOne
     Mock findMock(@NotNull String id);
 
     /**
     * 查找所有
     * @return
     */
+    @QueryAll
     List<Mock> findAllMock();
 
     /**
