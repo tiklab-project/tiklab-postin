@@ -28,7 +28,7 @@ public class FormParamPo implements Serializable {
     @Column(name = "required",length = 2,notNull = true)
     private Integer required;
 
-    @Column(name = "desc",length = 128)
+    @Column(name = "description",length = 128)
     private String desc;
 
     @Column(name = "eg",length = 128)

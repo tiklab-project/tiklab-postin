@@ -3,7 +3,7 @@ CREATE TABLE apibox_response_header(
         method_id VARCHAR(32) NOT NULL,
         header_name VARCHAR(64) NOT NULL,
         required int NOT NULL,
-        desc VARCHAR(128),
+        description VARCHAR(128),
         eg VARCHAR(128),
         sort int
 );

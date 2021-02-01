@@ -22,7 +22,7 @@ public class MockPo implements Serializable {
     @Column(name = "name",length = 64,notNull = true)
     private String name;
 
-    @Column(name = "desc",length = 128)
+    @Column(name = "description",length = 128)
     private String desc;
 
     public String getId() {

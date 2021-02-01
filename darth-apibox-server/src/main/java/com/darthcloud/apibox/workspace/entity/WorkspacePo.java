@@ -19,7 +19,7 @@ public class WorkspacePo implements Serializable {
     @Column(name = "workspace_name",length = 64,notNull = true)
     private String workspaceName;
 
-    @Column(name = "desc",length = 64)
+    @Column(name = "description",length = 64)
     private String desc;
 
     public String getId() {

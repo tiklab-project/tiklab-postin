@@ -55,6 +55,12 @@ public class ApiboxBuilder {
     }
 
     private void saveDocToHtml(String docPath, ApiData apiData) {
+        //如果目录不存在，则创建
+        File docDir = new File(docPath);
+        if(!docDir.exists()){
+            docDir.mkdir();
+        }
+
         //生成列表页
         saveDocToHtmlForApiList(docPath, apiData);
 

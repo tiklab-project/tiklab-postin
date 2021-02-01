@@ -4,6 +4,6 @@ CREATE TABLE apibox_method(
         name VARCHAR(64) NOT NULL,
         request_type VARCHAR(32) NOT NULL,
         path VARCHAR(256) NOT NULL,
-        desc VARCHAR(256),
+        description VARCHAR(256),
         sort int
 );

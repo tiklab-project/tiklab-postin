@@ -28,7 +28,7 @@ public class ApxMethodPo implements Serializable {
     @Column(name = "path",length = 256,notNull = true)
     private String path;
 
-    @Column(name = "desc",length = 256)
+    @Column(name = "description",length = 256)
     private String desc;
 
     @Column(name = "sort",length = 4)
