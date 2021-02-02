@@ -2,7 +2,7 @@ package com.darthcloud.apibox.generator;
 
 import com.darthcloud.apibox.node.entity.NodePo;
 import com.darthcloud.code.generator.CodeGeneratorTemplate;
-import com.darthcloud.code.generator.config.GeneratorConfigEnv;
+import com.darthcloud.code.generator.config.ProjectGeneratorConfig;
 import com.darthcloud.code.generator.config.ModuleGeneratorConfig;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,17 +11,17 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = GeneratorConfigEnv.class)
+@ContextConfiguration(classes = ProjectGeneratorConfig.class)
 public class NodeCodeGeneratorTest extends CodeGeneratorTemplate {
 
     @Autowired
-    GeneratorConfigEnv generatorConfigEnv;
+    ProjectGeneratorConfig projectGeneratorConfig;
 
     @Override
     protected ModuleGeneratorConfig getModuleGeneratorConfig() {
         ModuleGeneratorConfig config = new ModuleGeneratorConfig();
-        config.setGeneratorConfigEnv(generatorConfigEnv);
-        config.setMoudle("node");
+        config.setProjectGeneratorConfig(projectGeneratorConfig);
+        config.setPkg("com.darthcloud.apibox.node");
         config.setModel("Node");
         config.setModelPo(NodePo.class);
         return config;

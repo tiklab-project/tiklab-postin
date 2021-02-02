@@ -21,6 +21,12 @@ import com.darthcloud.apibox.apimock.jsonresponsemock.entity.JsonResponseMockPo;
 import com.darthcloud.apibox.apimock.jsonresponsemock.model.JsonResponseMock;
 import com.darthcloud.apibox.apimock.mock.entity.MockPo;
 import com.darthcloud.apibox.apimock.mock.model.Mock;
+import com.darthcloud.apibox.apimock.queryparammock.entity.QueryParamMockPo;
+import com.darthcloud.apibox.apimock.queryparammock.model.QueryParamMock;
+import com.darthcloud.apibox.apimock.requestheadermock.entity.RequestHeaderMockPo;
+import com.darthcloud.apibox.apimock.requestheadermock.model.RequestHeaderMock;
+import com.darthcloud.apibox.apimock.responseheadermock.entity.ResponseHeaderMockPo;
+import com.darthcloud.apibox.apimock.responseheadermock.model.ResponseHeaderMock;
 import com.darthcloud.apibox.category.entity.CategoryPo;
 import com.darthcloud.apibox.category.model.Category;
 import com.darthcloud.apibox.workspace.entity.WorkspacePo;
@@ -83,7 +89,10 @@ public class ApiboxAutoConfiguration {
                 "scripts/ResponseHeader.sql",
                 "scripts/JsonResponse.sql",
                 "scripts/Mock.sql",
+                "scripts/RequestHeaderMock.sql",
+                "scripts/QueryParamMock.sql",
                 "scripts/FormParamMock.sql",
+                "scripts/ResponseHeaderMock.sql",
                 "scripts/JsonResponseMock.sql"
 
         });
@@ -102,7 +111,10 @@ public class ApiboxAutoConfiguration {
                 .add(ResponseHeader.class, ResponseHeaderPo.class)
                 .add(JsonResponse.class, JsonResponsePo.class)
                 .add(Mock.class, MockPo.class)
+                .add(RequestHeaderMock.class, RequestHeaderMockPo.class)
+                .add(QueryParamMock.class, QueryParamMockPo.class)
                 .add(FormParamMock.class, FormParamMockPo.class)
+                .add(ResponseHeaderMock.class, ResponseHeaderMockPo.class)
                 .add(JsonResponseMock.class, JsonResponseMockPo.class)
         ;
         return new BeanIniter();
