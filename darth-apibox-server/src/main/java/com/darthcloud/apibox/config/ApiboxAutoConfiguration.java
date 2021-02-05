@@ -32,7 +32,7 @@ import com.darthcloud.apibox.category.model.Category;
 import com.darthcloud.apibox.workspace.entity.WorkspacePo;
 import com.darthcloud.apibox.workspace.model.Workspace;
 import com.darthcloud.beans.register.BeanMapperMetaRegister;
-import com.darthcloud.dal.DataInitializer;
+import com.darthcloud.dal.datainiter.DataInitializer;
 import com.darthcloud.dal.annotation.EnableDal;
 import com.darthcloud.dcs.client.annotation.EnableDcsClient;
 import com.darthcloud.dcs.server.annotation.EnableDcsServer;
@@ -40,10 +40,10 @@ import com.darthcloud.dfs.client.annotation.EnableDfsClient;
 import com.darthcloud.dfs.server.annotation.EnableDfsServer;
 import com.darthcloud.dss.client.annotation.EnableDssClient;
 import com.darthcloud.dss.server.annotation.EnableDssServer;
-import com.darthcloud.framework.annotation.EnableFramework;
 import com.darthcloud.orga.config.annotation.EnableOrgaServer;
 import com.darthcloud.rpc.client.annotation.EnableRpcClient;
 import com.darthcloud.rpc.server.annotation.EnableRpcServer;
+import com.darthcloud.service.annotation.EnableService;
 import com.darthcloud.web.annotation.EnableWeb;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,8 +57,8 @@ import javax.sql.DataSource;
 @Configuration
 @ConditionalOnProperty(name="apibox.server.enabled",havingValue = "true")
 //基础组件
-@EnableFramework
 @EnableWeb
+@EnableService
 @EnableRpcClient
 @EnableRpcServer
 @EnableDal
