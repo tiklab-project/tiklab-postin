@@ -2,7 +2,7 @@ package com.darthcloud.apibox.client.mock.mocker;
 
 import com.darthcloud.apibox.client.model.ApiPropertyMeta;
 import com.darthcloud.apibox.client.parser.ApiModelParser;
-import com.darthcloud.beans.BeanUtils;
+import com.darthcloud.utils.BeanUtils;
 import com.darthcloud.common.exception.DarthException;
 import com.darthcloud.apibox.annotation.ApiProperty;
 import com.darthcloud.apibox.client.mock.support.MockUtils;

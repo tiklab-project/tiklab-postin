@@ -47,10 +47,6 @@
     </dependency>
     <dependency>
       <groupId>com.darthcloud</groupId>
-      <artifactId>darth-framework-beans</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.darthcloud</groupId>
       <artifactId>darth-service-join</artifactId>
     </dependency>
     <dependency>

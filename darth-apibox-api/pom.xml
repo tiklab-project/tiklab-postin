@@ -24,7 +24,7 @@
         </dependency>
         <dependency>
             <groupId>com.darthcloud</groupId>
-            <artifactId>darth-framework-beans-annotation</artifactId>
+            <artifactId>darth-service-beans-annotation</artifactId>
         </dependency>
         <dependency>
             <groupId>com.darthcloud</groupId>

@@ -34,10 +34,11 @@
         <darth-join.version>1.0.0-SNAPSHOT</darth-join.version>
         <darth-code-generator.version>1.0.0-SNAPSHOT</darth-code-generator.version>
         <darth-web.version>1.0.0-SNAPSHOT</darth-web.version>
+        <darth-service.version>1.0.0-SNAPSHOT</darth-service.version>
         <darth-rpc.version>1.0.0-SNAPSHOT</darth-rpc.version>
         <darth-dal.version>1.0.0-SNAPSHOT</darth-dal.version>
         <darth-dfs.version>1.0.0-SNAPSHOT</darth-dfs.version>
-        <darth-cache.version>1.0.0-SNAPSHOT</darth-cache.version>
+        <darth-dcs.version>1.0.0-SNAPSHOT</darth-dcs.version>
         <darth-dss.version>1.0.0-SNAPSHOT</darth-dss.version>
         <darth-apibox.version>1.0.0-SNAPSHOT</darth-apibox.version>
     </properties>
@@ -47,7 +48,7 @@
             <!--darthcloud-->
             <dependency>
                 <groupId>com.darthcloud</groupId>
-                <artifactId>darth-framework-dependencies</artifactId>
+                <artifactId>darth-dependencies</artifactId>
                 <version>${darth-dependencies.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
@@ -74,12 +75,7 @@
             </dependency>
             <dependency>
                 <groupId>com.darthcloud</groupId>
-                <artifactId>darth-framework-beans-annotation</artifactId>
-                <version>${darth-beans.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.darthcloud</groupId>
-                <artifactId>darth-framework-beans</artifactId>
+                <artifactId>darth-service-beans-annotation</artifactId>
                 <version>${darth-beans.version}</version>
             </dependency>
             <dependency>
@@ -96,6 +92,11 @@
                 <groupId>com.darthcloud</groupId>
                 <artifactId>darth-web-spring-boot-starter</artifactId>
                 <version>${darth-web.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.darthcloud</groupId>
+                <artifactId>darth-service-spring-boot-starter</artifactId>
+                <version>${darth-service.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.darthcloud</groupId>
@@ -130,12 +131,12 @@
             <dependency>
                 <groupId>com.darthcloud</groupId>
                 <artifactId>darth-dcs-client-spring-boot-starter</artifactId>
-                <version>${darth-cache.version}</version>
+                <version>${darth-dcs.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.darthcloud</groupId>
                 <artifactId>darth-dcs-server-spring-boot-starter</artifactId>
-                <version>${darth-cache.version}</version>
+                <version>${darth-dcs.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.darthcloud</groupId>
