@@ -13,6 +13,11 @@
     <name>${project.artifactId}</name>
 
     <dependencies>
+        <!--common-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+        </dependency>
         <!--darthcloud-->
         <dependency>
             <groupId>com.darthcloud</groupId>
@@ -38,10 +43,6 @@
             <groupId>com.darthcloud</groupId>
             <artifactId>darth-dal-jpa-common</artifactId>
             <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
         </dependency>
     </dependencies>
 
