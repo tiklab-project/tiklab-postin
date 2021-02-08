@@ -1,20 +1,8 @@
 package com.darthcloud.apibox.config;
 
 
-import com.darthcloud.apibox.api.apidef.entity.ApxMethodPo;
-import com.darthcloud.apibox.api.apidef.model.ApxMethod;
-import com.darthcloud.apibox.api.apidef.entity.FormParamPo;
-import com.darthcloud.apibox.api.apidef.model.FormParam;
-import com.darthcloud.apibox.api.apidef.entity.JsonParamPo;
-import com.darthcloud.apibox.api.apidef.model.JsonParam;
-import com.darthcloud.apibox.api.apidef.entity.JsonResponsePo;
-import com.darthcloud.apibox.api.apidef.model.JsonResponse;
-import com.darthcloud.apibox.api.apidef.entity.QueryParamPo;
-import com.darthcloud.apibox.api.apidef.model.QueryParam;
-import com.darthcloud.apibox.api.apidef.entity.RequestHeaderPo;
-import com.darthcloud.apibox.api.apidef.model.RequestHeader;
-import com.darthcloud.apibox.api.apidef.entity.ResponseHeaderPo;
-import com.darthcloud.apibox.api.apidef.model.ResponseHeader;
+import com.darthcloud.apibox.api.apidef.entity.*;
+import com.darthcloud.apibox.api.apidef.model.*;
 import com.darthcloud.apibox.api.apimock.entity.FormParamMockPo;
 import com.darthcloud.apibox.api.apimock.model.FormParamMock;
 import com.darthcloud.apibox.api.apimock.entity.JsonResponseMockPo;
@@ -86,8 +74,12 @@ public class ApiboxAutoConfiguration {
                 "scripts/QueryParam.sql",
                 "scripts/FormParam.sql",
                 "scripts/JsonParam.sql",
+                "scripts/RawParam.sql",
+                "scripts/PreScript.sql",
+                "scripts/AfterScript.sql",
                 "scripts/ResponseHeader.sql",
                 "scripts/JsonResponse.sql",
+                "scripts/RawResponse.sql",
                 "scripts/Mock.sql",
                 "scripts/RequestHeaderMock.sql",
                 "scripts/QueryParamMock.sql",
@@ -108,8 +100,12 @@ public class ApiboxAutoConfiguration {
                 .add(QueryParam.class, QueryParamPo.class)
                 .add(FormParam.class, FormParamPo.class)
                 .add(JsonParam.class, JsonParamPo.class)
+                .add(RawParam.class, RawParamPo.class)
+                .add(PreScript.class, PreScriptPo.class)
+                .add(AfterScript.class, AfterScriptPo.class)
                 .add(ResponseHeader.class, ResponseHeaderPo.class)
                 .add(JsonResponse.class, JsonResponsePo.class)
+                .add(RawResponse.class, RawResponsePo.class)
                 .add(Mock.class, MockPo.class)
                 .add(RequestHeaderMock.class, RequestHeaderMockPo.class)
                 .add(QueryParamMock.class, QueryParamMockPo.class)

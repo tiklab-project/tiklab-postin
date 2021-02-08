@@ -1,6 +1,6 @@
-package com.darthcloud.apibox.generator;
+package com.darthcloud.apibox.generator.category;
 
-import com.darthcloud.apibox.api.apimock.entity.ResponseHeaderMockPo;
+import com.darthcloud.apibox.node.entity.NodePo;
 import com.darthcloud.code.generator.CodeGeneratorTemplate;
 import com.darthcloud.code.generator.config.ProjectGeneratorConfig;
 import com.darthcloud.code.generator.config.ModuleGeneratorConfig;
@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = ProjectGeneratorConfig.class)
-public class QueryParamMockCodeGeneratorTest extends CodeGeneratorTemplate {
+public class NodeCodeGeneratorTest extends CodeGeneratorTemplate {
 
     @Autowired
     ProjectGeneratorConfig projectGeneratorConfig;
@@ -21,9 +21,9 @@ public class QueryParamMockCodeGeneratorTest extends CodeGeneratorTemplate {
     protected ModuleGeneratorConfig getModuleGeneratorConfig() {
         ModuleGeneratorConfig config = new ModuleGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
-        config.setPkg("com.darthcloud.apibox.responseheadermock");
-        config.setModel("ResponseHeaderMock");
-        config.setModelPo(ResponseHeaderMockPo.class);
+        config.setPkg("com.darthcloud.apibox.node");
+        config.setModel("Node");
+        config.setModelPo(NodePo.class);
         return config;
     }
 

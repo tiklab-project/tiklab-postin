@@ -1,6 +1,6 @@
-package com.darthcloud.apibox.generator;
+package com.darthcloud.apibox.generator.api.apidef;
 
-import com.darthcloud.apibox.workspace.entity.WorkspacePo;
+import com.darthcloud.apibox.api.apidef.entity.QueryParamPo;
 import com.darthcloud.code.generator.CodeGeneratorTemplate;
 import com.darthcloud.code.generator.config.ProjectGeneratorConfig;
 import com.darthcloud.code.generator.config.ModuleGeneratorConfig;
@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = ProjectGeneratorConfig.class)
-public class WorkspaceCodeGeneratorTest extends CodeGeneratorTemplate {
+public class QueryParamCodeGeneratorTest extends CodeGeneratorTemplate {
 
     @Autowired
     ProjectGeneratorConfig projectGeneratorConfig;
@@ -21,9 +21,9 @@ public class WorkspaceCodeGeneratorTest extends CodeGeneratorTemplate {
     protected ModuleGeneratorConfig getModuleGeneratorConfig() {
         ModuleGeneratorConfig config = new ModuleGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
-        config.setPkg("com.darthcloud.project.workspace");
-        config.setModel("Workspace");
-        config.setModelPo(WorkspacePo.class);
+        config.setPkg("com.darthcloud.apibox.queryparam");
+        config.setModel("QueryParam");
+        config.setModelPo(QueryParamPo.class);
         return config;
     }
 

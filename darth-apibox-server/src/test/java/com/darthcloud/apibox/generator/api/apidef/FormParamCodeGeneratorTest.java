@@ -1,6 +1,6 @@
-package com.darthcloud.apibox.generator;
+package com.darthcloud.apibox.generator.api.apidef;
 
-import com.darthcloud.apibox.api.apimock.entity.JsonResponseMockPo;
+import com.darthcloud.apibox.api.apidef.entity.FormParamPo;
 import com.darthcloud.code.generator.CodeGeneratorTemplate;
 import com.darthcloud.code.generator.config.ProjectGeneratorConfig;
 import com.darthcloud.code.generator.config.ModuleGeneratorConfig;
@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = ProjectGeneratorConfig.class)
-public class JsonResponseMockCodeGeneratorTest extends CodeGeneratorTemplate {
+public class FormParamCodeGeneratorTest extends CodeGeneratorTemplate {
 
     @Autowired
     ProjectGeneratorConfig projectGeneratorConfig;
@@ -21,9 +21,9 @@ public class JsonResponseMockCodeGeneratorTest extends CodeGeneratorTemplate {
     protected ModuleGeneratorConfig getModuleGeneratorConfig() {
         ModuleGeneratorConfig config = new ModuleGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
-        config.setPkg("com.darthcloud.apibox.jsonresponsemock");
-        config.setModel("JsonResponseMock");
-        config.setModelPo(JsonResponseMockPo.class);
+        config.setPkg("com.darthcloud.apibox.formparam");
+        config.setModel("FormParam");
+        config.setModelPo(FormParamPo.class);
         return config;
     }
 
