@@ -17,8 +17,8 @@ public class AfterScriptPo implements Serializable {
     @Column(name = "method_id",length = 32,notNull = true)
     private String methodId;
 
-    @Column(name = "script",length = 2048,notNull = true)
-    private String script;
+    @Column(name = "scriptex",length = 2048,notNull = true)
+    private String scriptex;
 
     public String getId() {
         return id;
@@ -36,11 +36,11 @@ public class AfterScriptPo implements Serializable {
         this.methodId = methodId;
     }
 
-    public String getScript() {
-        return script;
+    public String getScriptex() {
+        return scriptex;
     }
 
-    public void setScript(String script) {
-        this.script = script;
+    public void setScriptex(String scriptex) {
+        this.scriptex = scriptex;
     }
 }
