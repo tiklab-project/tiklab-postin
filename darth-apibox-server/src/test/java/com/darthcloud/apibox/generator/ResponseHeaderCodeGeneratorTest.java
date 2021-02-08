@@ -1,6 +1,6 @@
 package com.darthcloud.apibox.generator;
 
-import com.darthcloud.apibox.apidef.responseheader.entity.ResponseHeaderPo;
+import com.darthcloud.apibox.api.apidef.entity.ResponseHeaderPo;
 import com.darthcloud.code.generator.CodeGeneratorTemplate;
 import com.darthcloud.code.generator.config.ProjectGeneratorConfig;
 import com.darthcloud.code.generator.config.ModuleGeneratorConfig;

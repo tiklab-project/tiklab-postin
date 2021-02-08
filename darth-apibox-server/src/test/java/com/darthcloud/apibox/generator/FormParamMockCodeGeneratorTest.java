@@ -1,6 +1,6 @@
 package com.darthcloud.apibox.generator;
 
-import com.darthcloud.apibox.apimock.formparammock.entity.FormParamMockPo;
+import com.darthcloud.apibox.api.apimock.entity.FormParamMockPo;
 import com.darthcloud.code.generator.CodeGeneratorTemplate;
 import com.darthcloud.code.generator.config.ProjectGeneratorConfig;
 import com.darthcloud.code.generator.config.ModuleGeneratorConfig;

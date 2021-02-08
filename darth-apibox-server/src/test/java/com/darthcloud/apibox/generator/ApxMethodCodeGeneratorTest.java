@@ -1,6 +1,6 @@
 package com.darthcloud.apibox.generator;
 
-import com.darthcloud.apibox.apidef.apxmethod.entity.ApxMethodPo;
+import com.darthcloud.apibox.api.apidef.entity.ApxMethodPo;
 import com.darthcloud.code.generator.CodeGeneratorTemplate;
 import com.darthcloud.code.generator.config.ProjectGeneratorConfig;
 import com.darthcloud.code.generator.config.ModuleGeneratorConfig;
