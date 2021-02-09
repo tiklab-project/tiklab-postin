@@ -3,18 +3,8 @@ package com.darthcloud.apibox.config;
 
 import com.darthcloud.apibox.api.apidef.entity.*;
 import com.darthcloud.apibox.api.apidef.model.*;
-import com.darthcloud.apibox.api.apimock.entity.FormParamMockPo;
-import com.darthcloud.apibox.api.apimock.model.FormParamMock;
-import com.darthcloud.apibox.api.apimock.entity.JsonResponseMockPo;
-import com.darthcloud.apibox.api.apimock.model.JsonResponseMock;
-import com.darthcloud.apibox.api.apimock.entity.MockPo;
-import com.darthcloud.apibox.api.apimock.model.Mock;
-import com.darthcloud.apibox.api.apimock.entity.QueryParamMockPo;
-import com.darthcloud.apibox.api.apimock.model.QueryParamMock;
-import com.darthcloud.apibox.api.apimock.entity.RequestHeaderMockPo;
-import com.darthcloud.apibox.api.apimock.model.RequestHeaderMock;
-import com.darthcloud.apibox.api.apimock.entity.ResponseHeaderMockPo;
-import com.darthcloud.apibox.api.apimock.model.ResponseHeaderMock;
+import com.darthcloud.apibox.api.apimock.entity.*;
+import com.darthcloud.apibox.api.apimock.model.*;
 import com.darthcloud.apibox.category.entity.CategoryPo;
 import com.darthcloud.apibox.category.model.Category;
 import com.darthcloud.apibox.workspace.entity.WorkspacePo;
@@ -85,7 +75,8 @@ public class ApiboxAutoConfiguration {
                 "scripts/QueryParamMock.sql",
                 "scripts/FormParamMock.sql",
                 "scripts/ResponseHeaderMock.sql",
-                "scripts/JsonResponseMock.sql"
+                "scripts/JsonResponseMock.sql",
+                "scripts/RawResponseMock.sql"
 
         });
     }
@@ -112,6 +103,7 @@ public class ApiboxAutoConfiguration {
                 .add(FormParamMock.class, FormParamMockPo.class)
                 .add(ResponseHeaderMock.class, ResponseHeaderMockPo.class)
                 .add(JsonResponseMock.class, JsonResponseMockPo.class)
+                .add(RawResponseMock.class, RawResponseMockPo.class)
         ;
         return new BeanIniter();
     }

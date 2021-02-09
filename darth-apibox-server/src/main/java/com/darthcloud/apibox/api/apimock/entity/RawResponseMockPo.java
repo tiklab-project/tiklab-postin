@@ -2,14 +2,13 @@ package com.darthcloud.apibox.api.apimock.entity;
 
 
 import com.darthcloud.dal.jpa.annotation.Column;
-import com.darthcloud.dal.jpa.annotation.GeneratorValue;
 import com.darthcloud.dal.jpa.annotation.Id;
 import com.darthcloud.dal.jpa.annotation.Table;
 
 import java.io.Serializable;
 
-@Table(name="apibox_response_header_mock")
-public class ResponseHeaderMockPo implements Serializable {
+@Table(name="apibox_raw_response_mock")
+public class RawResponseMockPo implements Serializable {
 
     @Id
     @Column(name = "id",length = 32)
