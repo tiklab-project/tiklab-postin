@@ -17,7 +17,7 @@ public class PreScriptPo implements Serializable {
     @Column(name = "method_id",length = 32,notNull = true)
     private String methodId;
 
-    @Column(name = "scriptex",length = 2048,notNull = true)
+    @Column(name = "script",length = 2048,notNull = true)
     private String scriptex;
 
     public String getId() {
