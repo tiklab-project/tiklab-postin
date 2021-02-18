@@ -30,7 +30,7 @@ public class JsonParam {
             @Mapping(source = "id",target = "methodId")
     })
     @JoinField(id = "id")
-    private ApxMethod method;
+    private MethodEx method;
 
     @NotNull
     @ApiProperty(name="paramName",desc="参数名称",eg="@text32",required = true)
@@ -64,11 +64,11 @@ public class JsonParam {
         this.id = id;
     }
 
-    public ApxMethod getMethod() {
+    public MethodEx getMethod() {
         return method;
     }
 
-    public void setMethod(ApxMethod method) {
+    public void setMethod(MethodEx method) {
         this.method = method;
     }
 

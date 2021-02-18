@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 
 @ApiModel
 @Join
-public class ApxMethod {
+public class MethodEx {
 
     @ApiProperty(name="id",desc="唯一ID")
     private java.lang.String id;

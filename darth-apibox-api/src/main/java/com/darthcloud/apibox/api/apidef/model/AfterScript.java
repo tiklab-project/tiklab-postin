@@ -22,7 +22,7 @@ public class AfterScript {
             @Mapping(source = "id",target = "methodId")
     })
     @JoinField(id = "id")
-    private ApxMethod method;
+    private MethodEx method;
 
     @NotNull
     @ApiProperty(name="scriptex",desc="后置脚本定义",required = true)
@@ -36,11 +36,11 @@ public class AfterScript {
         this.id = id;
     }
 
-    public ApxMethod getMethod() {
+    public MethodEx getMethod() {
         return method;
     }
 
-    public void setMethod(ApxMethod method) {
+    public void setMethod(MethodEx method) {
         this.method = method;
     }
 

@@ -1,6 +1,6 @@
 package com.darthcloud.apibox.api.apidef.service;
 
-import com.darthcloud.apibox.api.apidef.model.ApxMethod;
+import com.darthcloud.apibox.api.apidef.model.MethodEx;
 import com.darthcloud.apibox.client.mock.JMockit;
 import com.darthcloud.apibox.config.TestConfig;
 import org.junit.FixMethodOrder;
@@ -29,43 +29,43 @@ public class ApxMethodServiceImplTest {
     private static Logger logger = LoggerFactory.getLogger(ApxMethodServiceImplTest.class);
 
     @Autowired
-    ApxMethodService apxMethodService;
+    MethodService apxMethodService;
 
     static String id;
 
     @Test
     public void test01ForSaveApxMethod() {
-        ApxMethod apxMethod = JMockit.mock(ApxMethod.class);
+        MethodEx apxMethod = JMockit.mock(MethodEx.class);
 
-        id = apxMethodService.createApxMethod(apxMethod);
+        id = apxMethodService.createMethod(apxMethod);
 
         assertNotNull(id);
     }
 
     @Test
     public void test02ForUpdateApxMethod(){
-        ApxMethod apxMethod = JMockit.mock(ApxMethod.class);
+        MethodEx apxMethod = JMockit.mock(MethodEx.class);
         apxMethod.setId(id);
 
-        apxMethodService.updateApxMethod(apxMethod);
+        apxMethodService.updateMethod(apxMethod);
     }
 
     @Test
     public void test03ForFindApxMethod() {
-        ApxMethod apxMethod = apxMethodService.findApxMethod(id);
+        MethodEx apxMethod = apxMethodService.findMethod(id);
 
         assertNotNull(apxMethod);
     }
 
     @Test
     public void test04ForFindAllApxMethod() {
-        List<ApxMethod> apxMethodList = apxMethodService.findAllApxMethod();
+        List<MethodEx> apxMethodList = apxMethodService.findAllMethod();
 
         assertNotNull(apxMethodList);
     }
 
     @Test
     public void test05ForDeleteApxMethod(){
-        apxMethodService.deleteApxMethod(id);
+        apxMethodService.deleteMethod(id);
     }
 }

@@ -62,12 +62,14 @@ public class ApiboxAutoConfiguration {
                 "scripts/ApxMethod.sql",
                 "scripts/RequestHeader.sql",
                 "scripts/QueryParam.sql",
+                "scripts/RequestBody.sql",
                 "scripts/FormParam.sql",
                 "scripts/JsonParam.sql",
                 "scripts/RawParam.sql",
                 "scripts/PreScript.sql",
                 "scripts/AfterScript.sql",
                 "scripts/ResponseHeader.sql",
+                "scripts/ResponseResult.sql",
                 "scripts/JsonResponse.sql",
                 "scripts/RawResponse.sql",
                 "scripts/Mock.sql",
@@ -86,15 +88,17 @@ public class ApiboxAutoConfiguration {
         BeanMapperMetaRegister.getInstance()
                 .add(Workspace.class, WorkspacePo.class)
                 .add(Category.class, CategoryPo.class)
-                .add(ApxMethod.class, ApxMethodPo.class)
+                .add(MethodEx.class, MethodPo.class)
                 .add(RequestHeader.class, RequestHeaderPo.class)
                 .add(QueryParam.class, QueryParamPo.class)
+                .add(RequestBodyEx.class, RequestBodyPo.class)
                 .add(FormParam.class, FormParamPo.class)
                 .add(JsonParam.class, JsonParamPo.class)
                 .add(RawParam.class, RawParamPo.class)
                 .add(PreScript.class, PreScriptPo.class)
                 .add(AfterScript.class, AfterScriptPo.class)
                 .add(ResponseHeader.class, ResponseHeaderPo.class)
+                .add(ResponseResult.class, ResponseResultPo.class)
                 .add(JsonResponse.class, JsonResponsePo.class)
                 .add(RawResponse.class, RawResponsePo.class)
                 .add(Mock.class, MockPo.class)

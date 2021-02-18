@@ -2,8 +2,8 @@ package com.darthcloud.apibox.api.apidef.service;
 
 import com.darthcloud.common.Pagination;
 
-import com.darthcloud.apibox.api.apidef.model.ApxMethod;
-import com.darthcloud.apibox.api.apidef.model.ApxMethodQuery;
+import com.darthcloud.apibox.api.apidef.model.MethodEx;
+import com.darthcloud.apibox.api.apidef.model.MethodExQuery;
 import com.darthcloud.join.annotation.Provider;
 import com.darthcloud.join.annotation.QueryAll;
 import com.darthcloud.join.annotation.QueryOne;
@@ -15,27 +15,27 @@ import java.util.List;
 /**
 * 用户服务接口
 */
-@Provider(model = ApxMethod.class)
-public interface ApxMethodService {
+@Provider(model = MethodEx.class)
+public interface MethodService {
 
     /**
     * 创建用户
-    * @param apxMethod
+    * @param methodEx
     * @return
     */
-    String createApxMethod(@NotNull @Valid ApxMethod apxMethod);
+    String createMethod(@NotNull @Valid MethodEx methodEx);
 
     /**
     * 更新用户
-    * @param apxMethod
+    * @param methodEx
     */
-    void updateApxMethod(@NotNull @Valid ApxMethod apxMethod);
+    void updateMethod(@NotNull @Valid MethodEx methodEx);
 
     /**
     * 删除用户
     * @param id
     */
-    void deleteApxMethod(@NotNull String id);
+    void deleteMethod(@NotNull String id);
 
     /**
     * 查找用户
@@ -43,27 +43,27 @@ public interface ApxMethodService {
     * @return
     */
     @QueryOne
-    ApxMethod findApxMethod(@NotNull String id);
+    MethodEx findMethod(@NotNull String id);
 
     /**
     * 查找所有
     * @return
     */
     @QueryAll
-    List<ApxMethod> findAllApxMethod();
+    List<MethodEx> findAllMethod();
 
     /**
     * 查询列表
-    * @param apxMethodQuery
+    * @param methodExQuery
     * @return
     */
-    List<ApxMethod> findApxMethodList(ApxMethodQuery apxMethodQuery);
+    List<MethodEx> findMethodList(MethodExQuery methodExQuery);
 
     /**
     * 按分页查询
-    * @param apxMethodQuery
+    * @param methodExQuery
     * @return
     */
-    Pagination<List<ApxMethod>> findApxMethodPage(ApxMethodQuery apxMethodQuery);
+    Pagination<List<MethodEx>> findMethodPage(MethodExQuery methodExQuery);
 
 }

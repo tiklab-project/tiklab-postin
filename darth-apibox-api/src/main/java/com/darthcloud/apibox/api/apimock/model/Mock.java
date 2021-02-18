@@ -2,7 +2,7 @@ package com.darthcloud.apibox.api.apimock.model;
 
 import com.darthcloud.apibox.annotation.ApiModel;
 import com.darthcloud.apibox.annotation.ApiProperty;
-import com.darthcloud.apibox.api.apidef.model.ApxMethod;
+import com.darthcloud.apibox.api.apidef.model.MethodEx;
 import com.darthcloud.beans.annotation.Mapping;
 import com.darthcloud.beans.annotation.Mappings;
 import com.darthcloud.join.annotation.JoinField;
@@ -21,7 +21,7 @@ public class Mock {
             @Mapping(source = "id",target = "methodId")
     })
     @JoinField(id = "id")
-    private ApxMethod method;
+    private MethodEx method;
 
     @NotNull
     @ApiProperty(name="name",desc="mock名称",required = true)
@@ -38,11 +38,11 @@ public class Mock {
         this.id = id;
     }
 
-    public ApxMethod getMethod() {
+    public MethodEx getMethod() {
         return method;
     }
 
-    public void setMethod(ApxMethod method) {
+    public void setMethod(MethodEx method) {
         this.method = method;
     }
 

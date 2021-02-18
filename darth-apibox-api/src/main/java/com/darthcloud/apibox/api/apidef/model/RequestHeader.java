@@ -2,7 +2,6 @@ package com.darthcloud.apibox.api.apidef.model;
 
 import com.darthcloud.apibox.annotation.ApiModel;
 import com.darthcloud.apibox.annotation.ApiProperty;
-import com.darthcloud.apibox.api.apidef.model.ApxMethod;
 import com.darthcloud.beans.annotation.Mapping;
 import com.darthcloud.beans.annotation.Mappings;
 import com.darthcloud.join.annotation.JoinField;
@@ -21,7 +20,7 @@ public class RequestHeader {
             @Mapping(source = "id",target = "methodId")
     })
     @JoinField(id = "id")
-    private ApxMethod method;
+    private MethodEx method;
 
     @NotNull
     @ApiProperty(name="headerName",desc="请求头名称",eg="@text32",required = true)
@@ -48,11 +47,11 @@ public class RequestHeader {
         this.id = id;
     }
 
-    public ApxMethod getMethod() {
+    public MethodEx getMethod() {
         return method;
     }
 
-    public void setMethod(ApxMethod method) {
+    public void setMethod(MethodEx method) {
         this.method = method;
     }
 

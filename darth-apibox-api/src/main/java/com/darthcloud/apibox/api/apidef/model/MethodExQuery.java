@@ -13,7 +13,7 @@ import java.util.List;
 
 @ApiModel
 @CriteriaQuery
-public class ApxMethodQuery {
+public class MethodExQuery {
 
     @ApiProperty(name ="categoryId",desc = "分类ID，精确匹配")
     @QueryField(type = QueryTypeEnum.equal)

@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.darthcloud.common.Result;
 import com.darthcloud.apibox.client.mock.JMockit;
 import com.darthcloud.apibox.config.TestConfig;
-import com.darthcloud.apibox.api.apidef.model.ApxMethod;
+import com.darthcloud.apibox.api.apidef.model.MethodEx;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -57,7 +57,7 @@ public class ApxMethodControllerTest {
 
     @Test
     public void test01ForSaveApxMethod() {
-        ApxMethod apxMethod = JMockit.mock(ApxMethod.class);
+        MethodEx apxMethod = JMockit.mock(MethodEx.class);
 
         Map paramMap  = JSONObject.parseObject(JSONObject.toJSONString(apxMethod));
         MultiValueMap<String, String> multiValueMap = new LinkedMultiValueMap<>();
@@ -84,7 +84,7 @@ public class ApxMethodControllerTest {
 
     @Test
     public void test02ForUpdateApxMethod(){
-        ApxMethod apxMethod = JMockit.mock(ApxMethod.class);
+        MethodEx apxMethod = JMockit.mock(MethodEx.class);
         apxMethod.setId(id);
 
         Map paramMap  = JSONObject.parseObject(JSONObject.toJSONString(apxMethod));
