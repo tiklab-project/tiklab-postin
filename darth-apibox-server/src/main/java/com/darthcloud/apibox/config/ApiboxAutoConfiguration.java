@@ -76,7 +76,9 @@ public class ApiboxAutoConfiguration {
                 "scripts/RequestHeaderMock.sql",
                 "scripts/QueryParamMock.sql",
                 "scripts/FormParamMock.sql",
+                "scripts/ResponseMock.sql",
                 "scripts/ResponseHeaderMock.sql",
+                "scripts/ResponseResultMock.sql",
                 "scripts/JsonResponseMock.sql",
                 "scripts/RawResponseMock.sql"
 
@@ -105,7 +107,9 @@ public class ApiboxAutoConfiguration {
                 .add(RequestHeaderMock.class, RequestHeaderMockPo.class)
                 .add(QueryParamMock.class, QueryParamMockPo.class)
                 .add(FormParamMock.class, FormParamMockPo.class)
+                .add(ResponseMock.class, ResponseMockPo.class)
                 .add(ResponseHeaderMock.class, ResponseHeaderMockPo.class)
+                .add(ResponseResultMock.class, ResponseResultMockPo.class)
                 .add(JsonResponseMock.class, JsonResponseMockPo.class)
                 .add(RawResponseMock.class, RawResponseMockPo.class)
         ;
