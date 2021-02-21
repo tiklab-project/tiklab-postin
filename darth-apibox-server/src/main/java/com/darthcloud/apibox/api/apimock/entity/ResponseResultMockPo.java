@@ -17,8 +17,8 @@ public class ResponseResultMockPo implements Serializable {
     @Column(name = "mock_id",length = 32,notNull = true)
     private String mockId;
 
-    @Column(name = "http_code",length = 32,notNull = true)
-    private String httpCode;
+    @Column(name = "result_type",length = 32,notNull = true)
+    private String resultType;
 
     public String getId() {
         return id;
@@ -36,11 +36,11 @@ public class ResponseResultMockPo implements Serializable {
         this.mockId = mockId;
     }
 
-    public String getHttpCode() {
-        return httpCode;
+    public String getResultType() {
+        return resultType;
     }
 
-    public void setHttpCode(String httpCode) {
-        this.httpCode = httpCode;
+    public void setResultType(String resultType) {
+        this.resultType = resultType;
     }
 }
