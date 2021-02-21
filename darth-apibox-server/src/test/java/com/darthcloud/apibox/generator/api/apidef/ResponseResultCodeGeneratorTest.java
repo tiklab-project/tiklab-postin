@@ -1,6 +1,6 @@
 package com.darthcloud.apibox.generator.api.apidef;
 
-import com.darthcloud.apibox.api.apidef.entity.ResponseResultPo;
+import com.darthcloud.apibox.apidef.entity.ResponseResultPo;
 import com.darthcloud.code.generator.CodeGeneratorTemplate;
 import com.darthcloud.code.generator.config.ModuleGeneratorConfig;
 import com.darthcloud.code.generator.config.ProjectGeneratorConfig;
@@ -21,7 +21,7 @@ public class ResponseResultCodeGeneratorTest extends CodeGeneratorTemplate {
     protected ModuleGeneratorConfig getModuleGeneratorConfig() {
         ModuleGeneratorConfig config = new ModuleGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
-        config.setPkg("com.darthcloud.apibox.api.apidef");
+        config.setPkg("com.darthcloud.apibox.apidef");
         config.setModel("ResponseResult");
         config.setModelPo(ResponseResultPo.class);
         return config;

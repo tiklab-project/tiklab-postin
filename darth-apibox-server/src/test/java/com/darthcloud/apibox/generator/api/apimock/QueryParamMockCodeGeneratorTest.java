@@ -1,6 +1,6 @@
 package com.darthcloud.apibox.generator.api.apimock;
 
-import com.darthcloud.apibox.api.apimock.entity.ResponseHeaderMockPo;
+import com.darthcloud.apibox.apimock.entity.ResponseHeaderMockPo;
 import com.darthcloud.code.generator.CodeGeneratorTemplate;
 import com.darthcloud.code.generator.config.ProjectGeneratorConfig;
 import com.darthcloud.code.generator.config.ModuleGeneratorConfig;

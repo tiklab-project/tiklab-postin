@@ -1,10 +1,10 @@
 package com.darthcloud.apibox.config;
 
 
-import com.darthcloud.apibox.api.apidef.entity.*;
-import com.darthcloud.apibox.api.apidef.model.*;
-import com.darthcloud.apibox.api.apimock.entity.*;
-import com.darthcloud.apibox.api.apimock.model.*;
+import com.darthcloud.apibox.apidef.entity.*;
+import com.darthcloud.apibox.apidef.model.*;
+import com.darthcloud.apibox.apimock.entity.*;
+import com.darthcloud.apibox.apimock.model.*;
 import com.darthcloud.apibox.category.entity.CategoryPo;
 import com.darthcloud.apibox.category.model.Category;
 import com.darthcloud.apibox.workspace.entity.WorkspacePo;

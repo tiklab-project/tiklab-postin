@@ -1,7 +1,6 @@
 package com.darthcloud.apibox.generator.api.apidef;
 
-import com.darthcloud.apibox.api.apidef.entity.RawParamPo;
-import com.darthcloud.apibox.api.apidef.entity.RawResponsePo;
+import com.darthcloud.apibox.apidef.entity.RawResponsePo;
 import com.darthcloud.code.generator.CodeGeneratorTemplate;
 import com.darthcloud.code.generator.config.ModuleGeneratorConfig;
 import com.darthcloud.code.generator.config.ProjectGeneratorConfig;
@@ -22,7 +21,7 @@ public class RawResponseCodeGeneratorTest extends CodeGeneratorTemplate {
     protected ModuleGeneratorConfig getModuleGeneratorConfig() {
         ModuleGeneratorConfig config = new ModuleGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
-        config.setPkg("com.darthcloud.apibox.api.apidef");
+        config.setPkg("com.darthcloud.apibox.apidef");
         config.setModel("RawResponse");
         config.setModelPo(RawResponsePo.class);
         return config;

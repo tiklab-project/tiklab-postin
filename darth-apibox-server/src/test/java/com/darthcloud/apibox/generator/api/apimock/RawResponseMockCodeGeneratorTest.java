@@ -1,7 +1,6 @@
 package com.darthcloud.apibox.generator.api.apimock;
 
-import com.darthcloud.apibox.api.apimock.entity.JsonResponseMockPo;
-import com.darthcloud.apibox.api.apimock.entity.RawResponseMockPo;
+import com.darthcloud.apibox.apimock.entity.RawResponseMockPo;
 import com.darthcloud.code.generator.CodeGeneratorTemplate;
 import com.darthcloud.code.generator.config.ModuleGeneratorConfig;
 import com.darthcloud.code.generator.config.ProjectGeneratorConfig;
@@ -22,7 +21,7 @@ public class RawResponseMockCodeGeneratorTest extends CodeGeneratorTemplate {
     protected ModuleGeneratorConfig getModuleGeneratorConfig() {
         ModuleGeneratorConfig config = new ModuleGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
-        config.setPkg("com.darthcloud.apibox.api.apimock");
+        config.setPkg("com.darthcloud.apibox.apimock");
         config.setModel("RawResponseMock");
         config.setModelPo(RawResponseMockPo.class);
         return config;
