@@ -5,8 +5,8 @@ import com.darthcloud.common.Pagination;
 import com.darthcloud.apibox.category.model.Category;
 import com.darthcloud.apibox.category.model.CategoryQuery;
 import com.darthcloud.join.annotation.Provider;
-import com.darthcloud.join.annotation.QueryAll;
-import com.darthcloud.join.annotation.QueryOne;
+import com.darthcloud.join.annotation.FindAll;
+import com.darthcloud.join.annotation.FindOne;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -42,14 +42,14 @@ public interface CategoryService {
     * @param id
     * @return
     */
-    @QueryOne
+    @FindOne
     Category findCategory(@NotNull String id);
 
     /**
     * 查找所有
     * @return
     */
-    @QueryAll
+    @FindAll
     List<Category> findAllCategory();
 
     /**

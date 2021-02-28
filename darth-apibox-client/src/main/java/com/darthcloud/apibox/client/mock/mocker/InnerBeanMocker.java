@@ -40,7 +40,7 @@ public class InnerBeanMocker {
     }
 
     static Object selectOne(Class<?> paramType){
-        List<?> list = joinProvider.queryAll(paramType);
+        List<?> list = joinProvider.findAll(paramType);
         if(list == null || list.size()==0){
             return null;
         }
