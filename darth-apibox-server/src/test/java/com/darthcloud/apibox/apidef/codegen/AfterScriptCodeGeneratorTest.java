@@ -1,9 +1,9 @@
-package com.darthcloud.apibox.generator.workspace;
+package com.darthcloud.apibox.apidef.codegen;
 
-import com.darthcloud.apibox.workspace.entity.WorkspacePo;
+import com.darthcloud.apibox.apidef.entity.AfterScriptPo;
 import com.darthcloud.code.generator.CodeGeneratorTemplate;
-import com.darthcloud.code.generator.config.ProjectGeneratorConfig;
 import com.darthcloud.code.generator.config.ModuleGeneratorConfig;
+import com.darthcloud.code.generator.config.ProjectGeneratorConfig;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = ProjectGeneratorConfig.class)
-public class WorkspaceCodeGeneratorTest extends CodeGeneratorTemplate {
+public class AfterScriptCodeGeneratorTest extends CodeGeneratorTemplate {
 
     @Autowired
     ProjectGeneratorConfig projectGeneratorConfig;
@@ -21,9 +21,9 @@ public class WorkspaceCodeGeneratorTest extends CodeGeneratorTemplate {
     protected ModuleGeneratorConfig getModuleGeneratorConfig() {
         ModuleGeneratorConfig config = new ModuleGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
-        config.setPkg("com.darthcloud.project.workspace");
-        config.setModel("Workspace");
-        config.setModelPo(WorkspacePo.class);
+        config.setPkg("com.darthcloud.apibox.apidef");
+        config.setModel("AfterScript");
+        config.setModelPo(AfterScriptPo.class);
         return config;
     }
 

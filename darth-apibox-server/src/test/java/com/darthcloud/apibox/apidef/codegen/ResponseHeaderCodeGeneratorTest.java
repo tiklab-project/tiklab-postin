@@ -1,6 +1,6 @@
-package com.darthcloud.apibox.generator.category;
+package com.darthcloud.apibox.apidef.codegen;
 
-import com.darthcloud.apibox.category.entity.CategoryPo;
+import com.darthcloud.apibox.apidef.entity.ResponseHeaderPo;
 import com.darthcloud.code.generator.CodeGeneratorTemplate;
 import com.darthcloud.code.generator.config.ProjectGeneratorConfig;
 import com.darthcloud.code.generator.config.ModuleGeneratorConfig;
@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = ProjectGeneratorConfig.class)
-public class CategoryCodeGeneratorTest extends CodeGeneratorTemplate {
+public class ResponseHeaderCodeGeneratorTest extends CodeGeneratorTemplate {
 
     @Autowired
     ProjectGeneratorConfig projectGeneratorConfig;
@@ -21,9 +21,9 @@ public class CategoryCodeGeneratorTest extends CodeGeneratorTemplate {
     protected ModuleGeneratorConfig getModuleGeneratorConfig() {
         ModuleGeneratorConfig config = new ModuleGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
-        config.setPkg("com.darthcloud.apibox.category");
-        config.setModel("Category");
-        config.setModelPo(CategoryPo.class);
+        config.setPkg("com.darthcloud.apibox.responseheader");
+        config.setModel("ResponseHeader");
+        config.setModelPo(ResponseHeaderPo.class);
         return config;
     }
 

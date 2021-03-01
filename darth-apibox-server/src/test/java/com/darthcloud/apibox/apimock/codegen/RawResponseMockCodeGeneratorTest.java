@@ -1,4 +1,4 @@
-package com.darthcloud.apibox.generator.api.apimock;
+package com.darthcloud.apibox.apimock.codegen;
 
 import com.darthcloud.apibox.apimock.entity.RawResponseMockPo;
 import com.darthcloud.code.generator.CodeGeneratorTemplate;

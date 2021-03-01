@@ -1,6 +1,6 @@
-package com.darthcloud.apibox.generator.api.apidef;
+package com.darthcloud.apibox.apidef.codegen;
 
-import com.darthcloud.apibox.apidef.entity.MethodPo;
+import com.darthcloud.apibox.apidef.entity.QueryParamPo;
 import com.darthcloud.code.generator.CodeGeneratorTemplate;
 import com.darthcloud.code.generator.config.ProjectGeneratorConfig;
 import com.darthcloud.code.generator.config.ModuleGeneratorConfig;
@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = ProjectGeneratorConfig.class)
-public class ApxMethodCodeGeneratorTest extends CodeGeneratorTemplate {
+public class QueryParamCodeGeneratorTest extends CodeGeneratorTemplate {
 
     @Autowired
     ProjectGeneratorConfig projectGeneratorConfig;
@@ -21,9 +21,9 @@ public class ApxMethodCodeGeneratorTest extends CodeGeneratorTemplate {
     protected ModuleGeneratorConfig getModuleGeneratorConfig() {
         ModuleGeneratorConfig config = new ModuleGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
-        config.setPkg("com.darthcloud.apibox.apxmethod");
-        config.setModel("ApxMethod");
-        config.setModelPo(MethodPo.class);
+        config.setPkg("com.darthcloud.apibox.queryparam");
+        config.setModel("QueryParam");
+        config.setModelPo(QueryParamPo.class);
         return config;
     }
 

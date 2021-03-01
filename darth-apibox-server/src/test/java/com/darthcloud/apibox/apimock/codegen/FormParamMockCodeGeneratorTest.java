@@ -1,9 +1,9 @@
-package com.darthcloud.apibox.generator.api.apidef;
+package com.darthcloud.apibox.apimock.codegen;
 
-import com.darthcloud.apibox.apidef.entity.RawResponsePo;
+import com.darthcloud.apibox.apimock.entity.FormParamMockPo;
 import com.darthcloud.code.generator.CodeGeneratorTemplate;
-import com.darthcloud.code.generator.config.ModuleGeneratorConfig;
 import com.darthcloud.code.generator.config.ProjectGeneratorConfig;
+import com.darthcloud.code.generator.config.ModuleGeneratorConfig;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = ProjectGeneratorConfig.class)
-public class RawResponseCodeGeneratorTest extends CodeGeneratorTemplate {
+public class FormParamMockCodeGeneratorTest extends CodeGeneratorTemplate {
 
     @Autowired
     ProjectGeneratorConfig projectGeneratorConfig;
@@ -21,9 +21,9 @@ public class RawResponseCodeGeneratorTest extends CodeGeneratorTemplate {
     protected ModuleGeneratorConfig getModuleGeneratorConfig() {
         ModuleGeneratorConfig config = new ModuleGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
-        config.setPkg("com.darthcloud.apibox.apidef");
-        config.setModel("RawResponse");
-        config.setModelPo(RawResponsePo.class);
+        config.setPkg("com.darthcloud.apibox.formparammock");
+        config.setModel("FormParamMock");
+        config.setModelPo(FormParamMockPo.class);
         return config;
     }
 

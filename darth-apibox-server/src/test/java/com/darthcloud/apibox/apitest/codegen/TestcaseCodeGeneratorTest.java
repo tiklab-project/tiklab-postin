@@ -1,9 +1,9 @@
-package com.darthcloud.apibox.generator.api.apimock;
+package com.darthcloud.apibox.apitest.codegen;
 
-import com.darthcloud.apibox.apimock.entity.ResponseHeaderMockPo;
+import com.darthcloud.apibox.apitest.entity.TestcasePo;
 import com.darthcloud.code.generator.CodeGeneratorTemplate;
-import com.darthcloud.code.generator.config.ProjectGeneratorConfig;
 import com.darthcloud.code.generator.config.ModuleGeneratorConfig;
+import com.darthcloud.code.generator.config.ProjectGeneratorConfig;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = ProjectGeneratorConfig.class)
-public class QueryParamMockCodeGeneratorTest extends CodeGeneratorTemplate {
+public class TestcaseCodeGeneratorTest extends CodeGeneratorTemplate {
 
     @Autowired
     ProjectGeneratorConfig projectGeneratorConfig;
@@ -21,9 +21,9 @@ public class QueryParamMockCodeGeneratorTest extends CodeGeneratorTemplate {
     protected ModuleGeneratorConfig getModuleGeneratorConfig() {
         ModuleGeneratorConfig config = new ModuleGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
-        config.setPkg("com.darthcloud.apibox.responseheadermock");
-        config.setModel("ResponseHeaderMock");
-        config.setModelPo(ResponseHeaderMockPo.class);
+        config.setPkg("com.darthcloud.apibox.apitest");
+        config.setModel("Testcase");
+        config.setModelPo(TestcasePo.class);
         return config;
     }
 

@@ -1,6 +1,6 @@
-package com.darthcloud.apibox.generator.category;
+package com.darthcloud.apibox.apidef.codegen;
 
-import com.darthcloud.apibox.node.entity.NodePo;
+import com.darthcloud.apibox.apidef.entity.FormParamPo;
 import com.darthcloud.code.generator.CodeGeneratorTemplate;
 import com.darthcloud.code.generator.config.ProjectGeneratorConfig;
 import com.darthcloud.code.generator.config.ModuleGeneratorConfig;
@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = ProjectGeneratorConfig.class)
-public class NodeCodeGeneratorTest extends CodeGeneratorTemplate {
+public class FormParamCodeGeneratorTest extends CodeGeneratorTemplate {
 
     @Autowired
     ProjectGeneratorConfig projectGeneratorConfig;
@@ -21,9 +21,9 @@ public class NodeCodeGeneratorTest extends CodeGeneratorTemplate {
     protected ModuleGeneratorConfig getModuleGeneratorConfig() {
         ModuleGeneratorConfig config = new ModuleGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
-        config.setPkg("com.darthcloud.apibox.node");
-        config.setModel("Node");
-        config.setModelPo(NodePo.class);
+        config.setPkg("com.darthcloud.apibox.formparam");
+        config.setModel("FormParam");
+        config.setModelPo(FormParamPo.class);
         return config;
     }
 

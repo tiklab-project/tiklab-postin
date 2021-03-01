@@ -1,9 +1,9 @@
-package com.darthcloud.apibox.generator.api.apidef;
+package com.darthcloud.apibox.apimock.codegen;
 
-import com.darthcloud.apibox.apidef.entity.RequestBodyPo;
+import com.darthcloud.apibox.apimock.entity.JsonResponseMockPo;
 import com.darthcloud.code.generator.CodeGeneratorTemplate;
-import com.darthcloud.code.generator.config.ModuleGeneratorConfig;
 import com.darthcloud.code.generator.config.ProjectGeneratorConfig;
+import com.darthcloud.code.generator.config.ModuleGeneratorConfig;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = ProjectGeneratorConfig.class)
-public class RequestBodyCodeGeneratorTest extends CodeGeneratorTemplate {
+public class JsonResponseMockCodeGeneratorTest extends CodeGeneratorTemplate {
 
     @Autowired
     ProjectGeneratorConfig projectGeneratorConfig;
@@ -21,9 +21,9 @@ public class RequestBodyCodeGeneratorTest extends CodeGeneratorTemplate {
     protected ModuleGeneratorConfig getModuleGeneratorConfig() {
         ModuleGeneratorConfig config = new ModuleGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
-        config.setPkg("com.darthcloud.apibox.apidef");
-        config.setModel("RequestBody");
-        config.setModelPo(RequestBodyPo.class);
+        config.setPkg("com.darthcloud.apibox.jsonresponsemock");
+        config.setModel("JsonResponseMock");
+        config.setModelPo(JsonResponseMockPo.class);
         return config;
     }
 

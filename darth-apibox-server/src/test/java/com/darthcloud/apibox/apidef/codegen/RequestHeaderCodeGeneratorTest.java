@@ -1,6 +1,6 @@
-package com.darthcloud.apibox.generator.api.apimock;
+package com.darthcloud.apibox.apidef.codegen;
 
-import com.darthcloud.apibox.apimock.entity.FormParamMockPo;
+import com.darthcloud.apibox.apidef.entity.RequestHeaderPo;
 import com.darthcloud.code.generator.CodeGeneratorTemplate;
 import com.darthcloud.code.generator.config.ProjectGeneratorConfig;
 import com.darthcloud.code.generator.config.ModuleGeneratorConfig;
@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = ProjectGeneratorConfig.class)
-public class FormParamMockCodeGeneratorTest extends CodeGeneratorTemplate {
+public class RequestHeaderCodeGeneratorTest extends CodeGeneratorTemplate {
 
     @Autowired
     ProjectGeneratorConfig projectGeneratorConfig;
@@ -21,9 +21,9 @@ public class FormParamMockCodeGeneratorTest extends CodeGeneratorTemplate {
     protected ModuleGeneratorConfig getModuleGeneratorConfig() {
         ModuleGeneratorConfig config = new ModuleGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
-        config.setPkg("com.darthcloud.apibox.formparammock");
-        config.setModel("FormParamMock");
-        config.setModelPo(FormParamMockPo.class);
+        config.setPkg("com.darthcloud.apibox.requestheader");
+        config.setModel("RequestHeader");
+        config.setModelPo(RequestHeaderPo.class);
         return config;
     }
 
