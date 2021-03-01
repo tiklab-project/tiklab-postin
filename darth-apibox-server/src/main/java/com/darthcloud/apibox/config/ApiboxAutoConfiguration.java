@@ -5,13 +5,15 @@ import com.darthcloud.apibox.apidef.entity.*;
 import com.darthcloud.apibox.apidef.model.*;
 import com.darthcloud.apibox.apimock.entity.*;
 import com.darthcloud.apibox.apimock.model.*;
+import com.darthcloud.apibox.apitest.entity.*;
+import com.darthcloud.apibox.apitest.model.*;
 import com.darthcloud.apibox.category.entity.CategoryPo;
 import com.darthcloud.apibox.category.model.Category;
 import com.darthcloud.apibox.workspace.entity.WorkspacePo;
 import com.darthcloud.apibox.workspace.model.Workspace;
 import com.darthcloud.beans.register.BeanMapperMetaRegister;
-import com.darthcloud.dal.datainiter.DataInitializer;
 import com.darthcloud.dal.annotation.EnableDal;
+import com.darthcloud.dal.datainiter.DataInitializer;
 import com.darthcloud.dcs.client.annotation.EnableDcsClient;
 import com.darthcloud.dcs.server.annotation.EnableDcsServer;
 import com.darthcloud.dfs.client.annotation.EnableDfsClient;
@@ -37,9 +39,9 @@ import javax.sql.DataSource;
 //基础组件
 @EnableWeb
 @EnableService
+@EnableDal
 @EnableRpcClient
 @EnableRpcServer
-@EnableDal
 @EnableDfsClient
 @EnableDfsServer
 @EnableDcsClient
@@ -80,7 +82,13 @@ public class ApiboxAutoConfiguration {
                 "scripts/ResponseHeaderMock.sql",
                 "scripts/ResponseResultMock.sql",
                 "scripts/JsonResponseMock.sql",
-                "scripts/RawResponseMock.sql"
+                "scripts/RawResponseMock.sql",
+                "scripts/Testcase.sql",
+                "scripts/RequestHeaderCase.sql",
+                "scripts/QueryParamCase.sql",
+                "scripts/FormParamCase.sql",
+                "scripts/JsonParamCase.sql",
+                "scripts/RawParamCase.sql"
 
         });
     }
@@ -112,6 +120,12 @@ public class ApiboxAutoConfiguration {
                 .add(ResponseResultMock.class, ResponseResultMockPo.class)
                 .add(JsonResponseMock.class, JsonResponseMockPo.class)
                 .add(RawResponseMock.class, RawResponseMockPo.class)
+                .add(Testcase.class, TestcasePo.class)
+                .add(RequestHeaderCase.class, RequestHeaderCasePo.class)
+                .add(QueryParamCase.class, QueryParamCasePo.class)
+                .add(FormParamCase.class, FormParamCasePo.class)
+                .add(JsonParamCase.class, JsonParamCasePo.class)
+                .add(RawParamCase.class, RawParamCasePo.class)
         ;
         return new BeanIniter();
     }
