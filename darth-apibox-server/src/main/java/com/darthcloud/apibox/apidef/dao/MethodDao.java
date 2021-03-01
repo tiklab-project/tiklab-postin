@@ -64,6 +64,10 @@ public class MethodDao {
         return jpaTemplate.findAll(MethodPo.class);
     }
 
+    public List<MethodPo> findMethodList(List<String> idList) {
+        return jpaTemplate.findList(MethodPo.class,idList);
+    }
+
     public List<MethodPo> findMethodList(MethodExQuery methodExQuery) {
         return jpaTemplate.createCriteria(MethodPo.class).params(methodExQuery).list();
     }

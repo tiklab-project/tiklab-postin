@@ -64,6 +64,10 @@ public class MockDao{
         return jpaTemplate.findAll(MockPo.class);
     }
 
+    public List<MockPo> findMockList(List<String> idList) {
+        return jpaTemplate.findList(MockPo.class,idList);
+    }
+
     public List<MockPo> findMockList(MockQuery mockQuery) {
         return jpaTemplate.createCriteria(MockPo.class).params(mockQuery).list();
     }

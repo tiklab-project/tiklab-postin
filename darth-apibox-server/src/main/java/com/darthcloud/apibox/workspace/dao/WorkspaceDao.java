@@ -64,6 +64,10 @@ public class WorkspaceDao{
         return jpaTemplate.findAll(WorkspacePo.class);
     }
 
+    public List<WorkspacePo> findWorkspaceList(List<String> idList) {
+        return jpaTemplate.findList(WorkspacePo.class,idList);
+    }
+
     public List<WorkspacePo> findWorkspaceList(WorkspaceQuery workspaceQuery) {
         return jpaTemplate.createCriteria(WorkspacePo.class)
                 .params(workspaceQuery)

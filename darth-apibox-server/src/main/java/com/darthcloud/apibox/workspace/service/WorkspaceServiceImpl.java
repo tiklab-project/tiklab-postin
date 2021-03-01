@@ -45,10 +45,22 @@ public class WorkspaceServiceImpl implements WorkspaceService {
     }
 
     @Override
-    public Workspace findWorkspace(@NotNull String id) {
+    public Workspace findOne(String id) {
         WorkspacePo workspacePo = workspaceDao.findWorkspace(id);
 
         return BeanMapper.map(workspacePo, Workspace.class);
+    }
+
+    @Override
+    public List<Workspace> findList(List<String> idList) {
+        List<WorkspacePo> workspacePoList =  workspaceDao.findWorkspaceList(idList);
+
+        return BeanMapper.mapList(workspacePoList,Workspace.class);
+    }
+
+    @Override
+    public Workspace findWorkspace(@NotNull String id) {
+        return findOne(id);
     }
 
     @Override

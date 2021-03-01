@@ -4,6 +4,7 @@ import com.darthcloud.common.Pagination;
 
 import com.darthcloud.apibox.category.model.Category;
 import com.darthcloud.apibox.category.model.CategoryQuery;
+import com.darthcloud.join.annotation.FindList;
 import com.darthcloud.join.annotation.Provider;
 import com.darthcloud.join.annotation.FindAll;
 import com.darthcloud.join.annotation.FindOne;
@@ -37,12 +38,17 @@ public interface CategoryService {
     */
     void deleteCategory(@NotNull String id);
 
+    @FindOne
+    Category findOne(@NotNull String id);
+
+    @FindList
+    List<Category> findList(List<String> idList);
+
     /**
     * 查找用户
     * @param id
     * @return
     */
-    @FindOne
     Category findCategory(@NotNull String id);
 
     /**

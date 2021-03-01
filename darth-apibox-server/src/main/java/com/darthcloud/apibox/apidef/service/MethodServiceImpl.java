@@ -49,13 +49,26 @@ public class MethodServiceImpl implements MethodService {
     }
 
     @Override
-    public MethodEx findMethod(@NotNull String id) {
+    public MethodEx findOne(String id) {
         MethodPo methodPo = methodDao.findMethod(id);
 
         MethodEx methodEx = BeanMapper.map(methodPo, MethodEx.class);
+        return methodEx;
+    }
+
+    @Override
+    public List<MethodEx> findList(List<String> idList) {
+        List<MethodPo> methodPoList =  methodDao.findMethodList(idList);
+
+        List<MethodEx> methodExList = BeanMapper.mapList(methodPoList, MethodEx.class);
+        return methodExList;
+    }
+
+    @Override
+    public MethodEx findMethod(@NotNull String id) {
+        MethodEx methodEx = findOne(id);
 
         joinQuery.queryOne(methodEx);
-
         return methodEx;
     }
 

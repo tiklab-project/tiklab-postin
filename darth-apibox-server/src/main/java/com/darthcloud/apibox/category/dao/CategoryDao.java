@@ -56,6 +56,10 @@ public class CategoryDao{
         return jpaTemplate.findOne(CategoryPo.class,id);
     }
 
+    public List<CategoryPo> findCategoryList(List<String> idList) {
+        return jpaTemplate.findList(CategoryPo.class,idList);
+    }
+
     /**
     * findAllCategory
     * @return

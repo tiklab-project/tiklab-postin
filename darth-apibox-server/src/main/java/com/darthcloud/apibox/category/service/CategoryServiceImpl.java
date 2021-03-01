@@ -68,13 +68,26 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category findCategory(@NotNull String id) {
+    public Category findOne(String id) {
         CategoryPo categoryPo = categoryDao.findCategory(id);
 
         Category category = BeanMapper.map(categoryPo, Category.class);
+        return category;
+    }
+
+    @Override
+    public List<Category> findList(List<String> idList) {
+        List<CategoryPo> categoryPoList =  categoryDao.findCategoryList(idList);
+
+        List<Category> categoryList = BeanMapper.mapList(categoryPoList,Category.class);
+        return categoryList;
+    }
+
+    @Override
+    public Category findCategory(@NotNull String id) {
+        Category category = findOne(id);
 
         joinQuery.queryOne(category);
-
         return category;
     }
 

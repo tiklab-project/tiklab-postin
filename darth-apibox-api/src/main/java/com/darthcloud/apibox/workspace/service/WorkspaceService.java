@@ -4,6 +4,7 @@ import com.darthcloud.apibox.workspace.model.WorkspaceQuery;
 import com.darthcloud.common.Pagination;
 
 import com.darthcloud.apibox.workspace.model.Workspace;
+import com.darthcloud.join.annotation.FindList;
 import com.darthcloud.join.annotation.Provider;
 import com.darthcloud.join.annotation.FindAll;
 import com.darthcloud.join.annotation.FindOne;
@@ -37,12 +38,17 @@ public interface WorkspaceService {
     */
     void deleteWorkspace(@NotNull String id);
 
+    @FindOne
+    Workspace findOne(@NotNull String id);
+
+    @FindList
+    List<Workspace> findList(List<String> idList);
+
     /**
     * 查找用户
     * @param id
     * @return
     */
-    @FindOne
     Workspace findWorkspace(@NotNull String id);
 
     /**

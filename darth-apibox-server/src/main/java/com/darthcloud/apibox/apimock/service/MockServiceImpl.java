@@ -49,13 +49,26 @@ public class MockServiceImpl implements MockService {
     }
 
     @Override
-    public Mock findMock(@NotNull String id) {
+    public Mock findOne(String id) {
         MockPo mockPo = mockDao.findMock(id);
 
         Mock mock = BeanMapper.map(mockPo, Mock.class);
+        return mock;
+    }
+
+    @Override
+    public List<Mock> findList(List<String> idList) {
+        List<MockPo> mockPoList =  mockDao.findMockList(idList);
+
+        List<Mock> mockList =  BeanMapper.mapList(mockPoList,Mock.class);
+        return mockList;
+    }
+
+    @Override
+    public Mock findMock(@NotNull String id) {
+        Mock mock = findOne(id);
 
         joinQuery.queryOne(mock);
-
         return mock;
     }
 

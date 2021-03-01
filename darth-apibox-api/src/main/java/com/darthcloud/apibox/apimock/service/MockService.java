@@ -4,6 +4,7 @@ import com.darthcloud.common.Pagination;
 
 import com.darthcloud.apibox.apimock.model.Mock;
 import com.darthcloud.apibox.apimock.model.MockQuery;
+import com.darthcloud.join.annotation.FindList;
 import com.darthcloud.join.annotation.Provider;
 import com.darthcloud.join.annotation.FindAll;
 import com.darthcloud.join.annotation.FindOne;
@@ -37,12 +38,17 @@ public interface MockService {
     */
     void deleteMock(@NotNull String id);
 
+    @FindOne
+    Mock findOne(@NotNull String id);
+
+    @FindList
+    List<Mock> findList(List<String> idList);
+
     /**
     * 查找用户
     * @param id
     * @return
     */
-    @FindOne
     Mock findMock(@NotNull String id);
 
     /**

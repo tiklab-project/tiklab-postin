@@ -4,6 +4,7 @@ import com.darthcloud.common.Pagination;
 
 import com.darthcloud.apibox.apidef.model.MethodEx;
 import com.darthcloud.apibox.apidef.model.MethodExQuery;
+import com.darthcloud.join.annotation.FindList;
 import com.darthcloud.join.annotation.Provider;
 import com.darthcloud.join.annotation.FindAll;
 import com.darthcloud.join.annotation.FindOne;
@@ -37,12 +38,17 @@ public interface MethodService {
     */
     void deleteMethod(@NotNull String id);
 
+    @FindOne
+    MethodEx findOne(@NotNull String id);
+
+    @FindList
+    List<MethodEx> findList(List<String> idList);
+
     /**
     * 查找用户
     * @param id
     * @return
     */
-    @FindOne
     MethodEx findMethod(@NotNull String id);
 
     /**
