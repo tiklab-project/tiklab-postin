@@ -50,13 +50,28 @@ public class JsonParamServiceImpl implements JsonParamService {
     }
 
     @Override
-    public JsonParam findJsonParam(@NotNull String id) {
+    public JsonParam findOne(String id) {
         JsonParamPo jsonParamPo = jsonParamDao.findJsonParam(id);
 
         JsonParam jsonParam = BeanMapper.map(jsonParamPo, JsonParam.class);
+        return jsonParam;
+    }
+
+    @Override
+    public List<JsonParam> findList(List<String> idList) {
+        List<JsonParamPo> jsonParamPoList =  jsonParamDao.findJsonParamList(idList);
+
+        List<JsonParam> jsonParamList = BeanMapper.mapList(jsonParamPoList,JsonParam.class);
+
+        joinQuery.queryList(jsonParamList);
+        return jsonParamList;
+    }
+
+    @Override
+    public JsonParam findJsonParam(@NotNull String id) {
+        JsonParam jsonParam = findOne(id);
 
         joinQuery.queryOne(jsonParam);
-
         return jsonParam;
     }
 
@@ -67,7 +82,6 @@ public class JsonParamServiceImpl implements JsonParamService {
         List<JsonParam> jsonParamList = BeanMapper.mapList(jsonParamPoList,JsonParam.class);
 
         joinQuery.queryList(jsonParamList);
-
         return jsonParamList;
     }
 

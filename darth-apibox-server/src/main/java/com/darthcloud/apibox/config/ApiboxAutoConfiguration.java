@@ -31,6 +31,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.sql.DataSource;
 
@@ -86,9 +87,13 @@ public class ApiboxAutoConfiguration {
                 "scripts/Testcase.sql",
                 "scripts/RequestHeaderCase.sql",
                 "scripts/QueryParamCase.sql",
+                "scripts/RequestBodyCase.sql",
                 "scripts/FormParamCase.sql",
                 "scripts/JsonParamCase.sql",
-                "scripts/RawParamCase.sql"
+                "scripts/RawParamCase.sql",
+                "scripts/PreScriptCase.sql",
+                "scripts/AfterScriptCase.sql",
+                "scripts/AssertCase.sql"
 
         });
     }
@@ -123,9 +128,13 @@ public class ApiboxAutoConfiguration {
                 .add(Testcase.class, TestcasePo.class)
                 .add(RequestHeaderCase.class, RequestHeaderCasePo.class)
                 .add(QueryParamCase.class, QueryParamCasePo.class)
+                .add(RequestBodyCase.class, RequestBodyCasePo.class)
                 .add(FormParamCase.class, FormParamCasePo.class)
                 .add(JsonParamCase.class, JsonParamCasePo.class)
                 .add(RawParamCase.class, RawParamCasePo.class)
+                .add(PreScriptCase.class, PreScriptCasePo.class)
+                .add(AfterScriptCase.class, AfterScriptCasePo.class)
+                .add(AssertCase.class,AssertCasePo.class)
         ;
         return new BeanIniter();
     }

@@ -64,6 +64,10 @@ public class JsonParamDao{
         return jpaTemplate.findAll(JsonParamPo.class);
     }
 
+    public List<JsonParamPo> findJsonParamList(List<String> idList) {
+        return jpaTemplate.findList(JsonParamPo.class,idList);
+    }
+
     public List<JsonParamPo> findJsonParamList(JsonParamQuery jsonParamQuery) {
         return jpaTemplate.createCriteria(JsonParamPo.class).params(jsonParamQuery).list();
     }

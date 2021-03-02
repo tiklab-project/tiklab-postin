@@ -4,6 +4,7 @@ import com.darthcloud.common.Pagination;
 
 import com.darthcloud.apibox.apidef.model.JsonParam;
 import com.darthcloud.apibox.apidef.model.JsonParamQuery;
+import com.darthcloud.join.annotation.FindList;
 import com.darthcloud.join.annotation.Provider;
 import com.darthcloud.join.annotation.FindAll;
 import com.darthcloud.join.annotation.FindOne;
@@ -37,12 +38,17 @@ public interface JsonParamService {
     */
     void deleteJsonParam(@NotNull String id);
 
+    @FindOne
+    JsonParam findOne(@NotNull String id);
+
+    @FindList
+    List<JsonParam> findList(List<String> idList);
+
     /**
     * 查找用户
     * @param id
     * @return
     */
-    @FindOne
     JsonParam findJsonParam(@NotNull String id);
 
     /**
