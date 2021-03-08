@@ -27,7 +27,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/queryParamMock")
-@Api(name = "QueryParamMockController",desc = "查询参数mock管理")
+@Api(name = "QueryParamMockController",desc = "接口mock-查询参数管理")
 public class QueryParamMockController {
 
     private static Logger logger = LoggerFactory.getLogger(QueryParamMockController.class);

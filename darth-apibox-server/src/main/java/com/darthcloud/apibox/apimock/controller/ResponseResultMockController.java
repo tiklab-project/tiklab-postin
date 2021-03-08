@@ -27,7 +27,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/responseResultMock")
-@Api(name = "ResponseResultMockController",desc = "返回结果mock管理")
+@Api(name = "ResponseResultMockController",desc = "接口mock-返回结果管理")
 public class ResponseResultMockController {
 
     private static Logger logger = LoggerFactory.getLogger(ResponseResultMockController.class);

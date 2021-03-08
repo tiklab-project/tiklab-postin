@@ -12,7 +12,6 @@ import java.io.Serializable;
 public class AfterScriptCasePo implements Serializable {
 
     @Id
-    @GeneratorValue
     @Column(name = "id",length = 32)
     private String id;
 

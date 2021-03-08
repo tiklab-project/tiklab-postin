@@ -99,4 +99,14 @@ public class JsonParamCaseController {
         return Result.ok(pagination);
     }
 
+    @Validator
+    @RequestMapping(path = "/findJsonParamCaseListTree",method = RequestMethod.POST)
+    @ApiMethod(name = "findJsonParamCaseListTree",desc = "findJsonParamCaseListTree")
+    @ApiParam(name = "jsonParamCaseQuery",desc = "jsonParamCaseQuery",required = true)
+    public Result<List<JsonParamCase>> findJsonParamCaseListTree(@RequestBody @Valid @NotNull JsonParamCaseQuery jsonParamCaseQuery){
+        List<JsonParamCase> jsonParamCaseList = jsonParamCaseService.findJsonParamCaseListTree(jsonParamCaseQuery);
+
+        return Result.ok(jsonParamCaseList);
+    }
+
 }

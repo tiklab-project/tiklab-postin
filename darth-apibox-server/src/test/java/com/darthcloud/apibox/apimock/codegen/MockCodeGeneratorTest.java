@@ -21,7 +21,7 @@ public class MockCodeGeneratorTest extends CodeGeneratorTemplate {
     protected ModuleGeneratorConfig getModuleGeneratorConfig() {
         ModuleGeneratorConfig config = new ModuleGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
-        config.setPkg("com.darthcloud.apibox.mock");
+        config.setPkg("com.darthcloud.apibox.apimock");
         config.setModel("Mock");
         config.setModelPo(MockPo.class);
         return config;

@@ -4,6 +4,9 @@ import com.darthcloud.common.Pagination;
 
 import com.darthcloud.apibox.apitest.model.JsonParamCase;
 import com.darthcloud.apibox.apitest.model.JsonParamCaseQuery;
+import com.darthcloud.join.annotation.FindList;
+import com.darthcloud.join.annotation.FindOne;
+import com.darthcloud.join.annotation.Provider;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -12,6 +15,7 @@ import java.util.List;
 /**
 * 用户服务接口
 */
+@Provider(model = JsonParamCase.class)
 public interface JsonParamCaseService {
 
     /**
@@ -33,8 +37,10 @@ public interface JsonParamCaseService {
     */
     void deleteJsonParamCase(@NotNull String id);
 
+    @FindOne
     JsonParamCase findOne(@NotNull String id);
 
+    @FindList
     List<JsonParamCase> findList(List<String> idList);
 
     /**
@@ -63,5 +69,12 @@ public interface JsonParamCaseService {
     * @return
     */
     Pagination<List<JsonParamCase>> findJsonParamCasePage(JsonParamCaseQuery jsonParamCaseQuery);
+
+    /**
+     * 查询列表树
+     * @param jsonParamCaseQuery
+     * @return
+     */
+    List<JsonParamCase> findJsonParamCaseListTree(JsonParamCaseQuery jsonParamCaseQuery);
 
 }

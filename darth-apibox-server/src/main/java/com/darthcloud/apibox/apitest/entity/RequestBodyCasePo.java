@@ -12,7 +12,6 @@ import java.io.Serializable;
 public class RequestBodyCasePo implements Serializable {
 
     @Id
-    @GeneratorValue
     @Column(name = "id",length = 32)
     private String id;
 

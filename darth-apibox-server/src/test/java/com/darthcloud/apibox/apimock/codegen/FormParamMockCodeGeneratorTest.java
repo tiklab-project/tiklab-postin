@@ -21,7 +21,7 @@ public class FormParamMockCodeGeneratorTest extends CodeGeneratorTemplate {
     protected ModuleGeneratorConfig getModuleGeneratorConfig() {
         ModuleGeneratorConfig config = new ModuleGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
-        config.setPkg("com.darthcloud.apibox.formparammock");
+        config.setPkg("com.darthcloud.apibox.apimock");
         config.setModel("FormParamMock");
         config.setModelPo(FormParamMockPo.class);
         return config;

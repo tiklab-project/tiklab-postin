@@ -21,7 +21,7 @@ public class QueryParamMockCodeGeneratorTest extends CodeGeneratorTemplate {
     protected ModuleGeneratorConfig getModuleGeneratorConfig() {
         ModuleGeneratorConfig config = new ModuleGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
-        config.setPkg("com.darthcloud.apibox.responseheadermock");
+        config.setPkg("com.darthcloud.apibox.apimock");
         config.setModel("ResponseHeaderMock");
         config.setModelPo(ResponseHeaderMockPo.class);
         return config;

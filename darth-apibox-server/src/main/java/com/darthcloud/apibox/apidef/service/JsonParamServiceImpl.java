@@ -105,8 +105,8 @@ public class JsonParamServiceImpl implements JsonParamService {
 
         //设置下级节点列表
         if(topJsonParamList != null && topJsonParamList.size() > 0){
-            for(JsonParam jsonParam:topJsonParamList){
-                setChildren(matchJsonParamList,jsonParam);
+            for(JsonParam topJsonParam:topJsonParamList){
+                setChildren(matchJsonParamList,topJsonParam);
             }
         }
 
@@ -139,13 +139,11 @@ public class JsonParamServiceImpl implements JsonParamService {
             parentJsonParam.setChildren(childList);
 
             //设置下级节点列表
-            for(JsonParam jsonParam:childList){
-                setChildren(matchJsonParamList,jsonParam);
+            for(JsonParam childJsonParam:childList){
+                setChildren(matchJsonParamList,childJsonParam);
             }
         }
     }
-
-
 
     @Override
     public Pagination<List<JsonParam>> findJsonParamPage(JsonParamQuery jsonParamQuery) {

@@ -25,18 +25,21 @@ public class AssertCase {
     private Testcase testcase;
 
     @NotNull
-    @ApiProperty(name="propertyName",desc="属性名称",required = true)
+    @ApiProperty(name="source",desc="来源,1:状态码;2:请求头;3:请求体",required = true)
+    private Integer source;
+
+    @ApiProperty(name="propertyName",desc="属性名称")
     private java.lang.String propertyName;
 
-    @NotNull
-    @ApiProperty(name="dataType",desc="数据类型",required = true)
+    @ApiProperty(name="dataType",desc="数据类型")
     private java.lang.String dataType;
 
     @NotNull
     @ApiProperty(name="comparator",desc="比较符",required = true)
     private java.lang.String comparator;
 
-    @ApiProperty(name="value",desc="值")
+    @NotNull
+    @ApiProperty(name="value",desc="值",required = true)
     private java.lang.String value;
 
     @ApiProperty(name="sort",desc="排序")
@@ -96,5 +99,13 @@ public class AssertCase {
 
     public void setSort(Integer sort) {
         this.sort = sort;
+    }
+
+    public Integer getSource() {
+        return source;
+    }
+
+    public void setSource(Integer source) {
+        this.source = source;
     }
 }

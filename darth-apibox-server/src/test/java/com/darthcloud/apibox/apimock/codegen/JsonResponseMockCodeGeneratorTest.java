@@ -21,7 +21,7 @@ public class JsonResponseMockCodeGeneratorTest extends CodeGeneratorTemplate {
     protected ModuleGeneratorConfig getModuleGeneratorConfig() {
         ModuleGeneratorConfig config = new ModuleGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
-        config.setPkg("com.darthcloud.apibox.jsonresponsemock");
+        config.setPkg("com.darthcloud.apibox.apimock");
         config.setModel("JsonResponseMock");
         config.setModelPo(JsonResponseMockPo.class);
         return config;

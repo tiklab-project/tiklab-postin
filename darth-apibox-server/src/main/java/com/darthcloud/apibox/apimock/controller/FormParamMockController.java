@@ -27,7 +27,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/formParamMock")
-@Api(name = "FormParamMockController",desc = "FormParamMock管理")
+@Api(name = "FormParamMockController",desc = "接口mock-Form参数管理")
 public class FormParamMockController {
 
     private static Logger logger = LoggerFactory.getLogger(FormParamMockController.class);

@@ -27,7 +27,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/rawResponseMock")
-@Api(name = "RawResponseMockController",desc = "Raw(自定义文本)响应mock管理")
+@Api(name = "RawResponseMockController",desc = "接口mock-Raw(自定义文本)响应管理")
 public class RawResponseMockController {
 
     private static Logger logger = LoggerFactory.getLogger(RawResponseMockController.class);

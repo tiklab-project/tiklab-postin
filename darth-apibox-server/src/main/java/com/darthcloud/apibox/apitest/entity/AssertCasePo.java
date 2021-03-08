@@ -19,10 +19,13 @@ public class AssertCasePo implements Serializable {
     @Column(name = "testcase_id",length = 32,notNull = true)
     private String testcaseId;
 
-    @Column(name = "property_name",length = 64,notNull = true)
+    @Column(name = "source")
+    private Integer source;
+
+    @Column(name = "property_name",length = 64)
     private String propertyName;
 
-    @Column(name = "data_type",length = 32,notNull = true)
+    @Column(name = "data_type",length = 32)
     private String dataType;
 
     @Column(name = "comparator",length = 32,notNull = true)
@@ -88,5 +91,13 @@ public class AssertCasePo implements Serializable {
 
     public void setSort(Integer sort) {
         this.sort = sort;
+    }
+
+    public Integer getSource() {
+        return source;
+    }
+
+    public void setSource(Integer source) {
+        this.source = source;
     }
 }

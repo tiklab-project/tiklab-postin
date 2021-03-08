@@ -2,12 +2,15 @@ package com.darthcloud.apibox.apitest.model;
 
 import com.darthcloud.apibox.annotation.ApiModel;
 import com.darthcloud.apibox.annotation.ApiProperty;
+import com.darthcloud.apibox.apidef.model.JsonParam;
 import com.darthcloud.beans.annotation.Mapping;
 import com.darthcloud.beans.annotation.Mappings;
+import com.darthcloud.dal.jpa.annotation.Column;
 import com.darthcloud.join.annotation.Join;
 import com.darthcloud.join.annotation.JoinField;
 
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @ApiModel
 @Join
@@ -15,6 +18,14 @@ public class JsonParamCase {
 
     @ApiProperty(name="id",desc="唯一标识")
     private java.lang.String id;
+
+
+    @ApiProperty(name="parent",desc="上级参数")
+    @Mappings({
+            @Mapping(source = "id",target = "parentId")
+    })
+    @JoinField(id = "id")
+    private JsonParamCase parent;
 
     @NotNull
     @ApiProperty(name="mock",desc="所属接口用例",required = true)
@@ -37,6 +48,9 @@ public class JsonParamCase {
 
     @ApiProperty(name="sort",desc="排序")
     private java.lang.Integer sort;
+
+    @ApiProperty(name="children",desc="子节点列表")
+    private List<JsonParamCase> children;
 
     public String getId() {
         return id;
@@ -86,4 +100,19 @@ public class JsonParamCase {
         this.sort = sort;
     }
 
+    public JsonParamCase getParent() {
+        return parent;
+    }
+
+    public void setParent(JsonParamCase parent) {
+        this.parent = parent;
+    }
+
+    public List<JsonParamCase> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<JsonParamCase> children) {
+        this.children = children;
+    }
 }

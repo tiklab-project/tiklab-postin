@@ -78,7 +78,9 @@ public class ApiboxAutoConfiguration {
                 "scripts/Mock.sql",
                 "scripts/RequestHeaderMock.sql",
                 "scripts/QueryParamMock.sql",
+                "scripts/RequestBodyMock.sql",
                 "scripts/FormParamMock.sql",
+                "scripts/JsonParamMock.sql",
                 "scripts/ResponseMock.sql",
                 "scripts/ResponseHeaderMock.sql",
                 "scripts/ResponseResultMock.sql",
@@ -93,7 +95,11 @@ public class ApiboxAutoConfiguration {
                 "scripts/RawParamCase.sql",
                 "scripts/PreScriptCase.sql",
                 "scripts/AfterScriptCase.sql",
-                "scripts/AssertCase.sql"
+                "scripts/AssertCase.sql",
+                "scripts/TestInstance.sql",
+                "scripts/RequestInstance.sql",
+                "scripts/ResponseInstance.sql",
+                "scripts/AssertInstance.sql"
 
         });
     }
@@ -119,7 +125,9 @@ public class ApiboxAutoConfiguration {
                 .add(Mock.class, MockPo.class)
                 .add(RequestHeaderMock.class, RequestHeaderMockPo.class)
                 .add(QueryParamMock.class, QueryParamMockPo.class)
+                .add(RequestBodyMock.class, RequestBodyMockPo.class)
                 .add(FormParamMock.class, FormParamMockPo.class)
+                .add(JsonParamMock.class, JsonParamMockPo.class)
                 .add(ResponseMock.class, ResponseMockPo.class)
                 .add(ResponseHeaderMock.class, ResponseHeaderMockPo.class)
                 .add(ResponseResultMock.class, ResponseResultMockPo.class)
@@ -135,6 +143,10 @@ public class ApiboxAutoConfiguration {
                 .add(PreScriptCase.class, PreScriptCasePo.class)
                 .add(AfterScriptCase.class, AfterScriptCasePo.class)
                 .add(AssertCase.class,AssertCasePo.class)
+                .add(TestInstance.class,TestInstancePo.class)
+                .add(RequestInstance.class,RequestInstancePo.class)
+                .add(ResponseInstance.class,ResponseInstancePo.class)
+                .add(AssertInstance.class,AssertInstancePo.class)
         ;
         return new BeanIniter();
     }

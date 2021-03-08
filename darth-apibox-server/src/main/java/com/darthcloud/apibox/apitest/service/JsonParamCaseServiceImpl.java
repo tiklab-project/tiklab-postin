@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.BeanUtils;
 
@@ -107,4 +108,55 @@ public class JsonParamCaseServiceImpl implements JsonParamCaseService {
         pg.setDataList(jsonParamCaseList);
         return pg;
     }
+
+    @Override
+    public List<JsonParamCase> findJsonParamCaseListTree(JsonParamCaseQuery jsonParamCaseQuery) {
+        //查找所有参数列表
+        List<JsonParamCase> matchJsonParamCaseList = this.findJsonParamCaseList(jsonParamCaseQuery);
+
+        //查找第一级参数列表
+        List<JsonParamCase> topJsonParamCaseList = findTopJsonParamCaseList(matchJsonParamCaseList);
+
+        //设置下级节点列表
+        if(topJsonParamCaseList != null && topJsonParamCaseList.size() > 0){
+            for(JsonParamCase topJsonParamCase:topJsonParamCaseList){
+                setChildren(matchJsonParamCaseList,topJsonParamCase);
+            }
+        }
+
+        return topJsonParamCaseList;
+    }
+
+    /**
+     * 查找第一级参数列表
+     * @param matchJsonParamCaseList
+     * @return
+     */
+    List<JsonParamCase> findTopJsonParamCaseList(List<JsonParamCase> matchJsonParamCaseList) {
+        List<JsonParamCase> jsonParamCaseList = matchJsonParamCaseList.stream()
+                .filter(jsonParamCase -> (jsonParamCase.getParent() == null || jsonParamCase.getParent().getId() == null))
+                .collect(Collectors.toList());
+        return jsonParamCaseList;
+    }
+
+    /**
+     * 设置下级节点列表
+     * @param matchJsonParamCaseList
+     * @param parentJsonParamCase
+     */
+    void setChildren(List<JsonParamCase> matchJsonParamCaseList,JsonParamCase parentJsonParamCase){
+        List<JsonParamCase> childList = matchJsonParamCaseList.stream()
+                .filter(jsonParamCase -> (jsonParamCase.getParent() != null && jsonParamCase.getParent().getId() != null && jsonParamCase.getParent().getId().equals(parentJsonParamCase.getId())))
+                .collect(Collectors.toList());
+
+        if(childList != null && childList.size() > 0){
+            parentJsonParamCase.setChildren(childList);
+
+            //设置下级节点列表
+            for(JsonParamCase childJsonParamCase:childList){
+                setChildren(matchJsonParamCaseList,childJsonParamCase);
+            }
+        }
+    }
+
 }
