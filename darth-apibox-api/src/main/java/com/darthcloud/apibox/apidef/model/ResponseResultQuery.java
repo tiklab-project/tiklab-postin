@@ -1,6 +1,6 @@
 package com.darthcloud.apibox.apidef.model;
 
-import com.darthcloud.dal.jpa.criteria.annotation.*;
+import com.darthcloud.dal.jpa.annotation.criteria.CriteriaQuery;
 import com.darthcloud.apibox.annotation.ApiModel;
 
 @ApiModel

@@ -1,8 +1,8 @@
 package com.darthcloud.apibox.apitest.dao;
 
-import com.darthcloud.common.Pagination;
 import com.darthcloud.apibox.apitest.entity.FormParamCasePo;
 import com.darthcloud.apibox.apitest.model.FormParamCaseQuery;
+import com.darthcloud.common.Pagination;
 import com.darthcloud.dal.jpa.JpaTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -69,10 +69,10 @@ public class FormParamCaseDao{
     }
 
     public List<FormParamCasePo> findFormParamCaseList(FormParamCaseQuery formParamCaseQuery) {
-        return jpaTemplate.createCriteria(FormParamCasePo.class).params(formParamCaseQuery).list();
+        return jpaTemplate.findList(FormParamCasePo.class,formParamCaseQuery);
     }
 
     public Pagination<List<FormParamCasePo>> findFormParamCasePage(FormParamCaseQuery formParamCaseQuery) { 
-        return jpaTemplate.createCriteria(FormParamCasePo.class).params(formParamCaseQuery).page();
+        return jpaTemplate.findPage(FormParamCasePo.class,formParamCaseQuery);
     }
 }

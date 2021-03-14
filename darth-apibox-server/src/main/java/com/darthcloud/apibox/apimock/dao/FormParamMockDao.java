@@ -1,8 +1,8 @@
 package com.darthcloud.apibox.apimock.dao;
 
-import com.darthcloud.common.Pagination;
 import com.darthcloud.apibox.apimock.entity.FormParamMockPo;
 import com.darthcloud.apibox.apimock.model.FormParamMockQuery;
+import com.darthcloud.common.Pagination;
 import com.darthcloud.dal.jpa.JpaTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -65,10 +65,10 @@ public class FormParamMockDao{
     }
 
     public List<FormParamMockPo> findFormParamMockList(FormParamMockQuery formParamMockQuery) {
-        return jpaTemplate.createCriteria(FormParamMockPo.class).params(formParamMockQuery).list();
+        return jpaTemplate.findList(FormParamMockPo.class,formParamMockQuery);
     }
 
     public Pagination<List<FormParamMockPo>> findFormParamMockPage(FormParamMockQuery formParamMockQuery) { 
-        return jpaTemplate.createCriteria(FormParamMockPo.class).params(formParamMockQuery).page();
+        return jpaTemplate.findPage(FormParamMockPo.class,formParamMockQuery);
     }
 }

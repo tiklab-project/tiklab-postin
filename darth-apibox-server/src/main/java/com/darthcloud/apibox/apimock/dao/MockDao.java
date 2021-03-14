@@ -1,8 +1,8 @@
 package com.darthcloud.apibox.apimock.dao;
 
-import com.darthcloud.common.Pagination;
 import com.darthcloud.apibox.apimock.entity.MockPo;
 import com.darthcloud.apibox.apimock.model.MockQuery;
+import com.darthcloud.common.Pagination;
 import com.darthcloud.dal.jpa.JpaTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -69,10 +69,10 @@ public class MockDao{
     }
 
     public List<MockPo> findMockList(MockQuery mockQuery) {
-        return jpaTemplate.createCriteria(MockPo.class).params(mockQuery).list();
+        return jpaTemplate.findList(MockPo.class,mockQuery);
     }
 
     public Pagination<List<MockPo>> findMockPage(MockQuery mockQuery) { 
-        return jpaTemplate.createCriteria(MockPo.class).params(mockQuery).page();
+        return jpaTemplate.findPage(MockPo.class,mockQuery);
     }
 }

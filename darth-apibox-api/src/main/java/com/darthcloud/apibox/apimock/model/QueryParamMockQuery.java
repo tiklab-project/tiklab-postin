@@ -1,12 +1,15 @@
 package com.darthcloud.apibox.apimock.model;
 
 import com.darthcloud.apibox.annotation.ApiProperty;
-import com.darthcloud.dal.jpa.criteria.annotation.*;
+import com.darthcloud.dal.jpa.annotation.criteria.CriteriaQuery;
+import com.darthcloud.dal.jpa.annotation.criteria.OrderField;
+import com.darthcloud.dal.jpa.annotation.criteria.PageField;
+import com.darthcloud.dal.jpa.annotation.criteria.QueryField;
 import com.darthcloud.apibox.annotation.ApiModel;
-import com.darthcloud.dal.jpa.criteria.model.OrderParam;
-import com.darthcloud.dal.jpa.criteria.model.PageParam;
-import com.darthcloud.dal.jpa.criteria.model.QueryTypeEnum;
-import com.darthcloud.dal.jpa.criteria.support.Orders;
+import com.darthcloud.dal.jpa.model.OrderParam;
+import com.darthcloud.dal.jpa.model.PageParam;
+import com.darthcloud.dal.jpa.annotation.criteria.QueryTypeEnum;
+import com.darthcloud.dal.jpa.model.Orders;
 
 import java.util.List;
 

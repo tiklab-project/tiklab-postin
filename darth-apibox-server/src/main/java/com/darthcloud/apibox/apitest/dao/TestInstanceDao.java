@@ -69,10 +69,10 @@ public class TestInstanceDao{
     }
 
     public List<TestInstancePo> findTestInstanceList(TestInstanceQuery testInstanceQuery) {
-        return jpaTemplate.createCriteria(TestInstancePo.class).params(testInstanceQuery).list();
+        return jpaTemplate.findList(TestInstancePo.class,testInstanceQuery);
     }
 
     public Pagination<List<TestInstancePo>> findTestInstancePage(TestInstanceQuery testInstanceQuery) { 
-        return jpaTemplate.createCriteria(TestInstancePo.class).params(testInstanceQuery).page();
+        return jpaTemplate.findPage(TestInstancePo.class,testInstanceQuery);
     }
 }

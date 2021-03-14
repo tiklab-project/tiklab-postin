@@ -69,10 +69,10 @@ public class JsonParamDao{
     }
 
     public List<JsonParamPo> findJsonParamList(JsonParamQuery jsonParamQuery) {
-        return jpaTemplate.createCriteria(JsonParamPo.class).params(jsonParamQuery).list();
+        return jpaTemplate.findList(JsonParamPo.class,jsonParamQuery);
     }
 
     public Pagination<List<JsonParamPo>> findJsonParamPage(JsonParamQuery jsonParamQuery) {
-        return jpaTemplate.createCriteria(JsonParamPo.class).params(jsonParamQuery).page();
+        return jpaTemplate.findPage(JsonParamPo.class,jsonParamQuery);
     }
 }

@@ -1,8 +1,8 @@
 package com.darthcloud.apibox.apitest.dao;
 
-import com.darthcloud.common.Pagination;
 import com.darthcloud.apibox.apitest.entity.AssertInstancePo;
 import com.darthcloud.apibox.apitest.model.AssertInstanceQuery;
+import com.darthcloud.common.Pagination;
 import com.darthcloud.dal.jpa.JpaTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -69,10 +69,10 @@ public class AssertInstanceDao{
     }
 
     public List<AssertInstancePo> findAssertInstanceList(AssertInstanceQuery assertInstanceQuery) {
-        return jpaTemplate.createCriteria(AssertInstancePo.class).params(assertInstanceQuery).list();
+        return jpaTemplate.findList(AssertInstancePo.class,assertInstanceQuery);
     }
 
     public Pagination<List<AssertInstancePo>> findAssertInstancePage(AssertInstanceQuery assertInstanceQuery) { 
-        return jpaTemplate.createCriteria(AssertInstancePo.class).params(assertInstanceQuery).page();
+        return jpaTemplate.findPage(AssertInstancePo.class,assertInstanceQuery);
     }
 }

@@ -1,8 +1,8 @@
 package com.darthcloud.apibox.apidef.dao;
 
-import com.darthcloud.common.Pagination;
 import com.darthcloud.apibox.apidef.entity.QueryParamPo;
 import com.darthcloud.apibox.apidef.model.QueryParamQuery;
+import com.darthcloud.common.Pagination;
 import com.darthcloud.dal.jpa.JpaTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -65,10 +65,10 @@ public class QueryParamDao{
     }
 
     public List<QueryParamPo> findQueryParamList(QueryParamQuery queryParamQuery) {
-        return jpaTemplate.createCriteria(QueryParamPo.class).params(queryParamQuery).list();
+        return jpaTemplate.findList(QueryParamPo.class,queryParamQuery);
     }
 
     public Pagination<List<QueryParamPo>> findQueryParamPage(QueryParamQuery queryParamQuery) { 
-        return jpaTemplate.createCriteria(QueryParamPo.class).params(queryParamQuery).page();
+        return jpaTemplate.findPage(QueryParamPo.class,queryParamQuery);
     }
 }

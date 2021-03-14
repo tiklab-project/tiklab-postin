@@ -1,8 +1,8 @@
 package com.darthcloud.apibox.apimock.dao;
 
-import com.darthcloud.common.Pagination;
 import com.darthcloud.apibox.apimock.entity.JsonResponseMockPo;
 import com.darthcloud.apibox.apimock.model.JsonResponseMockQuery;
+import com.darthcloud.common.Pagination;
 import com.darthcloud.dal.jpa.JpaTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -65,10 +65,10 @@ public class JsonResponseMockDao{
     }
 
     public List<JsonResponseMockPo> findJsonResponseMockList(JsonResponseMockQuery jsonResponseMockQuery) {
-        return jpaTemplate.createCriteria(JsonResponseMockPo.class).params(jsonResponseMockQuery).list();
+        return jpaTemplate.findList(JsonResponseMockPo.class,jsonResponseMockQuery);
     }
 
     public Pagination<List<JsonResponseMockPo>> findJsonResponseMockPage(JsonResponseMockQuery jsonResponseMockQuery) { 
-        return jpaTemplate.createCriteria(JsonResponseMockPo.class).params(jsonResponseMockQuery).page();
+        return jpaTemplate.findPage(JsonResponseMockPo.class,jsonResponseMockQuery);
     }
 }

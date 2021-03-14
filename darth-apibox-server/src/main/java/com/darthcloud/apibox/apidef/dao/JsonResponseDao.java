@@ -65,12 +65,10 @@ public class JsonResponseDao {
     }
 
     public List<JsonResponsePo> findJsonResponseList(JsonResponseQuery jsonResponseQuery) {
-        return jpaTemplate.createCriteria(JsonResponsePo.class)
-                .params(jsonResponseQuery).list();
+        return jpaTemplate.findList(JsonResponsePo.class,jsonResponseQuery);
     }
 
     public Pagination<List<JsonResponsePo>> findJsonResponsePage(JsonResponseQuery jsonResponseQuery) {
-        return jpaTemplate.createCriteria(JsonResponsePo.class)
-                .params(jsonResponseQuery).page();
+        return jpaTemplate.findPage(JsonResponsePo.class,jsonResponseQuery);
     }
 }

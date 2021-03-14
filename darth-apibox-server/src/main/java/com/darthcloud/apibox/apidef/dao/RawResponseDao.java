@@ -1,8 +1,8 @@
 package com.darthcloud.apibox.apidef.dao;
 
-import com.darthcloud.common.Pagination;
 import com.darthcloud.apibox.apidef.entity.RawResponsePo;
 import com.darthcloud.apibox.apidef.model.RawResponseQuery;
+import com.darthcloud.common.Pagination;
 import com.darthcloud.dal.jpa.JpaTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -65,10 +65,10 @@ public class RawResponseDao{
     }
 
     public List<RawResponsePo> findRawResponseList(RawResponseQuery rawResponseQuery) {
-        return jpaTemplate.createCriteria(RawResponsePo.class).params(rawResponseQuery).list();
+        return jpaTemplate.findList(RawResponsePo.class,rawResponseQuery);
     }
 
     public Pagination<List<RawResponsePo>> findRawResponsePage(RawResponseQuery rawResponseQuery) { 
-        return jpaTemplate.createCriteria(RawResponsePo.class).params(rawResponseQuery).page();
+        return jpaTemplate.findPage(RawResponsePo.class,rawResponseQuery);
     }
 }

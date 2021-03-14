@@ -1,10 +1,10 @@
 package com.darthcloud.apibox.category.entity;
 
 
-import com.darthcloud.dal.jpa.annotation.Column;
-import com.darthcloud.dal.jpa.annotation.GeneratorValue;
-import com.darthcloud.dal.jpa.annotation.Id;
-import com.darthcloud.dal.jpa.annotation.Table;
+import com.darthcloud.dal.jpa.annotation.mapper.Column;
+import com.darthcloud.dal.jpa.annotation.mapper.GeneratorValue;
+import com.darthcloud.dal.jpa.annotation.mapper.Id;
+import com.darthcloud.dal.jpa.annotation.mapper.Table;
 
 import java.io.Serializable;
 

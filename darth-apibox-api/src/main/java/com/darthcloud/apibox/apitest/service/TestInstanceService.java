@@ -4,6 +4,9 @@ import com.darthcloud.common.Pagination;
 
 import com.darthcloud.apibox.apitest.model.TestInstance;
 import com.darthcloud.apibox.apitest.model.TestInstanceQuery;
+import com.darthcloud.join.annotation.FindList;
+import com.darthcloud.join.annotation.FindOne;
+import com.darthcloud.join.annotation.Provider;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -12,6 +15,7 @@ import java.util.List;
 /**
 * 用户服务接口
 */
+@Provider(model = TestInstance.class)
 public interface TestInstanceService {
 
     /**
@@ -20,6 +24,8 @@ public interface TestInstanceService {
     * @return
     */
     String createTestInstance(@NotNull @Valid TestInstance testInstance);
+
+    String createTestInstanceWithNest(@NotNull @Valid TestInstance testInstance);
 
     /**
     * 更新用户
@@ -33,8 +39,10 @@ public interface TestInstanceService {
     */
     void deleteTestInstance(@NotNull String id);
 
+    @FindOne
     TestInstance findOne(@NotNull String id);
 
+    @FindList
     List<TestInstance> findList(List<String> idList);
 
     /**
@@ -43,6 +51,8 @@ public interface TestInstanceService {
     * @return
     */
     TestInstance findTestInstance(@NotNull String id);
+
+    TestInstance findTestInstanceWithNest(@NotNull String id);
 
     /**
     * 查找所有

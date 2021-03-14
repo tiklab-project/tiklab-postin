@@ -65,10 +65,10 @@ public class RequestBodyDao{
     }
 
     public List<RequestBodyPo> findRequestBodyList(RequestBodyExQuery requestBodyQuery) {
-        return jpaTemplate.createCriteria(RequestBodyPo.class).params(requestBodyQuery).list();
+        return jpaTemplate.findList(RequestBodyPo.class,requestBodyQuery);
     }
 
     public Pagination<List<RequestBodyPo>> findRequestBodyPage(RequestBodyExQuery requestBodyQuery) {
-        return jpaTemplate.createCriteria(RequestBodyPo.class).params(requestBodyQuery).page();
+        return jpaTemplate.findPage(RequestBodyPo.class,requestBodyQuery);
     }
 }

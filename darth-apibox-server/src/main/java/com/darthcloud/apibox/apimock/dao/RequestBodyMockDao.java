@@ -1,8 +1,8 @@
 package com.darthcloud.apibox.apimock.dao;
 
-import com.darthcloud.common.Pagination;
 import com.darthcloud.apibox.apimock.entity.RequestBodyMockPo;
 import com.darthcloud.apibox.apimock.model.RequestBodyMockQuery;
+import com.darthcloud.common.Pagination;
 import com.darthcloud.dal.jpa.JpaTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -69,10 +69,10 @@ public class RequestBodyMockDao{
     }
 
     public List<RequestBodyMockPo> findRequestBodyMockList(RequestBodyMockQuery requestBodyMockQuery) {
-        return jpaTemplate.createCriteria(RequestBodyMockPo.class).params(requestBodyMockQuery).list();
+        return jpaTemplate.findList(RequestBodyMockPo.class,requestBodyMockQuery);
     }
 
     public Pagination<List<RequestBodyMockPo>> findRequestBodyMockPage(RequestBodyMockQuery requestBodyMockQuery) { 
-        return jpaTemplate.createCriteria(RequestBodyMockPo.class).params(requestBodyMockQuery).page();
+        return jpaTemplate.findPage(RequestBodyMockPo.class,requestBodyMockQuery);
     }
 }

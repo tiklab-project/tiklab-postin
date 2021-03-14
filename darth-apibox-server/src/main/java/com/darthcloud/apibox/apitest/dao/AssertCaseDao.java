@@ -1,8 +1,8 @@
 package com.darthcloud.apibox.apitest.dao;
 
-import com.darthcloud.common.Pagination;
 import com.darthcloud.apibox.apitest.entity.AssertCasePo;
 import com.darthcloud.apibox.apitest.model.AssertCaseQuery;
+import com.darthcloud.common.Pagination;
 import com.darthcloud.dal.jpa.JpaTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -69,10 +69,10 @@ public class AssertCaseDao{
     }
 
     public List<AssertCasePo> findAssertCaseList(AssertCaseQuery assertCaseQuery) {
-        return jpaTemplate.createCriteria(AssertCasePo.class).params(assertCaseQuery).list();
+        return jpaTemplate.findList(AssertCasePo.class,assertCaseQuery);
     }
 
     public Pagination<List<AssertCasePo>> findAssertCasePage(AssertCaseQuery assertCaseQuery) { 
-        return jpaTemplate.createCriteria(AssertCasePo.class).params(assertCaseQuery).page();
+        return jpaTemplate.findPage(AssertCasePo.class,assertCaseQuery);
     }
 }

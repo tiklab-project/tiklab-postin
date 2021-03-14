@@ -1,8 +1,8 @@
 package com.darthcloud.apibox.apitest.dao;
 
-import com.darthcloud.common.Pagination;
 import com.darthcloud.apibox.apitest.entity.JsonParamCasePo;
 import com.darthcloud.apibox.apitest.model.JsonParamCaseQuery;
+import com.darthcloud.common.Pagination;
 import com.darthcloud.dal.jpa.JpaTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -69,10 +69,10 @@ public class JsonParamCaseDao{
     }
 
     public List<JsonParamCasePo> findJsonParamCaseList(JsonParamCaseQuery jsonParamCaseQuery) {
-        return jpaTemplate.createCriteria(JsonParamCasePo.class).params(jsonParamCaseQuery).list();
+        return jpaTemplate.findList(JsonParamCasePo.class,jsonParamCaseQuery);
     }
 
     public Pagination<List<JsonParamCasePo>> findJsonParamCasePage(JsonParamCaseQuery jsonParamCaseQuery) { 
-        return jpaTemplate.createCriteria(JsonParamCasePo.class).params(jsonParamCaseQuery).page();
+        return jpaTemplate.findPage(JsonParamCasePo.class,jsonParamCaseQuery);
     }
 }

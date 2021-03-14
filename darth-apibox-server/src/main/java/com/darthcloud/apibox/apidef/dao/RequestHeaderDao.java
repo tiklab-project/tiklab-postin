@@ -1,8 +1,8 @@
 package com.darthcloud.apibox.apidef.dao;
 
-import com.darthcloud.common.Pagination;
 import com.darthcloud.apibox.apidef.entity.RequestHeaderPo;
 import com.darthcloud.apibox.apidef.model.RequestHeaderQuery;
+import com.darthcloud.common.Pagination;
 import com.darthcloud.dal.jpa.JpaTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -65,10 +65,10 @@ public class RequestHeaderDao{
     }
 
     public List<RequestHeaderPo> findRequestHeaderList(RequestHeaderQuery requestHeaderQuery) {
-        return jpaTemplate.createCriteria(RequestHeaderPo.class).params(requestHeaderQuery).list();
+        return jpaTemplate.findList(RequestHeaderPo.class,requestHeaderQuery);
     }
 
     public Pagination<List<RequestHeaderPo>> findRequestHeaderPage(RequestHeaderQuery requestHeaderQuery) { 
-        return jpaTemplate.createCriteria(RequestHeaderPo.class).params(requestHeaderQuery).page();
+        return jpaTemplate.findPage(RequestHeaderPo.class,requestHeaderQuery);
     }
 }

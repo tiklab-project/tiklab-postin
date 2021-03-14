@@ -69,10 +69,10 @@ public class MethodDao {
     }
 
     public List<MethodPo> findMethodList(MethodExQuery methodExQuery) {
-        return jpaTemplate.createCriteria(MethodPo.class).params(methodExQuery).list();
+        return jpaTemplate.findList(MethodPo.class,methodExQuery);
     }
 
     public Pagination<List<MethodPo>> findMethodPage(MethodExQuery methodExQuery) {
-        return jpaTemplate.createCriteria(MethodPo.class).params(methodExQuery).page();
+        return jpaTemplate.findPage(MethodPo.class,methodExQuery);
     }
 }

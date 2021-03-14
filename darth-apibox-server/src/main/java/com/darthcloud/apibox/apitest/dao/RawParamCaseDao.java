@@ -1,8 +1,8 @@
 package com.darthcloud.apibox.apitest.dao;
 
-import com.darthcloud.common.Pagination;
 import com.darthcloud.apibox.apitest.entity.RawParamCasePo;
 import com.darthcloud.apibox.apitest.model.RawParamCaseQuery;
+import com.darthcloud.common.Pagination;
 import com.darthcloud.dal.jpa.JpaTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -69,10 +69,10 @@ public class RawParamCaseDao{
     }
 
     public List<RawParamCasePo> findRawParamCaseList(RawParamCaseQuery rawParamCaseQuery) {
-        return jpaTemplate.createCriteria(RawParamCasePo.class).params(rawParamCaseQuery).list();
+        return jpaTemplate.findList(RawParamCasePo.class,rawParamCaseQuery);
     }
 
     public Pagination<List<RawParamCasePo>> findRawParamCasePage(RawParamCaseQuery rawParamCaseQuery) { 
-        return jpaTemplate.createCriteria(RawParamCasePo.class).params(rawParamCaseQuery).page();
+        return jpaTemplate.findPage(RawParamCasePo.class,rawParamCaseQuery);
     }
 }

@@ -1,8 +1,8 @@
 package com.darthcloud.apibox.apitest.dao;
 
-import com.darthcloud.common.Pagination;
 import com.darthcloud.apibox.apitest.entity.AfterScriptCasePo;
 import com.darthcloud.apibox.apitest.model.AfterScriptCaseQuery;
+import com.darthcloud.common.Pagination;
 import com.darthcloud.dal.jpa.JpaTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -69,10 +69,10 @@ public class AfterScriptCaseDao{
     }
 
     public List<AfterScriptCasePo> findAfterScriptCaseList(AfterScriptCaseQuery afterScriptCaseQuery) {
-        return jpaTemplate.createCriteria(AfterScriptCasePo.class).params(afterScriptCaseQuery).list();
+        return jpaTemplate.findList(AfterScriptCasePo.class,afterScriptCaseQuery);
     }
 
     public Pagination<List<AfterScriptCasePo>> findAfterScriptCasePage(AfterScriptCaseQuery afterScriptCaseQuery) { 
-        return jpaTemplate.createCriteria(AfterScriptCasePo.class).params(afterScriptCaseQuery).page();
+        return jpaTemplate.findPage(AfterScriptCasePo.class,afterScriptCaseQuery);
     }
 }

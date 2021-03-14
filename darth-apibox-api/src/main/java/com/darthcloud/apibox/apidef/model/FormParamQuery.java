@@ -1,10 +1,11 @@
 package com.darthcloud.apibox.apidef.model;
 
-import com.darthcloud.dal.jpa.criteria.annotation.*;
-import com.darthcloud.dal.jpa.criteria.model.*;
+import com.darthcloud.dal.jpa.annotation.criteria.*;
+import com.darthcloud.dal.jpa.annotation.criteria.QueryTypeEnum;
+import com.darthcloud.dal.jpa.model.*;
 import com.darthcloud.apibox.annotation.ApiModel;
 import com.darthcloud.apibox.annotation.ApiProperty;
-import com.darthcloud.dal.jpa.criteria.support.Orders;
+import com.darthcloud.dal.jpa.model.Orders;
 
 import java.util.List;
 

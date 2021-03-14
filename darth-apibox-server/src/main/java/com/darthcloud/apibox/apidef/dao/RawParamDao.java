@@ -65,10 +65,10 @@ public class RawParamDao{
     }
 
     public List<RawParamPo> findRawParamList(RawParamQuery rawParamQuery) {
-        return jpaTemplate.createCriteria(RawParamPo.class).params(rawParamQuery).list();
+        return jpaTemplate.findList(RawParamPo.class,rawParamQuery);
     }
 
     public Pagination<List<RawParamPo>> findRawParamPage(RawParamQuery rawParamQuery) { 
-        return jpaTemplate.createCriteria(RawParamPo.class).params(rawParamQuery).page();
+        return jpaTemplate.findPage(RawParamPo.class,rawParamQuery);
     }
 }

@@ -8,6 +8,8 @@ import com.darthcloud.join.annotation.Join;
 import com.darthcloud.join.annotation.JoinField;
 
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 @ApiModel
 @Join
@@ -24,8 +26,7 @@ public class TestInstance {
     @JoinField(id = "id")
     private Testcase testcase;
 
-    @NotNull
-    @ApiProperty(name="testNo",desc="测试序号",required = true)
+    @ApiProperty(name="testNo",desc="测试序号")
     private java.lang.Integer testNo;
 
     @NotNull
@@ -36,12 +37,22 @@ public class TestInstance {
     @ApiProperty(name="result",desc="测试结果",required = true)
     private java.lang.Integer result;
 
+    @ApiProperty(name="requestInstance",desc="实例-请求部分")
+    private RequestInstance requestInstance;
+
+    @ApiProperty(name="responseInstance",desc="实例-响应部分")
+    private ResponseInstance responseInstance;
+
+    @ApiProperty(name="assertInstanceList",desc="实例-断言列表")
+    private List<AssertInstance> assertInstanceList = new ArrayList<>();
+
     public String getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public TestInstance setId(String id) {
         this.id = id;
+        return this;
     }
 
     public Testcase getTestcase() {
@@ -74,5 +85,29 @@ public class TestInstance {
 
     public void setResult(Integer result) {
         this.result = result;
+    }
+
+    public RequestInstance getRequestInstance() {
+        return requestInstance;
+    }
+
+    public void setRequestInstance(RequestInstance requestInstance) {
+        this.requestInstance = requestInstance;
+    }
+
+    public ResponseInstance getResponseInstance() {
+        return responseInstance;
+    }
+
+    public void setResponseInstance(ResponseInstance responseInstance) {
+        this.responseInstance = responseInstance;
+    }
+
+    public List<AssertInstance> getAssertInstanceList() {
+        return assertInstanceList;
+    }
+
+    public void setAssertInstanceList(List<AssertInstance> assertInstanceList) {
+        this.assertInstanceList = assertInstanceList;
     }
 }

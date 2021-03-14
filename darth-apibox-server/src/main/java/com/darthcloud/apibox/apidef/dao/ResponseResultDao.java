@@ -1,8 +1,8 @@
 package com.darthcloud.apibox.apidef.dao;
 
-import com.darthcloud.common.Pagination;
 import com.darthcloud.apibox.apidef.entity.ResponseResultPo;
 import com.darthcloud.apibox.apidef.model.ResponseResultQuery;
+import com.darthcloud.common.Pagination;
 import com.darthcloud.dal.jpa.JpaTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -65,10 +65,10 @@ public class ResponseResultDao{
     }
 
     public List<ResponseResultPo> findResponseResultList(ResponseResultQuery responseResultQuery) {
-        return jpaTemplate.createCriteria(ResponseResultPo.class).params(responseResultQuery).list();
+        return jpaTemplate.findList(ResponseResultPo.class,responseResultQuery);
     }
 
     public Pagination<List<ResponseResultPo>> findResponseResultPage(ResponseResultQuery responseResultQuery) { 
-        return jpaTemplate.createCriteria(ResponseResultPo.class).params(responseResultQuery).page();
+        return jpaTemplate.findPage(ResponseResultPo.class,responseResultQuery);
     }
 }

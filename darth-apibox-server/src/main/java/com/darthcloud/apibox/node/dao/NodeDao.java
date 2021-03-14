@@ -65,10 +65,10 @@ public class NodeDao{
     }
 
     public List<NodePo> findNodeList(NodeQuery nodeQuery) {
-        return jpaTemplate.createCriteria(NodePo.class).params(nodeQuery).list();
+        return jpaTemplate.findList(NodePo.class,nodeQuery);
     }
 
     public Pagination<List<NodePo>> findNodePage(NodeQuery nodeQuery) { 
-        return jpaTemplate.createCriteria(NodePo.class).params(nodeQuery).page();
+        return jpaTemplate.findPage(NodePo.class,nodeQuery);
     }
 }

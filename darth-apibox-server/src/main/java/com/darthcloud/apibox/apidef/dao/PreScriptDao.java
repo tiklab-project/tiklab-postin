@@ -65,10 +65,10 @@ public class PreScriptDao{
     }
 
     public List<PreScriptPo> findPreScriptList(PreScriptQuery preScriptQuery) {
-        return jpaTemplate.createCriteria(PreScriptPo.class).params(preScriptQuery).list();
+        return jpaTemplate.findList(PreScriptPo.class,preScriptQuery);
     }
 
     public Pagination<List<PreScriptPo>> findPreScriptPage(PreScriptQuery preScriptQuery) { 
-        return jpaTemplate.createCriteria(PreScriptPo.class).params(preScriptQuery).page();
+        return jpaTemplate.findPage(PreScriptPo.class,preScriptQuery);
     }
 }

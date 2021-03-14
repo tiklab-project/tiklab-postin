@@ -69,10 +69,10 @@ public class PreScriptCaseDao{
     }
 
     public List<PreScriptCasePo> findPreScriptCaseList(PreScriptCaseQuery preScriptCaseQuery) {
-        return jpaTemplate.createCriteria(PreScriptCasePo.class).params(preScriptCaseQuery).list();
+        return jpaTemplate.findList(PreScriptCasePo.class,preScriptCaseQuery);
     }
 
     public Pagination<List<PreScriptCasePo>> findPreScriptCasePage(PreScriptCaseQuery preScriptCaseQuery) { 
-        return jpaTemplate.createCriteria(PreScriptCasePo.class).params(preScriptCaseQuery).page();
+        return jpaTemplate.findPage(PreScriptCasePo.class,preScriptCaseQuery);
     }
 }

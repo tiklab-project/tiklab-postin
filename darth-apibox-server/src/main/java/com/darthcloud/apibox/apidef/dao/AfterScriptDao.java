@@ -1,8 +1,8 @@
 package com.darthcloud.apibox.apidef.dao;
 
-import com.darthcloud.common.Pagination;
 import com.darthcloud.apibox.apidef.entity.AfterScriptPo;
 import com.darthcloud.apibox.apidef.model.AfterScriptQuery;
+import com.darthcloud.common.Pagination;
 import com.darthcloud.dal.jpa.JpaTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -65,10 +65,10 @@ public class AfterScriptDao{
     }
 
     public List<AfterScriptPo> findAfterScriptList(AfterScriptQuery afterScriptQuery) {
-        return jpaTemplate.createCriteria(AfterScriptPo.class).params(afterScriptQuery).list();
+        return jpaTemplate.findList(AfterScriptPo.class,afterScriptQuery);
     }
 
     public Pagination<List<AfterScriptPo>> findAfterScriptPage(AfterScriptQuery afterScriptQuery) { 
-        return jpaTemplate.createCriteria(AfterScriptPo.class).params(afterScriptQuery).page();
+        return jpaTemplate.findPage(AfterScriptPo.class,afterScriptQuery);
     }
 }

@@ -69,10 +69,10 @@ public class JsonParamMockDao{
     }
 
     public List<JsonParamMockPo> findJsonParamMockList(JsonParamMockQuery jsonParamMockQuery) {
-        return jpaTemplate.createCriteria(JsonParamMockPo.class).params(jsonParamMockQuery).list();
+        return jpaTemplate.findList(JsonParamMockPo.class,jsonParamMockQuery);
     }
 
     public Pagination<List<JsonParamMockPo>> findJsonParamMockPage(JsonParamMockQuery jsonParamMockQuery) { 
-        return jpaTemplate.createCriteria(JsonParamMockPo.class).params(jsonParamMockQuery).page();
+        return jpaTemplate.findPage(JsonParamMockPo.class,jsonParamMockQuery);
     }
 }

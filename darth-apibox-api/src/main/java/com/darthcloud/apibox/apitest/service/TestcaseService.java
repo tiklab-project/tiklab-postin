@@ -26,6 +26,13 @@ public interface TestcaseService {
     String createTestcase(@NotNull @Valid Testcase testcase);
 
     /**
+     * 创建测试用例，级联从表、子表
+     * @param testcase
+     * @return
+     */
+    String createTestcaseWithNest(@NotNull @Valid Testcase testcase);
+
+    /**
     * 更新用户
     * @param testcase
     */

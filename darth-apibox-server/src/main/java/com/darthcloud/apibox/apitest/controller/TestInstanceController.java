@@ -39,7 +39,7 @@ public class TestInstanceController {
     @ApiMethod(name = "createTestInstance",desc = "createTestInstance")
     @ApiParam(name = "testInstance",desc = "testInstance",required = true)
     public Result<String> createTestInstance(@RequestBody @NotNull @Valid TestInstance testInstance){
-        String id = testInstanceService.createTestInstance(testInstance);
+        String id = testInstanceService.createTestInstanceWithNest(testInstance);
 
         return Result.ok(id);
     }
@@ -66,7 +66,7 @@ public class TestInstanceController {
     @ApiMethod(name = "findTestInstance",desc = "findTestInstance")
     @ApiParam(name = "id",desc = "id",required = true)
     public Result<TestInstance> findTestInstance(@NotNull String id){
-        TestInstance testInstance = testInstanceService.findTestInstance(id);
+        TestInstance testInstance = testInstanceService.findTestInstanceWithNest(id);
 
         return Result.ok(testInstance);
     }

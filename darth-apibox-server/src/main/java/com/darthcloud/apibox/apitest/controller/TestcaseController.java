@@ -36,10 +36,19 @@ public class TestcaseController {
     private TestcaseService testcaseService;
 
     @RequestMapping(path="/createTestcase",method = RequestMethod.POST)
-    @ApiMethod(name = "createTestcase",desc = "createTestcase")
+    @ApiMethod(name = "createTestcase",desc = "创建测试用例")
     @ApiParam(name = "testcase",desc = "testcase",required = true)
     public Result<String> createTestcase(@RequestBody @NotNull @Valid Testcase testcase){
         String id = testcaseService.createTestcase(testcase);
+
+        return Result.ok(id);
+    }
+
+    @RequestMapping(path="/createTestcaseWithNest",method = RequestMethod.POST)
+    @ApiMethod(name = "createTestcaseWithNest",desc = "创建测试用例，级联保存从、子表数据")
+    @ApiParam(name = "testcase",desc = "testcase",required = true)
+    public Result<String> createTestcaseWithNest(@RequestBody @NotNull @Valid Testcase testcase){
+        String id = testcaseService.createTestcaseWithNest(testcase);
 
         return Result.ok(id);
     }

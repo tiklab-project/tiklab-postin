@@ -1,8 +1,8 @@
 package com.darthcloud.apibox.apimock.dao;
 
-import com.darthcloud.common.Pagination;
 import com.darthcloud.apibox.apimock.entity.RawResponseMockPo;
 import com.darthcloud.apibox.apimock.model.RawResponseMockQuery;
+import com.darthcloud.common.Pagination;
 import com.darthcloud.dal.jpa.JpaTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -65,10 +65,10 @@ public class RawResponseMockDao{
     }
 
     public List<RawResponseMockPo> findRawResponseMockList(RawResponseMockQuery rawResponseMockQuery) {
-        return jpaTemplate.createCriteria(RawResponseMockPo.class).params(rawResponseMockQuery).list();
+        return jpaTemplate.findList(RawResponseMockPo.class,rawResponseMockQuery);
     }
 
     public Pagination<List<RawResponseMockPo>> findRawResponseMockPage(RawResponseMockQuery rawResponseMockQuery) { 
-        return jpaTemplate.createCriteria(RawResponseMockPo.class).params(rawResponseMockQuery).page();
+        return jpaTemplate.findPage(RawResponseMockPo.class,rawResponseMockQuery);
     }
 }

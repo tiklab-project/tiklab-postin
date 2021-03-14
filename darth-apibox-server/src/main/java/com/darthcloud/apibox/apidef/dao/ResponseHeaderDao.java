@@ -65,10 +65,10 @@ public class ResponseHeaderDao{
     }
 
     public List<ResponseHeaderPo> findResponseHeaderList(ResponseHeaderQuery responseHeaderQuery) {
-        return jpaTemplate.createCriteria(ResponseHeaderPo.class).params(responseHeaderQuery).list();
+        return jpaTemplate.findList(ResponseHeaderPo.class,responseHeaderQuery);
     }
 
     public Pagination<List<ResponseHeaderPo>> findResponseHeaderPage(ResponseHeaderQuery responseHeaderQuery) { 
-        return jpaTemplate.createCriteria(ResponseHeaderPo.class).params(responseHeaderQuery).page();
+        return jpaTemplate.findPage(ResponseHeaderPo.class,responseHeaderQuery);
     }
 }
