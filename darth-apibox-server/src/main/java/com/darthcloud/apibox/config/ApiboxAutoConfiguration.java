@@ -31,7 +31,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.sql.DataSource;
 
@@ -59,48 +58,10 @@ public class ApiboxAutoConfiguration {
     @Bean("dataInitializerForApibox")
     public DataInitializer dataInitializerForApibox(DataSource dataSource) {
         return new DataInitializer(dataSource,new String[]{
-                "scripts/Workspace.sql",
-                "scripts/Node.sql",
-                "scripts/Category.sql",
-                "scripts/ApxMethod.sql",
-                "scripts/RequestHeader.sql",
-                "scripts/QueryParam.sql",
-                "scripts/RequestBody.sql",
-                "scripts/FormParam.sql",
-                "scripts/JsonParam.sql",
-                "scripts/RawParam.sql",
-                "scripts/PreScript.sql",
-                "scripts/AfterScript.sql",
-                "scripts/ResponseHeader.sql",
-                "scripts/ResponseResult.sql",
-                "scripts/JsonResponse.sql",
-                "scripts/RawResponse.sql",
-                "scripts/Mock.sql",
-                "scripts/RequestHeaderMock.sql",
-                "scripts/QueryParamMock.sql",
-                "scripts/RequestBodyMock.sql",
-                "scripts/FormParamMock.sql",
-                "scripts/JsonParamMock.sql",
-                "scripts/ResponseMock.sql",
-                "scripts/ResponseHeaderMock.sql",
-                "scripts/ResponseResultMock.sql",
-                "scripts/JsonResponseMock.sql",
-                "scripts/RawResponseMock.sql",
-                "scripts/Testcase.sql",
-                "scripts/RequestHeaderCase.sql",
-                "scripts/QueryParamCase.sql",
-                "scripts/RequestBodyCase.sql",
-                "scripts/FormParamCase.sql",
-                "scripts/JsonParamCase.sql",
-                "scripts/RawParamCase.sql",
-                "scripts/PreScriptCase.sql",
-                "scripts/AfterScriptCase.sql",
-                "scripts/AssertCase.sql",
-                "scripts/TestInstance.sql",
-                "scripts/RequestInstance.sql",
-                "scripts/ResponseInstance.sql",
-                "scripts/AssertInstance.sql"
-
+                "scripts/apibase.sql",
+                "scripts/apidef.sql",
+                "scripts/apitest.sql",
+                "scripts/apimock.sql"
         });
     }
 
