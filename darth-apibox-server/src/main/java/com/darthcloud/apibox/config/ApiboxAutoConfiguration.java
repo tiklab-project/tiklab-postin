@@ -9,9 +9,11 @@ import com.darthcloud.apibox.apitest.entity.*;
 import com.darthcloud.apibox.apitest.model.*;
 import com.darthcloud.apibox.category.entity.CategoryPo;
 import com.darthcloud.apibox.category.model.Category;
+import com.darthcloud.apibox.sysmgr.entity.EnvironmentPo;
+import com.darthcloud.apibox.sysmgr.model.Environment;
 import com.darthcloud.apibox.workspace.entity.WorkspacePo;
 import com.darthcloud.apibox.workspace.model.Workspace;
-import com.darthcloud.beans.register.BeanMapperMetaRegister;
+import com.darthcloud.beans.register.BeanMapperRegister;
 import com.darthcloud.dal.annotation.EnableDal;
 import com.darthcloud.dal.datainiter.DataInitializer;
 import com.darthcloud.dcs.client.annotation.EnableDcsClient;
@@ -21,6 +23,7 @@ import com.darthcloud.dfs.server.annotation.EnableDfsServer;
 import com.darthcloud.dss.client.annotation.EnableDssClient;
 import com.darthcloud.dss.server.annotation.EnableDssServer;
 import com.darthcloud.orga.config.annotation.EnableOrgaServer;
+import com.darthcloud.privilege.config.annotation.EnablePrivilegeServer;
 import com.darthcloud.rpc.client.annotation.EnableRpcClient;
 import com.darthcloud.rpc.server.annotation.EnableRpcServer;
 import com.darthcloud.service.annotation.EnableService;
@@ -32,6 +35,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
+import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 
 @Configuration
@@ -50,10 +54,62 @@ import javax.sql.DataSource;
 @EnableDssServer
 //业务组件
 @EnableOrgaServer
+@EnablePrivilegeServer
 @ComponentScan({"com.darthcloud.apibox"})
 public class ApiboxAutoConfiguration {
 
     private static Logger logger = LoggerFactory.getLogger(ApiboxAutoConfiguration.class);
+
+    @PostConstruct
+    public void init(){
+        BeanMapperRegister.instance()
+                .map(Workspace.class, WorkspacePo.class)
+                .map(Category.class, CategoryPo.class)
+                //接口定义
+                .map(MethodEx.class, MethodPo.class)
+                .map(RequestHeader.class, RequestHeaderPo.class)
+                .map(QueryParam.class, QueryParamPo.class)
+                .map(RequestBodyEx.class, RequestBodyPo.class)
+                .map(FormParam.class, FormParamPo.class)
+                .map(JsonParam.class, JsonParamPo.class)
+                .map(RawParam.class, RawParamPo.class)
+                .map(PreScript.class, PreScriptPo.class)
+                .map(AfterScript.class, AfterScriptPo.class)
+                .map(ResponseHeader.class, ResponseHeaderPo.class)
+                .map(ResponseResult.class, ResponseResultPo.class)
+                .map(JsonResponse.class, JsonResponsePo.class)
+                .map(RawResponse.class, RawResponsePo.class)
+                //接口测试
+                .map(Testcase.class, TestcasePo.class)
+                .map(RequestHeaderCase.class, RequestHeaderCasePo.class)
+                .map(QueryParamCase.class, QueryParamCasePo.class)
+                .map(RequestBodyCase.class, RequestBodyCasePo.class)
+                .map(FormParamCase.class, FormParamCasePo.class)
+                .map(JsonParamCase.class, JsonParamCasePo.class)
+                .map(RawParamCase.class, RawParamCasePo.class)
+                .map(PreScriptCase.class, PreScriptCasePo.class)
+                .map(AfterScriptCase.class, AfterScriptCasePo.class)
+                .map(AssertCase.class,AssertCasePo.class)
+                .map(TestInstance.class,TestInstancePo.class)
+                .map(RequestInstance.class,RequestInstancePo.class)
+                .map(ResponseInstance.class,ResponseInstancePo.class)
+                .map(AssertInstance.class,AssertInstancePo.class)
+                //接口mock
+                .map(Mock.class, MockPo.class)
+                .map(RequestHeaderMock.class, RequestHeaderMockPo.class)
+                .map(QueryParamMock.class, QueryParamMockPo.class)
+                .map(RequestBodyMock.class, RequestBodyMockPo.class)
+                .map(FormParamMock.class, FormParamMockPo.class)
+                .map(JsonParamMock.class, JsonParamMockPo.class)
+                .map(ResponseMock.class, ResponseMockPo.class)
+                .map(ResponseHeaderMock.class, ResponseHeaderMockPo.class)
+                .map(ResponseResultMock.class, ResponseResultMockPo.class)
+                .map(JsonResponseMock.class, JsonResponseMockPo.class)
+                .map(RawResponseMock.class, RawResponseMockPo.class)
+                //其它
+                .map(Environment.class, EnvironmentPo.class)
+        ;
+    }
 
     @Bean("dataInitializerForApibox")
     public DataInitializer dataInitializerForApibox(DataSource dataSource) {
@@ -65,52 +121,4 @@ public class ApiboxAutoConfiguration {
         });
     }
 
-    @Bean("beanIniterForApibox")
-    public BeanIniter beanIniterForApibox(){
-        BeanMapperMetaRegister.getInstance()
-                .add(Workspace.class, WorkspacePo.class)
-                .add(Category.class, CategoryPo.class)
-                .add(MethodEx.class, MethodPo.class)
-                .add(RequestHeader.class, RequestHeaderPo.class)
-                .add(QueryParam.class, QueryParamPo.class)
-                .add(RequestBodyEx.class, RequestBodyPo.class)
-                .add(FormParam.class, FormParamPo.class)
-                .add(JsonParam.class, JsonParamPo.class)
-                .add(RawParam.class, RawParamPo.class)
-                .add(PreScript.class, PreScriptPo.class)
-                .add(AfterScript.class, AfterScriptPo.class)
-                .add(ResponseHeader.class, ResponseHeaderPo.class)
-                .add(ResponseResult.class, ResponseResultPo.class)
-                .add(JsonResponse.class, JsonResponsePo.class)
-                .add(RawResponse.class, RawResponsePo.class)
-                .add(Mock.class, MockPo.class)
-                .add(RequestHeaderMock.class, RequestHeaderMockPo.class)
-                .add(QueryParamMock.class, QueryParamMockPo.class)
-                .add(RequestBodyMock.class, RequestBodyMockPo.class)
-                .add(FormParamMock.class, FormParamMockPo.class)
-                .add(JsonParamMock.class, JsonParamMockPo.class)
-                .add(ResponseMock.class, ResponseMockPo.class)
-                .add(ResponseHeaderMock.class, ResponseHeaderMockPo.class)
-                .add(ResponseResultMock.class, ResponseResultMockPo.class)
-                .add(JsonResponseMock.class, JsonResponseMockPo.class)
-                .add(RawResponseMock.class, RawResponseMockPo.class)
-                .add(Testcase.class, TestcasePo.class)
-                .add(RequestHeaderCase.class, RequestHeaderCasePo.class)
-                .add(QueryParamCase.class, QueryParamCasePo.class)
-                .add(RequestBodyCase.class, RequestBodyCasePo.class)
-                .add(FormParamCase.class, FormParamCasePo.class)
-                .add(JsonParamCase.class, JsonParamCasePo.class)
-                .add(RawParamCase.class, RawParamCasePo.class)
-                .add(PreScriptCase.class, PreScriptCasePo.class)
-                .add(AfterScriptCase.class, AfterScriptCasePo.class)
-                .add(AssertCase.class,AssertCasePo.class)
-                .add(TestInstance.class,TestInstancePo.class)
-                .add(RequestInstance.class,RequestInstancePo.class)
-                .add(ResponseInstance.class,ResponseInstancePo.class)
-                .add(AssertInstance.class,AssertInstancePo.class)
-        ;
-        return new BeanIniter();
-    }
-
-    class BeanIniter{}
 }
