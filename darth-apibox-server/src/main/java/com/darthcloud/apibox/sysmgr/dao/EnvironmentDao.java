@@ -49,7 +49,7 @@ public class EnvironmentDao{
     }
 
     public void deleteEnvironment(DeleteCondition deleteCondition){
-        jpaTemplate.deleteList(EnvironmentPo.class,deleteCondition);
+        jpaTemplate.delete(EnvironmentPo.class,deleteCondition);
     }
 
     /**
