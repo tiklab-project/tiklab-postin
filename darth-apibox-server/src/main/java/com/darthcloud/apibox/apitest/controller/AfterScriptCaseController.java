@@ -93,8 +93,8 @@ public class AfterScriptCaseController {
     @RequestMapping(path = "/findAfterScriptCasePage",method = RequestMethod.POST)
     @ApiMethod(name = "findAfterScriptCasePage",desc = "findAfterScriptCasePage")
     @ApiParam(name = "afterScriptCaseQuery",desc = "afterScriptCaseQuery",required = true)
-    public Result<Pagination<List<AfterScriptCase>>> findAfterScriptCasePage(@RequestBody @Valid @NotNull AfterScriptCaseQuery afterScriptCaseQuery){
-        Pagination<List<AfterScriptCase>> pagination = afterScriptCaseService.findAfterScriptCasePage(afterScriptCaseQuery);
+    public Result<Pagination<AfterScriptCase>> findAfterScriptCasePage(@RequestBody @Valid @NotNull AfterScriptCaseQuery afterScriptCaseQuery){
+        Pagination<AfterScriptCase> pagination = afterScriptCaseService.findAfterScriptCasePage(afterScriptCaseQuery);
 
         return Result.ok(pagination);
     }
