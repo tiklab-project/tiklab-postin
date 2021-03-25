@@ -93,8 +93,8 @@ public class FormParamMockController {
     @RequestMapping(path = "/findFormParamMockPage",method = RequestMethod.POST)
     @ApiMethod(name = "findFormParamMockPage",desc = "findFormParamMockPage")
     @ApiParam(name = "formParamMockQuery",desc = "formParamMockQuery",required = true)
-    public Result<Pagination<List<FormParamMock>>> findFormParamMockPage(@RequestBody @Valid @NotNull FormParamMockQuery formParamMockQuery){
-        Pagination<List<FormParamMock>> pagination = formParamMockService.findFormParamMockPage(formParamMockQuery);
+    public Result<Pagination<FormParamMock>> findFormParamMockPage(@RequestBody @Valid @NotNull FormParamMockQuery formParamMockQuery){
+        Pagination<FormParamMock> pagination = formParamMockService.findFormParamMockPage(formParamMockQuery);
 
         return Result.ok(pagination);
     }

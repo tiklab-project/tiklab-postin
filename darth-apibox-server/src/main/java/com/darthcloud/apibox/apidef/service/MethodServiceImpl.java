@@ -95,10 +95,10 @@ public class MethodServiceImpl implements MethodService {
     }
 
     @Override
-    public Pagination<List<MethodEx>> findMethodPage(MethodExQuery methodExQuery) {
-        Pagination<List<MethodEx>> pg = new Pagination<>();
+    public Pagination<MethodEx> findMethodPage(MethodExQuery methodExQuery) {
+        Pagination<MethodEx> pg = new Pagination<>();
 
-        Pagination<List<MethodPo>>  pagination = methodDao.findMethodPage(methodExQuery);
+        Pagination<MethodPo>  pagination = methodDao.findMethodPage(methodExQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<MethodEx> methodExList = BeanMapper.mapList(pagination.getDataList(), MethodEx.class);

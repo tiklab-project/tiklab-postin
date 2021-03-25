@@ -68,7 +68,7 @@ public class RequestBodyDao{
         return jpaTemplate.findList(RequestBodyPo.class,requestBodyQuery);
     }
 
-    public Pagination<List<RequestBodyPo>> findRequestBodyPage(RequestBodyExQuery requestBodyQuery) {
+    public Pagination<RequestBodyPo> findRequestBodyPage(RequestBodyExQuery requestBodyQuery) {
         return jpaTemplate.findPage(RequestBodyPo.class,requestBodyQuery);
     }
 }

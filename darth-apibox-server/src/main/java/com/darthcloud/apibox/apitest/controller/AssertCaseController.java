@@ -93,8 +93,8 @@ public class AssertCaseController {
     @RequestMapping(path = "/findAssertCasePage",method = RequestMethod.POST)
     @ApiMethod(name = "findAssertCasePage",desc = "findAssertCasePage")
     @ApiParam(name = "assertCaseQuery",desc = "assertCaseQuery",required = true)
-    public Result<Pagination<List<AssertCase>>> findAssertCasePage(@RequestBody @Valid @NotNull AssertCaseQuery assertCaseQuery){
-        Pagination<List<AssertCase>> pagination = assertCaseService.findAssertCasePage(assertCaseQuery);
+    public Result<Pagination<AssertCase>> findAssertCasePage(@RequestBody @Valid @NotNull AssertCaseQuery assertCaseQuery){
+        Pagination<AssertCase> pagination = assertCaseService.findAssertCasePage(assertCaseQuery);
 
         return Result.ok(pagination);
     }

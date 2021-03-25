@@ -93,8 +93,8 @@ public class AfterScriptController {
     @RequestMapping(path = "/findAfterScriptPage",method = RequestMethod.POST)
     @ApiMethod(name = "findAfterScriptPage",desc = "findAfterScriptPage")
     @ApiParam(name = "afterScriptQuery",desc = "afterScriptQuery",required = true)
-    public Result<Pagination<List<AfterScript>>> findAfterScriptPage(@RequestBody @Valid @NotNull AfterScriptQuery afterScriptQuery){
-        Pagination<List<AfterScript>> pagination = afterScriptService.findAfterScriptPage(afterScriptQuery);
+    public Result<Pagination<AfterScript>> findAfterScriptPage(@RequestBody @Valid @NotNull AfterScriptQuery afterScriptQuery){
+        Pagination<AfterScript> pagination = afterScriptService.findAfterScriptPage(afterScriptQuery);
 
         return Result.ok(pagination);
     }

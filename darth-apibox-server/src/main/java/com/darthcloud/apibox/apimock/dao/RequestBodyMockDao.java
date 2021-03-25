@@ -72,7 +72,7 @@ public class RequestBodyMockDao{
         return jpaTemplate.findList(RequestBodyMockPo.class,requestBodyMockQuery);
     }
 
-    public Pagination<List<RequestBodyMockPo>> findRequestBodyMockPage(RequestBodyMockQuery requestBodyMockQuery) { 
+    public Pagination<RequestBodyMockPo> findRequestBodyMockPage(RequestBodyMockQuery requestBodyMockQuery) {
         return jpaTemplate.findPage(RequestBodyMockPo.class,requestBodyMockQuery);
     }
 }

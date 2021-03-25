@@ -58,6 +58,6 @@ public interface JsonResponseMockService {
     * @param jsonResponseMockQuery
     * @return
     */
-    Pagination<List<JsonResponseMock>> findJsonResponseMockPage(JsonResponseMockQuery jsonResponseMockQuery);
+    Pagination<JsonResponseMock> findJsonResponseMockPage(JsonResponseMockQuery jsonResponseMockQuery);
 
 }

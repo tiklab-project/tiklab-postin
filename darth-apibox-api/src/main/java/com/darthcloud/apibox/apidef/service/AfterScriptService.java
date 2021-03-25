@@ -58,6 +58,6 @@ public interface AfterScriptService {
     * @param afterScriptQuery
     * @return
     */
-    Pagination<List<AfterScript>> findAfterScriptPage(AfterScriptQuery afterScriptQuery);
+    Pagination<AfterScript> findAfterScriptPage(AfterScriptQuery afterScriptQuery);
 
 }

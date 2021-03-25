@@ -62,6 +62,6 @@ public interface PreScriptCaseService {
     * @param preScriptCaseQuery
     * @return
     */
-    Pagination<List<PreScriptCase>> findPreScriptCasePage(PreScriptCaseQuery preScriptCaseQuery);
+    Pagination<PreScriptCase> findPreScriptCasePage(PreScriptCaseQuery preScriptCaseQuery);
 
 }

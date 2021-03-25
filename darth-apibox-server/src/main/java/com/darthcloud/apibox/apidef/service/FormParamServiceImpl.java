@@ -82,10 +82,10 @@ public class FormParamServiceImpl implements FormParamService {
     }
 
     @Override
-    public Pagination<List<FormParam>> findFormParamPage(FormParamQuery formParamQuery) {
-        Pagination<List<FormParam>> pg = new Pagination<>();
+    public Pagination<FormParam> findFormParamPage(FormParamQuery formParamQuery) {
+        Pagination<FormParam> pg = new Pagination<>();
 
-        Pagination<List<FormParamPo>>  pagination = formParamDao.findFormParamPage(formParamQuery);
+        Pagination<FormParamPo>  pagination = formParamDao.findFormParamPage(formParamQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<FormParam> formParamList = BeanMapper.mapList(pagination.getDataList(),FormParam.class);

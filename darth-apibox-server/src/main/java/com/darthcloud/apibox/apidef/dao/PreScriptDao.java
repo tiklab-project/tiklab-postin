@@ -68,7 +68,7 @@ public class PreScriptDao{
         return jpaTemplate.findList(PreScriptPo.class,preScriptQuery);
     }
 
-    public Pagination<List<PreScriptPo>> findPreScriptPage(PreScriptQuery preScriptQuery) { 
+    public Pagination<PreScriptPo> findPreScriptPage(PreScriptQuery preScriptQuery) {
         return jpaTemplate.findPage(PreScriptPo.class,preScriptQuery);
     }
 }

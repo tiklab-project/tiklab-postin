@@ -93,8 +93,8 @@ public class QueryParamMockController {
     @RequestMapping(path = "/findQueryParamMockPage",method = RequestMethod.POST)
     @ApiMethod(name = "findQueryParamMockPage",desc = "findQueryParamMockPage")
     @ApiParam(name = "queryParamMockQuery",desc = "queryParamMockQuery",required = true)
-    public Result<Pagination<List<QueryParamMock>>> findQueryParamMockPage(@RequestBody @Valid @NotNull QueryParamMockQuery queryParamMockQuery){
-        Pagination<List<QueryParamMock>> pagination = queryParamMockService.findQueryParamMockPage(queryParamMockQuery);
+    public Result<Pagination<QueryParamMock>> findQueryParamMockPage(@RequestBody @Valid @NotNull QueryParamMockQuery queryParamMockQuery){
+        Pagination<QueryParamMock> pagination = queryParamMockService.findQueryParamMockPage(queryParamMockQuery);
 
         return Result.ok(pagination);
     }

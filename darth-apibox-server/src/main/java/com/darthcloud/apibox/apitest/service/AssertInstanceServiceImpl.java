@@ -94,10 +94,10 @@ public class AssertInstanceServiceImpl implements AssertInstanceService {
     }
 
     @Override
-    public Pagination<List<AssertInstance>> findAssertInstancePage(AssertInstanceQuery assertInstanceQuery) {
-        Pagination<List<AssertInstance>> pg = new Pagination<>();
+    public Pagination<AssertInstance> findAssertInstancePage(AssertInstanceQuery assertInstanceQuery) {
+        Pagination<AssertInstance> pg = new Pagination<>();
 
-        Pagination<List<AssertInstancePo>>  pagination = assertInstanceDao.findAssertInstancePage(assertInstanceQuery);
+        Pagination<AssertInstancePo>  pagination = assertInstanceDao.findAssertInstancePage(assertInstanceQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<AssertInstance> assertInstanceList = BeanMapper.mapList(pagination.getDataList(),AssertInstance.class);

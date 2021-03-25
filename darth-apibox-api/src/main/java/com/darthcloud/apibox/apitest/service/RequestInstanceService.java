@@ -62,6 +62,6 @@ public interface RequestInstanceService {
     * @param requestInstanceQuery
     * @return
     */
-    Pagination<List<RequestInstance>> findRequestInstancePage(RequestInstanceQuery requestInstanceQuery);
+    Pagination<RequestInstance> findRequestInstancePage(RequestInstanceQuery requestInstanceQuery);
 
 }

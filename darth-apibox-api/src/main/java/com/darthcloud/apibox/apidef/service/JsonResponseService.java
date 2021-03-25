@@ -63,7 +63,7 @@ public interface JsonResponseService {
     * @param jsonResponseQuery
     * @return
     */
-    Pagination<List<JsonResponse>> findJsonResponsePage(JsonResponseQuery jsonResponseQuery);
+    Pagination<JsonResponse> findJsonResponsePage(JsonResponseQuery jsonResponseQuery);
 
     /**
      * 查找列表树

@@ -93,8 +93,8 @@ public class JsonParamMockController {
     @RequestMapping(path = "/findJsonParamMockPage",method = RequestMethod.POST)
     @ApiMethod(name = "findJsonParamMockPage",desc = "findJsonParamMockPage")
     @ApiParam(name = "jsonParamMockQuery",desc = "jsonParamMockQuery",required = true)
-    public Result<Pagination<List<JsonParamMock>>> findJsonParamMockPage(@RequestBody @Valid @NotNull JsonParamMockQuery jsonParamMockQuery){
-        Pagination<List<JsonParamMock>> pagination = jsonParamMockService.findJsonParamMockPage(jsonParamMockQuery);
+    public Result<Pagination<JsonParamMock>> findJsonParamMockPage(@RequestBody @Valid @NotNull JsonParamMockQuery jsonParamMockQuery){
+        Pagination<JsonParamMock> pagination = jsonParamMockService.findJsonParamMockPage(jsonParamMockQuery);
 
         return Result.ok(pagination);
     }

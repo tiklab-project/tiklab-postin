@@ -58,6 +58,6 @@ public interface ResponseMockService {
     * @param responseMockQuery
     * @return
     */
-    Pagination<List<ResponseMock>> findResponseMockPage(ResponseMockQuery responseMockQuery);
+    Pagination<ResponseMock> findResponseMockPage(ResponseMockQuery responseMockQuery);
 
 }

@@ -61,6 +61,6 @@ public interface QueryParamCaseService {
     * @param queryParamCaseQuery
     * @return
     */
-    Pagination<List<QueryParamCase>> findQueryParamCasePage(QueryParamCaseQuery queryParamCaseQuery);
+    Pagination<QueryParamCase> findQueryParamCasePage(QueryParamCaseQuery queryParamCaseQuery);
 
 }

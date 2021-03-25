@@ -72,7 +72,7 @@ public class AssertInstanceDao{
         return jpaTemplate.findList(AssertInstancePo.class,assertInstanceQuery);
     }
 
-    public Pagination<List<AssertInstancePo>> findAssertInstancePage(AssertInstanceQuery assertInstanceQuery) { 
+    public Pagination<AssertInstancePo> findAssertInstancePage(AssertInstanceQuery assertInstanceQuery) {
         return jpaTemplate.findPage(AssertInstancePo.class,assertInstanceQuery);
     }
 }

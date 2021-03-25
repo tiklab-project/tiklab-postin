@@ -93,8 +93,8 @@ public class CategoryController {
     @RequestMapping(path = "/findCategoryPage",method = RequestMethod.POST)
     @ApiMethod(name = "findCategoryPage",desc = "根据查询对象按分页查找分类列表")
     @ApiParam(name = "categoryQuery",desc = "查询对象",required = true)
-    public Result<Pagination<List<Category>>> findCategoryPage(@RequestBody @Valid @NotNull CategoryQuery categoryQuery){
-        Pagination<List<Category>> pagination = categoryService.findCategoryPage(categoryQuery);
+    public Result<Pagination<Category>> findCategoryPage(@RequestBody @Valid @NotNull CategoryQuery categoryQuery){
+        Pagination<Category> pagination = categoryService.findCategoryPage(categoryQuery);
 
         return Result.ok(pagination);
     }

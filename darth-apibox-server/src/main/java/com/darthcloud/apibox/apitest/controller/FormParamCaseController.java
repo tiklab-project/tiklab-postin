@@ -93,8 +93,8 @@ public class FormParamCaseController {
     @RequestMapping(path = "/findFormParamCasePage",method = RequestMethod.POST)
     @ApiMethod(name = "findFormParamCasePage",desc = "findFormParamCasePage")
     @ApiParam(name = "formParamCaseQuery",desc = "formParamCaseQuery",required = true)
-    public Result<Pagination<List<FormParamCase>>> findFormParamCasePage(@RequestBody @Valid @NotNull FormParamCaseQuery formParamCaseQuery){
-        Pagination<List<FormParamCase>> pagination = formParamCaseService.findFormParamCasePage(formParamCaseQuery);
+    public Result<Pagination<FormParamCase>> findFormParamCasePage(@RequestBody @Valid @NotNull FormParamCaseQuery formParamCaseQuery){
+        Pagination<FormParamCase> pagination = formParamCaseService.findFormParamCasePage(formParamCaseQuery);
 
         return Result.ok(pagination);
     }

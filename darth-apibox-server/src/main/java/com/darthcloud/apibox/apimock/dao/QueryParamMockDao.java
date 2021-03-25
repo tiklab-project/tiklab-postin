@@ -68,7 +68,7 @@ public class QueryParamMockDao{
         return jpaTemplate.findList(QueryParamMockPo.class,queryParamMockQuery);
     }
 
-    public Pagination<List<QueryParamMockPo>> findQueryParamMockPage(QueryParamMockQuery queryParamMockQuery) { 
+    public Pagination<QueryParamMockPo> findQueryParamMockPage(QueryParamMockQuery queryParamMockQuery) {
         return jpaTemplate.findPage(QueryParamMockPo.class,queryParamMockQuery);
     }
 }

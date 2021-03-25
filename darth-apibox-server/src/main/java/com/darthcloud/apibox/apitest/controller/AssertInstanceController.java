@@ -93,8 +93,8 @@ public class AssertInstanceController {
     @RequestMapping(path = "/findAssertInstancePage",method = RequestMethod.POST)
     @ApiMethod(name = "findAssertInstancePage",desc = "findAssertInstancePage")
     @ApiParam(name = "assertInstanceQuery",desc = "assertInstanceQuery",required = true)
-    public Result<Pagination<List<AssertInstance>>> findAssertInstancePage(@RequestBody @Valid @NotNull AssertInstanceQuery assertInstanceQuery){
-        Pagination<List<AssertInstance>> pagination = assertInstanceService.findAssertInstancePage(assertInstanceQuery);
+    public Result<Pagination<AssertInstance>> findAssertInstancePage(@RequestBody @Valid @NotNull AssertInstanceQuery assertInstanceQuery){
+        Pagination<AssertInstance> pagination = assertInstanceService.findAssertInstancePage(assertInstanceQuery);
 
         return Result.ok(pagination);
     }

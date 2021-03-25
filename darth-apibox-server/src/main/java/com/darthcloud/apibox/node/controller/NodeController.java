@@ -93,8 +93,8 @@ public class NodeController {
     @RequestMapping(path = "/findNodePage",method = RequestMethod.POST)
     @ApiMethod(name = "findNodePage",desc = "findNodePage")
     @ApiParam(name = "nodeQuery",desc = "nodeQuery",required = true)
-    public Result<Pagination<List<Node>>> findNodePage(@RequestBody @Valid @NotNull NodeQuery nodeQuery){
-        Pagination<List<Node>> pagination = nodeService.findNodePage(nodeQuery);
+    public Result<Pagination<Node>> findNodePage(@RequestBody @Valid @NotNull NodeQuery nodeQuery){
+        Pagination<Node> pagination = nodeService.findNodePage(nodeQuery);
 
         return Result.ok(pagination);
     }

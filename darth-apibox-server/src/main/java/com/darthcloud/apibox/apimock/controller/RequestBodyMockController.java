@@ -93,8 +93,8 @@ public class RequestBodyMockController {
     @RequestMapping(path = "/findRequestBodyMockPage",method = RequestMethod.POST)
     @ApiMethod(name = "findRequestBodyMockPage",desc = "findRequestBodyMockPage")
     @ApiParam(name = "requestBodyMockQuery",desc = "requestBodyMockQuery",required = true)
-    public Result<Pagination<List<RequestBodyMock>>> findRequestBodyMockPage(@RequestBody @Valid @NotNull RequestBodyMockQuery requestBodyMockQuery){
-        Pagination<List<RequestBodyMock>> pagination = requestBodyMockService.findRequestBodyMockPage(requestBodyMockQuery);
+    public Result<Pagination<RequestBodyMock>> findRequestBodyMockPage(@RequestBody @Valid @NotNull RequestBodyMockQuery requestBodyMockQuery){
+        Pagination<RequestBodyMock> pagination = requestBodyMockService.findRequestBodyMockPage(requestBodyMockQuery);
 
         return Result.ok(pagination);
     }

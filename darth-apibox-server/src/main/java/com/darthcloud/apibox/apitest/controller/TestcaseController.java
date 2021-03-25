@@ -102,8 +102,8 @@ public class TestcaseController {
     @RequestMapping(path = "/findTestcasePage",method = RequestMethod.POST)
     @ApiMethod(name = "findTestcasePage",desc = "findTestcasePage")
     @ApiParam(name = "testcaseQuery",desc = "testcaseQuery",required = true)
-    public Result<Pagination<List<Testcase>>> findTestcasePage(@RequestBody @Valid @NotNull TestcaseQuery testcaseQuery){
-        Pagination<List<Testcase>> pagination = testcaseService.findTestcasePage(testcaseQuery);
+    public Result<Pagination<Testcase>> findTestcasePage(@RequestBody @Valid @NotNull TestcaseQuery testcaseQuery){
+        Pagination<Testcase> pagination = testcaseService.findTestcasePage(testcaseQuery);
 
         return Result.ok(pagination);
     }

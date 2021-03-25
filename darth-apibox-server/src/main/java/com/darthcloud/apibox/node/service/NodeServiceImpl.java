@@ -66,10 +66,10 @@ public class NodeServiceImpl implements NodeService {
     }
 
     @Override
-    public Pagination<List<Node>> findNodePage(NodeQuery nodeQuery) {
-        Pagination<List<Node>> pg = new Pagination<>();
+    public Pagination<Node> findNodePage(NodeQuery nodeQuery) {
+        Pagination<Node> pg = new Pagination<>();
 
-        Pagination<List<NodePo>>  pagination = nodeDao.findNodePage(nodeQuery);
+        Pagination<NodePo>  pagination = nodeDao.findNodePage(nodeQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<Node> nodeList = BeanMapper.mapList(pagination.getDataList(),Node.class);

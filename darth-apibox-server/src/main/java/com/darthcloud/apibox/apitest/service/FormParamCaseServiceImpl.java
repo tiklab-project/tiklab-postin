@@ -94,10 +94,10 @@ public class FormParamCaseServiceImpl implements FormParamCaseService {
     }
 
     @Override
-    public Pagination<List<FormParamCase>> findFormParamCasePage(FormParamCaseQuery formParamCaseQuery) {
-        Pagination<List<FormParamCase>> pg = new Pagination<>();
+    public Pagination<FormParamCase> findFormParamCasePage(FormParamCaseQuery formParamCaseQuery) {
+        Pagination<FormParamCase> pg = new Pagination<>();
 
-        Pagination<List<FormParamCasePo>>  pagination = formParamCaseDao.findFormParamCasePage(formParamCaseQuery);
+        Pagination<FormParamCasePo>  pagination = formParamCaseDao.findFormParamCasePage(formParamCaseQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<FormParamCase> formParamCaseList = BeanMapper.mapList(pagination.getDataList(),FormParamCase.class);

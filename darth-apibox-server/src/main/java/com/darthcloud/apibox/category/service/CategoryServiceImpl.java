@@ -114,10 +114,10 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Pagination<List<Category>> findCategoryPage(CategoryQuery categoryQuery) {
-        Pagination<List<Category>> pg = new Pagination<>();
+    public Pagination<Category> findCategoryPage(CategoryQuery categoryQuery) {
+        Pagination<Category> pg = new Pagination<>();
 
-        Pagination<List<CategoryPo>>  pagination = categoryDao.findCategoryPage(categoryQuery);
+        Pagination<CategoryPo>  pagination = categoryDao.findCategoryPage(categoryQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<Category> categoryList = BeanMapper.mapList(pagination.getDataList(),Category.class);

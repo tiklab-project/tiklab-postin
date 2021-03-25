@@ -68,7 +68,7 @@ public class QueryParamDao{
         return jpaTemplate.findList(QueryParamPo.class,queryParamQuery);
     }
 
-    public Pagination<List<QueryParamPo>> findQueryParamPage(QueryParamQuery queryParamQuery) { 
+    public Pagination<QueryParamPo> findQueryParamPage(QueryParamQuery queryParamQuery) {
         return jpaTemplate.findPage(QueryParamPo.class,queryParamQuery);
     }
 }

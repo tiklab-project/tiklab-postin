@@ -58,6 +58,6 @@ public interface QueryParamService {
     * @param queryParamQuery
     * @return
     */
-    Pagination<List<QueryParam>> findQueryParamPage(QueryParamQuery queryParamQuery);
+    Pagination<QueryParam> findQueryParamPage(QueryParamQuery queryParamQuery);
 
 }

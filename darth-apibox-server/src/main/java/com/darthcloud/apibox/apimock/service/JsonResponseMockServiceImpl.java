@@ -82,10 +82,10 @@ public class JsonResponseMockServiceImpl implements JsonResponseMockService {
     }
 
     @Override
-    public Pagination<List<JsonResponseMock>> findJsonResponseMockPage(JsonResponseMockQuery jsonResponseMockQuery) {
-        Pagination<List<JsonResponseMock>> pg = new Pagination<>();
+    public Pagination<JsonResponseMock> findJsonResponseMockPage(JsonResponseMockQuery jsonResponseMockQuery) {
+        Pagination<JsonResponseMock> pg = new Pagination<>();
 
-        Pagination<List<JsonResponseMockPo>>  pagination = jsonResponseMockDao.findJsonResponseMockPage(jsonResponseMockQuery);
+        Pagination<JsonResponseMockPo>  pagination = jsonResponseMockDao.findJsonResponseMockPage(jsonResponseMockQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<JsonResponseMock> jsonResponseMockList = BeanMapper.mapList(pagination.getDataList(),JsonResponseMock.class);

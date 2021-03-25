@@ -82,10 +82,10 @@ public class ResponseMockServiceImpl implements ResponseMockService {
     }
 
     @Override
-    public Pagination<List<ResponseMock>> findResponseMockPage(ResponseMockQuery responseMockQuery) {
-        Pagination<List<ResponseMock>> pg = new Pagination<>();
+    public Pagination<ResponseMock> findResponseMockPage(ResponseMockQuery responseMockQuery) {
+        Pagination<ResponseMock> pg = new Pagination<>();
 
-        Pagination<List<ResponseMockPo>>  pagination = responseMockDao.findResponseMockPage(responseMockQuery);
+        Pagination<ResponseMockPo>  pagination = responseMockDao.findResponseMockPage(responseMockQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<ResponseMock> responseMockList = BeanMapper.mapList(pagination.getDataList(),ResponseMock.class);

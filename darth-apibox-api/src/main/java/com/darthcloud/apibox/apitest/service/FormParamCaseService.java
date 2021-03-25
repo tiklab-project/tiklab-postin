@@ -62,6 +62,6 @@ public interface FormParamCaseService {
     * @param formParamCaseQuery
     * @return
     */
-    Pagination<List<FormParamCase>> findFormParamCasePage(FormParamCaseQuery formParamCaseQuery);
+    Pagination<FormParamCase> findFormParamCasePage(FormParamCaseQuery formParamCaseQuery);
 
 }

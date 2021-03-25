@@ -72,7 +72,7 @@ public class TestcaseDao{
         return jpaTemplate.findList(TestcasePo.class,testcaseQuery);
     }
 
-    public Pagination<List<TestcasePo>> findTestcasePage(TestcaseQuery testcaseQuery) { 
+    public Pagination<TestcasePo> findTestcasePage(TestcaseQuery testcaseQuery) {
         return jpaTemplate.findPage(TestcasePo.class,testcaseQuery);
     }
 }

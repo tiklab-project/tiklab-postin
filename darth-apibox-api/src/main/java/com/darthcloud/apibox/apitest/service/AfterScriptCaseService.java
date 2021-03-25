@@ -62,6 +62,6 @@ public interface AfterScriptCaseService {
     * @param afterScriptCaseQuery
     * @return
     */
-    Pagination<List<AfterScriptCase>> findAfterScriptCasePage(AfterScriptCaseQuery afterScriptCaseQuery);
+    Pagination<AfterScriptCase> findAfterScriptCasePage(AfterScriptCaseQuery afterScriptCaseQuery);
 
 }

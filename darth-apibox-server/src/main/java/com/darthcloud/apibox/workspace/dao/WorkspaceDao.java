@@ -72,7 +72,7 @@ public class WorkspaceDao{
         return jpaTemplate.findList(WorkspacePo.class,workspaceQuery);
     }
 
-    public Pagination<List<WorkspacePo>> findWorkspacePage(WorkspaceQuery workspaceQuery) { 
+    public Pagination<WorkspacePo> findWorkspacePage(WorkspaceQuery workspaceQuery) {
         return jpaTemplate.findPage(WorkspacePo.class,workspaceQuery);
     }
 }

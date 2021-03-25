@@ -68,7 +68,7 @@ public class RequestHeaderMockDao{
         return jpaTemplate.findList(RequestHeaderMockPo.class,requestHeaderMockQuery);
     }
 
-    public Pagination<List<RequestHeaderMockPo>> findRequestHeaderMockPage(RequestHeaderMockQuery requestHeaderMockQuery) { 
+    public Pagination<RequestHeaderMockPo> findRequestHeaderMockPage(RequestHeaderMockQuery requestHeaderMockQuery) {
         return jpaTemplate.findPage(RequestHeaderMockPo.class,requestHeaderMockQuery);
     }
 }

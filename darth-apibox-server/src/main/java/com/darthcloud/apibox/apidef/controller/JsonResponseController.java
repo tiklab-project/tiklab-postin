@@ -93,8 +93,8 @@ public class JsonResponseController {
     @RequestMapping(path = "/findJsonResponsePage",method = RequestMethod.POST)
     @ApiMethod(name = "findJsonResponsePage",desc = "根据查询对象按分页查询json响应结果列表")
     @ApiParam(name = "jsonResponseQuery",desc = "查询对象",required = true)
-    public Result<Pagination<List<JsonResponse>>> findJsonResponsePage(@RequestBody @Valid @NotNull JsonResponseQuery jsonResponseQuery){
-        Pagination<List<JsonResponse>> pagination = jsonResponseService.findJsonResponsePage(jsonResponseQuery);
+    public Result<Pagination<JsonResponse>> findJsonResponsePage(@RequestBody @Valid @NotNull JsonResponseQuery jsonResponseQuery){
+        Pagination<JsonResponse> pagination = jsonResponseService.findJsonResponsePage(jsonResponseQuery);
 
         return Result.ok(pagination);
     }

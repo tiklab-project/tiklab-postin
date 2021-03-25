@@ -63,6 +63,6 @@ public interface RequestBodyCaseService {
     * @param requestBodyCaseQuery
     * @return
     */
-    Pagination<List<RequestBodyCase>> findRequestBodyCasePage(RequestBodyCaseQuery requestBodyCaseQuery);
+    Pagination<RequestBodyCase> findRequestBodyCasePage(RequestBodyCaseQuery requestBodyCaseQuery);
 
 }

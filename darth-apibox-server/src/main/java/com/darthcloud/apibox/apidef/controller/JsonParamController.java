@@ -103,8 +103,8 @@ public class JsonParamController {
     @RequestMapping(path = "/findJsonParamPage",method = RequestMethod.POST)
     @ApiMethod(name = "findJsonParamPage",desc = "根据查询对象按分页查找json请求参数列表")
     @ApiParam(name = "jsonParamQuery",desc = "查询对象",required = true)
-    public Result<Pagination<List<JsonParam>>> findJsonParamPage(@RequestBody @Valid @NotNull JsonParamQuery jsonParamQuery){
-        Pagination<List<JsonParam>> pagination = jsonParamService.findJsonParamPage(jsonParamQuery);
+    public Result<Pagination<JsonParam>> findJsonParamPage(@RequestBody @Valid @NotNull JsonParamQuery jsonParamQuery){
+        Pagination<JsonParam> pagination = jsonParamService.findJsonParamPage(jsonParamQuery);
 
         return Result.ok(pagination);
     }

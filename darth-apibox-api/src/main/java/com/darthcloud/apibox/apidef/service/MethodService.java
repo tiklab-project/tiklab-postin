@@ -70,6 +70,6 @@ public interface MethodService {
     * @param methodExQuery
     * @return
     */
-    Pagination<List<MethodEx>> findMethodPage(MethodExQuery methodExQuery);
+    Pagination<MethodEx> findMethodPage(MethodExQuery methodExQuery);
 
 }

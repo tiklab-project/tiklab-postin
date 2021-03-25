@@ -62,6 +62,6 @@ public interface RawParamCaseService {
     * @param rawParamCaseQuery
     * @return
     */
-    Pagination<List<RawParamCase>> findRawParamCasePage(RawParamCaseQuery rawParamCaseQuery);
+    Pagination<RawParamCase> findRawParamCasePage(RawParamCaseQuery rawParamCaseQuery);
 
 }

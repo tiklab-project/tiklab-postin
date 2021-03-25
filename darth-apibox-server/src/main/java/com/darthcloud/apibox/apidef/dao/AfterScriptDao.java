@@ -68,7 +68,7 @@ public class AfterScriptDao{
         return jpaTemplate.findList(AfterScriptPo.class,afterScriptQuery);
     }
 
-    public Pagination<List<AfterScriptPo>> findAfterScriptPage(AfterScriptQuery afterScriptQuery) { 
+    public Pagination<AfterScriptPo> findAfterScriptPage(AfterScriptQuery afterScriptQuery) {
         return jpaTemplate.findPage(AfterScriptPo.class,afterScriptQuery);
     }
 }

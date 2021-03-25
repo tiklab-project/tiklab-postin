@@ -93,8 +93,8 @@ public class ResponseInstanceController {
     @RequestMapping(path = "/findResponseInstancePage",method = RequestMethod.POST)
     @ApiMethod(name = "findResponseInstancePage",desc = "findResponseInstancePage")
     @ApiParam(name = "responseInstanceQuery",desc = "responseInstanceQuery",required = true)
-    public Result<Pagination<List<ResponseInstance>>> findResponseInstancePage(@RequestBody @Valid @NotNull ResponseInstanceQuery responseInstanceQuery){
-        Pagination<List<ResponseInstance>> pagination = responseInstanceService.findResponseInstancePage(responseInstanceQuery);
+    public Result<Pagination<ResponseInstance>> findResponseInstancePage(@RequestBody @Valid @NotNull ResponseInstanceQuery responseInstanceQuery){
+        Pagination<ResponseInstance> pagination = responseInstanceService.findResponseInstancePage(responseInstanceQuery);
 
         return Result.ok(pagination);
     }

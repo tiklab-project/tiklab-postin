@@ -58,6 +58,6 @@ public interface RawResponseMockService {
     * @param rawResponseMockQuery
     * @return
     */
-    Pagination<List<RawResponseMock>> findRawResponseMockPage(RawResponseMockQuery rawResponseMockQuery);
+    Pagination<RawResponseMock> findRawResponseMockPage(RawResponseMockQuery rawResponseMockQuery);
 
 }

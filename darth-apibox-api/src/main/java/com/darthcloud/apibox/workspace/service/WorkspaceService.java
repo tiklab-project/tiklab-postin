@@ -70,6 +70,6 @@ public interface WorkspaceService {
     * @param workspaceQuery
     * @return
     */
-    Pagination<List<Workspace>> findWorkspacePage(WorkspaceQuery workspaceQuery);
+    Pagination<Workspace> findWorkspacePage(WorkspaceQuery workspaceQuery);
 
 }

@@ -93,8 +93,8 @@ public class QueryParamController {
     @RequestMapping(path = "/findQueryParamPage",method = RequestMethod.POST)
     @ApiMethod(name = "findQueryParamPage",desc = "根据查询对象按分页查找查询参数列表")
     @ApiParam(name = "queryParamQuery",desc = "查找条件",required = true)
-    public Result<Pagination<List<QueryParam>>> findQueryParamPage(@RequestBody @Valid @NotNull QueryParamQuery queryParamQuery){
-        Pagination<List<QueryParam>> pagination = queryParamService.findQueryParamPage(queryParamQuery);
+    public Result<Pagination<QueryParam>> findQueryParamPage(@RequestBody @Valid @NotNull QueryParamQuery queryParamQuery){
+        Pagination<QueryParam> pagination = queryParamService.findQueryParamPage(queryParamQuery);
 
         return Result.ok(pagination);
     }

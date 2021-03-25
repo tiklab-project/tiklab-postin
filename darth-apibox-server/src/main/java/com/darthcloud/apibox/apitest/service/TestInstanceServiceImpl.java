@@ -165,10 +165,10 @@ public class TestInstanceServiceImpl implements TestInstanceService {
     }
 
     @Override
-    public Pagination<List<TestInstance>> findTestInstancePage(TestInstanceQuery testInstanceQuery) {
-        Pagination<List<TestInstance>> pg = new Pagination<>();
+    public Pagination<TestInstance> findTestInstancePage(TestInstanceQuery testInstanceQuery) {
+        Pagination<TestInstance> pg = new Pagination<>();
 
-        Pagination<List<TestInstancePo>>  pagination = testInstanceDao.findTestInstancePage(testInstanceQuery);
+        Pagination<TestInstancePo>  pagination = testInstanceDao.findTestInstancePage(testInstanceQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<TestInstance> testInstanceList = BeanMapper.mapList(pagination.getDataList(),TestInstance.class);

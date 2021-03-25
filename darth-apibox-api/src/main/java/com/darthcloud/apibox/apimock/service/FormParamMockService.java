@@ -58,6 +58,6 @@ public interface FormParamMockService {
     * @param formParamMockQuery
     * @return
     */
-    Pagination<List<FormParamMock>> findFormParamMockPage(FormParamMockQuery formParamMockQuery);
+    Pagination<FormParamMock> findFormParamMockPage(FormParamMockQuery formParamMockQuery);
 
 }

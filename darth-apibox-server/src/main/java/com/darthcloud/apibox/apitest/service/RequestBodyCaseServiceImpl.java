@@ -94,10 +94,10 @@ public class RequestBodyCaseServiceImpl implements RequestBodyCaseService {
     }
 
     @Override
-    public Pagination<List<RequestBodyCase>> findRequestBodyCasePage(RequestBodyCaseQuery requestBodyCaseQuery) {
-        Pagination<List<RequestBodyCase>> pg = new Pagination<>();
+    public Pagination<RequestBodyCase> findRequestBodyCasePage(RequestBodyCaseQuery requestBodyCaseQuery) {
+        Pagination<RequestBodyCase> pg = new Pagination<>();
 
-        Pagination<List<RequestBodyCasePo>>  pagination = requestBodyCaseDao.findRequestBodyCasePage(requestBodyCaseQuery);
+        Pagination<RequestBodyCasePo>  pagination = requestBodyCaseDao.findRequestBodyCasePage(requestBodyCaseQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<RequestBodyCase> requestBodyCaseList = BeanMapper.mapList(pagination.getDataList(),RequestBodyCase.class);

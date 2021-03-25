@@ -82,10 +82,10 @@ public class ResponseResultServiceImpl implements ResponseResultService {
     }
 
     @Override
-    public Pagination<List<ResponseResult>> findResponseResultPage(ResponseResultQuery responseResultQuery) {
-        Pagination<List<ResponseResult>> pg = new Pagination<>();
+    public Pagination<ResponseResult> findResponseResultPage(ResponseResultQuery responseResultQuery) {
+        Pagination<ResponseResult> pg = new Pagination<>();
 
-        Pagination<List<ResponseResultPo>>  pagination = responseResultDao.findResponseResultPage(responseResultQuery);
+        Pagination<ResponseResultPo>  pagination = responseResultDao.findResponseResultPage(responseResultQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<ResponseResult> responseResultList = BeanMapper.mapList(pagination.getDataList(),ResponseResult.class);

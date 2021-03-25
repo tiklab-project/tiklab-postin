@@ -62,6 +62,6 @@ public interface AssertInstanceService {
     * @param assertInstanceQuery
     * @return
     */
-    Pagination<List<AssertInstance>> findAssertInstancePage(AssertInstanceQuery assertInstanceQuery);
+    Pagination<AssertInstance> findAssertInstancePage(AssertInstanceQuery assertInstanceQuery);
 
 }

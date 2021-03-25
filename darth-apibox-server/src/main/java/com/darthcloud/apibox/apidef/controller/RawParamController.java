@@ -93,8 +93,8 @@ public class RawParamController {
     @RequestMapping(path = "/findRawParamPage",method = RequestMethod.POST)
     @ApiMethod(name = "findRawParamPage",desc = "findRawParamPage")
     @ApiParam(name = "rawParamQuery",desc = "rawParamQuery",required = true)
-    public Result<Pagination<List<RawParam>>> findRawParamPage(@RequestBody @Valid @NotNull RawParamQuery rawParamQuery){
-        Pagination<List<RawParam>> pagination = rawParamService.findRawParamPage(rawParamQuery);
+    public Result<Pagination<RawParam>> findRawParamPage(@RequestBody @Valid @NotNull RawParamQuery rawParamQuery){
+        Pagination<RawParam> pagination = rawParamService.findRawParamPage(rawParamQuery);
 
         return Result.ok(pagination);
     }

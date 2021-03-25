@@ -58,6 +58,6 @@ public interface QueryParamMockService {
     * @param queryParamMockQuery
     * @return
     */
-    Pagination<List<QueryParamMock>> findQueryParamMockPage(QueryParamMockQuery queryParamMockQuery);
+    Pagination<QueryParamMock> findQueryParamMockPage(QueryParamMockQuery queryParamMockQuery);
 
 }

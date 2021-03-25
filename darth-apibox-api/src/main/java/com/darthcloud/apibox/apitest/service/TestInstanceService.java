@@ -72,6 +72,6 @@ public interface TestInstanceService {
     * @param testInstanceQuery
     * @return
     */
-    Pagination<List<TestInstance>> findTestInstancePage(TestInstanceQuery testInstanceQuery);
+    Pagination<TestInstance> findTestInstancePage(TestInstanceQuery testInstanceQuery);
 
 }

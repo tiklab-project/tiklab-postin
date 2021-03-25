@@ -68,7 +68,7 @@ public class ResponseHeaderDao{
         return jpaTemplate.findList(ResponseHeaderPo.class,responseHeaderQuery);
     }
 
-    public Pagination<List<ResponseHeaderPo>> findResponseHeaderPage(ResponseHeaderQuery responseHeaderQuery) { 
+    public Pagination<ResponseHeaderPo> findResponseHeaderPage(ResponseHeaderQuery responseHeaderQuery) {
         return jpaTemplate.findPage(ResponseHeaderPo.class,responseHeaderQuery);
     }
 }

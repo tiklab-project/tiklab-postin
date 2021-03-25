@@ -93,8 +93,8 @@ public class RawResponseMockController {
     @RequestMapping(path = "/findRawResponseMockPage",method = RequestMethod.POST)
     @ApiMethod(name = "findRawResponseMockPage",desc = "findRawResponseMockPage")
     @ApiParam(name = "rawResponseMockQuery",desc = "rawResponseMockQuery",required = true)
-    public Result<Pagination<List<RawResponseMock>>> findRawResponseMockPage(@RequestBody @Valid @NotNull RawResponseMockQuery rawResponseMockQuery){
-        Pagination<List<RawResponseMock>> pagination = rawResponseMockService.findRawResponseMockPage(rawResponseMockQuery);
+    public Result<Pagination<RawResponseMock>> findRawResponseMockPage(@RequestBody @Valid @NotNull RawResponseMockQuery rawResponseMockQuery){
+        Pagination<RawResponseMock> pagination = rawResponseMockService.findRawResponseMockPage(rawResponseMockQuery);
 
         return Result.ok(pagination);
     }

@@ -62,6 +62,6 @@ public interface RequestBodyMockService {
     * @param requestBodyMockQuery
     * @return
     */
-    Pagination<List<RequestBodyMock>> findRequestBodyMockPage(RequestBodyMockQuery requestBodyMockQuery);
+    Pagination<RequestBodyMock> findRequestBodyMockPage(RequestBodyMockQuery requestBodyMockQuery);
 
 }

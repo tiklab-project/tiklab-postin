@@ -72,7 +72,7 @@ public class MockDao{
         return jpaTemplate.findList(MockPo.class,mockQuery);
     }
 
-    public Pagination<List<MockPo>> findMockPage(MockQuery mockQuery) { 
+    public Pagination<MockPo> findMockPage(MockQuery mockQuery) {
         return jpaTemplate.findPage(MockPo.class,mockQuery);
     }
 }

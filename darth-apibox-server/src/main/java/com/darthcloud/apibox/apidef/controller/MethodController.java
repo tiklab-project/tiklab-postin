@@ -93,8 +93,8 @@ public class MethodController {
     @RequestMapping(path = "/findMethodPage",method = RequestMethod.POST)
     @ApiMethod(name = "findMethodPage",desc = "根据查询对象按分页查询接口列表")
     @ApiParam(name = "methodExQuery",desc = "查询对象",required = true)
-    public Result<Pagination<List<MethodEx>>> findMethodPage(@RequestBody @Valid @NotNull MethodExQuery methodExQuery){
-        Pagination<List<MethodEx>> pagination = methodService.findMethodPage(methodExQuery);
+    public Result<Pagination<MethodEx>> findMethodPage(@RequestBody @Valid @NotNull MethodExQuery methodExQuery){
+        Pagination<MethodEx> pagination = methodService.findMethodPage(methodExQuery);
 
         return Result.ok(pagination);
     }

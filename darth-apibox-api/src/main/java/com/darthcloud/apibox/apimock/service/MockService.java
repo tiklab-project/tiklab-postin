@@ -70,6 +70,6 @@ public interface MockService {
     * @param mockQuery
     * @return
     */
-    Pagination<List<Mock>> findMockPage(MockQuery mockQuery);
+    Pagination<Mock> findMockPage(MockQuery mockQuery);
 
 }

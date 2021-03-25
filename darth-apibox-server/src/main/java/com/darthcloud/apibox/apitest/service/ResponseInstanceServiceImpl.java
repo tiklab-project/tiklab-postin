@@ -94,10 +94,10 @@ public class ResponseInstanceServiceImpl implements ResponseInstanceService {
     }
 
     @Override
-    public Pagination<List<ResponseInstance>> findResponseInstancePage(ResponseInstanceQuery responseInstanceQuery) {
-        Pagination<List<ResponseInstance>> pg = new Pagination<>();
+    public Pagination<ResponseInstance> findResponseInstancePage(ResponseInstanceQuery responseInstanceQuery) {
+        Pagination<ResponseInstance> pg = new Pagination<>();
 
-        Pagination<List<ResponseInstancePo>>  pagination = responseInstanceDao.findResponseInstancePage(responseInstanceQuery);
+        Pagination<ResponseInstancePo>  pagination = responseInstanceDao.findResponseInstancePage(responseInstanceQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<ResponseInstance> responseInstanceList = BeanMapper.mapList(pagination.getDataList(),ResponseInstance.class);

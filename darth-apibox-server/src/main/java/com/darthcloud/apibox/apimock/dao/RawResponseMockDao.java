@@ -68,7 +68,7 @@ public class RawResponseMockDao{
         return jpaTemplate.findList(RawResponseMockPo.class,rawResponseMockQuery);
     }
 
-    public Pagination<List<RawResponseMockPo>> findRawResponseMockPage(RawResponseMockQuery rawResponseMockQuery) { 
+    public Pagination<RawResponseMockPo> findRawResponseMockPage(RawResponseMockQuery rawResponseMockQuery) {
         return jpaTemplate.findPage(RawResponseMockPo.class,rawResponseMockQuery);
     }
 }

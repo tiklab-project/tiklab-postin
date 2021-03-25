@@ -93,8 +93,8 @@ public class RequestHeaderController {
     @RequestMapping(path = "/findRequestHeaderPage",method = RequestMethod.POST)
     @ApiMethod(name = "findRequestHeaderPage",desc = "根据查询对象按分页查询请求头列表")
     @ApiParam(name = "requestHeaderQuery",desc = "查询对象",required = true)
-    public Result<Pagination<List<RequestHeader>>> findRequestHeaderPage(@RequestBody @Valid @NotNull RequestHeaderQuery requestHeaderQuery){
-        Pagination<List<RequestHeader>> pagination = requestHeaderService.findRequestHeaderPage(requestHeaderQuery);
+    public Result<Pagination<RequestHeader>> findRequestHeaderPage(@RequestBody @Valid @NotNull RequestHeaderQuery requestHeaderQuery){
+        Pagination<RequestHeader> pagination = requestHeaderService.findRequestHeaderPage(requestHeaderQuery);
 
         return Result.ok(pagination);
     }

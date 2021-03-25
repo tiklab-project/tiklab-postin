@@ -82,10 +82,10 @@ public class QueryParamServiceImpl implements QueryParamService {
     }
 
     @Override
-    public Pagination<List<QueryParam>> findQueryParamPage(QueryParamQuery queryParamQuery) {
-        Pagination<List<QueryParam>> pg = new Pagination<>();
+    public Pagination<QueryParam> findQueryParamPage(QueryParamQuery queryParamQuery) {
+        Pagination<QueryParam> pg = new Pagination<>();
 
-        Pagination<List<QueryParamPo>>  pagination = queryParamDao.findQueryParamPage(queryParamQuery);
+        Pagination<QueryParamPo>  pagination = queryParamDao.findQueryParamPage(queryParamQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<QueryParam> queryParamList = BeanMapper.mapList(pagination.getDataList(),QueryParam.class);

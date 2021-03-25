@@ -62,6 +62,6 @@ public interface JsonParamMockService {
     * @param jsonParamMockQuery
     * @return
     */
-    Pagination<List<JsonParamMock>> findJsonParamMockPage(JsonParamMockQuery jsonParamMockQuery);
+    Pagination<JsonParamMock> findJsonParamMockPage(JsonParamMockQuery jsonParamMockQuery);
 
 }

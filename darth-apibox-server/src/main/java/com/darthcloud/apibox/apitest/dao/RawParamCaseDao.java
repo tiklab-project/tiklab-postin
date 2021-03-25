@@ -72,7 +72,7 @@ public class RawParamCaseDao{
         return jpaTemplate.findList(RawParamCasePo.class,rawParamCaseQuery);
     }
 
-    public Pagination<List<RawParamCasePo>> findRawParamCasePage(RawParamCaseQuery rawParamCaseQuery) { 
+    public Pagination<RawParamCasePo> findRawParamCasePage(RawParamCaseQuery rawParamCaseQuery) {
         return jpaTemplate.findPage(RawParamCasePo.class,rawParamCaseQuery);
     }
 }

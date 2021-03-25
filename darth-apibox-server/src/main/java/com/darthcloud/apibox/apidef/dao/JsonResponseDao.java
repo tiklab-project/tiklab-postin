@@ -68,7 +68,7 @@ public class JsonResponseDao {
         return jpaTemplate.findList(JsonResponsePo.class,jsonResponseQuery);
     }
 
-    public Pagination<List<JsonResponsePo>> findJsonResponsePage(JsonResponseQuery jsonResponseQuery) {
+    public Pagination<JsonResponsePo> findJsonResponsePage(JsonResponseQuery jsonResponseQuery) {
         return jpaTemplate.findPage(JsonResponsePo.class,jsonResponseQuery);
     }
 }

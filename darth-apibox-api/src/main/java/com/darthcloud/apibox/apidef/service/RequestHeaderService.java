@@ -58,6 +58,6 @@ public interface RequestHeaderService {
     * @param requestHeaderQuery
     * @return
     */
-    Pagination<List<RequestHeader>> findRequestHeaderPage(RequestHeaderQuery requestHeaderQuery);
+    Pagination<RequestHeader> findRequestHeaderPage(RequestHeaderQuery requestHeaderQuery);
 
 }

@@ -68,7 +68,7 @@ public class RawResponseDao{
         return jpaTemplate.findList(RawResponsePo.class,rawResponseQuery);
     }
 
-    public Pagination<List<RawResponsePo>> findRawResponsePage(RawResponseQuery rawResponseQuery) { 
+    public Pagination<RawResponsePo> findRawResponsePage(RawResponseQuery rawResponseQuery) {
         return jpaTemplate.findPage(RawResponsePo.class,rawResponseQuery);
     }
 }

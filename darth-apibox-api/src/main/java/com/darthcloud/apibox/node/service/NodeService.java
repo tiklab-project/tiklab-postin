@@ -58,7 +58,7 @@ public interface NodeService {
     * @param nodeQuery
     * @return
     */
-    Pagination<List<Node>> findNodePage(NodeQuery nodeQuery);
+    Pagination<Node> findNodePage(NodeQuery nodeQuery);
 
     /**
      * 根据空间ID查找节点树

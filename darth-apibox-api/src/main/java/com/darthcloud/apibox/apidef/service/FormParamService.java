@@ -58,6 +58,6 @@ public interface FormParamService {
     * @param formParamQuery
     * @return
     */
-    Pagination<List<FormParam>> findFormParamPage(FormParamQuery formParamQuery);
+    Pagination<FormParam> findFormParamPage(FormParamQuery formParamQuery);
 
 }

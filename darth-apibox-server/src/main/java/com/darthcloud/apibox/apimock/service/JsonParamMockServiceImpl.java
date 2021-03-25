@@ -94,10 +94,10 @@ public class JsonParamMockServiceImpl implements JsonParamMockService {
     }
 
     @Override
-    public Pagination<List<JsonParamMock>> findJsonParamMockPage(JsonParamMockQuery jsonParamMockQuery) {
-        Pagination<List<JsonParamMock>> pg = new Pagination<>();
+    public Pagination<JsonParamMock> findJsonParamMockPage(JsonParamMockQuery jsonParamMockQuery) {
+        Pagination<JsonParamMock> pg = new Pagination<>();
 
-        Pagination<List<JsonParamMockPo>>  pagination = jsonParamMockDao.findJsonParamMockPage(jsonParamMockQuery);
+        Pagination<JsonParamMockPo>  pagination = jsonParamMockDao.findJsonParamMockPage(jsonParamMockQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<JsonParamMock> jsonParamMockList = BeanMapper.mapList(pagination.getDataList(),JsonParamMock.class);

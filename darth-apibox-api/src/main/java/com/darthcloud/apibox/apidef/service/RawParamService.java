@@ -58,6 +58,6 @@ public interface RawParamService {
     * @param rawParamQuery
     * @return
     */
-    Pagination<List<RawParam>> findRawParamPage(RawParamQuery rawParamQuery);
+    Pagination<RawParam> findRawParamPage(RawParamQuery rawParamQuery);
 
 }

@@ -82,10 +82,10 @@ public class RequestBodyServiceImpl implements RequestBodyService {
     }
 
     @Override
-    public Pagination<List<RequestBodyEx>> findRequestBodyPage(RequestBodyExQuery requestBodyQuery) {
-        Pagination<List<RequestBodyEx>> pg = new Pagination<>();
+    public Pagination<RequestBodyEx> findRequestBodyPage(RequestBodyExQuery requestBodyQuery) {
+        Pagination<RequestBodyEx> pg = new Pagination<>();
 
-        Pagination<List<RequestBodyPo>>  pagination = requestBodyDao.findRequestBodyPage(requestBodyQuery);
+        Pagination<RequestBodyPo>  pagination = requestBodyDao.findRequestBodyPage(requestBodyQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<RequestBodyEx> requestBodyList = BeanMapper.mapList(pagination.getDataList(), RequestBodyEx.class);

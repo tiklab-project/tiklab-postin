@@ -93,8 +93,8 @@ public class WorkspaceController {
     @RequestMapping(path = "/findWorkspacePage",method = RequestMethod.POST)
     @ApiMethod(name = "findWorkspacePage",desc = "根据查询对象按分页查询空间")
     @ApiParam(name = "workspaceQuery",desc = "查询对象",required = true)
-    public Result<Pagination<List<Workspace>>> findWorkspacePage(@RequestBody @Valid @NotNull WorkspaceQuery workspaceQuery){
-        Pagination<List<Workspace>> pagination = workspaceService.findWorkspacePage(workspaceQuery);
+    public Result<Pagination<Workspace>> findWorkspacePage(@RequestBody @Valid @NotNull WorkspaceQuery workspaceQuery){
+        Pagination<Workspace> pagination = workspaceService.findWorkspacePage(workspaceQuery);
 
         return Result.ok(pagination);
     }

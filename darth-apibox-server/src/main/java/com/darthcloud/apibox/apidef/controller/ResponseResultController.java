@@ -93,8 +93,8 @@ public class ResponseResultController {
     @RequestMapping(path = "/findResponseResultPage",method = RequestMethod.POST)
     @ApiMethod(name = "findResponseResultPage",desc = "findResponseResultPage")
     @ApiParam(name = "responseResultQuery",desc = "responseResultQuery",required = true)
-    public Result<Pagination<List<ResponseResult>>> findResponseResultPage(@RequestBody @Valid @NotNull ResponseResultQuery responseResultQuery){
-        Pagination<List<ResponseResult>> pagination = responseResultService.findResponseResultPage(responseResultQuery);
+    public Result<Pagination<ResponseResult>> findResponseResultPage(@RequestBody @Valid @NotNull ResponseResultQuery responseResultQuery){
+        Pagination<ResponseResult> pagination = responseResultService.findResponseResultPage(responseResultQuery);
 
         return Result.ok(pagination);
     }

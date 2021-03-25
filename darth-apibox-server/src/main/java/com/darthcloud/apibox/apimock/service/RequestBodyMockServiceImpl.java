@@ -94,10 +94,10 @@ public class RequestBodyMockServiceImpl implements RequestBodyMockService {
     }
 
     @Override
-    public Pagination<List<RequestBodyMock>> findRequestBodyMockPage(RequestBodyMockQuery requestBodyMockQuery) {
-        Pagination<List<RequestBodyMock>> pg = new Pagination<>();
+    public Pagination<RequestBodyMock> findRequestBodyMockPage(RequestBodyMockQuery requestBodyMockQuery) {
+        Pagination<RequestBodyMock> pg = new Pagination<>();
 
-        Pagination<List<RequestBodyMockPo>>  pagination = requestBodyMockDao.findRequestBodyMockPage(requestBodyMockQuery);
+        Pagination<RequestBodyMockPo>  pagination = requestBodyMockDao.findRequestBodyMockPage(requestBodyMockQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<RequestBodyMock> requestBodyMockList = BeanMapper.mapList(pagination.getDataList(),RequestBodyMock.class);

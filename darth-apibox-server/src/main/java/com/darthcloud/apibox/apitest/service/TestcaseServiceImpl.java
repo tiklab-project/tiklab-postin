@@ -208,10 +208,10 @@ public class TestcaseServiceImpl implements TestcaseService {
     }
 
     @Override
-    public Pagination<List<Testcase>> findTestcasePage(TestcaseQuery testcaseQuery) {
-        Pagination<List<Testcase>> pg = new Pagination<>();
+    public Pagination<Testcase> findTestcasePage(TestcaseQuery testcaseQuery) {
+        Pagination<Testcase> pg = new Pagination<>();
 
-        Pagination<List<TestcasePo>>  pagination = testcaseDao.findTestcasePage(testcaseQuery);
+        Pagination<TestcasePo>  pagination = testcaseDao.findTestcasePage(testcaseQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<Testcase> testcaseList = BeanMapper.mapList(pagination.getDataList(),Testcase.class);

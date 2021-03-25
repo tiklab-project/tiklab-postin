@@ -38,6 +38,12 @@ public class ApiModelParser {
             beanType = modelType;
         }
 
+        //TODO
+        if(beanType instanceof TypeVariable){
+            TypeVariable typeVariable = ((TypeVariable) beanType);
+            return apiPropertyMetaList;
+        }
+
         Field[] fields = ((Class)beanType).getDeclaredFields();
         if(fields == null || fields.length == 0){
             return apiPropertyMetaList;
@@ -67,7 +73,6 @@ public class ApiModelParser {
             }else{
                 fieldType = field.getType();
             }
-
 
             apiPropertyMetaList.add(new ApiPropertyMeta(field,apiProperty,fieldType, paramType));
         }

@@ -93,8 +93,8 @@ public class RequestBodyController {
     @RequestMapping(path = "/findRequestBodyPage",method = RequestMethod.POST)
     @ApiMethod(name = "findRequestBodyPage",desc = "findRequestBodyPage")
     @ApiParam(name = "requestBodyQuery",desc = "requestBodyQuery",required = true)
-    public Result<Pagination<List<RequestBodyEx>>> findRequestBodyPage(@RequestBody @Valid @NotNull RequestBodyExQuery requestBodyQuery){
-        Pagination<List<RequestBodyEx>> pagination = requestBodyService.findRequestBodyPage(requestBodyQuery);
+    public Result<Pagination<RequestBodyEx>> findRequestBodyPage(@RequestBody @Valid @NotNull RequestBodyExQuery requestBodyQuery){
+        Pagination<RequestBodyEx> pagination = requestBodyService.findRequestBodyPage(requestBodyQuery);
 
         return Result.ok(pagination);
     }

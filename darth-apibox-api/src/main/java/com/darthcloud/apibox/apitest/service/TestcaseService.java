@@ -75,6 +75,6 @@ public interface TestcaseService {
     * @param testcaseQuery
     * @return
     */
-    Pagination<List<Testcase>> findTestcasePage(TestcaseQuery testcaseQuery);
+    Pagination<Testcase> findTestcasePage(TestcaseQuery testcaseQuery);
 
 }

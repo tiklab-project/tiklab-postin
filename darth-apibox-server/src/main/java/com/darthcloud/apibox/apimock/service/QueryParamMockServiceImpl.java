@@ -82,10 +82,10 @@ public class QueryParamMockServiceImpl implements QueryParamMockService {
     }
 
     @Override
-    public Pagination<List<QueryParamMock>> findQueryParamMockPage(QueryParamMockQuery queryParamMockQuery) {
-        Pagination<List<QueryParamMock>> pg = new Pagination<>();
+    public Pagination<QueryParamMock> findQueryParamMockPage(QueryParamMockQuery queryParamMockQuery) {
+        Pagination<QueryParamMock> pg = new Pagination<>();
 
-        Pagination<List<QueryParamMockPo>>  pagination = queryParamMockDao.findQueryParamMockPage(queryParamMockQuery);
+        Pagination<QueryParamMockPo>  pagination = queryParamMockDao.findQueryParamMockPage(queryParamMockQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<QueryParamMock> queryParamMockList = BeanMapper.mapList(pagination.getDataList(),QueryParamMock.class);

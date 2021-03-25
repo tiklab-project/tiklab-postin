@@ -146,10 +146,10 @@ public class JsonParamServiceImpl implements JsonParamService {
     }
 
     @Override
-    public Pagination<List<JsonParam>> findJsonParamPage(JsonParamQuery jsonParamQuery) {
-        Pagination<List<JsonParam>> pg = new Pagination<>();
+    public Pagination<JsonParam> findJsonParamPage(JsonParamQuery jsonParamQuery) {
+        Pagination<JsonParam> pg = new Pagination<>();
 
-        Pagination<List<JsonParamPo>>  pagination = jsonParamDao.findJsonParamPage(jsonParamQuery);
+        Pagination<JsonParamPo>  pagination = jsonParamDao.findJsonParamPage(jsonParamQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<JsonParam> jsonParamList = BeanMapper.mapList(pagination.getDataList(),JsonParam.class);

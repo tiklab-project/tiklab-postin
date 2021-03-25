@@ -93,8 +93,8 @@ public class RequestHeaderCaseController {
     @RequestMapping(path = "/findRequestHeaderCasePage",method = RequestMethod.POST)
     @ApiMethod(name = "findRequestHeaderCasePage",desc = "findRequestHeaderCasePage")
     @ApiParam(name = "requestHeaderCaseQuery",desc = "requestHeaderCaseQuery",required = true)
-    public Result<Pagination<List<RequestHeaderCase>>> findRequestHeaderCasePage(@RequestBody @Valid @NotNull RequestHeaderCaseQuery requestHeaderCaseQuery){
-        Pagination<List<RequestHeaderCase>> pagination = requestHeaderCaseService.findRequestHeaderCasePage(requestHeaderCaseQuery);
+    public Result<Pagination<RequestHeaderCase>> findRequestHeaderCasePage(@RequestBody @Valid @NotNull RequestHeaderCaseQuery requestHeaderCaseQuery){
+        Pagination<RequestHeaderCase> pagination = requestHeaderCaseService.findRequestHeaderCasePage(requestHeaderCaseQuery);
 
         return Result.ok(pagination);
     }

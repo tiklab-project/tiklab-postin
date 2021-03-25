@@ -95,10 +95,10 @@ public class JsonParamCaseServiceImpl implements JsonParamCaseService {
     }
 
     @Override
-    public Pagination<List<JsonParamCase>> findJsonParamCasePage(JsonParamCaseQuery jsonParamCaseQuery) {
-        Pagination<List<JsonParamCase>> pg = new Pagination<>();
+    public Pagination<JsonParamCase> findJsonParamCasePage(JsonParamCaseQuery jsonParamCaseQuery) {
+        Pagination<JsonParamCase> pg = new Pagination<>();
 
-        Pagination<List<JsonParamCasePo>>  pagination = jsonParamCaseDao.findJsonParamCasePage(jsonParamCaseQuery);
+        Pagination<JsonParamCasePo>  pagination = jsonParamCaseDao.findJsonParamCasePage(jsonParamCaseQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<JsonParamCase> jsonParamCaseList = BeanMapper.mapList(pagination.getDataList(),JsonParamCase.class);

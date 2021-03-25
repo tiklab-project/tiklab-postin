@@ -72,7 +72,7 @@ public class MethodDao {
         return jpaTemplate.findList(MethodPo.class,methodExQuery);
     }
 
-    public Pagination<List<MethodPo>> findMethodPage(MethodExQuery methodExQuery) {
+    public Pagination<MethodPo> findMethodPage(MethodExQuery methodExQuery) {
         return jpaTemplate.findPage(MethodPo.class,methodExQuery);
     }
 }

@@ -81,10 +81,10 @@ public class JsonResponseServiceImpl implements JsonResponseService {
     }
 
     @Override
-    public Pagination<List<JsonResponse>> findJsonResponsePage(JsonResponseQuery jsonResponseQuery) {
-        Pagination<List<JsonResponse>> pg = new Pagination<>();
+    public Pagination<JsonResponse> findJsonResponsePage(JsonResponseQuery jsonResponseQuery) {
+        Pagination<JsonResponse> pg = new Pagination<>();
 
-        Pagination<List<JsonResponsePo>>  pagination = jsonResponseDao.findJsonResponsePage(jsonResponseQuery);
+        Pagination<JsonResponsePo>  pagination = jsonResponseDao.findJsonResponsePage(jsonResponseQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<JsonResponse> jsonResponseList = BeanMapper.mapList(pagination.getDataList(), JsonResponse.class);

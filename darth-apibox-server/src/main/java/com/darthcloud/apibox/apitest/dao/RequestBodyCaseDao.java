@@ -72,7 +72,7 @@ public class RequestBodyCaseDao{
         return jpaTemplate.findList(RequestBodyCasePo.class,requestBodyCaseQuery);
     }
 
-    public Pagination<List<RequestBodyCasePo>> findRequestBodyCasePage(RequestBodyCaseQuery requestBodyCaseQuery) { 
+    public Pagination<RequestBodyCasePo> findRequestBodyCasePage(RequestBodyCaseQuery requestBodyCaseQuery) {
         return jpaTemplate.findPage(RequestBodyCasePo.class,requestBodyCaseQuery);
     }
 }

@@ -82,10 +82,10 @@ public class RawResponseMockServiceImpl implements RawResponseMockService {
     }
 
     @Override
-    public Pagination<List<RawResponseMock>> findRawResponseMockPage(RawResponseMockQuery rawResponseMockQuery) {
-        Pagination<List<RawResponseMock>> pg = new Pagination<>();
+    public Pagination<RawResponseMock> findRawResponseMockPage(RawResponseMockQuery rawResponseMockQuery) {
+        Pagination<RawResponseMock> pg = new Pagination<>();
 
-        Pagination<List<RawResponseMockPo>>  pagination = rawResponseMockDao.findRawResponseMockPage(rawResponseMockQuery);
+        Pagination<RawResponseMockPo>  pagination = rawResponseMockDao.findRawResponseMockPage(rawResponseMockQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<RawResponseMock> rawResponseMockList = BeanMapper.mapList(pagination.getDataList(),RawResponseMock.class);

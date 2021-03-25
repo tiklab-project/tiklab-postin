@@ -94,10 +94,10 @@ public class PreScriptCaseServiceImpl implements PreScriptCaseService {
     }
 
     @Override
-    public Pagination<List<PreScriptCase>> findPreScriptCasePage(PreScriptCaseQuery preScriptCaseQuery) {
-        Pagination<List<PreScriptCase>> pg = new Pagination<>();
+    public Pagination<PreScriptCase> findPreScriptCasePage(PreScriptCaseQuery preScriptCaseQuery) {
+        Pagination<PreScriptCase> pg = new Pagination<>();
 
-        Pagination<List<PreScriptCasePo>>  pagination = preScriptCaseDao.findPreScriptCasePage(preScriptCaseQuery);
+        Pagination<PreScriptCasePo>  pagination = preScriptCaseDao.findPreScriptCasePage(preScriptCaseQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<PreScriptCase> preScriptCaseList = BeanMapper.mapList(pagination.getDataList(),PreScriptCase.class);

@@ -94,10 +94,10 @@ public class AfterScriptCaseServiceImpl implements AfterScriptCaseService {
     }
 
     @Override
-    public Pagination<List<AfterScriptCase>> findAfterScriptCasePage(AfterScriptCaseQuery afterScriptCaseQuery) {
-        Pagination<List<AfterScriptCase>> pg = new Pagination<>();
+    public Pagination<AfterScriptCase> findAfterScriptCasePage(AfterScriptCaseQuery afterScriptCaseQuery) {
+        Pagination<AfterScriptCase> pg = new Pagination<>();
 
-        Pagination<List<AfterScriptCasePo>>  pagination = afterScriptCaseDao.findAfterScriptCasePage(afterScriptCaseQuery);
+        Pagination<AfterScriptCasePo>  pagination = afterScriptCaseDao.findAfterScriptCasePage(afterScriptCaseQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<AfterScriptCase> afterScriptCaseList = BeanMapper.mapList(pagination.getDataList(),AfterScriptCase.class);

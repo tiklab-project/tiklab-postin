@@ -61,6 +61,6 @@ public interface RequestHeaderCaseService {
     * @param requestHeaderCaseQuery
     * @return
     */
-    Pagination<List<RequestHeaderCase>> findRequestHeaderCasePage(RequestHeaderCaseQuery requestHeaderCaseQuery);
+    Pagination<RequestHeaderCase> findRequestHeaderCasePage(RequestHeaderCaseQuery requestHeaderCaseQuery);
 
 }

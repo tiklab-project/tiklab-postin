@@ -58,6 +58,6 @@ public interface PreScriptService {
     * @param preScriptQuery
     * @return
     */
-    Pagination<List<PreScript>> findPreScriptPage(PreScriptQuery preScriptQuery);
+    Pagination<PreScript> findPreScriptPage(PreScriptQuery preScriptQuery);
 
 }

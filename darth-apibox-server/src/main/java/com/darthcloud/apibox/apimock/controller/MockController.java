@@ -93,8 +93,8 @@ public class MockController {
     @RequestMapping(path = "/findMockPage",method = RequestMethod.POST)
     @ApiMethod(name = "findMockPage",desc = "根据查询条件按分页查找mock列表")
     @ApiParam(name = "mockQuery",desc = "查询条件",required = true)
-    public Result<Pagination<List<Mock>>> findMockPage(@RequestBody @Valid @NotNull MockQuery mockQuery){
-        Pagination<List<Mock>> pagination = mockService.findMockPage(mockQuery);
+    public Result<Pagination<Mock>> findMockPage(@RequestBody @Valid @NotNull MockQuery mockQuery){
+        Pagination<Mock> pagination = mockService.findMockPage(mockQuery);
 
         return Result.ok(pagination);
     }

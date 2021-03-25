@@ -95,10 +95,10 @@ public class MockServiceImpl implements MockService {
     }
 
     @Override
-    public Pagination<List<Mock>> findMockPage(MockQuery mockQuery) {
-        Pagination<List<Mock>> pg = new Pagination<>();
+    public Pagination<Mock> findMockPage(MockQuery mockQuery) {
+        Pagination<Mock> pg = new Pagination<>();
 
-        Pagination<List<MockPo>>  pagination = mockDao.findMockPage(mockQuery);
+        Pagination<MockPo>  pagination = mockDao.findMockPage(mockQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<Mock> mockList = BeanMapper.mapList(pagination.getDataList(),Mock.class);

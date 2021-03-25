@@ -58,6 +58,6 @@ public interface RequestBodyService {
     * @param requestBodyQuery
     * @return
     */
-    Pagination<List<RequestBodyEx>> findRequestBodyPage(RequestBodyExQuery requestBodyQuery);
+    Pagination<RequestBodyEx> findRequestBodyPage(RequestBodyExQuery requestBodyQuery);
 
 }

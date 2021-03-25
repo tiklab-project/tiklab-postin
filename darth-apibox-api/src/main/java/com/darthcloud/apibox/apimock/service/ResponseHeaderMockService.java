@@ -58,6 +58,6 @@ public interface ResponseHeaderMockService {
     * @param responseHeaderMockQuery
     * @return
     */
-    Pagination<List<ResponseHeaderMock>> findResponseHeaderMockPage(ResponseHeaderMockQuery responseHeaderMockQuery);
+    Pagination<ResponseHeaderMock> findResponseHeaderMockPage(ResponseHeaderMockQuery responseHeaderMockQuery);
 
 }

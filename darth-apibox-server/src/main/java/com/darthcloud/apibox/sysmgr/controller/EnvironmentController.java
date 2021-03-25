@@ -94,8 +94,8 @@ public class EnvironmentController {
     @RequestMapping(path = "/findEnvironmentPage",method = RequestMethod.POST)
     @ApiMethod(name = "findEnvironmentPage",desc = "findEnvironmentPage")
     @ApiParam(name = "environmentQuery",desc = "environmentQuery",required = true)
-    public Result<Pagination<List<Environment>>> findEnvironmentPage(@RequestBody @Valid @NotNull EnvironmentQuery environmentQuery){
-        Pagination<List<Environment>> pagination = environmentService.findEnvironmentPage(environmentQuery);
+    public Result<Pagination<Environment>> findEnvironmentPage(@RequestBody @Valid @NotNull EnvironmentQuery environmentQuery){
+        Pagination<Environment> pagination = environmentService.findEnvironmentPage(environmentQuery);
 
         return Result.ok(pagination);
     }

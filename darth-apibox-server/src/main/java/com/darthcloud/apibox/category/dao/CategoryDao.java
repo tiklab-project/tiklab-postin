@@ -72,7 +72,7 @@ public class CategoryDao{
         return jpaTemplate.findList(CategoryPo.class,categoryQuery);
     }
 
-    public Pagination<List<CategoryPo>> findCategoryPage(CategoryQuery categoryQuery) { 
+    public Pagination<CategoryPo> findCategoryPage(CategoryQuery categoryQuery) {
         return jpaTemplate.findPage(CategoryPo.class,categoryQuery);
     }
 }

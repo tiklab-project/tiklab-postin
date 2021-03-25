@@ -94,10 +94,10 @@ public class RequestInstanceServiceImpl implements RequestInstanceService {
     }
 
     @Override
-    public Pagination<List<RequestInstance>> findRequestInstancePage(RequestInstanceQuery requestInstanceQuery) {
-        Pagination<List<RequestInstance>> pg = new Pagination<>();
+    public Pagination<RequestInstance> findRequestInstancePage(RequestInstanceQuery requestInstanceQuery) {
+        Pagination<RequestInstance> pg = new Pagination<>();
 
-        Pagination<List<RequestInstancePo>>  pagination = requestInstanceDao.findRequestInstancePage(requestInstanceQuery);
+        Pagination<RequestInstancePo>  pagination = requestInstanceDao.findRequestInstancePage(requestInstanceQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<RequestInstance> requestInstanceList = BeanMapper.mapList(pagination.getDataList(),RequestInstance.class);

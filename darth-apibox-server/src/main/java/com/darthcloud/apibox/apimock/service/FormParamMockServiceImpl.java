@@ -82,10 +82,10 @@ public class FormParamMockServiceImpl implements FormParamMockService {
     }
 
     @Override
-    public Pagination<List<FormParamMock>> findFormParamMockPage(FormParamMockQuery formParamMockQuery) {
-        Pagination<List<FormParamMock>> pg = new Pagination<>();
+    public Pagination<FormParamMock> findFormParamMockPage(FormParamMockQuery formParamMockQuery) {
+        Pagination<FormParamMock> pg = new Pagination<>();
 
-        Pagination<List<FormParamMockPo>>  pagination = formParamMockDao.findFormParamMockPage(formParamMockQuery);
+        Pagination<FormParamMockPo>  pagination = formParamMockDao.findFormParamMockPage(formParamMockQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<FormParamMock> formParamMockList = BeanMapper.mapList(pagination.getDataList(),FormParamMock.class);

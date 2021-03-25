@@ -62,6 +62,6 @@ public interface AssertCaseService {
     * @param assertCaseQuery
     * @return
     */
-    Pagination<List<AssertCase>> findAssertCasePage(AssertCaseQuery assertCaseQuery);
+    Pagination<AssertCase> findAssertCasePage(AssertCaseQuery assertCaseQuery);
 
 }

@@ -72,7 +72,7 @@ public class RequestHeaderCaseDao{
         return jpaTemplate.findList(RequestHeaderCasePo.class,requestHeaderCaseQuery);
     }
 
-    public Pagination<List<RequestHeaderCasePo>> findRequestHeaderCasePage(RequestHeaderCaseQuery requestHeaderCaseQuery) { 
+    public Pagination<RequestHeaderCasePo> findRequestHeaderCasePage(RequestHeaderCaseQuery requestHeaderCaseQuery) {
         return jpaTemplate.findPage(RequestHeaderCasePo.class,requestHeaderCaseQuery);
     }
 }

@@ -82,10 +82,10 @@ public class AfterScriptServiceImpl implements AfterScriptService {
     }
 
     @Override
-    public Pagination<List<AfterScript>> findAfterScriptPage(AfterScriptQuery afterScriptQuery) {
-        Pagination<List<AfterScript>> pg = new Pagination<>();
+    public Pagination<AfterScript> findAfterScriptPage(AfterScriptQuery afterScriptQuery) {
+        Pagination<AfterScript> pg = new Pagination<>();
 
-        Pagination<List<AfterScriptPo>>  pagination = afterScriptDao.findAfterScriptPage(afterScriptQuery);
+        Pagination<AfterScriptPo>  pagination = afterScriptDao.findAfterScriptPage(afterScriptQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<AfterScript> afterScriptList = BeanMapper.mapList(pagination.getDataList(),AfterScript.class);

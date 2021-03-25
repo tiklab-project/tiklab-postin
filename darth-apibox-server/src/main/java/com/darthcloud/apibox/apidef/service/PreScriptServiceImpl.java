@@ -82,10 +82,10 @@ public class PreScriptServiceImpl implements PreScriptService {
     }
 
     @Override
-    public Pagination<List<PreScript>> findPreScriptPage(PreScriptQuery preScriptQuery) {
-        Pagination<List<PreScript>> pg = new Pagination<>();
+    public Pagination<PreScript> findPreScriptPage(PreScriptQuery preScriptQuery) {
+        Pagination<PreScript> pg = new Pagination<>();
 
-        Pagination<List<PreScriptPo>>  pagination = preScriptDao.findPreScriptPage(preScriptQuery);
+        Pagination<PreScriptPo>  pagination = preScriptDao.findPreScriptPage(preScriptQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<PreScript> preScriptList = BeanMapper.mapList(pagination.getDataList(),PreScript.class);

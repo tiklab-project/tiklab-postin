@@ -93,8 +93,8 @@ public class PreScriptController {
     @RequestMapping(path = "/findPreScriptPage",method = RequestMethod.POST)
     @ApiMethod(name = "findPreScriptPage",desc = "findPreScriptPage")
     @ApiParam(name = "preScriptQuery",desc = "preScriptQuery",required = true)
-    public Result<Pagination<List<PreScript>>> findPreScriptPage(@RequestBody @Valid @NotNull PreScriptQuery preScriptQuery){
-        Pagination<List<PreScript>> pagination = preScriptService.findPreScriptPage(preScriptQuery);
+    public Result<Pagination<PreScript>> findPreScriptPage(@RequestBody @Valid @NotNull PreScriptQuery preScriptQuery){
+        Pagination<PreScript> pagination = preScriptService.findPreScriptPage(preScriptQuery);
 
         return Result.ok(pagination);
     }

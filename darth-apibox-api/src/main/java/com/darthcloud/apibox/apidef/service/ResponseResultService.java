@@ -58,6 +58,6 @@ public interface ResponseResultService {
     * @param responseResultQuery
     * @return
     */
-    Pagination<List<ResponseResult>> findResponseResultPage(ResponseResultQuery responseResultQuery);
+    Pagination<ResponseResult> findResponseResultPage(ResponseResultQuery responseResultQuery);
 
 }

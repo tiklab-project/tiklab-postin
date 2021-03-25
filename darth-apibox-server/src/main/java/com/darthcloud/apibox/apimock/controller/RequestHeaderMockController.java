@@ -93,8 +93,8 @@ public class RequestHeaderMockController {
     @RequestMapping(path = "/findRequestHeaderMockPage",method = RequestMethod.POST)
     @ApiMethod(name = "findRequestHeaderMockPage",desc = "findRequestHeaderMockPage")
     @ApiParam(name = "requestHeaderMockQuery",desc = "requestHeaderMockQuery",required = true)
-    public Result<Pagination<List<RequestHeaderMock>>> findRequestHeaderMockPage(@RequestBody @Valid @NotNull RequestHeaderMockQuery requestHeaderMockQuery){
-        Pagination<List<RequestHeaderMock>> pagination = requestHeaderMockService.findRequestHeaderMockPage(requestHeaderMockQuery);
+    public Result<Pagination<RequestHeaderMock>> findRequestHeaderMockPage(@RequestBody @Valid @NotNull RequestHeaderMockQuery requestHeaderMockQuery){
+        Pagination<RequestHeaderMock> pagination = requestHeaderMockService.findRequestHeaderMockPage(requestHeaderMockQuery);
 
         return Result.ok(pagination);
     }

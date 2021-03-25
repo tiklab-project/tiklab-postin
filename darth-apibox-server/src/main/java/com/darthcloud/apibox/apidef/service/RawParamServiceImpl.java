@@ -82,10 +82,10 @@ public class RawParamServiceImpl implements RawParamService {
     }
 
     @Override
-    public Pagination<List<RawParam>> findRawParamPage(RawParamQuery rawParamQuery) {
-        Pagination<List<RawParam>> pg = new Pagination<>();
+    public Pagination<RawParam> findRawParamPage(RawParamQuery rawParamQuery) {
+        Pagination<RawParam> pg = new Pagination<>();
 
-        Pagination<List<RawParamPo>>  pagination = rawParamDao.findRawParamPage(rawParamQuery);
+        Pagination<RawParamPo>  pagination = rawParamDao.findRawParamPage(rawParamQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<RawParam> rawParamList = BeanMapper.mapList(pagination.getDataList(),RawParam.class);

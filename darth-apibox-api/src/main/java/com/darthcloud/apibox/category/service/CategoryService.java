@@ -70,7 +70,7 @@ public interface CategoryService {
     * @param categoryQuery
     * @return
     */
-    Pagination<List<Category>> findCategoryPage(CategoryQuery categoryQuery);
+    Pagination<Category> findCategoryPage(CategoryQuery categoryQuery);
 
     /**
      * 查询列表树

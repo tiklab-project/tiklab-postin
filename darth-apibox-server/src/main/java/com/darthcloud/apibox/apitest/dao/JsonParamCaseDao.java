@@ -72,7 +72,7 @@ public class JsonParamCaseDao{
         return jpaTemplate.findList(JsonParamCasePo.class,jsonParamCaseQuery);
     }
 
-    public Pagination<List<JsonParamCasePo>> findJsonParamCasePage(JsonParamCaseQuery jsonParamCaseQuery) { 
+    public Pagination<JsonParamCasePo> findJsonParamCasePage(JsonParamCaseQuery jsonParamCaseQuery) {
         return jpaTemplate.findPage(JsonParamCasePo.class,jsonParamCaseQuery);
     }
 }

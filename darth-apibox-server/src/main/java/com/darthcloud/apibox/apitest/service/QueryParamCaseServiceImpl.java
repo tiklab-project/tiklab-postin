@@ -94,10 +94,10 @@ public class QueryParamCaseServiceImpl implements QueryParamCaseService {
     }
 
     @Override
-    public Pagination<List<QueryParamCase>> findQueryParamCasePage(QueryParamCaseQuery queryParamCaseQuery) {
-        Pagination<List<QueryParamCase>> pg = new Pagination<>();
+    public Pagination<QueryParamCase> findQueryParamCasePage(QueryParamCaseQuery queryParamCaseQuery) {
+        Pagination<QueryParamCase> pg = new Pagination<>();
 
-        Pagination<List<QueryParamCasePo>>  pagination = queryParamCaseDao.findQueryParamCasePage(queryParamCaseQuery);
+        Pagination<QueryParamCasePo>  pagination = queryParamCaseDao.findQueryParamCasePage(queryParamCaseQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<QueryParamCase> queryParamCaseList = BeanMapper.mapList(pagination.getDataList(),QueryParamCase.class);

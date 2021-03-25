@@ -93,8 +93,8 @@ public class QueryParamCaseController {
     @RequestMapping(path = "/findQueryParamCasePage",method = RequestMethod.POST)
     @ApiMethod(name = "findQueryParamCasePage",desc = "findQueryParamCasePage")
     @ApiParam(name = "queryParamCaseQuery",desc = "queryParamCaseQuery",required = true)
-    public Result<Pagination<List<QueryParamCase>>> findQueryParamCasePage(@RequestBody @Valid @NotNull QueryParamCaseQuery queryParamCaseQuery){
-        Pagination<List<QueryParamCase>> pagination = queryParamCaseService.findQueryParamCasePage(queryParamCaseQuery);
+    public Result<Pagination<QueryParamCase>> findQueryParamCasePage(@RequestBody @Valid @NotNull QueryParamCaseQuery queryParamCaseQuery){
+        Pagination<QueryParamCase> pagination = queryParamCaseService.findQueryParamCasePage(queryParamCaseQuery);
 
         return Result.ok(pagination);
     }

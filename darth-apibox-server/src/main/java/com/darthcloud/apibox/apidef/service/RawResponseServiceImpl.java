@@ -82,10 +82,10 @@ public class RawResponseServiceImpl implements RawResponseService {
     }
 
     @Override
-    public Pagination<List<RawResponse>> findRawResponsePage(RawResponseQuery rawResponseQuery) {
-        Pagination<List<RawResponse>> pg = new Pagination<>();
+    public Pagination<RawResponse> findRawResponsePage(RawResponseQuery rawResponseQuery) {
+        Pagination<RawResponse> pg = new Pagination<>();
 
-        Pagination<List<RawResponsePo>>  pagination = rawResponseDao.findRawResponsePage(rawResponseQuery);
+        Pagination<RawResponsePo>  pagination = rawResponseDao.findRawResponsePage(rawResponseQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<RawResponse> rawResponseList = BeanMapper.mapList(pagination.getDataList(),RawResponse.class);

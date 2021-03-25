@@ -93,8 +93,8 @@ public class JsonParamCaseController {
     @RequestMapping(path = "/findJsonParamCasePage",method = RequestMethod.POST)
     @ApiMethod(name = "findJsonParamCasePage",desc = "findJsonParamCasePage")
     @ApiParam(name = "jsonParamCaseQuery",desc = "jsonParamCaseQuery",required = true)
-    public Result<Pagination<List<JsonParamCase>>> findJsonParamCasePage(@RequestBody @Valid @NotNull JsonParamCaseQuery jsonParamCaseQuery){
-        Pagination<List<JsonParamCase>> pagination = jsonParamCaseService.findJsonParamCasePage(jsonParamCaseQuery);
+    public Result<Pagination<JsonParamCase>> findJsonParamCasePage(@RequestBody @Valid @NotNull JsonParamCaseQuery jsonParamCaseQuery){
+        Pagination<JsonParamCase> pagination = jsonParamCaseService.findJsonParamCasePage(jsonParamCaseQuery);
 
         return Result.ok(pagination);
     }

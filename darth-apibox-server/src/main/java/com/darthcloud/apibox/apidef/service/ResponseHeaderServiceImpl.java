@@ -82,10 +82,10 @@ public class ResponseHeaderServiceImpl implements ResponseHeaderService {
     }
 
     @Override
-    public Pagination<List<ResponseHeader>> findResponseHeaderPage(ResponseHeaderQuery responseHeaderQuery) {
-        Pagination<List<ResponseHeader>> pg = new Pagination<>();
+    public Pagination<ResponseHeader> findResponseHeaderPage(ResponseHeaderQuery responseHeaderQuery) {
+        Pagination<ResponseHeader> pg = new Pagination<>();
 
-        Pagination<List<ResponseHeaderPo>>  pagination = responseHeaderDao.findResponseHeaderPage(responseHeaderQuery);
+        Pagination<ResponseHeaderPo>  pagination = responseHeaderDao.findResponseHeaderPage(responseHeaderQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<ResponseHeader> responseHeaderList = BeanMapper.mapList(pagination.getDataList(),ResponseHeader.class);

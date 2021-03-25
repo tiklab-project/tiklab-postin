@@ -68,6 +68,6 @@ public interface EnvironmentService {
     * @param environmentQuery
     * @return
     */
-    Pagination<List<Environment>> findEnvironmentPage(EnvironmentQuery environmentQuery);
+    Pagination<Environment> findEnvironmentPage(EnvironmentQuery environmentQuery);
 
 }

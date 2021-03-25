@@ -68,7 +68,7 @@ public interface JsonParamCaseService {
     * @param jsonParamCaseQuery
     * @return
     */
-    Pagination<List<JsonParamCase>> findJsonParamCasePage(JsonParamCaseQuery jsonParamCaseQuery);
+    Pagination<JsonParamCase> findJsonParamCasePage(JsonParamCaseQuery jsonParamCaseQuery);
 
     /**
      * 查询列表树

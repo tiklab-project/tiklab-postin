@@ -94,10 +94,10 @@ public class AssertCaseServiceImpl implements AssertCaseService {
     }
 
     @Override
-    public Pagination<List<AssertCase>> findAssertCasePage(AssertCaseQuery assertCaseQuery) {
-        Pagination<List<AssertCase>> pg = new Pagination<>();
+    public Pagination<AssertCase> findAssertCasePage(AssertCaseQuery assertCaseQuery) {
+        Pagination<AssertCase> pg = new Pagination<>();
 
-        Pagination<List<AssertCasePo>>  pagination = assertCaseDao.findAssertCasePage(assertCaseQuery);
+        Pagination<AssertCasePo>  pagination = assertCaseDao.findAssertCasePage(assertCaseQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<AssertCase> assertCaseList = BeanMapper.mapList(pagination.getDataList(),AssertCase.class);

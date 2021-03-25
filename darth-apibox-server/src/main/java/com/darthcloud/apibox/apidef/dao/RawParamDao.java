@@ -68,7 +68,7 @@ public class RawParamDao{
         return jpaTemplate.findList(RawParamPo.class,rawParamQuery);
     }
 
-    public Pagination<List<RawParamPo>> findRawParamPage(RawParamQuery rawParamQuery) { 
+    public Pagination<RawParamPo> findRawParamPage(RawParamQuery rawParamQuery) {
         return jpaTemplate.findPage(RawParamPo.class,rawParamQuery);
     }
 }

@@ -78,10 +78,10 @@ public class WorkspaceServiceImpl implements WorkspaceService {
     }
 
     @Override
-    public Pagination<List<Workspace>> findWorkspacePage(WorkspaceQuery workspaceQuery) {
-        Pagination<List<Workspace>> pg = new Pagination<>();
+    public Pagination<Workspace> findWorkspacePage(WorkspaceQuery workspaceQuery) {
+        Pagination<Workspace> pg = new Pagination<>();
 
-        Pagination<List<WorkspacePo>>  pagination = workspaceDao.findWorkspacePage(workspaceQuery);
+        Pagination<WorkspacePo>  pagination = workspaceDao.findWorkspacePage(workspaceQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<Workspace> workspaceList = BeanMapper.mapList(pagination.getDataList(),Workspace.class);

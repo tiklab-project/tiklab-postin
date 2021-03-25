@@ -82,10 +82,10 @@ public class ResponseHeaderMockServiceImpl implements ResponseHeaderMockService 
     }
 
     @Override
-    public Pagination<List<ResponseHeaderMock>> findResponseHeaderMockPage(ResponseHeaderMockQuery responseHeaderMockQuery) {
-        Pagination<List<ResponseHeaderMock>> pg = new Pagination<>();
+    public Pagination<ResponseHeaderMock> findResponseHeaderMockPage(ResponseHeaderMockQuery responseHeaderMockQuery) {
+        Pagination<ResponseHeaderMock> pg = new Pagination<>();
 
-        Pagination<List<ResponseHeaderMockPo>>  pagination = responseHeaderMockDao.findResponseHeaderMockPage(responseHeaderMockQuery);
+        Pagination<ResponseHeaderMockPo>  pagination = responseHeaderMockDao.findResponseHeaderMockPage(responseHeaderMockQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<ResponseHeaderMock> responseHeaderMockList = BeanMapper.mapList(pagination.getDataList(),ResponseHeaderMock.class);

@@ -97,10 +97,10 @@ public class EnvironmentServiceImpl implements EnvironmentService {
     }
 
     @Override
-    public Pagination<List<Environment>> findEnvironmentPage(EnvironmentQuery environmentQuery) {
-        Pagination<List<Environment>> pg = new Pagination<>();
+    public Pagination<Environment> findEnvironmentPage(EnvironmentQuery environmentQuery) {
+        Pagination<Environment> pg = new Pagination<>();
 
-        Pagination<List<EnvironmentPo>>  pagination = environmentDao.findEnvironmentPage(environmentQuery);
+        Pagination<EnvironmentPo>  pagination = environmentDao.findEnvironmentPage(environmentQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<Environment> environmentList = BeanMapper.mapList(pagination.getDataList(),Environment.class);

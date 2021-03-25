@@ -93,8 +93,8 @@ public class ResponseMockController {
     @RequestMapping(path = "/findResponseMockPage",method = RequestMethod.POST)
     @ApiMethod(name = "findResponseMockPage",desc = "findResponseMockPage")
     @ApiParam(name = "responseMockQuery",desc = "responseMockQuery",required = true)
-    public Result<Pagination<List<ResponseMock>>> findResponseMockPage(@RequestBody @Valid @NotNull ResponseMockQuery responseMockQuery){
-        Pagination<List<ResponseMock>> pagination = responseMockService.findResponseMockPage(responseMockQuery);
+    public Result<Pagination<ResponseMock>> findResponseMockPage(@RequestBody @Valid @NotNull ResponseMockQuery responseMockQuery){
+        Pagination<ResponseMock> pagination = responseMockService.findResponseMockPage(responseMockQuery);
 
         return Result.ok(pagination);
     }

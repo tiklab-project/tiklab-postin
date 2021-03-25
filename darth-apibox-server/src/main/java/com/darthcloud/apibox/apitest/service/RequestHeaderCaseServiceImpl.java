@@ -94,10 +94,10 @@ public class RequestHeaderCaseServiceImpl implements RequestHeaderCaseService {
     }
 
     @Override
-    public Pagination<List<RequestHeaderCase>> findRequestHeaderCasePage(RequestHeaderCaseQuery requestHeaderCaseQuery) {
-        Pagination<List<RequestHeaderCase>> pg = new Pagination<>();
+    public Pagination<RequestHeaderCase> findRequestHeaderCasePage(RequestHeaderCaseQuery requestHeaderCaseQuery) {
+        Pagination<RequestHeaderCase> pg = new Pagination<>();
 
-        Pagination<List<RequestHeaderCasePo>>  pagination = requestHeaderCaseDao.findRequestHeaderCasePage(requestHeaderCaseQuery);
+        Pagination<RequestHeaderCasePo>  pagination = requestHeaderCaseDao.findRequestHeaderCasePage(requestHeaderCaseQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<RequestHeaderCase> requestHeaderCaseList = BeanMapper.mapList(pagination.getDataList(),RequestHeaderCase.class);

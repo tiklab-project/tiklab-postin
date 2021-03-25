@@ -68,7 +68,7 @@ public class NodeDao{
         return jpaTemplate.findList(NodePo.class,nodeQuery);
     }
 
-    public Pagination<List<NodePo>> findNodePage(NodeQuery nodeQuery) { 
+    public Pagination<NodePo> findNodePage(NodeQuery nodeQuery) {
         return jpaTemplate.findPage(NodePo.class,nodeQuery);
     }
 }
