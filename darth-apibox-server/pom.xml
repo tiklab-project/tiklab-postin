@@ -104,6 +104,11 @@
             <artifactId>darth-privilege-server</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.darthcloud</groupId>
+            <artifactId>darth-message-server</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 
     <build>

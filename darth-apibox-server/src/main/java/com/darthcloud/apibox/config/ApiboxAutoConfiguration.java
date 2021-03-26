@@ -22,6 +22,7 @@ import com.darthcloud.dfs.client.annotation.EnableDfsClient;
 import com.darthcloud.dfs.server.annotation.EnableDfsServer;
 import com.darthcloud.dss.client.annotation.EnableDssClient;
 import com.darthcloud.dss.server.annotation.EnableDssServer;
+import com.darthcloud.message.config.annotation.EnableMessageServer;
 import com.darthcloud.orga.config.annotation.EnableOrgaServer;
 import com.darthcloud.privilege.config.annotation.EnablePrivilegeServer;
 import com.darthcloud.rpc.client.annotation.EnableRpcClient;
@@ -55,6 +56,7 @@ import javax.sql.DataSource;
 //业务组件
 @EnableOrgaServer
 @EnablePrivilegeServer
+@EnableMessageServer
 @ComponentScan({"com.darthcloud.apibox"})
 public class ApiboxAutoConfiguration {
 
