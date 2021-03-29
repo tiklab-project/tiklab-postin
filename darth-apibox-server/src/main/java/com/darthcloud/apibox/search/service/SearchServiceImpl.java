@@ -1,0 +1,94 @@
+package com.darthcloud.apibox.search.service;
+
+import com.darthcloud.apibox.apidef.model.MethodEx;
+import com.darthcloud.apibox.apidef.service.MethodService;
+import com.darthcloud.apibox.workspace.model.Workspace;
+import com.darthcloud.apibox.workspace.service.WorkspaceService;
+import com.darthcloud.dss.client.DssClient;
+import com.darthcloud.dss.store.model.CountResponse;
+import com.darthcloud.dss.store.model.PageCondition;
+import com.darthcloud.dss.store.model.PageResponse;
+import com.darthcloud.dss.store.model.TopResponse;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Map;
+
+/**
+* 用户服务业务处理
+*/
+@Service
+public class SearchServiceImpl implements SearchService {
+
+    @Autowired
+    DssClient dssClient;
+
+    @Autowired
+    WorkspaceService workspaceService;
+
+    @Autowired
+    MethodService methodService;
+
+    @Override
+    public void build() {
+        //构建项目索引
+        buildForWorkspace();
+
+        //构建接口索引
+        buildForMethod();
+    }
+
+    /**
+     * 构建项目索引
+     */
+    void buildForWorkspace(){
+        List<Workspace> entityList = workspaceService.findAllWorkspace();
+        if(entityList == null){
+            return;
+        }
+
+        for(Workspace entity:entityList){
+            save(entity);
+        }
+    }
+
+    /**
+     * 构建接口索引
+     */
+    void buildForMethod(){
+        List<MethodEx> entityList = methodService.findAllMethod();
+        if(entityList == null || entityList.size() == 0){
+            return;
+        }
+
+        for(MethodEx entity:entityList){
+            save(entity);
+        }
+    }
+
+    @Override
+    public <T> void save(T entity) {
+        dssClient.save(entity);
+    }
+
+    @Override
+    public <T> Map<String, Object> get(Class<T> entityClass, String id) {
+        return dssClient.get(entityClass, id);
+    }
+
+    @Override
+    public <T> TopResponse<T> searchForTop(Class<T> entityClass, String keyword) {
+        return dssClient.searchForTop(entityClass,keyword);
+    }
+
+    @Override
+    public <T> CountResponse<T> searchForCount(Class<T> entityClass, String keyword) {
+        return dssClient.searchForCount(entityClass, keyword);
+    }
+
+    @Override
+    public <T> PageResponse<T> searchForPage(Class<T> entityClass, String keyword, PageCondition pageCondition) {
+        return dssClient.searchForPage(entityClass, keyword, pageCondition);
+    }
+}

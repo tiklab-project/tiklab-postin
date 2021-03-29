@@ -37,12 +37,17 @@
         </dependency>
         <dependency>
             <groupId>com.darthcloud</groupId>
-            <artifactId>darth-apibox-annotation</artifactId>
+            <artifactId>darth-dal-jpa-common</artifactId>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.darthcloud</groupId>
-            <artifactId>darth-dal-jpa-common</artifactId>
+            <artifactId>darth-dss-store-api</artifactId>
             <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.darthcloud</groupId>
+            <artifactId>darth-apibox-annotation</artifactId>
         </dependency>
     </dependencies>
 

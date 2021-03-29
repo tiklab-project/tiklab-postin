@@ -7,6 +7,11 @@ import com.darthcloud.apibox.workspace.model.WorkspaceQuery;
 
 import com.darthcloud.common.Pagination;
 import com.darthcloud.beans.BeanMapper;
+import com.darthcloud.orga.user.model.DmUser;
+import com.darthcloud.orga.user.model.User;
+import com.darthcloud.orga.user.service.DmUserService;
+import com.darthcloud.privilege.prjprivilege.service.DmPrjRoleService;
+import com.darthcloud.web.filter.UserContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,11 +30,29 @@ public class WorkspaceServiceImpl implements WorkspaceService {
     @Autowired
     WorkspaceDao workspaceDao;
 
+    @Autowired
+    DmUserService dmUserService;
+
+    @Autowired
+    DmPrjRoleService dmPrjRoleService;
+
     @Override
     public String createWorkspace(@NotNull @Valid Workspace workspace) {
+        //创建项目
         WorkspacePo workspacePo = BeanMapper.map(workspace, WorkspacePo.class);
 
-        return workspaceDao.createWorkspace(workspacePo);
+        String projectId = workspaceDao.createWorkspace(workspacePo);
+
+        //初始化项目成员
+        String masterId = UserContext.getInstance().getTicket();
+        DmUser dmUser = new DmUser();
+        dmUser.setDomainId(projectId);
+        dmUser.setUser(new User().setId(masterId));
+        dmUserService.createDmUser(dmUser);
+
+        //初始化项目权限
+        dmPrjRoleService.initDmPrjRoles(projectId,masterId);
+        return projectId;
     }
 
     @Override

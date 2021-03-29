@@ -1,18 +1,28 @@
 package com.darthcloud.apibox.apidef.service;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.darthcloud.apibox.apidef.dao.MethodDao;
 import com.darthcloud.apibox.apidef.entity.MethodPo;
 import com.darthcloud.apibox.apidef.model.MethodEx;
 import com.darthcloud.apibox.apidef.model.MethodExQuery;
 
+import com.darthcloud.apibox.apidef.support.MessageTemplateConstant;
 import com.darthcloud.common.Pagination;
 import com.darthcloud.beans.BeanMapper;
 import com.darthcloud.join.join.JoinQuery;
+import com.darthcloud.message.message.model.Message;
+import com.darthcloud.message.message.model.MessageReceiver;
+import com.darthcloud.message.message.model.MessageTemplate;
+import com.darthcloud.message.message.service.MessageService;
+import com.darthcloud.orga.user.model.User;
+import com.darthcloud.web.filter.UserContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.BeanUtils;
@@ -29,18 +39,73 @@ public class MethodServiceImpl implements MethodService {
     @Autowired
     JoinQuery joinQuery;
 
+    @Autowired
+    MessageService messageService;
+
     @Override
     public String createMethod(@NotNull @Valid MethodEx methodEx) {
+        //创建接口
         MethodPo methodPo = BeanMapper.map(methodEx, MethodPo.class);
 
-        return methodDao.createMethod(methodPo);
+        String id = methodDao.createMethod(methodPo);
+
+        //发送消息
+        sendMessageForCreate(methodEx.setId(id));
+        return id;
+    }
+
+    /**
+     * 发送消息提醒
+     * @param methodEx
+     */
+    void sendMessageForCreate(MethodEx methodEx){
+        Message message = new Message();
+        //设置模板ID
+        message.setMessageTemplate(new MessageTemplate().setId(MessageTemplateConstant.TEMPLATE_ID_API_CREATE));
+        //设置发送数据
+        String data = JSON.toJSONString(methodEx, SerializerFeature.DisableCircularReferenceDetect,SerializerFeature.WriteDateUseDateFormat);
+        message.setData(data);
+        //设置接收人
+        List<MessageReceiver> messageReceiverList = new ArrayList<>();
+        MessageReceiver messageReceiver = new MessageReceiver()
+                .setReceiver(new User().setId(UserContext.getInstance().getTicket()));
+        messageReceiverList.add(messageReceiver);
+        message.setMessageReceiverList(messageReceiverList);
+
+        messageService.sendMessage(message);
     }
 
     @Override
     public void updateMethod(@NotNull @Valid MethodEx methodEx) {
+        //更新接口
         MethodPo methodPo = BeanMapper.map(methodEx, MethodPo.class);
 
         methodDao.updateMethod(methodPo);
+
+        //发送更新消息提醒
+        methodEx = findOne(methodEx.getId());
+        sendMessageForUpdate(methodEx);
+    }
+
+    /**
+     * 发送消息提醒
+     * @param methodEx
+     */
+    void sendMessageForUpdate(MethodEx methodEx){
+        Message message = new Message();
+        //设置模板ID
+        message.setMessageTemplate(new MessageTemplate().setId(MessageTemplateConstant.TEMPLATE_ID_API_UPDATE));
+        //设置发送数据
+        String data = JSON.toJSONString(methodEx,SerializerFeature.DisableCircularReferenceDetect,SerializerFeature.WriteDateUseDateFormat);
+        message.setData(data);
+        //设置接收人
+        List<MessageReceiver> messageReceiverList = new ArrayList<>();
+        MessageReceiver messageReceiver = new MessageReceiver()
+                .setReceiver(new User().setId(UserContext.getInstance().getTicket()));
+        messageReceiverList.add(messageReceiver);
+        message.setMessageReceiverList(messageReceiverList);
+
+        messageService.sendMessage(message);
     }
 
     @Override
