@@ -41,9 +41,9 @@ public class SearchController {
     SearchService searchService;
 
     @Validator
-    @RequestMapping(path="/build",method = RequestMethod.POST)
-    public Result<Void> build(){
-        searchService.build();
+    @RequestMapping(path="/rebuild",method = RequestMethod.POST)
+    public Result<Void> rebuild(){
+        searchService.rebuild();
         return Result.ok();
     }
 
@@ -52,7 +52,7 @@ public class SearchController {
     @ApiMethod(name = "get",desc = "根据ID查找")
     @ApiParam(name = "id",desc = "id",required = true)
     public Result<Map<String,Object>> get(@NotNull String id){
-        Map<String,Object> map = searchService.get(MethodEx.class,id);
+        Map<String,Object> map = searchService.findOne(MethodEx.class,id);
 
         return Result.ok(map);
     }
@@ -128,7 +128,7 @@ public class SearchController {
         if(entityClass == null){
             if("workspace".equalsIgnoreCase(index)){
                 indexMapping.put(index,Workspace.class);
-            }else if("method".equalsIgnoreCase(index)){
+            }else if("methodex".equalsIgnoreCase(index)){
                 indexMapping.put(index,MethodEx.class);
             }else{
                 throw new DarthException("unsupport index type:" + index);

@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 
 @ApiModel
 @Index
-public class Workspace {
+public class Workspace implements java.io.Serializable{
 
     @ApiProperty(name="id",desc="空间ID")
     @IndexId

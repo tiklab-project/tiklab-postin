@@ -7,6 +7,7 @@ import com.darthcloud.apibox.workspace.model.WorkspaceQuery;
 
 import com.darthcloud.common.Pagination;
 import com.darthcloud.beans.BeanMapper;
+import com.darthcloud.dss.client.DssClient;
 import com.darthcloud.orga.user.model.DmUser;
 import com.darthcloud.orga.user.model.User;
 import com.darthcloud.orga.user.service.DmUserService;
@@ -36,6 +37,9 @@ public class WorkspaceServiceImpl implements WorkspaceService {
     @Autowired
     DmPrjRoleService dmPrjRoleService;
 
+    @Autowired
+    DssClient dssClient;
+
     @Override
     public String createWorkspace(@NotNull @Valid Workspace workspace) {
         //创建项目
@@ -52,19 +56,32 @@ public class WorkspaceServiceImpl implements WorkspaceService {
 
         //初始化项目权限
         dmPrjRoleService.initDmPrjRoles(projectId,masterId);
+
+        //添加索引
+        Workspace entity = findWorkspace(projectId);
+        dssClient.save(entity);
         return projectId;
     }
 
     @Override
     public void updateWorkspace(@NotNull @Valid Workspace workspace) {
+        //更新数据
         WorkspacePo workspacePo = BeanMapper.map(workspace, WorkspacePo.class);
 
         workspaceDao.updateWorkspace(workspacePo);
+
+        //更新索引
+        Workspace entity = findWorkspace(workspace.getId());
+        dssClient.update(entity);
     }
 
     @Override
     public void deleteWorkspace(@NotNull String id) {
+        //删除数据
         workspaceDao.deleteWorkspace(id);
+
+        //删除索引
+        dssClient.delete(Workspace.class,id);
     }
 
     @Override

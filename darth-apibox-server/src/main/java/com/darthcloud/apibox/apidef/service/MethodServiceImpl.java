@@ -10,6 +10,7 @@ import com.darthcloud.apibox.apidef.model.MethodExQuery;
 import com.darthcloud.apibox.apidef.support.MessageTemplateConstant;
 import com.darthcloud.common.Pagination;
 import com.darthcloud.beans.BeanMapper;
+import com.darthcloud.dss.client.DssClient;
 import com.darthcloud.join.join.JoinQuery;
 import com.darthcloud.message.message.model.Message;
 import com.darthcloud.message.message.model.MessageReceiver;
@@ -42,6 +43,9 @@ public class MethodServiceImpl implements MethodService {
     @Autowired
     MessageService messageService;
 
+    @Autowired
+    DssClient dssClient;
+
     @Override
     public String createMethod(@NotNull @Valid MethodEx methodEx) {
         //创建接口
@@ -49,8 +53,12 @@ public class MethodServiceImpl implements MethodService {
 
         String id = methodDao.createMethod(methodPo);
 
+        //添加索引
+        MethodEx entity = findMethod(id);
+        dssClient.save(entity);
+
         //发送消息
-        sendMessageForCreate(methodEx.setId(id));
+        sendMessageForCreate(entity);
         return id;
     }
 
@@ -76,15 +84,18 @@ public class MethodServiceImpl implements MethodService {
     }
 
     @Override
-    public void updateMethod(@NotNull @Valid MethodEx methodEx) {
+    public void updateMethod(@NotNull @Valid MethodEx method) {
         //更新接口
-        MethodPo methodPo = BeanMapper.map(methodEx, MethodPo.class);
+        MethodPo methodPo = BeanMapper.map(method, MethodPo.class);
 
         methodDao.updateMethod(methodPo);
 
+        //更新索引
+        MethodEx entity = findMethod(method.getId());
+        dssClient.update(entity);
+
         //发送更新消息提醒
-        methodEx = findOne(methodEx.getId());
-        sendMessageForUpdate(methodEx);
+        sendMessageForUpdate(entity);
     }
 
     /**
@@ -110,7 +121,11 @@ public class MethodServiceImpl implements MethodService {
 
     @Override
     public void deleteMethod(@NotNull String id) {
+        //删除数据
         methodDao.deleteMethod(id);
+
+        //删除索引
+        dssClient.delete(MethodEx.class,id);
     }
 
     @Override

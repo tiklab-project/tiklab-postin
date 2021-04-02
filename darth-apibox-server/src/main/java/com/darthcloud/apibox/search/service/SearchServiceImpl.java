@@ -31,39 +31,34 @@ public class SearchServiceImpl implements SearchService {
     MethodService methodService;
 
     @Override
-    public void build() {
-        //构建项目索引
-        buildForWorkspace();
+    public void rebuild() {
+        //删除索引
+        deleteIndex();
 
-        //构建接口索引
-        buildForMethod();
+        //构建索引
+        buildIndex();
     }
 
     /**
-     * 构建项目索引
+     * 删除索引
      */
-    void buildForWorkspace(){
-        List<Workspace> entityList = workspaceService.findAllWorkspace();
-        if(entityList == null){
-            return;
-        }
-
-        for(Workspace entity:entityList){
-            save(entity);
-        }
+    void deleteIndex(){
+        dssClient.deleteAll(Workspace.class);
+        dssClient.deleteAll(MethodEx.class);
     }
 
     /**
-     * 构建接口索引
+     * 构建索引
      */
-    void buildForMethod(){
-        List<MethodEx> entityList = methodService.findAllMethod();
-        if(entityList == null || entityList.size() == 0){
-            return;
+    void buildIndex(){
+        List<Workspace> workspaceList = workspaceService.findAllWorkspace();
+        if(workspaceList != null){
+            dssClient.saveBatch(workspaceList);
         }
 
-        for(MethodEx entity:entityList){
-            save(entity);
+        List<MethodEx> methodList = methodService.findAllMethod();
+        if(methodList != null){
+            dssClient.saveBatch(methodList);
         }
     }
 
@@ -73,8 +68,8 @@ public class SearchServiceImpl implements SearchService {
     }
 
     @Override
-    public <T> Map<String, Object> get(Class<T> entityClass, String id) {
-        return dssClient.get(entityClass, id);
+    public <T> Map<String, Object> findOne(Class<T> entityClass, String id) {
+        return dssClient.findOne(entityClass, id);
     }
 
     @Override

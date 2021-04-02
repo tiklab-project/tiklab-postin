@@ -17,7 +17,7 @@ import javax.validation.constraints.NotNull;
 @ApiModel
 @Join
 @Index
-public class MethodEx {
+public class MethodEx implements java.io.Serializable{
 
     @ApiProperty(name="id",desc="唯一ID")
     @IndexId

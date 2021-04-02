@@ -14,7 +14,7 @@ import java.util.List;
 
 @ApiModel
 @Join
-public class Category {
+public class Category implements java.io.Serializable{
 
     @ApiProperty(name="id",desc="唯一标识")
     private java.lang.String id;

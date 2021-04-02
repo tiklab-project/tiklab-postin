@@ -15,7 +15,7 @@ public interface SearchService {
     /**
      * 构建索引
      */
-    void build();
+    void rebuild();
 
     /**
      * 添加记录
@@ -31,7 +31,7 @@ public interface SearchService {
      * @param id
      * @return
      */
-    <T> Map<String, Object> get(Class<T> entityClass, String id);
+    <T> Map<String, Object> findOne(Class<T> entityClass, String id);
 
     /**
      * 根据关键字搜索top结果
