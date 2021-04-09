@@ -14,21 +14,10 @@ import com.darthcloud.apibox.sysmgr.model.Environment;
 import com.darthcloud.apibox.workspace.entity.WorkspacePo;
 import com.darthcloud.apibox.workspace.model.Workspace;
 import com.darthcloud.beans.register.BeanMapperRegister;
-import com.darthcloud.dal.annotation.EnableDal;
 import com.darthcloud.dal.datainiter.DataInitializer;
-import com.darthcloud.dcs.client.annotation.EnableDcsClient;
-import com.darthcloud.dcs.server.annotation.EnableDcsServer;
-import com.darthcloud.dfs.client.annotation.EnableDfsClient;
-import com.darthcloud.dfs.server.annotation.EnableDfsServer;
-import com.darthcloud.dss.client.annotation.EnableDssClient;
-import com.darthcloud.dss.server.annotation.EnableDssServer;
-import com.darthcloud.message.config.annotation.EnableMessageServer;
-import com.darthcloud.orga.config.annotation.EnableOrgaServer;
-import com.darthcloud.privilege.config.annotation.EnablePrivilegeServer;
-import com.darthcloud.rpc.client.annotation.EnableRpcClient;
-import com.darthcloud.rpc.server.annotation.EnableRpcServer;
-import com.darthcloud.service.annotation.EnableService;
-import com.darthcloud.web.annotation.EnableWeb;
+import com.darthcloud.message.annotation.EnableMessageServer;
+import com.darthcloud.orga.annotation.EnableOrgaServer;
+import com.darthcloud.privilege.annotation.EnablePrivilegeServer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -41,26 +30,13 @@ import javax.sql.DataSource;
 
 @Configuration
 @ConditionalOnProperty(name="apibox.server.enabled",havingValue = "true")
-//基础组件
-@EnableWeb
-@EnableService
-@EnableDal
-@EnableRpcClient
-@EnableRpcServer
-@EnableDfsClient
-@EnableDfsServer
-@EnableDcsClient
-@EnableDcsServer
-@EnableDssClient
-@EnableDssServer
-//业务组件
 @EnableOrgaServer
 @EnablePrivilegeServer
 @EnableMessageServer
 @ComponentScan({"com.darthcloud.apibox"})
-public class ApiboxAutoConfiguration {
+public class ApiboxTestAutoConfiguration {
 
-    private static Logger logger = LoggerFactory.getLogger(ApiboxAutoConfiguration.class);
+    private static Logger logger = LoggerFactory.getLogger(ApiboxTestAutoConfiguration.class);
 
     @PostConstruct
     public void init(){

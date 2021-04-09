@@ -11,7 +11,7 @@ fi
 #       系统运行参数
 #-------------------------------------------------------------------------------------------------------------
 #application.main.class="com.darthcloud.platform.DarthPlatformApplication"
-APP_MAIN="com.darthcloud.apibox.DarthApiboxApplication"
+APP_MAIN="com.darthcloud.apibox.ApiboxApplication"
 
 DIR=$(cd "$(dirname "$0")"; pwd)
 APP_HOME=${DIR}/..

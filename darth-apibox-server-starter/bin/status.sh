@@ -4,7 +4,7 @@ if [ ! -n "$JAVA_HOME" ]; then
 fi
 
 #APP_MAIN=${application.main.class}
-APP_MAIN="com.darthcloud.apibox.DarthApiboxApplication"
+APP_MAIN="com.darthcloud.apibox.ApiboxApplication"
 
 PID=0
 getPID(){
