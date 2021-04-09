@@ -9,41 +9,24 @@ import com.darthcloud.apibox.apitest.entity.*;
 import com.darthcloud.apibox.apitest.model.*;
 import com.darthcloud.apibox.category.entity.CategoryPo;
 import com.darthcloud.apibox.category.model.Category;
-import com.darthcloud.apibox.client.builder.ApiboxBuilder;
 import com.darthcloud.apibox.sysmgr.entity.EnvironmentPo;
 import com.darthcloud.apibox.sysmgr.model.Environment;
 import com.darthcloud.apibox.workspace.entity.WorkspacePo;
 import com.darthcloud.apibox.workspace.model.Workspace;
 import com.darthcloud.beans.register.BeanMapperRegister;
 import com.darthcloud.dal.datainiter.DataInitializer;
-import com.darthcloud.message.annotation.EnableMessageServer;
-import com.darthcloud.orga.annotation.EnableOrgaServer;
-import com.darthcloud.privilege.annotation.EnablePrivilegeServer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.context.annotation.*;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 
 @Configuration
-@ConditionalOnProperty(name="apibox.server.enabled",havingValue = "true")
-@EnableOrgaServer
-@EnablePrivilegeServer
-@EnableMessageServer
-@PropertySource(value = "classpath:application-${env:local}.properties")
-@ComponentScan({"com.darthcloud.apibox"})
-public class ApiboxAutoConfiguration {
+public class ApiboxServerAutoConfiguration {
 
-    private static Logger logger = LoggerFactory.getLogger(ApiboxAutoConfiguration.class);
-
-    @Value("${apibox.scan.package}")
-    private String scanPackage;
-
-    @Value("${apibox.doc.path}")
-    private String docPath;
+    private static Logger logger = LoggerFactory.getLogger(ApiboxServerAutoConfiguration.class);
 
     @PostConstruct
     public void init(){
@@ -105,18 +88,5 @@ public class ApiboxAutoConfiguration {
                 "scripts/apimock.sql"
         });
     }
-
-    @Bean
-    @DependsOn({"joinQuery","dataInitializerForApibox"})
-    @Profile("local")
-    public ApiboxIniter apiboxIniter(){
-        new ApiboxBuilder()
-                .scan(scanPackage)
-                .docPath(docPath)
-                .build();
-        return new ApiboxIniter();
-    }
-
-    class ApiboxIniter {}
 
 }

@@ -11,10 +11,10 @@
     <version>1.0.0-SNAPSHOT</version>
     <modules>
         <module>darth-apibox-annotation</module>
-        <module>darth-apibox-client</module>
         <module>darth-apibox-api</module>
+        <module>darth-apibox-client</module>
         <module>darth-apibox-server</module>
-        <module>darth-apibox-server-starter</module>
+        <module>darth-apibox-starter</module>
     </modules>
 
     <properties>
