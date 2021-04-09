@@ -14,6 +14,7 @@
         <module>darth-apibox-api</module>
         <module>darth-apibox-client</module>
         <module>darth-apibox-server</module>
+        <module>darth-apibox-ui</module>
         <module>darth-apibox-starter</module>
     </modules>
 
