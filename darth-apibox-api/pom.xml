@@ -25,10 +25,6 @@
         </dependency>
         <dependency>
             <groupId>com.darthcloud</groupId>
-            <artifactId>darth-framework-validation-annotation</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.darthcloud</groupId>
             <artifactId>darth-service-beans-annotation</artifactId>
         </dependency>
         <dependency>

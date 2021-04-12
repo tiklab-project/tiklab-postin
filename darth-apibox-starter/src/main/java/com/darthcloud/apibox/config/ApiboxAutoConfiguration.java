@@ -13,7 +13,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.*;
 
 @Configuration
-@ConditionalOnProperty(name="apibox.server.enabled",havingValue = "true")
 @EnableOrgaServer
 @EnablePrivilegeServer
 @EnableMessageServer

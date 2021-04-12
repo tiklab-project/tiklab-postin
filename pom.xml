@@ -30,7 +30,6 @@
         <darth-dependencies.version>1.0.0-SNAPSHOT</darth-dependencies.version>
         <darth-common.version>1.0.0-SNAPSHOT</darth-common.version>
         <darth-utils.version>1.0.0-SNAPSHOT</darth-utils.version>
-        <darth-validation.version>1.0.0-SNAPSHOT</darth-validation.version>
         <darth-beans.version>1.0.0-SNAPSHOT</darth-beans.version>
         <darth-join.version>1.0.0-SNAPSHOT</darth-join.version>
         <darth-code-generator.version>1.0.0-SNAPSHOT</darth-code-generator.version>
@@ -63,16 +62,6 @@
                 <groupId>com.darthcloud</groupId>
                 <artifactId>darth-framework-utils</artifactId>
                 <version>${darth-utils.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.darthcloud</groupId>
-                <artifactId>darth-framework-validation-annotation</artifactId>
-                <version>${darth-validation.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.darthcloud</groupId>
-                <artifactId>darth-framework-validation</artifactId>
-                <version>${darth-validation.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.darthcloud</groupId>
