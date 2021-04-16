@@ -1,4 +1,5 @@
 target/
+plugins/
 .settings/
 LOG_HOME_IS_UNDEFINED/
 .DS_Store
