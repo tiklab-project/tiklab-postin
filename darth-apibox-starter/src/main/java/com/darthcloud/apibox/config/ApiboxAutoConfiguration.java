@@ -5,6 +5,7 @@ import com.darthcloud.apibox.annotation.EnableApiboxServer;
 import com.darthcloud.apibox.client.builder.ApiboxBuilder;
 import com.darthcloud.message.annotation.EnableMessageServer;
 import com.darthcloud.orga.annotation.EnableOrgaServer;
+import com.darthcloud.plugin.annotation.EnablePluginServer;
 import com.darthcloud.privilege.annotation.EnablePrivilegeServer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +18,7 @@ import org.springframework.context.annotation.*;
 @EnablePrivilegeServer
 @EnableMessageServer
 @EnableApiboxServer
+@EnablePluginServer
 @PropertySource(value = "classpath:application-${env:local}.properties")
 @ComponentScan({"com.darthcloud.apibox"})
 public class ApiboxAutoConfiguration {
