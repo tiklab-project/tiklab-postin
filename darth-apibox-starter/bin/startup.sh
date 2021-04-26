@@ -18,6 +18,8 @@ APP_HOME=${DIR}/..
 APP_CONFIG=${APP_HOME}/conf/application.properties
 APP_LOG=${APP_HOME}/logs
 
+export APP_HOME
+
 JAVA_OPTS="$JAVA_OPTS -server -Xms512m -Xmx512m -Xmn128m -XX:ParallelGCThreads=20 -XX:+UseConcMarkSweepGC -XX:MaxGCPauseMillis=850 -XX:+PrintGCDetails -Xloggc:$APP_LOG/gc.log -Dfile.encoding=UTF-8"
 JAVA_OPTS="$JAVA_OPTS -DlogPath=$APP_LOG"
 JAVA_OPTS="$JAVA_OPTS -Dconf.config=file:${APP_CONFIG}"
@@ -31,6 +33,7 @@ done
 echo "JAVA_HOME="$JAVA_HOME
 echo "JAVA_OPTS="$JAVA_OPTS
 echo "CLASSPATH="$CLASSPATH
+echo "APP_HOME="$APP_HOME
 echo "APP_MAIN="$APP_MAIN
 
 #-------------------------------------------------------------------------------------------------------------

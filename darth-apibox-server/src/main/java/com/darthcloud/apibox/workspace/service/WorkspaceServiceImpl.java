@@ -4,23 +4,21 @@ import com.darthcloud.apibox.workspace.dao.WorkspaceDao;
 import com.darthcloud.apibox.workspace.entity.WorkspacePo;
 import com.darthcloud.apibox.workspace.model.Workspace;
 import com.darthcloud.apibox.workspace.model.WorkspaceQuery;
-
-import com.darthcloud.common.Pagination;
 import com.darthcloud.beans.BeanMapper;
+import com.darthcloud.common.Pagination;
 import com.darthcloud.dss.client.DssClient;
 import com.darthcloud.orga.user.model.DmUser;
 import com.darthcloud.orga.user.model.User;
 import com.darthcloud.orga.user.service.DmUserService;
 import com.darthcloud.privilege.prjprivilege.service.DmPrjRoleService;
-import com.darthcloud.web.filter.UserContext;
+import com.darthcloud.web.context.UserContext;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
-
-import org.springframework.beans.BeanUtils;
 
 /**
 * 用户服务业务处理

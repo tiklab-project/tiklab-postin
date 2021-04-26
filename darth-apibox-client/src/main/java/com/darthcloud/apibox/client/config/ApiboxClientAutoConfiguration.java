@@ -23,7 +23,7 @@ public class ApiboxClientAutoConfiguration {
 
     @Bean
     @DependsOn({"joinQuery"})
-    @Profile({"local","dev"})
+    @Profile("local")
     public ApiboxIniter apiboxIniter(){
         new ApiboxBuilder()
                 .scan(scanPackage)

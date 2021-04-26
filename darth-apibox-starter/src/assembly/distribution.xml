@@ -31,6 +31,13 @@
 			</excludes>
 			<outputDirectory>/bin</outputDirectory>
 		</fileSet>
+		<fileSet>
+			<directory>${basedir}/plugins</directory>
+			<includes>
+				<include>*.jar</include>
+			</includes>
+			<outputDirectory>/plugins</outputDirectory>
+		</fileSet>
 	</fileSets>
 	<dependencySets>
 		<dependencySet>
