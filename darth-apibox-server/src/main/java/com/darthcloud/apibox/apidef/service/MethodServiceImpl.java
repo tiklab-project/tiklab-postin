@@ -6,10 +6,9 @@ import com.darthcloud.apibox.apidef.dao.MethodDao;
 import com.darthcloud.apibox.apidef.entity.MethodPo;
 import com.darthcloud.apibox.apidef.model.MethodEx;
 import com.darthcloud.apibox.apidef.model.MethodExQuery;
-
 import com.darthcloud.apibox.apidef.support.MessageTemplateConstant;
-import com.darthcloud.common.Pagination;
 import com.darthcloud.beans.BeanMapper;
+import com.darthcloud.common.Pagination;
 import com.darthcloud.dss.client.DssClient;
 import com.darthcloud.join.join.JoinQuery;
 import com.darthcloud.message.message.model.Message;
@@ -17,7 +16,8 @@ import com.darthcloud.message.message.model.MessageReceiver;
 import com.darthcloud.message.message.model.MessageTemplate;
 import com.darthcloud.message.message.service.MessageService;
 import com.darthcloud.orga.user.model.User;
-import com.darthcloud.web.filter.UserContext;
+import com.darthcloud.web.context.UserContext;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,8 +25,6 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.springframework.beans.BeanUtils;
 
 /**
 * 用户服务业务处理

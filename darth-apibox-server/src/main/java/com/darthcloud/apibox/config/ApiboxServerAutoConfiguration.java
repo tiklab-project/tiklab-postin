@@ -26,8 +26,6 @@ import javax.sql.DataSource;
 @Configuration
 public class ApiboxServerAutoConfiguration {
 
-    private static Logger logger = LoggerFactory.getLogger(ApiboxServerAutoConfiguration.class);
-
     @PostConstruct
     public void init(){
         BeanMapperRegister.instance()

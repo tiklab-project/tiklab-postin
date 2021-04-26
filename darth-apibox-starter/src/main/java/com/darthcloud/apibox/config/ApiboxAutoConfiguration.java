@@ -2,6 +2,7 @@ package com.darthcloud.apibox.config;
 
 
 import com.darthcloud.apibox.annotation.EnableApiboxServer;
+import com.darthcloud.apibox.client.annotation.EnableApiboxClient;
 import com.darthcloud.apibox.client.builder.ApiboxBuilder;
 import com.darthcloud.message.annotation.EnableMessageServer;
 import com.darthcloud.orga.annotation.EnableOrgaServer;
@@ -17,31 +18,10 @@ import org.springframework.context.annotation.*;
 @EnableOrgaServer
 @EnablePrivilegeServer
 @EnableMessageServer
+@EnableApiboxClient
 @EnableApiboxServer
 @EnablePluginServer
-@PropertySource(value = "classpath:application-${env:local}.properties")
 @ComponentScan({"com.darthcloud.apibox"})
 public class ApiboxAutoConfiguration {
-
-    private static Logger logger = LoggerFactory.getLogger(ApiboxAutoConfiguration.class);
-
-    @Value("${apibox.scan.package}")
-    private String scanPackage;
-
-    @Value("${apibox.doc.path}")
-    private String docPath;
-
-    @Bean
-    @DependsOn({"joinQuery","dataInitializerForApibox"})
-    @Profile("local")
-    public ApiboxIniter apiboxIniter(){
-        new ApiboxBuilder()
-                .scan(scanPackage)
-                .docPath(docPath)
-                .build();
-        return new ApiboxIniter();
-    }
-
-    class ApiboxIniter {}
 
 }
