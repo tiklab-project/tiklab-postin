@@ -8,7 +8,7 @@ import com.darthcloud.apibox.apidef.model.RequestBodyExQuery;
 import com.darthcloud.apibox.apidef.service.RequestBodyService;
 import com.darthcloud.common.Pagination;
 import com.darthcloud.common.Result;
-import com.darthcloud.validation.annotation.Validator;
+import com.darthcloud.web.validation.annotation.Validator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

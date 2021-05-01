@@ -9,7 +9,7 @@ import com.darthcloud.apibox.workspace.model.Workspace;
 import com.darthcloud.common.Result;
 import com.darthcloud.common.exception.DarthException;
 import com.darthcloud.dss.store.model.*;
-import com.darthcloud.validation.annotation.Validator;
+import com.darthcloud.web.validation.annotation.Validator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

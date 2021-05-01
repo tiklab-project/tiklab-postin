@@ -8,6 +8,7 @@ import com.darthcloud.common.Pagination;
 import com.darthcloud.common.Result;
 import com.darthcloud.apibox.annotation.ApiMethod;
 import com.darthcloud.apibox.annotation.ApiParam;
+import com.darthcloud.web.validation.annotation.Validator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import com.darthcloud.validation.annotation.Validator;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
