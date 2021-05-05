@@ -14,22 +14,12 @@
     <dependencies>
         <dependency>
             <groupId>com.darthcloud</groupId>
-            <artifactId>darth-orga-server</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.darthcloud</groupId>
-            <artifactId>darth-plugin-server</artifactId>
+            <artifactId>darth-apibox-client</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.darthcloud</groupId>
             <artifactId>darth-apibox-server</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.darthcloud</groupId>
-            <artifactId>darth-apibox-ui</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>

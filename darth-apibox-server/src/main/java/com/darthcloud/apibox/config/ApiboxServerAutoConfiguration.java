@@ -15,15 +15,23 @@ import com.darthcloud.apibox.workspace.entity.WorkspacePo;
 import com.darthcloud.apibox.workspace.model.Workspace;
 import com.darthcloud.beans.register.BeanMapperRegister;
 import com.darthcloud.dal.datainiter.DataInitializer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.darthcloud.message.annotation.EnableMessageServer;
+import com.darthcloud.orga.annotation.EnableOrgaServer;
+import com.darthcloud.plugin.annotation.EnablePluginServer;
+import com.darthcloud.privilege.annotation.EnablePrivilegeServer;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 
 @Configuration
+@EnableOrgaServer
+@EnablePrivilegeServer
+@EnableMessageServer
+@EnablePluginServer
+@ComponentScan({"com.darthcloud.apibox"})
 public class ApiboxServerAutoConfiguration {
 
     @PostConstruct
