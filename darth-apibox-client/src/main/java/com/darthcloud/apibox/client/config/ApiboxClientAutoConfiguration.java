@@ -11,6 +11,7 @@ import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.Profile;
 
 @Configuration
+@Profile({"local","dev"})
 public class ApiboxClientAutoConfiguration {
 
     private static Logger logger = LoggerFactory.getLogger(ApiboxClientAutoConfiguration.class);

@@ -10,8 +10,8 @@ fi
 #-------------------------------------------------------------------------------------------------------------
 #       系统运行参数
 #-------------------------------------------------------------------------------------------------------------
-#application.main.class="com.darthcloud.platform.DarthPlatformApplication"
-APP_MAIN="com.darthcloud.apibox.ApiboxApplication"
+#application.main.class="com.darthcloud.apibox.DarthPlatformApplication"
+APP_MAIN="com.darthcloud.apibox.ApiboxDeliverApplication"
 
 DIR=$(cd "$(dirname "$0")"; pwd)
 APP_HOME=${DIR}/..

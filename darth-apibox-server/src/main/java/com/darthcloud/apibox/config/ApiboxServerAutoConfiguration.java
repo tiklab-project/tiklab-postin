@@ -14,23 +14,31 @@ import com.darthcloud.apibox.sysmgr.model.Environment;
 import com.darthcloud.apibox.workspace.entity.WorkspacePo;
 import com.darthcloud.apibox.workspace.model.Workspace;
 import com.darthcloud.beans.register.BeanMapperRegister;
-import com.darthcloud.dal.datainiter.DataInitializer;
+import com.darthcloud.datafly.db.annotation.EnableDatafly;
+import com.darthcloud.datafly.db.annotation.TableInit;
 import com.darthcloud.message.annotation.EnableMessageServer;
 import com.darthcloud.orga.annotation.EnableOrgaServer;
 import com.darthcloud.plugin.annotation.EnablePluginServer;
 import com.darthcloud.privilege.annotation.EnablePrivilegeServer;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 
 import javax.annotation.PostConstruct;
-import javax.sql.DataSource;
 
 @Configuration
+@Profile({"local","dev"})
 @EnableOrgaServer
 @EnablePrivilegeServer
 @EnableMessageServer
 @EnablePluginServer
+@EnableDatafly
+@TableInit(location = {
+        "scripts/apibase.sql",
+        "scripts/apidef.sql",
+        "scripts/apitest.sql",
+        "scripts/apimock.sql"
+})
 @ComponentScan({"com.darthcloud.apibox"})
 public class ApiboxServerAutoConfiguration {
 
@@ -83,16 +91,6 @@ public class ApiboxServerAutoConfiguration {
                 //其它
                 .map(Environment.class, EnvironmentPo.class)
         ;
-    }
-
-    @Bean("dataInitializerForApibox")
-    public DataInitializer dataInitializerForApibox(DataSource dataSource) {
-        return new DataInitializer(dataSource,new String[]{
-                "scripts/apibase.sql",
-                "scripts/apidef.sql",
-                "scripts/apitest.sql",
-                "scripts/apimock.sql"
-        });
     }
 
 }
