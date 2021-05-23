@@ -4,7 +4,7 @@ import com.darthcloud.apibox.workspace.dao.WorkspaceDao;
 import com.darthcloud.apibox.workspace.entity.WorkspacePo;
 import com.darthcloud.apibox.workspace.model.Workspace;
 import com.darthcloud.apibox.workspace.model.WorkspaceQuery;
-import com.darthcloud.beans.BeanMapper;
+import com.darthcloud.dsl.beans.BeanMapper;
 import com.darthcloud.common.Pagination;
 import com.darthcloud.dss.client.DssClient;
 import com.darthcloud.orga.user.model.DmUser;

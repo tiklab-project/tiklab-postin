@@ -6,8 +6,8 @@ import com.darthcloud.apibox.apimock.model.ResponseMock;
 import com.darthcloud.apibox.apimock.model.ResponseMockQuery;
 
 import com.darthcloud.common.Pagination;
-import com.darthcloud.beans.BeanMapper;
-import com.darthcloud.join.join.JoinQuery;
+import com.darthcloud.dsl.beans.BeanMapper;
+import com.darthcloud.dsl.join.join.JoinQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

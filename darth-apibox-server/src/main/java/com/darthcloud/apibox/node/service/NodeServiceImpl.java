@@ -6,7 +6,7 @@ import com.darthcloud.apibox.node.model.Node;
 import com.darthcloud.apibox.node.model.NodeQuery;
 
 import com.darthcloud.common.Pagination;
-import com.darthcloud.beans.BeanMapper;
+import com.darthcloud.dsl.beans.BeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

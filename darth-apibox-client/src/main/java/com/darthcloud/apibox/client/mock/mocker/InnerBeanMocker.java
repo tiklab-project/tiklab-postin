@@ -1,8 +1,8 @@
 package com.darthcloud.apibox.client.mock.mocker;
 
 
-import com.darthcloud.join.joinprovider.DefaultJoinProvider;
-import com.darthcloud.join.joinprovider.JoinProvider;
+import com.darthcloud.dsl.join.joinprovider.DefaultJoinProvider;
+import com.darthcloud.dsl.join.joinprovider.JoinProvider;
 
 import java.lang.reflect.Type;
 import java.util.List;

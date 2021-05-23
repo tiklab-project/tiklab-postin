@@ -2,10 +2,10 @@ package com.darthcloud.apibox.apitest.model;
 
 import com.darthcloud.apibox.annotation.ApiModel;
 import com.darthcloud.apibox.annotation.ApiProperty;
-import com.darthcloud.beans.annotation.Mapping;
-import com.darthcloud.beans.annotation.Mappings;
-import com.darthcloud.join.annotation.Join;
-import com.darthcloud.join.annotation.JoinField;
+import com.darthcloud.dsl.beans.annotation.Mapping;
+import com.darthcloud.dsl.beans.annotation.Mappings;
+import com.darthcloud.dsl.join.annotation.Join;
+import com.darthcloud.dsl.join.annotation.JoinField;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;

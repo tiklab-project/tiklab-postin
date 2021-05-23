@@ -4,10 +4,10 @@ import com.darthcloud.common.Pagination;
 
 import com.darthcloud.apibox.category.model.Category;
 import com.darthcloud.apibox.category.model.CategoryQuery;
-import com.darthcloud.join.annotation.FindList;
-import com.darthcloud.join.annotation.Provider;
-import com.darthcloud.join.annotation.FindAll;
-import com.darthcloud.join.annotation.FindOne;
+import com.darthcloud.dsl.join.annotation.FindList;
+import com.darthcloud.dsl.join.annotation.Provider;
+import com.darthcloud.dsl.join.annotation.FindAll;
+import com.darthcloud.dsl.join.annotation.FindOne;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;

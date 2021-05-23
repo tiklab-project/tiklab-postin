@@ -4,7 +4,6 @@ import com.darthcloud.common.Pagination;
 
 import com.darthcloud.apibox.apitest.model.RequestBodyCase;
 import com.darthcloud.apibox.apitest.model.RequestBodyCaseQuery;
-import com.darthcloud.join.annotation.Provider;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;

@@ -13,7 +13,7 @@ import com.darthcloud.apibox.sysmgr.entity.EnvironmentPo;
 import com.darthcloud.apibox.sysmgr.model.Environment;
 import com.darthcloud.apibox.workspace.entity.WorkspacePo;
 import com.darthcloud.apibox.workspace.model.Workspace;
-import com.darthcloud.beans.register.BeanMapperRegister;
+import com.darthcloud.dsl.beans.register.BeanMapperRegister;
 import com.darthcloud.datafly.db.annotation.EnableDatafly;
 import com.darthcloud.datafly.db.annotation.TableInit;
 import com.darthcloud.message.annotation.EnableMessageServer;
