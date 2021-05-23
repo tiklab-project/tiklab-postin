@@ -59,7 +59,7 @@
         </dependency>
         <dependency>
             <groupId>com.darthcloud</groupId>
-            <artifactId>darth-service-join</artifactId>
+            <artifactId>darth-dsl-join</artifactId>
         </dependency>
         <dependency>
             <groupId>com.darthcloud</groupId>

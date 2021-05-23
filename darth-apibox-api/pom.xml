@@ -25,11 +25,11 @@
         </dependency>
         <dependency>
             <groupId>com.darthcloud</groupId>
-            <artifactId>darth-service-beans-annotation</artifactId>
+            <artifactId>darth-dsl-beans-annotation</artifactId>
         </dependency>
         <dependency>
             <groupId>com.darthcloud</groupId>
-            <artifactId>darth-service-join-annotation</artifactId>
+            <artifactId>darth-dsl-join-annotation</artifactId>
         </dependency>
         <dependency>
             <groupId>com.darthcloud</groupId>
