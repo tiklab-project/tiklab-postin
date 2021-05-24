@@ -1,15 +1,12 @@
 package com.darthcloud.apibox.client.mock.mocker;
 
 
-import com.darthcloud.dsl.join.joinprovider.DefaultJoinProvider;
-import com.darthcloud.dsl.join.joinprovider.JoinProvider;
-
 import java.lang.reflect.Type;
 import java.util.List;
 
 public class InnerBeanMocker {
 
-    static JoinProvider joinProvider = new DefaultJoinProvider();
+    //static JoinProvider joinProvider = new DefaultJoinProvider();
 
     /**
      * 构造内部bean，如project.user
@@ -40,7 +37,7 @@ public class InnerBeanMocker {
     }
 
     static Object selectOne(Class<?> paramType){
-        List<?> list = joinProvider.findAll(paramType);
+        List<?> list = null;//TODO joinProvider.findAll(paramType);
         if(list == null || list.size()==0){
             return null;
         }

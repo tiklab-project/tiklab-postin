@@ -18,6 +18,10 @@
     <dependencies>
         <!--common-->
         <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>test</scope>
@@ -55,11 +59,11 @@
         <!--darthcloud-->
         <dependency>
             <groupId>com.darthcloud</groupId>
-            <artifactId>darth-framework-utils</artifactId>
+            <artifactId>darth-framework-common</artifactId>
         </dependency>
         <dependency>
             <groupId>com.darthcloud</groupId>
-            <artifactId>darth-dsl-join</artifactId>
+            <artifactId>darth-framework-utils</artifactId>
         </dependency>
         <dependency>
             <groupId>com.darthcloud</groupId>
