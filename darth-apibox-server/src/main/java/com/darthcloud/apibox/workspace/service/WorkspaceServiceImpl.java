@@ -4,14 +4,14 @@ import com.darthcloud.apibox.workspace.dao.WorkspaceDao;
 import com.darthcloud.apibox.workspace.entity.WorkspacePo;
 import com.darthcloud.apibox.workspace.model.Workspace;
 import com.darthcloud.apibox.workspace.model.WorkspaceQuery;
-import com.darthcloud.dsl.beans.BeanMapper;
 import com.darthcloud.common.Pagination;
+import com.darthcloud.dsl.beans.BeanMapper;
 import com.darthcloud.dss.client.DssClient;
-import com.darthcloud.orga.user.model.DmUser;
-import com.darthcloud.orga.user.model.User;
-import com.darthcloud.orga.user.service.DmUserService;
 import com.darthcloud.privilege.prjprivilege.service.DmPrjRoleService;
-import com.darthcloud.web.context.UserContext;
+import com.darthcloud.user.auth.context.TicketHolder;
+import com.darthcloud.user.user.model.DmUser;
+import com.darthcloud.user.user.model.User;
+import com.darthcloud.user.user.service.DmUserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,7 +46,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         String projectId = workspaceDao.createWorkspace(workspacePo);
 
         //初始化项目成员
-        String masterId = UserContext.getInstance().getTicket();
+        String masterId = TicketHolder.get();
         DmUser dmUser = new DmUser();
         dmUser.setDomainId(projectId);
         dmUser.setUser(new User().setId(masterId));

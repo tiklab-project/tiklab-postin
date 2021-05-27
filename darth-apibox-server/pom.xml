@@ -74,7 +74,7 @@
         </dependency>
         <dependency>
             <groupId>com.darthcloud</groupId>
-            <artifactId>darth-orga-server</artifactId>
+            <artifactId>darth-user-server</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>

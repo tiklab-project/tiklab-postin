@@ -22,7 +22,7 @@ public class ApiboxClientAutoConfiguration {
     @Value("${apibox.doc.path}")
     private String docPath;
 
-    @Bean
+    //@Bean
     @DependsOn({"joinQuery"})
     @Profile("local")
     public ApiboxIniter apiboxIniter(){

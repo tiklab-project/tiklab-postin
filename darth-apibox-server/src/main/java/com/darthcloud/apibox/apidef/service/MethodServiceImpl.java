@@ -7,16 +7,16 @@ import com.darthcloud.apibox.apidef.entity.MethodPo;
 import com.darthcloud.apibox.apidef.model.MethodEx;
 import com.darthcloud.apibox.apidef.model.MethodExQuery;
 import com.darthcloud.apibox.apidef.support.MessageTemplateConstant;
-import com.darthcloud.dsl.beans.BeanMapper;
 import com.darthcloud.common.Pagination;
-import com.darthcloud.dss.client.DssClient;
+import com.darthcloud.dsl.beans.BeanMapper;
 import com.darthcloud.dsl.join.join.JoinQuery;
+import com.darthcloud.dss.client.DssClient;
 import com.darthcloud.message.message.model.Message;
 import com.darthcloud.message.message.model.MessageReceiver;
 import com.darthcloud.message.message.model.MessageTemplate;
 import com.darthcloud.message.message.service.MessageService;
-import com.darthcloud.orga.user.model.User;
-import com.darthcloud.web.context.UserContext;
+import com.darthcloud.user.auth.context.TicketHolder;
+import com.darthcloud.user.user.model.User;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -74,7 +74,7 @@ public class MethodServiceImpl implements MethodService {
         //设置接收人
         List<MessageReceiver> messageReceiverList = new ArrayList<>();
         MessageReceiver messageReceiver = new MessageReceiver()
-                .setReceiver(new User().setId(UserContext.getInstance().getTicket()));
+                .setReceiver(new User().setId(TicketHolder.get()));
         messageReceiverList.add(messageReceiver);
         message.setMessageReceiverList(messageReceiverList);
 
@@ -110,7 +110,7 @@ public class MethodServiceImpl implements MethodService {
         //设置接收人
         List<MessageReceiver> messageReceiverList = new ArrayList<>();
         MessageReceiver messageReceiver = new MessageReceiver()
-                .setReceiver(new User().setId(UserContext.getInstance().getTicket()));
+                .setReceiver(new User().setId(TicketHolder.get()));
         messageReceiverList.add(messageReceiver);
         message.setMessageReceiverList(messageReceiverList);
 

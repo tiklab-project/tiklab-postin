@@ -17,9 +17,9 @@ import com.darthcloud.dal.datafly.annotation.EnableDatafly;
 import com.darthcloud.dal.datafly.annotation.TableInit;
 import com.darthcloud.dsl.beans.register.BeanMapperRegister;
 import com.darthcloud.message.annotation.EnableMessageServer;
-import com.darthcloud.orga.annotation.EnableOrgaServer;
 import com.darthcloud.plugin.annotation.EnablePluginServer;
 import com.darthcloud.privilege.annotation.EnablePrivilegeServer;
+import com.darthcloud.user.annotation.EnableUserServer;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -28,7 +28,7 @@ import javax.annotation.PostConstruct;
 
 @Configuration
 @Profile({"local","dev"})
-@EnableOrgaServer
+@EnableUserServer
 @EnablePrivilegeServer
 @EnableMessageServer
 @EnablePluginServer
