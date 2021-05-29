@@ -15,7 +15,7 @@ import org.springframework.context.annotation.PropertySource;
 @SpringBootApplication(exclude = {
         DataSourceAutoConfiguration.class
 })
-@PropertySource(value = "classpath:application-${env:local}.properties")
+@PropertySource(value = "classpath:application.properties")
 @EnableApiboxClient
 @EnableApiboxServer
 public class ApiboxApplication {

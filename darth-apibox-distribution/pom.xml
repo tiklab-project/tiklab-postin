@@ -8,7 +8,7 @@
         <artifactId>darth-apibox</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
-    <artifactId>darth-apibox-starter</artifactId>
+    <artifactId>darth-apibox-distribution</artifactId>
     <name>${project.artifactId}</name>
 
     <dependencies>
