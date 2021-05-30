@@ -22,6 +22,7 @@
         <module>darth-apibox-server</module>
         <module>darth-apibox-ui</module>
         <module>darth-apibox-distribution</module>
+        <module>darth-apibox-starter</module>
     </modules>
 
     <properties>

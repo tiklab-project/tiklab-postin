@@ -10,3 +10,4 @@ LOG_HOME_IS_UNDEFINED/
 .springBeans
 doc/
 /darth-apibox-distribution/src/main/resources/static/api/
+/darth-apibox-starter/src/main/resources/static/api/
