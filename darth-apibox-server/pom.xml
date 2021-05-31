@@ -101,11 +101,6 @@
             <artifactId>darth-apibox-api</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <dependency>
-            <groupId>com.darthcloud</groupId>
-            <artifactId>darth-apibox-ui</artifactId>
-            <version>${project.version}</version>
-        </dependency>
     </dependencies>
 
     <build>
