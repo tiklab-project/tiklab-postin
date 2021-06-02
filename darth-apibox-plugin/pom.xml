@@ -3,27 +3,17 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <parent>
         <groupId>com.darthcloud</groupId>
-        <artifactId>darth-dependencies</artifactId>
+        <artifactId>darth-apibox</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
-    <groupId>com.darthcloud</groupId>
-    <artifactId>darth-apibox</artifactId>
+    <artifactId>darth-apibox-plugin</artifactId>
     <name>${project.artifactId}</name>
     <packaging>pom</packaging>
-    <version>1.0.0-SNAPSHOT</version>
 
     <modules>
-        <module>darth-apibox-annotation</module>
-        <module>darth-apibox-api</module>
-        <module>darth-apibox-client</module>
-        <module>darth-apibox-server</module>
-        <module>darth-apibox-ui</module>
-        <module>darth-apibox-plugin</module>
-        <module>darth-apibox-distribution</module>
-        <module>darth-apibox-starter</module>
+        <module>darth-apibox-language-en-plugin</module>
     </modules>
 
     <properties>
@@ -130,4 +120,5 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
 </project>

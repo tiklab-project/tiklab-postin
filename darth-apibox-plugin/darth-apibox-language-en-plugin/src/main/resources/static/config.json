@@ -1,0 +1,6 @@
+{
+    "name": "english",
+    "type": "language",
+    "country": "en",
+    "path": "/language-en/language-en.json"
+}
