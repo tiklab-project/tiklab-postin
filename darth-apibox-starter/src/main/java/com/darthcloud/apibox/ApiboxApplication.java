@@ -15,12 +15,12 @@ import org.springframework.context.annotation.PropertySource;
 @PropertySource(value = "classpath:application-${env:local}.properties")
 @EnableApiboxClient
 @EnableApiboxServer
-public class ApiboxInlineApplication {
+public class ApiboxApplication {
 
-    public static final Logger logger = LoggerFactory.getLogger(ApiboxInlineApplication.class);
+    public static final Logger logger = LoggerFactory.getLogger(ApiboxApplication.class);
 
     public static void main(String[] args) {
-        SpringApplication.run(ApiboxInlineApplication.class, args);
+        SpringApplication.run(ApiboxApplication.class, args);
     }
 
 }
