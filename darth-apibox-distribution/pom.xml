@@ -52,7 +52,7 @@
                             <descriptors>
                                 <descriptor>assembly/distribution.xml</descriptor>
                             </descriptors>
-                            <finalName>${project.artifactId}-${project.version}-${maven.build.timestamp}</finalName>
+                            <finalName>darth-apibox-${project.version}</finalName>
                         </configuration>
                         <phase>package</phase>
                         <goals>
