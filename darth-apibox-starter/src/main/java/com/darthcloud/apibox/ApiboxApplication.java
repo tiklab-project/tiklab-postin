@@ -13,8 +13,8 @@ import org.springframework.context.annotation.PropertySource;
  */
 @SpringBootApplication
 @PropertySource(value = "classpath:application-${env:local}.properties")
-@EnableApiboxClient
 @EnableApiboxServer
+@EnableApiboxClient
 public class ApiboxApplication {
 
     public static final Logger logger = LoggerFactory.getLogger(ApiboxApplication.class);
