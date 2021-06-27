@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title></title>
+    <title>Api Detail</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <style>
         pre {outline: 1px solid #ccc; padding: 5px; margin: 5px; }

@@ -1,6 +1,5 @@
 package com.darthcloud.apibox.client.builder;
 
-import com.alibaba.fastjson.JSON;
 import com.darthcloud.apibox.client.model.ApiMeta;
 import com.darthcloud.apibox.client.model.ApiMethodMeta;
 import com.darthcloud.apibox.client.parser.ApiParser;
@@ -36,7 +35,17 @@ public class ApiboxBuilder {
 
     public void build(){
         List<ApiMeta> apiMetaList = scanPackage(scanPackage);
+        ApiMetaContext.setApiMetaList(apiMetaList);
 
+        if(apiMetaList != null){
+            Map<String,ApiMeta> apiMetaMap = new HashMap<>();
+            for(ApiMeta apiMeta:apiMetaList){
+                apiMetaMap.put(apiMeta.getName(),apiMeta);
+            }
+            ApiMetaContext.setApiMetaMap(apiMetaMap);
+        }
+
+        /*
         if(formater == 1){
             String data = JSON.toJSONString(apiMetaList);
             logger.info("json:{}",data);
@@ -46,6 +55,7 @@ public class ApiboxBuilder {
             apiData.setApis(apiMetaList);
             saveDocToHtml(docPath,apiData);
         }
+         */
     }
 
     private List<ApiMeta> scanPackage(String basePackage){
@@ -78,7 +88,7 @@ public class ApiboxBuilder {
         paramMap.put("apiData", apiData);
 
         //输出api列表页
-        InputStream ips = this.getClass().getResourceAsStream("/template/ApiList.ftl");
+        InputStream ips = this.getClass().getResourceAsStream("/templates/ApiList.ftl");
         BufferedReader tplReader = new BufferedReader(new InputStreamReader(ips));
 
         //资源文件目录及文件路径
@@ -97,7 +107,7 @@ public class ApiboxBuilder {
                 //输出api列表页
                 //模板文件路径
                 //String tplFilePath = FeniksBuilder.class.getResource("/template/apiDetail.ftl").getPath();
-                InputStream ips = this.getClass().getResourceAsStream("/template/ApiDetail.ftl");
+                InputStream ips = this.getClass().getResourceAsStream("/templates/ApiDetail.ftl");
                 BufferedReader tplReader = new BufferedReader(new InputStreamReader(ips));
 
                 //资源文件目录及文件路径

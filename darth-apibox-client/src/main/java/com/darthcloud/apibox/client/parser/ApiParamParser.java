@@ -6,6 +6,7 @@ import com.darthcloud.apibox.annotation.ApiParams;
 import com.darthcloud.apibox.client.mock.JMockit;
 import com.darthcloud.apibox.client.model.ApiParamMeta;
 import com.darthcloud.apibox.client.model.ParamItemType;
+import com.darthcloud.common.exception.DarthException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.LocalVariableTableParameterNameDiscoverer;
@@ -57,7 +58,12 @@ public class ApiParamParser extends ParamItemParser{
             //根据名称查找下标，查找对应的参数
             String paramName = apiParam.name();
             int paramIndex = getParamIndex(parameterNames,paramName);
-            Parameter parameter = parameters[paramIndex];
+            Parameter parameter = null;
+            try {
+                parameter = parameters[paramIndex];
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
             ApiParamMeta paramMeta = parseParamMeta(apiParam,parameter,paramName);
 
@@ -135,7 +141,8 @@ public class ApiParamParser extends ParamItemParser{
                 return i;
             }
         }
-        return -1;
+
+        throw new DarthException(String.format("param:%s not found.",paramName));
     }
 
     /**

@@ -14,14 +14,14 @@ public class ApiMeta {
     @JSONField(serialize = false)
     private Api api;
 
-    @JSONField(name = "method")
-    private List<ApiMethodMeta> apiMethodMetaList = new ArrayList<>();
-
     private String name;
 
     private String desc;
 
     private String path;
+
+    @JSONField(name = "method")
+    private List<ApiMethodMeta> apiMethodMetaList = new ArrayList<>();
 
     public ApiMeta() {
     }

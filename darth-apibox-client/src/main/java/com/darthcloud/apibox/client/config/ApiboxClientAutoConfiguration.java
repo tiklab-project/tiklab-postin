@@ -11,24 +11,19 @@ import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.Profile;
 
 @Configuration
-@Profile({"local","dev"})
+@Profile({"local"})
 public class ApiboxClientAutoConfiguration {
 
     private static Logger logger = LoggerFactory.getLogger(ApiboxClientAutoConfiguration.class);
 
-    @Value("${apibox.scan.package}")
+    @Value("${apibox.scan.package:com.darthcloud}")
     private String scanPackage;
 
-    @Value("${apibox.doc.path}")
-    private String docPath;
-
-    //@Bean
+    @Bean
     @DependsOn({"joinQuery"})
-    @Profile("local")
     public ApiboxIniter apiboxIniter(){
         new ApiboxBuilder()
                 .scan(scanPackage)
-                .docPath(docPath)
                 .build();
         return new ApiboxIniter();
     }
