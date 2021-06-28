@@ -3,6 +3,7 @@ package com.darthcloud.apibox.category.model;
 import com.darthcloud.apibox.annotation.ApiModel;
 import com.darthcloud.apibox.annotation.ApiProperty;
 import com.darthcloud.apibox.workspace.model.Workspace;
+import com.darthcloud.dsl.beans.annotation.Mapper;
 import com.darthcloud.dsl.beans.annotation.Mapping;
 import com.darthcloud.dsl.beans.annotation.Mappings;
 import com.darthcloud.dsl.join.annotation.Join;
