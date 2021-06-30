@@ -130,4 +130,24 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <repositories>
+        <repository>
+            <id>darth-maven</id>
+            <name>darth maven</name>
+            <url>http://118.178.122.35:8081/repository/maven-public/</url>
+        </repository>
+    </repositories>
+    <distributionManagement>
+        <repository>
+            <id>nexus-releases</id>
+            <name>nexus releases</name>
+            <url>http://118.178.122.35:8081/repository/maven-releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>nexus-snapshots</id>
+            <name>nexus snapshots</name>
+            <url>http://118.178.122.35:8081/repository/maven-snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
 </project>
