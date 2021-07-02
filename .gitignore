@@ -1,6 +1,5 @@
 target/
 .settings/
-LOG_HOME_IS_UNDEFINED/
 APP_HOME_IS_UNDEFINED/
 .DS_Store
 .classpath
@@ -12,5 +11,3 @@ doc/
 data/
 logs/
 plugin/
-/darth-apibox-distribution/src/main/resources/static/api/
-/darth-apibox-starter/src/main/resources/static/api/

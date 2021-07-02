@@ -18,6 +18,7 @@
 
     <properties>
         <darth.version>1.0.0-SNAPSHOT</darth.version>
+        <app.home>${project.basedir}/../../darth-apibox-starter</app.home>
     </properties>
 
     <dependencyManagement>
