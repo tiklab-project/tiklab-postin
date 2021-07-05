@@ -2,12 +2,17 @@ package com.doublekit.apibox.sysmgr.model;
 
 import com.doublekit.apibox.annotation.ApiModel;
 import com.doublekit.apibox.annotation.ApiProperty;
+import com.doublekit.beans.annotation.Mapper;
+import com.doublekit.common.BaseModel;
+import com.doublekit.join.annotation.Join;
 
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @ApiModel
-public class Environment {
+@Mapper
+@Join
+public class Environment extends BaseModel {
 
     @ApiProperty(name="id",desc="唯一标识")
     private java.lang.String id;

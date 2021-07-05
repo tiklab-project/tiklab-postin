@@ -3,8 +3,10 @@ package com.doublekit.apibox.apidef.model;
 import com.doublekit.apibox.annotation.ApiModel;
 import com.doublekit.apibox.annotation.ApiProperty;
 import com.doublekit.apibox.category.model.Category;
+import com.doublekit.beans.annotation.Mapper;
 import com.doublekit.beans.annotation.Mapping;
 import com.doublekit.beans.annotation.Mappings;
+import com.doublekit.common.BaseModel;
 import com.doublekit.dss.store.annotation.Index;
 import com.doublekit.dss.store.annotation.IndexField;
 import com.doublekit.dss.store.annotation.IndexId;
@@ -15,9 +17,10 @@ import com.doublekit.join.annotation.JoinField;
 import javax.validation.constraints.NotNull;
 
 @ApiModel
+@Mapper(target = "com.doublekit.apibox.apidef.entity.MethodPo")
 @Join
 @Index
-public class MethodEx implements java.io.Serializable{
+public class MethodEx extends BaseModel {
 
     @ApiProperty(name="id",desc="唯一ID")
     @IndexId
@@ -27,7 +30,7 @@ public class MethodEx implements java.io.Serializable{
     @NotNull
     @ApiProperty(name="category",desc="所属分类",eg="@selectOne",required = true)
     @Mappings({
-            @Mapping(source = "id",target = "categoryId")
+            @Mapping(source = "category.id",target = "categoryId")
     })
     @JoinField(id = "id")
     @IndexField

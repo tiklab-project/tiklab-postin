@@ -1,6 +1,5 @@
 target/
 .settings/
-APP_HOME_IS_UNDEFINED/
 .DS_Store
 .classpath
 .project
@@ -11,3 +10,5 @@ doc/
 data/
 logs/
 plugin/
+APP_HOME_IS_UNDEFINED/
+DATA_HOME_IS_UNDEFINED/

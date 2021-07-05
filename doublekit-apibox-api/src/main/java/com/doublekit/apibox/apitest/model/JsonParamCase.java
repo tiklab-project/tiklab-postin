@@ -2,8 +2,10 @@ package com.doublekit.apibox.apitest.model;
 
 import com.doublekit.apibox.annotation.ApiModel;
 import com.doublekit.apibox.annotation.ApiProperty;
+import com.doublekit.beans.annotation.Mapper;
 import com.doublekit.beans.annotation.Mapping;
 import com.doublekit.beans.annotation.Mappings;
+import com.doublekit.common.BaseModel;
 import com.doublekit.join.annotation.Join;
 import com.doublekit.join.annotation.JoinField;
 
@@ -11,8 +13,9 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @ApiModel
+@Mapper
 @Join
-public class JsonParamCase {
+public class JsonParamCase extends BaseModel {
 
     @ApiProperty(name="id",desc="唯一标识")
     private java.lang.String id;
@@ -20,7 +23,7 @@ public class JsonParamCase {
 
     @ApiProperty(name="parent",desc="上级参数")
     @Mappings({
-            @Mapping(source = "id",target = "parentId")
+            @Mapping(source = "parent.id",target = "parentId")
     })
     @JoinField(id = "id")
     private JsonParamCase parent;
@@ -28,7 +31,7 @@ public class JsonParamCase {
     @NotNull
     @ApiProperty(name="mock",desc="所属接口用例",required = true)
     @Mappings({
-            @Mapping(source = "id",target = "testcaseId")
+            @Mapping(source = "testcase.id",target = "testcaseId")
     })
     @JoinField(id = "id")
     private Testcase testcase;

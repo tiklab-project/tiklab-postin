@@ -1,10 +1,10 @@
 package com.doublekit.apibox.apitest.entity;
 
 
-import com.doublekit.dal.jpa.annotation.mapper.Column;
-import com.doublekit.dal.jpa.annotation.mapper.GeneratorValue;
-import com.doublekit.dal.jpa.annotation.mapper.Id;
-import com.doublekit.dal.jpa.annotation.mapper.Table;
+import com.doublekit.dal.jpa.mapper.annotation.Column;
+import com.doublekit.dal.jpa.mapper.annotation.GeneratorValue;
+import com.doublekit.dal.jpa.mapper.annotation.Id;
+import com.doublekit.dal.jpa.mapper.annotation.Table;
 
 import java.io.Serializable;
 

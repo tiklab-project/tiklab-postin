@@ -2,16 +2,19 @@ package com.doublekit.apibox.apitest.model;
 
 import com.doublekit.apibox.annotation.ApiModel;
 import com.doublekit.apibox.annotation.ApiProperty;
+import com.doublekit.beans.annotation.Mapper;
 import com.doublekit.beans.annotation.Mapping;
 import com.doublekit.beans.annotation.Mappings;
+import com.doublekit.common.BaseModel;
 import com.doublekit.join.annotation.Join;
 import com.doublekit.join.annotation.JoinField;
 
 import javax.validation.constraints.NotNull;
 
 @ApiModel
+@Mapper
 @Join
-public class AssertInstance {
+public class AssertInstance extends BaseModel {
 
     @ApiProperty(name="id",desc="唯一ID")
     private java.lang.String id;
@@ -19,7 +22,7 @@ public class AssertInstance {
     @NotNull
     @ApiProperty(name="testInstance",desc="所属测试实例",required = true)
     @Mappings({
-            @Mapping(source = "id",target = "instanceId")
+            @Mapping(source = "testInstance.id",target = "instanceId")
     })
     @JoinField(id = "id")
     private TestInstance testInstance;

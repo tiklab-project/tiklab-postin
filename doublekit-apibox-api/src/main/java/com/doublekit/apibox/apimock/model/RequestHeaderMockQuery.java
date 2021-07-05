@@ -1,15 +1,15 @@
 package com.doublekit.apibox.apimock.model;
 
 import com.doublekit.apibox.annotation.ApiProperty;
-import com.doublekit.dal.jpa.annotation.criteria.CriteriaQuery;
-import com.doublekit.dal.jpa.annotation.criteria.OrderField;
-import com.doublekit.dal.jpa.annotation.criteria.PageField;
-import com.doublekit.dal.jpa.annotation.criteria.QueryField;
+import com.doublekit.dal.jpa.criteria.annotation.CriteriaQuery;
+import com.doublekit.dal.jpa.criteria.annotation.OrderField;
+import com.doublekit.dal.jpa.criteria.annotation.PageField;
+import com.doublekit.dal.jpa.criteria.annotation.QueryField;
 import com.doublekit.apibox.annotation.ApiModel;
-import com.doublekit.dal.jpa.model.OrderParam;
-import com.doublekit.dal.jpa.model.PageParam;
-import com.doublekit.dal.jpa.annotation.criteria.QueryTypeEnum;
-import com.doublekit.dal.jpa.model.Orders;
+import com.doublekit.dal.jpa.criteria.model.OrderParam;
+import com.doublekit.dal.jpa.criteria.model.PageParam;
+import com.doublekit.dal.jpa.criteria.annotation.QueryTypeEnum;
+import com.doublekit.dal.jpa.criteria.model.Orders;
 
 import java.util.List;
 

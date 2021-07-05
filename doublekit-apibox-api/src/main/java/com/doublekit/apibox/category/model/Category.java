@@ -3,8 +3,10 @@ package com.doublekit.apibox.category.model;
 import com.doublekit.apibox.annotation.ApiModel;
 import com.doublekit.apibox.annotation.ApiProperty;
 import com.doublekit.apibox.workspace.model.Workspace;
+import com.doublekit.beans.annotation.Mapper;
 import com.doublekit.beans.annotation.Mapping;
 import com.doublekit.beans.annotation.Mappings;
+import com.doublekit.common.BaseModel;
 import com.doublekit.join.annotation.Join;
 import com.doublekit.join.annotation.JoinField;
 
@@ -13,8 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @ApiModel
+@Mapper
 @Join
-public class Category implements java.io.Serializable{
+public class Category extends BaseModel {
 
     @ApiProperty(name="id",desc="唯一标识")
     private java.lang.String id;
@@ -25,14 +28,14 @@ public class Category implements java.io.Serializable{
 
     @ApiProperty(name="workspace",desc="所属空间",eg="@selectOne")
     @Mappings({
-            @Mapping(source = "id",target = "workspaceId")
+            @Mapping(source = "workspace.id",target = "workspaceId")
     })
     @JoinField(id = "id")
     private Workspace workspace;
 
     @ApiProperty(name="parentCategory",desc="上级分类",eg="@selectOne")
     @Mappings({
-            @Mapping(source = "id",target = "parentCategoryId")
+            @Mapping(source = "parentCategory.id",target = "parentCategoryId")
     })
     @JoinField(id = "id")
     private Category parentCategory;

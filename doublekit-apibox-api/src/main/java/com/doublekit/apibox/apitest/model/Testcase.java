@@ -3,8 +3,10 @@ package com.doublekit.apibox.apitest.model;
 import com.doublekit.apibox.annotation.ApiModel;
 import com.doublekit.apibox.annotation.ApiProperty;
 import com.doublekit.apibox.apidef.model.MethodEx;
+import com.doublekit.beans.annotation.Mapper;
 import com.doublekit.beans.annotation.Mapping;
 import com.doublekit.beans.annotation.Mappings;
+import com.doublekit.common.BaseModel;
 import com.doublekit.join.annotation.Join;
 import com.doublekit.join.annotation.JoinField;
 
@@ -12,8 +14,9 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @ApiModel
+@Mapper
 @Join
-public class Testcase {
+public class Testcase extends BaseModel {
 
     @ApiProperty(name="id",desc="唯一标识")
     private java.lang.String id;
@@ -21,7 +24,7 @@ public class Testcase {
     @NotNull
     @ApiProperty(name="method",desc="所属接口",required = true)
     @Mappings({
-            @Mapping(source = "id",target = "methodId")
+            @Mapping(source = "method.id",target = "methodId")
     })
     @JoinField(id = "id")
     private MethodEx method;

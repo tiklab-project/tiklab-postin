@@ -2,8 +2,10 @@ package com.doublekit.apibox.apitest.model;
 
 import com.doublekit.apibox.annotation.ApiModel;
 import com.doublekit.apibox.annotation.ApiProperty;
+import com.doublekit.beans.annotation.Mapper;
 import com.doublekit.beans.annotation.Mapping;
 import com.doublekit.beans.annotation.Mappings;
+import com.doublekit.common.BaseModel;
 import com.doublekit.join.annotation.Join;
 import com.doublekit.join.annotation.JoinField;
 
@@ -12,8 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @ApiModel
+@Mapper
 @Join
-public class TestInstance {
+public class TestInstance extends BaseModel {
 
     @ApiProperty(name="id",desc="id")
     private java.lang.String id;
@@ -21,7 +24,7 @@ public class TestInstance {
     @NotNull
     @ApiProperty(name="testcase",desc="所属接口用例",required = true)
     @Mappings({
-            @Mapping(source = "id",target = "testcaseId")
+            @Mapping(source = "testcase.id",target = "testcaseId")
     })
     @JoinField(id = "id")
     private Testcase testcase;
