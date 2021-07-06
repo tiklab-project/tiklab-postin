@@ -21,9 +21,9 @@ public class JsonParamCaseCodeGeneratorTest extends CodeGeneratorTemplate {
     protected ModuleGeneratorConfig getModuleGeneratorConfig() {
         ModuleGeneratorConfig config = new ModuleGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
+        config.setModelPo(JsonParamCasePo.class);
         config.setPkg("com.doublekit.apibox.apitest");
         config.setModel("JsonParamCase");
-        config.setModelPo(JsonParamCasePo.class);
         return config;
     }
 

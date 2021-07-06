@@ -21,9 +21,9 @@ public class ResponseResultCodeGeneratorTest extends CodeGeneratorTemplate {
     protected ModuleGeneratorConfig getModuleGeneratorConfig() {
         ModuleGeneratorConfig config = new ModuleGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
+        config.setModelPo(ResponseResultPo.class);
         config.setPkg("com.doublekit.apibox.apidef");
         config.setModel("ResponseResult");
-        config.setModelPo(ResponseResultPo.class);
         return config;
     }
 

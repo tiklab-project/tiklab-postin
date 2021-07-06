@@ -21,9 +21,9 @@ public class JsonResponseCodeGeneratorTest extends CodeGeneratorTemplate {
     protected ModuleGeneratorConfig getModuleGeneratorConfig() {
         ModuleGeneratorConfig config = new ModuleGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
+        config.setModelPo(JsonResponsePo.class);
         config.setPkg("com.doublekit.apibox.responseresult");
         config.setModel("JsonResponse");
-        config.setModelPo(JsonResponsePo.class);
         return config;
     }
 

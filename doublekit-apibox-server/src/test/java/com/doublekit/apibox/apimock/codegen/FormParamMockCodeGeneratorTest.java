@@ -21,9 +21,9 @@ public class FormParamMockCodeGeneratorTest extends CodeGeneratorTemplate {
     protected ModuleGeneratorConfig getModuleGeneratorConfig() {
         ModuleGeneratorConfig config = new ModuleGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
+        config.setModelPo(FormParamMockPo.class);
         config.setPkg("com.doublekit.apibox.apimock");
         config.setModel("FormParamMock");
-        config.setModelPo(FormParamMockPo.class);
         return config;
     }
 

@@ -21,9 +21,9 @@ public class QueryParamMockCodeGeneratorTest extends CodeGeneratorTemplate {
     protected ModuleGeneratorConfig getModuleGeneratorConfig() {
         ModuleGeneratorConfig config = new ModuleGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
+        config.setModelPo(ResponseHeaderMockPo.class);
         config.setPkg("com.doublekit.apibox.apimock");
         config.setModel("ResponseHeaderMock");
-        config.setModelPo(ResponseHeaderMockPo.class);
         return config;
     }
 

@@ -22,9 +22,9 @@ public class PreScriptCaseCodeGeneratorTest extends CodeGeneratorTemplate {
     protected ModuleGeneratorConfig getModuleGeneratorConfig() {
         ModuleGeneratorConfig config = new ModuleGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
+        config.setModelPo(PreScriptCasePo.class);
         config.setPkg("com.doublekit.apibox.apitest");
         config.setModel("PreScriptCase");
-        config.setModelPo(PreScriptCasePo.class);
         return config;
     }
 

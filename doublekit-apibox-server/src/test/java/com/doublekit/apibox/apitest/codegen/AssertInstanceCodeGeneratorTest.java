@@ -21,9 +21,9 @@ public class AssertInstanceCodeGeneratorTest extends CodeGeneratorTemplate {
     protected ModuleGeneratorConfig getModuleGeneratorConfig() {
         ModuleGeneratorConfig config = new ModuleGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
+        config.setModelPo(AssertInstancePo.class);
         config.setPkg("com.doublekit.apibox.apitest");
         config.setModel("AssertInstance");
-        config.setModelPo(AssertInstancePo.class);
         return config;
     }
 

@@ -21,9 +21,9 @@ public class MockCodeGeneratorTest extends CodeGeneratorTemplate {
     protected ModuleGeneratorConfig getModuleGeneratorConfig() {
         ModuleGeneratorConfig config = new ModuleGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
+        config.setModelPo(MockPo.class);
         config.setPkg("com.doublekit.apibox.apimock");
         config.setModel("Mock");
-        config.setModelPo(MockPo.class);
         return config;
     }
 
