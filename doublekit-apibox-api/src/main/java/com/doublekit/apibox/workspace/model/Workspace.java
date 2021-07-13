@@ -4,10 +4,10 @@ import com.doublekit.apibox.annotation.ApiModel;
 import com.doublekit.apibox.annotation.ApiProperty;
 import com.doublekit.beans.annotation.Mapper;
 import com.doublekit.common.BaseModel;
-import com.doublekit.dss.store.annotation.Index;
-import com.doublekit.dss.store.annotation.IndexField;
-import com.doublekit.dss.store.annotation.IndexId;
-import com.doublekit.dss.store.annotation.IndexQueryField;
+import com.doublekit.dss.annotation.Index;
+import com.doublekit.dss.annotation.IndexField;
+import com.doublekit.dss.annotation.IndexId;
+import com.doublekit.dss.annotation.IndexQueryField;
 
 import javax.validation.constraints.NotNull;
 

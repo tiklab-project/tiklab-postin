@@ -90,7 +90,7 @@
             </dependency>
             <dependency>
                 <groupId>com.doublekit</groupId>
-                <artifactId>doublekit-dfs-store-api</artifactId>
+                <artifactId>doublekit-dfs-api</artifactId>
                 <version>${doublekit.version}</version>
             </dependency>
             <dependency>
@@ -105,7 +105,7 @@
             </dependency>
             <dependency>
                 <groupId>com.doublekit</groupId>
-                <artifactId>doublekit-dss-store-api</artifactId>
+                <artifactId>doublekit-dss-api</artifactId>
                 <version>${doublekit.version}</version>
             </dependency>
             <dependency>

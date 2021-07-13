@@ -13,7 +13,6 @@
     <name>${project.artifactId}</name>
 
     <properties>
-        <plugin.path>/Users/zhangzhihua/doublekit/DEVOPS/ITDD/doublekit-apibox/doublekit-apibox-starter/plugins</plugin.path>
     </properties>
 
     <dependencies>
@@ -82,6 +81,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
             </plugin>
+            <!--
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-antrun-plugin</artifactId>
@@ -104,7 +104,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <!--
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>

@@ -5,10 +5,10 @@ import com.doublekit.apibox.apidef.service.MethodService;
 import com.doublekit.apibox.workspace.model.Workspace;
 import com.doublekit.apibox.workspace.service.WorkspaceService;
 import com.doublekit.dss.client.DssClient;
-import com.doublekit.dss.store.model.CountResponse;
-import com.doublekit.dss.store.model.PageCondition;
-import com.doublekit.dss.store.model.PageResponse;
-import com.doublekit.dss.store.model.TopResponse;
+import com.doublekit.dss.model.CountResponse;
+import com.doublekit.dss.model.PageCondition;
+import com.doublekit.dss.model.PageResponse;
+import com.doublekit.dss.model.TopResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

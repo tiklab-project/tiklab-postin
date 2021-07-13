@@ -8,7 +8,7 @@ import com.doublekit.apibox.search.service.SearchService;
 import com.doublekit.apibox.workspace.model.Workspace;
 import com.doublekit.common.Result;
 import com.doublekit.common.exception.DarthException;
-import com.doublekit.dss.store.model.*;
+import com.doublekit.dss.model.*;
 import com.doublekit.web.validation.annotation.Validator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
