@@ -91,6 +91,9 @@ public class MethodServiceImpl implements MethodService {
 
     @Autowired
     JsonParamService jsonParamService;
+
+    @Autowired
+    JsonResponseService jsonResponseService;
     @Override
     public String createMethod(@NotNull @Valid MethodEx methodEx) {
         //添加版本号  默认初始版本号为current
@@ -456,6 +459,7 @@ public class MethodServiceImpl implements MethodService {
 
     @Override
     public Map contrastVersion(VersionMethodQuery versionMethodQuery) {
+        List different = new ArrayList<>();
         Map versionMap = new HashMap<>();
         //当前版本
         VersionMethod currentVersion = findMethodVersiondetails(versionMethodQuery.getCurrentId());
@@ -463,10 +467,9 @@ public class MethodServiceImpl implements MethodService {
         VersionMethod oldVersionde = findMethodVersiondetails(versionMethodQuery.getOldId());
         versionMap.put("currentVersion",currentVersion);
         versionMap.put("oldVersion",oldVersionde);
+        versionMap.put("different",different);
         return versionMap;
     }
-
-
 
     /**
      * 查询请求头参数
@@ -714,12 +717,11 @@ public class MethodServiceImpl implements MethodService {
             for (ResponseResultPo responseResultPo:responseResult){
                 //查询json 返回类型参数
                 if (responseResultPo.getResultType().equals("json")){
-                    List<JsonResponsePo> jsonResponsePos = findjsonResponse(id,0);
-                    if (CollectionUtils.isNotEmpty(jsonResponsePos)){
-                        List<JsonResponse> jsonResponses = BeanMapper.mapList(jsonResponsePos, JsonResponse.class);
-                        joinQuery.queryList(jsonResponses);
-                        versionRespon.setJsonResponseList(jsonResponses);
-                    }
+                    JsonResponseQuery jsonResponseQuery = new JsonResponseQuery();
+                    jsonResponseQuery.setMethodId(id);
+                    List<JsonResponse> jsonResponseListTree = jsonResponseService.findJsonResponseListTree(jsonResponseQuery);
+                    versionRespon.setJsonResponseList(jsonResponseListTree);
+
                 }
                 //查询raw 返回类型参数
                 if (responseResultPo.getResultType().equals("raw")){
