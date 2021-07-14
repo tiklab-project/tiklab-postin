@@ -1,6 +1,7 @@
 package com.doublekit.apibox.apidef.dao;
 
 import com.doublekit.apibox.apidef.entity.MethodPo;
+import com.doublekit.apibox.apidef.model.MethodEx;
 import com.doublekit.apibox.apidef.model.MethodExQuery;
 import com.doublekit.common.Pagination;
 import com.doublekit.dal.jpa.JpaTemplate;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 用户数据操作
@@ -61,7 +63,7 @@ public class MethodDao {
     * @return
     */
     public List<MethodPo> findAllMethod() {
-        return jpaTemplate.findAll(MethodPo.class);
+        return filterMethod(jpaTemplate.findAll(MethodPo.class));
     }
 
     public List<MethodPo> findMethodList(List<String> idList) {
@@ -69,10 +71,18 @@ public class MethodDao {
     }
 
     public List<MethodPo> findMethodList(MethodExQuery methodExQuery) {
-        return jpaTemplate.findList(MethodPo.class,methodExQuery);
+
+        return  filterMethod(jpaTemplate.findList(MethodPo.class,methodExQuery));
     }
 
     public Pagination<MethodPo> findMethodPage(MethodExQuery methodExQuery) {
+
         return jpaTemplate.findPage(MethodPo.class,methodExQuery);
+    }
+
+    //过滤查询最新版本的方法
+    List<MethodPo> filterMethod (List<MethodPo> methodExList){
+        List<MethodPo> collect = methodExList.stream().filter(a -> "current".equals(a.getVersionCode())).collect(Collectors.toList());
+        return collect;
     }
 }

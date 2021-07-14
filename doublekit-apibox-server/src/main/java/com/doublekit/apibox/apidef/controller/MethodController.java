@@ -3,6 +3,8 @@ package com.doublekit.apibox.apidef.controller;
 import com.doublekit.apibox.annotation.Api;
 import com.doublekit.apibox.apidef.model.MethodEx;
 import com.doublekit.apibox.apidef.model.MethodExQuery;
+import com.doublekit.apibox.apidef.model.VersionMethod;
+import com.doublekit.apibox.apidef.model.VersionMethodQuery;
 import com.doublekit.apibox.apidef.service.MethodService;
 import com.doublekit.common.Pagination;
 import com.doublekit.common.Result;
@@ -11,15 +13,13 @@ import com.doublekit.apibox.annotation.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.doublekit.web.validation.annotation.Validator;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.Map;
 
 /**
  * ManagerController
@@ -99,4 +99,41 @@ public class MethodController {
         return Result.ok(pagination);
     }
 
+    @Validator
+    @RequestMapping(path = "/findMethodVersionPage",method = RequestMethod.POST)
+    @ApiMethod(name = "findMethodVersionPage",desc = "查询当前接口所有版本列表")
+    @ApiParam(name = "methodExQuery",desc = "查询对象",required = true)
+    public Result<Pagination<MethodEx>> findMethodVersionPage(@RequestBody @Valid @NotNull MethodExQuery methodExQuery){
+        Pagination<MethodEx> pagination = methodService.findMethodVersionPage(methodExQuery);
+        return Result.ok(pagination);
+    }
+    @Validator
+    @RequestMapping(path = "/createVersion",method = RequestMethod.POST)
+    @ApiMethod(name = "createVersion",desc = "添加历史版本")
+    @ApiParam(name = "methodEx",desc = "添加对象",required = true)
+    public Result<String> addHistoryVersion( @RequestBody @NotNull MethodEx methodEx){
+        String s = methodService.addHistoryVersion(methodEx);
+
+        return Result.ok(s);
+    }
+
+    @Validator
+    @RequestMapping(path = "/contrastVersion",method = RequestMethod.POST)
+    @ApiMethod(name = "contrastVersion",desc = "版本对比")
+    @ApiParam(name = "versionMethodQuery",desc = "查询参数",required = true)
+    public Result<Map> contrastVersion(@RequestBody @NotNull VersionMethodQuery versionMethodQuery){
+        Map contrastVersion= methodService.contrastVersion(versionMethodQuery);
+
+        return Result.ok(contrastVersion);
+    }
+
+    @Validator
+    @RequestMapping(path = "/queryVersiondetail",method = RequestMethod.POST)
+    @ApiMethod(name = "queryVersiondetail",desc = "查询版本详情")
+    @ApiParam(name = "versionId",desc = "查询参数",required = true)
+    public Result<VersionMethod> queryVersiondetail( @NotNull String versionId){
+        VersionMethod versionMethod=methodService.queryVersiondetail(versionId);
+
+        return Result.ok(versionMethod);
+    }
 }

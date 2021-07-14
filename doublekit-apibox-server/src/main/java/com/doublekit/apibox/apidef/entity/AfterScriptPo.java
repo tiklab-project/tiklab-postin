@@ -43,4 +43,13 @@ public class AfterScriptPo implements Serializable {
     public void setScriptex(String scriptex) {
         this.scriptex = scriptex;
     }
+
+    @Override
+    public String toString() {
+        return "AfterScriptPo{" +
+                "id='" + id + '\'' +
+                ", methodId='" + methodId + '\'' +
+                ", scriptex='" + scriptex + '\'' +
+                '}';
+    }
 }

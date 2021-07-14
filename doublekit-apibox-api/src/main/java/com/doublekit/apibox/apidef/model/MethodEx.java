@@ -15,6 +15,7 @@ import com.doublekit.join.annotation.Join;
 import com.doublekit.join.annotation.JoinField;
 
 import javax.validation.constraints.NotNull;
+import java.sql.Date;
 
 @ApiModel
 @Mapper(target = "com.doublekit.apibox.apidef.entity.MethodPo")
@@ -58,6 +59,27 @@ public class MethodEx extends BaseModel {
 
     @ApiProperty(name="sort",desc="排序")
     private java.lang.Integer sort;
+
+    @ApiProperty(name="versionCode",desc="版本号")
+    @IndexField
+    private java.lang.String versionCode;
+    @ApiProperty(name="onVersionId",desc="上一个版本id")
+    @IndexField
+    private java.lang.String onVersionId;
+
+    @ApiProperty(name="createUser",desc="创建人")
+    @IndexField
+    private java.lang.String createUser;
+
+    @ApiProperty(name="createTime",desc="创建时间")
+    @IndexField
+    private  java.sql.Date createTime;
+
+    @ApiProperty(name="updateTime",desc="更新时间")
+    @IndexField
+    private java.sql.Date updateTime;
+
+
 
     public String getId() {
         return id;
@@ -115,4 +137,46 @@ public class MethodEx extends BaseModel {
     public void setDesc(String desc) {
         this.desc = desc;
     }
+
+    public String getVersionCode() {
+        return versionCode;
+    }
+
+    public void setVersionCode(String versionCode) {
+        this.versionCode = versionCode;
+    }
+
+    public String getOnVersionId() {
+        return onVersionId;
+    }
+
+    public void setOnVersionId(String onVersionId) {
+        this.onVersionId = onVersionId;
+    }
+
+    public String getCreateUser() {
+        return createUser;
+    }
+
+    public void setCreateUser(String createUser) {
+        this.createUser = createUser;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
+
 }

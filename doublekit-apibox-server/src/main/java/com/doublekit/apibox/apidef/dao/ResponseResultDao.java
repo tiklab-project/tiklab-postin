@@ -4,6 +4,7 @@ import com.doublekit.apibox.apidef.entity.ResponseResultPo;
 import com.doublekit.apibox.apidef.model.ResponseResultQuery;
 import com.doublekit.common.Pagination;
 import com.doublekit.dal.jpa.JpaTemplate;
+import com.doublekit.dal.jpa.builder.deletelist.condition.DeleteCondition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +47,15 @@ public class ResponseResultDao{
     public void deleteResponseResult(String id){
         jpaTemplate.delete(ResponseResultPo.class,id);
     }
+
+    /**
+     * 通过条件删除
+     * @param deleteCondition
+     */
+    public void deleteResponseResultList(DeleteCondition deleteCondition){
+        jpaTemplate.delete(ResponseResultPo.class,deleteCondition);
+    }
+
 
     /**
      * 查找用户

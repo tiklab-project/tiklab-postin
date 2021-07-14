@@ -1,9 +1,12 @@
 package com.doublekit.apibox.apidef.dao;
 
+import com.doublekit.apibox.apidef.entity.JsonParamPo;
+import com.doublekit.apibox.apidef.entity.MethodPo;
 import com.doublekit.apibox.apidef.model.JsonResponseQuery;
 import com.doublekit.common.Pagination;
 import com.doublekit.apibox.apidef.entity.JsonResponsePo;
 import com.doublekit.dal.jpa.JpaTemplate;
+import com.doublekit.dal.jpa.builder.deletelist.condition.DeleteCondition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +34,10 @@ public class JsonResponseDao {
         return jpaTemplate.save(jsonResponsePo,String.class);
     }
 
+    public List<MethodPo> findJsonResponseList(List<String> idList) {
+        return jpaTemplate.findList(MethodPo.class,idList);
+    }
+
     /**
      * 更新用户
      * @param jsonResponsePo
@@ -45,6 +52,14 @@ public class JsonResponseDao {
      */
     public void deleteJsonResponse(String id){
         jpaTemplate.delete(JsonResponsePo.class,id);
+    }
+
+    /**
+     * 通过条件删除
+     * @param deleteCondition
+     */
+    public void deleteJsonResponseList(DeleteCondition deleteCondition){
+        jpaTemplate.delete(JsonResponsePo.class,deleteCondition);
     }
 
     /**

@@ -27,6 +27,9 @@ public class JsonParam extends BaseModel {
     @JoinField(id = "id")
     private JsonParam parent;
 
+    @ApiProperty(name="preVersionId",desc="上一个版本的id")
+    private java.lang.String preVersionId;
+
     @NotNull
     @ApiProperty(name="method",desc="所属接口",eg="@selectOne",required = true)
     @Mappings({
@@ -137,5 +140,13 @@ public class JsonParam extends BaseModel {
 
     public void setChildren(List<JsonParam> children) {
         this.children = children;
+    }
+
+    public String getPreVersionId() {
+        return preVersionId;
+    }
+
+    public void setPreVersionId(String preVersionId) {
+        this.preVersionId = preVersionId;
     }
 }

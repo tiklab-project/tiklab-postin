@@ -2,8 +2,10 @@ package com.doublekit.apibox.apidef.service;
 
 import com.doublekit.apibox.apidef.dao.JsonResponseDao;
 import com.doublekit.apibox.apidef.entity.JsonResponsePo;
+import com.doublekit.apibox.apidef.entity.MethodPo;
 import com.doublekit.apibox.apidef.model.JsonResponse;
 import com.doublekit.apibox.apidef.model.JsonResponseQuery;
+import com.doublekit.apibox.apidef.model.MethodEx;
 import com.doublekit.beans.BeanMapper;
 import com.doublekit.common.Pagination;
 import com.doublekit.join.join.JoinQuery;
@@ -110,6 +112,15 @@ public class JsonResponseServiceImpl implements JsonResponseService {
         }
 
         return topJsonResponseList;
+    }
+
+    @Override
+    public List<JsonResponse> findList(List<String> idList) {
+        List<MethodPo> jsonResponseList = jsonResponseDao.findJsonResponseList(idList);
+
+        List<JsonResponse> jsonResponses = BeanMapper.mapList(jsonResponseList, JsonResponse.class);
+
+        return jsonResponses;
     }
 
     /**

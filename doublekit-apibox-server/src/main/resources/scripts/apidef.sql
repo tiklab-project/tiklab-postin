@@ -5,7 +5,13 @@ CREATE TABLE apibox_method(
         request_type VARCHAR(32) NOT NULL,
         path VARCHAR(256) NOT NULL,
         description VARCHAR(256),
-        sort int
+        sort int,
+        version_code varchar(255) ,
+        on_version_id varchar (255),
+        create_user varchar(30),
+        create_time timestamp ,
+        update_time timestamp,
+
 );
 CREATE TABLE apibox_request_header(
         id VARCHAR(32) PRIMARY KEY,
@@ -50,7 +56,8 @@ CREATE TABLE apibox_json_param(
         description VARCHAR(128),
         eg VARCHAR(128),
         sort int,
-        parent_id VARCHAR(32)
+        parent_id VARCHAR(32),
+        pre_version_id varchar (32)
 );
 CREATE TABLE apibox_raw_param(
         id VARCHAR(32) PRIMARY KEY,
@@ -90,7 +97,8 @@ CREATE TABLE apibox_json_response(
         description VARCHAR(128),
         eg VARCHAR(128),
         sort int,
-        parent_id VARCHAR(32)
+        parent_id VARCHAR(32),
+         pre_version_id varchar (32)
 );
 CREATE TABLE apibox_raw_response(
         id VARCHAR(32) PRIMARY KEY,

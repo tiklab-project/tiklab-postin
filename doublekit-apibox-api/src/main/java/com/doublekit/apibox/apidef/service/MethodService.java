@@ -1,5 +1,7 @@
 package com.doublekit.apibox.apidef.service;
 
+import com.doublekit.apibox.apidef.model.VersionMethod;
+import com.doublekit.apibox.apidef.model.VersionMethodQuery;
 import com.doublekit.common.Pagination;
 
 import com.doublekit.apibox.apidef.model.MethodEx;
@@ -12,6 +14,7 @@ import com.doublekit.join.annotation.FindOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.Map;
 
 /**
 * 用户服务接口
@@ -71,5 +74,28 @@ public interface MethodService {
     * @return
     */
     Pagination<MethodEx> findMethodPage(MethodExQuery methodExQuery);
-
+    /**
+     * 添加历史版本
+     * @param methodEx
+     * @return
+     */
+    String addHistoryVersion(MethodEx methodEx);
+    /**
+     * 版本对比
+     * @param versionMethodQuery
+     * @return
+     */
+    Map contrastVersion(VersionMethodQuery versionMethodQuery);
+    /**
+     * 版本查询
+     * @param methodExQuery
+     * @return
+     */
+    Pagination<MethodEx> findMethodVersionPage(MethodExQuery methodExQuery);
+    /**
+     * 版本详情查询
+     * @param versionId
+     * @return
+     */
+    VersionMethod queryVersiondetail(String versionId);
 }

@@ -17,6 +17,10 @@ public class JsonParamQuery {
     @QueryField(type = QueryTypeEnum.equal)
     private String methodId;
 
+    @ApiProperty(name ="preVersionId",desc = "上个版本id，精确匹配")
+    @QueryField(type = QueryTypeEnum.equal)
+    private String preVersionId;
+
     @ApiProperty(name ="orderParams",desc = "排序参数")
     @OrderField
     private List<OrderParam> orderParams = Orders.instance().asc("paramName").get();
@@ -47,5 +51,13 @@ public class JsonParamQuery {
 
     public void setPageParam(PageParam pageParam) {
         this.pageParam = pageParam;
+    }
+
+    public String getPreVersionId() {
+        return preVersionId;
+    }
+
+    public void setPreVersionId(String preVersionId) {
+        this.preVersionId = preVersionId;
     }
 }

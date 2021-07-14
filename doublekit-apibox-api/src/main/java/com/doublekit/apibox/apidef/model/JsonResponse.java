@@ -35,6 +35,9 @@ public class JsonResponse extends BaseModel {
     @JoinField(id = "id")
     private MethodEx method;
 
+    @ApiProperty(name="preVersionId",desc="上一个版本的id")
+    private java.lang.String preVersionId;
+
     @NotNull
     @ApiProperty(name="propertyName",desc="属性名称",required = true)
     private java.lang.String propertyName;
@@ -137,5 +140,13 @@ public class JsonResponse extends BaseModel {
 
     public void setChildren(List<JsonResponse> children) {
         this.children = children;
+    }
+
+    public String getPreVersionId() {
+        return preVersionId;
+    }
+
+    public void setPreVersionId(String preVersionId) {
+        this.preVersionId = preVersionId;
     }
 }

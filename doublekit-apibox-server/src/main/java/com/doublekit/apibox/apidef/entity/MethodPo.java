@@ -7,6 +7,7 @@ import com.doublekit.dal.jpa.mapper.annotation.Id;
 import com.doublekit.dal.jpa.mapper.annotation.Table;
 
 import java.io.Serializable;
+import java.sql.Date;
 
 @Table(name="apibox_method")
 public class MethodPo implements Serializable {
@@ -33,6 +34,21 @@ public class MethodPo implements Serializable {
 
     @Column(name = "sort",length = 4)
     private Integer sort;
+
+    @Column(name = "version_code",length = 255)
+    private String versionCode;
+
+    @Column(name = "on_version_id",length = 255)
+    private String onVersionId;
+    @Column(name = "create_user",length = 30 )
+    private String createUser;
+
+    @Column(name = "create_time",length = 4)
+    private Date createTime;
+
+    @Column(name = "update_time",length = 4)
+    private Date updateTime;
+
 
     public String getId() {
         return id;
@@ -89,4 +105,46 @@ public class MethodPo implements Serializable {
     public void setDesc(String desc) {
         this.desc = desc;
     }
+
+    public String getVersionCode() {
+        return versionCode;
+    }
+
+    public void setVersionCode(String versionCode) {
+        this.versionCode = versionCode;
+    }
+
+    public String getOnVersionId() {
+        return onVersionId;
+    }
+
+    public void setOnVersionId(String onVersionId) {
+        this.onVersionId = onVersionId;
+    }
+
+    public String getCreateUser() {
+        return createUser;
+    }
+
+    public void setCreateUser(String createUser) {
+        this.createUser = createUser;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
+
 }

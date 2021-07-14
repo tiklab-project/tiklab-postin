@@ -4,6 +4,7 @@ import com.doublekit.common.Pagination;
 import com.doublekit.apibox.apidef.entity.RequestBodyPo;
 import com.doublekit.apibox.apidef.model.RequestBodyExQuery;
 import com.doublekit.dal.jpa.JpaTemplate;
+import com.doublekit.dal.jpa.builder.deletelist.condition.DeleteCondition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +41,14 @@ public class RequestBodyDao{
     }
 
     /**
-     * 删除用户
+     * 通过条件删除
+     * @param deleteCondition
+     */
+    public void deleteRequestBodyList(DeleteCondition deleteCondition){
+        jpaTemplate.delete(RequestBodyPo.class,deleteCondition);
+    }
+    /**
+     * 删除
      * @param id
      */
     public void deleteRequestBody(String id){

@@ -1,9 +1,11 @@
 package com.doublekit.apibox.apidef.dao;
 
+import com.doublekit.apibox.apidef.entity.RequestBodyPo;
 import com.doublekit.apibox.apidef.entity.RequestHeaderPo;
 import com.doublekit.apibox.apidef.model.RequestHeaderQuery;
 import com.doublekit.common.Pagination;
 import com.doublekit.dal.jpa.JpaTemplate;
+import com.doublekit.dal.jpa.builder.deletelist.condition.DeleteCondition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +47,14 @@ public class RequestHeaderDao{
      */
     public void deleteRequestHeader(String id){
         jpaTemplate.delete(RequestHeaderPo.class,id);
+    }
+
+    /**
+     * 通过条件删除
+     * @param deleteCondition
+     */
+    public void deleteRequestHeaderList(DeleteCondition deleteCondition){
+        jpaTemplate.delete(RequestHeaderPo.class,deleteCondition);
     }
 
     /**

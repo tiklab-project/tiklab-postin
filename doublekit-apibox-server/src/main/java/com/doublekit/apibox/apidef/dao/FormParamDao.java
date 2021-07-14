@@ -1,9 +1,11 @@
 package com.doublekit.apibox.apidef.dao;
 
+import com.doublekit.apibox.apidef.entity.RequestBodyPo;
 import com.doublekit.common.Pagination;
 import com.doublekit.apibox.apidef.entity.FormParamPo;
 import com.doublekit.apibox.apidef.model.FormParamQuery;
 import com.doublekit.dal.jpa.JpaTemplate;
+import com.doublekit.dal.jpa.builder.deletelist.condition.DeleteCondition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +47,14 @@ public class FormParamDao{
      */
     public void deleteFormParam(String id){
         jpaTemplate.delete(FormParamPo.class,id);
+    }
+
+    /**
+     * 通过条件删除
+     * @param deleteCondition
+     */
+    public void deleteFormParamLsit(DeleteCondition deleteCondition){
+        jpaTemplate.delete(FormParamPo.class,deleteCondition);
     }
 
     /**

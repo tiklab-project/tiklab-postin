@@ -22,6 +22,9 @@ public class JsonParamPo implements Serializable {
     @Column(name = "method_id",length = 32,notNull = true)
     private String methodId;
 
+    @Column(name = "pre_version_id",length = 32,notNull = true)
+    private String preVersionId;
+
     @Column(name = "param_name",length = 64,notNull = true)
     private String paramName;
 
@@ -110,5 +113,13 @@ public class JsonParamPo implements Serializable {
 
     public void setParentId(String parentId) {
         this.parentId = parentId;
+    }
+
+    public String getPreVersionId() {
+        return preVersionId;
+    }
+
+    public void setPreVersionId(String preVersionId) {
+        this.preVersionId = preVersionId;
     }
 }

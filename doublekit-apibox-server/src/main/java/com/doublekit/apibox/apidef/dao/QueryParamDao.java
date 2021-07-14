@@ -1,9 +1,11 @@
 package com.doublekit.apibox.apidef.dao;
 
+import com.doublekit.apibox.apidef.entity.JsonResponsePo;
 import com.doublekit.apibox.apidef.entity.QueryParamPo;
 import com.doublekit.apibox.apidef.model.QueryParamQuery;
 import com.doublekit.common.Pagination;
 import com.doublekit.dal.jpa.JpaTemplate;
+import com.doublekit.dal.jpa.builder.deletelist.condition.DeleteCondition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +47,14 @@ public class QueryParamDao{
      */
     public void deleteQueryParam(String id){
         jpaTemplate.delete(QueryParamPo.class,id);
+    }
+
+    /**
+     * 通过条件删除
+     * @param deleteCondition
+     */
+    public void deleteQueryParamList(DeleteCondition deleteCondition){
+        jpaTemplate.delete(QueryParamPo.class,deleteCondition);
     }
 
     /**

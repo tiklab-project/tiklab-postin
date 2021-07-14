@@ -1,9 +1,11 @@
 package com.doublekit.apibox.apidef.dao;
 
+import com.doublekit.apibox.apidef.entity.RawParamPo;
 import com.doublekit.apibox.apidef.entity.RawResponsePo;
 import com.doublekit.apibox.apidef.model.RawResponseQuery;
 import com.doublekit.common.Pagination;
 import com.doublekit.dal.jpa.JpaTemplate;
+import com.doublekit.dal.jpa.builder.deletelist.condition.DeleteCondition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +47,14 @@ public class RawResponseDao{
      */
     public void deleteRawResponse(String id){
         jpaTemplate.delete(RawResponsePo.class,id);
+    }
+
+    /**
+     * 通过条件删除
+     * @param deleteCondition
+     */
+    public void deleteRawResponseList(DeleteCondition deleteCondition){
+        jpaTemplate.delete(RawResponsePo.class,deleteCondition);
     }
 
     /**

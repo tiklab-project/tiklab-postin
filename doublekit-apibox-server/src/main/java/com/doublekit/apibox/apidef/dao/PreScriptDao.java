@@ -1,9 +1,11 @@
 package com.doublekit.apibox.apidef.dao;
 
+import com.doublekit.apibox.apidef.entity.JsonResponsePo;
 import com.doublekit.common.Pagination;
 import com.doublekit.apibox.apidef.entity.PreScriptPo;
 import com.doublekit.apibox.apidef.model.PreScriptQuery;
 import com.doublekit.dal.jpa.JpaTemplate;
+import com.doublekit.dal.jpa.builder.deletelist.condition.DeleteCondition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +48,15 @@ public class PreScriptDao{
     public void deletePreScript(String id){
         jpaTemplate.delete(PreScriptPo.class,id);
     }
+
+    /**
+     * 通过条件删除
+     * @param deleteCondition
+     */
+    public void deletePreScriptList(DeleteCondition deleteCondition){
+        jpaTemplate.delete(PreScriptPo.class,deleteCondition);
+    }
+
 
     /**
      * 查找用户
