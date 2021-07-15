@@ -16,23 +16,19 @@ import com.doublekit.message.message.model.Message;
 import com.doublekit.message.message.model.MessageReceiver;
 import com.doublekit.message.message.model.MessageTemplate;
 import com.doublekit.message.message.service.MessageService;
-import com.doublekit.user.auth.context.TicketHolder;
+
+import com.doublekit.user.auth.passport.context.TicketHolder;
 import com.doublekit.user.user.model.User;
-import com.sun.xml.bind.v2.model.core.ID;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -290,6 +286,7 @@ public class MethodServiceImpl implements MethodService {
     public String addHistoryVersion(MethodEx methodEx) {
         //添加方法
         MethodPo method = methodDao.findMethod(methodEx.getId());
+        //method.setCreateUser(methodEx.getCreateUser());
         //第一次添加版本  上一个版本id为null
        if (ObjectUtils.isEmpty(method.getOnVersionId())){
            method.setOnVersionId(method.getId());
@@ -644,6 +641,7 @@ public class MethodServiceImpl implements MethodService {
         //查询方法数据
         MethodPo method = methodDao.findMethod(id);
         MethodEx methodEx = BeanMapper.map(method, MethodEx.class);
+        joinQuery.queryOne(methodEx);
         if(ObjectUtils.isEmpty(method)){
             return null;
         }

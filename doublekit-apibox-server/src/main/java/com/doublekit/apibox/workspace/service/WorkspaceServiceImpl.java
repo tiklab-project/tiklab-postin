@@ -10,7 +10,7 @@ import com.doublekit.common.Pagination;
 import com.doublekit.beans.BeanMapper;
 import com.doublekit.dss.client.DssClient;
 import com.doublekit.privilege.prjprivilege.service.DmPrjRoleService;
-import com.doublekit.user.auth.context.TicketHolder;
+import com.doublekit.user.auth.passport.context.TicketHolder;
 import com.doublekit.user.user.model.DmUser;
 import com.doublekit.user.user.model.User;
 import com.doublekit.user.user.service.DmUserService;
