@@ -9,7 +9,7 @@ import com.doublekit.apibox.workspace.model.Workspace;
 import com.doublekit.common.Result;
 import com.doublekit.common.exception.DarthException;
 import com.doublekit.dss.model.*;
-import com.doublekit.web.validation.annotation.Validator;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,14 +40,14 @@ public class SearchController {
     @Autowired
     SearchService searchService;
 
-    @Validator
+
     @RequestMapping(path="/rebuild",method = RequestMethod.POST)
     public Result<Void> rebuild(){
         searchService.rebuild();
         return Result.ok();
     }
 
-    @Validator
+
     @RequestMapping(path="/get",method = RequestMethod.POST)
     @ApiMethod(name = "get",desc = "根据ID查找")
     @ApiParam(name = "id",desc = "id",required = true)
@@ -57,7 +57,7 @@ public class SearchController {
         return Result.ok(map);
     }
 
-    @Validator
+
     @RequestMapping(path="/searchForTop",method = RequestMethod.POST)
     @ApiMethod(name = "searchForTop",desc = "根据关键字搜索")
     @ApiParam(name = "keyword",desc = "关键字",required = true)
@@ -79,7 +79,7 @@ public class SearchController {
         return Result.ok(allTopResponse);
     }
 
-    @Validator
+
     @RequestMapping(path="/searchForCount",method = RequestMethod.POST)
     @ApiMethod(name = "searchForCount",desc = "统计搜索结果")
     @ApiParam(name = "keyword",desc = "关键字",required = true)
@@ -97,7 +97,7 @@ public class SearchController {
         return Result.ok(allCountResponse);
     }
 
-    @Validator
+
     @RequestMapping(path="/searchForPage",method = RequestMethod.POST)
     @ApiMethod(name = "searchForPage",desc = "按索引名称、关键字分页搜索")
     @ApiParam(name = "pageRequest",desc = "分页搜索条件",required = true)

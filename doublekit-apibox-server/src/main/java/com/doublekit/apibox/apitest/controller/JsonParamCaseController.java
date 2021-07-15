@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import com.doublekit.web.validation.annotation.Validator;
+
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -79,7 +79,7 @@ public class JsonParamCaseController {
         return Result.ok(jsonParamCaseList);
     }
 
-    @Validator
+
     @RequestMapping(path = "/findJsonParamCaseList",method = RequestMethod.POST)
     @ApiMethod(name = "findJsonParamCaseList",desc = "findJsonParamCaseList")
     @ApiParam(name = "jsonParamCaseQuery",desc = "jsonParamCaseQuery",required = true)
@@ -89,7 +89,7 @@ public class JsonParamCaseController {
         return Result.ok(jsonParamCaseList);
     }
 
-    @Validator
+
     @RequestMapping(path = "/findJsonParamCasePage",method = RequestMethod.POST)
     @ApiMethod(name = "findJsonParamCasePage",desc = "findJsonParamCasePage")
     @ApiParam(name = "jsonParamCaseQuery",desc = "jsonParamCaseQuery",required = true)
@@ -99,7 +99,7 @@ public class JsonParamCaseController {
         return Result.ok(pagination);
     }
 
-    @Validator
+
     @RequestMapping(path = "/findJsonParamCaseListTree",method = RequestMethod.POST)
     @ApiMethod(name = "findJsonParamCaseListTree",desc = "findJsonParamCaseListTree")
     @ApiParam(name = "jsonParamCaseQuery",desc = "jsonParamCaseQuery",required = true)

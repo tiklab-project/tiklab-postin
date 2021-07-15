@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import com.doublekit.web.validation.annotation.Validator;
+
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -79,7 +79,7 @@ public class JsonResponseController {
         return Result.ok(jsonResponseList);
     }
 
-    @Validator
+
     @RequestMapping(path = "/findJsonResponseList",method = RequestMethod.POST)
     @ApiMethod(name = "findJsonResponseList",desc = "根据查询对象查询json响应结果列表")
     @ApiParam(name = "jsonResponseQuery",desc = "查询对象",required = true)
@@ -89,7 +89,7 @@ public class JsonResponseController {
         return Result.ok(jsonResponseList);
     }
 
-    @Validator
+
     @RequestMapping(path = "/findJsonResponsePage",method = RequestMethod.POST)
     @ApiMethod(name = "findJsonResponsePage",desc = "根据查询对象按分页查询json响应结果列表")
     @ApiParam(name = "jsonResponseQuery",desc = "查询对象",required = true)
@@ -99,7 +99,7 @@ public class JsonResponseController {
         return Result.ok(pagination);
     }
 
-    @Validator
+
     @RequestMapping(path = "/findJsonResponseListTree",method = RequestMethod.POST)
     @ApiMethod(name = "findJsonResponseListTree",desc = "根据查询对象查询json响应结果列表树")
     @ApiParam(name = "jsonResponseQuery",desc = "查询对象",required = true)

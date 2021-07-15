@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import com.doublekit.web.validation.annotation.Validator;
+
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -79,7 +79,7 @@ public class RequestInstanceController {
         return Result.ok(requestInstanceList);
     }
 
-    @Validator
+
     @RequestMapping(path = "/findRequestInstanceList",method = RequestMethod.POST)
     @ApiMethod(name = "findRequestInstanceList",desc = "findRequestInstanceList")
     @ApiParam(name = "requestInstanceQuery",desc = "requestInstanceQuery",required = true)
@@ -89,7 +89,7 @@ public class RequestInstanceController {
         return Result.ok(requestInstanceList);
     }
 
-    @Validator
+
     @RequestMapping(path = "/findRequestInstancePage",method = RequestMethod.POST)
     @ApiMethod(name = "findRequestInstancePage",desc = "findRequestInstancePage")
     @ApiParam(name = "requestInstanceQuery",desc = "requestInstanceQuery",required = true)

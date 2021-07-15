@@ -8,7 +8,7 @@ import com.doublekit.apibox.apidef.model.RequestBodyExQuery;
 import com.doublekit.apibox.apidef.service.RequestBodyService;
 import com.doublekit.common.Pagination;
 import com.doublekit.common.Result;
-import com.doublekit.web.validation.annotation.Validator;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,7 +79,7 @@ public class RequestBodyController {
         return Result.ok(requestBodyList);
     }
 
-    @Validator
+
     @RequestMapping(path = "/findRequestBodyList",method = RequestMethod.POST)
     @ApiMethod(name = "findRequestBodyList",desc = "findRequestBodyList")
     @ApiParam(name = "requestBodyQuery",desc = "requestBodyQuery",required = true)
@@ -89,7 +89,7 @@ public class RequestBodyController {
         return Result.ok(requestBodyList);
     }
 
-    @Validator
+
     @RequestMapping(path = "/findRequestBodyPage",method = RequestMethod.POST)
     @ApiMethod(name = "findRequestBodyPage",desc = "findRequestBodyPage")
     @ApiParam(name = "requestBodyQuery",desc = "requestBodyQuery",required = true)

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import com.doublekit.web.validation.annotation.Validator;
+
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -79,7 +79,7 @@ public class JsonParamMockController {
         return Result.ok(jsonParamMockList);
     }
 
-    @Validator
+
     @RequestMapping(path = "/findJsonParamMockList",method = RequestMethod.POST)
     @ApiMethod(name = "findJsonParamMockList",desc = "findJsonParamMockList")
     @ApiParam(name = "jsonParamMockQuery",desc = "jsonParamMockQuery",required = true)
@@ -89,7 +89,7 @@ public class JsonParamMockController {
         return Result.ok(jsonParamMockList);
     }
 
-    @Validator
+
     @RequestMapping(path = "/findJsonParamMockPage",method = RequestMethod.POST)
     @ApiMethod(name = "findJsonParamMockPage",desc = "findJsonParamMockPage")
     @ApiParam(name = "jsonParamMockQuery",desc = "jsonParamMockQuery",required = true)

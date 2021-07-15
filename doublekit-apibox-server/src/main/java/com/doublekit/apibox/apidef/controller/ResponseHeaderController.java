@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import com.doublekit.web.validation.annotation.Validator;
+
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -79,7 +79,7 @@ public class ResponseHeaderController {
         return Result.ok(responseHeaderList);
     }
 
-    @Validator
+
     @RequestMapping(path = "/findResponseHeaderList",method = RequestMethod.POST)
     @ApiMethod(name = "findResponseHeaderList",desc = "根据查询条件查询响应头列表")
     @ApiParam(name = "responseHeaderQuery",desc = "查询条件",required = true)
@@ -89,7 +89,7 @@ public class ResponseHeaderController {
         return Result.ok(responseHeaderList);
     }
 
-    @Validator
+
     @RequestMapping(path = "/findResponseHeaderPage",method = RequestMethod.POST)
     @ApiMethod(name = "findResponseHeaderPage",desc = "根据查询条件按分页查询响应头列表")
     @ApiParam(name = "responseHeaderQuery",desc = "查询条件",required = true)

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import com.doublekit.web.validation.annotation.Validator;
+
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -79,7 +79,7 @@ public class AfterScriptController {
         return Result.ok(afterScriptList);
     }
 
-    @Validator
+
     @RequestMapping(path = "/findAfterScriptList",method = RequestMethod.POST)
     @ApiMethod(name = "findAfterScriptList",desc = "findAfterScriptList")
     @ApiParam(name = "afterScriptQuery",desc = "afterScriptQuery",required = true)
@@ -89,7 +89,7 @@ public class AfterScriptController {
         return Result.ok(afterScriptList);
     }
 
-    @Validator
+
     @RequestMapping(path = "/findAfterScriptPage",method = RequestMethod.POST)
     @ApiMethod(name = "findAfterScriptPage",desc = "findAfterScriptPage")
     @ApiParam(name = "afterScriptQuery",desc = "afterScriptQuery",required = true)

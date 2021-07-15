@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import com.doublekit.web.validation.annotation.Validator;
+
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -62,7 +62,7 @@ public class EnvironmentController {
         return Result.ok();
     }
 
-    @Validator
+
     @RequestMapping(path="/findEnvironment",method = RequestMethod.POST)
     @ApiMethod(name = "findEnvironment",desc = "findEnvironment")
     @ApiParam(name = "id",desc = "id",required = true)
@@ -80,7 +80,7 @@ public class EnvironmentController {
         return Result.ok(environmentList);
     }
 
-    @Validator
+
     @RequestMapping(path = "/findEnvironmentList",method = RequestMethod.POST)
     @ApiMethod(name = "findEnvironmentList",desc = "findEnvironmentList")
     @ApiParam(name = "environmentQuery",desc = "environmentQuery",required = true)
@@ -90,7 +90,7 @@ public class EnvironmentController {
         return Result.ok(environmentList);
     }
 
-    @Validator
+
     @RequestMapping(path = "/findEnvironmentPage",method = RequestMethod.POST)
     @ApiMethod(name = "findEnvironmentPage",desc = "findEnvironmentPage")
     @ApiParam(name = "environmentQuery",desc = "environmentQuery",required = true)

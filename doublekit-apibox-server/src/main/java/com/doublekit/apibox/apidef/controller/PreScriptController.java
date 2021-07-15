@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import com.doublekit.web.validation.annotation.Validator;
+
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -79,7 +79,7 @@ public class PreScriptController {
         return Result.ok(preScriptList);
     }
 
-    @Validator
+
     @RequestMapping(path = "/findPreScriptList",method = RequestMethod.POST)
     @ApiMethod(name = "findPreScriptList",desc = "findPreScriptList")
     @ApiParam(name = "preScriptQuery",desc = "preScriptQuery",required = true)
@@ -89,7 +89,7 @@ public class PreScriptController {
         return Result.ok(preScriptList);
     }
 
-    @Validator
+
     @RequestMapping(path = "/findPreScriptPage",method = RequestMethod.POST)
     @ApiMethod(name = "findPreScriptPage",desc = "findPreScriptPage")
     @ApiParam(name = "preScriptQuery",desc = "preScriptQuery",required = true)

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import com.doublekit.web.validation.annotation.Validator;
+
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -79,7 +79,7 @@ public class RawResponseController {
         return Result.ok(rawResponseList);
     }
 
-    @Validator
+
     @RequestMapping(path = "/findRawResponseList",method = RequestMethod.POST)
     @ApiMethod(name = "findRawResponseList",desc = "findRawResponseList")
     @ApiParam(name = "rawResponseQuery",desc = "rawResponseQuery",required = true)
@@ -89,7 +89,7 @@ public class RawResponseController {
         return Result.ok(rawResponseList);
     }
 
-    @Validator
+
     @RequestMapping(path = "/findRawResponsePage",method = RequestMethod.POST)
     @ApiMethod(name = "findRawResponsePage",desc = "findRawResponsePage")
     @ApiParam(name = "rawResponseQuery",desc = "rawResponseQuery",required = true)

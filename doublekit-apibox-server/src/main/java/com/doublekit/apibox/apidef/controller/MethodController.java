@@ -14,7 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import com.doublekit.web.validation.annotation.Validator;
+
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -79,7 +79,7 @@ public class MethodController {
         return Result.ok(methodExList);
     }
 
-    @Validator
+
     @RequestMapping(path = "/findMethodList",method = RequestMethod.POST)
     @ApiMethod(name = "findMethodList",desc = "根据查询对象查找接口列表")
     @ApiParam(name = "methodExQuery",desc = "查询对象",required = true)
@@ -89,7 +89,7 @@ public class MethodController {
         return Result.ok(methodExList);
     }
 
-    @Validator
+
     @RequestMapping(path = "/findMethodPage",method = RequestMethod.POST)
     @ApiMethod(name = "findMethodPage",desc = "根据查询对象按分页查询接口列表")
     @ApiParam(name = "methodExQuery",desc = "查询对象",required = true)
@@ -99,7 +99,7 @@ public class MethodController {
         return Result.ok(pagination);
     }
 
-    @Validator
+
     @RequestMapping(path = "/findMethodVersionPage",method = RequestMethod.POST)
     @ApiMethod(name = "findMethodVersionPage",desc = "查询当前接口所有版本列表")
     @ApiParam(name = "methodExQuery",desc = "查询对象",required = true)
@@ -107,7 +107,7 @@ public class MethodController {
         Pagination<MethodEx> pagination = methodService.findMethodVersionPage(methodExQuery);
         return Result.ok(pagination);
     }
-    @Validator
+
     @RequestMapping(path = "/createVersion",method = RequestMethod.POST)
     @ApiMethod(name = "createVersion",desc = "添加历史版本")
     @ApiParam(name = "methodEx",desc = "添加对象",required = true)
@@ -117,7 +117,7 @@ public class MethodController {
         return Result.ok(s);
     }
 
-    @Validator
+
     @RequestMapping(path = "/contrastVersion",method = RequestMethod.POST)
     @ApiMethod(name = "contrastVersion",desc = "版本对比")
     @ApiParam(name = "versionMethodQuery",desc = "查询参数",required = true)
@@ -127,7 +127,7 @@ public class MethodController {
         return Result.ok(contrastVersion);
     }
 
-    @Validator
+
     @RequestMapping(path = "/queryVersiondetail",method = RequestMethod.POST)
     @ApiMethod(name = "queryVersiondetail",desc = "查询版本详情")
     @ApiParam(name = "versionId",desc = "查询参数",required = true)

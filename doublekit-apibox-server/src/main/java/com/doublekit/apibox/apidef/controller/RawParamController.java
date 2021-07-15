@@ -8,7 +8,7 @@ import com.doublekit.common.Pagination;
 import com.doublekit.common.Result;
 import com.doublekit.apibox.annotation.ApiMethod;
 import com.doublekit.apibox.annotation.ApiParam;
-import com.doublekit.web.validation.annotation.Validator;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,7 +79,7 @@ public class RawParamController {
         return Result.ok(rawParamList);
     }
 
-    @Validator
+
     @RequestMapping(path = "/findRawParamList",method = RequestMethod.POST)
     @ApiMethod(name = "findRawParamList",desc = "findRawParamList")
     @ApiParam(name = "rawParamQuery",desc = "rawParamQuery",required = true)
@@ -89,7 +89,7 @@ public class RawParamController {
         return Result.ok(rawParamList);
     }
 
-    @Validator
+
     @RequestMapping(path = "/findRawParamPage",method = RequestMethod.POST)
     @ApiMethod(name = "findRawParamPage",desc = "findRawParamPage")
     @ApiParam(name = "rawParamQuery",desc = "rawParamQuery",required = true)

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import com.doublekit.web.validation.annotation.Validator;
+
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -79,7 +79,7 @@ public class ResponseHeaderMockController {
         return Result.ok(responseHeaderMockList);
     }
 
-    @Validator
+
     @RequestMapping(path = "/findResponseHeaderMockList",method = RequestMethod.POST)
     @ApiMethod(name = "findResponseHeaderMockList",desc = "findResponseHeaderMockList")
     @ApiParam(name = "responseHeaderMockQuery",desc = "responseHeaderMockQuery",required = true)
@@ -89,7 +89,7 @@ public class ResponseHeaderMockController {
         return Result.ok(responseHeaderMockList);
     }
 
-    @Validator
+
     @RequestMapping(path = "/findResponseHeaderMockPage",method = RequestMethod.POST)
     @ApiMethod(name = "findResponseHeaderMockPage",desc = "findResponseHeaderMockPage")
     @ApiParam(name = "responseHeaderMockQuery",desc = "responseHeaderMockQuery",required = true)

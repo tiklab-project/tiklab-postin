@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import com.doublekit.web.validation.annotation.Validator;
+
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -79,7 +79,7 @@ public class QueryParamController {
         return Result.ok(queryParamList);
     }
 
-    @Validator
+
     @RequestMapping(path = "/findQueryParamList",method = RequestMethod.POST)
     @ApiMethod(name = "findQueryParamList",desc = "根据查询对象查找查询参数列表")
     @ApiParam(name = "queryParamQuery",desc = "查找条件",required = true)
@@ -89,7 +89,7 @@ public class QueryParamController {
         return Result.ok(queryParamList);
     }
 
-    @Validator
+
     @RequestMapping(path = "/findQueryParamPage",method = RequestMethod.POST)
     @ApiMethod(name = "findQueryParamPage",desc = "根据查询对象按分页查找查询参数列表")
     @ApiParam(name = "queryParamQuery",desc = "查找条件",required = true)

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import com.doublekit.web.validation.annotation.Validator;
+
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -79,7 +79,7 @@ public class NodeController {
         return Result.ok(nodeList);
     }
 
-    @Validator
+
     @RequestMapping(path = "/findNodeList",method = RequestMethod.POST)
     @ApiMethod(name = "findNodeList",desc = "findNodeList")
     @ApiParam(name = "nodeQuery",desc = "nodeQuery",required = true)
@@ -89,7 +89,7 @@ public class NodeController {
         return Result.ok(nodeList);
     }
 
-    @Validator
+
     @RequestMapping(path = "/findNodePage",method = RequestMethod.POST)
     @ApiMethod(name = "findNodePage",desc = "findNodePage")
     @ApiParam(name = "nodeQuery",desc = "nodeQuery",required = true)

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import com.doublekit.web.validation.annotation.Validator;
+
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -79,7 +79,7 @@ public class WorkspaceController {
         return Result.ok(workspaceList);
     }
 
-    @Validator
+
     @RequestMapping(path = "/findWorkspaceList",method = RequestMethod.POST)
     @ApiMethod(name = "findWorkspaceList",desc = "根据查询对象查询空间列表")
     @ApiParam(name = "workspaceQuery",desc = "查询对象",required = true)
@@ -89,7 +89,7 @@ public class WorkspaceController {
         return Result.ok(workspaceList);
     }
 
-    @Validator
+
     @RequestMapping(path = "/findWorkspacePage",method = RequestMethod.POST)
     @ApiMethod(name = "findWorkspacePage",desc = "根据查询对象按分页查询空间")
     @ApiParam(name = "workspaceQuery",desc = "查询对象",required = true)

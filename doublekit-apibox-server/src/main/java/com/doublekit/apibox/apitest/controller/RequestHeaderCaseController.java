@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import com.doublekit.web.validation.annotation.Validator;
+
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -79,7 +79,7 @@ public class RequestHeaderCaseController {
         return Result.ok(requestHeaderCaseList);
     }
 
-    @Validator
+
     @RequestMapping(path = "/findRequestHeaderCaseList",method = RequestMethod.POST)
     @ApiMethod(name = "findRequestHeaderCaseList",desc = "findRequestHeaderCaseList")
     @ApiParam(name = "requestHeaderCaseQuery",desc = "requestHeaderCaseQuery",required = true)
@@ -89,7 +89,7 @@ public class RequestHeaderCaseController {
         return Result.ok(requestHeaderCaseList);
     }
 
-    @Validator
+
     @RequestMapping(path = "/findRequestHeaderCasePage",method = RequestMethod.POST)
     @ApiMethod(name = "findRequestHeaderCasePage",desc = "findRequestHeaderCasePage")
     @ApiParam(name = "requestHeaderCaseQuery",desc = "requestHeaderCaseQuery",required = true)

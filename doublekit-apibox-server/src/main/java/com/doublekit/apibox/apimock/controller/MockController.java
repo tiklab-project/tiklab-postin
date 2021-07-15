@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import com.doublekit.web.validation.annotation.Validator;
+
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -79,7 +79,7 @@ public class MockController {
         return Result.ok(mockList);
     }
 
-    @Validator
+
     @RequestMapping(path = "/findMockList",method = RequestMethod.POST)
     @ApiMethod(name = "findMockList",desc = "根据查询条件查找mock列表")
     @ApiParam(name = "mockQuery",desc = "查询条件",required = true)
@@ -89,7 +89,7 @@ public class MockController {
         return Result.ok(mockList);
     }
 
-    @Validator
+
     @RequestMapping(path = "/findMockPage",method = RequestMethod.POST)
     @ApiMethod(name = "findMockPage",desc = "根据查询条件按分页查找mock列表")
     @ApiParam(name = "mockQuery",desc = "查询条件",required = true)

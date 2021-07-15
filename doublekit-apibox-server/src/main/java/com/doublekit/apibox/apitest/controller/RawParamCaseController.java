@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import com.doublekit.web.validation.annotation.Validator;
+
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -79,7 +79,7 @@ public class RawParamCaseController {
         return Result.ok(rawParamCaseList);
     }
 
-    @Validator
+
     @RequestMapping(path = "/findRawParamCaseList",method = RequestMethod.POST)
     @ApiMethod(name = "findRawParamCaseList",desc = "findRawParamCaseList")
     @ApiParam(name = "rawParamCaseQuery",desc = "rawParamCaseQuery",required = true)
@@ -89,7 +89,7 @@ public class RawParamCaseController {
         return Result.ok(rawParamCaseList);
     }
 
-    @Validator
+
     @RequestMapping(path = "/findRawParamCasePage",method = RequestMethod.POST)
     @ApiMethod(name = "findRawParamCasePage",desc = "findRawParamCasePage")
     @ApiParam(name = "rawParamCaseQuery",desc = "rawParamCaseQuery",required = true)

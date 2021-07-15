@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import com.doublekit.web.validation.annotation.Validator;
+
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -82,7 +82,7 @@ public class CategoryController {
         return Result.ok(categoryList);
     }
 
-    @Validator
+
     @RequestMapping(path = "/findCategoryList",method = RequestMethod.POST)
     @ApiMethod(name = "findCategoryList",desc = "根据查询对象查找分类列表")
     @ApiParam(name = "categoryQuery",desc = "查询对象",required = true)
@@ -92,7 +92,7 @@ public class CategoryController {
         return Result.ok(categoryList);
     }
 
-    @Validator
+
     @RequestMapping(path = "/findCategoryPage",method = RequestMethod.POST)
     @ApiMethod(name = "findCategoryPage",desc = "根据查询对象按分页查找分类列表")
     @ApiParam(name = "categoryQuery",desc = "查询对象",required = true)
@@ -102,7 +102,7 @@ public class CategoryController {
         return Result.ok(pagination);
     }
 
-    @Validator
+
     @RequestMapping(path = "/findCategoryListTree",method = RequestMethod.POST)
     @ApiMethod(name = "findCategoryListTree",desc = "根据查询对象查找分类列表树")
     @ApiParam(name = "categoryQuery",desc = "查询对象",required = true)
