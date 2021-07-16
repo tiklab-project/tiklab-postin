@@ -17,7 +17,9 @@ import com.doublekit.message.message.model.MessageReceiver;
 import com.doublekit.message.message.model.MessageTemplate;
 import com.doublekit.message.message.service.MessageService;
 
+import com.doublekit.user.auth.passport.context.TicketContext;
 import com.doublekit.user.auth.passport.context.TicketHolder;
+import com.doublekit.user.auth.passport.model.Ticket;
 import com.doublekit.user.user.model.User;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.BeanUtils;
@@ -96,6 +98,10 @@ public class MethodServiceImpl implements MethodService {
         methodEx.setVersionCode("current");
         //创建接口
         MethodPo methodPo = BeanMapper.map(methodEx, MethodPo.class);
+
+        //添加创建人
+        String creatUserId = findCreatUser();
+        methodPo.setCreateUser(creatUserId);
 
         String id = methodDao.createMethod(methodPo);
 
@@ -286,7 +292,6 @@ public class MethodServiceImpl implements MethodService {
     public String addHistoryVersion(MethodEx methodEx) {
         //添加方法
         MethodPo method = methodDao.findMethod(methodEx.getId());
-        //method.setCreateUser(methodEx.getCreateUser());
         //第一次添加版本  上一个版本id为null
        if (ObjectUtils.isEmpty(method.getOnVersionId())){
            method.setOnVersionId(method.getId());
@@ -294,7 +299,10 @@ public class MethodServiceImpl implements MethodService {
        }
         //添加初始版本id
         method.setVersionCode(methodEx.getVersionCode());
-       method.setOnVersionId(method.getOnVersionId());
+        method.setOnVersionId(method.getOnVersionId());
+        //添加创建人
+        String creatUserId = findCreatUser();
+        method.setCreateUser(creatUserId);
         method.setId(null);
         String id = methodDao.createMethod(method);
 
@@ -735,5 +743,14 @@ public class MethodServiceImpl implements MethodService {
         versionMethod.setVersionRequest(versionRequest);
         versionMethod.setVersionRespon(versionRespon);
         return versionMethod;
+    }
+    /**
+     * 查询用户（创建人）id
+     * @param
+     */
+    public String findCreatUser(){
+        String ticketId = TicketHolder.get();
+        Ticket ticket = TicketContext.get(ticketId);
+        return ticket.getUserId();
     }
 }

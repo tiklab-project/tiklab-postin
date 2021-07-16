@@ -10,7 +10,7 @@ CREATE TABLE apibox_method(
         on_version_id varchar (255),
         create_user varchar(30),
         create_time timestamp ,
-        update_time timestamp,
+        update_time timestamp
 
 );
 CREATE TABLE apibox_request_header(
