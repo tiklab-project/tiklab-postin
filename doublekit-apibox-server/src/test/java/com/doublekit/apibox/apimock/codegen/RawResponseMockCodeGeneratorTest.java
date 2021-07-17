@@ -21,7 +21,7 @@ public class RawResponseMockCodeGeneratorTest extends CodeGeneratorTemplate {
     protected ModuleGeneratorConfig getModuleGeneratorConfig() {
         ModuleGeneratorConfig config = new ModuleGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
-        config.setModelPo(RawResponseMockPo.class);
+        config.setEntity(RawResponseMockPo.class);
         config.setPkg("com.doublekit.apibox.apimock");
         config.setModel("RawResponseMock");
         return config;

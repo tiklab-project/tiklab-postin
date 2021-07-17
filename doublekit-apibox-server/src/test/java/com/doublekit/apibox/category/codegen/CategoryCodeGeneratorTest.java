@@ -21,7 +21,7 @@ public class CategoryCodeGeneratorTest extends CodeGeneratorTemplate {
     protected ModuleGeneratorConfig getModuleGeneratorConfig() {
         ModuleGeneratorConfig config = new ModuleGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
-        config.setModelPo(CategoryPo.class);
+        config.setEntity(CategoryPo.class);
         config.setPkg("com.doublekit.apibox.category");
         config.setModel("Category");
         return config;

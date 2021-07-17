@@ -21,7 +21,7 @@ public class WorkspaceCodeGeneratorTest extends CodeGeneratorTemplate {
     protected ModuleGeneratorConfig getModuleGeneratorConfig() {
         ModuleGeneratorConfig config = new ModuleGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
-        config.setModelPo(WorkspacePo.class);
+        config.setEntity(WorkspacePo.class);
         config.setPkg("com.doublekit.project.workspace");
         config.setModel("Workspace");
         return config;

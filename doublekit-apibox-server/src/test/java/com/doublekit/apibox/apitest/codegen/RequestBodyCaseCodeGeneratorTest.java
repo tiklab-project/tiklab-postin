@@ -21,7 +21,7 @@ public class RequestBodyCaseCodeGeneratorTest extends CodeGeneratorTemplate {
     protected ModuleGeneratorConfig getModuleGeneratorConfig() {
         ModuleGeneratorConfig config = new ModuleGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
-        config.setModelPo(RequestBodyCasePo.class);
+        config.setEntity(RequestBodyCasePo.class);
         config.setPkg("com.doublekit.apibox.apitest");
         config.setModel("RequestBodyCase");
         return config;

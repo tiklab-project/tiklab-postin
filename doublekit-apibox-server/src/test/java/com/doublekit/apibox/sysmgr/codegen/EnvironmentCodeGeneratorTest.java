@@ -21,7 +21,7 @@ public class EnvironmentCodeGeneratorTest extends CodeGeneratorTemplate {
     protected ModuleGeneratorConfig getModuleGeneratorConfig() {
         ModuleGeneratorConfig config = new ModuleGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
-        config.setModelPo(EnvironmentPo.class);
+        config.setEntity(EnvironmentPo.class);
         config.setPkg("com.doublekit.apibox.sysmgr");
         config.setModel("Environment");
         return config;

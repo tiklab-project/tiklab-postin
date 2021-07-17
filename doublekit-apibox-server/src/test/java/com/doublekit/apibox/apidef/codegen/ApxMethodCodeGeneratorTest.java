@@ -21,7 +21,7 @@ public class ApxMethodCodeGeneratorTest extends CodeGeneratorTemplate {
     protected ModuleGeneratorConfig getModuleGeneratorConfig() {
         ModuleGeneratorConfig config = new ModuleGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
-        config.setModelPo(MethodPo.class);
+        config.setEntity(MethodPo.class);
         config.setPkg("com.doublekit.apibox.apxmethod");
         config.setModel("ApxMethod");
         return config;

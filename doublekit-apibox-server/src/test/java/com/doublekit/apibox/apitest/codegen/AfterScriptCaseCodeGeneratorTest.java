@@ -21,7 +21,7 @@ public class AfterScriptCaseCodeGeneratorTest extends CodeGeneratorTemplate {
     protected ModuleGeneratorConfig getModuleGeneratorConfig() {
         ModuleGeneratorConfig config = new ModuleGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
-        config.setModelPo(AfterScriptCasePo.class);
+        config.setEntity(AfterScriptCasePo.class);
         config.setPkg("com.doublekit.apibox.apitest");
         config.setModel("AfterScriptCase");
         return config;

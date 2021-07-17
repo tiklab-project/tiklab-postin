@@ -21,7 +21,7 @@ public class ResponseHeaderCodeGeneratorTest extends CodeGeneratorTemplate {
     protected ModuleGeneratorConfig getModuleGeneratorConfig() {
         ModuleGeneratorConfig config = new ModuleGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
-        config.setModelPo(ResponseHeaderPo.class);
+        config.setEntity(ResponseHeaderPo.class);
         config.setPkg("com.doublekit.apibox.responseheader");
         config.setModel("ResponseHeader");
         return config;

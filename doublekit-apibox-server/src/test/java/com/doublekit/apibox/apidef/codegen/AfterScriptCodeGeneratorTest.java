@@ -21,7 +21,7 @@ public class AfterScriptCodeGeneratorTest extends CodeGeneratorTemplate {
     protected ModuleGeneratorConfig getModuleGeneratorConfig() {
         ModuleGeneratorConfig config = new ModuleGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
-        config.setModelPo(AfterScriptPo.class);
+        config.setEntity(AfterScriptPo.class);
         config.setPkg("com.doublekit.apibox.apidef");
         config.setModel("AfterScript");
         return config;

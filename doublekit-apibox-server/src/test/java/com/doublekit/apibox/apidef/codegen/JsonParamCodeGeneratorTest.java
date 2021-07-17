@@ -21,7 +21,7 @@ public class JsonParamCodeGeneratorTest extends CodeGeneratorTemplate {
     protected ModuleGeneratorConfig getModuleGeneratorConfig() {
         ModuleGeneratorConfig config = new ModuleGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
-        config.setModelPo(JsonParamPo.class);
+        config.setEntity(JsonParamPo.class);
         config.setPkg("com.doublekit.apibox.requestparam");
         config.setModel("JsonParam");
         return config;
