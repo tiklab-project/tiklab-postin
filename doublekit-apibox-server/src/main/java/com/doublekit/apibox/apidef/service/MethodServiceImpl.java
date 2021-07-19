@@ -102,7 +102,6 @@ public class MethodServiceImpl implements MethodService {
         //添加创建人
         String creatUserId = findCreatUser();
         methodPo.setCreateUser(creatUserId);
-
         String id = methodDao.createMethod(methodPo);
 
         //添加索引
