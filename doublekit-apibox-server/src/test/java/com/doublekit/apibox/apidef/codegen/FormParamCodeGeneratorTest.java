@@ -21,7 +21,7 @@ public class FormParamCodeGeneratorTest extends CodeGeneratorTemplate {
     protected ModuleGeneratorConfig getModuleGeneratorConfig() {
         ModuleGeneratorConfig config = new ModuleGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
-        config.setModelPo(FormParamPo.class);
+        config.setEntity(FormParamPo.class);
         config.setPkg("com.doublekit.apibox.formparam");
         config.setModel("FormParam");
         return config;

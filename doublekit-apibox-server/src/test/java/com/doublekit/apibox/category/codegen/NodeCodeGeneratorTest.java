@@ -21,7 +21,7 @@ public class NodeCodeGeneratorTest extends CodeGeneratorTemplate {
     protected ModuleGeneratorConfig getModuleGeneratorConfig() {
         ModuleGeneratorConfig config = new ModuleGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
-        config.setModelPo(NodePo.class);
+        config.setEntity(NodePo.class);
         config.setPkg("com.doublekit.apibox.node");
         config.setModel("Node");
         return config;

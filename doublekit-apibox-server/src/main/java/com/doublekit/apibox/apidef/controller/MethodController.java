@@ -10,14 +10,19 @@ import com.doublekit.common.Pagination;
 import com.doublekit.common.Result;
 import com.doublekit.apibox.annotation.ApiMethod;
 import com.doublekit.apibox.annotation.ApiParam;
+import com.doublekit.rpc.client.invoker.http.support.HttpRequestParser;
+import org.apache.catalina.User;
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
 
@@ -35,10 +40,13 @@ public class MethodController {
     @Autowired
     private MethodService methodService;
 
+
+
     @RequestMapping(path="/createMethod",method = RequestMethod.POST)
     @ApiMethod(name = "createMethod",desc = "创建接口")
     @ApiParam(name = "methodEx",desc = "接口DTO",required = true)
-    public Result<String> createMethod(@RequestBody @NotNull @Valid MethodEx methodEx){
+    public Result<String> createMethod( @RequestBody @NotNull @Valid MethodEx methodEx){
+
         String id = methodService.createMethod(methodEx);
 
         return Result.ok(id);
@@ -112,8 +120,8 @@ public class MethodController {
     @ApiMethod(name = "createVersion",desc = "添加历史版本")
     @ApiParam(name = "methodEx",desc = "添加对象",required = true)
     public Result<String> addHistoryVersion( @RequestBody @NotNull MethodEx methodEx){
-        String s = methodService.addHistoryVersion(methodEx);
 
+        String s = methodService.addHistoryVersion(methodEx);
         return Result.ok(s);
     }
 

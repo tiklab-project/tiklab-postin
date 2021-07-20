@@ -21,7 +21,7 @@ public class QueryParamCodeGeneratorTest extends CodeGeneratorTemplate {
     protected ModuleGeneratorConfig getModuleGeneratorConfig() {
         ModuleGeneratorConfig config = new ModuleGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
-        config.setModelPo(QueryParamPo.class);
+        config.setEntity(QueryParamPo.class);
         config.setPkg("com.doublekit.apibox.queryparam");
         config.setModel("QueryParam");
         return config;

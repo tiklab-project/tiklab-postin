@@ -21,7 +21,7 @@ public class AssertCaseCodeGeneratorTest extends CodeGeneratorTemplate {
     protected ModuleGeneratorConfig getModuleGeneratorConfig() {
         ModuleGeneratorConfig config = new ModuleGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
-        config.setModelPo(AssertCasePo.class);
+        config.setEntity(AssertCasePo.class);
         config.setPkg("com.doublekit.apibox.apitest");
         config.setModel("AssertCase");
         return config;

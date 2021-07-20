@@ -21,7 +21,7 @@ public class RequestInstanceCodeGeneratorTest extends CodeGeneratorTemplate {
     protected ModuleGeneratorConfig getModuleGeneratorConfig() {
         ModuleGeneratorConfig config = new ModuleGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
-        config.setModelPo(RequestInstancePo.class);
+        config.setEntity(RequestInstancePo.class);
         config.setPkg("com.doublekit.apibox.apitest");
         config.setModel("RequestInstance");
         return config;

@@ -21,7 +21,7 @@ public class RawResponseCodeGeneratorTest extends CodeGeneratorTemplate {
     protected ModuleGeneratorConfig getModuleGeneratorConfig() {
         ModuleGeneratorConfig config = new ModuleGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
-        config.setModelPo(RawResponsePo.class);
+        config.setEntity(RawResponsePo.class);
         config.setPkg("com.doublekit.apibox.apidef");
         config.setModel("RawResponse");
         return config;

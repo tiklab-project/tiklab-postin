@@ -1,6 +1,5 @@
 package com.doublekit.apibox.apidef.dao;
 
-import com.doublekit.apibox.apidef.entity.RequestBodyPo;
 import com.doublekit.common.Pagination;
 import com.doublekit.apibox.apidef.entity.FormParamPo;
 import com.doublekit.apibox.apidef.model.FormParamQuery;

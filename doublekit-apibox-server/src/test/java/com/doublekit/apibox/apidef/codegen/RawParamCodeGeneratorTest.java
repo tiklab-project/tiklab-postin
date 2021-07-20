@@ -21,7 +21,7 @@ public class RawParamCodeGeneratorTest extends CodeGeneratorTemplate {
     protected ModuleGeneratorConfig getModuleGeneratorConfig() {
         ModuleGeneratorConfig config = new ModuleGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
-        config.setModelPo(RawParamPo.class);
+        config.setEntity(RawParamPo.class);
         config.setPkg("com.doublekit.apibox.apidef");
         config.setModel("RawParam");
         return config;

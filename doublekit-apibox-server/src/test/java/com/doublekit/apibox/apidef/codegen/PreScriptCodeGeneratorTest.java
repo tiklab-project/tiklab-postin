@@ -21,7 +21,7 @@ public class PreScriptCodeGeneratorTest extends CodeGeneratorTemplate {
     protected ModuleGeneratorConfig getModuleGeneratorConfig() {
         ModuleGeneratorConfig config = new ModuleGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
-        config.setModelPo(PreScriptPo.class);
+        config.setEntity(PreScriptPo.class);
         config.setPkg("com.doublekit.apibox.apidef");
         config.setModel("PreScript");
         return config;

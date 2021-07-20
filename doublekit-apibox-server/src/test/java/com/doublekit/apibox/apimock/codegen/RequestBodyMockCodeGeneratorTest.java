@@ -21,7 +21,7 @@ public class RequestBodyMockCodeGeneratorTest extends CodeGeneratorTemplate {
     protected ModuleGeneratorConfig getModuleGeneratorConfig() {
         ModuleGeneratorConfig config = new ModuleGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
-        config.setModelPo(RequestBodyMockPo.class);
+        config.setEntity(RequestBodyMockPo.class);
         config.setPkg("com.doublekit.apibox.apimock");
         config.setModel("RequestBodyMock");
         return config;

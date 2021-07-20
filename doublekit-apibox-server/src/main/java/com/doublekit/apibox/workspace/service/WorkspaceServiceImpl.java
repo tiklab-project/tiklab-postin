@@ -10,7 +10,9 @@ import com.doublekit.common.Pagination;
 import com.doublekit.beans.BeanMapper;
 import com.doublekit.dss.client.DssClient;
 import com.doublekit.privilege.prjprivilege.service.DmPrjRoleService;
+import com.doublekit.user.auth.passport.context.TicketContext;
 import com.doublekit.user.auth.passport.context.TicketHolder;
+import com.doublekit.user.auth.passport.model.Ticket;
 import com.doublekit.user.user.model.DmUser;
 import com.doublekit.user.user.model.User;
 import com.doublekit.user.user.service.DmUserService;
@@ -48,14 +50,16 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         String projectId = workspaceDao.createWorkspace(workspacePo);
 
         //初始化项目成员
-        String masterId = TicketHolder.get();
+        String ticketId = TicketHolder.get();
+        Ticket ticket = TicketContext.get(ticketId);
+        String userId = ticket.getUserId();
         DmUser dmUser = new DmUser();
         dmUser.setDomainId(projectId);
-        dmUser.setUser(new User().setId(masterId));
+        dmUser.setUser(new User().setId(userId));
         dmUserService.createDmUser(dmUser);
 
         //初始化项目权限
-        dmPrjRoleService.initDmPrjRoles(projectId,masterId);
+        dmPrjRoleService.initDmPrjRoles(projectId,userId);
 
         //添加索引
         Workspace entity = findWorkspace(projectId);

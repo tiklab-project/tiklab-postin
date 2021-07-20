@@ -57,6 +57,11 @@
                     <artifactItems>
                         <artifactItem>
                             <groupId>com.doublekit</groupId>
+                            <artifactId>doublekit-platform-user-language-en-plugin</artifactId>
+                            <version>${project.version}</version>
+                        </artifactItem>
+                        <artifactItem>
+                            <groupId>com.doublekit</groupId>
                             <artifactId>doublekit-apibox-language-en-plugin</artifactId>
                             <version>${project.version}</version>
                         </artifactItem>

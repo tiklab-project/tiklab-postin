@@ -13,6 +13,7 @@ import com.doublekit.dss.annotation.IndexId;
 import com.doublekit.dss.annotation.IndexQueryField;
 import com.doublekit.join.annotation.Join;
 import com.doublekit.join.annotation.JoinField;
+import com.doublekit.user.user.model.User;
 
 import javax.validation.constraints.NotNull;
 import java.sql.Date;
@@ -67,9 +68,12 @@ public class MethodEx extends BaseModel {
     @IndexField
     private java.lang.String onVersionId;
 
-    @ApiProperty(name="createUser",desc="创建人")
-    @IndexField
-    private java.lang.String createUser;
+    @ApiProperty(name="user",desc="创建人")
+    @Mappings({
+            @Mapping(source = "user.id",target = "createUser")
+    })
+    @JoinField(id = "id")
+    private User user;
 
     @ApiProperty(name="createTime",desc="创建时间")
     @IndexField
@@ -154,13 +158,14 @@ public class MethodEx extends BaseModel {
         this.onVersionId = onVersionId;
     }
 
-    public String getCreateUser() {
-        return createUser;
+    public User getUser() {
+        return user;
     }
 
-    public void setCreateUser(String createUser) {
-        this.createUser = createUser;
+    public void setUser(User user) {
+        this.user = user;
     }
+
 
     public Date getCreateTime() {
         return createTime;
