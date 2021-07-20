@@ -1,11 +1,6 @@
 {
-    "home": "home",
-    "org_center": "home",
-    "sys" : "sys",
-    "login": "login",
-    "help": "help",
-    "workspaceName":"workspaceName",
-    "wsId": "workspaceId",
-    "desc":"desc",
-    "operation":"operation"
+  "wsName":"workspaceName",
+  "wsId": "workspaceId",
+  "desc":"desc",
+  "operation":"operation"
 }
