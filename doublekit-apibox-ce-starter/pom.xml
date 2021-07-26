@@ -5,26 +5,26 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.doublekit</groupId>
-        <artifactId>doublekit-apibox</artifactId>
+        <artifactId>doublekit-apibox-ce</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
-    <artifactId>doublekit-apibox-distribution</artifactId>
+    <artifactId>doublekit-apibox-ce-starter</artifactId>
     <name>${project.artifactId}</name>
 
     <dependencies>
         <dependency>
             <groupId>com.doublekit</groupId>
-            <artifactId>doublekit-apibox-client</artifactId>
+            <artifactId>doublekit-apibox-ce-client</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.doublekit</groupId>
-            <artifactId>doublekit-apibox-server</artifactId>
+            <artifactId>doublekit-apibox-ce-server</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.doublekit</groupId>
-            <artifactId>doublekit-apibox-ui</artifactId>
+            <artifactId>doublekit-apibox-ce-ui</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>
@@ -39,6 +39,35 @@
                         <exclude>*.properties</exclude>
                         <exclude>*.xml</exclude>
                     </excludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.8</version>
+                <executions>
+                    <execution>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <artifactItems>
+                        <artifactItem>
+                            <groupId>com.doublekit</groupId>
+                            <artifactId>doublekit-platform-user-language-en-plugin</artifactId>
+                            <version>${project.version}</version>
+                        </artifactItem>
+                        <artifactItem>
+                            <groupId>com.doublekit</groupId>
+                            <artifactId>doublekit-apibox-language-en-plugin</artifactId>
+                            <version>${project.version}</version>
+                        </artifactItem>
+                    </artifactItems>
+                    <includeTypes>jar</includeTypes>
+                    <outputDirectory>${project.basedir}/plugin</outputDirectory>
                 </configuration>
             </plugin>
             <plugin>

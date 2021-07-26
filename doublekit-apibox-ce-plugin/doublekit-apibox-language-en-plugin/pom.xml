@@ -71,7 +71,7 @@
         </dependency>
         <dependency>
             <groupId>com.doublekit</groupId>
-            <artifactId>doublekit-apibox-client</artifactId>
+            <artifactId>doublekit-apibox-ce-client</artifactId>
         </dependency>
     </dependencies>
 

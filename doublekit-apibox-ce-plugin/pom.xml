@@ -5,10 +5,10 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.doublekit</groupId>
-        <artifactId>doublekit-apibox</artifactId>
+        <artifactId>doublekit-apibox-ce</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
-    <artifactId>doublekit-apibox-plugin</artifactId>
+    <artifactId>doublekit-apibox-ce-plugin</artifactId>
     <name>${project.artifactId}</name>
     <packaging>pom</packaging>
 
@@ -18,7 +18,7 @@
 
     <properties>
         <doublekit.version>1.0.0-SNAPSHOT</doublekit.version>
-        <app.home>${project.basedir}/../../doublekit-apibox-starter</app.home>
+        <app.home>${project.basedir}/../../doublekit-apibox-ce-starter</app.home>
     </properties>
 
     <dependencyManagement>
@@ -111,12 +111,12 @@
             </dependency>
             <dependency>
                 <groupId>com.doublekit</groupId>
-                <artifactId>doublekit-apibox-annotation</artifactId>
+                <artifactId>doublekit-apibox-ce-annotation</artifactId>
                 <version>${doublekit.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.doublekit</groupId>
-                <artifactId>doublekit-apibox-client</artifactId>
+                <artifactId>doublekit-apibox-ce-client</artifactId>
                 <version>${doublekit.version}</version>
             </dependency>
         </dependencies>

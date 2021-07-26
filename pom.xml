@@ -10,20 +10,20 @@
         <version>1.0.0-SNAPSHOT</version>
     </parent>
     <groupId>com.doublekit</groupId>
-    <artifactId>doublekit-apibox</artifactId>
+    <artifactId>doublekit-apibox-ce</artifactId>
     <name>${project.artifactId}</name>
     <packaging>pom</packaging>
     <version>1.0.0-SNAPSHOT</version>
 
     <modules>
-        <module>doublekit-apibox-annotation</module>
-        <module>doublekit-apibox-client</module>
-        <module>doublekit-apibox-api</module>
-        <module>doublekit-apibox-server</module>
-        <module>doublekit-apibox-ui</module>
-        <module>doublekit-apibox-plugin</module>
-        <module>doublekit-apibox-distribution</module>
-        <module>doublekit-apibox-starter</module>
+        <module>doublekit-apibox-ce-annotation</module>
+        <module>doublekit-apibox-ce-client</module>
+        <module>doublekit-apibox-ce-api</module>
+        <module>doublekit-apibox-ce-server</module>
+        <module>doublekit-apibox-ce-ui</module>
+        <module>doublekit-apibox-ce-plugin</module>
+        <module>doublekit-apibox-ce-distribution</module>
+        <module>doublekit-apibox-ce-starter</module>
     </modules>
 
     <properties>
@@ -120,12 +120,12 @@
             </dependency>
             <dependency>
                 <groupId>com.doublekit</groupId>
-                <artifactId>doublekit-apibox-annotation</artifactId>
+                <artifactId>doublekit-apibox-ce-annotation</artifactId>
                 <version>${doublekit.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.doublekit</groupId>
-                <artifactId>doublekit-apibox-client</artifactId>
+                <artifactId>doublekit-apibox-ce-client</artifactId>
                 <version>${doublekit.version}</version>
             </dependency>
         </dependencies>
