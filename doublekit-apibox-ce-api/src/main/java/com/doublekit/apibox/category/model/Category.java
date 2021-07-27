@@ -2,6 +2,7 @@ package com.doublekit.apibox.category.model;
 
 import com.doublekit.apibox.annotation.ApiModel;
 import com.doublekit.apibox.annotation.ApiProperty;
+import com.doublekit.apibox.apidef.model.MethodEx;
 import com.doublekit.apibox.workspace.model.Workspace;
 import com.doublekit.beans.annotation.Mapper;
 import com.doublekit.beans.annotation.Mapping;
@@ -45,6 +46,9 @@ public class Category extends BaseModel {
 
     @ApiProperty(name="children",desc="下级分类列表")
     private List<Category> children = new ArrayList<>();
+
+    @ApiProperty(name="categoryMethod",desc="分类下的接口")
+    private List<MethodEx> categoryMethod=new ArrayList<>();
 
     public String getId() {
         return id;
@@ -92,5 +96,13 @@ public class Category extends BaseModel {
 
     public void setChildren(List<Category> children) {
         this.children = children;
+    }
+
+    public List<MethodEx> getCategoryMethod() {
+        return categoryMethod;
+    }
+
+    public void setCategoryMethod(List<MethodEx> categoryMethod) {
+        this.categoryMethod = categoryMethod;
     }
 }

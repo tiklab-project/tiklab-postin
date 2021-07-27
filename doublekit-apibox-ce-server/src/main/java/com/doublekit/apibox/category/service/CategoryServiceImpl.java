@@ -1,5 +1,9 @@
 package com.doublekit.apibox.category.service;
 
+import com.doublekit.apibox.apidef.dao.MethodDao;
+import com.doublekit.apibox.apidef.entity.MethodPo;
+import com.doublekit.apibox.apidef.model.MethodEx;
+import com.doublekit.apibox.apidef.model.MethodExQuery;
 import com.doublekit.apibox.category.dao.CategoryDao;
 import com.doublekit.apibox.category.entity.CategoryPo;
 import com.doublekit.apibox.category.model.Category;
@@ -33,6 +37,9 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Autowired
     JoinQuery joinQuery;
+
+    @Autowired
+    MethodDao methodDao;
 
     @Override
     public String createCategory(@NotNull @Valid Category category) {
@@ -133,6 +140,9 @@ public class CategoryServiceImpl implements CategoryService {
         //查找所有符合条件列表
         List<Category> matchCategoryList = findCategoryList(categoryQuery);
 
+        //查找并设置分类下面的接口
+        findCategoryMethodList(matchCategoryList);
+
         //查找第一级分类列表
         List<Category> topCategoryList = findTopCategoryList(matchCategoryList);
 
@@ -142,6 +152,7 @@ public class CategoryServiceImpl implements CategoryService {
                 setChildren(matchCategoryList,topCategory);
             }
         }
+
 
         return topCategoryList;
     }
@@ -155,6 +166,23 @@ public class CategoryServiceImpl implements CategoryService {
         return matchCategoryList.stream()
                 .filter(category -> (category.getParentCategory() == null || category.getParentCategory().getId() == null))
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * 查找分类列表下的接口
+     * @param matchCategoryList
+     * @return
+     */
+    List<Category> findCategoryMethodList(List<Category> matchCategoryList){
+        List<Category> categoryList = matchCategoryList.stream().map(category -> {
+            MethodExQuery methodExQuery = new MethodExQuery();
+            methodExQuery.setCategoryId(category.getId());
+            List<MethodPo> methodList = methodDao.findMethodList(methodExQuery);
+            List<MethodEx> methodExes = BeanMapper.mapList(methodList, MethodEx.class);
+            category.setCategoryMethod(methodExes);
+            return category;
+        }).collect(Collectors.toList());
+        return  categoryList;
     }
 
     /**
