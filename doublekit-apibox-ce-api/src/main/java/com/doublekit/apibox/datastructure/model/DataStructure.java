@@ -15,19 +15,19 @@ public class DataStructure extends BaseModel{
     private java.lang.String id;
 
     @NotNull
-    @ApiProperty(name="name",desc="name",required = true)
+    @ApiProperty(name="name",desc="名字",required = true)
     private java.lang.String name;
 
-    @ApiProperty(name="coding",desc="coding")
+    @ApiProperty(name="coding",desc="编码")
     private java.lang.String coding;
 
-    @ApiProperty(name="createUser",desc="createUser")
+    @ApiProperty(name="createUser",desc="创建人")
     private java.lang.String createUser;
 
-    @ApiProperty(name="createTime",desc="createTime")
+    @ApiProperty(name="createTime",desc="创建时间")
     private java.util.Date createTime;
 
-    @ApiProperty(name="updateTime",desc="updateTime")
+    @ApiProperty(name="updateTime",desc="更新时间")
     private java.util.Date updateTime;
 
     public java.lang.String getId() {

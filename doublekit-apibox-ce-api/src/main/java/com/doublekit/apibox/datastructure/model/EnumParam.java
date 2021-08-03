@@ -15,19 +15,19 @@ public class EnumParam extends BaseModel{
     private java.lang.String id;
 
     @NotNull
-    @ApiProperty(name="paramName",desc="paramName",required = true)
+    @ApiProperty(name="paramName",desc="名字",required = true)
     private java.lang.String paramName;
 
-    @ApiProperty(name="subjectId",desc="subjectId")
+    @ApiProperty(name="subjectId",desc="主表id")
     private java.lang.String subjectId;
 
-    @ApiProperty(name="dataType",desc="dataType")
+    @ApiProperty(name="dataType",desc="类型")
     private java.lang.String dataType;
 
-    @ApiProperty(name="required",desc="required")
+    @ApiProperty(name="required",desc="是否必须")
     private java.lang.Integer required;
 
-    @ApiProperty(name="description",desc="description")
+    @ApiProperty(name="description",desc="说明")
     private java.lang.String description;
 
     public java.lang.String getId() {
