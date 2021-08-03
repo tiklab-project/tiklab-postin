@@ -20,7 +20,8 @@ import org.springframework.context.annotation.Configuration;
         "scripts/apibase.sql",
         "scripts/apidef.sql",
         "scripts/apitest.sql",
-        "scripts/apimock.sql"
+        "scripts/apimock.sql",
+        "scripts/datastru.sql"
 })
 @ComponentScan({"com.doublekit.apibox"})
 public class ApiboxServerAutoConfiguration {
