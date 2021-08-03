@@ -15,11 +15,15 @@ import com.doublekit.beans.BeanMapper;
 import com.doublekit.dal.jpa.builder.deletelist.condition.DeleteCondition;
 import com.doublekit.dal.jpa.builder.deletelist.conditionbuilder.DeleteBuilders;
 import com.doublekit.join.join.JoinQuery;
+import com.doublekit.user.auth.passport.context.TicketContext;
+import com.doublekit.user.auth.passport.context.TicketHolder;
+import com.doublekit.user.auth.passport.model.Ticket;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.BeanUtils;
@@ -46,6 +50,10 @@ public class DataStructureServiceImpl implements DataStructureService {
     @Override
     public String createDataStructure(@NotNull @Valid DataStructure dataStructure) {
         DataStructurePo dataStructurePo = BeanMapper.map(dataStructure, DataStructurePo.class);
+        //添加创建人
+        String creatUserId = findCreatUser();
+        dataStructurePo.setCreateUser(creatUserId);
+        dataStructurePo.setCreateTime( new Date());
 
         return dataStructureDao.createDataStructure(dataStructurePo);
     }
@@ -125,5 +133,15 @@ public class DataStructureServiceImpl implements DataStructureService {
 
         pg.setDataList(dataStructureList);
         return pg;
+    }
+
+    /**
+     * 查询用户（创建人）id
+     * @param
+     */
+    public String findCreatUser(){
+        String ticketId = TicketHolder.get();
+        Ticket ticket = TicketContext.get(ticketId);
+        return ticket.getUserId();
     }
 }
