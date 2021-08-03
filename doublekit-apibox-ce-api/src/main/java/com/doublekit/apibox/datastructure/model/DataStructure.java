@@ -1,0 +1,75 @@
+package com.doublekit.apibox.datastructure.model;
+
+import com.doublekit.apibox.annotation.ApiModel;
+import com.doublekit.apibox.annotation.ApiProperty;
+import com.doublekit.beans.annotation.Mapper;
+import com.doublekit.common.BaseModel;
+
+import javax.validation.constraints.NotNull;
+
+@ApiModel
+@Mapper
+public class DataStructure extends BaseModel{
+
+    @ApiProperty(name="id",desc="id")
+    private java.lang.String id;
+
+    @NotNull
+    @ApiProperty(name="name",desc="name",required = true)
+    private java.lang.String name;
+
+    @ApiProperty(name="coding",desc="coding")
+    private java.lang.String coding;
+
+    @ApiProperty(name="createUser",desc="createUser")
+    private java.lang.String createUser;
+
+    @ApiProperty(name="createTime",desc="createTime")
+    private java.util.Date createTime;
+
+    @ApiProperty(name="updateTime",desc="updateTime")
+    private java.util.Date updateTime;
+
+    public java.lang.String getId() {
+        return id;
+    }
+
+    public void setId(java.lang.String id) {
+        this.id = id;
+    }
+    public java.lang.String getName() {
+        return name;
+    }
+
+    public void setName(java.lang.String name) {
+        this.name = name;
+    }
+    public java.lang.String getCoding() {
+        return coding;
+    }
+
+    public void setCoding(java.lang.String coding) {
+        this.coding = coding;
+    }
+    public java.lang.String getCreateUser() {
+        return createUser;
+    }
+
+    public void setCreateUser(java.lang.String createUser) {
+        this.createUser = createUser;
+    }
+    public java.util.Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(java.util.Date createTime) {
+        this.createTime = createTime;
+    }
+    public java.util.Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(java.util.Date updateTime) {
+        this.updateTime = updateTime;
+    }
+}
