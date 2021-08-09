@@ -21,6 +21,9 @@ public class DataStructure extends BaseModel{
     @ApiProperty(name="coding",desc="编码")
     private java.lang.String coding;
 
+    @ApiProperty(name="dataType",desc="数据类型")
+    private java.lang.String dataType;
+
     @ApiProperty(name="createUser",desc="创建人")
     private java.lang.String createUser;
 
@@ -71,5 +74,13 @@ public class DataStructure extends BaseModel{
 
     public void setUpdateTime(java.util.Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public String getDataType() {
+        return dataType;
+    }
+
+    public void setDataType(String dataType) {
+        this.dataType = dataType;
     }
 }

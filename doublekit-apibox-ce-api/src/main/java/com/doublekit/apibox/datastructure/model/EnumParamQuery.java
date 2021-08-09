@@ -12,6 +12,11 @@ import java.util.List;
 @ApiModel
 @CriteriaQuery
 public class EnumParamQuery {
+
+        @ApiProperty(name ="methodId",desc = "主表ID，精确匹配")
+        @QueryField(type = QueryTypeEnum.equal)
+        private  String DataStructureId;
+
         @ApiProperty(name ="orderParams",desc = "排序参数")
         @OrderField
         private List<OrderParam> orderParams = Orders.instance().asc("id").get();
@@ -19,6 +24,7 @@ public class EnumParamQuery {
         @ApiProperty(name ="pageParam",desc = "分页参数")
         @PageField
         private PageParam pageParam = new PageParam();
+
 
         public List<OrderParam> getOrderParams() {
             return orderParams;
@@ -34,5 +40,13 @@ public class EnumParamQuery {
 
         public void setPageParam(PageParam pageParam) {
             this.pageParam = pageParam;
+        }
+
+        public String getDataStructureId() {
+            return DataStructureId;
+        }
+
+        public void setDataStructureId(String dataStructureId) {
+            DataStructureId = dataStructureId;
         }
 }

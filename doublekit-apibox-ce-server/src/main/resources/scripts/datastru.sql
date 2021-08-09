@@ -2,6 +2,7 @@ CREATE TABLE stru_subject(
         id VARCHAR(32) PRIMARY KEY,
         coding VARCHAR (64),
         name VARCHAR(64) NOT NULL,
+        data_type VARCHAR(32) NOT NULL,
         create_user varchar(30),
         create_time timestamp ,
         update_time timestamp

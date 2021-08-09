@@ -23,6 +23,9 @@ public class DataStructurePo implements Serializable {
     @Column(name = "coding",length = 32)
     private String coding;
 
+    @Column(name = "data_type",length = 32)
+    private String dataType;
+
     @Column(name = "create_user",length = 32)
     private String createUser;
 
@@ -78,5 +81,13 @@ public class DataStructurePo implements Serializable {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public String getDataType() {
+        return dataType;
+    }
+
+    public void setDataType(String dataType) {
+        this.dataType = dataType;
     }
 }
