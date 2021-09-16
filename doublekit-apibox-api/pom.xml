@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.doublekit</groupId>
-        <artifactId>doublekit-apibox-ce</artifactId>
+        <artifactId>doublekit-apibox</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>doublekit-apibox-ce-api</artifactId>
+    <artifactId>doublekit-apibox-api</artifactId>
     <name>${project.artifactId}</name>
 
     <dependencies>
@@ -46,7 +46,7 @@
         </dependency>
         <dependency>
             <groupId>com.doublekit</groupId>
-            <artifactId>doublekit-apibox-ce-annotation</artifactId>
+            <artifactId>doublekit-apibox-annotation</artifactId>
         </dependency>
     </dependencies>
 
