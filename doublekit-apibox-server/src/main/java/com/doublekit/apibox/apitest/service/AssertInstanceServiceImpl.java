@@ -7,7 +7,7 @@ import com.doublekit.apibox.apitest.model.AssertInstanceQuery;
 
 import com.doublekit.common.Pagination;
 import com.doublekit.beans.BeanMapper;
-import com.doublekit.join.join.JoinQuery;
+import com.doublekit.join.JoinTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +27,7 @@ public class AssertInstanceServiceImpl implements AssertInstanceService {
     AssertInstanceDao assertInstanceDao;
 
     @Autowired
-    JoinQuery joinQuery;
+    JoinTemplate joinQuery;
 
     @Override
     public String createAssertInstance(@NotNull @Valid AssertInstance assertInstance) {

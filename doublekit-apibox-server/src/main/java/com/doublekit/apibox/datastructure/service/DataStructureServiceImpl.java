@@ -4,20 +4,17 @@ import com.doublekit.apibox.datastructure.dao.DataStructureDao;
 import com.doublekit.apibox.datastructure.dao.EnumParamDao;
 import com.doublekit.apibox.datastructure.dao.JsonParamDSDao;
 import com.doublekit.apibox.datastructure.entity.DataStructurePo;
-import com.doublekit.apibox.datastructure.entity.JsonParamDSPo;
 import com.doublekit.apibox.datastructure.model.DataStructure;
 import com.doublekit.apibox.datastructure.model.DataStructureQuery;
-
-import com.doublekit.apibox.datastructure.model.JsonParamDS;
-import com.doublekit.apibox.datastructure.model.JsonParamDSQuery;
-import com.doublekit.common.Pagination;
 import com.doublekit.beans.BeanMapper;
+import com.doublekit.common.Pagination;
 import com.doublekit.dal.jpa.builder.deletelist.condition.DeleteCondition;
 import com.doublekit.dal.jpa.builder.deletelist.conditionbuilder.DeleteBuilders;
-import com.doublekit.join.join.JoinQuery;
-import com.doublekit.user.auth.passport.context.TicketContext;
-import com.doublekit.user.auth.passport.context.TicketHolder;
-import com.doublekit.user.auth.passport.model.Ticket;
+import com.doublekit.eam.common.Ticket;
+import com.doublekit.eam.common.TicketContext;
+import com.doublekit.eam.common.TicketHolder;
+import com.doublekit.join.JoinTemplate;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,9 +22,6 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
-
-import org.springframework.beans.BeanUtils;
-import org.springframework.util.ObjectUtils;
 
 /**
 * DataStructureServiceImpl
@@ -39,7 +33,7 @@ public class DataStructureServiceImpl implements DataStructureService {
     DataStructureDao dataStructureDao;
 
     @Autowired
-    JoinQuery joinQuery;
+    JoinTemplate joinQuery;
 
     @Autowired
     EnumParamDao enumParamDao;

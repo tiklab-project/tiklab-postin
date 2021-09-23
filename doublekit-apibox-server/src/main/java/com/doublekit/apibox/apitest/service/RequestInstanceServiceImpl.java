@@ -10,7 +10,7 @@ import com.doublekit.apibox.apitest.model.RequestInstance;
 import com.doublekit.apibox.apitest.model.RequestInstanceQuery;
 import com.doublekit.common.Pagination;
 import com.doublekit.beans.BeanMapper;
-import com.doublekit.join.join.JoinQuery;
+import com.doublekit.join.JoinTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +30,7 @@ public class RequestInstanceServiceImpl implements RequestInstanceService {
     RequestInstanceDao requestInstanceDao;
 
     @Autowired
-    JoinQuery joinQuery;
+    JoinTemplate joinQuery;
 
     @Override
     public String createRequestInstance(@NotNull @Valid RequestInstance requestInstance) {

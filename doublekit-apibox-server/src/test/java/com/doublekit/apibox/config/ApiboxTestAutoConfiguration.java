@@ -1,7 +1,7 @@
 package com.doublekit.apibox.config;
 
 
-import com.doublekit.message.annotation.EnableMessageServer;
+import com.doublekit.message.starter.annotation.EnableMessage;
 import com.doublekit.privilege.annotation.EnablePrivilegeServer;
 import com.doublekit.user.annotation.EnableUserServer;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnProperty(name="apibox.server.enabled",havingValue = "true")
 @EnableUserServer
 @EnablePrivilegeServer
-@EnableMessageServer
+@EnableMessage
 @ComponentScan({"com.doublekit.apibox"})
 public class ApiboxTestAutoConfiguration {
 

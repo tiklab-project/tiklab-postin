@@ -7,7 +7,7 @@ import com.doublekit.apibox.apidef.model.ResponseHeaderQuery;
 
 import com.doublekit.common.Pagination;
 import com.doublekit.beans.BeanMapper;
-import com.doublekit.join.join.JoinQuery;
+import com.doublekit.join.JoinTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +27,7 @@ public class ResponseHeaderServiceImpl implements ResponseHeaderService {
     ResponseHeaderDao responseHeaderDao;
 
     @Autowired
-    JoinQuery joinQuery;
+    JoinTemplate joinQuery;
 
     @Override
     public String createResponseHeader(@NotNull @Valid ResponseHeader responseHeader) {

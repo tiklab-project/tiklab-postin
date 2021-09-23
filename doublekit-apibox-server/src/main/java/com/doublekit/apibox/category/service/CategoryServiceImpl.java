@@ -12,7 +12,7 @@ import com.doublekit.apibox.category.model.CategoryQuery;
 import com.doublekit.apibox.node.dao.NodeDao;
 import com.doublekit.common.Pagination;
 import com.doublekit.beans.BeanMapper;
-import com.doublekit.join.join.JoinQuery;
+import com.doublekit.join.JoinTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,7 +36,7 @@ public class CategoryServiceImpl implements CategoryService {
     NodeDao nodeDao;
 
     @Autowired
-    JoinQuery joinQuery;
+    JoinTemplate joinQuery;
 
     @Autowired
     MethodDao methodDao;

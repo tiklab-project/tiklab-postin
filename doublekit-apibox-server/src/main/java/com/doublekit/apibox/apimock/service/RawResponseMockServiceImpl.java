@@ -7,7 +7,7 @@ import com.doublekit.apibox.apimock.model.RawResponseMockQuery;
 
 import com.doublekit.common.Pagination;
 import com.doublekit.beans.BeanMapper;
-import com.doublekit.join.join.JoinQuery;
+import com.doublekit.join.JoinTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +27,7 @@ public class RawResponseMockServiceImpl implements RawResponseMockService {
     RawResponseMockDao rawResponseMockDao;
 
     @Autowired
-    JoinQuery joinQuery;
+    JoinTemplate joinQuery;
 
     @Override
     public String createRawResponseMock(@NotNull @Valid RawResponseMock rawResponseMock) {

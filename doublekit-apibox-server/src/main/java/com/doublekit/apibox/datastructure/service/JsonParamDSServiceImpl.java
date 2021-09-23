@@ -9,7 +9,7 @@ import com.doublekit.apibox.datastructure.model.JsonParamDSQuery;
 
 import com.doublekit.common.Pagination;
 import com.doublekit.beans.BeanMapper;
-import com.doublekit.join.join.JoinQuery;
+import com.doublekit.join.JoinTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +31,7 @@ public class JsonParamDSServiceImpl implements JsonParamDSService {
     JsonParamDSDao jsonParamDSDao;
 
     @Autowired
-    JoinQuery joinQuery;
+    JoinTemplate joinQuery;
 
 
 

@@ -7,7 +7,7 @@ import com.doublekit.apibox.apidef.model.RawParamQuery;
 
 import com.doublekit.common.Pagination;
 import com.doublekit.beans.BeanMapper;
-import com.doublekit.join.join.JoinQuery;
+import com.doublekit.join.JoinTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +27,7 @@ public class RawParamServiceImpl implements RawParamService {
     RawParamDao rawParamDao;
 
     @Autowired
-    JoinQuery joinQuery;
+    JoinTemplate joinQuery;
 
     @Override
     public String createRawParam(@NotNull @Valid RawParam rawParam) {

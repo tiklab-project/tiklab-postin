@@ -3,7 +3,6 @@ package com.doublekit.apibox.apidef.model;
 import com.doublekit.apibox.annotation.ApiModel;
 import com.doublekit.apibox.annotation.ApiProperty;
 import com.doublekit.apibox.category.model.Category;
-import com.doublekit.beans.annotation.Mapper;
 import com.doublekit.beans.annotation.Mapping;
 import com.doublekit.beans.annotation.Mappings;
 import com.doublekit.common.BaseModel;
@@ -19,7 +18,7 @@ import javax.validation.constraints.NotNull;
 import java.sql.Date;
 
 @ApiModel
-@Mapper(target = "com.doublekit.apibox.apidef.entity.MethodPo")
+//@Mapper(target = "com.doublekit.apibox.apidef.entity.MethodPo")
 @Join
 @Index
 public class MethodEx extends BaseModel {

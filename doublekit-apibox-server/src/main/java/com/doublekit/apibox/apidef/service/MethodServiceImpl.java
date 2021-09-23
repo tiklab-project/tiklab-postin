@@ -3,23 +3,23 @@ package com.doublekit.apibox.apidef.service;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.doublekit.apibox.apidef.dao.*;
-import com.doublekit.apibox.apidef.entity.*;
-import com.doublekit.apibox.apidef.model.*;
+import com.doublekit.apibox.apidef.entity.MethodPo;
+import com.doublekit.apibox.apidef.model.MethodEx;
+import com.doublekit.apibox.apidef.model.MethodExQuery;
 import com.doublekit.apibox.apidef.support.MessageTemplateConstant;
-import com.doublekit.common.Pagination;
 import com.doublekit.beans.BeanMapper;
+import com.doublekit.common.Pagination;
 import com.doublekit.dal.jpa.builder.deletelist.condition.DeleteCondition;
 import com.doublekit.dal.jpa.builder.deletelist.conditionbuilder.DeleteBuilders;
-import com.doublekit.join.join.JoinQuery;
 import com.doublekit.dss.client.DssClient;
+import com.doublekit.eam.common.Ticket;
+import com.doublekit.eam.common.TicketContext;
+import com.doublekit.eam.common.TicketHolder;
+import com.doublekit.join.JoinTemplate;
 import com.doublekit.message.message.model.Message;
 import com.doublekit.message.message.model.MessageReceiver;
 import com.doublekit.message.message.model.MessageTemplate;
 import com.doublekit.message.message.service.MessageService;
-
-import com.doublekit.user.auth.passport.context.TicketContext;
-import com.doublekit.user.auth.passport.context.TicketHolder;
-import com.doublekit.user.auth.passport.model.Ticket;
 import com.doublekit.user.user.model.User;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,8 @@ import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
 * 用户服务业务处理
@@ -39,7 +40,7 @@ public class MethodServiceImpl implements MethodService {
     MethodDao methodDao;
 
     @Autowired
-    JoinQuery joinQuery;
+    JoinTemplate joinQuery;
 
     @Autowired
     MessageService messageService;

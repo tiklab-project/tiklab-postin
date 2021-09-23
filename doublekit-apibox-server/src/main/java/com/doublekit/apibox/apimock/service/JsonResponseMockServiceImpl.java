@@ -7,7 +7,7 @@ import com.doublekit.apibox.apimock.model.JsonResponseMockQuery;
 
 import com.doublekit.common.Pagination;
 import com.doublekit.beans.BeanMapper;
-import com.doublekit.join.join.JoinQuery;
+import com.doublekit.join.JoinTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +27,7 @@ public class JsonResponseMockServiceImpl implements JsonResponseMockService {
     JsonResponseMockDao jsonResponseMockDao;
 
     @Autowired
-    JoinQuery joinQuery;
+    JoinTemplate joinQuery;
 
     @Override
     public String createJsonResponseMock(@NotNull @Valid JsonResponseMock jsonResponseMock) {

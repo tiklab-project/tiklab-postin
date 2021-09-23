@@ -8,7 +8,7 @@ import com.doublekit.apibox.apidef.model.JsonResponseQuery;
 import com.doublekit.apibox.apidef.model.MethodEx;
 import com.doublekit.beans.BeanMapper;
 import com.doublekit.common.Pagination;
-import com.doublekit.join.join.JoinQuery;
+import com.doublekit.join.JoinTemplate;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,7 +28,7 @@ public class JsonResponseServiceImpl implements JsonResponseService {
     JsonResponseDao jsonResponseDao;
 
     @Autowired
-    JoinQuery joinQuery;
+    JoinTemplate joinQuery;
 
     @Override
     public String createJsonResponse(@NotNull @Valid JsonResponse jsonResponse) {

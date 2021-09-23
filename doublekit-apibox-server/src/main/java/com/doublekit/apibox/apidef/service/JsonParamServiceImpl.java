@@ -7,7 +7,7 @@ import com.doublekit.apibox.apidef.model.JsonParamQuery;
 
 import com.doublekit.common.Pagination;
 import com.doublekit.beans.BeanMapper;
-import com.doublekit.join.join.JoinQuery;
+import com.doublekit.join.JoinTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +28,7 @@ public class JsonParamServiceImpl implements JsonParamService {
     JsonParamDao jsonParamDao;
 
     @Autowired
-    JoinQuery joinQuery;
+    JoinTemplate joinQuery;
 
     @Override
     public String createJsonParam(@NotNull @Valid JsonParam jsonParam) {
