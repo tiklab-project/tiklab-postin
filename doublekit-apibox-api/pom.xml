@@ -25,11 +25,13 @@
         </dependency>
         <dependency>
             <groupId>com.doublekit</groupId>
-            <artifactId>doublekit-framework-beans-annotation</artifactId>
+            <artifactId>doublekit-beans-annotation</artifactId>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.doublekit</groupId>
-            <artifactId>doublekit-framework-join-annotation</artifactId>
+            <artifactId>doublekit-dsl-join-annotation</artifactId>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.doublekit</groupId>

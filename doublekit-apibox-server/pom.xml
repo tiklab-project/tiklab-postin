@@ -44,7 +44,8 @@
         <!--doublekit-->
         <dependency>
             <groupId>com.doublekit</groupId>
-            <artifactId>doublekit-framework-spring-boot-starter</artifactId>
+            <artifactId>doublekit-beans-spring-boot-starter</artifactId>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.doublekit</groupId>
@@ -68,17 +69,22 @@
         </dependency>
         <dependency>
             <groupId>com.doublekit</groupId>
+            <artifactId>doublekit-dsl-spring-boot-starter</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.doublekit</groupId>
+            <artifactId>doublekit-pcs-privilege-server</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.doublekit</groupId>
             <artifactId>doublekit-codegen</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.doublekit</groupId>
             <artifactId>doublekit-pcs-user-server</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.doublekit</groupId>
-            <artifactId>doublekit-pcs-privilege-server</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
