@@ -21,7 +21,7 @@ public class EnumParamPo implements Serializable {
     private String paramName;
 
     @Column(name = "subject_id",length = 32)
-    private String subjectId;
+    private String dataStructureId;
 
     @Column(name = "data_type",length = 32)
     private String dataType;
@@ -49,12 +49,12 @@ public class EnumParamPo implements Serializable {
         this.paramName = paramName;
     }
 
-    public String getSubjectId() {
-        return subjectId;
+    public String getDataStructureId() {
+        return dataStructureId;
     }
 
-    public void setSubjectId(String subjectId) {
-        this.subjectId = subjectId;
+    public void setDataStructureId(String dataStructureId) {
+        this.dataStructureId = dataStructureId;
     }
 
     public String getDataType() {

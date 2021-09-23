@@ -20,6 +20,10 @@ public class DataStructureQuery {
         @PageField
         private PageParam pageParam = new PageParam();
 
+        @ApiProperty(name ="name",desc = "接口名称，模糊匹配")
+        @QueryField(type = QueryTypeEnum.like)
+        private String name;
+
         public List<OrderParam> getOrderParams() {
             return orderParams;
         }
@@ -34,5 +38,14 @@ public class DataStructureQuery {
 
         public void setPageParam(PageParam pageParam) {
             this.pageParam = pageParam;
+        }
+
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
         }
 }

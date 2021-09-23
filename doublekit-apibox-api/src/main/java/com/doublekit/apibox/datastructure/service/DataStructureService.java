@@ -4,6 +4,10 @@ import com.doublekit.common.Pagination;
 
 import com.doublekit.apibox.datastructure.model.DataStructure;
 import com.doublekit.apibox.datastructure.model.DataStructureQuery;
+import com.doublekit.join.annotation.FindAll;
+import com.doublekit.join.annotation.FindList;
+import com.doublekit.join.annotation.FindOne;
+import com.doublekit.join.annotation.Provider;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -12,6 +16,7 @@ import java.util.List;
 /**
 * DataStructureService
 */
+@Provider(model = DataStructure.class)
 public interface DataStructureService {
 
     /**
@@ -33,8 +38,10 @@ public interface DataStructureService {
     */
     void deleteDataStructure(@NotNull String id);
 
+    @FindOne
     DataStructure findOne(@NotNull String id);
 
+    @FindList
     List<DataStructure> findList(List<String> idList);
 
     /**
@@ -48,6 +55,7 @@ public interface DataStructureService {
     * 查找所有
     * @return
     */
+    @FindAll
     List<DataStructure> findAllDataStructure();
 
     /**

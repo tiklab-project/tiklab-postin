@@ -15,7 +15,7 @@ public class EnumParamQuery {
 
         @ApiProperty(name ="methodId",desc = "主表ID，精确匹配")
         @QueryField(type = QueryTypeEnum.equal)
-        private  String DataStructureId;
+        private  String dataStructureId;
 
         @ApiProperty(name ="orderParams",desc = "排序参数")
         @OrderField
@@ -43,10 +43,10 @@ public class EnumParamQuery {
         }
 
         public String getDataStructureId() {
-            return DataStructureId;
+            return dataStructureId;
         }
 
         public void setDataStructureId(String dataStructureId) {
-            DataStructureId = dataStructureId;
+            this.dataStructureId = dataStructureId;
         }
 }

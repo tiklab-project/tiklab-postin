@@ -3,12 +3,17 @@ package com.doublekit.apibox.datastructure.model;
 import com.doublekit.apibox.annotation.ApiModel;
 import com.doublekit.apibox.annotation.ApiProperty;
 import com.doublekit.beans.annotation.Mapper;
+import com.doublekit.beans.annotation.Mapping;
+import com.doublekit.beans.annotation.Mappings;
 import com.doublekit.common.BaseModel;
+import com.doublekit.join.annotation.Join;
+import com.doublekit.join.annotation.JoinField;
 
 import javax.validation.constraints.NotNull;
 
 @ApiModel
 @Mapper
+@Join
 public class EnumParam extends BaseModel{
 
     @ApiProperty(name="id",desc="id")
@@ -18,8 +23,12 @@ public class EnumParam extends BaseModel{
     @ApiProperty(name="paramName",desc="名字",required = true)
     private java.lang.String paramName;
 
-    @ApiProperty(name="subjectId",desc="主表id")
-    private java.lang.String subjectId;
+    @ApiProperty(name="dataStructure",desc="主表")
+    @Mappings({
+            @Mapping(source = "dataStructure.id",target = "dataStructureId")
+    })
+    @JoinField(id = "id")
+    private DataStructure dataStructure;
 
     @ApiProperty(name="dataType",desc="类型")
     private java.lang.String dataType;
@@ -44,13 +53,15 @@ public class EnumParam extends BaseModel{
     public void setParamName(java.lang.String paramName) {
         this.paramName = paramName;
     }
-    public java.lang.String getSubjectId() {
-        return subjectId;
+
+    public DataStructure getDataStructure() {
+        return dataStructure;
     }
 
-    public void setSubjectId(java.lang.String subjectId) {
-        this.subjectId = subjectId;
+    public void setDataStructure(DataStructure dataStructure) {
+        this.dataStructure = dataStructure;
     }
+
     public java.lang.String getDataType() {
         return dataType;
     }
