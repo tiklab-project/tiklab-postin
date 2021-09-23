@@ -20,8 +20,9 @@ public class JsonParamDSQuery {
         @PageField
         private PageParam pageParam = new PageParam();
 
-        @ApiProperty(name ="subjectId",desc = "数据结构表id")
-        private String  subjectId;
+        @ApiProperty(name ="methodId",desc = "主表ID，精确匹配")
+        @QueryField(type = QueryTypeEnum.equal)
+        private  String dataStructureId;
 
         public List<OrderParam> getOrderParams() {
             return orderParams;
@@ -39,11 +40,11 @@ public class JsonParamDSQuery {
             this.pageParam = pageParam;
         }
 
-    public String getSubjectId() {
-        return subjectId;
-    }
+        public String getDataStructureId() {
+            return dataStructureId;
+        }
 
-    public void setSubjectId(String subjectId) {
-        this.subjectId = subjectId;
-    }
+        public void setDataStructureId(String dataStructureId) {
+            this.dataStructureId = dataStructureId;
+        }
 }
