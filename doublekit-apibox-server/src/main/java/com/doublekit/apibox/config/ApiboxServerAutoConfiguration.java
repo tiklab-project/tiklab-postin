@@ -1,22 +1,12 @@
 package com.doublekit.apibox.config;
 
 
-import com.doublekit.datafly.starter.annotation.EnableDatafly;
-import com.doublekit.message.annotation.EnableMessageServer;
-import com.doublekit.plugin.annotation.EnablePluginServer;
-import com.doublekit.privilege.annotation.EnablePrivilegeServer;
-import com.doublekit.toolkit.annotation.EnableToolkitServer;
-import com.doublekit.user.annotation.EnableUserServer;
+import com.doublekit.datafly.starter.annotation.EnableDataFly;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@EnableUserServer
-@EnablePrivilegeServer
-@EnableMessageServer
-@EnablePluginServer
-@EnableToolkitServer
-@EnableDatafly(location = {
+@EnableDataFly(location = {
         "scripts/apibase.sql",
         "scripts/apidef.sql",
         "scripts/apitest.sql",
