@@ -1,12 +1,12 @@
 package com.doublekit.apibox.config;
 
 
-import com.doublekit.datafly.starter.annotation.EnableDataFly;
+import com.doublekit.datafly.starter.annotation.DataFly;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@EnableDataFly(location = {
+@DataFly(locations = {
         "scripts/apibase.sql",
         "scripts/apidef.sql",
         "scripts/apitest.sql",

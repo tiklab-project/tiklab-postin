@@ -5,6 +5,7 @@ import com.doublekit.apibox.annotation.EnableApiboxServer;
 import com.doublekit.apibox.client.annotation.EnableApiboxClient;
 import com.doublekit.beans.starter.annotation.EnableBeans;
 import com.doublekit.dal.starter.annotation.EnableDal;
+import com.doublekit.datafly.starter.annotation.EnableDataFly;
 import com.doublekit.dcs.starter.annotation.EnableDcs;
 import com.doublekit.dfs.starter.annotation.EnableDfs;
 import com.doublekit.dsl.starter.annotation.EnableDsl;
@@ -28,6 +29,7 @@ import org.springframework.context.annotation.Configuration;
 @EnableDcs
 @EnableDss
 @EnableMessage
+@EnableDataFly
 //pcs
 @EnableUserServer
 @EnableEamServer
