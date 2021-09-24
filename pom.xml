@@ -20,7 +20,6 @@
         <module>doublekit-apibox-api</module>
         <module>doublekit-apibox-client</module>
         <module>doublekit-apibox-server</module>
-        <module>doublekit-apibox-plugin</module>
         <module>doublekit-apibox-ui</module>
         <module>doublekit-apibox-distribution</module>
         <module>doublekit-apibox-starter</module>
