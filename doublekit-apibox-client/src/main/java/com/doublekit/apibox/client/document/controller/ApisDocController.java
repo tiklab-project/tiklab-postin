@@ -1,6 +1,5 @@
 package com.doublekit.apibox.client.document.controller;
 
-import com.doublekit.apibox.client.builder.ApiData;
 import com.doublekit.apibox.client.builder.ApiMetaContext;
 import com.doublekit.apibox.client.model.ApiMeta;
 import com.doublekit.apibox.client.model.ApiMethodMeta;
@@ -20,10 +19,10 @@ import java.util.Map;
  * Created by Zhangzhihua on 2017/9/25.
  */
 @Controller
-@RequestMapping("/api")
-public class ApiDocController {
+@RequestMapping("/apis")
+public class ApisDocController {
 
-    private static Logger logger = LoggerFactory.getLogger(ApiDocController.class);
+    private static Logger logger = LoggerFactory.getLogger(ApisDocController.class);
 
 
     @RequestMapping(path="/list",method = RequestMethod.GET)

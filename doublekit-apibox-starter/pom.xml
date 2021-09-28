@@ -68,6 +68,7 @@
                     <skip>true</skip>
                 </configuration>
             </plugin>
+            <!--
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
@@ -87,16 +88,12 @@
                             <artifactId>doublekit-pcs-user-language-en-plugin</artifactId>
                             <version>${project.version}</version>
                         </artifactItem>
-                        <artifactItem>
-                            <groupId>com.doublekit</groupId>
-                            <artifactId>doublekit-apibox-language-en-plugin</artifactId>
-                            <version>${project.version}</version>
-                        </artifactItem>
                     </artifactItems>
                     <includeTypes>jar</includeTypes>
                     <outputDirectory>${project.basedir}/plugin</outputDirectory>
                 </configuration>
             </plugin>
+            -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
