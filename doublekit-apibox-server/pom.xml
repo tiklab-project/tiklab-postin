@@ -41,7 +41,7 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <!--doublekit-->
+        <!--platform-->
         <dependency>
             <groupId>com.doublekit</groupId>
             <artifactId>doublekit-beans-spring-boot-starter</artifactId>
@@ -74,17 +74,28 @@
         </dependency>
         <dependency>
             <groupId>com.doublekit</groupId>
-            <artifactId>doublekit-pcs-privilege-server</artifactId>
-            <version>${project.version}</version>
+            <artifactId>doublekit-message-spring-boot-starter</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.doublekit</groupId>
             <artifactId>doublekit-codegen</artifactId>
             <scope>test</scope>
         </dependency>
+        <!--pcs-->
         <dependency>
             <groupId>com.doublekit</groupId>
             <artifactId>doublekit-pcs-user-server</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.doublekit</groupId>
+            <artifactId>doublekit-pcs-eam-authenticator</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.doublekit</groupId>
+            <artifactId>doublekit-pcs-privilege-server</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
@@ -111,12 +122,6 @@
             <groupId>com.doublekit</groupId>
             <artifactId>doublekit-apibox-client</artifactId>
             <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.doublekit</groupId>
-            <artifactId>doublekit-message-spring-boot-starter</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
-            <scope>test</scope>
         </dependency>
     </dependencies>
 
