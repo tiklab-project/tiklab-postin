@@ -11,7 +11,7 @@ import com.doublekit.dfs.starter.annotation.EnableDfs;
 import com.doublekit.dsl.starter.annotation.EnableDsl;
 import com.doublekit.dss.starter.annotation.EnableDss;
 import com.doublekit.eam.annotation.EnableEamServer;
-import com.doublekit.eam.authenticator.annotation.EnableEamAuthenticator;
+import com.doublekit.eam.client.annotation.EnableEamClient;
 import com.doublekit.message.starter.annotation.EnableMessage;
 import com.doublekit.plugin.annotation.EnablePluginServer;
 import com.doublekit.privilege.annotation.EnablePrivilegeServer;
@@ -34,7 +34,7 @@ import org.springframework.context.annotation.Configuration;
 //pcs
 @EnableUserServer
 @EnableEamServer
-@EnableEamAuthenticator
+@EnableEamClient
 @EnablePrivilegeServer
 @EnablePluginServer
 @EnableToolkitServer
