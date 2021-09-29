@@ -1,8 +1,8 @@
 package com.doublekit.apibox.config;
 
-import com.doublekit.eam.authenticator.config.EamTicketConfig;
-import com.doublekit.eam.authenticator.config.EamTicketConfigBuilder;
-import com.doublekit.eam.authenticator.filter.EamTicketFilter;
+import com.doublekit.eam.client.config.EamTicketConfig;
+import com.doublekit.eam.client.config.EamTicketConfigBuilder;
+import com.doublekit.eam.client.filter.EamTicketFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
