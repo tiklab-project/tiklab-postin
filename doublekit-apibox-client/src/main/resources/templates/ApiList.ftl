@@ -12,7 +12,7 @@
             <#list api.apiMethodMetaList as method>
                 <tr>
                     <td>
-                        <a href="/api/detail/${api.name}/${method.name}">
+                        <a href="/apis/detail/${api.name}/${method.name}">
                             <span style="background: aqua">${method.requestType}</span> ${method.path} ${method.desc}
                         </a>
                     </td>
