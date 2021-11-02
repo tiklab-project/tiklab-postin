@@ -7,6 +7,7 @@ import com.doublekit.apibox.apitest.model.JsonParamCaseQuery;
 
 import com.doublekit.common.Pagination;
 import com.doublekit.beans.BeanMapper;
+import com.doublekit.common.PaginationBuilder;
 import com.doublekit.join.JoinTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -96,17 +97,14 @@ public class JsonParamCaseServiceImpl implements JsonParamCaseService {
 
     @Override
     public Pagination<JsonParamCase> findJsonParamCasePage(JsonParamCaseQuery jsonParamCaseQuery) {
-        Pagination<JsonParamCase> pg = new Pagination<>();
 
         Pagination<JsonParamCaseEntity>  pagination = jsonParamCaseDao.findJsonParamCasePage(jsonParamCaseQuery);
-        BeanUtils.copyProperties(pagination,pg);
 
         List<JsonParamCase> jsonParamCaseList = BeanMapper.mapList(pagination.getDataList(),JsonParamCase.class);
 
         joinQuery.queryList(jsonParamCaseList);
 
-        pg.setDataList(jsonParamCaseList);
-        return pg;
+        return PaginationBuilder.build(pagination,jsonParamCaseList);
     }
 
     @Override

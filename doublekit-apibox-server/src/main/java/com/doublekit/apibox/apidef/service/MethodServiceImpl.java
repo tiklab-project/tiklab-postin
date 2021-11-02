@@ -9,6 +9,7 @@ import com.doublekit.apibox.apidef.model.MethodExQuery;
 import com.doublekit.apibox.apidef.support.MessageTemplateConstant;
 import com.doublekit.beans.BeanMapper;
 import com.doublekit.common.Pagination;
+import com.doublekit.common.PaginationBuilder;
 import com.doublekit.dal.jpa.builder.deletelist.condition.DeleteCondition;
 import com.doublekit.dal.jpa.builder.deletelist.conditionbuilder.DeleteBuilders;
 import com.doublekit.dss.client.DssClient;
@@ -262,30 +263,27 @@ public class MethodServiceImpl implements MethodService {
 
     @Override
     public Pagination<MethodEx> findMethodPage(MethodExQuery methodExQuery) {
-        Pagination<MethodEx> pg = new Pagination<>();
 
         //添加当前版本
         methodExQuery.setVersionCode("current");
 
 
-        return  findMethodPage(pg,methodExQuery);
+        return  findMethod(methodExQuery);
     }
     /**
      * 分页查询
      * @param
      */
-    public Pagination<MethodEx> findMethodPage(Pagination pg,MethodExQuery methodExQuery) {
+    public Pagination<MethodEx> findMethod(MethodExQuery methodExQuery) {
 
         Pagination<MethodEntity>  pagination = methodDao.findMethodPage(methodExQuery);
 
-        BeanUtils.copyProperties(pagination,pg);
 
         List<MethodEx> methodExList = BeanMapper.mapList(pagination.getDataList(), MethodEx.class);
 
         joinQuery.queryList(methodExList);
 
-        pg.setDataList(methodExList);
-        return pg;
+        return PaginationBuilder.build(pagination,methodExList);
     }
 
     /**

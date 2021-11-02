@@ -8,6 +8,7 @@ import com.doublekit.apibox.datastructure.model.DataStructure;
 import com.doublekit.apibox.datastructure.model.DataStructureQuery;
 import com.doublekit.beans.BeanMapper;
 import com.doublekit.common.Pagination;
+import com.doublekit.common.PaginationBuilder;
 import com.doublekit.dal.jpa.builder.deletelist.condition.DeleteCondition;
 import com.doublekit.dal.jpa.builder.deletelist.conditionbuilder.DeleteBuilders;
 import com.doublekit.eam.common.Ticket;
@@ -116,17 +117,14 @@ public class DataStructureServiceImpl implements DataStructureService {
 
     @Override
     public Pagination<DataStructure> findDataStructurePage(DataStructureQuery dataStructureQuery) {
-        Pagination<DataStructure> pg = new Pagination<>();
 
         Pagination<DataStructureEntity>  pagination = dataStructureDao.findDataStructurePage(dataStructureQuery);
-        BeanUtils.copyProperties(pagination,pg);
 
         List<DataStructure> dataStructureList = BeanMapper.mapList(pagination.getDataList(),DataStructure.class);
 
         joinQuery.queryList(dataStructureList);
 
-        pg.setDataList(dataStructureList);
-        return pg;
+        return PaginationBuilder.build(pagination,dataStructureList);
     }
 
     /**

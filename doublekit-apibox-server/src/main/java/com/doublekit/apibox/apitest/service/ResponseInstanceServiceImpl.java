@@ -7,6 +7,7 @@ import com.doublekit.apibox.apitest.model.ResponseInstanceQuery;
 
 import com.doublekit.common.Pagination;
 import com.doublekit.beans.BeanMapper;
+import com.doublekit.common.PaginationBuilder;
 import com.doublekit.join.JoinTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -95,16 +96,13 @@ public class ResponseInstanceServiceImpl implements ResponseInstanceService {
 
     @Override
     public Pagination<ResponseInstance> findResponseInstancePage(ResponseInstanceQuery responseInstanceQuery) {
-        Pagination<ResponseInstance> pg = new Pagination<>();
 
         Pagination<ResponseInstanceEntity>  pagination = responseInstanceDao.findResponseInstancePage(responseInstanceQuery);
-        BeanUtils.copyProperties(pagination,pg);
 
         List<ResponseInstance> responseInstanceList = BeanMapper.mapList(pagination.getDataList(),ResponseInstance.class);
 
         joinQuery.queryList(responseInstanceList);
 
-        pg.setDataList(responseInstanceList);
-        return pg;
+        return PaginationBuilder.build(pagination,responseInstanceList);
     }
 }

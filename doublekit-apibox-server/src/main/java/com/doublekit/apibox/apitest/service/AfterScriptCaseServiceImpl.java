@@ -7,6 +7,7 @@ import com.doublekit.apibox.apitest.model.AfterScriptCaseQuery;
 
 import com.doublekit.common.Pagination;
 import com.doublekit.beans.BeanMapper;
+import com.doublekit.common.PaginationBuilder;
 import com.doublekit.join.JoinTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -95,16 +96,13 @@ public class AfterScriptCaseServiceImpl implements AfterScriptCaseService {
 
     @Override
     public Pagination<AfterScriptCase> findAfterScriptCasePage(AfterScriptCaseQuery afterScriptCaseQuery) {
-        Pagination<AfterScriptCase> pg = new Pagination<>();
 
         Pagination<AfterScriptCaseEntity>  pagination = afterScriptCaseDao.findAfterScriptCasePage(afterScriptCaseQuery);
-        BeanUtils.copyProperties(pagination,pg);
 
         List<AfterScriptCase> afterScriptCaseList = BeanMapper.mapList(pagination.getDataList(),AfterScriptCase.class);
 
         joinQuery.queryList(afterScriptCaseList);
 
-        pg.setDataList(afterScriptCaseList);
-        return pg;
+        return PaginationBuilder.build(pagination,afterScriptCaseList);
     }
 }

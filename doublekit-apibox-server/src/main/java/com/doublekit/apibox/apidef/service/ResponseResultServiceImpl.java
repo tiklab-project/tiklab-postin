@@ -7,6 +7,7 @@ import com.doublekit.apibox.apidef.model.ResponseResultQuery;
 
 import com.doublekit.common.Pagination;
 import com.doublekit.beans.BeanMapper;
+import com.doublekit.common.PaginationBuilder;
 import com.doublekit.join.JoinTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -83,16 +84,13 @@ public class ResponseResultServiceImpl implements ResponseResultService {
 
     @Override
     public Pagination<ResponseResult> findResponseResultPage(ResponseResultQuery responseResultQuery) {
-        Pagination<ResponseResult> pg = new Pagination<>();
 
         Pagination<ResponseResultEntity>  pagination = responseResultDao.findResponseResultPage(responseResultQuery);
-        BeanUtils.copyProperties(pagination,pg);
 
         List<ResponseResult> responseResultList = BeanMapper.mapList(pagination.getDataList(),ResponseResult.class);
 
         joinQuery.queryList(responseResultList);
 
-        pg.setDataList(responseResultList);
-        return pg;
+        return PaginationBuilder.build(pagination,responseResultList);
     }
 }

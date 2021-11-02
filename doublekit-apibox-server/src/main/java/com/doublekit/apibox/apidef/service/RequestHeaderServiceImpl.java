@@ -7,6 +7,7 @@ import com.doublekit.apibox.apidef.model.RequestHeaderQuery;
 
 import com.doublekit.common.Pagination;
 import com.doublekit.beans.BeanMapper;
+import com.doublekit.common.PaginationBuilder;
 import com.doublekit.join.JoinTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -83,16 +84,13 @@ public class RequestHeaderServiceImpl implements RequestHeaderService {
 
     @Override
     public Pagination<RequestHeader> findRequestHeaderPage(RequestHeaderQuery requestHeaderQuery) {
-        Pagination<RequestHeader> pg = new Pagination<>();
 
         Pagination<RequestHeaderEntity>  pagination = requestHeaderDao.findRequestHeaderPage(requestHeaderQuery);
-        BeanUtils.copyProperties(pagination,pg);
 
         List<RequestHeader> requestHeaderList = BeanMapper.mapList(pagination.getDataList(),RequestHeader.class);
 
         joinQuery.queryList(requestHeaderList);
 
-        pg.setDataList(requestHeaderList);
-        return pg;
+        return PaginationBuilder.build(pagination,requestHeaderList);
     }
 }

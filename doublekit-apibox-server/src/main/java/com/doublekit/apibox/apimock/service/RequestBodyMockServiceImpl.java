@@ -7,6 +7,7 @@ import com.doublekit.apibox.apimock.model.RequestBodyMockQuery;
 
 import com.doublekit.common.Pagination;
 import com.doublekit.beans.BeanMapper;
+import com.doublekit.common.PaginationBuilder;
 import com.doublekit.join.JoinTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -95,16 +96,13 @@ public class RequestBodyMockServiceImpl implements RequestBodyMockService {
 
     @Override
     public Pagination<RequestBodyMock> findRequestBodyMockPage(RequestBodyMockQuery requestBodyMockQuery) {
-        Pagination<RequestBodyMock> pg = new Pagination<>();
 
         Pagination<RequestBodyMockEntity>  pagination = requestBodyMockDao.findRequestBodyMockPage(requestBodyMockQuery);
-        BeanUtils.copyProperties(pagination,pg);
 
         List<RequestBodyMock> requestBodyMockList = BeanMapper.mapList(pagination.getDataList(),RequestBodyMock.class);
 
         joinQuery.queryList(requestBodyMockList);
 
-        pg.setDataList(requestBodyMockList);
-        return pg;
+        return PaginationBuilder.build(pagination,requestBodyMockList);
     }
 }

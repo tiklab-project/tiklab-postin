@@ -6,6 +6,7 @@ import com.doublekit.apibox.workspace.model.Workspace;
 import com.doublekit.apibox.workspace.model.WorkspaceQuery;
 import com.doublekit.beans.BeanMapper;
 import com.doublekit.common.Pagination;
+import com.doublekit.common.PaginationBuilder;
 import com.doublekit.dss.client.DssClient;
 import com.doublekit.eam.common.Ticket;
 import com.doublekit.eam.common.TicketContext;
@@ -121,13 +122,10 @@ public class WorkspaceServiceImpl implements WorkspaceService {
 
     @Override
     public Pagination<Workspace> findWorkspacePage(WorkspaceQuery workspaceQuery) {
-        Pagination<Workspace> pg = new Pagination<>();
 
         Pagination<WorkspaceEntity>  pagination = workspaceDao.findWorkspacePage(workspaceQuery);
-        BeanUtils.copyProperties(pagination,pg);
 
         List<Workspace> workspaceList = BeanMapper.mapList(pagination.getDataList(),Workspace.class);
-        pg.setDataList(workspaceList);
-        return pg;
+        return PaginationBuilder.build(pagination,workspaceList);
     }
 }

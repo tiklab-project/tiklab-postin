@@ -9,6 +9,7 @@ import com.doublekit.apibox.datastructure.model.JsonParamDSQuery;
 
 import com.doublekit.common.Pagination;
 import com.doublekit.beans.BeanMapper;
+import com.doublekit.common.PaginationBuilder;
 import com.doublekit.join.JoinTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -103,17 +104,14 @@ public class JsonParamDSServiceImpl implements JsonParamDSService {
 
     @Override
     public Pagination<JsonParamDS> findJsonParamDSPage(JsonParamDSQuery jsonParamDSQuery) {
-        Pagination<JsonParamDS> pg = new Pagination<>();
 
         Pagination<JsonParamDSEntity>  pagination = jsonParamDSDao.findJsonParamDSPage(jsonParamDSQuery);
-        BeanUtils.copyProperties(pagination,pg);
 
         List<JsonParamDS> jsonParamDSList = BeanMapper.mapList(pagination.getDataList(),JsonParamDS.class);
 
         joinQuery.queryList(jsonParamDSList);
 
-        pg.setDataList(jsonParamDSList);
-        return pg;
+        return PaginationBuilder.build(pagination,jsonParamDSList);
     }
 
     @Override

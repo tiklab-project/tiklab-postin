@@ -7,6 +7,7 @@ import com.doublekit.apibox.apimock.model.ResponseMockQuery;
 
 import com.doublekit.common.Pagination;
 import com.doublekit.beans.BeanMapper;
+import com.doublekit.common.PaginationBuilder;
 import com.doublekit.join.JoinTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -83,16 +84,13 @@ public class ResponseMockServiceImpl implements ResponseMockService {
 
     @Override
     public Pagination<ResponseMock> findResponseMockPage(ResponseMockQuery responseMockQuery) {
-        Pagination<ResponseMock> pg = new Pagination<>();
 
         Pagination<ResponseMockEntity>  pagination = responseMockDao.findResponseMockPage(responseMockQuery);
-        BeanUtils.copyProperties(pagination,pg);
 
         List<ResponseMock> responseMockList = BeanMapper.mapList(pagination.getDataList(),ResponseMock.class);
 
         joinQuery.queryList(responseMockList);
 
-        pg.setDataList(responseMockList);
-        return pg;
+        return PaginationBuilder.build(pagination,responseMockList);
     }
 }

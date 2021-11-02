@@ -8,6 +8,7 @@ import com.doublekit.apibox.apidef.model.JsonResponseQuery;
 import com.doublekit.apibox.apidef.model.MethodEx;
 import com.doublekit.beans.BeanMapper;
 import com.doublekit.common.Pagination;
+import com.doublekit.common.PaginationBuilder;
 import com.doublekit.join.JoinTemplate;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,17 +85,14 @@ public class JsonResponseServiceImpl implements JsonResponseService {
 
     @Override
     public Pagination<JsonResponse> findJsonResponsePage(JsonResponseQuery jsonResponseQuery) {
-        Pagination<JsonResponse> pg = new Pagination<>();
 
         Pagination<JsonResponseEntity>  pagination = jsonResponseDao.findJsonResponsePage(jsonResponseQuery);
-        BeanUtils.copyProperties(pagination,pg);
 
         List<JsonResponse> jsonResponseList = BeanMapper.mapList(pagination.getDataList(), JsonResponse.class);
 
         joinQuery.queryList(jsonResponseList);
 
-        pg.setDataList(jsonResponseList);
-        return pg;
+        return PaginationBuilder.build(pagination,jsonResponseList);
     }
 
     @Override

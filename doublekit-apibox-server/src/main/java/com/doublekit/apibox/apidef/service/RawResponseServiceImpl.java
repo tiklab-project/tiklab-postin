@@ -7,6 +7,7 @@ import com.doublekit.apibox.apidef.model.RawResponseQuery;
 
 import com.doublekit.common.Pagination;
 import com.doublekit.beans.BeanMapper;
+import com.doublekit.common.PaginationBuilder;
 import com.doublekit.join.JoinTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -83,16 +84,13 @@ public class RawResponseServiceImpl implements RawResponseService {
 
     @Override
     public Pagination<RawResponse> findRawResponsePage(RawResponseQuery rawResponseQuery) {
-        Pagination<RawResponse> pg = new Pagination<>();
 
         Pagination<RawResponseEntity>  pagination = rawResponseDao.findRawResponsePage(rawResponseQuery);
-        BeanUtils.copyProperties(pagination,pg);
 
         List<RawResponse> rawResponseList = BeanMapper.mapList(pagination.getDataList(),RawResponse.class);
 
         joinQuery.queryList(rawResponseList);
 
-        pg.setDataList(rawResponseList);
-        return pg;
+        return PaginationBuilder.build(pagination,rawResponseList);
     }
 }

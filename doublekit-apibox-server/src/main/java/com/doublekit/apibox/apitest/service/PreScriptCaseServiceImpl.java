@@ -7,6 +7,7 @@ import com.doublekit.apibox.apitest.model.PreScriptCaseQuery;
 
 import com.doublekit.common.Pagination;
 import com.doublekit.beans.BeanMapper;
+import com.doublekit.common.PaginationBuilder;
 import com.doublekit.join.JoinTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -95,16 +96,13 @@ public class PreScriptCaseServiceImpl implements PreScriptCaseService {
 
     @Override
     public Pagination<PreScriptCase> findPreScriptCasePage(PreScriptCaseQuery preScriptCaseQuery) {
-        Pagination<PreScriptCase> pg = new Pagination<>();
 
         Pagination<PreScriptCaseEntity>  pagination = preScriptCaseDao.findPreScriptCasePage(preScriptCaseQuery);
-        BeanUtils.copyProperties(pagination,pg);
 
         List<PreScriptCase> preScriptCaseList = BeanMapper.mapList(pagination.getDataList(),PreScriptCase.class);
 
         joinQuery.queryList(preScriptCaseList);
 
-        pg.setDataList(preScriptCaseList);
-        return pg;
+        return PaginationBuilder.build(pagination,preScriptCaseList);
     }
 }

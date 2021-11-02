@@ -7,6 +7,7 @@ import com.doublekit.apibox.apitest.model.AssertInstanceQuery;
 
 import com.doublekit.common.Pagination;
 import com.doublekit.beans.BeanMapper;
+import com.doublekit.common.PaginationBuilder;
 import com.doublekit.join.JoinTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -95,16 +96,13 @@ public class AssertInstanceServiceImpl implements AssertInstanceService {
 
     @Override
     public Pagination<AssertInstance> findAssertInstancePage(AssertInstanceQuery assertInstanceQuery) {
-        Pagination<AssertInstance> pg = new Pagination<>();
 
         Pagination<AssertInstanceEntity>  pagination = assertInstanceDao.findAssertInstancePage(assertInstanceQuery);
-        BeanUtils.copyProperties(pagination,pg);
 
         List<AssertInstance> assertInstanceList = BeanMapper.mapList(pagination.getDataList(),AssertInstance.class);
 
         joinQuery.queryList(assertInstanceList);
 
-        pg.setDataList(assertInstanceList);
-        return pg;
+        return PaginationBuilder.build(pagination,assertInstanceList);
     }
 }

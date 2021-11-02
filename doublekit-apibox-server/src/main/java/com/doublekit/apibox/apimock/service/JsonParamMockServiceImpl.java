@@ -7,6 +7,7 @@ import com.doublekit.apibox.apimock.model.JsonParamMockQuery;
 
 import com.doublekit.common.Pagination;
 import com.doublekit.beans.BeanMapper;
+import com.doublekit.common.PaginationBuilder;
 import com.doublekit.join.JoinTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -95,16 +96,13 @@ public class JsonParamMockServiceImpl implements JsonParamMockService {
 
     @Override
     public Pagination<JsonParamMock> findJsonParamMockPage(JsonParamMockQuery jsonParamMockQuery) {
-        Pagination<JsonParamMock> pg = new Pagination<>();
 
         Pagination<JsonParamMockEntity>  pagination = jsonParamMockDao.findJsonParamMockPage(jsonParamMockQuery);
-        BeanUtils.copyProperties(pagination,pg);
 
         List<JsonParamMock> jsonParamMockList = BeanMapper.mapList(pagination.getDataList(),JsonParamMock.class);
 
         joinQuery.queryList(jsonParamMockList);
 
-        pg.setDataList(jsonParamMockList);
-        return pg;
+        return PaginationBuilder.build(pagination,jsonParamMockList);
     }
 }

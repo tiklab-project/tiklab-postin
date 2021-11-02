@@ -7,6 +7,7 @@ import com.doublekit.apibox.apimock.model.FormParamMockQuery;
 
 import com.doublekit.common.Pagination;
 import com.doublekit.beans.BeanMapper;
+import com.doublekit.common.PaginationBuilder;
 import com.doublekit.join.JoinTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -83,16 +84,13 @@ public class FormParamMockServiceImpl implements FormParamMockService {
 
     @Override
     public Pagination<FormParamMock> findFormParamMockPage(FormParamMockQuery formParamMockQuery) {
-        Pagination<FormParamMock> pg = new Pagination<>();
 
         Pagination<FormParamMockEntity>  pagination = formParamMockDao.findFormParamMockPage(formParamMockQuery);
-        BeanUtils.copyProperties(pagination,pg);
 
         List<FormParamMock> formParamMockList = BeanMapper.mapList(pagination.getDataList(),FormParamMock.class);
 
         joinQuery.queryList(formParamMockList);
 
-        pg.setDataList(formParamMockList);
-        return pg;
+        return PaginationBuilder.build(pagination,formParamMockList);
     }
 }

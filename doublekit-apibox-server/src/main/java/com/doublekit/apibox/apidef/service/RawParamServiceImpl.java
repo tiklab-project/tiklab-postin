@@ -7,6 +7,7 @@ import com.doublekit.apibox.apidef.model.RawParamQuery;
 
 import com.doublekit.common.Pagination;
 import com.doublekit.beans.BeanMapper;
+import com.doublekit.common.PaginationBuilder;
 import com.doublekit.join.JoinTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -83,16 +84,13 @@ public class RawParamServiceImpl implements RawParamService {
 
     @Override
     public Pagination<RawParam> findRawParamPage(RawParamQuery rawParamQuery) {
-        Pagination<RawParam> pg = new Pagination<>();
 
         Pagination<RawParamEntity>  pagination = rawParamDao.findRawParamPage(rawParamQuery);
-        BeanUtils.copyProperties(pagination,pg);
 
         List<RawParam> rawParamList = BeanMapper.mapList(pagination.getDataList(),RawParam.class);
 
         joinQuery.queryList(rawParamList);
 
-        pg.setDataList(rawParamList);
-        return pg;
+        return PaginationBuilder.build(pagination,rawParamList);
     }
 }

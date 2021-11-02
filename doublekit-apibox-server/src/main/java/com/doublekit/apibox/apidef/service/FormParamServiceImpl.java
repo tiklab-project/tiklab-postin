@@ -7,6 +7,7 @@ import com.doublekit.apibox.apidef.model.FormParamQuery;
 
 import com.doublekit.common.Pagination;
 import com.doublekit.beans.BeanMapper;
+import com.doublekit.common.PaginationBuilder;
 import com.doublekit.join.JoinTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -83,16 +84,13 @@ public class FormParamServiceImpl implements FormParamService {
 
     @Override
     public Pagination<FormParam> findFormParamPage(FormParamQuery formParamQuery) {
-        Pagination<FormParam> pg = new Pagination<>();
 
         Pagination<FormParamEntity>  pagination = formParamDao.findFormParamPage(formParamQuery);
-        BeanUtils.copyProperties(pagination,pg);
 
         List<FormParam> formParamList = BeanMapper.mapList(pagination.getDataList(),FormParam.class);
 
         joinQuery.queryList(formParamList);
 
-        pg.setDataList(formParamList);
-        return pg;
+        return PaginationBuilder.build(pagination,formParamList);
     }
 }

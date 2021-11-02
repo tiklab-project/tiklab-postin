@@ -7,6 +7,7 @@ import com.doublekit.apibox.sysmgr.model.EnvironmentQuery;
 
 import com.doublekit.common.Pagination;
 import com.doublekit.beans.BeanMapper;
+import com.doublekit.common.PaginationBuilder;
 import com.doublekit.join.JoinTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -98,16 +99,13 @@ public class EnvironmentServiceImpl implements EnvironmentService {
 
     @Override
     public Pagination<Environment> findEnvironmentPage(EnvironmentQuery environmentQuery) {
-        Pagination<Environment> pg = new Pagination<>();
 
         Pagination<EnvironmentEntity>  pagination = environmentDao.findEnvironmentPage(environmentQuery);
-        BeanUtils.copyProperties(pagination,pg);
 
         List<Environment> environmentList = BeanMapper.mapList(pagination.getDataList(),Environment.class);
 
         joinQuery.queryList(environmentList);
 
-        pg.setDataList(environmentList);
-        return pg;
+        return PaginationBuilder.build(pagination,environmentList);
     }
 }

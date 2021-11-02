@@ -7,6 +7,7 @@ import com.doublekit.apibox.apidef.model.JsonParamQuery;
 
 import com.doublekit.common.Pagination;
 import com.doublekit.beans.BeanMapper;
+import com.doublekit.common.PaginationBuilder;
 import com.doublekit.join.JoinTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -147,16 +148,13 @@ public class JsonParamServiceImpl implements JsonParamService {
 
     @Override
     public Pagination<JsonParam> findJsonParamPage(JsonParamQuery jsonParamQuery) {
-        Pagination<JsonParam> pg = new Pagination<>();
 
         Pagination<JsonParamEntity>  pagination = jsonParamDao.findJsonParamPage(jsonParamQuery);
-        BeanUtils.copyProperties(pagination,pg);
 
         List<JsonParam> jsonParamList = BeanMapper.mapList(pagination.getDataList(),JsonParam.class);
 
         joinQuery.queryList(jsonParamList);
 
-        pg.setDataList(jsonParamList);
-        return pg;
+        return PaginationBuilder.build(pagination,jsonParamList);
     }
 }

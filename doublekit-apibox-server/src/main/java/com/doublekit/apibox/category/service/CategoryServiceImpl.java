@@ -12,6 +12,7 @@ import com.doublekit.apibox.category.model.CategoryQuery;
 import com.doublekit.apibox.node.dao.NodeDao;
 import com.doublekit.common.Pagination;
 import com.doublekit.beans.BeanMapper;
+import com.doublekit.common.PaginationBuilder;
 import com.doublekit.join.JoinTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -122,17 +123,14 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Pagination<Category> findCategoryPage(CategoryQuery categoryQuery) {
-        Pagination<Category> pg = new Pagination<>();
 
         Pagination<CategoryEntity>  pagination = categoryDao.findCategoryPage(categoryQuery);
-        BeanUtils.copyProperties(pagination,pg);
 
         List<Category> categoryList = BeanMapper.mapList(pagination.getDataList(),Category.class);
-        pg.setDataList(categoryList);
 
         joinQuery.queryList(categoryList);
 
-        return pg;
+        return PaginationBuilder.build(pagination,categoryList);
     }
 
     @Override

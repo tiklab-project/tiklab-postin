@@ -7,6 +7,7 @@ import com.doublekit.apibox.apitest.model.QueryParamCase;
 import com.doublekit.apibox.apitest.model.QueryParamCaseQuery;
 import com.doublekit.common.Pagination;
 import com.doublekit.beans.BeanMapper;
+import com.doublekit.common.PaginationBuilder;
 import com.doublekit.join.JoinTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -95,16 +96,13 @@ public class QueryParamCaseServiceImpl implements QueryParamCaseService {
 
     @Override
     public Pagination<QueryParamCase> findQueryParamCasePage(QueryParamCaseQuery queryParamCaseQuery) {
-        Pagination<QueryParamCase> pg = new Pagination<>();
 
         Pagination<QueryParamCaseEntity>  pagination = queryParamCaseDao.findQueryParamCasePage(queryParamCaseQuery);
-        BeanUtils.copyProperties(pagination,pg);
 
         List<QueryParamCase> queryParamCaseList = BeanMapper.mapList(pagination.getDataList(),QueryParamCase.class);
 
         joinQuery.queryList(queryParamCaseList);
 
-        pg.setDataList(queryParamCaseList);
-        return pg;
+        return PaginationBuilder.build(pagination,queryParamCaseList);
     }
 }

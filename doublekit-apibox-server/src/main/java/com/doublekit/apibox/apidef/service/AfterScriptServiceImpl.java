@@ -7,6 +7,7 @@ import com.doublekit.apibox.apidef.model.AfterScriptQuery;
 
 import com.doublekit.common.Pagination;
 import com.doublekit.beans.BeanMapper;
+import com.doublekit.common.PaginationBuilder;
 import com.doublekit.join.JoinTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -83,16 +84,13 @@ public class AfterScriptServiceImpl implements AfterScriptService {
 
     @Override
     public Pagination<AfterScript> findAfterScriptPage(AfterScriptQuery afterScriptQuery) {
-        Pagination<AfterScript> pg = new Pagination<>();
 
         Pagination<AfterScriptEntity>  pagination = afterScriptDao.findAfterScriptPage(afterScriptQuery);
-        BeanUtils.copyProperties(pagination,pg);
 
         List<AfterScript> afterScriptList = BeanMapper.mapList(pagination.getDataList(),AfterScript.class);
 
         joinQuery.queryList(afterScriptList);
 
-        pg.setDataList(afterScriptList);
-        return pg;
+        return PaginationBuilder.build(pagination,afterScriptList);
     }
 }

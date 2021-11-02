@@ -7,6 +7,7 @@ import com.doublekit.apibox.node.model.NodeQuery;
 
 import com.doublekit.common.Pagination;
 import com.doublekit.beans.BeanMapper;
+import com.doublekit.common.PaginationBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -67,14 +68,11 @@ public class NodeServiceImpl implements NodeService {
 
     @Override
     public Pagination<Node> findNodePage(NodeQuery nodeQuery) {
-        Pagination<Node> pg = new Pagination<>();
 
         Pagination<NodeEntity>  pagination = nodeDao.findNodePage(nodeQuery);
-        BeanUtils.copyProperties(pagination,pg);
 
         List<Node> nodeList = BeanMapper.mapList(pagination.getDataList(),Node.class);
-        pg.setDataList(nodeList);
-        return pg;
+        return PaginationBuilder.build(pagination,nodeList);
     }
 
     @Override

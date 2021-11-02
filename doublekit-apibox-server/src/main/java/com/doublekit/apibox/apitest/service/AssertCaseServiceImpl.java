@@ -7,6 +7,7 @@ import com.doublekit.apibox.apitest.model.AssertCaseQuery;
 
 import com.doublekit.common.Pagination;
 import com.doublekit.beans.BeanMapper;
+import com.doublekit.common.PaginationBuilder;
 import com.doublekit.join.JoinTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -95,16 +96,14 @@ public class AssertCaseServiceImpl implements AssertCaseService {
 
     @Override
     public Pagination<AssertCase> findAssertCasePage(AssertCaseQuery assertCaseQuery) {
-        Pagination<AssertCase> pg = new Pagination<>();
 
         Pagination<AssertCaseEntity>  pagination = assertCaseDao.findAssertCasePage(assertCaseQuery);
-        BeanUtils.copyProperties(pagination,pg);
 
         List<AssertCase> assertCaseList = BeanMapper.mapList(pagination.getDataList(),AssertCase.class);
 
         joinQuery.queryList(assertCaseList);
 
-        pg.setDataList(assertCaseList);
-        return pg;
+
+        return PaginationBuilder.build(pagination,assertCaseList);
     }
 }

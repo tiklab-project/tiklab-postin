@@ -6,6 +6,7 @@ import com.doublekit.apibox.apitest.model.*;
 
 import com.doublekit.common.Pagination;
 import com.doublekit.beans.BeanMapper;
+import com.doublekit.common.PaginationBuilder;
 import com.doublekit.join.JoinTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -166,16 +167,13 @@ public class TestInstanceServiceImpl implements TestInstanceService {
 
     @Override
     public Pagination<TestInstance> findTestInstancePage(TestInstanceQuery testInstanceQuery) {
-        Pagination<TestInstance> pg = new Pagination<>();
 
         Pagination<TestInstanceEntity>  pagination = testInstanceDao.findTestInstancePage(testInstanceQuery);
-        BeanUtils.copyProperties(pagination,pg);
 
         List<TestInstance> testInstanceList = BeanMapper.mapList(pagination.getDataList(),TestInstance.class);
 
         joinQuery.queryList(testInstanceList);
 
-        pg.setDataList(testInstanceList);
-        return pg;
+        return PaginationBuilder.build(pagination,testInstanceList);
     }
 }

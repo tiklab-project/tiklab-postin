@@ -7,6 +7,7 @@ import com.doublekit.apibox.apimock.model.RequestHeaderMockQuery;
 
 import com.doublekit.common.Pagination;
 import com.doublekit.beans.BeanMapper;
+import com.doublekit.common.PaginationBuilder;
 import com.doublekit.join.JoinTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -83,16 +84,13 @@ public class RequestHeaderMockServiceImpl implements RequestHeaderMockService {
 
     @Override
     public Pagination<RequestHeaderMock> findRequestHeaderMockPage(RequestHeaderMockQuery requestHeaderMockQuery) {
-        Pagination<RequestHeaderMock> pg = new Pagination<>();
 
         Pagination<RequestHeaderMockEntity>  pagination = requestHeaderMockDao.findRequestHeaderMockPage(requestHeaderMockQuery);
-        BeanUtils.copyProperties(pagination,pg);
 
         List<RequestHeaderMock> requestHeaderMockList = BeanMapper.mapList(pagination.getDataList(),RequestHeaderMock.class);
 
         joinQuery.queryList(requestHeaderMockList);
 
-        pg.setDataList(requestHeaderMockList);
-        return pg;
+        return PaginationBuilder.build(pagination,requestHeaderMockList);
     }
 }

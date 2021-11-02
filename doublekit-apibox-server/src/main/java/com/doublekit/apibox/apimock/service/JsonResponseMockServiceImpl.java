@@ -7,6 +7,7 @@ import com.doublekit.apibox.apimock.model.JsonResponseMockQuery;
 
 import com.doublekit.common.Pagination;
 import com.doublekit.beans.BeanMapper;
+import com.doublekit.common.PaginationBuilder;
 import com.doublekit.join.JoinTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -83,16 +84,13 @@ public class JsonResponseMockServiceImpl implements JsonResponseMockService {
 
     @Override
     public Pagination<JsonResponseMock> findJsonResponseMockPage(JsonResponseMockQuery jsonResponseMockQuery) {
-        Pagination<JsonResponseMock> pg = new Pagination<>();
 
         Pagination<JsonResponseMockEntity>  pagination = jsonResponseMockDao.findJsonResponseMockPage(jsonResponseMockQuery);
-        BeanUtils.copyProperties(pagination,pg);
 
         List<JsonResponseMock> jsonResponseMockList = BeanMapper.mapList(pagination.getDataList(),JsonResponseMock.class);
 
         joinQuery.queryList(jsonResponseMockList);
 
-        pg.setDataList(jsonResponseMockList);
-        return pg;
+        return PaginationBuilder.build(pagination,jsonResponseMockList);
     }
 }

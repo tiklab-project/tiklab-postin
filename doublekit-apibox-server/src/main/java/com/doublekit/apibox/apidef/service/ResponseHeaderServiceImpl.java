@@ -7,6 +7,7 @@ import com.doublekit.apibox.apidef.model.ResponseHeaderQuery;
 
 import com.doublekit.common.Pagination;
 import com.doublekit.beans.BeanMapper;
+import com.doublekit.common.PaginationBuilder;
 import com.doublekit.join.JoinTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -83,16 +84,13 @@ public class ResponseHeaderServiceImpl implements ResponseHeaderService {
 
     @Override
     public Pagination<ResponseHeader> findResponseHeaderPage(ResponseHeaderQuery responseHeaderQuery) {
-        Pagination<ResponseHeader> pg = new Pagination<>();
 
         Pagination<ResponseHeaderEntity>  pagination = responseHeaderDao.findResponseHeaderPage(responseHeaderQuery);
-        BeanUtils.copyProperties(pagination,pg);
 
         List<ResponseHeader> responseHeaderList = BeanMapper.mapList(pagination.getDataList(),ResponseHeader.class);
 
         joinQuery.queryList(responseHeaderList);
 
-        pg.setDataList(responseHeaderList);
-        return pg;
+        return PaginationBuilder.build(pagination,responseHeaderList);
     }
 }
