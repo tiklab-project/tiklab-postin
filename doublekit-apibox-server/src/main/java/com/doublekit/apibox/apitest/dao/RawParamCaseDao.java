@@ -1,6 +1,6 @@
 package com.doublekit.apibox.apitest.dao;
 
-import com.doublekit.apibox.apitest.entity.RawParamCasePo;
+import com.doublekit.apibox.apitest.entity.RawParamCaseEntity;
 import com.doublekit.apibox.apitest.model.RawParamCaseQuery;
 import com.doublekit.common.Pagination;
 import com.doublekit.dal.jpa.JpaTemplate;
@@ -24,19 +24,19 @@ public class RawParamCaseDao{
 
     /**
      * 创建用户
-     * @param rawParamCasePo
+     * @param rawParamCaseEntity
      * @return
      */
-    public String createRawParamCase(RawParamCasePo rawParamCasePo) {
-        return jpaTemplate.save(rawParamCasePo,String.class);
+    public String createRawParamCase(RawParamCaseEntity rawParamCaseEntity) {
+        return jpaTemplate.save(rawParamCaseEntity,String.class);
     }
 
     /**
      * 更新用户
-     * @param rawParamCasePo
+     * @param rawParamCaseEntity
      */
-    public void updateRawParamCase(RawParamCasePo rawParamCasePo){
-        jpaTemplate.update(rawParamCasePo);
+    public void updateRawParamCase(RawParamCaseEntity rawParamCaseEntity){
+        jpaTemplate.update(rawParamCaseEntity);
     }
 
     /**
@@ -44,7 +44,7 @@ public class RawParamCaseDao{
      * @param id
      */
     public void deleteRawParamCase(String id){
-        jpaTemplate.delete(RawParamCasePo.class,id);
+        jpaTemplate.delete(RawParamCaseEntity.class,id);
     }
 
     /**
@@ -52,27 +52,27 @@ public class RawParamCaseDao{
      * @param id
      * @return
      */
-    public RawParamCasePo findRawParamCase(String id){
-        return jpaTemplate.findOne(RawParamCasePo.class,id);
+    public RawParamCaseEntity findRawParamCase(String id){
+        return jpaTemplate.findOne(RawParamCaseEntity.class,id);
     }
 
     /**
     * findAllRawParamCase
     * @return
     */
-    public List<RawParamCasePo> findAllRawParamCase() {
-        return jpaTemplate.findAll(RawParamCasePo.class);
+    public List<RawParamCaseEntity> findAllRawParamCase() {
+        return jpaTemplate.findAll(RawParamCaseEntity.class);
     }
 
-    public List<RawParamCasePo> findRawParamCaseList(List<String> idList) {
-        return jpaTemplate.findList(RawParamCasePo.class,idList);
+    public List<RawParamCaseEntity> findRawParamCaseList(List<String> idList) {
+        return jpaTemplate.findList(RawParamCaseEntity.class,idList);
     }
 
-    public List<RawParamCasePo> findRawParamCaseList(RawParamCaseQuery rawParamCaseQuery) {
-        return jpaTemplate.findList(RawParamCasePo.class,rawParamCaseQuery);
+    public List<RawParamCaseEntity> findRawParamCaseList(RawParamCaseQuery rawParamCaseQuery) {
+        return jpaTemplate.findList(RawParamCaseEntity.class,rawParamCaseQuery);
     }
 
-    public Pagination<RawParamCasePo> findRawParamCasePage(RawParamCaseQuery rawParamCaseQuery) {
-        return jpaTemplate.findPage(RawParamCasePo.class,rawParamCaseQuery);
+    public Pagination<RawParamCaseEntity> findRawParamCasePage(RawParamCaseQuery rawParamCaseQuery) {
+        return jpaTemplate.findPage(RawParamCaseEntity.class,rawParamCaseQuery);
     }
 }

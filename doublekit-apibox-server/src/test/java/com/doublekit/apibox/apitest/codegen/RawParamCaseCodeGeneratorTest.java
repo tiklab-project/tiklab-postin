@@ -1,6 +1,6 @@
 package com.doublekit.apibox.apitest.codegen;
 
-import com.doublekit.apibox.apitest.entity.RawParamCasePo;
+import com.doublekit.apibox.apitest.entity.RawParamCaseEntity;
 import com.doublekit.codegen.CodeGeneratorTemplate;
 import com.doublekit.codegen.config.ModuleGeneratorConfig;
 import com.doublekit.codegen.config.ProjectGeneratorConfig;
@@ -21,7 +21,7 @@ public class RawParamCaseCodeGeneratorTest extends CodeGeneratorTemplate {
     protected ModuleGeneratorConfig getModuleGeneratorConfig() {
         ModuleGeneratorConfig config = new ModuleGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
-        config.setEntity(RawParamCasePo.class);
+        config.setEntity(RawParamCaseEntity.class);
         config.setPkg("com.doublekit.apibox.apitest");
         config.setModel("RawParamCase");
         return config;

@@ -1,6 +1,6 @@
 package com.doublekit.apibox.apidef.codegen;
 
-import com.doublekit.apibox.apidef.entity.ResponseResultPo;
+import com.doublekit.apibox.apidef.entity.ResponseResultEntity;
 import com.doublekit.codegen.CodeGeneratorTemplate;
 import com.doublekit.codegen.config.ModuleGeneratorConfig;
 import com.doublekit.codegen.config.ProjectGeneratorConfig;
@@ -21,7 +21,7 @@ public class ResponseResultCodeGeneratorTest extends CodeGeneratorTemplate {
     protected ModuleGeneratorConfig getModuleGeneratorConfig() {
         ModuleGeneratorConfig config = new ModuleGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
-        config.setEntity(ResponseResultPo.class);
+        config.setEntity(ResponseResultEntity.class);
         config.setPkg("com.doublekit.apibox.apidef");
         config.setModel("ResponseResult");
         return config;

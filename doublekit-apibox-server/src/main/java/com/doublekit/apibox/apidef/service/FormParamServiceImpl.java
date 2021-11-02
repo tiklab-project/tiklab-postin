@@ -1,7 +1,7 @@
 package com.doublekit.apibox.apidef.service;
 
 import com.doublekit.apibox.apidef.dao.FormParamDao;
-import com.doublekit.apibox.apidef.entity.FormParamPo;
+import com.doublekit.apibox.apidef.entity.FormParamEntity;
 import com.doublekit.apibox.apidef.model.FormParam;
 import com.doublekit.apibox.apidef.model.FormParamQuery;
 
@@ -31,16 +31,16 @@ public class FormParamServiceImpl implements FormParamService {
 
     @Override
     public String createFormParam(@NotNull @Valid FormParam formParam) {
-        FormParamPo formParamPo = BeanMapper.map(formParam, FormParamPo.class);
+        FormParamEntity formParamEntity = BeanMapper.map(formParam, FormParamEntity.class);
 
-        return formParamDao.createFormParam(formParamPo);
+        return formParamDao.createFormParam(formParamEntity);
     }
 
     @Override
     public void updateFormParam(@NotNull @Valid FormParam formParam) {
-        FormParamPo formParamPo = BeanMapper.map(formParam, FormParamPo.class);
+        FormParamEntity formParamEntity = BeanMapper.map(formParam, FormParamEntity.class);
 
-        formParamDao.updateFormParam(formParamPo);
+        formParamDao.updateFormParam(formParamEntity);
     }
 
     @Override
@@ -50,9 +50,9 @@ public class FormParamServiceImpl implements FormParamService {
 
     @Override
     public FormParam findFormParam(@NotNull String id) {
-        FormParamPo formParamPo = formParamDao.findFormParam(id);
+        FormParamEntity formParamEntity = formParamDao.findFormParam(id);
 
-        FormParam formParam = BeanMapper.map(formParamPo, FormParam.class);
+        FormParam formParam = BeanMapper.map(formParamEntity, FormParam.class);
 
         joinQuery.queryOne(formParam);
 
@@ -61,9 +61,9 @@ public class FormParamServiceImpl implements FormParamService {
 
     @Override
     public List<FormParam> findAllFormParam() {
-        List<FormParamPo> formParamPoList =  formParamDao.findAllFormParam();
+        List<FormParamEntity> formParamEntityList =  formParamDao.findAllFormParam();
 
-        List<FormParam> formParamList = BeanMapper.mapList(formParamPoList,FormParam.class);
+        List<FormParam> formParamList = BeanMapper.mapList(formParamEntityList,FormParam.class);
 
         joinQuery.queryList(formParamList);
 
@@ -72,9 +72,9 @@ public class FormParamServiceImpl implements FormParamService {
 
     @Override
     public List<FormParam> findFormParamList(FormParamQuery formParamQuery) {
-        List<FormParamPo> formParamPoList = formParamDao.findFormParamList(formParamQuery);
+        List<FormParamEntity> formParamEntityList = formParamDao.findFormParamList(formParamQuery);
 
-        List<FormParam> formParamList = BeanMapper.mapList(formParamPoList,FormParam.class);
+        List<FormParam> formParamList = BeanMapper.mapList(formParamEntityList,FormParam.class);
 
         joinQuery.queryList(formParamList);
 
@@ -85,7 +85,7 @@ public class FormParamServiceImpl implements FormParamService {
     public Pagination<FormParam> findFormParamPage(FormParamQuery formParamQuery) {
         Pagination<FormParam> pg = new Pagination<>();
 
-        Pagination<FormParamPo>  pagination = formParamDao.findFormParamPage(formParamQuery);
+        Pagination<FormParamEntity>  pagination = formParamDao.findFormParamPage(formParamQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<FormParam> formParamList = BeanMapper.mapList(pagination.getDataList(),FormParam.class);

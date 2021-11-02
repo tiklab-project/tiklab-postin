@@ -1,7 +1,7 @@
 package com.doublekit.apibox.apimock.service;
 
 import com.doublekit.apibox.apimock.dao.MockDao;
-import com.doublekit.apibox.apimock.entity.MockPo;
+import com.doublekit.apibox.apimock.entity.MockEntity;
 import com.doublekit.apibox.apimock.model.Mock;
 import com.doublekit.apibox.apimock.model.MockQuery;
 
@@ -31,16 +31,16 @@ public class MockServiceImpl implements MockService {
 
     @Override
     public String createMock(@NotNull @Valid Mock mock) {
-        MockPo mockPo = BeanMapper.map(mock, MockPo.class);
+        MockEntity mockEntity = BeanMapper.map(mock, MockEntity.class);
 
-        return mockDao.createMock(mockPo);
+        return mockDao.createMock(mockEntity);
     }
 
     @Override
     public void updateMock(@NotNull @Valid Mock mock) {
-        MockPo mockPo = BeanMapper.map(mock, MockPo.class);
+        MockEntity mockEntity = BeanMapper.map(mock, MockEntity.class);
 
-        mockDao.updateMock(mockPo);
+        mockDao.updateMock(mockEntity);
     }
 
     @Override
@@ -50,17 +50,17 @@ public class MockServiceImpl implements MockService {
 
     @Override
     public Mock findOne(String id) {
-        MockPo mockPo = mockDao.findMock(id);
+        MockEntity mockEntity = mockDao.findMock(id);
 
-        Mock mock = BeanMapper.map(mockPo, Mock.class);
+        Mock mock = BeanMapper.map(mockEntity, Mock.class);
         return mock;
     }
 
     @Override
     public List<Mock> findList(List<String> idList) {
-        List<MockPo> mockPoList =  mockDao.findMockList(idList);
+        List<MockEntity> mockEntityList =  mockDao.findMockList(idList);
 
-        List<Mock> mockList =  BeanMapper.mapList(mockPoList,Mock.class);
+        List<Mock> mockList =  BeanMapper.mapList(mockEntityList,Mock.class);
         return mockList;
     }
 
@@ -74,9 +74,9 @@ public class MockServiceImpl implements MockService {
 
     @Override
     public List<Mock> findAllMock() {
-        List<MockPo> mockPoList =  mockDao.findAllMock();
+        List<MockEntity> mockEntityList =  mockDao.findAllMock();
 
-        List<Mock> mockList =  BeanMapper.mapList(mockPoList,Mock.class);
+        List<Mock> mockList =  BeanMapper.mapList(mockEntityList,Mock.class);
 
         joinQuery.queryList(mockList);
 
@@ -85,9 +85,9 @@ public class MockServiceImpl implements MockService {
 
     @Override
     public List<Mock> findMockList(MockQuery mockQuery) {
-        List<MockPo> mockPoList = mockDao.findMockList(mockQuery);
+        List<MockEntity> mockEntityList = mockDao.findMockList(mockQuery);
 
-        List<Mock> mockList = BeanMapper.mapList(mockPoList,Mock.class);
+        List<Mock> mockList = BeanMapper.mapList(mockEntityList,Mock.class);
 
         joinQuery.queryList(mockList);
 
@@ -98,7 +98,7 @@ public class MockServiceImpl implements MockService {
     public Pagination<Mock> findMockPage(MockQuery mockQuery) {
         Pagination<Mock> pg = new Pagination<>();
 
-        Pagination<MockPo>  pagination = mockDao.findMockPage(mockQuery);
+        Pagination<MockEntity>  pagination = mockDao.findMockPage(mockQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<Mock> mockList = BeanMapper.mapList(pagination.getDataList(),Mock.class);

@@ -1,7 +1,7 @@
 package com.doublekit.apibox.apidef.dao;
 
-import com.doublekit.apibox.apidef.entity.AfterScriptPo;
-import com.doublekit.apibox.apidef.entity.ResponseResultPo;
+import com.doublekit.apibox.apidef.entity.AfterScriptEntity;
+import com.doublekit.apibox.apidef.entity.ResponseResultEntity;
 import com.doublekit.apibox.apidef.model.AfterScriptQuery;
 import com.doublekit.common.Pagination;
 import com.doublekit.dal.jpa.JpaTemplate;
@@ -26,19 +26,19 @@ public class AfterScriptDao{
 
     /**
      * 创建用户
-     * @param afterScriptPo
+     * @param afterScriptEntity
      * @return
      */
-    public String createAfterScript(AfterScriptPo afterScriptPo) {
-        return jpaTemplate.save(afterScriptPo,String.class);
+    public String createAfterScript(AfterScriptEntity afterScriptEntity) {
+        return jpaTemplate.save(afterScriptEntity,String.class);
     }
 
     /**
      * 更新用户
-     * @param afterScriptPo
+     * @param afterScriptEntity
      */
-    public void updateAfterScript(AfterScriptPo afterScriptPo){
-        jpaTemplate.update(afterScriptPo);
+    public void updateAfterScript(AfterScriptEntity afterScriptEntity){
+        jpaTemplate.update(afterScriptEntity);
     }
 
     /**
@@ -46,7 +46,7 @@ public class AfterScriptDao{
      * @param id
      */
     public void deleteAfterScript(String id){
-        jpaTemplate.delete(AfterScriptPo.class,id);
+        jpaTemplate.delete(AfterScriptEntity.class,id);
     }
 
     /**
@@ -54,30 +54,30 @@ public class AfterScriptDao{
      * @param deleteCondition
      */
     public void deleteAfterScriptList(DeleteCondition deleteCondition){
-        jpaTemplate.delete(AfterScriptPo.class,deleteCondition);
+        jpaTemplate.delete(AfterScriptEntity.class,deleteCondition);
     }
     /**
      * 查找用户
      * @param id
      * @return
      */
-    public AfterScriptPo findAfterScript(String id){
-        return jpaTemplate.findOne(AfterScriptPo.class,id);
+    public AfterScriptEntity findAfterScript(String id){
+        return jpaTemplate.findOne(AfterScriptEntity.class,id);
     }
 
     /**
     * findAllAfterScript
     * @return
     */
-    public List<AfterScriptPo> findAllAfterScript() {
-        return jpaTemplate.findAll(AfterScriptPo.class);
+    public List<AfterScriptEntity> findAllAfterScript() {
+        return jpaTemplate.findAll(AfterScriptEntity.class);
     }
 
-    public List<AfterScriptPo> findAfterScriptList(AfterScriptQuery afterScriptQuery) {
-        return jpaTemplate.findList(AfterScriptPo.class,afterScriptQuery);
+    public List<AfterScriptEntity> findAfterScriptList(AfterScriptQuery afterScriptQuery) {
+        return jpaTemplate.findList(AfterScriptEntity.class,afterScriptQuery);
     }
 
-    public Pagination<AfterScriptPo> findAfterScriptPage(AfterScriptQuery afterScriptQuery) {
-        return jpaTemplate.findPage(AfterScriptPo.class,afterScriptQuery);
+    public Pagination<AfterScriptEntity> findAfterScriptPage(AfterScriptQuery afterScriptQuery) {
+        return jpaTemplate.findPage(AfterScriptEntity.class,afterScriptQuery);
     }
 }

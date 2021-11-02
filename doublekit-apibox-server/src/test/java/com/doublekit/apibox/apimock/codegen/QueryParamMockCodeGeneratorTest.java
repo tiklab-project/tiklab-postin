@@ -1,6 +1,6 @@
 package com.doublekit.apibox.apimock.codegen;
 
-import com.doublekit.apibox.apimock.entity.ResponseHeaderMockPo;
+import com.doublekit.apibox.apimock.entity.ResponseHeaderMockEntity;
 import com.doublekit.codegen.CodeGeneratorTemplate;
 import com.doublekit.codegen.config.ProjectGeneratorConfig;
 import com.doublekit.codegen.config.ModuleGeneratorConfig;
@@ -21,7 +21,7 @@ public class QueryParamMockCodeGeneratorTest extends CodeGeneratorTemplate {
     protected ModuleGeneratorConfig getModuleGeneratorConfig() {
         ModuleGeneratorConfig config = new ModuleGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
-        config.setEntity(ResponseHeaderMockPo.class);
+        config.setEntity(ResponseHeaderMockEntity.class);
         config.setPkg("com.doublekit.apibox.apimock");
         config.setModel("ResponseHeaderMock");
         return config;

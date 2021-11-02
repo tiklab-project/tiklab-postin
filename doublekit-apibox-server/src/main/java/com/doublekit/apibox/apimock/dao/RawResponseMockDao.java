@@ -1,6 +1,6 @@
 package com.doublekit.apibox.apimock.dao;
 
-import com.doublekit.apibox.apimock.entity.RawResponseMockPo;
+import com.doublekit.apibox.apimock.entity.RawResponseMockEntity;
 import com.doublekit.apibox.apimock.model.RawResponseMockQuery;
 import com.doublekit.common.Pagination;
 import com.doublekit.dal.jpa.JpaTemplate;
@@ -24,19 +24,19 @@ public class RawResponseMockDao{
 
     /**
      * 创建用户
-     * @param rawResponseMockPo
+     * @param rawResponseMockEntity
      * @return
      */
-    public String createRawResponseMock(RawResponseMockPo rawResponseMockPo) {
-        return jpaTemplate.save(rawResponseMockPo,String.class);
+    public String createRawResponseMock(RawResponseMockEntity rawResponseMockEntity) {
+        return jpaTemplate.save(rawResponseMockEntity,String.class);
     }
 
     /**
      * 更新用户
-     * @param rawResponseMockPo
+     * @param rawResponseMockEntity
      */
-    public void updateRawResponseMock(RawResponseMockPo rawResponseMockPo){
-        jpaTemplate.update(rawResponseMockPo);
+    public void updateRawResponseMock(RawResponseMockEntity rawResponseMockEntity){
+        jpaTemplate.update(rawResponseMockEntity);
     }
 
     /**
@@ -44,7 +44,7 @@ public class RawResponseMockDao{
      * @param id
      */
     public void deleteRawResponseMock(String id){
-        jpaTemplate.delete(RawResponseMockPo.class,id);
+        jpaTemplate.delete(RawResponseMockEntity.class,id);
     }
 
     /**
@@ -52,23 +52,23 @@ public class RawResponseMockDao{
      * @param id
      * @return
      */
-    public RawResponseMockPo findRawResponseMock(String id){
-        return jpaTemplate.findOne(RawResponseMockPo.class,id);
+    public RawResponseMockEntity findRawResponseMock(String id){
+        return jpaTemplate.findOne(RawResponseMockEntity.class,id);
     }
 
     /**
     * findAllRawResponseMock
     * @return
     */
-    public List<RawResponseMockPo> findAllRawResponseMock() {
-        return jpaTemplate.findAll(RawResponseMockPo.class);
+    public List<RawResponseMockEntity> findAllRawResponseMock() {
+        return jpaTemplate.findAll(RawResponseMockEntity.class);
     }
 
-    public List<RawResponseMockPo> findRawResponseMockList(RawResponseMockQuery rawResponseMockQuery) {
-        return jpaTemplate.findList(RawResponseMockPo.class,rawResponseMockQuery);
+    public List<RawResponseMockEntity> findRawResponseMockList(RawResponseMockQuery rawResponseMockQuery) {
+        return jpaTemplate.findList(RawResponseMockEntity.class,rawResponseMockQuery);
     }
 
-    public Pagination<RawResponseMockPo> findRawResponseMockPage(RawResponseMockQuery rawResponseMockQuery) {
-        return jpaTemplate.findPage(RawResponseMockPo.class,rawResponseMockQuery);
+    public Pagination<RawResponseMockEntity> findRawResponseMockPage(RawResponseMockQuery rawResponseMockQuery) {
+        return jpaTemplate.findPage(RawResponseMockEntity.class,rawResponseMockQuery);
     }
 }

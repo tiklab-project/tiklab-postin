@@ -1,6 +1,6 @@
 package com.doublekit.apibox.apidef.codegen;
 
-import com.doublekit.apibox.apidef.entity.PreScriptPo;
+import com.doublekit.apibox.apidef.entity.PreScriptEntity;
 import com.doublekit.codegen.CodeGeneratorTemplate;
 import com.doublekit.codegen.config.ModuleGeneratorConfig;
 import com.doublekit.codegen.config.ProjectGeneratorConfig;
@@ -21,7 +21,7 @@ public class PreScriptCodeGeneratorTest extends CodeGeneratorTemplate {
     protected ModuleGeneratorConfig getModuleGeneratorConfig() {
         ModuleGeneratorConfig config = new ModuleGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
-        config.setEntity(PreScriptPo.class);
+        config.setEntity(PreScriptEntity.class);
         config.setPkg("com.doublekit.apibox.apidef");
         config.setModel("PreScript");
         return config;

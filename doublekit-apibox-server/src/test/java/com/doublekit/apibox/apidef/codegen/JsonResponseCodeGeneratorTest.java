@@ -1,6 +1,6 @@
 package com.doublekit.apibox.apidef.codegen;
 
-import com.doublekit.apibox.apidef.entity.JsonResponsePo;
+import com.doublekit.apibox.apidef.entity.JsonResponseEntity;
 import com.doublekit.codegen.CodeGeneratorTemplate;
 import com.doublekit.codegen.config.ProjectGeneratorConfig;
 import com.doublekit.codegen.config.ModuleGeneratorConfig;
@@ -21,7 +21,7 @@ public class JsonResponseCodeGeneratorTest extends CodeGeneratorTemplate {
     protected ModuleGeneratorConfig getModuleGeneratorConfig() {
         ModuleGeneratorConfig config = new ModuleGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
-        config.setEntity(JsonResponsePo.class);
+        config.setEntity(JsonResponseEntity.class);
         config.setPkg("com.doublekit.apibox.responseresult");
         config.setModel("JsonResponse");
         return config;

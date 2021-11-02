@@ -1,7 +1,7 @@
 package com.doublekit.apibox.apidef.service;
 
 import com.doublekit.apibox.apidef.dao.AfterScriptDao;
-import com.doublekit.apibox.apidef.entity.AfterScriptPo;
+import com.doublekit.apibox.apidef.entity.AfterScriptEntity;
 import com.doublekit.apibox.apidef.model.AfterScript;
 import com.doublekit.apibox.apidef.model.AfterScriptQuery;
 
@@ -31,16 +31,16 @@ public class AfterScriptServiceImpl implements AfterScriptService {
 
     @Override
     public String createAfterScript(@NotNull @Valid AfterScript afterScript) {
-        AfterScriptPo afterScriptPo = BeanMapper.map(afterScript, AfterScriptPo.class);
+        AfterScriptEntity afterScriptEntity = BeanMapper.map(afterScript, AfterScriptEntity.class);
 
-        return afterScriptDao.createAfterScript(afterScriptPo);
+        return afterScriptDao.createAfterScript(afterScriptEntity);
     }
 
     @Override
     public void updateAfterScript(@NotNull @Valid AfterScript afterScript) {
-        AfterScriptPo afterScriptPo = BeanMapper.map(afterScript, AfterScriptPo.class);
+        AfterScriptEntity afterScriptEntity = BeanMapper.map(afterScript, AfterScriptEntity.class);
 
-        afterScriptDao.updateAfterScript(afterScriptPo);
+        afterScriptDao.updateAfterScript(afterScriptEntity);
     }
 
     @Override
@@ -50,9 +50,9 @@ public class AfterScriptServiceImpl implements AfterScriptService {
 
     @Override
     public AfterScript findAfterScript(@NotNull String id) {
-        AfterScriptPo afterScriptPo = afterScriptDao.findAfterScript(id);
+        AfterScriptEntity afterScriptEntity = afterScriptDao.findAfterScript(id);
 
-        AfterScript afterScript = BeanMapper.map(afterScriptPo, AfterScript.class);
+        AfterScript afterScript = BeanMapper.map(afterScriptEntity, AfterScript.class);
 
         joinQuery.queryOne(afterScript);
 
@@ -61,9 +61,9 @@ public class AfterScriptServiceImpl implements AfterScriptService {
 
     @Override
     public List<AfterScript> findAllAfterScript() {
-        List<AfterScriptPo> afterScriptPoList =  afterScriptDao.findAllAfterScript();
+        List<AfterScriptEntity> afterScriptEntityList =  afterScriptDao.findAllAfterScript();
 
-        List<AfterScript> afterScriptList =  BeanMapper.mapList(afterScriptPoList,AfterScript.class);
+        List<AfterScript> afterScriptList =  BeanMapper.mapList(afterScriptEntityList,AfterScript.class);
 
         joinQuery.queryList(afterScriptList);
 
@@ -72,9 +72,9 @@ public class AfterScriptServiceImpl implements AfterScriptService {
 
     @Override
     public List<AfterScript> findAfterScriptList(AfterScriptQuery afterScriptQuery) {
-        List<AfterScriptPo> afterScriptPoList = afterScriptDao.findAfterScriptList(afterScriptQuery);
+        List<AfterScriptEntity> afterScriptEntityList = afterScriptDao.findAfterScriptList(afterScriptQuery);
 
-        List<AfterScript> afterScriptList = BeanMapper.mapList(afterScriptPoList,AfterScript.class);
+        List<AfterScript> afterScriptList = BeanMapper.mapList(afterScriptEntityList,AfterScript.class);
 
         joinQuery.queryList(afterScriptList);
 
@@ -85,7 +85,7 @@ public class AfterScriptServiceImpl implements AfterScriptService {
     public Pagination<AfterScript> findAfterScriptPage(AfterScriptQuery afterScriptQuery) {
         Pagination<AfterScript> pg = new Pagination<>();
 
-        Pagination<AfterScriptPo>  pagination = afterScriptDao.findAfterScriptPage(afterScriptQuery);
+        Pagination<AfterScriptEntity>  pagination = afterScriptDao.findAfterScriptPage(afterScriptQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<AfterScript> afterScriptList = BeanMapper.mapList(pagination.getDataList(),AfterScript.class);

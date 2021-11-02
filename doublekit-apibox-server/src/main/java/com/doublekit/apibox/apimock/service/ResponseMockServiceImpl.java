@@ -1,7 +1,7 @@
 package com.doublekit.apibox.apimock.service;
 
 import com.doublekit.apibox.apimock.dao.ResponseMockDao;
-import com.doublekit.apibox.apimock.entity.ResponseMockPo;
+import com.doublekit.apibox.apimock.entity.ResponseMockEntity;
 import com.doublekit.apibox.apimock.model.ResponseMock;
 import com.doublekit.apibox.apimock.model.ResponseMockQuery;
 
@@ -31,16 +31,16 @@ public class ResponseMockServiceImpl implements ResponseMockService {
 
     @Override
     public String createResponseMock(@NotNull @Valid ResponseMock responseMock) {
-        ResponseMockPo responseMockPo = BeanMapper.map(responseMock, ResponseMockPo.class);
+        ResponseMockEntity responseMockEntity = BeanMapper.map(responseMock, ResponseMockEntity.class);
 
-        return responseMockDao.createResponseMock(responseMockPo);
+        return responseMockDao.createResponseMock(responseMockEntity);
     }
 
     @Override
     public void updateResponseMock(@NotNull @Valid ResponseMock responseMock) {
-        ResponseMockPo responseMockPo = BeanMapper.map(responseMock, ResponseMockPo.class);
+        ResponseMockEntity responseMockEntity = BeanMapper.map(responseMock, ResponseMockEntity.class);
 
-        responseMockDao.updateResponseMock(responseMockPo);
+        responseMockDao.updateResponseMock(responseMockEntity);
     }
 
     @Override
@@ -50,9 +50,9 @@ public class ResponseMockServiceImpl implements ResponseMockService {
 
     @Override
     public ResponseMock findResponseMock(@NotNull String id) {
-        ResponseMockPo responseMockPo = responseMockDao.findResponseMock(id);
+        ResponseMockEntity responseMockEntity = responseMockDao.findResponseMock(id);
 
-        ResponseMock responseMock = BeanMapper.map(responseMockPo, ResponseMock.class);
+        ResponseMock responseMock = BeanMapper.map(responseMockEntity, ResponseMock.class);
 
         joinQuery.queryOne(responseMock);
 
@@ -61,9 +61,9 @@ public class ResponseMockServiceImpl implements ResponseMockService {
 
     @Override
     public List<ResponseMock> findAllResponseMock() {
-        List<ResponseMockPo> responseMockPoList =  responseMockDao.findAllResponseMock();
+        List<ResponseMockEntity> responseMockEntityList =  responseMockDao.findAllResponseMock();
 
-        List<ResponseMock> responseMockList =  BeanMapper.mapList(responseMockPoList,ResponseMock.class);
+        List<ResponseMock> responseMockList =  BeanMapper.mapList(responseMockEntityList,ResponseMock.class);
 
         joinQuery.queryList(responseMockList);
 
@@ -72,9 +72,9 @@ public class ResponseMockServiceImpl implements ResponseMockService {
 
     @Override
     public List<ResponseMock> findResponseMockList(ResponseMockQuery responseMockQuery) {
-        List<ResponseMockPo> responseMockPoList = responseMockDao.findResponseMockList(responseMockQuery);
+        List<ResponseMockEntity> responseMockEntityList = responseMockDao.findResponseMockList(responseMockQuery);
 
-        List<ResponseMock> responseMockList = BeanMapper.mapList(responseMockPoList,ResponseMock.class);
+        List<ResponseMock> responseMockList = BeanMapper.mapList(responseMockEntityList,ResponseMock.class);
 
         joinQuery.queryList(responseMockList);
 
@@ -85,7 +85,7 @@ public class ResponseMockServiceImpl implements ResponseMockService {
     public Pagination<ResponseMock> findResponseMockPage(ResponseMockQuery responseMockQuery) {
         Pagination<ResponseMock> pg = new Pagination<>();
 
-        Pagination<ResponseMockPo>  pagination = responseMockDao.findResponseMockPage(responseMockQuery);
+        Pagination<ResponseMockEntity>  pagination = responseMockDao.findResponseMockPage(responseMockQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<ResponseMock> responseMockList = BeanMapper.mapList(pagination.getDataList(),ResponseMock.class);

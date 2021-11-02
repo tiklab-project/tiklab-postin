@@ -3,7 +3,7 @@ package com.doublekit.apibox.datastructure.service;
 import com.doublekit.apibox.datastructure.dao.DataStructureDao;
 import com.doublekit.apibox.datastructure.dao.EnumParamDao;
 import com.doublekit.apibox.datastructure.dao.JsonParamDSDao;
-import com.doublekit.apibox.datastructure.entity.DataStructurePo;
+import com.doublekit.apibox.datastructure.entity.DataStructureEntity;
 import com.doublekit.apibox.datastructure.model.DataStructure;
 import com.doublekit.apibox.datastructure.model.DataStructureQuery;
 import com.doublekit.beans.BeanMapper;
@@ -43,20 +43,20 @@ public class DataStructureServiceImpl implements DataStructureService {
 
     @Override
     public String createDataStructure(@NotNull @Valid DataStructure dataStructure) {
-        DataStructurePo dataStructurePo = BeanMapper.map(dataStructure, DataStructurePo.class);
+        DataStructureEntity dataStructureEntity = BeanMapper.map(dataStructure, DataStructureEntity.class);
         //添加创建人
         String creatUserId = findCreatUser();
-        dataStructurePo.setCreateUser(creatUserId);
-        dataStructurePo.setCreateTime( new Date());
+        dataStructureEntity.setCreateUser(creatUserId);
+        dataStructureEntity.setCreateTime( new Date());
 
-        return dataStructureDao.createDataStructure(dataStructurePo);
+        return dataStructureDao.createDataStructure(dataStructureEntity);
     }
 
     @Override
     public void updateDataStructure(@NotNull @Valid DataStructure dataStructure) {
-        DataStructurePo dataStructurePo = BeanMapper.map(dataStructure, DataStructurePo.class);
+        DataStructureEntity dataStructureEntity = BeanMapper.map(dataStructure, DataStructureEntity.class);
 
-        dataStructureDao.updateDataStructure(dataStructurePo);
+        dataStructureDao.updateDataStructure(dataStructureEntity);
     }
 
     @Override
@@ -71,17 +71,17 @@ public class DataStructureServiceImpl implements DataStructureService {
 
     @Override
     public DataStructure findOne(String id) {
-        DataStructurePo dataStructurePo = dataStructureDao.findDataStructure(id);
+        DataStructureEntity dataStructureEntity = dataStructureDao.findDataStructure(id);
 
-        DataStructure dataStructure = BeanMapper.map(dataStructurePo, DataStructure.class);
+        DataStructure dataStructure = BeanMapper.map(dataStructureEntity, DataStructure.class);
         return dataStructure;
     }
 
     @Override
     public List<DataStructure> findList(List<String> idList) {
-        List<DataStructurePo> dataStructurePoList =  dataStructureDao.findDataStructureList(idList);
+        List<DataStructureEntity> dataStructureEntityList =  dataStructureDao.findDataStructureList(idList);
 
-        List<DataStructure> dataStructureList =  BeanMapper.mapList(dataStructurePoList,DataStructure.class);
+        List<DataStructure> dataStructureList =  BeanMapper.mapList(dataStructureEntityList,DataStructure.class);
         return dataStructureList;
     }
 
@@ -95,9 +95,9 @@ public class DataStructureServiceImpl implements DataStructureService {
 
     @Override
     public List<DataStructure> findAllDataStructure() {
-        List<DataStructurePo> dataStructurePoList =  dataStructureDao.findAllDataStructure();
+        List<DataStructureEntity> dataStructureEntityList =  dataStructureDao.findAllDataStructure();
 
-        List<DataStructure> dataStructureList =  BeanMapper.mapList(dataStructurePoList,DataStructure.class);
+        List<DataStructure> dataStructureList =  BeanMapper.mapList(dataStructureEntityList,DataStructure.class);
 
         joinQuery.queryList(dataStructureList);
         return dataStructureList;
@@ -105,9 +105,9 @@ public class DataStructureServiceImpl implements DataStructureService {
 
     @Override
     public List<DataStructure> findDataStructureList(DataStructureQuery dataStructureQuery) {
-        List<DataStructurePo> dataStructurePoList = dataStructureDao.findDataStructureList(dataStructureQuery);
+        List<DataStructureEntity> dataStructureEntityList = dataStructureDao.findDataStructureList(dataStructureQuery);
 
-        List<DataStructure> dataStructureList = BeanMapper.mapList(dataStructurePoList,DataStructure.class);
+        List<DataStructure> dataStructureList = BeanMapper.mapList(dataStructureEntityList,DataStructure.class);
 
         joinQuery.queryList(dataStructureList);
 
@@ -118,7 +118,7 @@ public class DataStructureServiceImpl implements DataStructureService {
     public Pagination<DataStructure> findDataStructurePage(DataStructureQuery dataStructureQuery) {
         Pagination<DataStructure> pg = new Pagination<>();
 
-        Pagination<DataStructurePo>  pagination = dataStructureDao.findDataStructurePage(dataStructureQuery);
+        Pagination<DataStructureEntity>  pagination = dataStructureDao.findDataStructurePage(dataStructureQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<DataStructure> dataStructureList = BeanMapper.mapList(pagination.getDataList(),DataStructure.class);

@@ -1,7 +1,7 @@
 package com.doublekit.apibox.apitest.service;
 
 import com.doublekit.apibox.apitest.dao.AfterScriptCaseDao;
-import com.doublekit.apibox.apitest.entity.AfterScriptCasePo;
+import com.doublekit.apibox.apitest.entity.AfterScriptCaseEntity;
 import com.doublekit.apibox.apitest.model.AfterScriptCase;
 import com.doublekit.apibox.apitest.model.AfterScriptCaseQuery;
 
@@ -31,16 +31,16 @@ public class AfterScriptCaseServiceImpl implements AfterScriptCaseService {
 
     @Override
     public String createAfterScriptCase(@NotNull @Valid AfterScriptCase afterScriptCase) {
-        AfterScriptCasePo afterScriptCasePo = BeanMapper.map(afterScriptCase, AfterScriptCasePo.class);
+        AfterScriptCaseEntity afterScriptCaseEntity = BeanMapper.map(afterScriptCase, AfterScriptCaseEntity.class);
 
-        return afterScriptCaseDao.createAfterScriptCase(afterScriptCasePo);
+        return afterScriptCaseDao.createAfterScriptCase(afterScriptCaseEntity);
     }
 
     @Override
     public void updateAfterScriptCase(@NotNull @Valid AfterScriptCase afterScriptCase) {
-        AfterScriptCasePo afterScriptCasePo = BeanMapper.map(afterScriptCase, AfterScriptCasePo.class);
+        AfterScriptCaseEntity afterScriptCaseEntity = BeanMapper.map(afterScriptCase, AfterScriptCaseEntity.class);
 
-        afterScriptCaseDao.updateAfterScriptCase(afterScriptCasePo);
+        afterScriptCaseDao.updateAfterScriptCase(afterScriptCaseEntity);
     }
 
     @Override
@@ -50,17 +50,17 @@ public class AfterScriptCaseServiceImpl implements AfterScriptCaseService {
 
     @Override
     public AfterScriptCase findOne(String id) {
-        AfterScriptCasePo afterScriptCasePo = afterScriptCaseDao.findAfterScriptCase(id);
+        AfterScriptCaseEntity afterScriptCaseEntity = afterScriptCaseDao.findAfterScriptCase(id);
 
-        AfterScriptCase afterScriptCase = BeanMapper.map(afterScriptCasePo, AfterScriptCase.class);
+        AfterScriptCase afterScriptCase = BeanMapper.map(afterScriptCaseEntity, AfterScriptCase.class);
         return afterScriptCase;
     }
 
     @Override
     public List<AfterScriptCase> findList(List<String> idList) {
-        List<AfterScriptCasePo> afterScriptCasePoList =  afterScriptCaseDao.findAfterScriptCaseList(idList);
+        List<AfterScriptCaseEntity> afterScriptCaseEntityList =  afterScriptCaseDao.findAfterScriptCaseList(idList);
 
-        List<AfterScriptCase> afterScriptCaseList =  BeanMapper.mapList(afterScriptCasePoList,AfterScriptCase.class);
+        List<AfterScriptCase> afterScriptCaseList =  BeanMapper.mapList(afterScriptCaseEntityList,AfterScriptCase.class);
         return afterScriptCaseList;
     }
 
@@ -74,9 +74,9 @@ public class AfterScriptCaseServiceImpl implements AfterScriptCaseService {
 
     @Override
     public List<AfterScriptCase> findAllAfterScriptCase() {
-        List<AfterScriptCasePo> afterScriptCasePoList =  afterScriptCaseDao.findAllAfterScriptCase();
+        List<AfterScriptCaseEntity> afterScriptCaseEntityList =  afterScriptCaseDao.findAllAfterScriptCase();
 
-        List<AfterScriptCase> afterScriptCaseList =  BeanMapper.mapList(afterScriptCasePoList,AfterScriptCase.class);
+        List<AfterScriptCase> afterScriptCaseList =  BeanMapper.mapList(afterScriptCaseEntityList,AfterScriptCase.class);
 
         joinQuery.queryList(afterScriptCaseList);
         return afterScriptCaseList;
@@ -84,9 +84,9 @@ public class AfterScriptCaseServiceImpl implements AfterScriptCaseService {
 
     @Override
     public List<AfterScriptCase> findAfterScriptCaseList(AfterScriptCaseQuery afterScriptCaseQuery) {
-        List<AfterScriptCasePo> afterScriptCasePoList = afterScriptCaseDao.findAfterScriptCaseList(afterScriptCaseQuery);
+        List<AfterScriptCaseEntity> afterScriptCaseEntityList = afterScriptCaseDao.findAfterScriptCaseList(afterScriptCaseQuery);
 
-        List<AfterScriptCase> afterScriptCaseList = BeanMapper.mapList(afterScriptCasePoList,AfterScriptCase.class);
+        List<AfterScriptCase> afterScriptCaseList = BeanMapper.mapList(afterScriptCaseEntityList,AfterScriptCase.class);
 
         joinQuery.queryList(afterScriptCaseList);
 
@@ -97,7 +97,7 @@ public class AfterScriptCaseServiceImpl implements AfterScriptCaseService {
     public Pagination<AfterScriptCase> findAfterScriptCasePage(AfterScriptCaseQuery afterScriptCaseQuery) {
         Pagination<AfterScriptCase> pg = new Pagination<>();
 
-        Pagination<AfterScriptCasePo>  pagination = afterScriptCaseDao.findAfterScriptCasePage(afterScriptCaseQuery);
+        Pagination<AfterScriptCaseEntity>  pagination = afterScriptCaseDao.findAfterScriptCasePage(afterScriptCaseQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<AfterScriptCase> afterScriptCaseList = BeanMapper.mapList(pagination.getDataList(),AfterScriptCase.class);

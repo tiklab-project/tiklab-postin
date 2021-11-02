@@ -1,6 +1,6 @@
 package com.doublekit.apibox.apimock.codegen;
 
-import com.doublekit.apibox.apimock.entity.MockPo;
+import com.doublekit.apibox.apimock.entity.MockEntity;
 import com.doublekit.codegen.CodeGeneratorTemplate;
 import com.doublekit.codegen.config.ProjectGeneratorConfig;
 import com.doublekit.codegen.config.ModuleGeneratorConfig;
@@ -21,7 +21,7 @@ public class MockCodeGeneratorTest extends CodeGeneratorTemplate {
     protected ModuleGeneratorConfig getModuleGeneratorConfig() {
         ModuleGeneratorConfig config = new ModuleGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
-        config.setEntity(MockPo.class);
+        config.setEntity(MockEntity.class);
         config.setPkg("com.doublekit.apibox.apimock");
         config.setModel("Mock");
         return config;

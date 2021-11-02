@@ -1,6 +1,6 @@
 package com.doublekit.apibox.apimock.dao;
 
-import com.doublekit.apibox.apimock.entity.FormParamMockPo;
+import com.doublekit.apibox.apimock.entity.FormParamMockEntity;
 import com.doublekit.apibox.apimock.model.FormParamMockQuery;
 import com.doublekit.common.Pagination;
 import com.doublekit.dal.jpa.JpaTemplate;
@@ -24,19 +24,19 @@ public class FormParamMockDao{
 
     /**
      * 创建用户
-     * @param formParamMockPo
+     * @param formParamMockEntity
      * @return
      */
-    public String createFormParamMock(FormParamMockPo formParamMockPo) {
-        return jpaTemplate.save(formParamMockPo,String.class);
+    public String createFormParamMock(FormParamMockEntity formParamMockEntity) {
+        return jpaTemplate.save(formParamMockEntity,String.class);
     }
 
     /**
      * 更新用户
-     * @param formParamMockPo
+     * @param formParamMockEntity
      */
-    public void updateFormParamMock(FormParamMockPo formParamMockPo){
-        jpaTemplate.update(formParamMockPo);
+    public void updateFormParamMock(FormParamMockEntity formParamMockEntity){
+        jpaTemplate.update(formParamMockEntity);
     }
 
     /**
@@ -44,7 +44,7 @@ public class FormParamMockDao{
      * @param id
      */
     public void deleteFormParamMock(String id){
-        jpaTemplate.delete(FormParamMockPo.class,id);
+        jpaTemplate.delete(FormParamMockEntity.class,id);
     }
 
     /**
@@ -52,23 +52,23 @@ public class FormParamMockDao{
      * @param id
      * @return
      */
-    public FormParamMockPo findFormParamMock(String id){
-        return jpaTemplate.findOne(FormParamMockPo.class,id);
+    public FormParamMockEntity findFormParamMock(String id){
+        return jpaTemplate.findOne(FormParamMockEntity.class,id);
     }
 
     /**
     * findAllFormParamMock
     * @return
     */
-    public List<FormParamMockPo> findAllFormParamMock() {
-        return jpaTemplate.findAll(FormParamMockPo.class);
+    public List<FormParamMockEntity> findAllFormParamMock() {
+        return jpaTemplate.findAll(FormParamMockEntity.class);
     }
 
-    public List<FormParamMockPo> findFormParamMockList(FormParamMockQuery formParamMockQuery) {
-        return jpaTemplate.findList(FormParamMockPo.class,formParamMockQuery);
+    public List<FormParamMockEntity> findFormParamMockList(FormParamMockQuery formParamMockQuery) {
+        return jpaTemplate.findList(FormParamMockEntity.class,formParamMockQuery);
     }
 
-    public Pagination<FormParamMockPo> findFormParamMockPage(FormParamMockQuery formParamMockQuery) {
-        return jpaTemplate.findPage(FormParamMockPo.class,formParamMockQuery);
+    public Pagination<FormParamMockEntity> findFormParamMockPage(FormParamMockQuery formParamMockQuery) {
+        return jpaTemplate.findPage(FormParamMockEntity.class,formParamMockQuery);
     }
 }

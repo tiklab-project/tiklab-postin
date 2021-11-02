@@ -3,7 +3,7 @@ package com.doublekit.apibox.apidef.service;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.doublekit.apibox.apidef.dao.*;
-import com.doublekit.apibox.apidef.entity.MethodPo;
+import com.doublekit.apibox.apidef.entity.MethodEntity;
 import com.doublekit.apibox.apidef.model.MethodEx;
 import com.doublekit.apibox.apidef.model.MethodExQuery;
 import com.doublekit.apibox.apidef.support.MessageTemplateConstant;
@@ -94,12 +94,12 @@ public class MethodServiceImpl implements MethodService {
         //添加版本号  默认初始版本号为current
         methodEx.setVersionCode("current");
         //创建接口
-        MethodPo methodPo = BeanMapper.map(methodEx, MethodPo.class);
+        MethodEntity methodEntity = BeanMapper.map(methodEx, MethodEntity.class);
 
         //添加创建人
         String creatUserId = findCreatUser();
-        methodPo.setCreateUser(creatUserId);
-        String id = methodDao.createMethod(methodPo);
+        methodEntity.setCreateUser(creatUserId);
+        String id = methodDao.createMethod(methodEntity);
 
         //添加索引
         MethodEx entity = findMethod(id);
@@ -134,9 +134,9 @@ public class MethodServiceImpl implements MethodService {
     @Override
     public void updateMethod(@NotNull @Valid MethodEx method) {
         //更新接口
-        MethodPo methodPo = BeanMapper.map(method, MethodPo.class);
+        MethodEntity methodEntity = BeanMapper.map(method, MethodEntity.class);
 
-        methodDao.updateMethod(methodPo);
+        methodDao.updateMethod(methodEntity);
 
         //更新索引
         MethodEx entity = findMethod(method.getId());
@@ -215,17 +215,17 @@ public class MethodServiceImpl implements MethodService {
 
     @Override
     public MethodEx findOne(String id) {
-        MethodPo methodPo = methodDao.findMethod(id);
+        MethodEntity methodEntity = methodDao.findMethod(id);
 
-        MethodEx methodEx = BeanMapper.map(methodPo, MethodEx.class);
+        MethodEx methodEx = BeanMapper.map(methodEntity, MethodEx.class);
         return methodEx;
     }
 
     @Override
     public List<MethodEx> findList(List<String> idList) {
-        List<MethodPo> methodPoList =  methodDao.findMethodList(idList);
+        List<MethodEntity> methodEntityList =  methodDao.findMethodList(idList);
 
-        List<MethodEx> methodExList = BeanMapper.mapList(methodPoList, MethodEx.class);
+        List<MethodEx> methodExList = BeanMapper.mapList(methodEntityList, MethodEx.class);
 
         return methodExList;
     }
@@ -240,9 +240,9 @@ public class MethodServiceImpl implements MethodService {
 
     @Override
     public List<MethodEx> findAllMethod() {
-        List<MethodPo> methodPoList =  methodDao.findAllMethod();
+        List<MethodEntity> methodEntityList =  methodDao.findAllMethod();
 
-        List<MethodEx> methodExList = BeanMapper.mapList(methodPoList, MethodEx.class);
+        List<MethodEx> methodExList = BeanMapper.mapList(methodEntityList, MethodEx.class);
 
         joinQuery.queryList(methodExList);
 
@@ -251,9 +251,9 @@ public class MethodServiceImpl implements MethodService {
 
     @Override
     public List<MethodEx> findMethodList(MethodExQuery methodExQuery) {
-        List<MethodPo> methodPoList = methodDao.findMethodList(methodExQuery);
+        List<MethodEntity> methodEntityList = methodDao.findMethodList(methodExQuery);
 
-        List<MethodEx> methodExList = BeanMapper.mapList(methodPoList, MethodEx.class);
+        List<MethodEx> methodExList = BeanMapper.mapList(methodEntityList, MethodEx.class);
 
         joinQuery.queryList(methodExList);
 
@@ -276,7 +276,7 @@ public class MethodServiceImpl implements MethodService {
      */
     public Pagination<MethodEx> findMethodPage(Pagination pg,MethodExQuery methodExQuery) {
 
-        Pagination<MethodPo>  pagination = methodDao.findMethodPage(methodExQuery);
+        Pagination<MethodEntity>  pagination = methodDao.findMethodPage(methodExQuery);
 
         BeanUtils.copyProperties(pagination,pg);
 

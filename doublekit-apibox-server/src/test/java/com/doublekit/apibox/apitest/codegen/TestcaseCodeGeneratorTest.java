@@ -1,6 +1,6 @@
 package com.doublekit.apibox.apitest.codegen;
 
-import com.doublekit.apibox.apitest.entity.TestcasePo;
+import com.doublekit.apibox.apitest.entity.TestcaseEntity;
 import com.doublekit.codegen.CodeGeneratorTemplate;
 import com.doublekit.codegen.config.ModuleGeneratorConfig;
 import com.doublekit.codegen.config.ProjectGeneratorConfig;
@@ -21,7 +21,7 @@ public class TestcaseCodeGeneratorTest extends CodeGeneratorTemplate {
     protected ModuleGeneratorConfig getModuleGeneratorConfig() {
         ModuleGeneratorConfig config = new ModuleGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
-        config.setEntity(TestcasePo.class);
+        config.setEntity(TestcaseEntity.class);
         config.setPkg("com.doublekit.apibox.apitest");
         config.setModel("Testcase");
         return config;

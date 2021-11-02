@@ -1,6 +1,6 @@
 package com.doublekit.apibox.apidef.codegen;
 
-import com.doublekit.apibox.apidef.entity.RequestHeaderPo;
+import com.doublekit.apibox.apidef.entity.RequestHeaderEntity;
 import com.doublekit.codegen.CodeGeneratorTemplate;
 import com.doublekit.codegen.config.ProjectGeneratorConfig;
 import com.doublekit.codegen.config.ModuleGeneratorConfig;
@@ -21,7 +21,7 @@ public class RequestHeaderCodeGeneratorTest extends CodeGeneratorTemplate {
     protected ModuleGeneratorConfig getModuleGeneratorConfig() {
         ModuleGeneratorConfig config = new ModuleGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
-        config.setEntity(RequestHeaderPo.class);
+        config.setEntity(RequestHeaderEntity.class);
         config.setPkg("com.doublekit.apibox.requestheader");
         config.setModel("RequestHeader");
         return config;

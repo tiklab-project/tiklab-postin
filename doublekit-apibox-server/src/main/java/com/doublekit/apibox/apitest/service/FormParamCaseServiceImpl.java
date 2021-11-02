@@ -1,7 +1,7 @@
 package com.doublekit.apibox.apitest.service;
 
 import com.doublekit.apibox.apitest.dao.FormParamCaseDao;
-import com.doublekit.apibox.apitest.entity.FormParamCasePo;
+import com.doublekit.apibox.apitest.entity.FormParamCaseEntity;
 import com.doublekit.apibox.apitest.model.FormParamCase;
 import com.doublekit.apibox.apitest.model.FormParamCaseQuery;
 
@@ -31,16 +31,16 @@ public class FormParamCaseServiceImpl implements FormParamCaseService {
 
     @Override
     public String createFormParamCase(@NotNull @Valid FormParamCase formParamCase) {
-        FormParamCasePo formParamCasePo = BeanMapper.map(formParamCase, FormParamCasePo.class);
+        FormParamCaseEntity formParamCaseEntity = BeanMapper.map(formParamCase, FormParamCaseEntity.class);
 
-        return formParamCaseDao.createFormParamCase(formParamCasePo);
+        return formParamCaseDao.createFormParamCase(formParamCaseEntity);
     }
 
     @Override
     public void updateFormParamCase(@NotNull @Valid FormParamCase formParamCase) {
-        FormParamCasePo formParamCasePo = BeanMapper.map(formParamCase, FormParamCasePo.class);
+        FormParamCaseEntity formParamCaseEntity = BeanMapper.map(formParamCase, FormParamCaseEntity.class);
 
-        formParamCaseDao.updateFormParamCase(formParamCasePo);
+        formParamCaseDao.updateFormParamCase(formParamCaseEntity);
     }
 
     @Override
@@ -50,17 +50,17 @@ public class FormParamCaseServiceImpl implements FormParamCaseService {
 
     @Override
     public FormParamCase findOne(String id) {
-        FormParamCasePo formParamCasePo = formParamCaseDao.findFormParamCase(id);
+        FormParamCaseEntity formParamCaseEntity = formParamCaseDao.findFormParamCase(id);
 
-        FormParamCase formParamCase = BeanMapper.map(formParamCasePo, FormParamCase.class);
+        FormParamCase formParamCase = BeanMapper.map(formParamCaseEntity, FormParamCase.class);
         return formParamCase;
     }
 
     @Override
     public List<FormParamCase> findList(List<String> idList) {
-        List<FormParamCasePo> formParamCasePoList =  formParamCaseDao.findFormParamCaseList(idList);
+        List<FormParamCaseEntity> formParamCaseEntityList =  formParamCaseDao.findFormParamCaseList(idList);
 
-        List<FormParamCase> formParamCaseList =  BeanMapper.mapList(formParamCasePoList,FormParamCase.class);
+        List<FormParamCase> formParamCaseList =  BeanMapper.mapList(formParamCaseEntityList,FormParamCase.class);
         return formParamCaseList;
     }
 
@@ -74,9 +74,9 @@ public class FormParamCaseServiceImpl implements FormParamCaseService {
 
     @Override
     public List<FormParamCase> findAllFormParamCase() {
-        List<FormParamCasePo> formParamCasePoList =  formParamCaseDao.findAllFormParamCase();
+        List<FormParamCaseEntity> formParamCaseEntityList =  formParamCaseDao.findAllFormParamCase();
 
-        List<FormParamCase> formParamCaseList =  BeanMapper.mapList(formParamCasePoList,FormParamCase.class);
+        List<FormParamCase> formParamCaseList =  BeanMapper.mapList(formParamCaseEntityList,FormParamCase.class);
 
         joinQuery.queryList(formParamCaseList);
         return formParamCaseList;
@@ -84,9 +84,9 @@ public class FormParamCaseServiceImpl implements FormParamCaseService {
 
     @Override
     public List<FormParamCase> findFormParamCaseList(FormParamCaseQuery formParamCaseQuery) {
-        List<FormParamCasePo> formParamCasePoList = formParamCaseDao.findFormParamCaseList(formParamCaseQuery);
+        List<FormParamCaseEntity> formParamCaseEntityList = formParamCaseDao.findFormParamCaseList(formParamCaseQuery);
 
-        List<FormParamCase> formParamCaseList = BeanMapper.mapList(formParamCasePoList,FormParamCase.class);
+        List<FormParamCase> formParamCaseList = BeanMapper.mapList(formParamCaseEntityList,FormParamCase.class);
 
         joinQuery.queryList(formParamCaseList);
 
@@ -97,7 +97,7 @@ public class FormParamCaseServiceImpl implements FormParamCaseService {
     public Pagination<FormParamCase> findFormParamCasePage(FormParamCaseQuery formParamCaseQuery) {
         Pagination<FormParamCase> pg = new Pagination<>();
 
-        Pagination<FormParamCasePo>  pagination = formParamCaseDao.findFormParamCasePage(formParamCaseQuery);
+        Pagination<FormParamCaseEntity>  pagination = formParamCaseDao.findFormParamCasePage(formParamCaseQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<FormParamCase> formParamCaseList = BeanMapper.mapList(pagination.getDataList(),FormParamCase.class);

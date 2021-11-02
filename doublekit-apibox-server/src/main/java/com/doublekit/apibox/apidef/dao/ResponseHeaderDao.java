@@ -1,8 +1,8 @@
 package com.doublekit.apibox.apidef.dao;
 
-import com.doublekit.apibox.apidef.entity.RequestHeaderPo;
+import com.doublekit.apibox.apidef.entity.RequestHeaderEntity;
 import com.doublekit.common.Pagination;
-import com.doublekit.apibox.apidef.entity.ResponseHeaderPo;
+import com.doublekit.apibox.apidef.entity.ResponseHeaderEntity;
 import com.doublekit.apibox.apidef.model.ResponseHeaderQuery;
 import com.doublekit.dal.jpa.JpaTemplate;
 import com.doublekit.dal.jpa.builder.deletelist.condition.DeleteCondition;
@@ -26,19 +26,19 @@ public class ResponseHeaderDao{
 
     /**
      * 创建用户
-     * @param responseHeaderPo
+     * @param responseHeaderEntity
      * @return
      */
-    public String createResponseHeader(ResponseHeaderPo responseHeaderPo) {
-        return jpaTemplate.save(responseHeaderPo,String.class);
+    public String createResponseHeader(ResponseHeaderEntity responseHeaderEntity) {
+        return jpaTemplate.save(responseHeaderEntity,String.class);
     }
 
     /**
      * 更新用户
-     * @param responseHeaderPo
+     * @param responseHeaderEntity
      */
-    public void updateResponseHeader(ResponseHeaderPo responseHeaderPo){
-        jpaTemplate.update(responseHeaderPo);
+    public void updateResponseHeader(ResponseHeaderEntity responseHeaderEntity){
+        jpaTemplate.update(responseHeaderEntity);
     }
 
     /**
@@ -46,7 +46,7 @@ public class ResponseHeaderDao{
      * @param id
      */
     public void deleteResponseHeader(String id){
-        jpaTemplate.delete(ResponseHeaderPo.class,id);
+        jpaTemplate.delete(ResponseHeaderEntity.class,id);
     }
 
     /**
@@ -54,7 +54,7 @@ public class ResponseHeaderDao{
      * @param deleteCondition
      */
     public void deleteResponseHeaderList(DeleteCondition deleteCondition){
-        jpaTemplate.delete(ResponseHeaderPo.class,deleteCondition);
+        jpaTemplate.delete(ResponseHeaderEntity.class,deleteCondition);
     }
 
 
@@ -63,23 +63,23 @@ public class ResponseHeaderDao{
      * @param id
      * @return
      */
-    public ResponseHeaderPo findResponseHeader(String id){
-        return jpaTemplate.findOne(ResponseHeaderPo.class,id);
+    public ResponseHeaderEntity findResponseHeader(String id){
+        return jpaTemplate.findOne(ResponseHeaderEntity.class,id);
     }
 
     /**
     * findAllResponseHeader
     * @return
     */
-    public List<ResponseHeaderPo> findAllResponseHeader() {
-        return jpaTemplate.findAll(ResponseHeaderPo.class);
+    public List<ResponseHeaderEntity> findAllResponseHeader() {
+        return jpaTemplate.findAll(ResponseHeaderEntity.class);
     }
 
-    public List<ResponseHeaderPo> findResponseHeaderList(ResponseHeaderQuery responseHeaderQuery) {
-        return jpaTemplate.findList(ResponseHeaderPo.class,responseHeaderQuery);
+    public List<ResponseHeaderEntity> findResponseHeaderList(ResponseHeaderQuery responseHeaderQuery) {
+        return jpaTemplate.findList(ResponseHeaderEntity.class,responseHeaderQuery);
     }
 
-    public Pagination<ResponseHeaderPo> findResponseHeaderPage(ResponseHeaderQuery responseHeaderQuery) {
-        return jpaTemplate.findPage(ResponseHeaderPo.class,responseHeaderQuery);
+    public Pagination<ResponseHeaderEntity> findResponseHeaderPage(ResponseHeaderQuery responseHeaderQuery) {
+        return jpaTemplate.findPage(ResponseHeaderEntity.class,responseHeaderQuery);
     }
 }

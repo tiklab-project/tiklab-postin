@@ -1,6 +1,6 @@
 package com.doublekit.apibox.apitest.dao;
 
-import com.doublekit.apibox.apitest.entity.AfterScriptCasePo;
+import com.doublekit.apibox.apitest.entity.AfterScriptCaseEntity;
 import com.doublekit.apibox.apitest.model.AfterScriptCaseQuery;
 import com.doublekit.common.Pagination;
 import com.doublekit.dal.jpa.JpaTemplate;
@@ -24,19 +24,19 @@ public class AfterScriptCaseDao{
 
     /**
      * 创建用户
-     * @param afterScriptCasePo
+     * @param afterScriptCaseEntity
      * @return
      */
-    public String createAfterScriptCase(AfterScriptCasePo afterScriptCasePo) {
-        return jpaTemplate.save(afterScriptCasePo,String.class);
+    public String createAfterScriptCase(AfterScriptCaseEntity afterScriptCaseEntity) {
+        return jpaTemplate.save(afterScriptCaseEntity,String.class);
     }
 
     /**
      * 更新用户
-     * @param afterScriptCasePo
+     * @param afterScriptCaseEntity
      */
-    public void updateAfterScriptCase(AfterScriptCasePo afterScriptCasePo){
-        jpaTemplate.update(afterScriptCasePo);
+    public void updateAfterScriptCase(AfterScriptCaseEntity afterScriptCaseEntity){
+        jpaTemplate.update(afterScriptCaseEntity);
     }
 
     /**
@@ -44,7 +44,7 @@ public class AfterScriptCaseDao{
      * @param id
      */
     public void deleteAfterScriptCase(String id){
-        jpaTemplate.delete(AfterScriptCasePo.class,id);
+        jpaTemplate.delete(AfterScriptCaseEntity.class,id);
     }
 
     /**
@@ -52,27 +52,27 @@ public class AfterScriptCaseDao{
      * @param id
      * @return
      */
-    public AfterScriptCasePo findAfterScriptCase(String id){
-        return jpaTemplate.findOne(AfterScriptCasePo.class,id);
+    public AfterScriptCaseEntity findAfterScriptCase(String id){
+        return jpaTemplate.findOne(AfterScriptCaseEntity.class,id);
     }
 
     /**
     * findAllAfterScriptCase
     * @return
     */
-    public List<AfterScriptCasePo> findAllAfterScriptCase() {
-        return jpaTemplate.findAll(AfterScriptCasePo.class);
+    public List<AfterScriptCaseEntity> findAllAfterScriptCase() {
+        return jpaTemplate.findAll(AfterScriptCaseEntity.class);
     }
 
-    public List<AfterScriptCasePo> findAfterScriptCaseList(List<String> idList) {
-        return jpaTemplate.findList(AfterScriptCasePo.class,idList);
+    public List<AfterScriptCaseEntity> findAfterScriptCaseList(List<String> idList) {
+        return jpaTemplate.findList(AfterScriptCaseEntity.class,idList);
     }
 
-    public List<AfterScriptCasePo> findAfterScriptCaseList(AfterScriptCaseQuery afterScriptCaseQuery) {
-        return jpaTemplate.findList(AfterScriptCasePo.class,afterScriptCaseQuery);
+    public List<AfterScriptCaseEntity> findAfterScriptCaseList(AfterScriptCaseQuery afterScriptCaseQuery) {
+        return jpaTemplate.findList(AfterScriptCaseEntity.class,afterScriptCaseQuery);
     }
 
-    public Pagination<AfterScriptCasePo> findAfterScriptCasePage(AfterScriptCaseQuery afterScriptCaseQuery) {
-        return jpaTemplate.findPage(AfterScriptCasePo.class,afterScriptCaseQuery);
+    public Pagination<AfterScriptCaseEntity> findAfterScriptCasePage(AfterScriptCaseQuery afterScriptCaseQuery) {
+        return jpaTemplate.findPage(AfterScriptCaseEntity.class,afterScriptCaseQuery);
     }
 }

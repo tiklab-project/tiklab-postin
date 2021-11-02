@@ -1,7 +1,7 @@
 package com.doublekit.apibox.apimock.service;
 
 import com.doublekit.apibox.apimock.dao.RequestBodyMockDao;
-import com.doublekit.apibox.apimock.entity.RequestBodyMockPo;
+import com.doublekit.apibox.apimock.entity.RequestBodyMockEntity;
 import com.doublekit.apibox.apimock.model.RequestBodyMock;
 import com.doublekit.apibox.apimock.model.RequestBodyMockQuery;
 
@@ -31,16 +31,16 @@ public class RequestBodyMockServiceImpl implements RequestBodyMockService {
 
     @Override
     public String createRequestBodyMock(@NotNull @Valid RequestBodyMock requestBodyMock) {
-        RequestBodyMockPo requestBodyMockPo = BeanMapper.map(requestBodyMock, RequestBodyMockPo.class);
+        RequestBodyMockEntity requestBodyMockEntity = BeanMapper.map(requestBodyMock, RequestBodyMockEntity.class);
 
-        return requestBodyMockDao.createRequestBodyMock(requestBodyMockPo);
+        return requestBodyMockDao.createRequestBodyMock(requestBodyMockEntity);
     }
 
     @Override
     public void updateRequestBodyMock(@NotNull @Valid RequestBodyMock requestBodyMock) {
-        RequestBodyMockPo requestBodyMockPo = BeanMapper.map(requestBodyMock, RequestBodyMockPo.class);
+        RequestBodyMockEntity requestBodyMockEntity = BeanMapper.map(requestBodyMock, RequestBodyMockEntity.class);
 
-        requestBodyMockDao.updateRequestBodyMock(requestBodyMockPo);
+        requestBodyMockDao.updateRequestBodyMock(requestBodyMockEntity);
     }
 
     @Override
@@ -50,17 +50,17 @@ public class RequestBodyMockServiceImpl implements RequestBodyMockService {
 
     @Override
     public RequestBodyMock findOne(String id) {
-        RequestBodyMockPo requestBodyMockPo = requestBodyMockDao.findRequestBodyMock(id);
+        RequestBodyMockEntity requestBodyMockEntity = requestBodyMockDao.findRequestBodyMock(id);
 
-        RequestBodyMock requestBodyMock = BeanMapper.map(requestBodyMockPo, RequestBodyMock.class);
+        RequestBodyMock requestBodyMock = BeanMapper.map(requestBodyMockEntity, RequestBodyMock.class);
         return requestBodyMock;
     }
 
     @Override
     public List<RequestBodyMock> findList(List<String> idList) {
-        List<RequestBodyMockPo> requestBodyMockPoList =  requestBodyMockDao.findRequestBodyMockList(idList);
+        List<RequestBodyMockEntity> requestBodyMockEntityList =  requestBodyMockDao.findRequestBodyMockList(idList);
 
-        List<RequestBodyMock> requestBodyMockList =  BeanMapper.mapList(requestBodyMockPoList,RequestBodyMock.class);
+        List<RequestBodyMock> requestBodyMockList =  BeanMapper.mapList(requestBodyMockEntityList,RequestBodyMock.class);
         return requestBodyMockList;
     }
 
@@ -74,9 +74,9 @@ public class RequestBodyMockServiceImpl implements RequestBodyMockService {
 
     @Override
     public List<RequestBodyMock> findAllRequestBodyMock() {
-        List<RequestBodyMockPo> requestBodyMockPoList =  requestBodyMockDao.findAllRequestBodyMock();
+        List<RequestBodyMockEntity> requestBodyMockEntityList =  requestBodyMockDao.findAllRequestBodyMock();
 
-        List<RequestBodyMock> requestBodyMockList =  BeanMapper.mapList(requestBodyMockPoList,RequestBodyMock.class);
+        List<RequestBodyMock> requestBodyMockList =  BeanMapper.mapList(requestBodyMockEntityList,RequestBodyMock.class);
 
         joinQuery.queryList(requestBodyMockList);
         return requestBodyMockList;
@@ -84,9 +84,9 @@ public class RequestBodyMockServiceImpl implements RequestBodyMockService {
 
     @Override
     public List<RequestBodyMock> findRequestBodyMockList(RequestBodyMockQuery requestBodyMockQuery) {
-        List<RequestBodyMockPo> requestBodyMockPoList = requestBodyMockDao.findRequestBodyMockList(requestBodyMockQuery);
+        List<RequestBodyMockEntity> requestBodyMockEntityList = requestBodyMockDao.findRequestBodyMockList(requestBodyMockQuery);
 
-        List<RequestBodyMock> requestBodyMockList = BeanMapper.mapList(requestBodyMockPoList,RequestBodyMock.class);
+        List<RequestBodyMock> requestBodyMockList = BeanMapper.mapList(requestBodyMockEntityList,RequestBodyMock.class);
 
         joinQuery.queryList(requestBodyMockList);
 
@@ -97,7 +97,7 @@ public class RequestBodyMockServiceImpl implements RequestBodyMockService {
     public Pagination<RequestBodyMock> findRequestBodyMockPage(RequestBodyMockQuery requestBodyMockQuery) {
         Pagination<RequestBodyMock> pg = new Pagination<>();
 
-        Pagination<RequestBodyMockPo>  pagination = requestBodyMockDao.findRequestBodyMockPage(requestBodyMockQuery);
+        Pagination<RequestBodyMockEntity>  pagination = requestBodyMockDao.findRequestBodyMockPage(requestBodyMockQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<RequestBodyMock> requestBodyMockList = BeanMapper.mapList(pagination.getDataList(),RequestBodyMock.class);

@@ -1,7 +1,7 @@
 package com.doublekit.apibox.apidef.dao;
 
-import com.doublekit.apibox.apidef.entity.FormParamPo;
-import com.doublekit.apibox.apidef.entity.JsonParamPo;
+import com.doublekit.apibox.apidef.entity.FormParamEntity;
+import com.doublekit.apibox.apidef.entity.JsonParamEntity;
 import com.doublekit.apibox.apidef.model.JsonParamQuery;
 import com.doublekit.common.Pagination;
 import com.doublekit.dal.jpa.JpaTemplate;
@@ -29,7 +29,7 @@ public class JsonParamDao{
      * @param jsonParamPo
      * @return
      */
-    public String createJsonParam(JsonParamPo jsonParamPo) {
+    public String createJsonParam(JsonParamEntity jsonParamPo) {
         return jpaTemplate.save(jsonParamPo,String.class);
     }
 
@@ -37,7 +37,7 @@ public class JsonParamDao{
      * 更新用户
      * @param jsonParamPo
      */
-    public void updateJsonParam(JsonParamPo jsonParamPo){
+    public void updateJsonParam(JsonParamEntity jsonParamPo){
         jpaTemplate.update(jsonParamPo);
     }
 
@@ -46,7 +46,7 @@ public class JsonParamDao{
      * @param id
      */
     public void deleteJsonParam(String id){
-        jpaTemplate.delete(JsonParamPo.class,id);
+        jpaTemplate.delete(JsonParamEntity.class,id);
     }
 
     /**
@@ -54,7 +54,7 @@ public class JsonParamDao{
      * @param deleteCondition
      */
     public void deleteJsonParamList(DeleteCondition deleteCondition){
-        jpaTemplate.delete(JsonParamPo.class,deleteCondition);
+        jpaTemplate.delete(JsonParamEntity.class,deleteCondition);
     }
 
     /**
@@ -62,27 +62,27 @@ public class JsonParamDao{
      * @param id
      * @return
      */
-    public JsonParamPo findJsonParam(String id){
-        return jpaTemplate.findOne(JsonParamPo.class,id);
+    public JsonParamEntity findJsonParam(String id){
+        return jpaTemplate.findOne(JsonParamEntity.class,id);
     }
 
     /**
     * findAllJsonParam
     * @return
     */
-    public List<JsonParamPo> findAllJsonParam() {
-        return jpaTemplate.findAll(JsonParamPo.class);
+    public List<JsonParamEntity> findAllJsonParam() {
+        return jpaTemplate.findAll(JsonParamEntity.class);
     }
 
-    public List<JsonParamPo> findJsonParamList(List<String> idList) {
-        return jpaTemplate.findList(JsonParamPo.class,idList);
+    public List<JsonParamEntity> findJsonParamList(List<String> idList) {
+        return jpaTemplate.findList(JsonParamEntity.class,idList);
     }
 
-    public List<JsonParamPo> findJsonParamList(JsonParamQuery jsonParamQuery) {
-        return jpaTemplate.findList(JsonParamPo.class,jsonParamQuery);
+    public List<JsonParamEntity> findJsonParamList(JsonParamQuery jsonParamQuery) {
+        return jpaTemplate.findList(JsonParamEntity.class,jsonParamQuery);
     }
 
-    public Pagination<JsonParamPo> findJsonParamPage(JsonParamQuery jsonParamQuery) {
-        return jpaTemplate.findPage(JsonParamPo.class,jsonParamQuery);
+    public Pagination<JsonParamEntity> findJsonParamPage(JsonParamQuery jsonParamQuery) {
+        return jpaTemplate.findPage(JsonParamEntity.class,jsonParamQuery);
     }
 }

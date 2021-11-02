@@ -1,6 +1,6 @@
 package com.doublekit.apibox.sysmgr.codegen;
 
-import com.doublekit.apibox.sysmgr.entity.EnvironmentPo;
+import com.doublekit.apibox.sysmgr.entity.EnvironmentEntity;
 import com.doublekit.codegen.CodeGeneratorTemplate;
 import com.doublekit.codegen.config.ModuleGeneratorConfig;
 import com.doublekit.codegen.config.ProjectGeneratorConfig;
@@ -21,7 +21,7 @@ public class EnvironmentCodeGeneratorTest extends CodeGeneratorTemplate {
     protected ModuleGeneratorConfig getModuleGeneratorConfig() {
         ModuleGeneratorConfig config = new ModuleGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
-        config.setEntity(EnvironmentPo.class);
+        config.setEntity(EnvironmentEntity.class);
         config.setPkg("com.doublekit.apibox.sysmgr");
         config.setModel("Environment");
         return config;

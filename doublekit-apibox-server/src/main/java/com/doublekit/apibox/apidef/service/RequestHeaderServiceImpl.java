@@ -1,7 +1,7 @@
 package com.doublekit.apibox.apidef.service;
 
 import com.doublekit.apibox.apidef.dao.RequestHeaderDao;
-import com.doublekit.apibox.apidef.entity.RequestHeaderPo;
+import com.doublekit.apibox.apidef.entity.RequestHeaderEntity;
 import com.doublekit.apibox.apidef.model.RequestHeader;
 import com.doublekit.apibox.apidef.model.RequestHeaderQuery;
 
@@ -31,16 +31,16 @@ public class RequestHeaderServiceImpl implements RequestHeaderService {
 
     @Override
     public String createRequestHeader(@NotNull @Valid RequestHeader requestHeader) {
-        RequestHeaderPo requestHeaderPo = BeanMapper.map(requestHeader, RequestHeaderPo.class);
+        RequestHeaderEntity requestHeaderEntity = BeanMapper.map(requestHeader, RequestHeaderEntity.class);
 
-        return requestHeaderDao.createRequestHeader(requestHeaderPo);
+        return requestHeaderDao.createRequestHeader(requestHeaderEntity);
     }
 
     @Override
     public void updateRequestHeader(@NotNull @Valid RequestHeader requestHeader) {
-        RequestHeaderPo requestHeaderPo = BeanMapper.map(requestHeader, RequestHeaderPo.class);
+        RequestHeaderEntity requestHeaderEntity = BeanMapper.map(requestHeader, RequestHeaderEntity.class);
 
-        requestHeaderDao.updateRequestHeader(requestHeaderPo);
+        requestHeaderDao.updateRequestHeader(requestHeaderEntity);
     }
 
     @Override
@@ -50,9 +50,9 @@ public class RequestHeaderServiceImpl implements RequestHeaderService {
 
     @Override
     public RequestHeader findRequestHeader(@NotNull String id) {
-        RequestHeaderPo requestHeaderPo = requestHeaderDao.findRequestHeader(id);
+        RequestHeaderEntity requestHeaderEntity = requestHeaderDao.findRequestHeader(id);
 
-        RequestHeader requestHeader = BeanMapper.map(requestHeaderPo, RequestHeader.class);
+        RequestHeader requestHeader = BeanMapper.map(requestHeaderEntity, RequestHeader.class);
 
         joinQuery.queryOne(requestHeader);
 
@@ -61,9 +61,9 @@ public class RequestHeaderServiceImpl implements RequestHeaderService {
 
     @Override
     public List<RequestHeader> findAllRequestHeader() {
-        List<RequestHeaderPo> requestHeaderPoList =  requestHeaderDao.findAllRequestHeader();
+        List<RequestHeaderEntity> requestHeaderEntityList =  requestHeaderDao.findAllRequestHeader();
 
-        List<RequestHeader> requestHeaderList = BeanMapper.mapList(requestHeaderPoList,RequestHeader.class);
+        List<RequestHeader> requestHeaderList = BeanMapper.mapList(requestHeaderEntityList,RequestHeader.class);
 
         joinQuery.queryList(requestHeaderList);
 
@@ -72,9 +72,9 @@ public class RequestHeaderServiceImpl implements RequestHeaderService {
 
     @Override
     public List<RequestHeader> findRequestHeaderList(RequestHeaderQuery requestHeaderQuery) {
-        List<RequestHeaderPo> requestHeaderPoList = requestHeaderDao.findRequestHeaderList(requestHeaderQuery);
+        List<RequestHeaderEntity> requestHeaderEntityList = requestHeaderDao.findRequestHeaderList(requestHeaderQuery);
 
-        List<RequestHeader> requestHeaderList = BeanMapper.mapList(requestHeaderPoList,RequestHeader.class);
+        List<RequestHeader> requestHeaderList = BeanMapper.mapList(requestHeaderEntityList,RequestHeader.class);
 
         joinQuery.queryList(requestHeaderList);
 
@@ -85,7 +85,7 @@ public class RequestHeaderServiceImpl implements RequestHeaderService {
     public Pagination<RequestHeader> findRequestHeaderPage(RequestHeaderQuery requestHeaderQuery) {
         Pagination<RequestHeader> pg = new Pagination<>();
 
-        Pagination<RequestHeaderPo>  pagination = requestHeaderDao.findRequestHeaderPage(requestHeaderQuery);
+        Pagination<RequestHeaderEntity>  pagination = requestHeaderDao.findRequestHeaderPage(requestHeaderQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<RequestHeader> requestHeaderList = BeanMapper.mapList(pagination.getDataList(),RequestHeader.class);

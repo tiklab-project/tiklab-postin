@@ -1,8 +1,8 @@
 package com.doublekit.apibox.apidef.dao;
 
-import com.doublekit.apibox.apidef.entity.JsonResponsePo;
+import com.doublekit.apibox.apidef.entity.JsonResponseEntity;
 import com.doublekit.common.Pagination;
-import com.doublekit.apibox.apidef.entity.PreScriptPo;
+import com.doublekit.apibox.apidef.entity.PreScriptEntity;
 import com.doublekit.apibox.apidef.model.PreScriptQuery;
 import com.doublekit.dal.jpa.JpaTemplate;
 import com.doublekit.dal.jpa.builder.deletelist.condition.DeleteCondition;
@@ -26,19 +26,19 @@ public class PreScriptDao{
 
     /**
      * 创建用户
-     * @param preScriptPo
+     * @param preScriptEntity
      * @return
      */
-    public String createPreScript(PreScriptPo preScriptPo) {
-        return jpaTemplate.save(preScriptPo,String.class);
+    public String createPreScript(PreScriptEntity preScriptEntity) {
+        return jpaTemplate.save(preScriptEntity,String.class);
     }
 
     /**
      * 更新用户
-     * @param preScriptPo
+     * @param preScriptEntity
      */
-    public void updatePreScript(PreScriptPo preScriptPo){
-        jpaTemplate.update(preScriptPo);
+    public void updatePreScript(PreScriptEntity preScriptEntity){
+        jpaTemplate.update(preScriptEntity);
     }
 
     /**
@@ -46,7 +46,7 @@ public class PreScriptDao{
      * @param id
      */
     public void deletePreScript(String id){
-        jpaTemplate.delete(PreScriptPo.class,id);
+        jpaTemplate.delete(PreScriptEntity.class,id);
     }
 
     /**
@@ -54,7 +54,7 @@ public class PreScriptDao{
      * @param deleteCondition
      */
     public void deletePreScriptList(DeleteCondition deleteCondition){
-        jpaTemplate.delete(PreScriptPo.class,deleteCondition);
+        jpaTemplate.delete(PreScriptEntity.class,deleteCondition);
     }
 
 
@@ -63,23 +63,23 @@ public class PreScriptDao{
      * @param id
      * @return
      */
-    public PreScriptPo findPreScript(String id){
-        return jpaTemplate.findOne(PreScriptPo.class,id);
+    public PreScriptEntity findPreScript(String id){
+        return jpaTemplate.findOne(PreScriptEntity.class,id);
     }
 
     /**
     * findAllPreScript
     * @return
     */
-    public List<PreScriptPo> findAllPreScript() {
-        return jpaTemplate.findAll(PreScriptPo.class);
+    public List<PreScriptEntity> findAllPreScript() {
+        return jpaTemplate.findAll(PreScriptEntity.class);
     }
 
-    public List<PreScriptPo> findPreScriptList(PreScriptQuery preScriptQuery) {
-        return jpaTemplate.findList(PreScriptPo.class,preScriptQuery);
+    public List<PreScriptEntity> findPreScriptList(PreScriptQuery preScriptQuery) {
+        return jpaTemplate.findList(PreScriptEntity.class,preScriptQuery);
     }
 
-    public Pagination<PreScriptPo> findPreScriptPage(PreScriptQuery preScriptQuery) {
-        return jpaTemplate.findPage(PreScriptPo.class,preScriptQuery);
+    public Pagination<PreScriptEntity> findPreScriptPage(PreScriptQuery preScriptQuery) {
+        return jpaTemplate.findPage(PreScriptEntity.class,preScriptQuery);
     }
 }

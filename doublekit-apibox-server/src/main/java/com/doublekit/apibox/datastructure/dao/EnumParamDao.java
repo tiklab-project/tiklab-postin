@@ -1,7 +1,7 @@
 package com.doublekit.apibox.datastructure.dao;
 
 import com.doublekit.common.Pagination;
-import com.doublekit.apibox.datastructure.entity.EnumParamPo;
+import com.doublekit.apibox.datastructure.entity.EnumParamEntity;
 import com.doublekit.apibox.datastructure.model.EnumParamQuery;
 import com.doublekit.dal.jpa.JpaTemplate;
 import com.doublekit.dal.jpa.builder.deletelist.condition.*;
@@ -25,19 +25,19 @@ public class EnumParamDao{
 
     /**
      * 创建
-     * @param enumParamPo
+     * @param enumParamEntity
      * @return
      */
-    public String createEnumParam(EnumParamPo enumParamPo) {
-        return jpaTemplate.save(enumParamPo,String.class);
+    public String createEnumParam(EnumParamEntity enumParamEntity) {
+        return jpaTemplate.save(enumParamEntity,String.class);
     }
 
     /**
      * 更新
-     * @param enumParamPo
+     * @param enumParamEntity
      */
-    public void updateEnumParam(EnumParamPo enumParamPo){
-        jpaTemplate.update(enumParamPo);
+    public void updateEnumParam(EnumParamEntity enumParamEntity){
+        jpaTemplate.update(enumParamEntity);
     }
 
     /**
@@ -45,11 +45,11 @@ public class EnumParamDao{
      * @param id
      */
     public void deleteEnumParam(String id){
-        jpaTemplate.delete(EnumParamPo.class,id);
+        jpaTemplate.delete(EnumParamEntity.class,id);
     }
 
     public void deleteEnumParam(DeleteCondition deleteCondition){
-        jpaTemplate.delete(EnumParamPo.class,deleteCondition);
+        jpaTemplate.delete(EnumParamEntity.class,deleteCondition);
     }
 
     /**
@@ -57,27 +57,27 @@ public class EnumParamDao{
      * @param id
      * @return
      */
-    public EnumParamPo findEnumParam(String id){
-        return jpaTemplate.findOne(EnumParamPo.class,id);
+    public EnumParamEntity findEnumParam(String id){
+        return jpaTemplate.findOne(EnumParamEntity.class,id);
     }
 
     /**
     * findAllEnumParam
     * @return
     */
-    public List<EnumParamPo> findAllEnumParam() {
-        return jpaTemplate.findAll(EnumParamPo.class);
+    public List<EnumParamEntity> findAllEnumParam() {
+        return jpaTemplate.findAll(EnumParamEntity.class);
     }
 
-    public List<EnumParamPo> findEnumParamList(List<String> idList) {
-        return jpaTemplate.findList(EnumParamPo.class,idList);
+    public List<EnumParamEntity> findEnumParamList(List<String> idList) {
+        return jpaTemplate.findList(EnumParamEntity.class,idList);
     }
 
-    public List<EnumParamPo> findEnumParamList(EnumParamQuery enumParamQuery) {
-        return jpaTemplate.findList(EnumParamPo.class,enumParamQuery);
+    public List<EnumParamEntity> findEnumParamList(EnumParamQuery enumParamQuery) {
+        return jpaTemplate.findList(EnumParamEntity.class,enumParamQuery);
     }
 
-    public Pagination<EnumParamPo> findEnumParamPage(EnumParamQuery enumParamQuery) {
-        return jpaTemplate.findPage(EnumParamPo.class,enumParamQuery);
+    public Pagination<EnumParamEntity> findEnumParamPage(EnumParamQuery enumParamQuery) {
+        return jpaTemplate.findPage(EnumParamEntity.class,enumParamQuery);
     }
 }

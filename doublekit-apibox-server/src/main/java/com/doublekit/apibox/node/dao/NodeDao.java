@@ -1,6 +1,6 @@
 package com.doublekit.apibox.node.dao;
 
-import com.doublekit.apibox.node.entity.NodePo;
+import com.doublekit.apibox.node.entity.NodeEntity;
 import com.doublekit.apibox.node.model.NodeQuery;
 import com.doublekit.common.Pagination;
 import com.doublekit.dal.jpa.JpaTemplate;
@@ -24,19 +24,19 @@ public class NodeDao{
 
     /**
      * 创建用户
-     * @param nodePo
+     * @param nodeEntity
      * @return
      */
-    public String createNode(NodePo nodePo) {
-        return jpaTemplate.save(nodePo,String.class);
+    public String createNode(NodeEntity nodeEntity) {
+        return jpaTemplate.save(nodeEntity,String.class);
     }
 
     /**
      * 更新用户
-     * @param nodePo
+     * @param nodeEntity
      */
-    public void updateNode(NodePo nodePo){
-        jpaTemplate.update(nodePo);
+    public void updateNode(NodeEntity nodeEntity){
+        jpaTemplate.update(nodeEntity);
     }
 
     /**
@@ -44,7 +44,7 @@ public class NodeDao{
      * @param id
      */
     public void deleteNode(String id){
-        jpaTemplate.delete(NodePo.class,id);
+        jpaTemplate.delete(NodeEntity.class,id);
     }
 
     /**
@@ -52,23 +52,23 @@ public class NodeDao{
      * @param id
      * @return
      */
-    public NodePo findNode(String id){
-        return jpaTemplate.findOne(NodePo.class,id);
+    public NodeEntity findNode(String id){
+        return jpaTemplate.findOne(NodeEntity.class,id);
     }
 
     /**
     * findAllNode
     * @return
     */
-    public List<NodePo> findAllNode() {
-        return jpaTemplate.findAll(NodePo.class);
+    public List<NodeEntity> findAllNode() {
+        return jpaTemplate.findAll(NodeEntity.class);
     }
 
-    public List<NodePo> findNodeList(NodeQuery nodeQuery) {
-        return jpaTemplate.findList(NodePo.class,nodeQuery);
+    public List<NodeEntity> findNodeList(NodeQuery nodeQuery) {
+        return jpaTemplate.findList(NodeEntity.class,nodeQuery);
     }
 
-    public Pagination<NodePo> findNodePage(NodeQuery nodeQuery) {
-        return jpaTemplate.findPage(NodePo.class,nodeQuery);
+    public Pagination<NodeEntity> findNodePage(NodeQuery nodeQuery) {
+        return jpaTemplate.findPage(NodeEntity.class,nodeQuery);
     }
 }

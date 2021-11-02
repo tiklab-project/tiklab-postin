@@ -1,6 +1,6 @@
 package com.doublekit.apibox.datastructure.codegen;
 
-import com.doublekit.apibox.datastructure.entity.DataStructurePo;
+import com.doublekit.apibox.datastructure.entity.DataStructureEntity;
 import com.doublekit.codegen.CodeGeneratorTemplate;
 import com.doublekit.codegen.config.ModuleGeneratorConfig;
 import com.doublekit.codegen.config.ProjectGeneratorConfig;
@@ -21,7 +21,7 @@ public class SubjectCodeGeneratorTest extends CodeGeneratorTemplate {
     protected ModuleGeneratorConfig getModuleGeneratorConfig() {
         ModuleGeneratorConfig config = new ModuleGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
-        config.setEntity(DataStructurePo.class);
+        config.setEntity(DataStructureEntity.class);
         config.setPkg("com.doublekit.apibox.datastructure");
         config.setModel("DataStructure");
         return config;

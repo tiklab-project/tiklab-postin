@@ -1,7 +1,7 @@
 package com.doublekit.apibox.apitest.service;
 
 import com.doublekit.apibox.apitest.dao.QueryParamCaseDao;
-import com.doublekit.apibox.apitest.entity.QueryParamCasePo;
+import com.doublekit.apibox.apitest.entity.QueryParamCaseEntity;
 
 import com.doublekit.apibox.apitest.model.QueryParamCase;
 import com.doublekit.apibox.apitest.model.QueryParamCaseQuery;
@@ -31,16 +31,16 @@ public class QueryParamCaseServiceImpl implements QueryParamCaseService {
 
     @Override
     public String createQueryParamCase(@NotNull @Valid QueryParamCase queryParamCase) {
-        QueryParamCasePo queryParamCasePo = BeanMapper.map(queryParamCase, QueryParamCasePo.class);
+        QueryParamCaseEntity queryParamCaseEntity = BeanMapper.map(queryParamCase, QueryParamCaseEntity.class);
 
-        return queryParamCaseDao.createQueryParamCase(queryParamCasePo);
+        return queryParamCaseDao.createQueryParamCase(queryParamCaseEntity);
     }
 
     @Override
     public void updateQueryParamCase(@NotNull @Valid QueryParamCase queryParamCase) {
-        QueryParamCasePo queryParamCasePo = BeanMapper.map(queryParamCase, QueryParamCasePo.class);
+        QueryParamCaseEntity queryParamCaseEntity = BeanMapper.map(queryParamCase, QueryParamCaseEntity.class);
 
-        queryParamCaseDao.updateQueryParamCase(queryParamCasePo);
+        queryParamCaseDao.updateQueryParamCase(queryParamCaseEntity);
     }
 
     @Override
@@ -50,17 +50,17 @@ public class QueryParamCaseServiceImpl implements QueryParamCaseService {
 
     @Override
     public QueryParamCase findOne(String id) {
-        QueryParamCasePo queryParamCasePo = queryParamCaseDao.findQueryParamCase(id);
+        QueryParamCaseEntity queryParamCaseEntity = queryParamCaseDao.findQueryParamCase(id);
 
-        QueryParamCase queryParamCase = BeanMapper.map(queryParamCasePo, QueryParamCase.class);
+        QueryParamCase queryParamCase = BeanMapper.map(queryParamCaseEntity, QueryParamCase.class);
         return queryParamCase;
     }
 
     @Override
     public List<QueryParamCase> findList(List<String> idList) {
-        List<QueryParamCasePo> queryParamCasePoList =  queryParamCaseDao.findQueryParamCaseList(idList);
+        List<QueryParamCaseEntity> queryParamCaseEntityList =  queryParamCaseDao.findQueryParamCaseList(idList);
 
-        List<QueryParamCase> queryParamCaseList =  BeanMapper.mapList(queryParamCasePoList,QueryParamCase.class);
+        List<QueryParamCase> queryParamCaseList =  BeanMapper.mapList(queryParamCaseEntityList,QueryParamCase.class);
         return queryParamCaseList;
     }
 
@@ -74,9 +74,9 @@ public class QueryParamCaseServiceImpl implements QueryParamCaseService {
 
     @Override
     public List<QueryParamCase> findAllQueryParamCase() {
-        List<QueryParamCasePo> queryParamCasePoList =  queryParamCaseDao.findAllQueryParamCase();
+        List<QueryParamCaseEntity> queryParamCaseEntityList =  queryParamCaseDao.findAllQueryParamCase();
 
-        List<QueryParamCase> queryParamCaseList =  BeanMapper.mapList(queryParamCasePoList,QueryParamCase.class);
+        List<QueryParamCase> queryParamCaseList =  BeanMapper.mapList(queryParamCaseEntityList,QueryParamCase.class);
 
         joinQuery.queryList(queryParamCaseList);
         return queryParamCaseList;
@@ -84,9 +84,9 @@ public class QueryParamCaseServiceImpl implements QueryParamCaseService {
 
     @Override
     public List<QueryParamCase> findQueryParamCaseList(QueryParamCaseQuery queryParamCaseQuery) {
-        List<QueryParamCasePo> queryParamCasePoList = queryParamCaseDao.findQueryParamCaseList(queryParamCaseQuery);
+        List<QueryParamCaseEntity> queryParamCaseEntityList = queryParamCaseDao.findQueryParamCaseList(queryParamCaseQuery);
 
-        List<QueryParamCase> queryParamCaseList = BeanMapper.mapList(queryParamCasePoList,QueryParamCase.class);
+        List<QueryParamCase> queryParamCaseList = BeanMapper.mapList(queryParamCaseEntityList,QueryParamCase.class);
 
         joinQuery.queryList(queryParamCaseList);
 
@@ -97,7 +97,7 @@ public class QueryParamCaseServiceImpl implements QueryParamCaseService {
     public Pagination<QueryParamCase> findQueryParamCasePage(QueryParamCaseQuery queryParamCaseQuery) {
         Pagination<QueryParamCase> pg = new Pagination<>();
 
-        Pagination<QueryParamCasePo>  pagination = queryParamCaseDao.findQueryParamCasePage(queryParamCaseQuery);
+        Pagination<QueryParamCaseEntity>  pagination = queryParamCaseDao.findQueryParamCasePage(queryParamCaseQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<QueryParamCase> queryParamCaseList = BeanMapper.mapList(pagination.getDataList(),QueryParamCase.class);

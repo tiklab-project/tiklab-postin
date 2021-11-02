@@ -1,6 +1,6 @@
 package com.doublekit.apibox.apitest.dao;
 
-import com.doublekit.apibox.apitest.entity.JsonParamCasePo;
+import com.doublekit.apibox.apitest.entity.JsonParamCaseEntity;
 import com.doublekit.apibox.apitest.model.JsonParamCaseQuery;
 import com.doublekit.common.Pagination;
 import com.doublekit.dal.jpa.JpaTemplate;
@@ -24,19 +24,19 @@ public class JsonParamCaseDao{
 
     /**
      * 创建用户
-     * @param jsonParamCasePo
+     * @param jsonParamCaseEntity
      * @return
      */
-    public String createJsonParamCase(JsonParamCasePo jsonParamCasePo) {
-        return jpaTemplate.save(jsonParamCasePo,String.class);
+    public String createJsonParamCase(JsonParamCaseEntity jsonParamCaseEntity) {
+        return jpaTemplate.save(jsonParamCaseEntity,String.class);
     }
 
     /**
      * 更新用户
-     * @param jsonParamCasePo
+     * @param jsonParamCaseEntity
      */
-    public void updateJsonParamCase(JsonParamCasePo jsonParamCasePo){
-        jpaTemplate.update(jsonParamCasePo);
+    public void updateJsonParamCase(JsonParamCaseEntity jsonParamCaseEntity){
+        jpaTemplate.update(jsonParamCaseEntity);
     }
 
     /**
@@ -44,7 +44,7 @@ public class JsonParamCaseDao{
      * @param id
      */
     public void deleteJsonParamCase(String id){
-        jpaTemplate.delete(JsonParamCasePo.class,id);
+        jpaTemplate.delete(JsonParamCaseEntity.class,id);
     }
 
     /**
@@ -52,27 +52,27 @@ public class JsonParamCaseDao{
      * @param id
      * @return
      */
-    public JsonParamCasePo findJsonParamCase(String id){
-        return jpaTemplate.findOne(JsonParamCasePo.class,id);
+    public JsonParamCaseEntity findJsonParamCase(String id){
+        return jpaTemplate.findOne(JsonParamCaseEntity.class,id);
     }
 
     /**
     * findAllJsonParamCase
     * @return
     */
-    public List<JsonParamCasePo> findAllJsonParamCase() {
-        return jpaTemplate.findAll(JsonParamCasePo.class);
+    public List<JsonParamCaseEntity> findAllJsonParamCase() {
+        return jpaTemplate.findAll(JsonParamCaseEntity.class);
     }
 
-    public List<JsonParamCasePo> findJsonParamCaseList(List<String> idList) {
-        return jpaTemplate.findList(JsonParamCasePo.class,idList);
+    public List<JsonParamCaseEntity> findJsonParamCaseList(List<String> idList) {
+        return jpaTemplate.findList(JsonParamCaseEntity.class,idList);
     }
 
-    public List<JsonParamCasePo> findJsonParamCaseList(JsonParamCaseQuery jsonParamCaseQuery) {
-        return jpaTemplate.findList(JsonParamCasePo.class,jsonParamCaseQuery);
+    public List<JsonParamCaseEntity> findJsonParamCaseList(JsonParamCaseQuery jsonParamCaseQuery) {
+        return jpaTemplate.findList(JsonParamCaseEntity.class,jsonParamCaseQuery);
     }
 
-    public Pagination<JsonParamCasePo> findJsonParamCasePage(JsonParamCaseQuery jsonParamCaseQuery) {
-        return jpaTemplate.findPage(JsonParamCasePo.class,jsonParamCaseQuery);
+    public Pagination<JsonParamCaseEntity> findJsonParamCasePage(JsonParamCaseQuery jsonParamCaseQuery) {
+        return jpaTemplate.findPage(JsonParamCaseEntity.class,jsonParamCaseQuery);
     }
 }

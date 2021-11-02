@@ -1,7 +1,7 @@
 package com.doublekit.apibox.apimock.service;
 
 import com.doublekit.apibox.apimock.dao.ResponseHeaderMockDao;
-import com.doublekit.apibox.apimock.entity.ResponseHeaderMockPo;
+import com.doublekit.apibox.apimock.entity.ResponseHeaderMockEntity;
 import com.doublekit.apibox.apimock.model.ResponseHeaderMock;
 import com.doublekit.apibox.apimock.model.ResponseHeaderMockQuery;
 
@@ -31,16 +31,16 @@ public class ResponseHeaderMockServiceImpl implements ResponseHeaderMockService 
 
     @Override
     public String createResponseHeaderMock(@NotNull @Valid ResponseHeaderMock responseHeaderMock) {
-        ResponseHeaderMockPo responseHeaderMockPo = BeanMapper.map(responseHeaderMock, ResponseHeaderMockPo.class);
+        ResponseHeaderMockEntity responseHeaderMockEntity = BeanMapper.map(responseHeaderMock, ResponseHeaderMockEntity.class);
 
-        return responseHeaderMockDao.createResponseHeaderMock(responseHeaderMockPo);
+        return responseHeaderMockDao.createResponseHeaderMock(responseHeaderMockEntity);
     }
 
     @Override
     public void updateResponseHeaderMock(@NotNull @Valid ResponseHeaderMock responseHeaderMock) {
-        ResponseHeaderMockPo responseHeaderMockPo = BeanMapper.map(responseHeaderMock, ResponseHeaderMockPo.class);
+        ResponseHeaderMockEntity responseHeaderMockEntity = BeanMapper.map(responseHeaderMock, ResponseHeaderMockEntity.class);
 
-        responseHeaderMockDao.updateResponseHeaderMock(responseHeaderMockPo);
+        responseHeaderMockDao.updateResponseHeaderMock(responseHeaderMockEntity);
     }
 
     @Override
@@ -50,9 +50,9 @@ public class ResponseHeaderMockServiceImpl implements ResponseHeaderMockService 
 
     @Override
     public ResponseHeaderMock findResponseHeaderMock(@NotNull String id) {
-        ResponseHeaderMockPo responseHeaderMockPo = responseHeaderMockDao.findResponseHeaderMock(id);
+        ResponseHeaderMockEntity responseHeaderMockEntity = responseHeaderMockDao.findResponseHeaderMock(id);
 
-        ResponseHeaderMock responseHeaderMock = BeanMapper.map(responseHeaderMockPo, ResponseHeaderMock.class);
+        ResponseHeaderMock responseHeaderMock = BeanMapper.map(responseHeaderMockEntity, ResponseHeaderMock.class);
 
         joinQuery.queryOne(responseHeaderMock);
 
@@ -61,9 +61,9 @@ public class ResponseHeaderMockServiceImpl implements ResponseHeaderMockService 
 
     @Override
     public List<ResponseHeaderMock> findAllResponseHeaderMock() {
-        List<ResponseHeaderMockPo> responseHeaderMockPoList =  responseHeaderMockDao.findAllResponseHeaderMock();
+        List<ResponseHeaderMockEntity> responseHeaderMockEntityList =  responseHeaderMockDao.findAllResponseHeaderMock();
 
-        List<ResponseHeaderMock> responseHeaderMockList =  BeanMapper.mapList(responseHeaderMockPoList,ResponseHeaderMock.class);
+        List<ResponseHeaderMock> responseHeaderMockList =  BeanMapper.mapList(responseHeaderMockEntityList,ResponseHeaderMock.class);
 
         joinQuery.queryList(responseHeaderMockList);
 
@@ -72,9 +72,9 @@ public class ResponseHeaderMockServiceImpl implements ResponseHeaderMockService 
 
     @Override
     public List<ResponseHeaderMock> findResponseHeaderMockList(ResponseHeaderMockQuery responseHeaderMockQuery) {
-        List<ResponseHeaderMockPo> responseHeaderMockPoList = responseHeaderMockDao.findResponseHeaderMockList(responseHeaderMockQuery);
+        List<ResponseHeaderMockEntity> responseHeaderMockEntityList = responseHeaderMockDao.findResponseHeaderMockList(responseHeaderMockQuery);
 
-        List<ResponseHeaderMock> responseHeaderMockList = BeanMapper.mapList(responseHeaderMockPoList,ResponseHeaderMock.class);
+        List<ResponseHeaderMock> responseHeaderMockList = BeanMapper.mapList(responseHeaderMockEntityList,ResponseHeaderMock.class);
 
         joinQuery.queryList(responseHeaderMockList);
 
@@ -85,7 +85,7 @@ public class ResponseHeaderMockServiceImpl implements ResponseHeaderMockService 
     public Pagination<ResponseHeaderMock> findResponseHeaderMockPage(ResponseHeaderMockQuery responseHeaderMockQuery) {
         Pagination<ResponseHeaderMock> pg = new Pagination<>();
 
-        Pagination<ResponseHeaderMockPo>  pagination = responseHeaderMockDao.findResponseHeaderMockPage(responseHeaderMockQuery);
+        Pagination<ResponseHeaderMockEntity>  pagination = responseHeaderMockDao.findResponseHeaderMockPage(responseHeaderMockQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<ResponseHeaderMock> responseHeaderMockList = BeanMapper.mapList(pagination.getDataList(),ResponseHeaderMock.class);

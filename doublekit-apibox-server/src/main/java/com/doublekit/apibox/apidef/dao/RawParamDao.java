@@ -1,8 +1,8 @@
 package com.doublekit.apibox.apidef.dao;
 
-import com.doublekit.apibox.apidef.entity.QueryParamPo;
+import com.doublekit.apibox.apidef.entity.QueryParamEntity;
 import com.doublekit.common.Pagination;
-import com.doublekit.apibox.apidef.entity.RawParamPo;
+import com.doublekit.apibox.apidef.entity.RawParamEntity;
 import com.doublekit.apibox.apidef.model.RawParamQuery;
 import com.doublekit.dal.jpa.JpaTemplate;
 import com.doublekit.dal.jpa.builder.deletelist.condition.DeleteCondition;
@@ -26,19 +26,19 @@ public class RawParamDao{
 
     /**
      * 创建用户
-     * @param rawParamPo
+     * @param rawParamEntity
      * @return
      */
-    public String createRawParam(RawParamPo rawParamPo) {
-        return jpaTemplate.save(rawParamPo,String.class);
+    public String createRawParam(RawParamEntity rawParamEntity) {
+        return jpaTemplate.save(rawParamEntity,String.class);
     }
 
     /**
      * 更新用户
-     * @param rawParamPo
+     * @param rawParamEntity
      */
-    public void updateRawParam(RawParamPo rawParamPo){
-        jpaTemplate.update(rawParamPo);
+    public void updateRawParam(RawParamEntity rawParamEntity){
+        jpaTemplate.update(rawParamEntity);
     }
 
     /**
@@ -46,7 +46,7 @@ public class RawParamDao{
      * @param id
      */
     public void deleteRawParam(String id){
-        jpaTemplate.delete(RawParamPo.class,id);
+        jpaTemplate.delete(RawParamEntity.class,id);
     }
 
     /**
@@ -54,7 +54,7 @@ public class RawParamDao{
      * @param deleteCondition
      */
     public void deleteRawParamlist(DeleteCondition deleteCondition){
-        jpaTemplate.delete(RawParamPo.class,deleteCondition);
+        jpaTemplate.delete(RawParamEntity.class,deleteCondition);
     }
 
     /**
@@ -62,23 +62,23 @@ public class RawParamDao{
      * @param id
      * @return
      */
-    public RawParamPo findRawParam(String id){
-        return jpaTemplate.findOne(RawParamPo.class,id);
+    public RawParamEntity findRawParam(String id){
+        return jpaTemplate.findOne(RawParamEntity.class,id);
     }
 
     /**
     * findAllRawParam
     * @return
     */
-    public List<RawParamPo> findAllRawParam() {
-        return jpaTemplate.findAll(RawParamPo.class);
+    public List<RawParamEntity> findAllRawParam() {
+        return jpaTemplate.findAll(RawParamEntity.class);
     }
 
-    public List<RawParamPo> findRawParamList(RawParamQuery rawParamQuery) {
-        return jpaTemplate.findList(RawParamPo.class,rawParamQuery);
+    public List<RawParamEntity> findRawParamList(RawParamQuery rawParamQuery) {
+        return jpaTemplate.findList(RawParamEntity.class,rawParamQuery);
     }
 
-    public Pagination<RawParamPo> findRawParamPage(RawParamQuery rawParamQuery) {
-        return jpaTemplate.findPage(RawParamPo.class,rawParamQuery);
+    public Pagination<RawParamEntity> findRawParamPage(RawParamQuery rawParamQuery) {
+        return jpaTemplate.findPage(RawParamEntity.class,rawParamQuery);
     }
 }

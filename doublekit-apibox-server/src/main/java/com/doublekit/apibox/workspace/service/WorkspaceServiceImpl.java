@@ -1,7 +1,7 @@
 package com.doublekit.apibox.workspace.service;
 
 import com.doublekit.apibox.workspace.dao.WorkspaceDao;
-import com.doublekit.apibox.workspace.entity.WorkspacePo;
+import com.doublekit.apibox.workspace.entity.WorkspaceEntity;
 import com.doublekit.apibox.workspace.model.Workspace;
 import com.doublekit.apibox.workspace.model.WorkspaceQuery;
 import com.doublekit.beans.BeanMapper;
@@ -43,9 +43,9 @@ public class WorkspaceServiceImpl implements WorkspaceService {
     @Override
     public String createWorkspace(@NotNull @Valid Workspace workspace) {
         //创建项目
-        WorkspacePo workspacePo = BeanMapper.map(workspace, WorkspacePo.class);
+        WorkspaceEntity workspaceEntity = BeanMapper.map(workspace, WorkspaceEntity.class);
 
-        String projectId = workspaceDao.createWorkspace(workspacePo);
+        String projectId = workspaceDao.createWorkspace(workspaceEntity);
 
         //初始化项目成员
         String ticketId = TicketHolder.get();
@@ -68,9 +68,9 @@ public class WorkspaceServiceImpl implements WorkspaceService {
     @Override
     public void updateWorkspace(@NotNull @Valid Workspace workspace) {
         //更新数据
-        WorkspacePo workspacePo = BeanMapper.map(workspace, WorkspacePo.class);
+        WorkspaceEntity workspaceEntity = BeanMapper.map(workspace, WorkspaceEntity.class);
 
-        workspaceDao.updateWorkspace(workspacePo);
+        workspaceDao.updateWorkspace(workspaceEntity);
 
         //更新索引
         Workspace entity = findWorkspace(workspace.getId());
@@ -88,16 +88,16 @@ public class WorkspaceServiceImpl implements WorkspaceService {
 
     @Override
     public Workspace findOne(String id) {
-        WorkspacePo workspacePo = workspaceDao.findWorkspace(id);
+        WorkspaceEntity workspaceEntity = workspaceDao.findWorkspace(id);
 
-        return BeanMapper.map(workspacePo, Workspace.class);
+        return BeanMapper.map(workspaceEntity, Workspace.class);
     }
 
     @Override
     public List<Workspace> findList(List<String> idList) {
-        List<WorkspacePo> workspacePoList =  workspaceDao.findWorkspaceList(idList);
+        List<WorkspaceEntity> workspaceEntityList =  workspaceDao.findWorkspaceList(idList);
 
-        return BeanMapper.mapList(workspacePoList,Workspace.class);
+        return BeanMapper.mapList(workspaceEntityList,Workspace.class);
     }
 
     @Override
@@ -107,23 +107,23 @@ public class WorkspaceServiceImpl implements WorkspaceService {
 
     @Override
     public List<Workspace> findAllWorkspace() {
-        List<WorkspacePo> workspacePoList =  workspaceDao.findAllWorkspace();
+        List<WorkspaceEntity> workspaceEntityList =  workspaceDao.findAllWorkspace();
 
-        return BeanMapper.mapList(workspacePoList,Workspace.class);
+        return BeanMapper.mapList(workspaceEntityList,Workspace.class);
     }
 
     @Override
     public List<Workspace> findWorkspaceList(WorkspaceQuery workspaceQuery) {
-        List<WorkspacePo> workspacePoList = workspaceDao.findWorkspaceList(workspaceQuery);
+        List<WorkspaceEntity> workspaceEntityList = workspaceDao.findWorkspaceList(workspaceQuery);
 
-        return BeanMapper.mapList(workspacePoList,Workspace.class);
+        return BeanMapper.mapList(workspaceEntityList,Workspace.class);
     }
 
     @Override
     public Pagination<Workspace> findWorkspacePage(WorkspaceQuery workspaceQuery) {
         Pagination<Workspace> pg = new Pagination<>();
 
-        Pagination<WorkspacePo>  pagination = workspaceDao.findWorkspacePage(workspaceQuery);
+        Pagination<WorkspaceEntity>  pagination = workspaceDao.findWorkspacePage(workspaceQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<Workspace> workspaceList = BeanMapper.mapList(pagination.getDataList(),Workspace.class);

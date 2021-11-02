@@ -1,7 +1,7 @@
 package com.doublekit.apibox.apimock.dao;
 
 import com.doublekit.common.Pagination;
-import com.doublekit.apibox.apimock.entity.ResponseResultMockPo;
+import com.doublekit.apibox.apimock.entity.ResponseResultMockEntity;
 import com.doublekit.apibox.apimock.model.ResponseResultMockQuery;
 import com.doublekit.dal.jpa.JpaTemplate;
 import org.slf4j.Logger;
@@ -24,19 +24,19 @@ public class ResponseResultMockDao{
 
     /**
      * 创建用户
-     * @param responseResultMockPo
+     * @param responseResultMockEntity
      * @return
      */
-    public String createResponseResultMock(ResponseResultMockPo responseResultMockPo) {
-        return jpaTemplate.save(responseResultMockPo,String.class);
+    public String createResponseResultMock(ResponseResultMockEntity responseResultMockEntity) {
+        return jpaTemplate.save(responseResultMockEntity,String.class);
     }
 
     /**
      * 更新用户
-     * @param responseResultMockPo
+     * @param responseResultMockEntity
      */
-    public void updateResponseResultMock(ResponseResultMockPo responseResultMockPo){
-        jpaTemplate.update(responseResultMockPo);
+    public void updateResponseResultMock(ResponseResultMockEntity responseResultMockEntity){
+        jpaTemplate.update(responseResultMockEntity);
     }
 
     /**
@@ -44,7 +44,7 @@ public class ResponseResultMockDao{
      * @param id
      */
     public void deleteResponseResultMock(String id){
-        jpaTemplate.delete(ResponseResultMockPo.class,id);
+        jpaTemplate.delete(ResponseResultMockEntity.class,id);
     }
 
     /**
@@ -52,23 +52,23 @@ public class ResponseResultMockDao{
      * @param id
      * @return
      */
-    public ResponseResultMockPo findResponseResultMock(String id){
-        return jpaTemplate.findOne(ResponseResultMockPo.class,id);
+    public ResponseResultMockEntity findResponseResultMock(String id){
+        return jpaTemplate.findOne(ResponseResultMockEntity.class,id);
     }
 
     /**
     * findAllResponseResultMock
     * @return
     */
-    public List<ResponseResultMockPo> findAllResponseResultMock() {
-        return jpaTemplate.findAll(ResponseResultMockPo.class);
+    public List<ResponseResultMockEntity> findAllResponseResultMock() {
+        return jpaTemplate.findAll(ResponseResultMockEntity.class);
     }
 
-    public List<ResponseResultMockPo> findResponseResultMockList(ResponseResultMockQuery responseResultMockQuery) {
-        return jpaTemplate.findList(ResponseResultMockPo.class,responseResultMockQuery);
+    public List<ResponseResultMockEntity> findResponseResultMockList(ResponseResultMockQuery responseResultMockQuery) {
+        return jpaTemplate.findList(ResponseResultMockEntity.class,responseResultMockQuery);
     }
 
-    public Pagination<ResponseResultMockPo> findResponseResultMockPage(ResponseResultMockQuery responseResultMockQuery) {
-        return jpaTemplate.findPage(ResponseResultMockPo.class,responseResultMockQuery);
+    public Pagination<ResponseResultMockEntity> findResponseResultMockPage(ResponseResultMockQuery responseResultMockQuery) {
+        return jpaTemplate.findPage(ResponseResultMockEntity.class,responseResultMockQuery);
     }
 }

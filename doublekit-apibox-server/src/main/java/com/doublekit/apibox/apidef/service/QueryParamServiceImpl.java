@@ -1,7 +1,7 @@
 package com.doublekit.apibox.apidef.service;
 
 import com.doublekit.apibox.apidef.dao.QueryParamDao;
-import com.doublekit.apibox.apidef.entity.QueryParamPo;
+import com.doublekit.apibox.apidef.entity.QueryParamEntity;
 import com.doublekit.apibox.apidef.model.QueryParam;
 import com.doublekit.apibox.apidef.model.QueryParamQuery;
 
@@ -31,16 +31,16 @@ public class QueryParamServiceImpl implements QueryParamService {
 
     @Override
     public String createQueryParam(@NotNull @Valid QueryParam queryParam) {
-        QueryParamPo queryParamPo = BeanMapper.map(queryParam, QueryParamPo.class);
+        QueryParamEntity queryParamEntity = BeanMapper.map(queryParam, QueryParamEntity.class);
 
-        return queryParamDao.createQueryParam(queryParamPo);
+        return queryParamDao.createQueryParam(queryParamEntity);
     }
 
     @Override
     public void updateQueryParam(@NotNull @Valid QueryParam queryParam) {
-        QueryParamPo queryParamPo = BeanMapper.map(queryParam, QueryParamPo.class);
+        QueryParamEntity queryParamEntity = BeanMapper.map(queryParam, QueryParamEntity.class);
 
-        queryParamDao.updateQueryParam(queryParamPo);
+        queryParamDao.updateQueryParam(queryParamEntity);
     }
 
     @Override
@@ -50,9 +50,9 @@ public class QueryParamServiceImpl implements QueryParamService {
 
     @Override
     public QueryParam findQueryParam(@NotNull String id) {
-        QueryParamPo queryParamPo = queryParamDao.findQueryParam(id);
+        QueryParamEntity queryParamEntity = queryParamDao.findQueryParam(id);
 
-        QueryParam queryParam = BeanMapper.map(queryParamPo, QueryParam.class);
+        QueryParam queryParam = BeanMapper.map(queryParamEntity, QueryParam.class);
 
         joinQuery.queryOne(queryParam);
 
@@ -61,9 +61,9 @@ public class QueryParamServiceImpl implements QueryParamService {
 
     @Override
     public List<QueryParam> findAllQueryParam() {
-        List<QueryParamPo> queryParamPoList =  queryParamDao.findAllQueryParam();
+        List<QueryParamEntity> queryParamEntityList =  queryParamDao.findAllQueryParam();
 
-        List<QueryParam> queryParamList = BeanMapper.mapList(queryParamPoList,QueryParam.class);
+        List<QueryParam> queryParamList = BeanMapper.mapList(queryParamEntityList,QueryParam.class);
 
         joinQuery.queryList(queryParamList);
 
@@ -72,9 +72,9 @@ public class QueryParamServiceImpl implements QueryParamService {
 
     @Override
     public List<QueryParam> findQueryParamList(QueryParamQuery queryParamQuery) {
-        List<QueryParamPo> queryParamPoList = queryParamDao.findQueryParamList(queryParamQuery);
+        List<QueryParamEntity> queryParamEntityList = queryParamDao.findQueryParamList(queryParamQuery);
 
-        List<QueryParam> queryParamList = BeanMapper.mapList(queryParamPoList,QueryParam.class);
+        List<QueryParam> queryParamList = BeanMapper.mapList(queryParamEntityList,QueryParam.class);
 
         joinQuery.queryList(queryParamList);
 
@@ -85,7 +85,7 @@ public class QueryParamServiceImpl implements QueryParamService {
     public Pagination<QueryParam> findQueryParamPage(QueryParamQuery queryParamQuery) {
         Pagination<QueryParam> pg = new Pagination<>();
 
-        Pagination<QueryParamPo>  pagination = queryParamDao.findQueryParamPage(queryParamQuery);
+        Pagination<QueryParamEntity>  pagination = queryParamDao.findQueryParamPage(queryParamQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<QueryParam> queryParamList = BeanMapper.mapList(pagination.getDataList(),QueryParam.class);

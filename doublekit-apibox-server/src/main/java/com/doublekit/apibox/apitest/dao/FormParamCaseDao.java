@@ -1,6 +1,6 @@
 package com.doublekit.apibox.apitest.dao;
 
-import com.doublekit.apibox.apitest.entity.FormParamCasePo;
+import com.doublekit.apibox.apitest.entity.FormParamCaseEntity;
 import com.doublekit.apibox.apitest.model.FormParamCaseQuery;
 import com.doublekit.common.Pagination;
 import com.doublekit.dal.jpa.JpaTemplate;
@@ -24,19 +24,19 @@ public class FormParamCaseDao{
 
     /**
      * 创建用户
-     * @param formParamCasePo
+     * @param formParamCaseEntity
      * @return
      */
-    public String createFormParamCase(FormParamCasePo formParamCasePo) {
-        return jpaTemplate.save(formParamCasePo,String.class);
+    public String createFormParamCase(FormParamCaseEntity formParamCaseEntity) {
+        return jpaTemplate.save(formParamCaseEntity,String.class);
     }
 
     /**
      * 更新用户
-     * @param formParamCasePo
+     * @param formParamCaseEntity
      */
-    public void updateFormParamCase(FormParamCasePo formParamCasePo){
-        jpaTemplate.update(formParamCasePo);
+    public void updateFormParamCase(FormParamCaseEntity formParamCaseEntity){
+        jpaTemplate.update(formParamCaseEntity);
     }
 
     /**
@@ -44,7 +44,7 @@ public class FormParamCaseDao{
      * @param id
      */
     public void deleteFormParamCase(String id){
-        jpaTemplate.delete(FormParamCasePo.class,id);
+        jpaTemplate.delete(FormParamCaseEntity.class,id);
     }
 
     /**
@@ -52,27 +52,27 @@ public class FormParamCaseDao{
      * @param id
      * @return
      */
-    public FormParamCasePo findFormParamCase(String id){
-        return jpaTemplate.findOne(FormParamCasePo.class,id);
+    public FormParamCaseEntity findFormParamCase(String id){
+        return jpaTemplate.findOne(FormParamCaseEntity.class,id);
     }
 
     /**
     * findAllFormParamCase
     * @return
     */
-    public List<FormParamCasePo> findAllFormParamCase() {
-        return jpaTemplate.findAll(FormParamCasePo.class);
+    public List<FormParamCaseEntity> findAllFormParamCase() {
+        return jpaTemplate.findAll(FormParamCaseEntity.class);
     }
 
-    public List<FormParamCasePo> findFormParamCaseList(List<String> idList) {
-        return jpaTemplate.findList(FormParamCasePo.class,idList);
+    public List<FormParamCaseEntity> findFormParamCaseList(List<String> idList) {
+        return jpaTemplate.findList(FormParamCaseEntity.class,idList);
     }
 
-    public List<FormParamCasePo> findFormParamCaseList(FormParamCaseQuery formParamCaseQuery) {
-        return jpaTemplate.findList(FormParamCasePo.class,formParamCaseQuery);
+    public List<FormParamCaseEntity> findFormParamCaseList(FormParamCaseQuery formParamCaseQuery) {
+        return jpaTemplate.findList(FormParamCaseEntity.class,formParamCaseQuery);
     }
 
-    public Pagination<FormParamCasePo> findFormParamCasePage(FormParamCaseQuery formParamCaseQuery) {
-        return jpaTemplate.findPage(FormParamCasePo.class,formParamCaseQuery);
+    public Pagination<FormParamCaseEntity> findFormParamCasePage(FormParamCaseQuery formParamCaseQuery) {
+        return jpaTemplate.findPage(FormParamCaseEntity.class,formParamCaseQuery);
     }
 }

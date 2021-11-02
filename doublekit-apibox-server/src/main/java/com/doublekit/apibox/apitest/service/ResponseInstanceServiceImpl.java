@@ -1,7 +1,7 @@
 package com.doublekit.apibox.apitest.service;
 
 import com.doublekit.apibox.apitest.dao.ResponseInstanceDao;
-import com.doublekit.apibox.apitest.entity.ResponseInstancePo;
+import com.doublekit.apibox.apitest.entity.ResponseInstanceEntity;
 import com.doublekit.apibox.apitest.model.ResponseInstance;
 import com.doublekit.apibox.apitest.model.ResponseInstanceQuery;
 
@@ -31,16 +31,16 @@ public class ResponseInstanceServiceImpl implements ResponseInstanceService {
 
     @Override
     public String createResponseInstance(@NotNull @Valid ResponseInstance responseInstance) {
-        ResponseInstancePo responseInstancePo = BeanMapper.map(responseInstance, ResponseInstancePo.class);
+        ResponseInstanceEntity responseInstanceEntity = BeanMapper.map(responseInstance, ResponseInstanceEntity.class);
 
-        return responseInstanceDao.createResponseInstance(responseInstancePo);
+        return responseInstanceDao.createResponseInstance(responseInstanceEntity);
     }
 
     @Override
     public void updateResponseInstance(@NotNull @Valid ResponseInstance responseInstance) {
-        ResponseInstancePo responseInstancePo = BeanMapper.map(responseInstance, ResponseInstancePo.class);
+        ResponseInstanceEntity responseInstanceEntity = BeanMapper.map(responseInstance, ResponseInstanceEntity.class);
 
-        responseInstanceDao.updateResponseInstance(responseInstancePo);
+        responseInstanceDao.updateResponseInstance(responseInstanceEntity);
     }
 
     @Override
@@ -50,17 +50,17 @@ public class ResponseInstanceServiceImpl implements ResponseInstanceService {
 
     @Override
     public ResponseInstance findOne(String id) {
-        ResponseInstancePo responseInstancePo = responseInstanceDao.findResponseInstance(id);
+        ResponseInstanceEntity responseInstanceEntity = responseInstanceDao.findResponseInstance(id);
 
-        ResponseInstance responseInstance = BeanMapper.map(responseInstancePo, ResponseInstance.class);
+        ResponseInstance responseInstance = BeanMapper.map(responseInstanceEntity, ResponseInstance.class);
         return responseInstance;
     }
 
     @Override
     public List<ResponseInstance> findList(List<String> idList) {
-        List<ResponseInstancePo> responseInstancePoList =  responseInstanceDao.findResponseInstanceList(idList);
+        List<ResponseInstanceEntity> responseInstanceEntityList =  responseInstanceDao.findResponseInstanceList(idList);
 
-        List<ResponseInstance> responseInstanceList =  BeanMapper.mapList(responseInstancePoList,ResponseInstance.class);
+        List<ResponseInstance> responseInstanceList =  BeanMapper.mapList(responseInstanceEntityList,ResponseInstance.class);
         return responseInstanceList;
     }
 
@@ -74,9 +74,9 @@ public class ResponseInstanceServiceImpl implements ResponseInstanceService {
 
     @Override
     public List<ResponseInstance> findAllResponseInstance() {
-        List<ResponseInstancePo> responseInstancePoList =  responseInstanceDao.findAllResponseInstance();
+        List<ResponseInstanceEntity> responseInstanceEntityList =  responseInstanceDao.findAllResponseInstance();
 
-        List<ResponseInstance> responseInstanceList =  BeanMapper.mapList(responseInstancePoList,ResponseInstance.class);
+        List<ResponseInstance> responseInstanceList =  BeanMapper.mapList(responseInstanceEntityList,ResponseInstance.class);
 
         joinQuery.queryList(responseInstanceList);
         return responseInstanceList;
@@ -84,9 +84,9 @@ public class ResponseInstanceServiceImpl implements ResponseInstanceService {
 
     @Override
     public List<ResponseInstance> findResponseInstanceList(ResponseInstanceQuery responseInstanceQuery) {
-        List<ResponseInstancePo> responseInstancePoList = responseInstanceDao.findResponseInstanceList(responseInstanceQuery);
+        List<ResponseInstanceEntity> responseInstanceEntityList = responseInstanceDao.findResponseInstanceList(responseInstanceQuery);
 
-        List<ResponseInstance> responseInstanceList = BeanMapper.mapList(responseInstancePoList,ResponseInstance.class);
+        List<ResponseInstance> responseInstanceList = BeanMapper.mapList(responseInstanceEntityList,ResponseInstance.class);
 
         joinQuery.queryList(responseInstanceList);
 
@@ -97,7 +97,7 @@ public class ResponseInstanceServiceImpl implements ResponseInstanceService {
     public Pagination<ResponseInstance> findResponseInstancePage(ResponseInstanceQuery responseInstanceQuery) {
         Pagination<ResponseInstance> pg = new Pagination<>();
 
-        Pagination<ResponseInstancePo>  pagination = responseInstanceDao.findResponseInstancePage(responseInstanceQuery);
+        Pagination<ResponseInstanceEntity>  pagination = responseInstanceDao.findResponseInstancePage(responseInstanceQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<ResponseInstance> responseInstanceList = BeanMapper.mapList(pagination.getDataList(),ResponseInstance.class);

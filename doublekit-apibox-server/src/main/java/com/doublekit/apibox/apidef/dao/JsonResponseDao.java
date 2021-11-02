@@ -1,10 +1,10 @@
 package com.doublekit.apibox.apidef.dao;
 
-import com.doublekit.apibox.apidef.entity.JsonParamPo;
-import com.doublekit.apibox.apidef.entity.MethodPo;
+import com.doublekit.apibox.apidef.entity.JsonParamEntity;
+import com.doublekit.apibox.apidef.entity.MethodEntity;
 import com.doublekit.apibox.apidef.model.JsonResponseQuery;
 import com.doublekit.common.Pagination;
-import com.doublekit.apibox.apidef.entity.JsonResponsePo;
+import com.doublekit.apibox.apidef.entity.JsonResponseEntity;
 import com.doublekit.dal.jpa.JpaTemplate;
 import com.doublekit.dal.jpa.builder.deletelist.condition.DeleteCondition;
 import org.slf4j.Logger;
@@ -27,23 +27,23 @@ public class JsonResponseDao {
 
     /**
      * 创建用户
-     * @param jsonResponsePo
+     * @param jsonResponseEntity
      * @return
      */
-    public String createJsonResponse(JsonResponsePo jsonResponsePo) {
-        return jpaTemplate.save(jsonResponsePo,String.class);
+    public String createJsonResponse(JsonResponseEntity jsonResponseEntity) {
+        return jpaTemplate.save(jsonResponseEntity,String.class);
     }
 
-    public List<MethodPo> findJsonResponseList(List<String> idList) {
-        return jpaTemplate.findList(MethodPo.class,idList);
+    public List<MethodEntity> findJsonResponseList(List<String> idList) {
+        return jpaTemplate.findList(MethodEntity.class,idList);
     }
 
     /**
      * 更新用户
-     * @param jsonResponsePo
+     * @param jsonResponseEntity
      */
-    public void updateJsonResponse(JsonResponsePo jsonResponsePo){
-        jpaTemplate.update(jsonResponsePo);
+    public void updateJsonResponse(JsonResponseEntity jsonResponseEntity){
+        jpaTemplate.update(jsonResponseEntity);
     }
 
     /**
@@ -51,7 +51,7 @@ public class JsonResponseDao {
      * @param id
      */
     public void deleteJsonResponse(String id){
-        jpaTemplate.delete(JsonResponsePo.class,id);
+        jpaTemplate.delete(JsonResponseEntity.class,id);
     }
 
     /**
@@ -59,7 +59,7 @@ public class JsonResponseDao {
      * @param deleteCondition
      */
     public void deleteJsonResponseList(DeleteCondition deleteCondition){
-        jpaTemplate.delete(JsonResponsePo.class,deleteCondition);
+        jpaTemplate.delete(JsonResponseEntity.class,deleteCondition);
     }
 
     /**
@@ -67,23 +67,23 @@ public class JsonResponseDao {
      * @param id
      * @return
      */
-    public JsonResponsePo findJsonResponse(String id){
-        return jpaTemplate.findOne(JsonResponsePo.class,id);
+    public JsonResponseEntity findJsonResponse(String id){
+        return jpaTemplate.findOne(JsonResponseEntity.class,id);
     }
 
     /**
     * findAllJsonResponse
     * @return
     */
-    public List<JsonResponsePo> findAllJsonResponse() {
-        return jpaTemplate.findAll(JsonResponsePo.class);
+    public List<JsonResponseEntity> findAllJsonResponse() {
+        return jpaTemplate.findAll(JsonResponseEntity.class);
     }
 
-    public List<JsonResponsePo> findJsonResponseList(JsonResponseQuery jsonResponseQuery) {
-        return jpaTemplate.findList(JsonResponsePo.class,jsonResponseQuery);
+    public List<JsonResponseEntity> findJsonResponseList(JsonResponseQuery jsonResponseQuery) {
+        return jpaTemplate.findList(JsonResponseEntity.class,jsonResponseQuery);
     }
 
-    public Pagination<JsonResponsePo> findJsonResponsePage(JsonResponseQuery jsonResponseQuery) {
-        return jpaTemplate.findPage(JsonResponsePo.class,jsonResponseQuery);
+    public Pagination<JsonResponseEntity> findJsonResponsePage(JsonResponseQuery jsonResponseQuery) {
+        return jpaTemplate.findPage(JsonResponseEntity.class,jsonResponseQuery);
     }
 }

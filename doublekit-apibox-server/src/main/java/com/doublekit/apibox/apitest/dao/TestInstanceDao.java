@@ -1,7 +1,7 @@
 package com.doublekit.apibox.apitest.dao;
 
 import com.doublekit.common.Pagination;
-import com.doublekit.apibox.apitest.entity.TestInstancePo;
+import com.doublekit.apibox.apitest.entity.TestInstanceEntity;
 import com.doublekit.apibox.apitest.model.TestInstanceQuery;
 import com.doublekit.dal.jpa.JpaTemplate;
 import org.slf4j.Logger;
@@ -24,19 +24,19 @@ public class TestInstanceDao{
 
     /**
      * 创建用户
-     * @param testInstancePo
+     * @param testInstanceEntity
      * @return
      */
-    public String createTestInstance(TestInstancePo testInstancePo) {
-        return jpaTemplate.save(testInstancePo,String.class);
+    public String createTestInstance(TestInstanceEntity testInstanceEntity) {
+        return jpaTemplate.save(testInstanceEntity,String.class);
     }
 
     /**
      * 更新用户
-     * @param testInstancePo
+     * @param testInstanceEntity
      */
-    public void updateTestInstance(TestInstancePo testInstancePo){
-        jpaTemplate.update(testInstancePo);
+    public void updateTestInstance(TestInstanceEntity testInstanceEntity){
+        jpaTemplate.update(testInstanceEntity);
     }
 
     /**
@@ -44,7 +44,7 @@ public class TestInstanceDao{
      * @param id
      */
     public void deleteTestInstance(String id){
-        jpaTemplate.delete(TestInstancePo.class,id);
+        jpaTemplate.delete(TestInstanceEntity.class,id);
     }
 
     /**
@@ -52,27 +52,27 @@ public class TestInstanceDao{
      * @param id
      * @return
      */
-    public TestInstancePo findTestInstance(String id){
-        return jpaTemplate.findOne(TestInstancePo.class,id);
+    public TestInstanceEntity findTestInstance(String id){
+        return jpaTemplate.findOne(TestInstanceEntity.class,id);
     }
 
     /**
     * findAllTestInstance
     * @return
     */
-    public List<TestInstancePo> findAllTestInstance() {
-        return jpaTemplate.findAll(TestInstancePo.class);
+    public List<TestInstanceEntity> findAllTestInstance() {
+        return jpaTemplate.findAll(TestInstanceEntity.class);
     }
 
-    public List<TestInstancePo> findTestInstanceList(List<String> idList) {
-        return jpaTemplate.findList(TestInstancePo.class,idList);
+    public List<TestInstanceEntity> findTestInstanceList(List<String> idList) {
+        return jpaTemplate.findList(TestInstanceEntity.class,idList);
     }
 
-    public List<TestInstancePo> findTestInstanceList(TestInstanceQuery testInstanceQuery) {
-        return jpaTemplate.findList(TestInstancePo.class,testInstanceQuery);
+    public List<TestInstanceEntity> findTestInstanceList(TestInstanceQuery testInstanceQuery) {
+        return jpaTemplate.findList(TestInstanceEntity.class,testInstanceQuery);
     }
 
-    public Pagination<TestInstancePo> findTestInstancePage(TestInstanceQuery testInstanceQuery) {
-        return jpaTemplate.findPage(TestInstancePo.class,testInstanceQuery);
+    public Pagination<TestInstanceEntity> findTestInstancePage(TestInstanceQuery testInstanceQuery) {
+        return jpaTemplate.findPage(TestInstanceEntity.class,testInstanceQuery);
     }
 }

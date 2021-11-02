@@ -2,7 +2,7 @@ package com.doublekit.apibox.apitest.dao;
 
 import com.doublekit.apibox.apitest.model.RequestHeaderCaseQuery;
 import com.doublekit.common.Pagination;
-import com.doublekit.apibox.apitest.entity.RequestHeaderCasePo;
+import com.doublekit.apibox.apitest.entity.RequestHeaderCaseEntity;
 import com.doublekit.dal.jpa.JpaTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,19 +24,19 @@ public class RequestHeaderCaseDao{
 
     /**
      * 创建用户
-     * @param requestHeaderCasePo
+     * @param requestHeaderCaseEntity
      * @return
      */
-    public String createRequestHeaderCase(RequestHeaderCasePo requestHeaderCasePo) {
-        return jpaTemplate.save(requestHeaderCasePo,String.class);
+    public String createRequestHeaderCase(RequestHeaderCaseEntity requestHeaderCaseEntity) {
+        return jpaTemplate.save(requestHeaderCaseEntity,String.class);
     }
 
     /**
      * 更新用户
-     * @param requestHeaderCasePo
+     * @param requestHeaderCaseEntity
      */
-    public void updateRequestHeaderCase(RequestHeaderCasePo requestHeaderCasePo){
-        jpaTemplate.update(requestHeaderCasePo);
+    public void updateRequestHeaderCase(RequestHeaderCaseEntity requestHeaderCaseEntity){
+        jpaTemplate.update(requestHeaderCaseEntity);
     }
 
     /**
@@ -44,7 +44,7 @@ public class RequestHeaderCaseDao{
      * @param id
      */
     public void deleteRequestHeaderCase(String id){
-        jpaTemplate.delete(RequestHeaderCasePo.class,id);
+        jpaTemplate.delete(RequestHeaderCaseEntity.class,id);
     }
 
     /**
@@ -52,27 +52,27 @@ public class RequestHeaderCaseDao{
      * @param id
      * @return
      */
-    public RequestHeaderCasePo findRequestHeaderCase(String id){
-        return jpaTemplate.findOne(RequestHeaderCasePo.class,id);
+    public RequestHeaderCaseEntity findRequestHeaderCase(String id){
+        return jpaTemplate.findOne(RequestHeaderCaseEntity.class,id);
     }
 
     /**
     * findAllRequestHeaderCase
     * @return
     */
-    public List<RequestHeaderCasePo> findAllRequestHeaderCase() {
-        return jpaTemplate.findAll(RequestHeaderCasePo.class);
+    public List<RequestHeaderCaseEntity> findAllRequestHeaderCase() {
+        return jpaTemplate.findAll(RequestHeaderCaseEntity.class);
     }
 
-    public List<RequestHeaderCasePo> findRequestHeaderCaseList(List<String> idList) {
-        return jpaTemplate.findList(RequestHeaderCasePo.class,idList);
+    public List<RequestHeaderCaseEntity> findRequestHeaderCaseList(List<String> idList) {
+        return jpaTemplate.findList(RequestHeaderCaseEntity.class,idList);
     }
 
-    public List<RequestHeaderCasePo> findRequestHeaderCaseList(RequestHeaderCaseQuery requestHeaderCaseQuery) {
-        return jpaTemplate.findList(RequestHeaderCasePo.class,requestHeaderCaseQuery);
+    public List<RequestHeaderCaseEntity> findRequestHeaderCaseList(RequestHeaderCaseQuery requestHeaderCaseQuery) {
+        return jpaTemplate.findList(RequestHeaderCaseEntity.class,requestHeaderCaseQuery);
     }
 
-    public Pagination<RequestHeaderCasePo> findRequestHeaderCasePage(RequestHeaderCaseQuery requestHeaderCaseQuery) {
-        return jpaTemplate.findPage(RequestHeaderCasePo.class,requestHeaderCaseQuery);
+    public Pagination<RequestHeaderCaseEntity> findRequestHeaderCasePage(RequestHeaderCaseQuery requestHeaderCaseQuery) {
+        return jpaTemplate.findPage(RequestHeaderCaseEntity.class,requestHeaderCaseQuery);
     }
 }

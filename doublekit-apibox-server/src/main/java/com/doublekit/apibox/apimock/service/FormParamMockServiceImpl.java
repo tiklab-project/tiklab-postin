@@ -1,7 +1,7 @@
 package com.doublekit.apibox.apimock.service;
 
 import com.doublekit.apibox.apimock.dao.FormParamMockDao;
-import com.doublekit.apibox.apimock.entity.FormParamMockPo;
+import com.doublekit.apibox.apimock.entity.FormParamMockEntity;
 import com.doublekit.apibox.apimock.model.FormParamMock;
 import com.doublekit.apibox.apimock.model.FormParamMockQuery;
 
@@ -31,16 +31,16 @@ public class FormParamMockServiceImpl implements FormParamMockService {
 
     @Override
     public String createFormParamMock(@NotNull @Valid FormParamMock formParamMock) {
-        FormParamMockPo formParamMockPo = BeanMapper.map(formParamMock, FormParamMockPo.class);
+        FormParamMockEntity formParamMockEntity = BeanMapper.map(formParamMock, FormParamMockEntity.class);
 
-        return formParamMockDao.createFormParamMock(formParamMockPo);
+        return formParamMockDao.createFormParamMock(formParamMockEntity);
     }
 
     @Override
     public void updateFormParamMock(@NotNull @Valid FormParamMock formParamMock) {
-        FormParamMockPo formParamMockPo = BeanMapper.map(formParamMock, FormParamMockPo.class);
+        FormParamMockEntity formParamMockEntity = BeanMapper.map(formParamMock, FormParamMockEntity.class);
 
-        formParamMockDao.updateFormParamMock(formParamMockPo);
+        formParamMockDao.updateFormParamMock(formParamMockEntity);
     }
 
     @Override
@@ -50,9 +50,9 @@ public class FormParamMockServiceImpl implements FormParamMockService {
 
     @Override
     public FormParamMock findFormParamMock(@NotNull String id) {
-        FormParamMockPo formParamMockPo = formParamMockDao.findFormParamMock(id);
+        FormParamMockEntity formParamMockEntity = formParamMockDao.findFormParamMock(id);
 
-        FormParamMock formParamMock = BeanMapper.map(formParamMockPo, FormParamMock.class);
+        FormParamMock formParamMock = BeanMapper.map(formParamMockEntity, FormParamMock.class);
 
         joinQuery.queryOne(formParamMock);
 
@@ -61,9 +61,9 @@ public class FormParamMockServiceImpl implements FormParamMockService {
 
     @Override
     public List<FormParamMock> findAllFormParamMock() {
-        List<FormParamMockPo> formParamMockPoList =  formParamMockDao.findAllFormParamMock();
+        List<FormParamMockEntity> formParamMockEntityList =  formParamMockDao.findAllFormParamMock();
 
-        List<FormParamMock> formParamMockList =  BeanMapper.mapList(formParamMockPoList,FormParamMock.class);
+        List<FormParamMock> formParamMockList =  BeanMapper.mapList(formParamMockEntityList,FormParamMock.class);
 
         joinQuery.queryList(formParamMockList);
 
@@ -72,9 +72,9 @@ public class FormParamMockServiceImpl implements FormParamMockService {
 
     @Override
     public List<FormParamMock> findFormParamMockList(FormParamMockQuery formParamMockQuery) {
-        List<FormParamMockPo> formParamMockPoList = formParamMockDao.findFormParamMockList(formParamMockQuery);
+        List<FormParamMockEntity> formParamMockEntityList = formParamMockDao.findFormParamMockList(formParamMockQuery);
 
-        List<FormParamMock> formParamMockList = BeanMapper.mapList(formParamMockPoList,FormParamMock.class);
+        List<FormParamMock> formParamMockList = BeanMapper.mapList(formParamMockEntityList,FormParamMock.class);
 
         joinQuery.queryList(formParamMockList);
 
@@ -85,7 +85,7 @@ public class FormParamMockServiceImpl implements FormParamMockService {
     public Pagination<FormParamMock> findFormParamMockPage(FormParamMockQuery formParamMockQuery) {
         Pagination<FormParamMock> pg = new Pagination<>();
 
-        Pagination<FormParamMockPo>  pagination = formParamMockDao.findFormParamMockPage(formParamMockQuery);
+        Pagination<FormParamMockEntity>  pagination = formParamMockDao.findFormParamMockPage(formParamMockQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<FormParamMock> formParamMockList = BeanMapper.mapList(pagination.getDataList(),FormParamMock.class);

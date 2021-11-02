@@ -1,7 +1,7 @@
 package com.doublekit.apibox.datastructure.dao;
 
 import com.doublekit.common.Pagination;
-import com.doublekit.apibox.datastructure.entity.JsonParamDSPo;
+import com.doublekit.apibox.datastructure.entity.JsonParamDSEntity;
 import com.doublekit.apibox.datastructure.model.JsonParamDSQuery;
 import com.doublekit.dal.jpa.JpaTemplate;
 import com.doublekit.dal.jpa.builder.deletelist.condition.*;
@@ -25,19 +25,19 @@ public class JsonParamDSDao{
 
     /**
      * 创建
-     * @param jsonParamDSPo
+     * @param jsonParamDSEntity
      * @return
      */
-    public String createJsonParamDS(JsonParamDSPo jsonParamDSPo) {
-        return jpaTemplate.save(jsonParamDSPo,String.class);
+    public String createJsonParamDS(JsonParamDSEntity jsonParamDSEntity) {
+        return jpaTemplate.save(jsonParamDSEntity,String.class);
     }
 
     /**
      * 更新
-     * @param jsonParamDSPo
+     * @param jsonParamDSEntity
      */
-    public void updateJsonParamDS(JsonParamDSPo jsonParamDSPo){
-        jpaTemplate.update(jsonParamDSPo);
+    public void updateJsonParamDS(JsonParamDSEntity jsonParamDSEntity){
+        jpaTemplate.update(jsonParamDSEntity);
     }
 
     /**
@@ -45,11 +45,11 @@ public class JsonParamDSDao{
      * @param id
      */
     public void deleteJsonParamDS(String id){
-        jpaTemplate.delete(JsonParamDSPo.class,id);
+        jpaTemplate.delete(JsonParamDSEntity.class,id);
     }
 
     public void deleteJsonParamDS(DeleteCondition deleteCondition){
-        jpaTemplate.delete(JsonParamDSPo.class,deleteCondition);
+        jpaTemplate.delete(JsonParamDSEntity.class,deleteCondition);
     }
 
     /**
@@ -57,27 +57,27 @@ public class JsonParamDSDao{
      * @param id
      * @return
      */
-    public JsonParamDSPo findJsonParamDS(String id){
-        return jpaTemplate.findOne(JsonParamDSPo.class,id);
+    public JsonParamDSEntity findJsonParamDS(String id){
+        return jpaTemplate.findOne(JsonParamDSEntity.class,id);
     }
 
     /**
     * findAllJsonParamDS
     * @return
     */
-    public List<JsonParamDSPo> findAllJsonParamDS() {
-        return jpaTemplate.findAll(JsonParamDSPo.class);
+    public List<JsonParamDSEntity> findAllJsonParamDS() {
+        return jpaTemplate.findAll(JsonParamDSEntity.class);
     }
 
-    public List<JsonParamDSPo> findJsonParamDSList(List<String> idList) {
-        return jpaTemplate.findList(JsonParamDSPo.class,idList);
+    public List<JsonParamDSEntity> findJsonParamDSList(List<String> idList) {
+        return jpaTemplate.findList(JsonParamDSEntity.class,idList);
     }
 
-    public List<JsonParamDSPo> findJsonParamDSList(JsonParamDSQuery jsonParamDSQuery) {
-        return jpaTemplate.findList(JsonParamDSPo.class,jsonParamDSQuery);
+    public List<JsonParamDSEntity> findJsonParamDSList(JsonParamDSQuery jsonParamDSQuery) {
+        return jpaTemplate.findList(JsonParamDSEntity.class,jsonParamDSQuery);
     }
 
-    public Pagination<JsonParamDSPo> findJsonParamDSPage(JsonParamDSQuery jsonParamDSQuery) {
-        return jpaTemplate.findPage(JsonParamDSPo.class,jsonParamDSQuery);
+    public Pagination<JsonParamDSEntity> findJsonParamDSPage(JsonParamDSQuery jsonParamDSQuery) {
+        return jpaTemplate.findPage(JsonParamDSEntity.class,jsonParamDSQuery);
     }
 }

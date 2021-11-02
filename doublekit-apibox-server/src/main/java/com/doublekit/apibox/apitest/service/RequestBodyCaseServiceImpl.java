@@ -1,7 +1,7 @@
 package com.doublekit.apibox.apitest.service;
 
 import com.doublekit.apibox.apitest.dao.RequestBodyCaseDao;
-import com.doublekit.apibox.apitest.entity.RequestBodyCasePo;
+import com.doublekit.apibox.apitest.entity.RequestBodyCaseEntity;
 import com.doublekit.apibox.apitest.model.RequestBodyCase;
 import com.doublekit.apibox.apitest.model.RequestBodyCaseQuery;
 
@@ -31,16 +31,16 @@ public class RequestBodyCaseServiceImpl implements RequestBodyCaseService {
 
     @Override
     public String createRequestBodyCase(@NotNull @Valid RequestBodyCase requestBodyCase) {
-        RequestBodyCasePo requestBodyCasePo = BeanMapper.map(requestBodyCase, RequestBodyCasePo.class);
+        RequestBodyCaseEntity requestBodyCaseEntity = BeanMapper.map(requestBodyCase, RequestBodyCaseEntity.class);
 
-        return requestBodyCaseDao.createRequestBodyCase(requestBodyCasePo);
+        return requestBodyCaseDao.createRequestBodyCase(requestBodyCaseEntity);
     }
 
     @Override
     public void updateRequestBodyCase(@NotNull @Valid RequestBodyCase requestBodyCase) {
-        RequestBodyCasePo requestBodyCasePo = BeanMapper.map(requestBodyCase, RequestBodyCasePo.class);
+        RequestBodyCaseEntity requestBodyCaseEntity = BeanMapper.map(requestBodyCase, RequestBodyCaseEntity.class);
 
-        requestBodyCaseDao.updateRequestBodyCase(requestBodyCasePo);
+        requestBodyCaseDao.updateRequestBodyCase(requestBodyCaseEntity);
     }
 
     @Override
@@ -50,17 +50,17 @@ public class RequestBodyCaseServiceImpl implements RequestBodyCaseService {
 
     @Override
     public RequestBodyCase findOne(String id) {
-        RequestBodyCasePo requestBodyCasePo = requestBodyCaseDao.findRequestBodyCase(id);
+        RequestBodyCaseEntity requestBodyCaseEntity = requestBodyCaseDao.findRequestBodyCase(id);
 
-        RequestBodyCase requestBodyCase = BeanMapper.map(requestBodyCasePo, RequestBodyCase.class);
+        RequestBodyCase requestBodyCase = BeanMapper.map(requestBodyCaseEntity, RequestBodyCase.class);
         return requestBodyCase;
     }
 
     @Override
     public List<RequestBodyCase> findList(List<String> idList) {
-        List<RequestBodyCasePo> requestBodyCasePoList =  requestBodyCaseDao.findRequestBodyCaseList(idList);
+        List<RequestBodyCaseEntity> requestBodyCaseEntityList =  requestBodyCaseDao.findRequestBodyCaseList(idList);
 
-        List<RequestBodyCase> requestBodyCaseList =  BeanMapper.mapList(requestBodyCasePoList,RequestBodyCase.class);
+        List<RequestBodyCase> requestBodyCaseList =  BeanMapper.mapList(requestBodyCaseEntityList,RequestBodyCase.class);
         return requestBodyCaseList;
     }
 
@@ -74,9 +74,9 @@ public class RequestBodyCaseServiceImpl implements RequestBodyCaseService {
 
     @Override
     public List<RequestBodyCase> findAllRequestBodyCase() {
-        List<RequestBodyCasePo> requestBodyCasePoList =  requestBodyCaseDao.findAllRequestBodyCase();
+        List<RequestBodyCaseEntity> requestBodyCaseEntityList =  requestBodyCaseDao.findAllRequestBodyCase();
 
-        List<RequestBodyCase> requestBodyCaseList =  BeanMapper.mapList(requestBodyCasePoList,RequestBodyCase.class);
+        List<RequestBodyCase> requestBodyCaseList =  BeanMapper.mapList(requestBodyCaseEntityList,RequestBodyCase.class);
 
         joinQuery.queryList(requestBodyCaseList);
         return requestBodyCaseList;
@@ -84,9 +84,9 @@ public class RequestBodyCaseServiceImpl implements RequestBodyCaseService {
 
     @Override
     public List<RequestBodyCase> findRequestBodyCaseList(RequestBodyCaseQuery requestBodyCaseQuery) {
-        List<RequestBodyCasePo> requestBodyCasePoList = requestBodyCaseDao.findRequestBodyCaseList(requestBodyCaseQuery);
+        List<RequestBodyCaseEntity> requestBodyCaseEntityList = requestBodyCaseDao.findRequestBodyCaseList(requestBodyCaseQuery);
 
-        List<RequestBodyCase> requestBodyCaseList = BeanMapper.mapList(requestBodyCasePoList,RequestBodyCase.class);
+        List<RequestBodyCase> requestBodyCaseList = BeanMapper.mapList(requestBodyCaseEntityList,RequestBodyCase.class);
 
         joinQuery.queryList(requestBodyCaseList);
 
@@ -97,7 +97,7 @@ public class RequestBodyCaseServiceImpl implements RequestBodyCaseService {
     public Pagination<RequestBodyCase> findRequestBodyCasePage(RequestBodyCaseQuery requestBodyCaseQuery) {
         Pagination<RequestBodyCase> pg = new Pagination<>();
 
-        Pagination<RequestBodyCasePo>  pagination = requestBodyCaseDao.findRequestBodyCasePage(requestBodyCaseQuery);
+        Pagination<RequestBodyCaseEntity>  pagination = requestBodyCaseDao.findRequestBodyCasePage(requestBodyCaseQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<RequestBodyCase> requestBodyCaseList = BeanMapper.mapList(pagination.getDataList(),RequestBodyCase.class);

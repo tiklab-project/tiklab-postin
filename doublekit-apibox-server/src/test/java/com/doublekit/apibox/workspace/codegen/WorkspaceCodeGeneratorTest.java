@@ -1,6 +1,6 @@
 package com.doublekit.apibox.workspace.codegen;
 
-import com.doublekit.apibox.workspace.entity.WorkspacePo;
+import com.doublekit.apibox.workspace.entity.WorkspaceEntity;
 import com.doublekit.codegen.CodeGeneratorTemplate;
 import com.doublekit.codegen.config.ProjectGeneratorConfig;
 import com.doublekit.codegen.config.ModuleGeneratorConfig;
@@ -21,7 +21,7 @@ public class WorkspaceCodeGeneratorTest extends CodeGeneratorTemplate {
     protected ModuleGeneratorConfig getModuleGeneratorConfig() {
         ModuleGeneratorConfig config = new ModuleGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
-        config.setEntity(WorkspacePo.class);
+        config.setEntity(WorkspaceEntity.class);
         config.setPkg("com.doublekit.project.workspace");
         config.setModel("Workspace");
         return config;

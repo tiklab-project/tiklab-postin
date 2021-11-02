@@ -1,6 +1,6 @@
 package com.doublekit.apibox.datastructure.codegen;
 
-import com.doublekit.apibox.datastructure.entity.JsonParamDSPo;
+import com.doublekit.apibox.datastructure.entity.JsonParamDSEntity;
 import com.doublekit.codegen.CodeGeneratorTemplate;
 import com.doublekit.codegen.config.ModuleGeneratorConfig;
 import com.doublekit.codegen.config.ProjectGeneratorConfig;
@@ -21,7 +21,7 @@ public class DataJsonCodeGeneratorTest extends CodeGeneratorTemplate {
     protected ModuleGeneratorConfig getModuleGeneratorConfig() {
         ModuleGeneratorConfig config = new ModuleGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
-        config.setEntity(JsonParamDSPo.class);
+        config.setEntity(JsonParamDSEntity.class);
         config.setPkg("com.doublekit.apibox.datastructure");
         config.setModel("JsonParamDS");
         return config;

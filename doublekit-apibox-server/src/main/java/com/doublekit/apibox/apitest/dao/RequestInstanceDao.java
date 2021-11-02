@@ -1,7 +1,7 @@
 package com.doublekit.apibox.apitest.dao;
 
 import com.doublekit.common.Pagination;
-import com.doublekit.apibox.apitest.entity.RequestInstancePo;
+import com.doublekit.apibox.apitest.entity.RequestInstanceEntity;
 import com.doublekit.apibox.apitest.model.RequestInstanceQuery;
 import com.doublekit.dal.jpa.JpaTemplate;
 import org.slf4j.Logger;
@@ -24,19 +24,19 @@ public class RequestInstanceDao{
 
     /**
      * 创建用户
-     * @param requestInstancePo
+     * @param requestInstanceEntity
      * @return
      */
-    public String createRequestInstance(RequestInstancePo requestInstancePo) {
-        return jpaTemplate.save(requestInstancePo,String.class);
+    public String createRequestInstance(RequestInstanceEntity requestInstanceEntity) {
+        return jpaTemplate.save(requestInstanceEntity,String.class);
     }
 
     /**
      * 更新用户
-     * @param requestInstancePo
+     * @param requestInstanceEntity
      */
-    public void updateRequestInstance(RequestInstancePo requestInstancePo){
-        jpaTemplate.update(requestInstancePo);
+    public void updateRequestInstance(RequestInstanceEntity requestInstanceEntity){
+        jpaTemplate.update(requestInstanceEntity);
     }
 
     /**
@@ -44,7 +44,7 @@ public class RequestInstanceDao{
      * @param id
      */
     public void deleteRequestInstance(String id){
-        jpaTemplate.delete(RequestInstancePo.class,id);
+        jpaTemplate.delete(RequestInstanceEntity.class,id);
     }
 
     /**
@@ -52,27 +52,27 @@ public class RequestInstanceDao{
      * @param id
      * @return
      */
-    public RequestInstancePo findRequestInstance(String id){
-        return jpaTemplate.findOne(RequestInstancePo.class,id);
+    public RequestInstanceEntity findRequestInstance(String id){
+        return jpaTemplate.findOne(RequestInstanceEntity.class,id);
     }
 
     /**
     * findAllRequestInstance
     * @return
     */
-    public List<RequestInstancePo> findAllRequestInstance() {
-        return jpaTemplate.findAll(RequestInstancePo.class);
+    public List<RequestInstanceEntity> findAllRequestInstance() {
+        return jpaTemplate.findAll(RequestInstanceEntity.class);
     }
 
-    public List<RequestInstancePo> findRequestInstanceList(List<String> idList) {
-        return jpaTemplate.findList(RequestInstancePo.class,idList);
+    public List<RequestInstanceEntity> findRequestInstanceList(List<String> idList) {
+        return jpaTemplate.findList(RequestInstanceEntity.class,idList);
     }
 
-    public List<RequestInstancePo> findRequestInstanceList(RequestInstanceQuery requestInstanceQuery) {
-        return jpaTemplate.findList(RequestInstancePo.class,requestInstanceQuery);
+    public List<RequestInstanceEntity> findRequestInstanceList(RequestInstanceQuery requestInstanceQuery) {
+        return jpaTemplate.findList(RequestInstanceEntity.class,requestInstanceQuery);
     }
 
-    public Pagination<RequestInstancePo> findRequestInstancePage(RequestInstanceQuery requestInstanceQuery) {
-        return jpaTemplate.findPage(RequestInstancePo.class,requestInstanceQuery);
+    public Pagination<RequestInstanceEntity> findRequestInstancePage(RequestInstanceQuery requestInstanceQuery) {
+        return jpaTemplate.findPage(RequestInstanceEntity.class,requestInstanceQuery);
     }
 }

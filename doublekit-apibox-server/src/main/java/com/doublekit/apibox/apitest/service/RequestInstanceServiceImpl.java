@@ -1,7 +1,7 @@
 package com.doublekit.apibox.apitest.service;
 
 import com.doublekit.apibox.apitest.dao.RequestInstanceDao;
-import com.doublekit.apibox.apitest.entity.RequestInstancePo;
+import com.doublekit.apibox.apitest.entity.RequestInstanceEntity;
 import com.doublekit.apibox.apitest.model.RequestInstance;
 import com.doublekit.apibox.apitest.model.RequestInstanceQuery;
 
@@ -34,16 +34,16 @@ public class RequestInstanceServiceImpl implements RequestInstanceService {
 
     @Override
     public String createRequestInstance(@NotNull @Valid RequestInstance requestInstance) {
-        RequestInstancePo requestInstancePo = BeanMapper.map(requestInstance, RequestInstancePo.class);
+        RequestInstanceEntity requestInstanceEntity = BeanMapper.map(requestInstance, RequestInstanceEntity.class);
 
-        return requestInstanceDao.createRequestInstance(requestInstancePo);
+        return requestInstanceDao.createRequestInstance(requestInstanceEntity);
     }
 
     @Override
     public void updateRequestInstance(@NotNull @Valid RequestInstance requestInstance) {
-        RequestInstancePo requestInstancePo = BeanMapper.map(requestInstance, RequestInstancePo.class);
+        RequestInstanceEntity requestInstanceEntity = BeanMapper.map(requestInstance, RequestInstanceEntity.class);
 
-        requestInstanceDao.updateRequestInstance(requestInstancePo);
+        requestInstanceDao.updateRequestInstance(requestInstanceEntity);
     }
 
     @Override
@@ -53,17 +53,17 @@ public class RequestInstanceServiceImpl implements RequestInstanceService {
 
     @Override
     public RequestInstance findOne(String id) {
-        RequestInstancePo requestInstancePo = requestInstanceDao.findRequestInstance(id);
+        RequestInstanceEntity requestInstanceEntity = requestInstanceDao.findRequestInstance(id);
 
-        RequestInstance requestInstance = BeanMapper.map(requestInstancePo, RequestInstance.class);
+        RequestInstance requestInstance = BeanMapper.map(requestInstanceEntity, RequestInstance.class);
         return requestInstance;
     }
 
     @Override
     public List<RequestInstance> findList(List<String> idList) {
-        List<RequestInstancePo> requestInstancePoList =  requestInstanceDao.findRequestInstanceList(idList);
+        List<RequestInstanceEntity> requestInstanceEntityList =  requestInstanceDao.findRequestInstanceList(idList);
 
-        List<RequestInstance> requestInstanceList =  BeanMapper.mapList(requestInstancePoList,RequestInstance.class);
+        List<RequestInstance> requestInstanceList =  BeanMapper.mapList(requestInstanceEntityList,RequestInstance.class);
         return requestInstanceList;
     }
 
@@ -77,9 +77,9 @@ public class RequestInstanceServiceImpl implements RequestInstanceService {
 
     @Override
     public List<RequestInstance> findAllRequestInstance() {
-        List<RequestInstancePo> requestInstancePoList =  requestInstanceDao.findAllRequestInstance();
+        List<RequestInstanceEntity> requestInstanceEntityList =  requestInstanceDao.findAllRequestInstance();
 
-        List<RequestInstance> requestInstanceList =  BeanMapper.mapList(requestInstancePoList,RequestInstance.class);
+        List<RequestInstance> requestInstanceList =  BeanMapper.mapList(requestInstanceEntityList,RequestInstance.class);
 
         joinQuery.queryList(requestInstanceList);
         return requestInstanceList;
@@ -87,9 +87,9 @@ public class RequestInstanceServiceImpl implements RequestInstanceService {
 
     @Override
     public List<RequestInstance> findRequestInstanceList(RequestInstanceQuery requestInstanceQuery) {
-        List<RequestInstancePo> requestInstancePoList = requestInstanceDao.findRequestInstanceList(requestInstanceQuery);
+        List<RequestInstanceEntity> requestInstanceEntityList = requestInstanceDao.findRequestInstanceList(requestInstanceQuery);
 
-        List<RequestInstance> requestInstanceList = BeanMapper.mapList(requestInstancePoList,RequestInstance.class);
+        List<RequestInstance> requestInstanceList = BeanMapper.mapList(requestInstanceEntityList,RequestInstance.class);
 
         joinQuery.queryList(requestInstanceList);
 
@@ -100,7 +100,7 @@ public class RequestInstanceServiceImpl implements RequestInstanceService {
     public Pagination<RequestInstance> findRequestInstancePage(RequestInstanceQuery requestInstanceQuery) {
         Pagination<RequestInstance> pg = new Pagination<>();
 
-        Pagination<RequestInstancePo>  pagination = requestInstanceDao.findRequestInstancePage(requestInstanceQuery);
+        Pagination<RequestInstanceEntity>  pagination = requestInstanceDao.findRequestInstancePage(requestInstanceQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<RequestInstance> requestInstanceList = BeanMapper.mapList(pagination.getDataList(),RequestInstance.class);

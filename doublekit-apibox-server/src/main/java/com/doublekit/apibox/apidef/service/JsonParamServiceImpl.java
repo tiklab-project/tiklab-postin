@@ -1,7 +1,7 @@
 package com.doublekit.apibox.apidef.service;
 
 import com.doublekit.apibox.apidef.dao.JsonParamDao;
-import com.doublekit.apibox.apidef.entity.JsonParamPo;
+import com.doublekit.apibox.apidef.entity.JsonParamEntity;
 import com.doublekit.apibox.apidef.model.JsonParam;
 import com.doublekit.apibox.apidef.model.JsonParamQuery;
 
@@ -32,14 +32,14 @@ public class JsonParamServiceImpl implements JsonParamService {
 
     @Override
     public String createJsonParam(@NotNull @Valid JsonParam jsonParam) {
-        JsonParamPo jsonParamPo = BeanMapper.map(jsonParam, JsonParamPo.class);
+        JsonParamEntity jsonParamPo = BeanMapper.map(jsonParam, JsonParamEntity.class);
 
         return jsonParamDao.createJsonParam(jsonParamPo);
     }
 
     @Override
     public void updateJsonParam(@NotNull @Valid JsonParam jsonParam) {
-        JsonParamPo jsonParamPo = BeanMapper.map(jsonParam, JsonParamPo.class);
+        JsonParamEntity jsonParamPo = BeanMapper.map(jsonParam, JsonParamEntity.class);
 
         jsonParamDao.updateJsonParam(jsonParamPo);
     }
@@ -51,7 +51,7 @@ public class JsonParamServiceImpl implements JsonParamService {
 
     @Override
     public JsonParam findOne(String id) {
-        JsonParamPo jsonParamPo = jsonParamDao.findJsonParam(id);
+        JsonParamEntity jsonParamPo = jsonParamDao.findJsonParam(id);
 
         JsonParam jsonParam = BeanMapper.map(jsonParamPo, JsonParam.class);
         return jsonParam;
@@ -59,7 +59,7 @@ public class JsonParamServiceImpl implements JsonParamService {
 
     @Override
     public List<JsonParam> findList(List<String> idList) {
-        List<JsonParamPo> jsonParamPoList =  jsonParamDao.findJsonParamList(idList);
+        List<JsonParamEntity> jsonParamPoList =  jsonParamDao.findJsonParamList(idList);
 
         List<JsonParam> jsonParamList = BeanMapper.mapList(jsonParamPoList,JsonParam.class);
 
@@ -77,7 +77,7 @@ public class JsonParamServiceImpl implements JsonParamService {
 
     @Override
     public List<JsonParam> findAllJsonParam() {
-        List<JsonParamPo> jsonParamPoList =  jsonParamDao.findAllJsonParam();
+        List<JsonParamEntity> jsonParamPoList =  jsonParamDao.findAllJsonParam();
 
         List<JsonParam> jsonParamList = BeanMapper.mapList(jsonParamPoList,JsonParam.class);
 
@@ -87,7 +87,7 @@ public class JsonParamServiceImpl implements JsonParamService {
 
     @Override
     public List<JsonParam> findJsonParamList(JsonParamQuery jsonParamQuery) {
-        List<JsonParamPo> jsonParamPoList = jsonParamDao.findJsonParamList(jsonParamQuery);
+        List<JsonParamEntity> jsonParamPoList = jsonParamDao.findJsonParamList(jsonParamQuery);
 
         List<JsonParam> jsonParamList = BeanMapper.mapList(jsonParamPoList,JsonParam.class);
 
@@ -149,7 +149,7 @@ public class JsonParamServiceImpl implements JsonParamService {
     public Pagination<JsonParam> findJsonParamPage(JsonParamQuery jsonParamQuery) {
         Pagination<JsonParam> pg = new Pagination<>();
 
-        Pagination<JsonParamPo>  pagination = jsonParamDao.findJsonParamPage(jsonParamQuery);
+        Pagination<JsonParamEntity>  pagination = jsonParamDao.findJsonParamPage(jsonParamQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<JsonParam> jsonParamList = BeanMapper.mapList(pagination.getDataList(),JsonParam.class);

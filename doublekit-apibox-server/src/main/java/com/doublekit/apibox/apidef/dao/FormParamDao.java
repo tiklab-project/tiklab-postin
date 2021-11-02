@@ -1,7 +1,7 @@
 package com.doublekit.apibox.apidef.dao;
 
 import com.doublekit.common.Pagination;
-import com.doublekit.apibox.apidef.entity.FormParamPo;
+import com.doublekit.apibox.apidef.entity.FormParamEntity;
 import com.doublekit.apibox.apidef.model.FormParamQuery;
 import com.doublekit.dal.jpa.JpaTemplate;
 import com.doublekit.dal.jpa.builder.deletelist.condition.DeleteCondition;
@@ -25,19 +25,19 @@ public class FormParamDao{
 
     /**
      * 创建用户
-     * @param formParamPo
+     * @param formParamEntity
      * @return
      */
-    public String createFormParam(FormParamPo formParamPo) {
-        return jpaTemplate.save(formParamPo,String.class);
+    public String createFormParam(FormParamEntity formParamEntity) {
+        return jpaTemplate.save(formParamEntity,String.class);
     }
 
     /**
      * 更新用户
-     * @param formParamPo
+     * @param formParamEntity
      */
-    public void updateFormParam(FormParamPo formParamPo){
-        jpaTemplate.update(formParamPo);
+    public void updateFormParam(FormParamEntity formParamEntity){
+        jpaTemplate.update(formParamEntity);
     }
 
     /**
@@ -45,7 +45,7 @@ public class FormParamDao{
      * @param id
      */
     public void deleteFormParam(String id){
-        jpaTemplate.delete(FormParamPo.class,id);
+        jpaTemplate.delete(FormParamEntity.class,id);
     }
 
     /**
@@ -53,7 +53,7 @@ public class FormParamDao{
      * @param deleteCondition
      */
     public void deleteFormParamLsit(DeleteCondition deleteCondition){
-        jpaTemplate.delete(FormParamPo.class,deleteCondition);
+        jpaTemplate.delete(FormParamEntity.class,deleteCondition);
     }
 
     /**
@@ -61,23 +61,23 @@ public class FormParamDao{
      * @param id
      * @return
      */
-    public FormParamPo findFormParam(String id){
-        return jpaTemplate.findOne(FormParamPo.class,id);
+    public FormParamEntity findFormParam(String id){
+        return jpaTemplate.findOne(FormParamEntity.class,id);
     }
 
     /**
     * findAllFormParam
     * @return
     */
-    public List<FormParamPo> findAllFormParam() {
-        return jpaTemplate.findAll(FormParamPo.class);
+    public List<FormParamEntity> findAllFormParam() {
+        return jpaTemplate.findAll(FormParamEntity.class);
     }
 
-    public List<FormParamPo> findFormParamList(FormParamQuery formParamQuery) {
-        return jpaTemplate.findList(FormParamPo.class,formParamQuery);
+    public List<FormParamEntity> findFormParamList(FormParamQuery formParamQuery) {
+        return jpaTemplate.findList(FormParamEntity.class,formParamQuery);
     }
 
-    public Pagination<FormParamPo> findFormParamPage(FormParamQuery formParamQuery) {
-        return jpaTemplate.findPage(FormParamPo.class,formParamQuery);
+    public Pagination<FormParamEntity> findFormParamPage(FormParamQuery formParamQuery) {
+        return jpaTemplate.findPage(FormParamEntity.class,formParamQuery);
     }
 }

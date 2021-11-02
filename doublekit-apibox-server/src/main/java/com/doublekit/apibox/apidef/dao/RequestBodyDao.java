@@ -1,7 +1,7 @@
 package com.doublekit.apibox.apidef.dao;
 
 import com.doublekit.common.Pagination;
-import com.doublekit.apibox.apidef.entity.RequestBodyPo;
+import com.doublekit.apibox.apidef.entity.RequestBodyEntity;
 import com.doublekit.apibox.apidef.model.RequestBodyExQuery;
 import com.doublekit.dal.jpa.JpaTemplate;
 import com.doublekit.dal.jpa.builder.deletelist.condition.DeleteCondition;
@@ -25,19 +25,19 @@ public class RequestBodyDao{
 
     /**
      * 创建用户
-     * @param requestBodyPo
+     * @param requestBodyEntity
      * @return
      */
-    public String createRequestBody(RequestBodyPo requestBodyPo) {
-        return jpaTemplate.save(requestBodyPo,String.class);
+    public String createRequestBody(RequestBodyEntity requestBodyEntity) {
+        return jpaTemplate.save(requestBodyEntity,String.class);
     }
 
     /**
      * 更新用户
-     * @param requestBodyPo
+     * @param requestBodyEntity
      */
-    public void updateRequestBody(RequestBodyPo requestBodyPo){
-        jpaTemplate.update(requestBodyPo);
+    public void updateRequestBody(RequestBodyEntity requestBodyEntity){
+        jpaTemplate.update(requestBodyEntity);
     }
 
     /**
@@ -45,14 +45,14 @@ public class RequestBodyDao{
      * @param deleteCondition
      */
     public void deleteRequestBodyList(DeleteCondition deleteCondition){
-        jpaTemplate.delete(RequestBodyPo.class,deleteCondition);
+        jpaTemplate.delete(RequestBodyEntity.class,deleteCondition);
     }
     /**
      * 删除
      * @param id
      */
     public void deleteRequestBody(String id){
-        jpaTemplate.delete(RequestBodyPo.class,id);
+        jpaTemplate.delete(RequestBodyEntity.class,id);
     }
 
     /**
@@ -60,23 +60,23 @@ public class RequestBodyDao{
      * @param id
      * @return
      */
-    public RequestBodyPo findRequestBody(String id){
-        return jpaTemplate.findOne(RequestBodyPo.class,id);
+    public RequestBodyEntity findRequestBody(String id){
+        return jpaTemplate.findOne(RequestBodyEntity.class,id);
     }
 
     /**
     * findAllRequestBody
     * @return
     */
-    public List<RequestBodyPo> findAllRequestBody() {
-        return jpaTemplate.findAll(RequestBodyPo.class);
+    public List<RequestBodyEntity> findAllRequestBody() {
+        return jpaTemplate.findAll(RequestBodyEntity.class);
     }
 
-    public List<RequestBodyPo> findRequestBodyList(RequestBodyExQuery requestBodyQuery) {
-        return jpaTemplate.findList(RequestBodyPo.class,requestBodyQuery);
+    public List<RequestBodyEntity> findRequestBodyList(RequestBodyExQuery requestBodyQuery) {
+        return jpaTemplate.findList(RequestBodyEntity.class,requestBodyQuery);
     }
 
-    public Pagination<RequestBodyPo> findRequestBodyPage(RequestBodyExQuery requestBodyQuery) {
-        return jpaTemplate.findPage(RequestBodyPo.class,requestBodyQuery);
+    public Pagination<RequestBodyEntity> findRequestBodyPage(RequestBodyExQuery requestBodyQuery) {
+        return jpaTemplate.findPage(RequestBodyEntity.class,requestBodyQuery);
     }
 }

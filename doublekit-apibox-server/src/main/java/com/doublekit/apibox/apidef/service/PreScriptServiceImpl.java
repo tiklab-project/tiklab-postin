@@ -1,7 +1,7 @@
 package com.doublekit.apibox.apidef.service;
 
 import com.doublekit.apibox.apidef.dao.PreScriptDao;
-import com.doublekit.apibox.apidef.entity.PreScriptPo;
+import com.doublekit.apibox.apidef.entity.PreScriptEntity;
 import com.doublekit.apibox.apidef.model.PreScript;
 import com.doublekit.apibox.apidef.model.PreScriptQuery;
 
@@ -31,16 +31,16 @@ public class PreScriptServiceImpl implements PreScriptService {
 
     @Override
     public String createPreScript(@NotNull @Valid PreScript preScript) {
-        PreScriptPo preScriptPo = BeanMapper.map(preScript, PreScriptPo.class);
+        PreScriptEntity preScriptEntity = BeanMapper.map(preScript, PreScriptEntity.class);
 
-        return preScriptDao.createPreScript(preScriptPo);
+        return preScriptDao.createPreScript(preScriptEntity);
     }
 
     @Override
     public void updatePreScript(@NotNull @Valid PreScript preScript) {
-        PreScriptPo preScriptPo = BeanMapper.map(preScript, PreScriptPo.class);
+        PreScriptEntity preScriptEntity = BeanMapper.map(preScript, PreScriptEntity.class);
 
-        preScriptDao.updatePreScript(preScriptPo);
+        preScriptDao.updatePreScript(preScriptEntity);
     }
 
     @Override
@@ -50,9 +50,9 @@ public class PreScriptServiceImpl implements PreScriptService {
 
     @Override
     public PreScript findPreScript(@NotNull String id) {
-        PreScriptPo preScriptPo = preScriptDao.findPreScript(id);
+        PreScriptEntity preScriptEntity = preScriptDao.findPreScript(id);
 
-        PreScript preScript = BeanMapper.map(preScriptPo, PreScript.class);
+        PreScript preScript = BeanMapper.map(preScriptEntity, PreScript.class);
 
         joinQuery.queryOne(preScript);
 
@@ -61,9 +61,9 @@ public class PreScriptServiceImpl implements PreScriptService {
 
     @Override
     public List<PreScript> findAllPreScript() {
-        List<PreScriptPo> preScriptPoList =  preScriptDao.findAllPreScript();
+        List<PreScriptEntity> preScriptEntityList =  preScriptDao.findAllPreScript();
 
-        List<PreScript> preScriptList =  BeanMapper.mapList(preScriptPoList,PreScript.class);
+        List<PreScript> preScriptList =  BeanMapper.mapList(preScriptEntityList,PreScript.class);
 
         joinQuery.queryList(preScriptList);
 
@@ -72,9 +72,9 @@ public class PreScriptServiceImpl implements PreScriptService {
 
     @Override
     public List<PreScript> findPreScriptList(PreScriptQuery preScriptQuery) {
-        List<PreScriptPo> preScriptPoList = preScriptDao.findPreScriptList(preScriptQuery);
+        List<PreScriptEntity> preScriptEntityList = preScriptDao.findPreScriptList(preScriptQuery);
 
-        List<PreScript> preScriptList = BeanMapper.mapList(preScriptPoList,PreScript.class);
+        List<PreScript> preScriptList = BeanMapper.mapList(preScriptEntityList,PreScript.class);
 
         joinQuery.queryList(preScriptList);
 
@@ -85,7 +85,7 @@ public class PreScriptServiceImpl implements PreScriptService {
     public Pagination<PreScript> findPreScriptPage(PreScriptQuery preScriptQuery) {
         Pagination<PreScript> pg = new Pagination<>();
 
-        Pagination<PreScriptPo>  pagination = preScriptDao.findPreScriptPage(preScriptQuery);
+        Pagination<PreScriptEntity>  pagination = preScriptDao.findPreScriptPage(preScriptQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<PreScript> preScriptList = BeanMapper.mapList(pagination.getDataList(),PreScript.class);

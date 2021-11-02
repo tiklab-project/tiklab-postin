@@ -1,7 +1,7 @@
 package com.doublekit.apibox.apitest.service;
 
 import com.doublekit.apibox.apitest.dao.RequestHeaderCaseDao;
-import com.doublekit.apibox.apitest.entity.RequestHeaderCasePo;
+import com.doublekit.apibox.apitest.entity.RequestHeaderCaseEntity;
 
 import com.doublekit.apibox.apitest.model.RequestHeaderCase;
 import com.doublekit.apibox.apitest.model.RequestHeaderCaseQuery;
@@ -31,16 +31,16 @@ public class RequestHeaderCaseServiceImpl implements RequestHeaderCaseService {
 
     @Override
     public String createRequestHeaderCase(@NotNull @Valid RequestHeaderCase requestHeaderCase) {
-        RequestHeaderCasePo requestHeaderCasePo = BeanMapper.map(requestHeaderCase, RequestHeaderCasePo.class);
+        RequestHeaderCaseEntity requestHeaderCaseEntity = BeanMapper.map(requestHeaderCase, RequestHeaderCaseEntity.class);
 
-        return requestHeaderCaseDao.createRequestHeaderCase(requestHeaderCasePo);
+        return requestHeaderCaseDao.createRequestHeaderCase(requestHeaderCaseEntity);
     }
 
     @Override
     public void updateRequestHeaderCase(@NotNull @Valid RequestHeaderCase requestHeaderCase) {
-        RequestHeaderCasePo requestHeaderCasePo = BeanMapper.map(requestHeaderCase, RequestHeaderCasePo.class);
+        RequestHeaderCaseEntity requestHeaderCaseEntity = BeanMapper.map(requestHeaderCase, RequestHeaderCaseEntity.class);
 
-        requestHeaderCaseDao.updateRequestHeaderCase(requestHeaderCasePo);
+        requestHeaderCaseDao.updateRequestHeaderCase(requestHeaderCaseEntity);
     }
 
     @Override
@@ -50,17 +50,17 @@ public class RequestHeaderCaseServiceImpl implements RequestHeaderCaseService {
 
     @Override
     public RequestHeaderCase findOne(String id) {
-        RequestHeaderCasePo requestHeaderCasePo = requestHeaderCaseDao.findRequestHeaderCase(id);
+        RequestHeaderCaseEntity requestHeaderCaseEntity = requestHeaderCaseDao.findRequestHeaderCase(id);
 
-        RequestHeaderCase requestHeaderCase = BeanMapper.map(requestHeaderCasePo, RequestHeaderCase.class);
+        RequestHeaderCase requestHeaderCase = BeanMapper.map(requestHeaderCaseEntity, RequestHeaderCase.class);
         return requestHeaderCase;
     }
 
     @Override
     public List<RequestHeaderCase> findList(List<String> idList) {
-        List<RequestHeaderCasePo> requestHeaderCasePoList =  requestHeaderCaseDao.findRequestHeaderCaseList(idList);
+        List<RequestHeaderCaseEntity> requestHeaderCaseEntityList =  requestHeaderCaseDao.findRequestHeaderCaseList(idList);
 
-        List<RequestHeaderCase> requestHeaderCaseList =  BeanMapper.mapList(requestHeaderCasePoList,RequestHeaderCase.class);
+        List<RequestHeaderCase> requestHeaderCaseList =  BeanMapper.mapList(requestHeaderCaseEntityList,RequestHeaderCase.class);
         return requestHeaderCaseList;
     }
 
@@ -74,9 +74,9 @@ public class RequestHeaderCaseServiceImpl implements RequestHeaderCaseService {
 
     @Override
     public List<RequestHeaderCase> findAllRequestHeaderCase() {
-        List<RequestHeaderCasePo> requestHeaderCasePoList =  requestHeaderCaseDao.findAllRequestHeaderCase();
+        List<RequestHeaderCaseEntity> requestHeaderCaseEntityList =  requestHeaderCaseDao.findAllRequestHeaderCase();
 
-        List<RequestHeaderCase> requestHeaderCaseList =  BeanMapper.mapList(requestHeaderCasePoList,RequestHeaderCase.class);
+        List<RequestHeaderCase> requestHeaderCaseList =  BeanMapper.mapList(requestHeaderCaseEntityList,RequestHeaderCase.class);
 
         joinQuery.queryList(requestHeaderCaseList);
         return requestHeaderCaseList;
@@ -84,9 +84,9 @@ public class RequestHeaderCaseServiceImpl implements RequestHeaderCaseService {
 
     @Override
     public List<RequestHeaderCase> findRequestHeaderCaseList(RequestHeaderCaseQuery requestHeaderCaseQuery) {
-        List<RequestHeaderCasePo> requestHeaderCasePoList = requestHeaderCaseDao.findRequestHeaderCaseList(requestHeaderCaseQuery);
+        List<RequestHeaderCaseEntity> requestHeaderCaseEntityList = requestHeaderCaseDao.findRequestHeaderCaseList(requestHeaderCaseQuery);
 
-        List<RequestHeaderCase> requestHeaderCaseList = BeanMapper.mapList(requestHeaderCasePoList,RequestHeaderCase.class);
+        List<RequestHeaderCase> requestHeaderCaseList = BeanMapper.mapList(requestHeaderCaseEntityList,RequestHeaderCase.class);
 
         joinQuery.queryList(requestHeaderCaseList);
 
@@ -97,7 +97,7 @@ public class RequestHeaderCaseServiceImpl implements RequestHeaderCaseService {
     public Pagination<RequestHeaderCase> findRequestHeaderCasePage(RequestHeaderCaseQuery requestHeaderCaseQuery) {
         Pagination<RequestHeaderCase> pg = new Pagination<>();
 
-        Pagination<RequestHeaderCasePo>  pagination = requestHeaderCaseDao.findRequestHeaderCasePage(requestHeaderCaseQuery);
+        Pagination<RequestHeaderCaseEntity>  pagination = requestHeaderCaseDao.findRequestHeaderCasePage(requestHeaderCaseQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<RequestHeaderCase> requestHeaderCaseList = BeanMapper.mapList(pagination.getDataList(),RequestHeaderCase.class);

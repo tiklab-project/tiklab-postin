@@ -1,7 +1,7 @@
 package com.doublekit.apibox.apitest.service;
 
 import com.doublekit.apibox.apitest.dao.TestcaseDao;
-import com.doublekit.apibox.apitest.entity.TestcasePo;
+import com.doublekit.apibox.apitest.entity.TestcaseEntity;
 import com.doublekit.apibox.apitest.model.*;
 
 import com.doublekit.common.Pagination;
@@ -57,9 +57,9 @@ public class TestcaseServiceImpl implements TestcaseService {
 
     @Override
     public String createTestcase(@NotNull @Valid Testcase testcase) {
-        TestcasePo testcasePo = BeanMapper.map(testcase, TestcasePo.class);
+        TestcaseEntity testcaseEntity = BeanMapper.map(testcase, TestcaseEntity.class);
 
-        return testcaseDao.createTestcase(testcasePo);
+        return testcaseDao.createTestcase(testcaseEntity);
     }
 
     @Override
@@ -152,9 +152,9 @@ public class TestcaseServiceImpl implements TestcaseService {
 
     @Override
     public void updateTestcase(@NotNull @Valid Testcase testcase) {
-        TestcasePo testcasePo = BeanMapper.map(testcase, TestcasePo.class);
+        TestcaseEntity testcaseEntity = BeanMapper.map(testcase, TestcaseEntity.class);
 
-        testcaseDao.updateTestcase(testcasePo);
+        testcaseDao.updateTestcase(testcaseEntity);
     }
 
     @Override
@@ -164,17 +164,17 @@ public class TestcaseServiceImpl implements TestcaseService {
 
     @Override
     public Testcase findOne(String id) {
-        TestcasePo testcasePo = testcaseDao.findTestcase(id);
+        TestcaseEntity testcaseEntity = testcaseDao.findTestcase(id);
 
-        Testcase testcase = BeanMapper.map(testcasePo, Testcase.class);
+        Testcase testcase = BeanMapper.map(testcaseEntity, Testcase.class);
         return testcase;
     }
 
     @Override
     public List<Testcase> findList(List<String> idList) {
-        List<TestcasePo> testcasePoList =  testcaseDao.findTestcaseList(idList);
+        List<TestcaseEntity> testcaseEntityList =  testcaseDao.findTestcaseList(idList);
 
-        List<Testcase> testcaseList =  BeanMapper.mapList(testcasePoList,Testcase.class);
+        List<Testcase> testcaseList =  BeanMapper.mapList(testcaseEntityList,Testcase.class);
         return testcaseList;
     }
 
@@ -188,9 +188,9 @@ public class TestcaseServiceImpl implements TestcaseService {
 
     @Override
     public List<Testcase> findAllTestcase() {
-        List<TestcasePo> testcasePoList =  testcaseDao.findAllTestcase();
+        List<TestcaseEntity> testcaseEntityList =  testcaseDao.findAllTestcase();
 
-        List<Testcase> testcaseList =  BeanMapper.mapList(testcasePoList,Testcase.class);
+        List<Testcase> testcaseList =  BeanMapper.mapList(testcaseEntityList,Testcase.class);
 
         joinQuery.queryList(testcaseList);
         return testcaseList;
@@ -198,9 +198,9 @@ public class TestcaseServiceImpl implements TestcaseService {
 
     @Override
     public List<Testcase> findTestcaseList(TestcaseQuery testcaseQuery) {
-        List<TestcasePo> testcasePoList = testcaseDao.findTestcaseList(testcaseQuery);
+        List<TestcaseEntity> testcaseEntityList = testcaseDao.findTestcaseList(testcaseQuery);
 
-        List<Testcase> testcaseList = BeanMapper.mapList(testcasePoList,Testcase.class);
+        List<Testcase> testcaseList = BeanMapper.mapList(testcaseEntityList,Testcase.class);
 
         joinQuery.queryList(testcaseList);
 
@@ -211,7 +211,7 @@ public class TestcaseServiceImpl implements TestcaseService {
     public Pagination<Testcase> findTestcasePage(TestcaseQuery testcaseQuery) {
         Pagination<Testcase> pg = new Pagination<>();
 
-        Pagination<TestcasePo>  pagination = testcaseDao.findTestcasePage(testcaseQuery);
+        Pagination<TestcaseEntity>  pagination = testcaseDao.findTestcasePage(testcaseQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<Testcase> testcaseList = BeanMapper.mapList(pagination.getDataList(),Testcase.class);

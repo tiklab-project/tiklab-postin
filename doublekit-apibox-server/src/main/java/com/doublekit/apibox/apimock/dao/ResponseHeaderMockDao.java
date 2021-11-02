@@ -1,6 +1,6 @@
 package com.doublekit.apibox.apimock.dao;
 
-import com.doublekit.apibox.apimock.entity.ResponseHeaderMockPo;
+import com.doublekit.apibox.apimock.entity.ResponseHeaderMockEntity;
 import com.doublekit.apibox.apimock.model.ResponseHeaderMockQuery;
 import com.doublekit.common.Pagination;
 import com.doublekit.dal.jpa.JpaTemplate;
@@ -24,19 +24,19 @@ public class ResponseHeaderMockDao{
 
     /**
      * 创建用户
-     * @param responseHeaderMockPo
+     * @param responseHeaderMockEntity
      * @return
      */
-    public String createResponseHeaderMock(ResponseHeaderMockPo responseHeaderMockPo) {
-        return jpaTemplate.save(responseHeaderMockPo,String.class);
+    public String createResponseHeaderMock(ResponseHeaderMockEntity responseHeaderMockEntity) {
+        return jpaTemplate.save(responseHeaderMockEntity,String.class);
     }
 
     /**
      * 更新用户
-     * @param responseHeaderMockPo
+     * @param responseHeaderMockEntity
      */
-    public void updateResponseHeaderMock(ResponseHeaderMockPo responseHeaderMockPo){
-        jpaTemplate.update(responseHeaderMockPo);
+    public void updateResponseHeaderMock(ResponseHeaderMockEntity responseHeaderMockEntity){
+        jpaTemplate.update(responseHeaderMockEntity);
     }
 
     /**
@@ -44,7 +44,7 @@ public class ResponseHeaderMockDao{
      * @param id
      */
     public void deleteResponseHeaderMock(String id){
-        jpaTemplate.delete(ResponseHeaderMockPo.class,id);
+        jpaTemplate.delete(ResponseHeaderMockEntity.class,id);
     }
 
     /**
@@ -52,23 +52,23 @@ public class ResponseHeaderMockDao{
      * @param id
      * @return
      */
-    public ResponseHeaderMockPo findResponseHeaderMock(String id){
-        return jpaTemplate.findOne(ResponseHeaderMockPo.class,id);
+    public ResponseHeaderMockEntity findResponseHeaderMock(String id){
+        return jpaTemplate.findOne(ResponseHeaderMockEntity.class,id);
     }
 
     /**
     * findAllResponseHeaderMock
     * @return
     */
-    public List<ResponseHeaderMockPo> findAllResponseHeaderMock() {
-        return jpaTemplate.findAll(ResponseHeaderMockPo.class);
+    public List<ResponseHeaderMockEntity> findAllResponseHeaderMock() {
+        return jpaTemplate.findAll(ResponseHeaderMockEntity.class);
     }
 
-    public List<ResponseHeaderMockPo> findResponseHeaderMockList(ResponseHeaderMockQuery responseHeaderMockQuery) {
-        return jpaTemplate.findList(ResponseHeaderMockPo.class,responseHeaderMockQuery);
+    public List<ResponseHeaderMockEntity> findResponseHeaderMockList(ResponseHeaderMockQuery responseHeaderMockQuery) {
+        return jpaTemplate.findList(ResponseHeaderMockEntity.class,responseHeaderMockQuery);
     }
 
-    public Pagination<ResponseHeaderMockPo> findResponseHeaderMockPage(ResponseHeaderMockQuery responseHeaderMockQuery) {
-        return jpaTemplate.findPage(ResponseHeaderMockPo.class,responseHeaderMockQuery);
+    public Pagination<ResponseHeaderMockEntity> findResponseHeaderMockPage(ResponseHeaderMockQuery responseHeaderMockQuery) {
+        return jpaTemplate.findPage(ResponseHeaderMockEntity.class,responseHeaderMockQuery);
     }
 }

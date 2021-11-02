@@ -1,7 +1,7 @@
 package com.doublekit.apibox.apimock.service;
 
 import com.doublekit.apibox.apimock.dao.ResponseResultMockDao;
-import com.doublekit.apibox.apimock.entity.ResponseResultMockPo;
+import com.doublekit.apibox.apimock.entity.ResponseResultMockEntity;
 import com.doublekit.apibox.apimock.model.ResponseResultMock;
 import com.doublekit.apibox.apimock.model.ResponseResultMockQuery;
 
@@ -31,16 +31,16 @@ public class ResponseResultMockServiceImpl implements ResponseResultMockService 
 
     @Override
     public String createResponseResultMock(@NotNull @Valid ResponseResultMock responseResultMock) {
-        ResponseResultMockPo responseResultMockPo = BeanMapper.map(responseResultMock, ResponseResultMockPo.class);
+        ResponseResultMockEntity responseResultMockEntity = BeanMapper.map(responseResultMock, ResponseResultMockEntity.class);
 
-        return responseResultMockDao.createResponseResultMock(responseResultMockPo);
+        return responseResultMockDao.createResponseResultMock(responseResultMockEntity);
     }
 
     @Override
     public void updateResponseResultMock(@NotNull @Valid ResponseResultMock responseResultMock) {
-        ResponseResultMockPo responseResultMockPo = BeanMapper.map(responseResultMock, ResponseResultMockPo.class);
+        ResponseResultMockEntity responseResultMockEntity = BeanMapper.map(responseResultMock, ResponseResultMockEntity.class);
 
-        responseResultMockDao.updateResponseResultMock(responseResultMockPo);
+        responseResultMockDao.updateResponseResultMock(responseResultMockEntity);
     }
 
     @Override
@@ -50,9 +50,9 @@ public class ResponseResultMockServiceImpl implements ResponseResultMockService 
 
     @Override
     public ResponseResultMock findResponseResultMock(@NotNull String id) {
-        ResponseResultMockPo responseResultMockPo = responseResultMockDao.findResponseResultMock(id);
+        ResponseResultMockEntity responseResultMockEntity = responseResultMockDao.findResponseResultMock(id);
 
-        ResponseResultMock responseResultMock = BeanMapper.map(responseResultMockPo, ResponseResultMock.class);
+        ResponseResultMock responseResultMock = BeanMapper.map(responseResultMockEntity, ResponseResultMock.class);
 
         joinQuery.queryOne(responseResultMock);
 
@@ -61,9 +61,9 @@ public class ResponseResultMockServiceImpl implements ResponseResultMockService 
 
     @Override
     public List<ResponseResultMock> findAllResponseResultMock() {
-        List<ResponseResultMockPo> responseResultMockPoList =  responseResultMockDao.findAllResponseResultMock();
+        List<ResponseResultMockEntity> responseResultMockEntityList =  responseResultMockDao.findAllResponseResultMock();
 
-        List<ResponseResultMock> responseResultMockList =  BeanMapper.mapList(responseResultMockPoList,ResponseResultMock.class);
+        List<ResponseResultMock> responseResultMockList =  BeanMapper.mapList(responseResultMockEntityList,ResponseResultMock.class);
 
         joinQuery.queryList(responseResultMockList);
 
@@ -72,9 +72,9 @@ public class ResponseResultMockServiceImpl implements ResponseResultMockService 
 
     @Override
     public List<ResponseResultMock> findResponseResultMockList(ResponseResultMockQuery responseResultMockQuery) {
-        List<ResponseResultMockPo> responseResultMockPoList = responseResultMockDao.findResponseResultMockList(responseResultMockQuery);
+        List<ResponseResultMockEntity> responseResultMockEntityList = responseResultMockDao.findResponseResultMockList(responseResultMockQuery);
 
-        List<ResponseResultMock> responseResultMockList = BeanMapper.mapList(responseResultMockPoList,ResponseResultMock.class);
+        List<ResponseResultMock> responseResultMockList = BeanMapper.mapList(responseResultMockEntityList,ResponseResultMock.class);
 
         joinQuery.queryList(responseResultMockList);
 
@@ -85,7 +85,7 @@ public class ResponseResultMockServiceImpl implements ResponseResultMockService 
     public Pagination<ResponseResultMock> findResponseResultMockPage(ResponseResultMockQuery responseResultMockQuery) {
         Pagination<ResponseResultMock> pg = new Pagination<>();
 
-        Pagination<ResponseResultMockPo>  pagination = responseResultMockDao.findResponseResultMockPage(responseResultMockQuery);
+        Pagination<ResponseResultMockEntity>  pagination = responseResultMockDao.findResponseResultMockPage(responseResultMockQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<ResponseResultMock> responseResultMockList = BeanMapper.mapList(pagination.getDataList(),ResponseResultMock.class);

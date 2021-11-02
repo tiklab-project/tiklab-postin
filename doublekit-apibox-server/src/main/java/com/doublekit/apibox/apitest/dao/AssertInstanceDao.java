@@ -1,6 +1,6 @@
 package com.doublekit.apibox.apitest.dao;
 
-import com.doublekit.apibox.apitest.entity.AssertInstancePo;
+import com.doublekit.apibox.apitest.entity.AssertInstanceEntity;
 import com.doublekit.apibox.apitest.model.AssertInstanceQuery;
 import com.doublekit.common.Pagination;
 import com.doublekit.dal.jpa.JpaTemplate;
@@ -24,19 +24,19 @@ public class AssertInstanceDao{
 
     /**
      * 创建用户
-     * @param assertInstancePo
+     * @param assertInstanceEntity
      * @return
      */
-    public String createAssertInstance(AssertInstancePo assertInstancePo) {
-        return jpaTemplate.save(assertInstancePo,String.class);
+    public String createAssertInstance(AssertInstanceEntity assertInstanceEntity) {
+        return jpaTemplate.save(assertInstanceEntity,String.class);
     }
 
     /**
      * 更新用户
-     * @param assertInstancePo
+     * @param assertInstanceEntity
      */
-    public void updateAssertInstance(AssertInstancePo assertInstancePo){
-        jpaTemplate.update(assertInstancePo);
+    public void updateAssertInstance(AssertInstanceEntity assertInstanceEntity){
+        jpaTemplate.update(assertInstanceEntity);
     }
 
     /**
@@ -44,7 +44,7 @@ public class AssertInstanceDao{
      * @param id
      */
     public void deleteAssertInstance(String id){
-        jpaTemplate.delete(AssertInstancePo.class,id);
+        jpaTemplate.delete(AssertInstanceEntity.class,id);
     }
 
     /**
@@ -52,27 +52,27 @@ public class AssertInstanceDao{
      * @param id
      * @return
      */
-    public AssertInstancePo findAssertInstance(String id){
-        return jpaTemplate.findOne(AssertInstancePo.class,id);
+    public AssertInstanceEntity findAssertInstance(String id){
+        return jpaTemplate.findOne(AssertInstanceEntity.class,id);
     }
 
     /**
     * findAllAssertInstance
     * @return
     */
-    public List<AssertInstancePo> findAllAssertInstance() {
-        return jpaTemplate.findAll(AssertInstancePo.class);
+    public List<AssertInstanceEntity> findAllAssertInstance() {
+        return jpaTemplate.findAll(AssertInstanceEntity.class);
     }
 
-    public List<AssertInstancePo> findAssertInstanceList(List<String> idList) {
-        return jpaTemplate.findList(AssertInstancePo.class,idList);
+    public List<AssertInstanceEntity> findAssertInstanceList(List<String> idList) {
+        return jpaTemplate.findList(AssertInstanceEntity.class,idList);
     }
 
-    public List<AssertInstancePo> findAssertInstanceList(AssertInstanceQuery assertInstanceQuery) {
-        return jpaTemplate.findList(AssertInstancePo.class,assertInstanceQuery);
+    public List<AssertInstanceEntity> findAssertInstanceList(AssertInstanceQuery assertInstanceQuery) {
+        return jpaTemplate.findList(AssertInstanceEntity.class,assertInstanceQuery);
     }
 
-    public Pagination<AssertInstancePo> findAssertInstancePage(AssertInstanceQuery assertInstanceQuery) {
-        return jpaTemplate.findPage(AssertInstancePo.class,assertInstanceQuery);
+    public Pagination<AssertInstanceEntity> findAssertInstancePage(AssertInstanceQuery assertInstanceQuery) {
+        return jpaTemplate.findPage(AssertInstanceEntity.class,assertInstanceQuery);
     }
 }

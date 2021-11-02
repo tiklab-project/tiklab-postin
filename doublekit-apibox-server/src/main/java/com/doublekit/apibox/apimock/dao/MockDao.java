@@ -1,6 +1,6 @@
 package com.doublekit.apibox.apimock.dao;
 
-import com.doublekit.apibox.apimock.entity.MockPo;
+import com.doublekit.apibox.apimock.entity.MockEntity;
 import com.doublekit.apibox.apimock.model.MockQuery;
 import com.doublekit.common.Pagination;
 import com.doublekit.dal.jpa.JpaTemplate;
@@ -24,19 +24,19 @@ public class MockDao{
 
     /**
      * 创建用户
-     * @param mockPo
+     * @param mockEntity
      * @return
      */
-    public String createMock(MockPo mockPo) {
-        return jpaTemplate.save(mockPo,String.class);
+    public String createMock(MockEntity mockEntity) {
+        return jpaTemplate.save(mockEntity,String.class);
     }
 
     /**
      * 更新用户
-     * @param mockPo
+     * @param mockEntity
      */
-    public void updateMock(MockPo mockPo){
-        jpaTemplate.update(mockPo);
+    public void updateMock(MockEntity mockEntity){
+        jpaTemplate.update(mockEntity);
     }
 
     /**
@@ -44,7 +44,7 @@ public class MockDao{
      * @param id
      */
     public void deleteMock(String id){
-        jpaTemplate.delete(MockPo.class,id);
+        jpaTemplate.delete(MockEntity.class,id);
     }
 
     /**
@@ -52,27 +52,27 @@ public class MockDao{
      * @param id
      * @return
      */
-    public MockPo findMock(String id){
-        return jpaTemplate.findOne(MockPo.class,id);
+    public MockEntity findMock(String id){
+        return jpaTemplate.findOne(MockEntity.class,id);
     }
 
     /**
     * findAllMock
     * @return
     */
-    public List<MockPo> findAllMock() {
-        return jpaTemplate.findAll(MockPo.class);
+    public List<MockEntity> findAllMock() {
+        return jpaTemplate.findAll(MockEntity.class);
     }
 
-    public List<MockPo> findMockList(List<String> idList) {
-        return jpaTemplate.findList(MockPo.class,idList);
+    public List<MockEntity> findMockList(List<String> idList) {
+        return jpaTemplate.findList(MockEntity.class,idList);
     }
 
-    public List<MockPo> findMockList(MockQuery mockQuery) {
-        return jpaTemplate.findList(MockPo.class,mockQuery);
+    public List<MockEntity> findMockList(MockQuery mockQuery) {
+        return jpaTemplate.findList(MockEntity.class,mockQuery);
     }
 
-    public Pagination<MockPo> findMockPage(MockQuery mockQuery) {
-        return jpaTemplate.findPage(MockPo.class,mockQuery);
+    public Pagination<MockEntity> findMockPage(MockQuery mockQuery) {
+        return jpaTemplate.findPage(MockEntity.class,mockQuery);
     }
 }

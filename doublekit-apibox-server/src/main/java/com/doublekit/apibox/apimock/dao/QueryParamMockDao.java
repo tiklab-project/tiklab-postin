@@ -1,7 +1,7 @@
 package com.doublekit.apibox.apimock.dao;
 
 import com.doublekit.common.Pagination;
-import com.doublekit.apibox.apimock.entity.QueryParamMockPo;
+import com.doublekit.apibox.apimock.entity.QueryParamMockEntity;
 import com.doublekit.apibox.apimock.model.QueryParamMockQuery;
 import com.doublekit.dal.jpa.JpaTemplate;
 import org.slf4j.Logger;
@@ -24,19 +24,19 @@ public class QueryParamMockDao{
 
     /**
      * 创建用户
-     * @param queryParamMockPo
+     * @param queryParamMockEntity
      * @return
      */
-    public String createQueryParamMock(QueryParamMockPo queryParamMockPo) {
-        return jpaTemplate.save(queryParamMockPo,String.class);
+    public String createQueryParamMock(QueryParamMockEntity queryParamMockEntity) {
+        return jpaTemplate.save(queryParamMockEntity,String.class);
     }
 
     /**
      * 更新用户
-     * @param queryParamMockPo
+     * @param queryParamMockEntity
      */
-    public void updateQueryParamMock(QueryParamMockPo queryParamMockPo){
-        jpaTemplate.update(queryParamMockPo);
+    public void updateQueryParamMock(QueryParamMockEntity queryParamMockEntity){
+        jpaTemplate.update(queryParamMockEntity);
     }
 
     /**
@@ -44,7 +44,7 @@ public class QueryParamMockDao{
      * @param id
      */
     public void deleteQueryParamMock(String id){
-        jpaTemplate.delete(QueryParamMockPo.class,id);
+        jpaTemplate.delete(QueryParamMockEntity.class,id);
     }
 
     /**
@@ -52,23 +52,23 @@ public class QueryParamMockDao{
      * @param id
      * @return
      */
-    public QueryParamMockPo findQueryParamMock(String id){
-        return jpaTemplate.findOne(QueryParamMockPo.class,id);
+    public QueryParamMockEntity findQueryParamMock(String id){
+        return jpaTemplate.findOne(QueryParamMockEntity.class,id);
     }
 
     /**
     * findAllQueryParamMock
     * @return
     */
-    public List<QueryParamMockPo> findAllQueryParamMock() {
-        return jpaTemplate.findAll(QueryParamMockPo.class);
+    public List<QueryParamMockEntity> findAllQueryParamMock() {
+        return jpaTemplate.findAll(QueryParamMockEntity.class);
     }
 
-    public List<QueryParamMockPo> findQueryParamMockList(QueryParamMockQuery queryParamMockQuery) {
-        return jpaTemplate.findList(QueryParamMockPo.class,queryParamMockQuery);
+    public List<QueryParamMockEntity> findQueryParamMockList(QueryParamMockQuery queryParamMockQuery) {
+        return jpaTemplate.findList(QueryParamMockEntity.class,queryParamMockQuery);
     }
 
-    public Pagination<QueryParamMockPo> findQueryParamMockPage(QueryParamMockQuery queryParamMockQuery) {
-        return jpaTemplate.findPage(QueryParamMockPo.class,queryParamMockQuery);
+    public Pagination<QueryParamMockEntity> findQueryParamMockPage(QueryParamMockQuery queryParamMockQuery) {
+        return jpaTemplate.findPage(QueryParamMockEntity.class,queryParamMockQuery);
     }
 }

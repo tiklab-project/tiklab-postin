@@ -1,7 +1,7 @@
 package com.doublekit.apibox.apimock.service;
 
 import com.doublekit.apibox.apimock.dao.QueryParamMockDao;
-import com.doublekit.apibox.apimock.entity.QueryParamMockPo;
+import com.doublekit.apibox.apimock.entity.QueryParamMockEntity;
 import com.doublekit.apibox.apimock.model.QueryParamMock;
 import com.doublekit.apibox.apimock.model.QueryParamMockQuery;
 
@@ -31,16 +31,16 @@ public class QueryParamMockServiceImpl implements QueryParamMockService {
 
     @Override
     public String createQueryParamMock(@NotNull @Valid QueryParamMock queryParamMock) {
-        QueryParamMockPo queryParamMockPo = BeanMapper.map(queryParamMock, QueryParamMockPo.class);
+        QueryParamMockEntity queryParamMockEntity = BeanMapper.map(queryParamMock, QueryParamMockEntity.class);
 
-        return queryParamMockDao.createQueryParamMock(queryParamMockPo);
+        return queryParamMockDao.createQueryParamMock(queryParamMockEntity);
     }
 
     @Override
     public void updateQueryParamMock(@NotNull @Valid QueryParamMock queryParamMock) {
-        QueryParamMockPo queryParamMockPo = BeanMapper.map(queryParamMock, QueryParamMockPo.class);
+        QueryParamMockEntity queryParamMockEntity = BeanMapper.map(queryParamMock, QueryParamMockEntity.class);
 
-        queryParamMockDao.updateQueryParamMock(queryParamMockPo);
+        queryParamMockDao.updateQueryParamMock(queryParamMockEntity);
     }
 
     @Override
@@ -50,9 +50,9 @@ public class QueryParamMockServiceImpl implements QueryParamMockService {
 
     @Override
     public QueryParamMock findQueryParamMock(@NotNull String id) {
-        QueryParamMockPo queryParamMockPo = queryParamMockDao.findQueryParamMock(id);
+        QueryParamMockEntity queryParamMockEntity = queryParamMockDao.findQueryParamMock(id);
 
-        QueryParamMock queryParamMock = BeanMapper.map(queryParamMockPo, QueryParamMock.class);
+        QueryParamMock queryParamMock = BeanMapper.map(queryParamMockEntity, QueryParamMock.class);
 
         joinQuery.queryOne(queryParamMock);
 
@@ -61,9 +61,9 @@ public class QueryParamMockServiceImpl implements QueryParamMockService {
 
     @Override
     public List<QueryParamMock> findAllQueryParamMock() {
-        List<QueryParamMockPo> queryParamMockPoList =  queryParamMockDao.findAllQueryParamMock();
+        List<QueryParamMockEntity> queryParamMockEntityList =  queryParamMockDao.findAllQueryParamMock();
 
-        List<QueryParamMock> queryParamMockList =  BeanMapper.mapList(queryParamMockPoList,QueryParamMock.class);
+        List<QueryParamMock> queryParamMockList =  BeanMapper.mapList(queryParamMockEntityList,QueryParamMock.class);
 
         joinQuery.queryList(queryParamMockList);
 
@@ -72,9 +72,9 @@ public class QueryParamMockServiceImpl implements QueryParamMockService {
 
     @Override
     public List<QueryParamMock> findQueryParamMockList(QueryParamMockQuery queryParamMockQuery) {
-        List<QueryParamMockPo> queryParamMockPoList = queryParamMockDao.findQueryParamMockList(queryParamMockQuery);
+        List<QueryParamMockEntity> queryParamMockEntityList = queryParamMockDao.findQueryParamMockList(queryParamMockQuery);
 
-        List<QueryParamMock> queryParamMockList = BeanMapper.mapList(queryParamMockPoList,QueryParamMock.class);
+        List<QueryParamMock> queryParamMockList = BeanMapper.mapList(queryParamMockEntityList,QueryParamMock.class);
 
         joinQuery.queryList(queryParamMockList);
 
@@ -85,7 +85,7 @@ public class QueryParamMockServiceImpl implements QueryParamMockService {
     public Pagination<QueryParamMock> findQueryParamMockPage(QueryParamMockQuery queryParamMockQuery) {
         Pagination<QueryParamMock> pg = new Pagination<>();
 
-        Pagination<QueryParamMockPo>  pagination = queryParamMockDao.findQueryParamMockPage(queryParamMockQuery);
+        Pagination<QueryParamMockEntity>  pagination = queryParamMockDao.findQueryParamMockPage(queryParamMockQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<QueryParamMock> queryParamMockList = BeanMapper.mapList(pagination.getDataList(),QueryParamMock.class);

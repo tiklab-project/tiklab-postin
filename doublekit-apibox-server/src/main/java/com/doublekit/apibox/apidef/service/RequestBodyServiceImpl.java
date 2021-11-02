@@ -1,7 +1,7 @@
 package com.doublekit.apibox.apidef.service;
 
 import com.doublekit.apibox.apidef.dao.RequestBodyDao;
-import com.doublekit.apibox.apidef.entity.RequestBodyPo;
+import com.doublekit.apibox.apidef.entity.RequestBodyEntity;
 import com.doublekit.apibox.apidef.model.RequestBodyEx;
 import com.doublekit.apibox.apidef.model.RequestBodyExQuery;
 
@@ -31,16 +31,16 @@ public class RequestBodyServiceImpl implements RequestBodyService {
 
     @Override
     public String createRequestBody(@NotNull @Valid RequestBodyEx requestBody) {
-        RequestBodyPo requestBodyPo = BeanMapper.map(requestBody, RequestBodyPo.class);
+        RequestBodyEntity requestBodyEntity = BeanMapper.map(requestBody, RequestBodyEntity.class);
 
-        return requestBodyDao.createRequestBody(requestBodyPo);
+        return requestBodyDao.createRequestBody(requestBodyEntity);
     }
 
     @Override
     public void updateRequestBody(@NotNull @Valid RequestBodyEx requestBody) {
-        RequestBodyPo requestBodyPo = BeanMapper.map(requestBody, RequestBodyPo.class);
+        RequestBodyEntity requestBodyEntity = BeanMapper.map(requestBody, RequestBodyEntity.class);
 
-        requestBodyDao.updateRequestBody(requestBodyPo);
+        requestBodyDao.updateRequestBody(requestBodyEntity);
     }
 
     @Override
@@ -50,9 +50,9 @@ public class RequestBodyServiceImpl implements RequestBodyService {
 
     @Override
     public RequestBodyEx findRequestBody(@NotNull String id) {
-        RequestBodyPo requestBodyPo = requestBodyDao.findRequestBody(id);
+        RequestBodyEntity requestBodyEntity = requestBodyDao.findRequestBody(id);
 
-        RequestBodyEx requestBody = BeanMapper.map(requestBodyPo, RequestBodyEx.class);
+        RequestBodyEx requestBody = BeanMapper.map(requestBodyEntity, RequestBodyEx.class);
 
         joinQuery.queryOne(requestBody);
 
@@ -61,9 +61,9 @@ public class RequestBodyServiceImpl implements RequestBodyService {
 
     @Override
     public List<RequestBodyEx> findAllRequestBody() {
-        List<RequestBodyPo> requestBodyPoList =  requestBodyDao.findAllRequestBody();
+        List<RequestBodyEntity> requestBodyEntityList =  requestBodyDao.findAllRequestBody();
 
-        List<RequestBodyEx> requestBodyList =  BeanMapper.mapList(requestBodyPoList, RequestBodyEx.class);
+        List<RequestBodyEx> requestBodyList =  BeanMapper.mapList(requestBodyEntityList, RequestBodyEx.class);
 
         joinQuery.queryList(requestBodyList);
 
@@ -72,9 +72,9 @@ public class RequestBodyServiceImpl implements RequestBodyService {
 
     @Override
     public List<RequestBodyEx> findRequestBodyList(RequestBodyExQuery requestBodyQuery) {
-        List<RequestBodyPo> requestBodyPoList = requestBodyDao.findRequestBodyList(requestBodyQuery);
+        List<RequestBodyEntity> requestBodyEntityList = requestBodyDao.findRequestBodyList(requestBodyQuery);
 
-        List<RequestBodyEx> requestBodyList = BeanMapper.mapList(requestBodyPoList, RequestBodyEx.class);
+        List<RequestBodyEx> requestBodyList = BeanMapper.mapList(requestBodyEntityList, RequestBodyEx.class);
 
         joinQuery.queryList(requestBodyList);
 
@@ -85,7 +85,7 @@ public class RequestBodyServiceImpl implements RequestBodyService {
     public Pagination<RequestBodyEx> findRequestBodyPage(RequestBodyExQuery requestBodyQuery) {
         Pagination<RequestBodyEx> pg = new Pagination<>();
 
-        Pagination<RequestBodyPo>  pagination = requestBodyDao.findRequestBodyPage(requestBodyQuery);
+        Pagination<RequestBodyEntity>  pagination = requestBodyDao.findRequestBodyPage(requestBodyQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<RequestBodyEx> requestBodyList = BeanMapper.mapList(pagination.getDataList(), RequestBodyEx.class);

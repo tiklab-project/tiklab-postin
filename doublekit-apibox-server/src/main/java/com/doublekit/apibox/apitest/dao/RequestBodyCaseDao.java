@@ -1,7 +1,7 @@
 package com.doublekit.apibox.apitest.dao;
 
 import com.doublekit.common.Pagination;
-import com.doublekit.apibox.apitest.entity.RequestBodyCasePo;
+import com.doublekit.apibox.apitest.entity.RequestBodyCaseEntity;
 import com.doublekit.apibox.apitest.model.RequestBodyCaseQuery;
 import com.doublekit.dal.jpa.JpaTemplate;
 import org.slf4j.Logger;
@@ -24,19 +24,19 @@ public class RequestBodyCaseDao{
 
     /**
      * 创建用户
-     * @param requestBodyCasePo
+     * @param requestBodyCaseEntity
      * @return
      */
-    public String createRequestBodyCase(RequestBodyCasePo requestBodyCasePo) {
-        return jpaTemplate.save(requestBodyCasePo,String.class);
+    public String createRequestBodyCase(RequestBodyCaseEntity requestBodyCaseEntity) {
+        return jpaTemplate.save(requestBodyCaseEntity,String.class);
     }
 
     /**
      * 更新用户
-     * @param requestBodyCasePo
+     * @param requestBodyCaseEntity
      */
-    public void updateRequestBodyCase(RequestBodyCasePo requestBodyCasePo){
-        jpaTemplate.update(requestBodyCasePo);
+    public void updateRequestBodyCase(RequestBodyCaseEntity requestBodyCaseEntity){
+        jpaTemplate.update(requestBodyCaseEntity);
     }
 
     /**
@@ -44,7 +44,7 @@ public class RequestBodyCaseDao{
      * @param id
      */
     public void deleteRequestBodyCase(String id){
-        jpaTemplate.delete(RequestBodyCasePo.class,id);
+        jpaTemplate.delete(RequestBodyCaseEntity.class,id);
     }
 
     /**
@@ -52,27 +52,27 @@ public class RequestBodyCaseDao{
      * @param id
      * @return
      */
-    public RequestBodyCasePo findRequestBodyCase(String id){
-        return jpaTemplate.findOne(RequestBodyCasePo.class,id);
+    public RequestBodyCaseEntity findRequestBodyCase(String id){
+        return jpaTemplate.findOne(RequestBodyCaseEntity.class,id);
     }
 
     /**
     * findAllRequestBodyCase
     * @return
     */
-    public List<RequestBodyCasePo> findAllRequestBodyCase() {
-        return jpaTemplate.findAll(RequestBodyCasePo.class);
+    public List<RequestBodyCaseEntity> findAllRequestBodyCase() {
+        return jpaTemplate.findAll(RequestBodyCaseEntity.class);
     }
 
-    public List<RequestBodyCasePo> findRequestBodyCaseList(List<String> idList) {
-        return jpaTemplate.findList(RequestBodyCasePo.class,idList);
+    public List<RequestBodyCaseEntity> findRequestBodyCaseList(List<String> idList) {
+        return jpaTemplate.findList(RequestBodyCaseEntity.class,idList);
     }
 
-    public List<RequestBodyCasePo> findRequestBodyCaseList(RequestBodyCaseQuery requestBodyCaseQuery) {
-        return jpaTemplate.findList(RequestBodyCasePo.class,requestBodyCaseQuery);
+    public List<RequestBodyCaseEntity> findRequestBodyCaseList(RequestBodyCaseQuery requestBodyCaseQuery) {
+        return jpaTemplate.findList(RequestBodyCaseEntity.class,requestBodyCaseQuery);
     }
 
-    public Pagination<RequestBodyCasePo> findRequestBodyCasePage(RequestBodyCaseQuery requestBodyCaseQuery) {
-        return jpaTemplate.findPage(RequestBodyCasePo.class,requestBodyCaseQuery);
+    public Pagination<RequestBodyCaseEntity> findRequestBodyCasePage(RequestBodyCaseQuery requestBodyCaseQuery) {
+        return jpaTemplate.findPage(RequestBodyCaseEntity.class,requestBodyCaseQuery);
     }
 }

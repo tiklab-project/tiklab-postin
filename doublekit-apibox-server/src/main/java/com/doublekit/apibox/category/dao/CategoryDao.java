@@ -1,6 +1,6 @@
 package com.doublekit.apibox.category.dao;
 
-import com.doublekit.apibox.category.entity.CategoryPo;
+import com.doublekit.apibox.category.entity.CategoryEntity;
 import com.doublekit.apibox.category.model.CategoryQuery;
 import com.doublekit.common.Pagination;
 import com.doublekit.dal.jpa.JpaTemplate;
@@ -24,19 +24,19 @@ public class CategoryDao{
 
     /**
      * 创建用户
-     * @param categoryPo
+     * @param categoryEntity
      * @return
      */
-    public String createCategory(CategoryPo categoryPo) {
-        return jpaTemplate.save(categoryPo,String.class);
+    public String createCategory(CategoryEntity categoryEntity) {
+        return jpaTemplate.save(categoryEntity,String.class);
     }
 
     /**
      * 更新用户
-     * @param categoryPo
+     * @param categoryEntity
      */
-    public void updateCategory(CategoryPo categoryPo){
-        jpaTemplate.update(categoryPo);
+    public void updateCategory(CategoryEntity categoryEntity){
+        jpaTemplate.update(categoryEntity);
     }
 
     /**
@@ -44,7 +44,7 @@ public class CategoryDao{
      * @param id
      */
     public void deleteCategory(String id){
-        jpaTemplate.delete(CategoryPo.class,id);
+        jpaTemplate.delete(CategoryEntity.class,id);
     }
 
     /**
@@ -52,27 +52,27 @@ public class CategoryDao{
      * @param id
      * @return
      */
-    public CategoryPo findCategory(String id){
-        return jpaTemplate.findOne(CategoryPo.class,id);
+    public CategoryEntity findCategory(String id){
+        return jpaTemplate.findOne(CategoryEntity.class,id);
     }
 
-    public List<CategoryPo> findCategoryList(List<String> idList) {
-        return jpaTemplate.findList(CategoryPo.class,idList);
+    public List<CategoryEntity> findCategoryList(List<String> idList) {
+        return jpaTemplate.findList(CategoryEntity.class,idList);
     }
 
     /**
     * findAllCategory
     * @return
     */
-    public List<CategoryPo> findAllCategory() {
-        return jpaTemplate.findAll(CategoryPo.class);
+    public List<CategoryEntity> findAllCategory() {
+        return jpaTemplate.findAll(CategoryEntity.class);
     }
 
-    public List<CategoryPo> findCategoryList(CategoryQuery categoryQuery) {
-        return jpaTemplate.findList(CategoryPo.class,categoryQuery);
+    public List<CategoryEntity> findCategoryList(CategoryQuery categoryQuery) {
+        return jpaTemplate.findList(CategoryEntity.class,categoryQuery);
     }
 
-    public Pagination<CategoryPo> findCategoryPage(CategoryQuery categoryQuery) {
-        return jpaTemplate.findPage(CategoryPo.class,categoryQuery);
+    public Pagination<CategoryEntity> findCategoryPage(CategoryQuery categoryQuery) {
+        return jpaTemplate.findPage(CategoryEntity.class,categoryQuery);
     }
 }

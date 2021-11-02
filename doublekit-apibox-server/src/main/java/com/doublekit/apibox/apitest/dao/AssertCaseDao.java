@@ -1,6 +1,6 @@
 package com.doublekit.apibox.apitest.dao;
 
-import com.doublekit.apibox.apitest.entity.AssertCasePo;
+import com.doublekit.apibox.apitest.entity.AssertCaseEntity;
 import com.doublekit.apibox.apitest.model.AssertCaseQuery;
 import com.doublekit.common.Pagination;
 import com.doublekit.dal.jpa.JpaTemplate;
@@ -24,19 +24,19 @@ public class AssertCaseDao{
 
     /**
      * 创建用户
-     * @param assertCasePo
+     * @param assertCaseEntity
      * @return
      */
-    public String createAssertCase(AssertCasePo assertCasePo) {
-        return jpaTemplate.save(assertCasePo,String.class);
+    public String createAssertCase(AssertCaseEntity assertCaseEntity) {
+        return jpaTemplate.save(assertCaseEntity,String.class);
     }
 
     /**
      * 更新用户
-     * @param assertCasePo
+     * @param assertCaseEntity
      */
-    public void updateAssertCase(AssertCasePo assertCasePo){
-        jpaTemplate.update(assertCasePo);
+    public void updateAssertCase(AssertCaseEntity assertCaseEntity){
+        jpaTemplate.update(assertCaseEntity);
     }
 
     /**
@@ -44,7 +44,7 @@ public class AssertCaseDao{
      * @param id
      */
     public void deleteAssertCase(String id){
-        jpaTemplate.delete(AssertCasePo.class,id);
+        jpaTemplate.delete(AssertCaseEntity.class,id);
     }
 
     /**
@@ -52,27 +52,27 @@ public class AssertCaseDao{
      * @param id
      * @return
      */
-    public AssertCasePo findAssertCase(String id){
-        return jpaTemplate.findOne(AssertCasePo.class,id);
+    public AssertCaseEntity findAssertCase(String id){
+        return jpaTemplate.findOne(AssertCaseEntity.class,id);
     }
 
     /**
     * findAllAssertCase
     * @return
     */
-    public List<AssertCasePo> findAllAssertCase() {
-        return jpaTemplate.findAll(AssertCasePo.class);
+    public List<AssertCaseEntity> findAllAssertCase() {
+        return jpaTemplate.findAll(AssertCaseEntity.class);
     }
 
-    public List<AssertCasePo> findAssertCaseList(List<String> idList) {
-        return jpaTemplate.findList(AssertCasePo.class,idList);
+    public List<AssertCaseEntity> findAssertCaseList(List<String> idList) {
+        return jpaTemplate.findList(AssertCaseEntity.class,idList);
     }
 
-    public List<AssertCasePo> findAssertCaseList(AssertCaseQuery assertCaseQuery) {
-        return jpaTemplate.findList(AssertCasePo.class,assertCaseQuery);
+    public List<AssertCaseEntity> findAssertCaseList(AssertCaseQuery assertCaseQuery) {
+        return jpaTemplate.findList(AssertCaseEntity.class,assertCaseQuery);
     }
 
-    public Pagination<AssertCasePo> findAssertCasePage(AssertCaseQuery assertCaseQuery) {
-        return jpaTemplate.findPage(AssertCasePo.class,assertCaseQuery);
+    public Pagination<AssertCaseEntity> findAssertCasePage(AssertCaseQuery assertCaseQuery) {
+        return jpaTemplate.findPage(AssertCaseEntity.class,assertCaseQuery);
     }
 }

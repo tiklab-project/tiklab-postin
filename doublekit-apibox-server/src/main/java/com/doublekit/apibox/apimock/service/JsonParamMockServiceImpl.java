@@ -1,7 +1,7 @@
 package com.doublekit.apibox.apimock.service;
 
 import com.doublekit.apibox.apimock.dao.JsonParamMockDao;
-import com.doublekit.apibox.apimock.entity.JsonParamMockPo;
+import com.doublekit.apibox.apimock.entity.JsonParamMockEntity;
 import com.doublekit.apibox.apimock.model.JsonParamMock;
 import com.doublekit.apibox.apimock.model.JsonParamMockQuery;
 
@@ -31,16 +31,16 @@ public class JsonParamMockServiceImpl implements JsonParamMockService {
 
     @Override
     public String createJsonParamMock(@NotNull @Valid JsonParamMock jsonParamMock) {
-        JsonParamMockPo jsonParamMockPo = BeanMapper.map(jsonParamMock, JsonParamMockPo.class);
+        JsonParamMockEntity jsonParamMockEntity = BeanMapper.map(jsonParamMock, JsonParamMockEntity.class);
 
-        return jsonParamMockDao.createJsonParamMock(jsonParamMockPo);
+        return jsonParamMockDao.createJsonParamMock(jsonParamMockEntity);
     }
 
     @Override
     public void updateJsonParamMock(@NotNull @Valid JsonParamMock jsonParamMock) {
-        JsonParamMockPo jsonParamMockPo = BeanMapper.map(jsonParamMock, JsonParamMockPo.class);
+        JsonParamMockEntity jsonParamMockEntity = BeanMapper.map(jsonParamMock, JsonParamMockEntity.class);
 
-        jsonParamMockDao.updateJsonParamMock(jsonParamMockPo);
+        jsonParamMockDao.updateJsonParamMock(jsonParamMockEntity);
     }
 
     @Override
@@ -50,17 +50,17 @@ public class JsonParamMockServiceImpl implements JsonParamMockService {
 
     @Override
     public JsonParamMock findOne(String id) {
-        JsonParamMockPo jsonParamMockPo = jsonParamMockDao.findJsonParamMock(id);
+        JsonParamMockEntity jsonParamMockEntity = jsonParamMockDao.findJsonParamMock(id);
 
-        JsonParamMock jsonParamMock = BeanMapper.map(jsonParamMockPo, JsonParamMock.class);
+        JsonParamMock jsonParamMock = BeanMapper.map(jsonParamMockEntity, JsonParamMock.class);
         return jsonParamMock;
     }
 
     @Override
     public List<JsonParamMock> findList(List<String> idList) {
-        List<JsonParamMockPo> jsonParamMockPoList =  jsonParamMockDao.findJsonParamMockList(idList);
+        List<JsonParamMockEntity> jsonParamMockEntityList =  jsonParamMockDao.findJsonParamMockList(idList);
 
-        List<JsonParamMock> jsonParamMockList =  BeanMapper.mapList(jsonParamMockPoList,JsonParamMock.class);
+        List<JsonParamMock> jsonParamMockList =  BeanMapper.mapList(jsonParamMockEntityList,JsonParamMock.class);
         return jsonParamMockList;
     }
 
@@ -74,9 +74,9 @@ public class JsonParamMockServiceImpl implements JsonParamMockService {
 
     @Override
     public List<JsonParamMock> findAllJsonParamMock() {
-        List<JsonParamMockPo> jsonParamMockPoList =  jsonParamMockDao.findAllJsonParamMock();
+        List<JsonParamMockEntity> jsonParamMockEntityList =  jsonParamMockDao.findAllJsonParamMock();
 
-        List<JsonParamMock> jsonParamMockList =  BeanMapper.mapList(jsonParamMockPoList,JsonParamMock.class);
+        List<JsonParamMock> jsonParamMockList =  BeanMapper.mapList(jsonParamMockEntityList,JsonParamMock.class);
 
         joinQuery.queryList(jsonParamMockList);
         return jsonParamMockList;
@@ -84,9 +84,9 @@ public class JsonParamMockServiceImpl implements JsonParamMockService {
 
     @Override
     public List<JsonParamMock> findJsonParamMockList(JsonParamMockQuery jsonParamMockQuery) {
-        List<JsonParamMockPo> jsonParamMockPoList = jsonParamMockDao.findJsonParamMockList(jsonParamMockQuery);
+        List<JsonParamMockEntity> jsonParamMockEntityList = jsonParamMockDao.findJsonParamMockList(jsonParamMockQuery);
 
-        List<JsonParamMock> jsonParamMockList = BeanMapper.mapList(jsonParamMockPoList,JsonParamMock.class);
+        List<JsonParamMock> jsonParamMockList = BeanMapper.mapList(jsonParamMockEntityList,JsonParamMock.class);
 
         joinQuery.queryList(jsonParamMockList);
 
@@ -97,7 +97,7 @@ public class JsonParamMockServiceImpl implements JsonParamMockService {
     public Pagination<JsonParamMock> findJsonParamMockPage(JsonParamMockQuery jsonParamMockQuery) {
         Pagination<JsonParamMock> pg = new Pagination<>();
 
-        Pagination<JsonParamMockPo>  pagination = jsonParamMockDao.findJsonParamMockPage(jsonParamMockQuery);
+        Pagination<JsonParamMockEntity>  pagination = jsonParamMockDao.findJsonParamMockPage(jsonParamMockQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<JsonParamMock> jsonParamMockList = BeanMapper.mapList(pagination.getDataList(),JsonParamMock.class);

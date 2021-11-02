@@ -1,6 +1,6 @@
 package com.doublekit.apibox.apimock.dao;
 
-import com.doublekit.apibox.apimock.entity.RequestBodyMockPo;
+import com.doublekit.apibox.apimock.entity.RequestBodyMockEntity;
 import com.doublekit.apibox.apimock.model.RequestBodyMockQuery;
 import com.doublekit.common.Pagination;
 import com.doublekit.dal.jpa.JpaTemplate;
@@ -24,19 +24,19 @@ public class RequestBodyMockDao{
 
     /**
      * 创建用户
-     * @param requestBodyMockPo
+     * @param requestBodyMockEntity
      * @return
      */
-    public String createRequestBodyMock(RequestBodyMockPo requestBodyMockPo) {
-        return jpaTemplate.save(requestBodyMockPo,String.class);
+    public String createRequestBodyMock(RequestBodyMockEntity requestBodyMockEntity) {
+        return jpaTemplate.save(requestBodyMockEntity,String.class);
     }
 
     /**
      * 更新用户
-     * @param requestBodyMockPo
+     * @param requestBodyMockEntity
      */
-    public void updateRequestBodyMock(RequestBodyMockPo requestBodyMockPo){
-        jpaTemplate.update(requestBodyMockPo);
+    public void updateRequestBodyMock(RequestBodyMockEntity requestBodyMockEntity){
+        jpaTemplate.update(requestBodyMockEntity);
     }
 
     /**
@@ -44,7 +44,7 @@ public class RequestBodyMockDao{
      * @param id
      */
     public void deleteRequestBodyMock(String id){
-        jpaTemplate.delete(RequestBodyMockPo.class,id);
+        jpaTemplate.delete(RequestBodyMockEntity.class,id);
     }
 
     /**
@@ -52,27 +52,27 @@ public class RequestBodyMockDao{
      * @param id
      * @return
      */
-    public RequestBodyMockPo findRequestBodyMock(String id){
-        return jpaTemplate.findOne(RequestBodyMockPo.class,id);
+    public RequestBodyMockEntity findRequestBodyMock(String id){
+        return jpaTemplate.findOne(RequestBodyMockEntity.class,id);
     }
 
     /**
     * findAllRequestBodyMock
     * @return
     */
-    public List<RequestBodyMockPo> findAllRequestBodyMock() {
-        return jpaTemplate.findAll(RequestBodyMockPo.class);
+    public List<RequestBodyMockEntity> findAllRequestBodyMock() {
+        return jpaTemplate.findAll(RequestBodyMockEntity.class);
     }
 
-    public List<RequestBodyMockPo> findRequestBodyMockList(List<String> idList) {
-        return jpaTemplate.findList(RequestBodyMockPo.class,idList);
+    public List<RequestBodyMockEntity> findRequestBodyMockList(List<String> idList) {
+        return jpaTemplate.findList(RequestBodyMockEntity.class,idList);
     }
 
-    public List<RequestBodyMockPo> findRequestBodyMockList(RequestBodyMockQuery requestBodyMockQuery) {
-        return jpaTemplate.findList(RequestBodyMockPo.class,requestBodyMockQuery);
+    public List<RequestBodyMockEntity> findRequestBodyMockList(RequestBodyMockQuery requestBodyMockQuery) {
+        return jpaTemplate.findList(RequestBodyMockEntity.class,requestBodyMockQuery);
     }
 
-    public Pagination<RequestBodyMockPo> findRequestBodyMockPage(RequestBodyMockQuery requestBodyMockQuery) {
-        return jpaTemplate.findPage(RequestBodyMockPo.class,requestBodyMockQuery);
+    public Pagination<RequestBodyMockEntity> findRequestBodyMockPage(RequestBodyMockQuery requestBodyMockQuery) {
+        return jpaTemplate.findPage(RequestBodyMockEntity.class,requestBodyMockQuery);
     }
 }

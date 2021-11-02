@@ -1,6 +1,6 @@
 package com.doublekit.apibox.apitest.codegen;
 
-import com.doublekit.apibox.apitest.entity.AfterScriptCasePo;
+import com.doublekit.apibox.apitest.entity.AfterScriptCaseEntity;
 import com.doublekit.codegen.CodeGeneratorTemplate;
 import com.doublekit.codegen.config.ModuleGeneratorConfig;
 import com.doublekit.codegen.config.ProjectGeneratorConfig;
@@ -21,7 +21,7 @@ public class AfterScriptCaseCodeGeneratorTest extends CodeGeneratorTemplate {
     protected ModuleGeneratorConfig getModuleGeneratorConfig() {
         ModuleGeneratorConfig config = new ModuleGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
-        config.setEntity(AfterScriptCasePo.class);
+        config.setEntity(AfterScriptCaseEntity.class);
         config.setPkg("com.doublekit.apibox.apitest");
         config.setModel("AfterScriptCase");
         return config;

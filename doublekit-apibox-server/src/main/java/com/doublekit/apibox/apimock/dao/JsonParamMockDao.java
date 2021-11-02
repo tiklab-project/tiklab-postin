@@ -1,7 +1,7 @@
 package com.doublekit.apibox.apimock.dao;
 
 import com.doublekit.common.Pagination;
-import com.doublekit.apibox.apimock.entity.JsonParamMockPo;
+import com.doublekit.apibox.apimock.entity.JsonParamMockEntity;
 import com.doublekit.apibox.apimock.model.JsonParamMockQuery;
 import com.doublekit.dal.jpa.JpaTemplate;
 import org.slf4j.Logger;
@@ -24,19 +24,19 @@ public class JsonParamMockDao{
 
     /**
      * 创建用户
-     * @param jsonParamMockPo
+     * @param jsonParamMockEntity
      * @return
      */
-    public String createJsonParamMock(JsonParamMockPo jsonParamMockPo) {
-        return jpaTemplate.save(jsonParamMockPo,String.class);
+    public String createJsonParamMock(JsonParamMockEntity jsonParamMockEntity) {
+        return jpaTemplate.save(jsonParamMockEntity,String.class);
     }
 
     /**
      * 更新用户
-     * @param jsonParamMockPo
+     * @param jsonParamMockEntity
      */
-    public void updateJsonParamMock(JsonParamMockPo jsonParamMockPo){
-        jpaTemplate.update(jsonParamMockPo);
+    public void updateJsonParamMock(JsonParamMockEntity jsonParamMockEntity){
+        jpaTemplate.update(jsonParamMockEntity);
     }
 
     /**
@@ -44,7 +44,7 @@ public class JsonParamMockDao{
      * @param id
      */
     public void deleteJsonParamMock(String id){
-        jpaTemplate.delete(JsonParamMockPo.class,id);
+        jpaTemplate.delete(JsonParamMockEntity.class,id);
     }
 
     /**
@@ -52,27 +52,27 @@ public class JsonParamMockDao{
      * @param id
      * @return
      */
-    public JsonParamMockPo findJsonParamMock(String id){
-        return jpaTemplate.findOne(JsonParamMockPo.class,id);
+    public JsonParamMockEntity findJsonParamMock(String id){
+        return jpaTemplate.findOne(JsonParamMockEntity.class,id);
     }
 
     /**
     * findAllJsonParamMock
     * @return
     */
-    public List<JsonParamMockPo> findAllJsonParamMock() {
-        return jpaTemplate.findAll(JsonParamMockPo.class);
+    public List<JsonParamMockEntity> findAllJsonParamMock() {
+        return jpaTemplate.findAll(JsonParamMockEntity.class);
     }
 
-    public List<JsonParamMockPo> findJsonParamMockList(List<String> idList) {
-        return jpaTemplate.findList(JsonParamMockPo.class,idList);
+    public List<JsonParamMockEntity> findJsonParamMockList(List<String> idList) {
+        return jpaTemplate.findList(JsonParamMockEntity.class,idList);
     }
 
-    public List<JsonParamMockPo> findJsonParamMockList(JsonParamMockQuery jsonParamMockQuery) {
-        return jpaTemplate.findList(JsonParamMockPo.class,jsonParamMockQuery);
+    public List<JsonParamMockEntity> findJsonParamMockList(JsonParamMockQuery jsonParamMockQuery) {
+        return jpaTemplate.findList(JsonParamMockEntity.class,jsonParamMockQuery);
     }
 
-    public Pagination<JsonParamMockPo> findJsonParamMockPage(JsonParamMockQuery jsonParamMockQuery) {
-        return jpaTemplate.findPage(JsonParamMockPo.class,jsonParamMockQuery);
+    public Pagination<JsonParamMockEntity> findJsonParamMockPage(JsonParamMockQuery jsonParamMockQuery) {
+        return jpaTemplate.findPage(JsonParamMockEntity.class,jsonParamMockQuery);
     }
 }

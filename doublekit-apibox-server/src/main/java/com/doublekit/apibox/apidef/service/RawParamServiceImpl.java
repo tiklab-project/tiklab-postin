@@ -1,7 +1,7 @@
 package com.doublekit.apibox.apidef.service;
 
 import com.doublekit.apibox.apidef.dao.RawParamDao;
-import com.doublekit.apibox.apidef.entity.RawParamPo;
+import com.doublekit.apibox.apidef.entity.RawParamEntity;
 import com.doublekit.apibox.apidef.model.RawParam;
 import com.doublekit.apibox.apidef.model.RawParamQuery;
 
@@ -31,16 +31,16 @@ public class RawParamServiceImpl implements RawParamService {
 
     @Override
     public String createRawParam(@NotNull @Valid RawParam rawParam) {
-        RawParamPo rawParamPo = BeanMapper.map(rawParam, RawParamPo.class);
+        RawParamEntity rawParamEntity = BeanMapper.map(rawParam, RawParamEntity.class);
 
-        return rawParamDao.createRawParam(rawParamPo);
+        return rawParamDao.createRawParam(rawParamEntity);
     }
 
     @Override
     public void updateRawParam(@NotNull @Valid RawParam rawParam) {
-        RawParamPo rawParamPo = BeanMapper.map(rawParam, RawParamPo.class);
+        RawParamEntity rawParamEntity = BeanMapper.map(rawParam, RawParamEntity.class);
 
-        rawParamDao.updateRawParam(rawParamPo);
+        rawParamDao.updateRawParam(rawParamEntity);
     }
 
     @Override
@@ -50,9 +50,9 @@ public class RawParamServiceImpl implements RawParamService {
 
     @Override
     public RawParam findRawParam(@NotNull String id) {
-        RawParamPo rawParamPo = rawParamDao.findRawParam(id);
+        RawParamEntity rawParamEntity = rawParamDao.findRawParam(id);
 
-        RawParam rawParam = BeanMapper.map(rawParamPo, RawParam.class);
+        RawParam rawParam = BeanMapper.map(rawParamEntity, RawParam.class);
 
         joinQuery.queryOne(rawParam);
 
@@ -61,9 +61,9 @@ public class RawParamServiceImpl implements RawParamService {
 
     @Override
     public List<RawParam> findAllRawParam() {
-        List<RawParamPo> rawParamPoList =  rawParamDao.findAllRawParam();
+        List<RawParamEntity> rawParamEntityList =  rawParamDao.findAllRawParam();
 
-        List<RawParam> rawParamList =  BeanMapper.mapList(rawParamPoList,RawParam.class);
+        List<RawParam> rawParamList =  BeanMapper.mapList(rawParamEntityList,RawParam.class);
 
         joinQuery.queryList(rawParamList);
 
@@ -72,9 +72,9 @@ public class RawParamServiceImpl implements RawParamService {
 
     @Override
     public List<RawParam> findRawParamList(RawParamQuery rawParamQuery) {
-        List<RawParamPo> rawParamPoList = rawParamDao.findRawParamList(rawParamQuery);
+        List<RawParamEntity> rawParamEntityList = rawParamDao.findRawParamList(rawParamQuery);
 
-        List<RawParam> rawParamList = BeanMapper.mapList(rawParamPoList,RawParam.class);
+        List<RawParam> rawParamList = BeanMapper.mapList(rawParamEntityList,RawParam.class);
 
         joinQuery.queryList(rawParamList);
 
@@ -85,7 +85,7 @@ public class RawParamServiceImpl implements RawParamService {
     public Pagination<RawParam> findRawParamPage(RawParamQuery rawParamQuery) {
         Pagination<RawParam> pg = new Pagination<>();
 
-        Pagination<RawParamPo>  pagination = rawParamDao.findRawParamPage(rawParamQuery);
+        Pagination<RawParamEntity>  pagination = rawParamDao.findRawParamPage(rawParamQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<RawParam> rawParamList = BeanMapper.mapList(pagination.getDataList(),RawParam.class);

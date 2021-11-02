@@ -1,7 +1,7 @@
 package com.doublekit.apibox.apitest.service;
 
 import com.doublekit.apibox.apitest.dao.PreScriptCaseDao;
-import com.doublekit.apibox.apitest.entity.PreScriptCasePo;
+import com.doublekit.apibox.apitest.entity.PreScriptCaseEntity;
 import com.doublekit.apibox.apitest.model.PreScriptCase;
 import com.doublekit.apibox.apitest.model.PreScriptCaseQuery;
 
@@ -31,16 +31,16 @@ public class PreScriptCaseServiceImpl implements PreScriptCaseService {
 
     @Override
     public String createPreScriptCase(@NotNull @Valid PreScriptCase preScriptCase) {
-        PreScriptCasePo preScriptCasePo = BeanMapper.map(preScriptCase, PreScriptCasePo.class);
+        PreScriptCaseEntity preScriptCaseEntity = BeanMapper.map(preScriptCase, PreScriptCaseEntity.class);
 
-        return preScriptCaseDao.createPreScriptCase(preScriptCasePo);
+        return preScriptCaseDao.createPreScriptCase(preScriptCaseEntity);
     }
 
     @Override
     public void updatePreScriptCase(@NotNull @Valid PreScriptCase preScriptCase) {
-        PreScriptCasePo preScriptCasePo = BeanMapper.map(preScriptCase, PreScriptCasePo.class);
+        PreScriptCaseEntity preScriptCaseEntity = BeanMapper.map(preScriptCase, PreScriptCaseEntity.class);
 
-        preScriptCaseDao.updatePreScriptCase(preScriptCasePo);
+        preScriptCaseDao.updatePreScriptCase(preScriptCaseEntity);
     }
 
     @Override
@@ -50,17 +50,17 @@ public class PreScriptCaseServiceImpl implements PreScriptCaseService {
 
     @Override
     public PreScriptCase findOne(String id) {
-        PreScriptCasePo preScriptCasePo = preScriptCaseDao.findPreScriptCase(id);
+        PreScriptCaseEntity preScriptCaseEntity = preScriptCaseDao.findPreScriptCase(id);
 
-        PreScriptCase preScriptCase = BeanMapper.map(preScriptCasePo, PreScriptCase.class);
+        PreScriptCase preScriptCase = BeanMapper.map(preScriptCaseEntity, PreScriptCase.class);
         return preScriptCase;
     }
 
     @Override
     public List<PreScriptCase> findList(List<String> idList) {
-        List<PreScriptCasePo> preScriptCasePoList =  preScriptCaseDao.findPreScriptCaseList(idList);
+        List<PreScriptCaseEntity> preScriptCaseEntityList =  preScriptCaseDao.findPreScriptCaseList(idList);
 
-        List<PreScriptCase> preScriptCaseList =  BeanMapper.mapList(preScriptCasePoList,PreScriptCase.class);
+        List<PreScriptCase> preScriptCaseList =  BeanMapper.mapList(preScriptCaseEntityList,PreScriptCase.class);
         return preScriptCaseList;
     }
 
@@ -74,9 +74,9 @@ public class PreScriptCaseServiceImpl implements PreScriptCaseService {
 
     @Override
     public List<PreScriptCase> findAllPreScriptCase() {
-        List<PreScriptCasePo> preScriptCasePoList =  preScriptCaseDao.findAllPreScriptCase();
+        List<PreScriptCaseEntity> preScriptCaseEntityList =  preScriptCaseDao.findAllPreScriptCase();
 
-        List<PreScriptCase> preScriptCaseList =  BeanMapper.mapList(preScriptCasePoList,PreScriptCase.class);
+        List<PreScriptCase> preScriptCaseList =  BeanMapper.mapList(preScriptCaseEntityList,PreScriptCase.class);
 
         joinQuery.queryList(preScriptCaseList);
         return preScriptCaseList;
@@ -84,9 +84,9 @@ public class PreScriptCaseServiceImpl implements PreScriptCaseService {
 
     @Override
     public List<PreScriptCase> findPreScriptCaseList(PreScriptCaseQuery preScriptCaseQuery) {
-        List<PreScriptCasePo> preScriptCasePoList = preScriptCaseDao.findPreScriptCaseList(preScriptCaseQuery);
+        List<PreScriptCaseEntity> preScriptCaseEntityList = preScriptCaseDao.findPreScriptCaseList(preScriptCaseQuery);
 
-        List<PreScriptCase> preScriptCaseList = BeanMapper.mapList(preScriptCasePoList,PreScriptCase.class);
+        List<PreScriptCase> preScriptCaseList = BeanMapper.mapList(preScriptCaseEntityList,PreScriptCase.class);
 
         joinQuery.queryList(preScriptCaseList);
 
@@ -97,7 +97,7 @@ public class PreScriptCaseServiceImpl implements PreScriptCaseService {
     public Pagination<PreScriptCase> findPreScriptCasePage(PreScriptCaseQuery preScriptCaseQuery) {
         Pagination<PreScriptCase> pg = new Pagination<>();
 
-        Pagination<PreScriptCasePo>  pagination = preScriptCaseDao.findPreScriptCasePage(preScriptCaseQuery);
+        Pagination<PreScriptCaseEntity>  pagination = preScriptCaseDao.findPreScriptCasePage(preScriptCaseQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<PreScriptCase> preScriptCaseList = BeanMapper.mapList(pagination.getDataList(),PreScriptCase.class);

@@ -1,7 +1,7 @@
 package com.doublekit.apibox.apitest.service;
 
 import com.doublekit.apibox.apitest.dao.AssertCaseDao;
-import com.doublekit.apibox.apitest.entity.AssertCasePo;
+import com.doublekit.apibox.apitest.entity.AssertCaseEntity;
 import com.doublekit.apibox.apitest.model.AssertCase;
 import com.doublekit.apibox.apitest.model.AssertCaseQuery;
 
@@ -31,16 +31,16 @@ public class AssertCaseServiceImpl implements AssertCaseService {
 
     @Override
     public String createAssertCase(@NotNull @Valid AssertCase assertCase) {
-        AssertCasePo assertCasePo = BeanMapper.map(assertCase, AssertCasePo.class);
+        AssertCaseEntity assertCaseEntity = BeanMapper.map(assertCase, AssertCaseEntity.class);
 
-        return assertCaseDao.createAssertCase(assertCasePo);
+        return assertCaseDao.createAssertCase(assertCaseEntity);
     }
 
     @Override
     public void updateAssertCase(@NotNull @Valid AssertCase assertCase) {
-        AssertCasePo assertCasePo = BeanMapper.map(assertCase, AssertCasePo.class);
+        AssertCaseEntity assertCaseEntity = BeanMapper.map(assertCase, AssertCaseEntity.class);
 
-        assertCaseDao.updateAssertCase(assertCasePo);
+        assertCaseDao.updateAssertCase(assertCaseEntity);
     }
 
     @Override
@@ -50,17 +50,17 @@ public class AssertCaseServiceImpl implements AssertCaseService {
 
     @Override
     public AssertCase findOne(String id) {
-        AssertCasePo assertCasePo = assertCaseDao.findAssertCase(id);
+        AssertCaseEntity assertCaseEntity = assertCaseDao.findAssertCase(id);
 
-        AssertCase assertCase = BeanMapper.map(assertCasePo, AssertCase.class);
+        AssertCase assertCase = BeanMapper.map(assertCaseEntity, AssertCase.class);
         return assertCase;
     }
 
     @Override
     public List<AssertCase> findList(List<String> idList) {
-        List<AssertCasePo> assertCasePoList =  assertCaseDao.findAssertCaseList(idList);
+        List<AssertCaseEntity> assertCaseEntityList =  assertCaseDao.findAssertCaseList(idList);
 
-        List<AssertCase> assertCaseList =  BeanMapper.mapList(assertCasePoList,AssertCase.class);
+        List<AssertCase> assertCaseList =  BeanMapper.mapList(assertCaseEntityList,AssertCase.class);
         return assertCaseList;
     }
 
@@ -74,9 +74,9 @@ public class AssertCaseServiceImpl implements AssertCaseService {
 
     @Override
     public List<AssertCase> findAllAssertCase() {
-        List<AssertCasePo> assertCasePoList =  assertCaseDao.findAllAssertCase();
+        List<AssertCaseEntity> assertCaseEntityList =  assertCaseDao.findAllAssertCase();
 
-        List<AssertCase> assertCaseList =  BeanMapper.mapList(assertCasePoList,AssertCase.class);
+        List<AssertCase> assertCaseList =  BeanMapper.mapList(assertCaseEntityList,AssertCase.class);
 
         joinQuery.queryList(assertCaseList);
         return assertCaseList;
@@ -84,9 +84,9 @@ public class AssertCaseServiceImpl implements AssertCaseService {
 
     @Override
     public List<AssertCase> findAssertCaseList(AssertCaseQuery assertCaseQuery) {
-        List<AssertCasePo> assertCasePoList = assertCaseDao.findAssertCaseList(assertCaseQuery);
+        List<AssertCaseEntity> assertCaseEntityList = assertCaseDao.findAssertCaseList(assertCaseQuery);
 
-        List<AssertCase> assertCaseList = BeanMapper.mapList(assertCasePoList,AssertCase.class);
+        List<AssertCase> assertCaseList = BeanMapper.mapList(assertCaseEntityList,AssertCase.class);
 
         joinQuery.queryList(assertCaseList);
 
@@ -97,7 +97,7 @@ public class AssertCaseServiceImpl implements AssertCaseService {
     public Pagination<AssertCase> findAssertCasePage(AssertCaseQuery assertCaseQuery) {
         Pagination<AssertCase> pg = new Pagination<>();
 
-        Pagination<AssertCasePo>  pagination = assertCaseDao.findAssertCasePage(assertCaseQuery);
+        Pagination<AssertCaseEntity>  pagination = assertCaseDao.findAssertCasePage(assertCaseQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<AssertCase> assertCaseList = BeanMapper.mapList(pagination.getDataList(),AssertCase.class);

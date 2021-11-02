@@ -1,7 +1,7 @@
 package com.doublekit.apibox.apimock.service;
 
 import com.doublekit.apibox.apimock.dao.RawResponseMockDao;
-import com.doublekit.apibox.apimock.entity.RawResponseMockPo;
+import com.doublekit.apibox.apimock.entity.RawResponseMockEntity;
 import com.doublekit.apibox.apimock.model.RawResponseMock;
 import com.doublekit.apibox.apimock.model.RawResponseMockQuery;
 
@@ -31,16 +31,16 @@ public class RawResponseMockServiceImpl implements RawResponseMockService {
 
     @Override
     public String createRawResponseMock(@NotNull @Valid RawResponseMock rawResponseMock) {
-        RawResponseMockPo rawResponseMockPo = BeanMapper.map(rawResponseMock, RawResponseMockPo.class);
+        RawResponseMockEntity rawResponseMockEntity = BeanMapper.map(rawResponseMock, RawResponseMockEntity.class);
 
-        return rawResponseMockDao.createRawResponseMock(rawResponseMockPo);
+        return rawResponseMockDao.createRawResponseMock(rawResponseMockEntity);
     }
 
     @Override
     public void updateRawResponseMock(@NotNull @Valid RawResponseMock rawResponseMock) {
-        RawResponseMockPo rawResponseMockPo = BeanMapper.map(rawResponseMock, RawResponseMockPo.class);
+        RawResponseMockEntity rawResponseMockEntity = BeanMapper.map(rawResponseMock, RawResponseMockEntity.class);
 
-        rawResponseMockDao.updateRawResponseMock(rawResponseMockPo);
+        rawResponseMockDao.updateRawResponseMock(rawResponseMockEntity);
     }
 
     @Override
@@ -50,9 +50,9 @@ public class RawResponseMockServiceImpl implements RawResponseMockService {
 
     @Override
     public RawResponseMock findRawResponseMock(@NotNull String id) {
-        RawResponseMockPo rawResponseMockPo = rawResponseMockDao.findRawResponseMock(id);
+        RawResponseMockEntity rawResponseMockEntity = rawResponseMockDao.findRawResponseMock(id);
 
-        RawResponseMock rawResponseMock = BeanMapper.map(rawResponseMockPo, RawResponseMock.class);
+        RawResponseMock rawResponseMock = BeanMapper.map(rawResponseMockEntity, RawResponseMock.class);
 
         joinQuery.queryOne(rawResponseMock);
 
@@ -61,9 +61,9 @@ public class RawResponseMockServiceImpl implements RawResponseMockService {
 
     @Override
     public List<RawResponseMock> findAllRawResponseMock() {
-        List<RawResponseMockPo> rawResponseMockPoList =  rawResponseMockDao.findAllRawResponseMock();
+        List<RawResponseMockEntity> rawResponseMockEntityList =  rawResponseMockDao.findAllRawResponseMock();
 
-        List<RawResponseMock> rawResponseMockList =  BeanMapper.mapList(rawResponseMockPoList,RawResponseMock.class);
+        List<RawResponseMock> rawResponseMockList =  BeanMapper.mapList(rawResponseMockEntityList,RawResponseMock.class);
 
         joinQuery.queryList(rawResponseMockList);
 
@@ -72,9 +72,9 @@ public class RawResponseMockServiceImpl implements RawResponseMockService {
 
     @Override
     public List<RawResponseMock> findRawResponseMockList(RawResponseMockQuery rawResponseMockQuery) {
-        List<RawResponseMockPo> rawResponseMockPoList = rawResponseMockDao.findRawResponseMockList(rawResponseMockQuery);
+        List<RawResponseMockEntity> rawResponseMockEntityList = rawResponseMockDao.findRawResponseMockList(rawResponseMockQuery);
 
-        List<RawResponseMock> rawResponseMockList = BeanMapper.mapList(rawResponseMockPoList,RawResponseMock.class);
+        List<RawResponseMock> rawResponseMockList = BeanMapper.mapList(rawResponseMockEntityList,RawResponseMock.class);
 
         joinQuery.queryList(rawResponseMockList);
 
@@ -85,7 +85,7 @@ public class RawResponseMockServiceImpl implements RawResponseMockService {
     public Pagination<RawResponseMock> findRawResponseMockPage(RawResponseMockQuery rawResponseMockQuery) {
         Pagination<RawResponseMock> pg = new Pagination<>();
 
-        Pagination<RawResponseMockPo>  pagination = rawResponseMockDao.findRawResponseMockPage(rawResponseMockQuery);
+        Pagination<RawResponseMockEntity>  pagination = rawResponseMockDao.findRawResponseMockPage(rawResponseMockQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<RawResponseMock> rawResponseMockList = BeanMapper.mapList(pagination.getDataList(),RawResponseMock.class);

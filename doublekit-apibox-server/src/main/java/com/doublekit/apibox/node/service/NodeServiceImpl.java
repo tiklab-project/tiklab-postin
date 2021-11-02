@@ -1,7 +1,7 @@
 package com.doublekit.apibox.node.service;
 
 import com.doublekit.apibox.node.dao.NodeDao;
-import com.doublekit.apibox.node.entity.NodePo;
+import com.doublekit.apibox.node.entity.NodeEntity;
 import com.doublekit.apibox.node.model.Node;
 import com.doublekit.apibox.node.model.NodeQuery;
 
@@ -27,16 +27,16 @@ public class NodeServiceImpl implements NodeService {
 
     @Override
     public String createNode(@NotNull @Valid Node node) {
-        NodePo nodePo = BeanMapper.map(node, NodePo.class);
+        NodeEntity nodeEntity = BeanMapper.map(node, NodeEntity.class);
 
-        return nodeDao.createNode(nodePo);
+        return nodeDao.createNode(nodeEntity);
     }
 
     @Override
     public void updateNode(@NotNull @Valid Node node) {
-        NodePo nodePo = BeanMapper.map(node, NodePo.class);
+        NodeEntity nodeEntity = BeanMapper.map(node, NodeEntity.class);
 
-        nodeDao.updateNode(nodePo);
+        nodeDao.updateNode(nodeEntity);
     }
 
     @Override
@@ -46,30 +46,30 @@ public class NodeServiceImpl implements NodeService {
 
     @Override
     public Node findNode(@NotNull String id) {
-        NodePo nodePo = nodeDao.findNode(id);
+        NodeEntity nodeEntity = nodeDao.findNode(id);
 
-        return BeanMapper.map(nodePo, Node.class);
+        return BeanMapper.map(nodeEntity, Node.class);
     }
 
     @Override
     public List<Node> findAllNode() {
-        List<NodePo> nodePoList =  nodeDao.findAllNode();
+        List<NodeEntity> nodeEntityList =  nodeDao.findAllNode();
 
-        return BeanMapper.mapList(nodePoList,Node.class);
+        return BeanMapper.mapList(nodeEntityList,Node.class);
     }
 
     @Override
     public List<Node> findNodeList(NodeQuery nodeQuery) {
-        List<NodePo> nodePoList = nodeDao.findNodeList(nodeQuery);
+        List<NodeEntity> nodeEntityList = nodeDao.findNodeList(nodeQuery);
 
-        return BeanMapper.mapList(nodePoList,Node.class);
+        return BeanMapper.mapList(nodeEntityList,Node.class);
     }
 
     @Override
     public Pagination<Node> findNodePage(NodeQuery nodeQuery) {
         Pagination<Node> pg = new Pagination<>();
 
-        Pagination<NodePo>  pagination = nodeDao.findNodePage(nodeQuery);
+        Pagination<NodeEntity>  pagination = nodeDao.findNodePage(nodeQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<Node> nodeList = BeanMapper.mapList(pagination.getDataList(),Node.class);

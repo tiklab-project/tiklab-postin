@@ -1,6 +1,6 @@
 package com.doublekit.apibox.apimock.dao;
 
-import com.doublekit.apibox.apimock.entity.JsonResponseMockPo;
+import com.doublekit.apibox.apimock.entity.JsonResponseMockEntity;
 import com.doublekit.apibox.apimock.model.JsonResponseMockQuery;
 import com.doublekit.common.Pagination;
 import com.doublekit.dal.jpa.JpaTemplate;
@@ -24,19 +24,19 @@ public class JsonResponseMockDao{
 
     /**
      * 创建用户
-     * @param jsonResponseMockPo
+     * @param jsonResponseMockEntity
      * @return
      */
-    public String createJsonResponseMock(JsonResponseMockPo jsonResponseMockPo) {
-        return jpaTemplate.save(jsonResponseMockPo,String.class);
+    public String createJsonResponseMock(JsonResponseMockEntity jsonResponseMockEntity) {
+        return jpaTemplate.save(jsonResponseMockEntity,String.class);
     }
 
     /**
      * 更新用户
-     * @param jsonResponseMockPo
+     * @param jsonResponseMockEntity
      */
-    public void updateJsonResponseMock(JsonResponseMockPo jsonResponseMockPo){
-        jpaTemplate.update(jsonResponseMockPo);
+    public void updateJsonResponseMock(JsonResponseMockEntity jsonResponseMockEntity){
+        jpaTemplate.update(jsonResponseMockEntity);
     }
 
     /**
@@ -44,7 +44,7 @@ public class JsonResponseMockDao{
      * @param id
      */
     public void deleteJsonResponseMock(String id){
-        jpaTemplate.delete(JsonResponseMockPo.class,id);
+        jpaTemplate.delete(JsonResponseMockEntity.class,id);
     }
 
     /**
@@ -52,23 +52,23 @@ public class JsonResponseMockDao{
      * @param id
      * @return
      */
-    public JsonResponseMockPo findJsonResponseMock(String id){
-        return jpaTemplate.findOne(JsonResponseMockPo.class,id);
+    public JsonResponseMockEntity findJsonResponseMock(String id){
+        return jpaTemplate.findOne(JsonResponseMockEntity.class,id);
     }
 
     /**
     * findAllJsonResponseMock
     * @return
     */
-    public List<JsonResponseMockPo> findAllJsonResponseMock() {
-        return jpaTemplate.findAll(JsonResponseMockPo.class);
+    public List<JsonResponseMockEntity> findAllJsonResponseMock() {
+        return jpaTemplate.findAll(JsonResponseMockEntity.class);
     }
 
-    public List<JsonResponseMockPo> findJsonResponseMockList(JsonResponseMockQuery jsonResponseMockQuery) {
-        return jpaTemplate.findList(JsonResponseMockPo.class,jsonResponseMockQuery);
+    public List<JsonResponseMockEntity> findJsonResponseMockList(JsonResponseMockQuery jsonResponseMockQuery) {
+        return jpaTemplate.findList(JsonResponseMockEntity.class,jsonResponseMockQuery);
     }
 
-    public Pagination<JsonResponseMockPo> findJsonResponseMockPage(JsonResponseMockQuery jsonResponseMockQuery) {
-        return jpaTemplate.findPage(JsonResponseMockPo.class,jsonResponseMockQuery);
+    public Pagination<JsonResponseMockEntity> findJsonResponseMockPage(JsonResponseMockQuery jsonResponseMockQuery) {
+        return jpaTemplate.findPage(JsonResponseMockEntity.class,jsonResponseMockQuery);
     }
 }

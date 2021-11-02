@@ -1,7 +1,7 @@
 package com.doublekit.apibox.apimock.service;
 
 import com.doublekit.apibox.apimock.dao.JsonResponseMockDao;
-import com.doublekit.apibox.apimock.entity.JsonResponseMockPo;
+import com.doublekit.apibox.apimock.entity.JsonResponseMockEntity;
 import com.doublekit.apibox.apimock.model.JsonResponseMock;
 import com.doublekit.apibox.apimock.model.JsonResponseMockQuery;
 
@@ -31,16 +31,16 @@ public class JsonResponseMockServiceImpl implements JsonResponseMockService {
 
     @Override
     public String createJsonResponseMock(@NotNull @Valid JsonResponseMock jsonResponseMock) {
-        JsonResponseMockPo jsonResponseMockPo = BeanMapper.map(jsonResponseMock, JsonResponseMockPo.class);
+        JsonResponseMockEntity jsonResponseMockEntity = BeanMapper.map(jsonResponseMock, JsonResponseMockEntity.class);
 
-        return jsonResponseMockDao.createJsonResponseMock(jsonResponseMockPo);
+        return jsonResponseMockDao.createJsonResponseMock(jsonResponseMockEntity);
     }
 
     @Override
     public void updateJsonResponseMock(@NotNull @Valid JsonResponseMock jsonResponseMock) {
-        JsonResponseMockPo jsonResponseMockPo = BeanMapper.map(jsonResponseMock, JsonResponseMockPo.class);
+        JsonResponseMockEntity jsonResponseMockEntity = BeanMapper.map(jsonResponseMock, JsonResponseMockEntity.class);
 
-        jsonResponseMockDao.updateJsonResponseMock(jsonResponseMockPo);
+        jsonResponseMockDao.updateJsonResponseMock(jsonResponseMockEntity);
     }
 
     @Override
@@ -50,9 +50,9 @@ public class JsonResponseMockServiceImpl implements JsonResponseMockService {
 
     @Override
     public JsonResponseMock findJsonResponseMock(@NotNull String id) {
-        JsonResponseMockPo jsonResponseMockPo = jsonResponseMockDao.findJsonResponseMock(id);
+        JsonResponseMockEntity jsonResponseMockEntity = jsonResponseMockDao.findJsonResponseMock(id);
 
-        JsonResponseMock jsonResponseMock = BeanMapper.map(jsonResponseMockPo, JsonResponseMock.class);
+        JsonResponseMock jsonResponseMock = BeanMapper.map(jsonResponseMockEntity, JsonResponseMock.class);
 
         joinQuery.queryOne(jsonResponseMock);
 
@@ -61,9 +61,9 @@ public class JsonResponseMockServiceImpl implements JsonResponseMockService {
 
     @Override
     public List<JsonResponseMock> findAllJsonResponseMock() {
-        List<JsonResponseMockPo> jsonResponseMockPoList =  jsonResponseMockDao.findAllJsonResponseMock();
+        List<JsonResponseMockEntity> jsonResponseMockEntityList =  jsonResponseMockDao.findAllJsonResponseMock();
 
-        List<JsonResponseMock> jsonResponseMockList =  BeanMapper.mapList(jsonResponseMockPoList,JsonResponseMock.class);
+        List<JsonResponseMock> jsonResponseMockList =  BeanMapper.mapList(jsonResponseMockEntityList,JsonResponseMock.class);
 
         joinQuery.queryList(jsonResponseMockList);
 
@@ -72,9 +72,9 @@ public class JsonResponseMockServiceImpl implements JsonResponseMockService {
 
     @Override
     public List<JsonResponseMock> findJsonResponseMockList(JsonResponseMockQuery jsonResponseMockQuery) {
-        List<JsonResponseMockPo> jsonResponseMockPoList = jsonResponseMockDao.findJsonResponseMockList(jsonResponseMockQuery);
+        List<JsonResponseMockEntity> jsonResponseMockEntityList = jsonResponseMockDao.findJsonResponseMockList(jsonResponseMockQuery);
 
-        List<JsonResponseMock> jsonResponseMockList = BeanMapper.mapList(jsonResponseMockPoList,JsonResponseMock.class);
+        List<JsonResponseMock> jsonResponseMockList = BeanMapper.mapList(jsonResponseMockEntityList,JsonResponseMock.class);
 
         joinQuery.queryList(jsonResponseMockList);
 
@@ -85,7 +85,7 @@ public class JsonResponseMockServiceImpl implements JsonResponseMockService {
     public Pagination<JsonResponseMock> findJsonResponseMockPage(JsonResponseMockQuery jsonResponseMockQuery) {
         Pagination<JsonResponseMock> pg = new Pagination<>();
 
-        Pagination<JsonResponseMockPo>  pagination = jsonResponseMockDao.findJsonResponseMockPage(jsonResponseMockQuery);
+        Pagination<JsonResponseMockEntity>  pagination = jsonResponseMockDao.findJsonResponseMockPage(jsonResponseMockQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<JsonResponseMock> jsonResponseMockList = BeanMapper.mapList(pagination.getDataList(),JsonResponseMock.class);

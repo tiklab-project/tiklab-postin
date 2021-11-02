@@ -1,7 +1,7 @@
 package com.doublekit.apibox.apidef.service;
 
 import com.doublekit.apibox.apidef.dao.RawResponseDao;
-import com.doublekit.apibox.apidef.entity.RawResponsePo;
+import com.doublekit.apibox.apidef.entity.RawResponseEntity;
 import com.doublekit.apibox.apidef.model.RawResponse;
 import com.doublekit.apibox.apidef.model.RawResponseQuery;
 
@@ -31,16 +31,16 @@ public class RawResponseServiceImpl implements RawResponseService {
 
     @Override
     public String createRawResponse(@NotNull @Valid RawResponse rawResponse) {
-        RawResponsePo rawResponsePo = BeanMapper.map(rawResponse, RawResponsePo.class);
+        RawResponseEntity rawResponseEntity = BeanMapper.map(rawResponse, RawResponseEntity.class);
 
-        return rawResponseDao.createRawResponse(rawResponsePo);
+        return rawResponseDao.createRawResponse(rawResponseEntity);
     }
 
     @Override
     public void updateRawResponse(@NotNull @Valid RawResponse rawResponse) {
-        RawResponsePo rawResponsePo = BeanMapper.map(rawResponse, RawResponsePo.class);
+        RawResponseEntity rawResponseEntity = BeanMapper.map(rawResponse, RawResponseEntity.class);
 
-        rawResponseDao.updateRawResponse(rawResponsePo);
+        rawResponseDao.updateRawResponse(rawResponseEntity);
     }
 
     @Override
@@ -50,9 +50,9 @@ public class RawResponseServiceImpl implements RawResponseService {
 
     @Override
     public RawResponse findRawResponse(@NotNull String id) {
-        RawResponsePo rawResponsePo = rawResponseDao.findRawResponse(id);
+        RawResponseEntity rawResponseEntity = rawResponseDao.findRawResponse(id);
 
-        RawResponse rawResponse = BeanMapper.map(rawResponsePo, RawResponse.class);
+        RawResponse rawResponse = BeanMapper.map(rawResponseEntity, RawResponse.class);
 
         joinQuery.queryOne(rawResponse);
 
@@ -61,9 +61,9 @@ public class RawResponseServiceImpl implements RawResponseService {
 
     @Override
     public List<RawResponse> findAllRawResponse() {
-        List<RawResponsePo> rawResponsePoList =  rawResponseDao.findAllRawResponse();
+        List<RawResponseEntity> rawResponseEntityList =  rawResponseDao.findAllRawResponse();
 
-        List<RawResponse> rawResponseList =  BeanMapper.mapList(rawResponsePoList,RawResponse.class);
+        List<RawResponse> rawResponseList =  BeanMapper.mapList(rawResponseEntityList,RawResponse.class);
 
         joinQuery.queryList(rawResponseList);
 
@@ -72,9 +72,9 @@ public class RawResponseServiceImpl implements RawResponseService {
 
     @Override
     public List<RawResponse> findRawResponseList(RawResponseQuery rawResponseQuery) {
-        List<RawResponsePo> rawResponsePoList = rawResponseDao.findRawResponseList(rawResponseQuery);
+        List<RawResponseEntity> rawResponseEntityList = rawResponseDao.findRawResponseList(rawResponseQuery);
 
-        List<RawResponse> rawResponseList = BeanMapper.mapList(rawResponsePoList,RawResponse.class);
+        List<RawResponse> rawResponseList = BeanMapper.mapList(rawResponseEntityList,RawResponse.class);
 
         joinQuery.queryList(rawResponseList);
 
@@ -85,7 +85,7 @@ public class RawResponseServiceImpl implements RawResponseService {
     public Pagination<RawResponse> findRawResponsePage(RawResponseQuery rawResponseQuery) {
         Pagination<RawResponse> pg = new Pagination<>();
 
-        Pagination<RawResponsePo>  pagination = rawResponseDao.findRawResponsePage(rawResponseQuery);
+        Pagination<RawResponseEntity>  pagination = rawResponseDao.findRawResponsePage(rawResponseQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<RawResponse> rawResponseList = BeanMapper.mapList(pagination.getDataList(),RawResponse.class);

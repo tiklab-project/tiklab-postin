@@ -1,6 +1,6 @@
 package com.doublekit.apibox.category.codegen;
 
-import com.doublekit.apibox.node.entity.NodePo;
+import com.doublekit.apibox.node.entity.NodeEntity;
 import com.doublekit.codegen.CodeGeneratorTemplate;
 import com.doublekit.codegen.config.ProjectGeneratorConfig;
 import com.doublekit.codegen.config.ModuleGeneratorConfig;
@@ -21,7 +21,7 @@ public class NodeCodeGeneratorTest extends CodeGeneratorTemplate {
     protected ModuleGeneratorConfig getModuleGeneratorConfig() {
         ModuleGeneratorConfig config = new ModuleGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
-        config.setEntity(NodePo.class);
+        config.setEntity(NodeEntity.class);
         config.setPkg("com.doublekit.apibox.node");
         config.setModel("Node");
         return config;

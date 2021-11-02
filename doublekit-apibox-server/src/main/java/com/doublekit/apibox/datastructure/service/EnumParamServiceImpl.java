@@ -1,7 +1,7 @@
 package com.doublekit.apibox.datastructure.service;
 
 import com.doublekit.apibox.datastructure.dao.EnumParamDao;
-import com.doublekit.apibox.datastructure.entity.EnumParamPo;
+import com.doublekit.apibox.datastructure.entity.EnumParamEntity;
 import com.doublekit.apibox.datastructure.model.EnumParam;
 import com.doublekit.apibox.datastructure.model.EnumParamQuery;
 
@@ -32,16 +32,16 @@ public class EnumParamServiceImpl implements EnumParamService {
 
     @Override
     public String createEnumParam(@NotNull @Valid EnumParam enumParam) {
-        EnumParamPo enumParamPo = BeanMapper.map(enumParam, EnumParamPo.class);
+        EnumParamEntity enumParamEntity = BeanMapper.map(enumParam, EnumParamEntity.class);
 
-        return enumParamDao.createEnumParam(enumParamPo);
+        return enumParamDao.createEnumParam(enumParamEntity);
     }
 
     @Override
     public void updateEnumParam(@NotNull @Valid EnumParam enumParam) {
-        EnumParamPo enumParamPo = BeanMapper.map(enumParam, EnumParamPo.class);
+        EnumParamEntity enumParamEntity = BeanMapper.map(enumParam, EnumParamEntity.class);
 
-        enumParamDao.updateEnumParam(enumParamPo);
+        enumParamDao.updateEnumParam(enumParamEntity);
     }
 
     @Override
@@ -51,17 +51,17 @@ public class EnumParamServiceImpl implements EnumParamService {
 
     @Override
     public EnumParam findOne(String id) {
-        EnumParamPo enumParamPo = enumParamDao.findEnumParam(id);
+        EnumParamEntity enumParamEntity = enumParamDao.findEnumParam(id);
 
-        EnumParam enumParam = BeanMapper.map(enumParamPo, EnumParam.class);
+        EnumParam enumParam = BeanMapper.map(enumParamEntity, EnumParam.class);
         return enumParam;
     }
 
     @Override
     public List<EnumParam> findList(List<String> idList) {
-        List<EnumParamPo> enumParamPoList =  enumParamDao.findEnumParamList(idList);
+        List<EnumParamEntity> enumParamEntityList =  enumParamDao.findEnumParamList(idList);
 
-        List<EnumParam> enumParamList =  BeanMapper.mapList(enumParamPoList,EnumParam.class);
+        List<EnumParam> enumParamList =  BeanMapper.mapList(enumParamEntityList,EnumParam.class);
         return enumParamList;
     }
 
@@ -75,9 +75,9 @@ public class EnumParamServiceImpl implements EnumParamService {
 
     @Override
     public List<EnumParam> findAllEnumParam() {
-        List<EnumParamPo> enumParamPoList =  enumParamDao.findAllEnumParam();
+        List<EnumParamEntity> enumParamEntityList =  enumParamDao.findAllEnumParam();
 
-        List<EnumParam> enumParamList =  BeanMapper.mapList(enumParamPoList,EnumParam.class);
+        List<EnumParam> enumParamList =  BeanMapper.mapList(enumParamEntityList,EnumParam.class);
 
         joinQuery.queryList(enumParamList);
         return enumParamList;
@@ -85,9 +85,9 @@ public class EnumParamServiceImpl implements EnumParamService {
 
     @Override
     public List<EnumParam> findEnumParamList(EnumParamQuery enumParamQuery) {
-        List<EnumParamPo> enumParamPoList = enumParamDao.findEnumParamList(enumParamQuery);
+        List<EnumParamEntity> enumParamEntityList = enumParamDao.findEnumParamList(enumParamQuery);
 
-        List<EnumParam> enumParamList = BeanMapper.mapList(enumParamPoList,EnumParam.class);
+        List<EnumParam> enumParamList = BeanMapper.mapList(enumParamEntityList,EnumParam.class);
 
         joinQuery.queryList(enumParamList);
 
@@ -98,7 +98,7 @@ public class EnumParamServiceImpl implements EnumParamService {
     public Pagination<EnumParam> findEnumParamPage(EnumParamQuery enumParamQuery) {
         Pagination<EnumParam> pg = new Pagination<>();
 
-        Pagination<EnumParamPo>  pagination = enumParamDao.findEnumParamPage(enumParamQuery);
+        Pagination<EnumParamEntity>  pagination = enumParamDao.findEnumParamPage(enumParamQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<EnumParam> enumParamList = BeanMapper.mapList(pagination.getDataList(),EnumParam.class);

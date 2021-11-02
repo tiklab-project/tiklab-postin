@@ -1,11 +1,11 @@
 package com.doublekit.apibox.category.service;
 
 import com.doublekit.apibox.apidef.dao.MethodDao;
-import com.doublekit.apibox.apidef.entity.MethodPo;
+import com.doublekit.apibox.apidef.entity.MethodEntity;
 import com.doublekit.apibox.apidef.model.MethodEx;
 import com.doublekit.apibox.apidef.model.MethodExQuery;
 import com.doublekit.apibox.category.dao.CategoryDao;
-import com.doublekit.apibox.category.entity.CategoryPo;
+import com.doublekit.apibox.category.entity.CategoryEntity;
 import com.doublekit.apibox.category.model.Category;
 import com.doublekit.apibox.category.model.CategoryQuery;
 
@@ -43,27 +43,27 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public String createCategory(@NotNull @Valid Category category) {
-        CategoryPo categoryPo = BeanMapper.map(category, CategoryPo.class);
+        CategoryEntity categoryEntity = BeanMapper.map(category, CategoryEntity.class);
 
-        String id = categoryDao.createCategory(categoryPo);
+        String id = categoryDao.createCategory(categoryEntity);
 
 //        //创建node
-//        NodePo nodePo = BeanMapper.map(categoryPo, NodePo.class);
+//        NodeEntity nodeEntity = BeanMapper.map(categoryEntity, NodeEntity.class);
 //
-//        nodeDao.createNode(nodePo);
+//        nodeDao.createNode(nodeEntity);
         return id;
     }
 
     @Override
     public void updateCategory(@NotNull @Valid Category category) {
-        CategoryPo categoryPo = BeanMapper.map(category, CategoryPo.class);
+        CategoryEntity categoryEntity = BeanMapper.map(category, CategoryEntity.class);
 
-        categoryDao.updateCategory(categoryPo);
+        categoryDao.updateCategory(categoryEntity);
 
 //        //更新node
-//        NodePo nodePo = BeanMapper.map(categoryPo, NodePo.class);
+//        NodeEntity nodeEntity = BeanMapper.map(categoryEntity, NodeEntity.class);
 //
-//        nodeDao.createNode(nodePo);
+//        nodeDao.createNode(nodeEntity);
     }
 
     @Override
@@ -76,17 +76,17 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category findOne(String id) {
-        CategoryPo categoryPo = categoryDao.findCategory(id);
+        CategoryEntity categoryEntity = categoryDao.findCategory(id);
 
-        Category category = BeanMapper.map(categoryPo, Category.class);
+        Category category = BeanMapper.map(categoryEntity, Category.class);
         return category;
     }
 
     @Override
     public List<Category> findList(List<String> idList) {
-        List<CategoryPo> categoryPoList =  categoryDao.findCategoryList(idList);
+        List<CategoryEntity> categoryEntityList =  categoryDao.findCategoryList(idList);
 
-        List<Category> categoryList = BeanMapper.mapList(categoryPoList,Category.class);
+        List<Category> categoryList = BeanMapper.mapList(categoryEntityList,Category.class);
         return categoryList;
     }
 
@@ -100,9 +100,9 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public List<Category> findAllCategory() {
-        List<CategoryPo> categoryPoList =  categoryDao.findAllCategory();
+        List<CategoryEntity> categoryEntityList =  categoryDao.findAllCategory();
 
-        List<Category> categoryList = BeanMapper.mapList(categoryPoList,Category.class);
+        List<Category> categoryList = BeanMapper.mapList(categoryEntityList,Category.class);
 
         joinQuery.queryList(categoryList);
 
@@ -111,9 +111,9 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public List<Category> findCategoryList(CategoryQuery categoryQuery) {
-        List<CategoryPo> categoryPoList = categoryDao.findCategoryList(categoryQuery);
+        List<CategoryEntity> categoryEntityList = categoryDao.findCategoryList(categoryQuery);
 
-        List<Category> categoryList = BeanMapper.mapList(categoryPoList,Category.class);
+        List<Category> categoryList = BeanMapper.mapList(categoryEntityList,Category.class);
 
         joinQuery.queryList(categoryList);
 
@@ -124,7 +124,7 @@ public class CategoryServiceImpl implements CategoryService {
     public Pagination<Category> findCategoryPage(CategoryQuery categoryQuery) {
         Pagination<Category> pg = new Pagination<>();
 
-        Pagination<CategoryPo>  pagination = categoryDao.findCategoryPage(categoryQuery);
+        Pagination<CategoryEntity>  pagination = categoryDao.findCategoryPage(categoryQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<Category> categoryList = BeanMapper.mapList(pagination.getDataList(),Category.class);
@@ -177,7 +177,7 @@ public class CategoryServiceImpl implements CategoryService {
         List<Category> categoryList = matchCategoryList.stream().map(category -> {
             MethodExQuery methodExQuery = new MethodExQuery();
             methodExQuery.setCategoryId(category.getId());
-            List<MethodPo> methodList = methodDao.findMethodList(methodExQuery);
+            List<MethodEntity> methodList = methodDao.findMethodList(methodExQuery);
             List<MethodEx> methodExes = BeanMapper.mapList(methodList, MethodEx.class);
             category.setCategoryMethod(methodExes);
             return category;

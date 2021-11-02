@@ -1,6 +1,6 @@
 package com.doublekit.apibox.apidef.dao;
 
-import com.doublekit.apibox.apidef.entity.MethodPo;
+import com.doublekit.apibox.apidef.entity.MethodEntity;
 import com.doublekit.apibox.apidef.model.MethodEx;
 import com.doublekit.apibox.apidef.model.MethodExQuery;
 import com.doublekit.common.Pagination;
@@ -29,7 +29,7 @@ public class MethodDao {
      * @param methodExPo
      * @return
      */
-    public String createMethod(MethodPo methodExPo) {
+    public String createMethod(MethodEntity methodExPo) {
         return jpaTemplate.save(methodExPo,String.class);
     }
 
@@ -37,7 +37,7 @@ public class MethodDao {
      * 更新用户
      * @param methodExPo
      */
-    public void updateMethod(MethodPo methodExPo){
+    public void updateMethod(MethodEntity methodExPo){
         jpaTemplate.update(methodExPo);
     }
 
@@ -46,7 +46,7 @@ public class MethodDao {
      * @param id
      */
     public void deleteMethod(String id){
-        jpaTemplate.delete(MethodPo.class,id);
+        jpaTemplate.delete(MethodEntity.class,id);
     }
 
     /**
@@ -54,35 +54,35 @@ public class MethodDao {
      * @param id
      * @return
      */
-    public MethodPo findMethod(String id){
-        return jpaTemplate.findOne(MethodPo.class,id);
+    public MethodEntity findMethod(String id){
+        return jpaTemplate.findOne(MethodEntity.class,id);
     }
 
     /**
     * findAllApxMethod
     * @return
     */
-    public List<MethodPo> findAllMethod() {
-        return filterMethod(jpaTemplate.findAll(MethodPo.class));
+    public List<MethodEntity> findAllMethod() {
+        return filterMethod(jpaTemplate.findAll(MethodEntity.class));
     }
 
-    public List<MethodPo> findMethodList(List<String> idList) {
-        return jpaTemplate.findList(MethodPo.class,idList);
+    public List<MethodEntity> findMethodList(List<String> idList) {
+        return jpaTemplate.findList(MethodEntity.class,idList);
     }
 
-    public List<MethodPo> findMethodList(MethodExQuery methodExQuery) {
+    public List<MethodEntity> findMethodList(MethodExQuery methodExQuery) {
 
-        return  filterMethod(jpaTemplate.findList(MethodPo.class,methodExQuery));
+        return  filterMethod(jpaTemplate.findList(MethodEntity.class,methodExQuery));
     }
 
-    public Pagination<MethodPo> findMethodPage(MethodExQuery methodExQuery) {
+    public Pagination<MethodEntity> findMethodPage(MethodExQuery methodExQuery) {
 
-        return jpaTemplate.findPage(MethodPo.class,methodExQuery);
+        return jpaTemplate.findPage(MethodEntity.class,methodExQuery);
     }
 
     //过滤查询最新版本的方法
-    List<MethodPo> filterMethod (List<MethodPo> methodExList){
-        List<MethodPo> collect = methodExList.stream().filter(a -> "current".equals(a.getVersionCode())).collect(Collectors.toList());
+    List<MethodEntity> filterMethod (List<MethodEntity> methodExList){
+        List<MethodEntity> collect = methodExList.stream().filter(a -> "current".equals(a.getVersionCode())).collect(Collectors.toList());
         return collect;
     }
 }

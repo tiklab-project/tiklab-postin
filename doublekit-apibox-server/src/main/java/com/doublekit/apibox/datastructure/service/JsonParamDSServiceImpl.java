@@ -3,7 +3,7 @@ package com.doublekit.apibox.datastructure.service;
 import com.doublekit.apibox.apidef.model.JsonParam;
 import com.doublekit.apibox.datastructure.dao.EnumParamDao;
 import com.doublekit.apibox.datastructure.dao.JsonParamDSDao;
-import com.doublekit.apibox.datastructure.entity.JsonParamDSPo;
+import com.doublekit.apibox.datastructure.entity.JsonParamDSEntity;
 import com.doublekit.apibox.datastructure.model.JsonParamDS;
 import com.doublekit.apibox.datastructure.model.JsonParamDSQuery;
 
@@ -37,16 +37,16 @@ public class JsonParamDSServiceImpl implements JsonParamDSService {
 
     @Override
     public String createJsonParamDS(@NotNull @Valid JsonParamDS jsonParamDS) {
-        JsonParamDSPo jsonParamDSPo = BeanMapper.map(jsonParamDS, JsonParamDSPo.class);
+        JsonParamDSEntity jsonParamDSEntity = BeanMapper.map(jsonParamDS, JsonParamDSEntity.class);
 
-        return jsonParamDSDao.createJsonParamDS(jsonParamDSPo);
+        return jsonParamDSDao.createJsonParamDS(jsonParamDSEntity);
     }
 
     @Override
     public void updateJsonParamDS(@NotNull @Valid JsonParamDS jsonParamDS) {
-        JsonParamDSPo jsonParamDSPo = BeanMapper.map(jsonParamDS, JsonParamDSPo.class);
+        JsonParamDSEntity jsonParamDSEntity = BeanMapper.map(jsonParamDS, JsonParamDSEntity.class);
 
-        jsonParamDSDao.updateJsonParamDS(jsonParamDSPo);
+        jsonParamDSDao.updateJsonParamDS(jsonParamDSEntity);
     }
 
     @Override
@@ -58,17 +58,17 @@ public class JsonParamDSServiceImpl implements JsonParamDSService {
 
     @Override
     public JsonParamDS findOne(String id) {
-        JsonParamDSPo jsonParamDSPo = jsonParamDSDao.findJsonParamDS(id);
+        JsonParamDSEntity jsonParamDSEntity = jsonParamDSDao.findJsonParamDS(id);
 
-        JsonParamDS jsonParamDS = BeanMapper.map(jsonParamDSPo, JsonParamDS.class);
+        JsonParamDS jsonParamDS = BeanMapper.map(jsonParamDSEntity, JsonParamDS.class);
         return jsonParamDS;
     }
 
     @Override
     public List<JsonParamDS> findList(List<String> idList) {
-        List<JsonParamDSPo> jsonParamDSPoList =  jsonParamDSDao.findJsonParamDSList(idList);
+        List<JsonParamDSEntity> jsonParamDSEntityList =  jsonParamDSDao.findJsonParamDSList(idList);
 
-        List<JsonParamDS> jsonParamDSList =  BeanMapper.mapList(jsonParamDSPoList,JsonParamDS.class);
+        List<JsonParamDS> jsonParamDSList =  BeanMapper.mapList(jsonParamDSEntityList,JsonParamDS.class);
         return jsonParamDSList;
     }
 
@@ -82,9 +82,9 @@ public class JsonParamDSServiceImpl implements JsonParamDSService {
 
     @Override
     public List<JsonParamDS> findAllJsonParamDS() {
-        List<JsonParamDSPo> jsonParamDSPoList =  jsonParamDSDao.findAllJsonParamDS();
+        List<JsonParamDSEntity> jsonParamDSEntityList =  jsonParamDSDao.findAllJsonParamDS();
 
-        List<JsonParamDS> jsonParamDSList =  BeanMapper.mapList(jsonParamDSPoList,JsonParamDS.class);
+        List<JsonParamDS> jsonParamDSList =  BeanMapper.mapList(jsonParamDSEntityList,JsonParamDS.class);
 
         joinQuery.queryList(jsonParamDSList);
         return jsonParamDSList;
@@ -92,9 +92,9 @@ public class JsonParamDSServiceImpl implements JsonParamDSService {
 
     @Override
     public List<JsonParamDS> findJsonParamDSList(JsonParamDSQuery jsonParamDSQuery) {
-        List<JsonParamDSPo> jsonParamDSPoList = jsonParamDSDao.findJsonParamDSList(jsonParamDSQuery);
+        List<JsonParamDSEntity> jsonParamDSEntityList = jsonParamDSDao.findJsonParamDSList(jsonParamDSQuery);
 
-        List<JsonParamDS> jsonParamDSList = BeanMapper.mapList(jsonParamDSPoList,JsonParamDS.class);
+        List<JsonParamDS> jsonParamDSList = BeanMapper.mapList(jsonParamDSEntityList,JsonParamDS.class);
 
         joinQuery.queryList(jsonParamDSList);
 
@@ -105,7 +105,7 @@ public class JsonParamDSServiceImpl implements JsonParamDSService {
     public Pagination<JsonParamDS> findJsonParamDSPage(JsonParamDSQuery jsonParamDSQuery) {
         Pagination<JsonParamDS> pg = new Pagination<>();
 
-        Pagination<JsonParamDSPo>  pagination = jsonParamDSDao.findJsonParamDSPage(jsonParamDSQuery);
+        Pagination<JsonParamDSEntity>  pagination = jsonParamDSDao.findJsonParamDSPage(jsonParamDSQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<JsonParamDS> jsonParamDSList = BeanMapper.mapList(pagination.getDataList(),JsonParamDS.class);

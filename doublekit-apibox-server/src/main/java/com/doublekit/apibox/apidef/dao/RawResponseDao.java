@@ -1,7 +1,7 @@
 package com.doublekit.apibox.apidef.dao;
 
-import com.doublekit.apibox.apidef.entity.RawParamPo;
-import com.doublekit.apibox.apidef.entity.RawResponsePo;
+import com.doublekit.apibox.apidef.entity.RawParamEntity;
+import com.doublekit.apibox.apidef.entity.RawResponseEntity;
 import com.doublekit.apibox.apidef.model.RawResponseQuery;
 import com.doublekit.common.Pagination;
 import com.doublekit.dal.jpa.JpaTemplate;
@@ -26,19 +26,19 @@ public class RawResponseDao{
 
     /**
      * 创建用户
-     * @param rawResponsePo
+     * @param rawResponseEntity
      * @return
      */
-    public String createRawResponse(RawResponsePo rawResponsePo) {
-        return jpaTemplate.save(rawResponsePo,String.class);
+    public String createRawResponse(RawResponseEntity rawResponseEntity) {
+        return jpaTemplate.save(rawResponseEntity,String.class);
     }
 
     /**
      * 更新用户
-     * @param rawResponsePo
+     * @param rawResponseEntity
      */
-    public void updateRawResponse(RawResponsePo rawResponsePo){
-        jpaTemplate.update(rawResponsePo);
+    public void updateRawResponse(RawResponseEntity rawResponseEntity){
+        jpaTemplate.update(rawResponseEntity);
     }
 
     /**
@@ -46,7 +46,7 @@ public class RawResponseDao{
      * @param id
      */
     public void deleteRawResponse(String id){
-        jpaTemplate.delete(RawResponsePo.class,id);
+        jpaTemplate.delete(RawResponseEntity.class,id);
     }
 
     /**
@@ -54,7 +54,7 @@ public class RawResponseDao{
      * @param deleteCondition
      */
     public void deleteRawResponseList(DeleteCondition deleteCondition){
-        jpaTemplate.delete(RawResponsePo.class,deleteCondition);
+        jpaTemplate.delete(RawResponseEntity.class,deleteCondition);
     }
 
     /**
@@ -62,23 +62,23 @@ public class RawResponseDao{
      * @param id
      * @return
      */
-    public RawResponsePo findRawResponse(String id){
-        return jpaTemplate.findOne(RawResponsePo.class,id);
+    public RawResponseEntity findRawResponse(String id){
+        return jpaTemplate.findOne(RawResponseEntity.class,id);
     }
 
     /**
     * findAllRawResponse
     * @return
     */
-    public List<RawResponsePo> findAllRawResponse() {
-        return jpaTemplate.findAll(RawResponsePo.class);
+    public List<RawResponseEntity> findAllRawResponse() {
+        return jpaTemplate.findAll(RawResponseEntity.class);
     }
 
-    public List<RawResponsePo> findRawResponseList(RawResponseQuery rawResponseQuery) {
-        return jpaTemplate.findList(RawResponsePo.class,rawResponseQuery);
+    public List<RawResponseEntity> findRawResponseList(RawResponseQuery rawResponseQuery) {
+        return jpaTemplate.findList(RawResponseEntity.class,rawResponseQuery);
     }
 
-    public Pagination<RawResponsePo> findRawResponsePage(RawResponseQuery rawResponseQuery) {
-        return jpaTemplate.findPage(RawResponsePo.class,rawResponseQuery);
+    public Pagination<RawResponseEntity> findRawResponsePage(RawResponseQuery rawResponseQuery) {
+        return jpaTemplate.findPage(RawResponseEntity.class,rawResponseQuery);
     }
 }

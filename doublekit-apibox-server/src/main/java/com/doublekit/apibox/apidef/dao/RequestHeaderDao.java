@@ -1,7 +1,7 @@
 package com.doublekit.apibox.apidef.dao;
 
-import com.doublekit.apibox.apidef.entity.RequestBodyPo;
-import com.doublekit.apibox.apidef.entity.RequestHeaderPo;
+import com.doublekit.apibox.apidef.entity.RequestBodyEntity;
+import com.doublekit.apibox.apidef.entity.RequestHeaderEntity;
 import com.doublekit.apibox.apidef.model.RequestHeaderQuery;
 import com.doublekit.common.Pagination;
 import com.doublekit.dal.jpa.JpaTemplate;
@@ -26,19 +26,19 @@ public class RequestHeaderDao{
 
     /**
      * 创建用户
-     * @param requestHeaderPo
+     * @param requestHeaderEntity
      * @return
      */
-    public String createRequestHeader(RequestHeaderPo requestHeaderPo) {
-        return jpaTemplate.save(requestHeaderPo,String.class);
+    public String createRequestHeader(RequestHeaderEntity requestHeaderEntity) {
+        return jpaTemplate.save(requestHeaderEntity,String.class);
     }
 
     /**
      * 更新用户
-     * @param requestHeaderPo
+     * @param requestHeaderEntity
      */
-    public void updateRequestHeader(RequestHeaderPo requestHeaderPo){
-        jpaTemplate.update(requestHeaderPo);
+    public void updateRequestHeader(RequestHeaderEntity requestHeaderEntity){
+        jpaTemplate.update(requestHeaderEntity);
     }
 
     /**
@@ -46,7 +46,7 @@ public class RequestHeaderDao{
      * @param id
      */
     public void deleteRequestHeader(String id){
-        jpaTemplate.delete(RequestHeaderPo.class,id);
+        jpaTemplate.delete(RequestHeaderEntity.class,id);
     }
 
     /**
@@ -54,7 +54,7 @@ public class RequestHeaderDao{
      * @param deleteCondition
      */
     public void deleteRequestHeaderList(DeleteCondition deleteCondition){
-        jpaTemplate.delete(RequestHeaderPo.class,deleteCondition);
+        jpaTemplate.delete(RequestHeaderEntity.class,deleteCondition);
     }
 
     /**
@@ -62,23 +62,23 @@ public class RequestHeaderDao{
      * @param id
      * @return
      */
-    public RequestHeaderPo findRequestHeader(String id){
-        return jpaTemplate.findOne(RequestHeaderPo.class,id);
+    public RequestHeaderEntity findRequestHeader(String id){
+        return jpaTemplate.findOne(RequestHeaderEntity.class,id);
     }
 
     /**
     * findAllRequestHeader
     * @return
     */
-    public List<RequestHeaderPo> findAllRequestHeader() {
-        return jpaTemplate.findAll(RequestHeaderPo.class);
+    public List<RequestHeaderEntity> findAllRequestHeader() {
+        return jpaTemplate.findAll(RequestHeaderEntity.class);
     }
 
-    public List<RequestHeaderPo> findRequestHeaderList(RequestHeaderQuery requestHeaderQuery) {
-        return jpaTemplate.findList(RequestHeaderPo.class,requestHeaderQuery);
+    public List<RequestHeaderEntity> findRequestHeaderList(RequestHeaderQuery requestHeaderQuery) {
+        return jpaTemplate.findList(RequestHeaderEntity.class,requestHeaderQuery);
     }
 
-    public Pagination<RequestHeaderPo> findRequestHeaderPage(RequestHeaderQuery requestHeaderQuery) {
-        return jpaTemplate.findPage(RequestHeaderPo.class,requestHeaderQuery);
+    public Pagination<RequestHeaderEntity> findRequestHeaderPage(RequestHeaderQuery requestHeaderQuery) {
+        return jpaTemplate.findPage(RequestHeaderEntity.class,requestHeaderQuery);
     }
 }

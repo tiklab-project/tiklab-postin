@@ -1,7 +1,7 @@
 package com.doublekit.apibox.apitest.service;
 
 import com.doublekit.apibox.apitest.dao.JsonParamCaseDao;
-import com.doublekit.apibox.apitest.entity.JsonParamCasePo;
+import com.doublekit.apibox.apitest.entity.JsonParamCaseEntity;
 import com.doublekit.apibox.apitest.model.JsonParamCase;
 import com.doublekit.apibox.apitest.model.JsonParamCaseQuery;
 
@@ -32,16 +32,16 @@ public class JsonParamCaseServiceImpl implements JsonParamCaseService {
 
     @Override
     public String createJsonParamCase(@NotNull @Valid JsonParamCase jsonParamCase) {
-        JsonParamCasePo jsonParamCasePo = BeanMapper.map(jsonParamCase, JsonParamCasePo.class);
+        JsonParamCaseEntity jsonParamCaseEntity = BeanMapper.map(jsonParamCase, JsonParamCaseEntity.class);
 
-        return jsonParamCaseDao.createJsonParamCase(jsonParamCasePo);
+        return jsonParamCaseDao.createJsonParamCase(jsonParamCaseEntity);
     }
 
     @Override
     public void updateJsonParamCase(@NotNull @Valid JsonParamCase jsonParamCase) {
-        JsonParamCasePo jsonParamCasePo = BeanMapper.map(jsonParamCase, JsonParamCasePo.class);
+        JsonParamCaseEntity jsonParamCaseEntity = BeanMapper.map(jsonParamCase, JsonParamCaseEntity.class);
 
-        jsonParamCaseDao.updateJsonParamCase(jsonParamCasePo);
+        jsonParamCaseDao.updateJsonParamCase(jsonParamCaseEntity);
     }
 
     @Override
@@ -51,17 +51,17 @@ public class JsonParamCaseServiceImpl implements JsonParamCaseService {
 
     @Override
     public JsonParamCase findOne(String id) {
-        JsonParamCasePo jsonParamCasePo = jsonParamCaseDao.findJsonParamCase(id);
+        JsonParamCaseEntity jsonParamCaseEntity = jsonParamCaseDao.findJsonParamCase(id);
 
-        JsonParamCase jsonParamCase = BeanMapper.map(jsonParamCasePo, JsonParamCase.class);
+        JsonParamCase jsonParamCase = BeanMapper.map(jsonParamCaseEntity, JsonParamCase.class);
         return jsonParamCase;
     }
 
     @Override
     public List<JsonParamCase> findList(List<String> idList) {
-        List<JsonParamCasePo> jsonParamCasePoList =  jsonParamCaseDao.findJsonParamCaseList(idList);
+        List<JsonParamCaseEntity> jsonParamCaseEntityList =  jsonParamCaseDao.findJsonParamCaseList(idList);
 
-        List<JsonParamCase> jsonParamCaseList =  BeanMapper.mapList(jsonParamCasePoList,JsonParamCase.class);
+        List<JsonParamCase> jsonParamCaseList =  BeanMapper.mapList(jsonParamCaseEntityList,JsonParamCase.class);
         return jsonParamCaseList;
     }
 
@@ -75,9 +75,9 @@ public class JsonParamCaseServiceImpl implements JsonParamCaseService {
 
     @Override
     public List<JsonParamCase> findAllJsonParamCase() {
-        List<JsonParamCasePo> jsonParamCasePoList =  jsonParamCaseDao.findAllJsonParamCase();
+        List<JsonParamCaseEntity> jsonParamCaseEntityList =  jsonParamCaseDao.findAllJsonParamCase();
 
-        List<JsonParamCase> jsonParamCaseList =  BeanMapper.mapList(jsonParamCasePoList,JsonParamCase.class);
+        List<JsonParamCase> jsonParamCaseList =  BeanMapper.mapList(jsonParamCaseEntityList,JsonParamCase.class);
 
         joinQuery.queryList(jsonParamCaseList);
         return jsonParamCaseList;
@@ -85,9 +85,9 @@ public class JsonParamCaseServiceImpl implements JsonParamCaseService {
 
     @Override
     public List<JsonParamCase> findJsonParamCaseList(JsonParamCaseQuery jsonParamCaseQuery) {
-        List<JsonParamCasePo> jsonParamCasePoList = jsonParamCaseDao.findJsonParamCaseList(jsonParamCaseQuery);
+        List<JsonParamCaseEntity> jsonParamCaseEntityList = jsonParamCaseDao.findJsonParamCaseList(jsonParamCaseQuery);
 
-        List<JsonParamCase> jsonParamCaseList = BeanMapper.mapList(jsonParamCasePoList,JsonParamCase.class);
+        List<JsonParamCase> jsonParamCaseList = BeanMapper.mapList(jsonParamCaseEntityList,JsonParamCase.class);
 
         joinQuery.queryList(jsonParamCaseList);
 
@@ -98,7 +98,7 @@ public class JsonParamCaseServiceImpl implements JsonParamCaseService {
     public Pagination<JsonParamCase> findJsonParamCasePage(JsonParamCaseQuery jsonParamCaseQuery) {
         Pagination<JsonParamCase> pg = new Pagination<>();
 
-        Pagination<JsonParamCasePo>  pagination = jsonParamCaseDao.findJsonParamCasePage(jsonParamCaseQuery);
+        Pagination<JsonParamCaseEntity>  pagination = jsonParamCaseDao.findJsonParamCasePage(jsonParamCaseQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<JsonParamCase> jsonParamCaseList = BeanMapper.mapList(pagination.getDataList(),JsonParamCase.class);

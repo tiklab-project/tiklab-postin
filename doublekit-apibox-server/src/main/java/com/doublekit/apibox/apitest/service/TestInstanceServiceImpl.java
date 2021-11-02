@@ -1,7 +1,7 @@
 package com.doublekit.apibox.apitest.service;
 
 import com.doublekit.apibox.apitest.dao.TestInstanceDao;
-import com.doublekit.apibox.apitest.entity.TestInstancePo;
+import com.doublekit.apibox.apitest.entity.TestInstanceEntity;
 import com.doublekit.apibox.apitest.model.*;
 
 import com.doublekit.common.Pagination;
@@ -40,9 +40,9 @@ public class TestInstanceServiceImpl implements TestInstanceService {
 
     @Override
     public String createTestInstance(@NotNull @Valid TestInstance testInstance) {
-        TestInstancePo testInstancePo = BeanMapper.map(testInstance, TestInstancePo.class);
+        TestInstanceEntity testInstanceEntity = BeanMapper.map(testInstance, TestInstanceEntity.class);
 
-        return testInstanceDao.createTestInstance(testInstancePo);
+        return testInstanceDao.createTestInstance(testInstanceEntity);
     }
 
     @Override
@@ -81,9 +81,9 @@ public class TestInstanceServiceImpl implements TestInstanceService {
 
     @Override
     public void updateTestInstance(@NotNull @Valid TestInstance testInstance) {
-        TestInstancePo testInstancePo = BeanMapper.map(testInstance, TestInstancePo.class);
+        TestInstanceEntity testInstanceEntity = BeanMapper.map(testInstance, TestInstanceEntity.class);
 
-        testInstanceDao.updateTestInstance(testInstancePo);
+        testInstanceDao.updateTestInstance(testInstanceEntity);
     }
 
     @Override
@@ -93,17 +93,17 @@ public class TestInstanceServiceImpl implements TestInstanceService {
 
     @Override
     public TestInstance findOne(String id) {
-        TestInstancePo testInstancePo = testInstanceDao.findTestInstance(id);
+        TestInstanceEntity testInstanceEntity = testInstanceDao.findTestInstance(id);
 
-        TestInstance testInstance = BeanMapper.map(testInstancePo, TestInstance.class);
+        TestInstance testInstance = BeanMapper.map(testInstanceEntity, TestInstance.class);
         return testInstance;
     }
 
     @Override
     public List<TestInstance> findList(List<String> idList) {
-        List<TestInstancePo> testInstancePoList =  testInstanceDao.findTestInstanceList(idList);
+        List<TestInstanceEntity> testInstanceEntityList =  testInstanceDao.findTestInstanceList(idList);
 
-        List<TestInstance> testInstanceList =  BeanMapper.mapList(testInstancePoList,TestInstance.class);
+        List<TestInstance> testInstanceList =  BeanMapper.mapList(testInstanceEntityList,TestInstance.class);
         return testInstanceList;
     }
 
@@ -145,9 +145,9 @@ public class TestInstanceServiceImpl implements TestInstanceService {
 
     @Override
     public List<TestInstance> findAllTestInstance() {
-        List<TestInstancePo> testInstancePoList =  testInstanceDao.findAllTestInstance();
+        List<TestInstanceEntity> testInstanceEntityList =  testInstanceDao.findAllTestInstance();
 
-        List<TestInstance> testInstanceList =  BeanMapper.mapList(testInstancePoList,TestInstance.class);
+        List<TestInstance> testInstanceList =  BeanMapper.mapList(testInstanceEntityList,TestInstance.class);
 
         joinQuery.queryList(testInstanceList);
         return testInstanceList;
@@ -155,9 +155,9 @@ public class TestInstanceServiceImpl implements TestInstanceService {
 
     @Override
     public List<TestInstance> findTestInstanceList(TestInstanceQuery testInstanceQuery) {
-        List<TestInstancePo> testInstancePoList = testInstanceDao.findTestInstanceList(testInstanceQuery);
+        List<TestInstanceEntity> testInstanceEntityList = testInstanceDao.findTestInstanceList(testInstanceQuery);
 
-        List<TestInstance> testInstanceList = BeanMapper.mapList(testInstancePoList,TestInstance.class);
+        List<TestInstance> testInstanceList = BeanMapper.mapList(testInstanceEntityList,TestInstance.class);
 
         joinQuery.queryList(testInstanceList);
 
@@ -168,7 +168,7 @@ public class TestInstanceServiceImpl implements TestInstanceService {
     public Pagination<TestInstance> findTestInstancePage(TestInstanceQuery testInstanceQuery) {
         Pagination<TestInstance> pg = new Pagination<>();
 
-        Pagination<TestInstancePo>  pagination = testInstanceDao.findTestInstancePage(testInstanceQuery);
+        Pagination<TestInstanceEntity>  pagination = testInstanceDao.findTestInstancePage(testInstanceQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<TestInstance> testInstanceList = BeanMapper.mapList(pagination.getDataList(),TestInstance.class);

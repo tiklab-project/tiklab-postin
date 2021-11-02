@@ -1,7 +1,7 @@
 package com.doublekit.apibox.apitest.dao;
 
 import com.doublekit.common.Pagination;
-import com.doublekit.apibox.apitest.entity.TestcasePo;
+import com.doublekit.apibox.apitest.entity.TestcaseEntity;
 import com.doublekit.apibox.apitest.model.TestcaseQuery;
 import com.doublekit.dal.jpa.JpaTemplate;
 import org.slf4j.Logger;
@@ -24,19 +24,19 @@ public class TestcaseDao{
 
     /**
      * 创建用户
-     * @param testcasePo
+     * @param testcaseEntity
      * @return
      */
-    public String createTestcase(TestcasePo testcasePo) {
-        return jpaTemplate.save(testcasePo,String.class);
+    public String createTestcase(TestcaseEntity testcaseEntity) {
+        return jpaTemplate.save(testcaseEntity,String.class);
     }
 
     /**
      * 更新用户
-     * @param testcasePo
+     * @param testcaseEntity
      */
-    public void updateTestcase(TestcasePo testcasePo){
-        jpaTemplate.update(testcasePo);
+    public void updateTestcase(TestcaseEntity testcaseEntity){
+        jpaTemplate.update(testcaseEntity);
     }
 
     /**
@@ -44,7 +44,7 @@ public class TestcaseDao{
      * @param id
      */
     public void deleteTestcase(String id){
-        jpaTemplate.delete(TestcasePo.class,id);
+        jpaTemplate.delete(TestcaseEntity.class,id);
     }
 
     /**
@@ -52,27 +52,27 @@ public class TestcaseDao{
      * @param id
      * @return
      */
-    public TestcasePo findTestcase(String id){
-        return jpaTemplate.findOne(TestcasePo.class,id);
+    public TestcaseEntity findTestcase(String id){
+        return jpaTemplate.findOne(TestcaseEntity.class,id);
     }
 
     /**
     * findAllTestcase
     * @return
     */
-    public List<TestcasePo> findAllTestcase() {
-        return jpaTemplate.findAll(TestcasePo.class);
+    public List<TestcaseEntity> findAllTestcase() {
+        return jpaTemplate.findAll(TestcaseEntity.class);
     }
 
-    public List<TestcasePo> findTestcaseList(List<String> idList) {
-        return jpaTemplate.findList(TestcasePo.class,idList);
+    public List<TestcaseEntity> findTestcaseList(List<String> idList) {
+        return jpaTemplate.findList(TestcaseEntity.class,idList);
     }
 
-    public List<TestcasePo> findTestcaseList(TestcaseQuery testcaseQuery) {
-        return jpaTemplate.findList(TestcasePo.class,testcaseQuery);
+    public List<TestcaseEntity> findTestcaseList(TestcaseQuery testcaseQuery) {
+        return jpaTemplate.findList(TestcaseEntity.class,testcaseQuery);
     }
 
-    public Pagination<TestcasePo> findTestcasePage(TestcaseQuery testcaseQuery) {
-        return jpaTemplate.findPage(TestcasePo.class,testcaseQuery);
+    public Pagination<TestcaseEntity> findTestcasePage(TestcaseQuery testcaseQuery) {
+        return jpaTemplate.findPage(TestcaseEntity.class,testcaseQuery);
     }
 }

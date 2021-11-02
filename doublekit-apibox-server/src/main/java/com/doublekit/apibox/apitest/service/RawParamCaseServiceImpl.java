@@ -1,7 +1,7 @@
 package com.doublekit.apibox.apitest.service;
 
 import com.doublekit.apibox.apitest.dao.RawParamCaseDao;
-import com.doublekit.apibox.apitest.entity.RawParamCasePo;
+import com.doublekit.apibox.apitest.entity.RawParamCaseEntity;
 import com.doublekit.apibox.apitest.model.RawParamCase;
 import com.doublekit.apibox.apitest.model.RawParamCaseQuery;
 
@@ -31,16 +31,16 @@ public class RawParamCaseServiceImpl implements RawParamCaseService {
 
     @Override
     public String createRawParamCase(@NotNull @Valid RawParamCase rawParamCase) {
-        RawParamCasePo rawParamCasePo = BeanMapper.map(rawParamCase, RawParamCasePo.class);
+        RawParamCaseEntity rawParamCaseEntity = BeanMapper.map(rawParamCase, RawParamCaseEntity.class);
 
-        return rawParamCaseDao.createRawParamCase(rawParamCasePo);
+        return rawParamCaseDao.createRawParamCase(rawParamCaseEntity);
     }
 
     @Override
     public void updateRawParamCase(@NotNull @Valid RawParamCase rawParamCase) {
-        RawParamCasePo rawParamCasePo = BeanMapper.map(rawParamCase, RawParamCasePo.class);
+        RawParamCaseEntity rawParamCaseEntity = BeanMapper.map(rawParamCase, RawParamCaseEntity.class);
 
-        rawParamCaseDao.updateRawParamCase(rawParamCasePo);
+        rawParamCaseDao.updateRawParamCase(rawParamCaseEntity);
     }
 
     @Override
@@ -50,17 +50,17 @@ public class RawParamCaseServiceImpl implements RawParamCaseService {
 
     @Override
     public RawParamCase findOne(String id) {
-        RawParamCasePo rawParamCasePo = rawParamCaseDao.findRawParamCase(id);
+        RawParamCaseEntity rawParamCaseEntity = rawParamCaseDao.findRawParamCase(id);
 
-        RawParamCase rawParamCase = BeanMapper.map(rawParamCasePo, RawParamCase.class);
+        RawParamCase rawParamCase = BeanMapper.map(rawParamCaseEntity, RawParamCase.class);
         return rawParamCase;
     }
 
     @Override
     public List<RawParamCase> findList(List<String> idList) {
-        List<RawParamCasePo> rawParamCasePoList =  rawParamCaseDao.findRawParamCaseList(idList);
+        List<RawParamCaseEntity> rawParamCaseEntityList =  rawParamCaseDao.findRawParamCaseList(idList);
 
-        List<RawParamCase> rawParamCaseList =  BeanMapper.mapList(rawParamCasePoList,RawParamCase.class);
+        List<RawParamCase> rawParamCaseList =  BeanMapper.mapList(rawParamCaseEntityList,RawParamCase.class);
         return rawParamCaseList;
     }
 
@@ -74,9 +74,9 @@ public class RawParamCaseServiceImpl implements RawParamCaseService {
 
     @Override
     public List<RawParamCase> findAllRawParamCase() {
-        List<RawParamCasePo> rawParamCasePoList =  rawParamCaseDao.findAllRawParamCase();
+        List<RawParamCaseEntity> rawParamCaseEntityList =  rawParamCaseDao.findAllRawParamCase();
 
-        List<RawParamCase> rawParamCaseList =  BeanMapper.mapList(rawParamCasePoList,RawParamCase.class);
+        List<RawParamCase> rawParamCaseList =  BeanMapper.mapList(rawParamCaseEntityList,RawParamCase.class);
 
         joinQuery.queryList(rawParamCaseList);
         return rawParamCaseList;
@@ -84,9 +84,9 @@ public class RawParamCaseServiceImpl implements RawParamCaseService {
 
     @Override
     public List<RawParamCase> findRawParamCaseList(RawParamCaseQuery rawParamCaseQuery) {
-        List<RawParamCasePo> rawParamCasePoList = rawParamCaseDao.findRawParamCaseList(rawParamCaseQuery);
+        List<RawParamCaseEntity> rawParamCaseEntityList = rawParamCaseDao.findRawParamCaseList(rawParamCaseQuery);
 
-        List<RawParamCase> rawParamCaseList = BeanMapper.mapList(rawParamCasePoList,RawParamCase.class);
+        List<RawParamCase> rawParamCaseList = BeanMapper.mapList(rawParamCaseEntityList,RawParamCase.class);
 
         joinQuery.queryList(rawParamCaseList);
 
@@ -97,7 +97,7 @@ public class RawParamCaseServiceImpl implements RawParamCaseService {
     public Pagination<RawParamCase> findRawParamCasePage(RawParamCaseQuery rawParamCaseQuery) {
         Pagination<RawParamCase> pg = new Pagination<>();
 
-        Pagination<RawParamCasePo>  pagination = rawParamCaseDao.findRawParamCasePage(rawParamCaseQuery);
+        Pagination<RawParamCaseEntity>  pagination = rawParamCaseDao.findRawParamCasePage(rawParamCaseQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<RawParamCase> rawParamCaseList = BeanMapper.mapList(pagination.getDataList(),RawParamCase.class);

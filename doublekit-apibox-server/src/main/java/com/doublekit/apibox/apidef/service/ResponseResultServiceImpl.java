@@ -1,7 +1,7 @@
 package com.doublekit.apibox.apidef.service;
 
 import com.doublekit.apibox.apidef.dao.ResponseResultDao;
-import com.doublekit.apibox.apidef.entity.ResponseResultPo;
+import com.doublekit.apibox.apidef.entity.ResponseResultEntity;
 import com.doublekit.apibox.apidef.model.ResponseResult;
 import com.doublekit.apibox.apidef.model.ResponseResultQuery;
 
@@ -31,16 +31,16 @@ public class ResponseResultServiceImpl implements ResponseResultService {
 
     @Override
     public String createResponseResult(@NotNull @Valid ResponseResult responseResult) {
-        ResponseResultPo responseResultPo = BeanMapper.map(responseResult, ResponseResultPo.class);
+        ResponseResultEntity responseResultEntity = BeanMapper.map(responseResult, ResponseResultEntity.class);
 
-        return responseResultDao.createResponseResult(responseResultPo);
+        return responseResultDao.createResponseResult(responseResultEntity);
     }
 
     @Override
     public void updateResponseResult(@NotNull @Valid ResponseResult responseResult) {
-        ResponseResultPo responseResultPo = BeanMapper.map(responseResult, ResponseResultPo.class);
+        ResponseResultEntity responseResultEntity = BeanMapper.map(responseResult, ResponseResultEntity.class);
 
-        responseResultDao.updateResponseResult(responseResultPo);
+        responseResultDao.updateResponseResult(responseResultEntity);
     }
 
     @Override
@@ -50,9 +50,9 @@ public class ResponseResultServiceImpl implements ResponseResultService {
 
     @Override
     public ResponseResult findResponseResult(@NotNull String id) {
-        ResponseResultPo responseResultPo = responseResultDao.findResponseResult(id);
+        ResponseResultEntity responseResultEntity = responseResultDao.findResponseResult(id);
 
-        ResponseResult responseResult = BeanMapper.map(responseResultPo, ResponseResult.class);
+        ResponseResult responseResult = BeanMapper.map(responseResultEntity, ResponseResult.class);
 
         joinQuery.queryOne(responseResult);
 
@@ -61,9 +61,9 @@ public class ResponseResultServiceImpl implements ResponseResultService {
 
     @Override
     public List<ResponseResult> findAllResponseResult() {
-        List<ResponseResultPo> responseResultPoList =  responseResultDao.findAllResponseResult();
+        List<ResponseResultEntity> responseResultEntityList =  responseResultDao.findAllResponseResult();
 
-        List<ResponseResult> responseResultList =  BeanMapper.mapList(responseResultPoList,ResponseResult.class);
+        List<ResponseResult> responseResultList =  BeanMapper.mapList(responseResultEntityList,ResponseResult.class);
 
         joinQuery.queryList(responseResultList);
 
@@ -72,9 +72,9 @@ public class ResponseResultServiceImpl implements ResponseResultService {
 
     @Override
     public List<ResponseResult> findResponseResultList(ResponseResultQuery responseResultQuery) {
-        List<ResponseResultPo> responseResultPoList = responseResultDao.findResponseResultList(responseResultQuery);
+        List<ResponseResultEntity> responseResultEntityList = responseResultDao.findResponseResultList(responseResultQuery);
 
-        List<ResponseResult> responseResultList = BeanMapper.mapList(responseResultPoList,ResponseResult.class);
+        List<ResponseResult> responseResultList = BeanMapper.mapList(responseResultEntityList,ResponseResult.class);
 
         joinQuery.queryList(responseResultList);
 
@@ -85,7 +85,7 @@ public class ResponseResultServiceImpl implements ResponseResultService {
     public Pagination<ResponseResult> findResponseResultPage(ResponseResultQuery responseResultQuery) {
         Pagination<ResponseResult> pg = new Pagination<>();
 
-        Pagination<ResponseResultPo>  pagination = responseResultDao.findResponseResultPage(responseResultQuery);
+        Pagination<ResponseResultEntity>  pagination = responseResultDao.findResponseResultPage(responseResultQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<ResponseResult> responseResultList = BeanMapper.mapList(pagination.getDataList(),ResponseResult.class);

@@ -18,7 +18,7 @@ import javax.validation.constraints.NotNull;
 import java.sql.Date;
 
 @ApiModel
-//@Mapper(target = "com.doublekit.apibox.apidef.entity.MethodPo")
+//@Mapper(target = "com.doublekit.apibox.apidef.entity.MethodEntity")
 @Join
 @Index
 public class MethodEx extends BaseModel {

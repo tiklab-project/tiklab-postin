@@ -1,8 +1,8 @@
 package com.doublekit.apibox.apidef.service;
 
 import com.doublekit.apibox.apidef.dao.JsonResponseDao;
-import com.doublekit.apibox.apidef.entity.JsonResponsePo;
-import com.doublekit.apibox.apidef.entity.MethodPo;
+import com.doublekit.apibox.apidef.entity.JsonResponseEntity;
+import com.doublekit.apibox.apidef.entity.MethodEntity;
 import com.doublekit.apibox.apidef.model.JsonResponse;
 import com.doublekit.apibox.apidef.model.JsonResponseQuery;
 import com.doublekit.apibox.apidef.model.MethodEx;
@@ -32,16 +32,16 @@ public class JsonResponseServiceImpl implements JsonResponseService {
 
     @Override
     public String createJsonResponse(@NotNull @Valid JsonResponse jsonResponse) {
-        JsonResponsePo jsonResponsePo = BeanMapper.map(jsonResponse, JsonResponsePo.class);
+        JsonResponseEntity jsonResponseEntity = BeanMapper.map(jsonResponse, JsonResponseEntity.class);
 
-        return jsonResponseDao.createJsonResponse(jsonResponsePo);
+        return jsonResponseDao.createJsonResponse(jsonResponseEntity);
     }
 
     @Override
     public void updateJsonResponse(@NotNull @Valid JsonResponse jsonResponse) {
-        JsonResponsePo jsonResponsePo = BeanMapper.map(jsonResponse, JsonResponsePo.class);
+        JsonResponseEntity jsonResponseEntity = BeanMapper.map(jsonResponse, JsonResponseEntity.class);
 
-        jsonResponseDao.updateJsonResponse(jsonResponsePo);
+        jsonResponseDao.updateJsonResponse(jsonResponseEntity);
     }
 
     @Override
@@ -51,9 +51,9 @@ public class JsonResponseServiceImpl implements JsonResponseService {
 
     @Override
     public JsonResponse findJsonResponse(@NotNull String id) {
-        JsonResponsePo jsonResponsePo = jsonResponseDao.findJsonResponse(id);
+        JsonResponseEntity jsonResponseEntity = jsonResponseDao.findJsonResponse(id);
 
-        JsonResponse jsonResponse = BeanMapper.map(jsonResponsePo, JsonResponse.class);
+        JsonResponse jsonResponse = BeanMapper.map(jsonResponseEntity, JsonResponse.class);
 
         joinQuery.queryOne(jsonResponse);
 
@@ -62,9 +62,9 @@ public class JsonResponseServiceImpl implements JsonResponseService {
 
     @Override
     public List<JsonResponse> findAllJsonResponse() {
-        List<JsonResponsePo> jsonResponsePoList =  jsonResponseDao.findAllJsonResponse();
+        List<JsonResponseEntity> jsonResponseEntityList =  jsonResponseDao.findAllJsonResponse();
 
-        List<JsonResponse> jsonResponseList = BeanMapper.mapList(jsonResponsePoList, JsonResponse.class);
+        List<JsonResponse> jsonResponseList = BeanMapper.mapList(jsonResponseEntityList, JsonResponse.class);
 
         joinQuery.queryList(jsonResponseList);
 
@@ -73,9 +73,9 @@ public class JsonResponseServiceImpl implements JsonResponseService {
 
     @Override
     public List<JsonResponse> findJsonResponseList(JsonResponseQuery jsonResponseQuery) {
-        List<JsonResponsePo> jsonResponsePoList = jsonResponseDao.findJsonResponseList(jsonResponseQuery);
+        List<JsonResponseEntity> jsonResponseEntityList = jsonResponseDao.findJsonResponseList(jsonResponseQuery);
 
-        List<JsonResponse> jsonResponseList = BeanMapper.mapList(jsonResponsePoList, JsonResponse.class);
+        List<JsonResponse> jsonResponseList = BeanMapper.mapList(jsonResponseEntityList, JsonResponse.class);
 
         joinQuery.queryList(jsonResponseList);
 
@@ -86,7 +86,7 @@ public class JsonResponseServiceImpl implements JsonResponseService {
     public Pagination<JsonResponse> findJsonResponsePage(JsonResponseQuery jsonResponseQuery) {
         Pagination<JsonResponse> pg = new Pagination<>();
 
-        Pagination<JsonResponsePo>  pagination = jsonResponseDao.findJsonResponsePage(jsonResponseQuery);
+        Pagination<JsonResponseEntity>  pagination = jsonResponseDao.findJsonResponsePage(jsonResponseQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<JsonResponse> jsonResponseList = BeanMapper.mapList(pagination.getDataList(), JsonResponse.class);
@@ -116,7 +116,7 @@ public class JsonResponseServiceImpl implements JsonResponseService {
 
     @Override
     public List<JsonResponse> findList(List<String> idList) {
-        List<MethodPo> jsonResponseList = jsonResponseDao.findJsonResponseList(idList);
+        List<MethodEntity> jsonResponseList = jsonResponseDao.findJsonResponseList(idList);
 
         List<JsonResponse> jsonResponses = BeanMapper.mapList(jsonResponseList, JsonResponse.class);
 

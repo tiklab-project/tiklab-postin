@@ -1,6 +1,6 @@
 package com.doublekit.apibox.workspace.dao;
 
-import com.doublekit.apibox.workspace.entity.WorkspacePo;
+import com.doublekit.apibox.workspace.entity.WorkspaceEntity;
 import com.doublekit.apibox.workspace.model.WorkspaceQuery;
 import com.doublekit.common.Pagination;
 import com.doublekit.dal.jpa.JpaTemplate;
@@ -24,19 +24,19 @@ public class WorkspaceDao{
 
     /**
      * 创建用户
-     * @param workspacePo
+     * @param workspaceEntity
      * @return
      */
-    public String createWorkspace(WorkspacePo workspacePo) {
-        return jpaTemplate.save(workspacePo,String.class);
+    public String createWorkspace(WorkspaceEntity workspaceEntity) {
+        return jpaTemplate.save(workspaceEntity,String.class);
     }
 
     /**
      * 更新用户
-     * @param workspacePo
+     * @param workspaceEntity
      */
-    public void updateWorkspace(WorkspacePo workspacePo){
-        jpaTemplate.update(workspacePo);
+    public void updateWorkspace(WorkspaceEntity workspaceEntity){
+        jpaTemplate.update(workspaceEntity);
     }
 
     /**
@@ -44,7 +44,7 @@ public class WorkspaceDao{
      * @param id
      */
     public void deleteWorkspace(String id){
-        jpaTemplate.delete(WorkspacePo.class,id);
+        jpaTemplate.delete(WorkspaceEntity.class,id);
     }
 
     /**
@@ -52,27 +52,27 @@ public class WorkspaceDao{
      * @param id
      * @return
      */
-    public WorkspacePo findWorkspace(String id){
-        return jpaTemplate.findOne(WorkspacePo.class,id);
+    public WorkspaceEntity findWorkspace(String id){
+        return jpaTemplate.findOne(WorkspaceEntity.class,id);
     }
 
     /**
     * findAllWorkspace
     * @return
     */
-    public List<WorkspacePo> findAllWorkspace() {
-        return jpaTemplate.findAll(WorkspacePo.class);
+    public List<WorkspaceEntity> findAllWorkspace() {
+        return jpaTemplate.findAll(WorkspaceEntity.class);
     }
 
-    public List<WorkspacePo> findWorkspaceList(List<String> idList) {
-        return jpaTemplate.findList(WorkspacePo.class,idList);
+    public List<WorkspaceEntity> findWorkspaceList(List<String> idList) {
+        return jpaTemplate.findList(WorkspaceEntity.class,idList);
     }
 
-    public List<WorkspacePo> findWorkspaceList(WorkspaceQuery workspaceQuery) {
-        return jpaTemplate.findList(WorkspacePo.class,workspaceQuery);
+    public List<WorkspaceEntity> findWorkspaceList(WorkspaceQuery workspaceQuery) {
+        return jpaTemplate.findList(WorkspaceEntity.class,workspaceQuery);
     }
 
-    public Pagination<WorkspacePo> findWorkspacePage(WorkspaceQuery workspaceQuery) {
-        return jpaTemplate.findPage(WorkspacePo.class,workspaceQuery);
+    public Pagination<WorkspaceEntity> findWorkspacePage(WorkspaceQuery workspaceQuery) {
+        return jpaTemplate.findPage(WorkspaceEntity.class,workspaceQuery);
     }
 }

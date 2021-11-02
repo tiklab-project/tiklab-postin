@@ -1,7 +1,7 @@
 package com.doublekit.apibox.datastructure.dao;
 
 import com.doublekit.common.Pagination;
-import com.doublekit.apibox.datastructure.entity.DataStructurePo;
+import com.doublekit.apibox.datastructure.entity.DataStructureEntity;
 import com.doublekit.apibox.datastructure.model.DataStructureQuery;
 import com.doublekit.dal.jpa.JpaTemplate;
 import com.doublekit.dal.jpa.builder.deletelist.condition.*;
@@ -25,19 +25,19 @@ public class DataStructureDao{
 
     /**
      * 创建
-     * @param dataStructurePo
+     * @param dataStructureEntity
      * @return
      */
-    public String createDataStructure(DataStructurePo dataStructurePo) {
-        return jpaTemplate.save(dataStructurePo,String.class);
+    public String createDataStructure(DataStructureEntity dataStructureEntity) {
+        return jpaTemplate.save(dataStructureEntity,String.class);
     }
 
     /**
      * 更新
-     * @param dataStructurePo
+     * @param dataStructureEntity
      */
-    public void updateDataStructure(DataStructurePo dataStructurePo){
-        jpaTemplate.update(dataStructurePo);
+    public void updateDataStructure(DataStructureEntity dataStructureEntity){
+        jpaTemplate.update(dataStructureEntity);
     }
 
     /**
@@ -45,11 +45,11 @@ public class DataStructureDao{
      * @param id
      */
     public void deleteDataStructure(String id){
-        jpaTemplate.delete(DataStructurePo.class,id);
+        jpaTemplate.delete(DataStructureEntity.class,id);
     }
 
     public void deleteDataStructure(DeleteCondition deleteCondition){
-        jpaTemplate.delete(DataStructurePo.class,deleteCondition);
+        jpaTemplate.delete(DataStructureEntity.class,deleteCondition);
     }
 
     /**
@@ -57,27 +57,27 @@ public class DataStructureDao{
      * @param id
      * @return
      */
-    public DataStructurePo findDataStructure(String id){
-        return jpaTemplate.findOne(DataStructurePo.class,id);
+    public DataStructureEntity findDataStructure(String id){
+        return jpaTemplate.findOne(DataStructureEntity.class,id);
     }
 
     /**
     * findAllDataStructure
     * @return
     */
-    public List<DataStructurePo> findAllDataStructure() {
-        return jpaTemplate.findAll(DataStructurePo.class);
+    public List<DataStructureEntity> findAllDataStructure() {
+        return jpaTemplate.findAll(DataStructureEntity.class);
     }
 
-    public List<DataStructurePo> findDataStructureList(List<String> idList) {
-        return jpaTemplate.findList(DataStructurePo.class,idList);
+    public List<DataStructureEntity> findDataStructureList(List<String> idList) {
+        return jpaTemplate.findList(DataStructureEntity.class,idList);
     }
 
-    public List<DataStructurePo> findDataStructureList(DataStructureQuery dataStructureQuery) {
-        return jpaTemplate.findList(DataStructurePo.class,dataStructureQuery);
+    public List<DataStructureEntity> findDataStructureList(DataStructureQuery dataStructureQuery) {
+        return jpaTemplate.findList(DataStructureEntity.class,dataStructureQuery);
     }
 
-    public Pagination<DataStructurePo> findDataStructurePage(DataStructureQuery dataStructureQuery) {
-        return jpaTemplate.findPage(DataStructurePo.class,dataStructureQuery);
+    public Pagination<DataStructureEntity> findDataStructurePage(DataStructureQuery dataStructureQuery) {
+        return jpaTemplate.findPage(DataStructureEntity.class,dataStructureQuery);
     }
 }

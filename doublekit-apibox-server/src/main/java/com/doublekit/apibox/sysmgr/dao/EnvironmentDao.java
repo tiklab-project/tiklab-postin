@@ -1,7 +1,7 @@
 package com.doublekit.apibox.sysmgr.dao;
 
 import com.doublekit.common.Pagination;
-import com.doublekit.apibox.sysmgr.entity.EnvironmentPo;
+import com.doublekit.apibox.sysmgr.entity.EnvironmentEntity;
 import com.doublekit.apibox.sysmgr.model.EnvironmentQuery;
 import com.doublekit.dal.jpa.JpaTemplate;
 import com.doublekit.dal.jpa.builder.deletelist.condition.DeleteCondition;
@@ -25,19 +25,19 @@ public class EnvironmentDao{
 
     /**
      * 创建用户
-     * @param environmentPo
+     * @param environmentEntity
      * @return
      */
-    public String createEnvironment(EnvironmentPo environmentPo) {
-        return jpaTemplate.save(environmentPo,String.class);
+    public String createEnvironment(EnvironmentEntity environmentEntity) {
+        return jpaTemplate.save(environmentEntity,String.class);
     }
 
     /**
      * 更新用户
-     * @param environmentPo
+     * @param environmentEntity
      */
-    public void updateEnvironment(EnvironmentPo environmentPo){
-        jpaTemplate.update(environmentPo);
+    public void updateEnvironment(EnvironmentEntity environmentEntity){
+        jpaTemplate.update(environmentEntity);
     }
 
     /**
@@ -45,11 +45,11 @@ public class EnvironmentDao{
      * @param id
      */
     public void deleteEnvironment(String id){
-        jpaTemplate.delete(EnvironmentPo.class,id);
+        jpaTemplate.delete(EnvironmentEntity.class,id);
     }
 
     public void deleteEnvironment(DeleteCondition deleteCondition){
-        jpaTemplate.delete(EnvironmentPo.class,deleteCondition);
+        jpaTemplate.delete(EnvironmentEntity.class,deleteCondition);
     }
 
     /**
@@ -57,27 +57,27 @@ public class EnvironmentDao{
      * @param id
      * @return
      */
-    public EnvironmentPo findEnvironment(String id){
-        return jpaTemplate.findOne(EnvironmentPo.class,id);
+    public EnvironmentEntity findEnvironment(String id){
+        return jpaTemplate.findOne(EnvironmentEntity.class,id);
     }
 
     /**
     * findAllEnvironment
     * @return
     */
-    public List<EnvironmentPo> findAllEnvironment() {
-        return jpaTemplate.findAll(EnvironmentPo.class);
+    public List<EnvironmentEntity> findAllEnvironment() {
+        return jpaTemplate.findAll(EnvironmentEntity.class);
     }
 
-    public List<EnvironmentPo> findEnvironmentList(List<String> idList) {
-        return jpaTemplate.findList(EnvironmentPo.class,idList);
+    public List<EnvironmentEntity> findEnvironmentList(List<String> idList) {
+        return jpaTemplate.findList(EnvironmentEntity.class,idList);
     }
 
-    public List<EnvironmentPo> findEnvironmentList(EnvironmentQuery environmentQuery) {
-        return jpaTemplate.findList(EnvironmentPo.class,environmentQuery);
+    public List<EnvironmentEntity> findEnvironmentList(EnvironmentQuery environmentQuery) {
+        return jpaTemplate.findList(EnvironmentEntity.class,environmentQuery);
     }
 
-    public Pagination<EnvironmentPo> findEnvironmentPage(EnvironmentQuery environmentQuery) {
-        return jpaTemplate.findPage(EnvironmentPo.class,environmentQuery);
+    public Pagination<EnvironmentEntity> findEnvironmentPage(EnvironmentQuery environmentQuery) {
+        return jpaTemplate.findPage(EnvironmentEntity.class,environmentQuery);
     }
 }

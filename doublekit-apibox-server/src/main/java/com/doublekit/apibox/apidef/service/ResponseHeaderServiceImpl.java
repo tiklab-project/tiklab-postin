@@ -1,7 +1,7 @@
 package com.doublekit.apibox.apidef.service;
 
 import com.doublekit.apibox.apidef.dao.ResponseHeaderDao;
-import com.doublekit.apibox.apidef.entity.ResponseHeaderPo;
+import com.doublekit.apibox.apidef.entity.ResponseHeaderEntity;
 import com.doublekit.apibox.apidef.model.ResponseHeader;
 import com.doublekit.apibox.apidef.model.ResponseHeaderQuery;
 
@@ -31,16 +31,16 @@ public class ResponseHeaderServiceImpl implements ResponseHeaderService {
 
     @Override
     public String createResponseHeader(@NotNull @Valid ResponseHeader responseHeader) {
-        ResponseHeaderPo responseHeaderPo = BeanMapper.map(responseHeader, ResponseHeaderPo.class);
+        ResponseHeaderEntity responseHeaderEntity = BeanMapper.map(responseHeader, ResponseHeaderEntity.class);
 
-        return responseHeaderDao.createResponseHeader(responseHeaderPo);
+        return responseHeaderDao.createResponseHeader(responseHeaderEntity);
     }
 
     @Override
     public void updateResponseHeader(@NotNull @Valid ResponseHeader responseHeader) {
-        ResponseHeaderPo responseHeaderPo = BeanMapper.map(responseHeader, ResponseHeaderPo.class);
+        ResponseHeaderEntity responseHeaderEntity = BeanMapper.map(responseHeader, ResponseHeaderEntity.class);
 
-        responseHeaderDao.updateResponseHeader(responseHeaderPo);
+        responseHeaderDao.updateResponseHeader(responseHeaderEntity);
     }
 
     @Override
@@ -50,9 +50,9 @@ public class ResponseHeaderServiceImpl implements ResponseHeaderService {
 
     @Override
     public ResponseHeader findResponseHeader(@NotNull String id) {
-        ResponseHeaderPo responseHeaderPo = responseHeaderDao.findResponseHeader(id);
+        ResponseHeaderEntity responseHeaderEntity = responseHeaderDao.findResponseHeader(id);
 
-        ResponseHeader responseHeader = BeanMapper.map(responseHeaderPo, ResponseHeader.class);
+        ResponseHeader responseHeader = BeanMapper.map(responseHeaderEntity, ResponseHeader.class);
 
         joinQuery.queryOne(responseHeader);
 
@@ -61,9 +61,9 @@ public class ResponseHeaderServiceImpl implements ResponseHeaderService {
 
     @Override
     public List<ResponseHeader> findAllResponseHeader() {
-        List<ResponseHeaderPo> responseHeaderPoList =  responseHeaderDao.findAllResponseHeader();
+        List<ResponseHeaderEntity> responseHeaderEntityList =  responseHeaderDao.findAllResponseHeader();
 
-        List<ResponseHeader> responseHeaderList = BeanMapper.mapList(responseHeaderPoList,ResponseHeader.class);
+        List<ResponseHeader> responseHeaderList = BeanMapper.mapList(responseHeaderEntityList,ResponseHeader.class);
 
         joinQuery.queryList(responseHeaderList);
 
@@ -72,9 +72,9 @@ public class ResponseHeaderServiceImpl implements ResponseHeaderService {
 
     @Override
     public List<ResponseHeader> findResponseHeaderList(ResponseHeaderQuery responseHeaderQuery) {
-        List<ResponseHeaderPo> responseHeaderPoList = responseHeaderDao.findResponseHeaderList(responseHeaderQuery);
+        List<ResponseHeaderEntity> responseHeaderEntityList = responseHeaderDao.findResponseHeaderList(responseHeaderQuery);
 
-        List<ResponseHeader> responseHeaderList = BeanMapper.mapList(responseHeaderPoList,ResponseHeader.class);
+        List<ResponseHeader> responseHeaderList = BeanMapper.mapList(responseHeaderEntityList,ResponseHeader.class);
 
         joinQuery.queryList(responseHeaderList);
 
@@ -85,7 +85,7 @@ public class ResponseHeaderServiceImpl implements ResponseHeaderService {
     public Pagination<ResponseHeader> findResponseHeaderPage(ResponseHeaderQuery responseHeaderQuery) {
         Pagination<ResponseHeader> pg = new Pagination<>();
 
-        Pagination<ResponseHeaderPo>  pagination = responseHeaderDao.findResponseHeaderPage(responseHeaderQuery);
+        Pagination<ResponseHeaderEntity>  pagination = responseHeaderDao.findResponseHeaderPage(responseHeaderQuery);
         BeanUtils.copyProperties(pagination,pg);
 
         List<ResponseHeader> responseHeaderList = BeanMapper.mapList(pagination.getDataList(),ResponseHeader.class);

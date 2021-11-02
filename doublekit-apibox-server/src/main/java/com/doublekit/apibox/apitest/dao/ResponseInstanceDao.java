@@ -1,7 +1,7 @@
 package com.doublekit.apibox.apitest.dao;
 
 import com.doublekit.common.Pagination;
-import com.doublekit.apibox.apitest.entity.ResponseInstancePo;
+import com.doublekit.apibox.apitest.entity.ResponseInstanceEntity;
 import com.doublekit.apibox.apitest.model.ResponseInstanceQuery;
 import com.doublekit.dal.jpa.JpaTemplate;
 import org.slf4j.Logger;
@@ -24,19 +24,19 @@ public class ResponseInstanceDao{
 
     /**
      * 创建用户
-     * @param responseInstancePo
+     * @param responseInstanceEntity
      * @return
      */
-    public String createResponseInstance(ResponseInstancePo responseInstancePo) {
-        return jpaTemplate.save(responseInstancePo,String.class);
+    public String createResponseInstance(ResponseInstanceEntity responseInstanceEntity) {
+        return jpaTemplate.save(responseInstanceEntity,String.class);
     }
 
     /**
      * 更新用户
-     * @param responseInstancePo
+     * @param responseInstanceEntity
      */
-    public void updateResponseInstance(ResponseInstancePo responseInstancePo){
-        jpaTemplate.update(responseInstancePo);
+    public void updateResponseInstance(ResponseInstanceEntity responseInstanceEntity){
+        jpaTemplate.update(responseInstanceEntity);
     }
 
     /**
@@ -44,7 +44,7 @@ public class ResponseInstanceDao{
      * @param id
      */
     public void deleteResponseInstance(String id){
-        jpaTemplate.delete(ResponseInstancePo.class,id);
+        jpaTemplate.delete(ResponseInstanceEntity.class,id);
     }
 
     /**
@@ -52,27 +52,27 @@ public class ResponseInstanceDao{
      * @param id
      * @return
      */
-    public ResponseInstancePo findResponseInstance(String id){
-        return jpaTemplate.findOne(ResponseInstancePo.class,id);
+    public ResponseInstanceEntity findResponseInstance(String id){
+        return jpaTemplate.findOne(ResponseInstanceEntity.class,id);
     }
 
     /**
     * findAllResponseInstance
     * @return
     */
-    public List<ResponseInstancePo> findAllResponseInstance() {
-        return jpaTemplate.findAll(ResponseInstancePo.class);
+    public List<ResponseInstanceEntity> findAllResponseInstance() {
+        return jpaTemplate.findAll(ResponseInstanceEntity.class);
     }
 
-    public List<ResponseInstancePo> findResponseInstanceList(List<String> idList) {
-        return jpaTemplate.findList(ResponseInstancePo.class,idList);
+    public List<ResponseInstanceEntity> findResponseInstanceList(List<String> idList) {
+        return jpaTemplate.findList(ResponseInstanceEntity.class,idList);
     }
 
-    public List<ResponseInstancePo> findResponseInstanceList(ResponseInstanceQuery responseInstanceQuery) {
-        return jpaTemplate.findList(ResponseInstancePo.class,responseInstanceQuery);
+    public List<ResponseInstanceEntity> findResponseInstanceList(ResponseInstanceQuery responseInstanceQuery) {
+        return jpaTemplate.findList(ResponseInstanceEntity.class,responseInstanceQuery);
     }
 
-    public Pagination<ResponseInstancePo> findResponseInstancePage(ResponseInstanceQuery responseInstanceQuery) {
-        return jpaTemplate.findPage(ResponseInstancePo.class,responseInstanceQuery);
+    public Pagination<ResponseInstanceEntity> findResponseInstancePage(ResponseInstanceQuery responseInstanceQuery) {
+        return jpaTemplate.findPage(ResponseInstanceEntity.class,responseInstanceQuery);
     }
 }
