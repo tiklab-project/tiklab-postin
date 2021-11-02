@@ -12,7 +12,6 @@ import com.doublekit.join.annotation.JoinField;
 import javax.validation.constraints.NotNull;
 
 @ApiModel
-@Mapper
 @Join
 public class QueryParam extends BaseModel {
 

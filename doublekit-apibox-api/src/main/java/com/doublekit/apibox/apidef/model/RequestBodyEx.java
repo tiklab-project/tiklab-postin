@@ -11,7 +11,6 @@ import com.doublekit.join.annotation.JoinField;
 import javax.validation.constraints.NotNull;
 
 @ApiModel
-//@Mapper(target = "com.doublekit.apibox.apidef.entity.RequestBodyPo")
 @Join
 public class RequestBodyEx extends BaseModel {
 

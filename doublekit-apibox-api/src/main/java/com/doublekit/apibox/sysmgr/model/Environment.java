@@ -10,7 +10,6 @@ import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @ApiModel
-@Mapper
 @Join
 public class Environment extends BaseModel {
 

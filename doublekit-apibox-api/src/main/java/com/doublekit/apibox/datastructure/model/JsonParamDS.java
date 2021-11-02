@@ -14,7 +14,6 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @ApiModel
-@Mapper
 @Join
 public class JsonParamDS extends BaseModel{
 

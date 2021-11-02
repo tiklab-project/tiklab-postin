@@ -12,7 +12,6 @@ import com.doublekit.dss.annotation.IndexQueryField;
 import javax.validation.constraints.NotNull;
 
 @ApiModel
-@Mapper
 @Index
 public class Workspace extends BaseModel {
 

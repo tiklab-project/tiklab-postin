@@ -13,7 +13,6 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @ApiModel
-@Mapper
 @Join
 public class JsonParamCase extends BaseModel {
 
