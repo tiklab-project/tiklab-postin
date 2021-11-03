@@ -1,6 +1,6 @@
 package com.doublekit.apibox.datastructure.codegen;
 
-import com.doublekit.apibox.datastructure.entity.EnumParamEntity;
+import com.doublekit.apibox.sysmgr.datastructure.entity.EnumParamEntity;
 import com.doublekit.codegen.CodeGeneratorTemplate;
 import com.doublekit.codegen.config.ModuleGeneratorConfig;
 import com.doublekit.codegen.config.ProjectGeneratorConfig;

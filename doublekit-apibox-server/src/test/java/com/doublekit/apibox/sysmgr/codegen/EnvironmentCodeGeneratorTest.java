@@ -1,6 +1,6 @@
 package com.doublekit.apibox.sysmgr.codegen;
 
-import com.doublekit.apibox.sysmgr.entity.EnvironmentEntity;
+import com.doublekit.apibox.sysmgr.environment.entity.EnvironmentEntity;
 import com.doublekit.codegen.CodeGeneratorTemplate;
 import com.doublekit.codegen.config.ModuleGeneratorConfig;
 import com.doublekit.codegen.config.ProjectGeneratorConfig;
