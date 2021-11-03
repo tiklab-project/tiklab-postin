@@ -1,4 +1,4 @@
-package com.doublekit.apibox.sysmgr.codegen;
+package com.doublekit.apibox.sysmgr.environment.codegen;
 
 import com.doublekit.apibox.sysmgr.environment.entity.EnvironmentEntity;
 import com.doublekit.codegen.CodeGeneratorTemplate;

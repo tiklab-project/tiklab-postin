@@ -1,4 +1,4 @@
-package com.doublekit.apibox.datastructure.codegen;
+package com.doublekit.apibox.sysmgr.datastructure.codegen;
 
 import com.doublekit.apibox.sysmgr.datastructure.entity.EnumParamEntity;
 import com.doublekit.codegen.CodeGeneratorTemplate;

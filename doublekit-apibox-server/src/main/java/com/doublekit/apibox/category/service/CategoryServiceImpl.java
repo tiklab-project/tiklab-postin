@@ -8,10 +8,8 @@ import com.doublekit.apibox.category.dao.CategoryDao;
 import com.doublekit.apibox.category.entity.CategoryEntity;
 import com.doublekit.apibox.category.model.Category;
 import com.doublekit.apibox.category.model.CategoryQuery;
-
-import com.doublekit.apibox.node.dao.NodeDao;
-import com.doublekit.common.Pagination;
 import com.doublekit.beans.BeanMapper;
+import com.doublekit.common.Pagination;
 import com.doublekit.common.PaginationBuilder;
 import com.doublekit.join.JoinTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +20,6 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.BeanUtils;
-
 /**
 * 用户服务业务处理
 */
@@ -33,8 +29,8 @@ public class CategoryServiceImpl implements CategoryService {
     @Autowired
     CategoryDao categoryDao;
 
-    @Autowired
-    NodeDao nodeDao;
+    //@Autowired
+    //NodeDao nodeDao;
 
     @Autowired
     JoinTemplate joinQuery;

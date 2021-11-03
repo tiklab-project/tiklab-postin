@@ -1,6 +1,6 @@
-package com.doublekit.apibox.datastructure.codegen;
+package com.doublekit.apibox.sysmgr.datastructure.codegen;
 
-import com.doublekit.apibox.sysmgr.datastructure.entity.DataStructureEntity;
+import com.doublekit.apibox.sysmgr.datastructure.entity.JsonParamDSEntity;
 import com.doublekit.codegen.CodeGeneratorTemplate;
 import com.doublekit.codegen.config.ModuleGeneratorConfig;
 import com.doublekit.codegen.config.ProjectGeneratorConfig;
@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = ProjectGeneratorConfig.class)
-public class SubjectCodeGeneratorTest extends CodeGeneratorTemplate {
+public class DataJsonCodeGeneratorTest extends CodeGeneratorTemplate {
 
     @Autowired
     ProjectGeneratorConfig projectGeneratorConfig;
@@ -21,9 +21,9 @@ public class SubjectCodeGeneratorTest extends CodeGeneratorTemplate {
     protected ModuleGeneratorConfig getModuleGeneratorConfig() {
         ModuleGeneratorConfig config = new ModuleGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
-        config.setEntity(DataStructureEntity.class);
+        config.setEntity(JsonParamDSEntity.class);
         config.setPkg("com.doublekit.apibox.datastructure");
-        config.setModel("DataStructure");
+        config.setModel("JsonParamDS");
         return config;
     }
 
