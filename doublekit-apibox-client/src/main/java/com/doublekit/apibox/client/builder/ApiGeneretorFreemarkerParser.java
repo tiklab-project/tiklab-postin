@@ -1,6 +1,6 @@
 package com.doublekit.apibox.client.builder;
 
-import com.doublekit.common.exception.DarthException;
+import com.doublekit.common.exception.ApplicationException;
 import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapper;
 import freemarker.template.Template;
@@ -36,9 +36,9 @@ public class ApiGeneretorFreemarkerParser {
             FileWriter fileWriter = new FileWriter(genFile);
             template.process(models, fileWriter);
         } catch (IOException e) {
-            throw new DarthException(e);
+            throw new ApplicationException(e);
         } catch (TemplateException e) {
-            throw new DarthException(e);
+            throw new ApplicationException(e);
         }
     }
 }

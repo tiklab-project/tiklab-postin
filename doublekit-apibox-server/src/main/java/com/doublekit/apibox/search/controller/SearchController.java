@@ -7,7 +7,7 @@ import com.doublekit.apibox.apidef.model.MethodEx;
 import com.doublekit.apibox.search.service.SearchService;
 import com.doublekit.apibox.workspace.model.Workspace;
 import com.doublekit.common.Result;
-import com.doublekit.common.exception.DarthException;
+import com.doublekit.common.exception.ApplicationException;
 import com.doublekit.dss.model.*;
 
 import org.slf4j.Logger;
@@ -105,7 +105,7 @@ public class SearchController {
         String index = pageRequest.getIndex();
         Class entityClass = getEntityClass(index);
         if(entityClass == null){
-            throw new DarthException("not found index:" + index);
+            throw new ApplicationException("not found index:" + index);
         }
         String keyword = pageRequest.getKeyword();
         PageCondition pageCondition = pageRequest.getPageCondition();
@@ -131,7 +131,7 @@ public class SearchController {
             }else if("methodex".equalsIgnoreCase(index)){
                 indexMapping.put(index,MethodEx.class);
             }else{
-                throw new DarthException("unsupport index type:" + index);
+                throw new ApplicationException("unsupport index type:" + index);
             }
             entityClass = indexMapping.get(index);
         }

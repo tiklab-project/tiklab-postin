@@ -3,7 +3,7 @@ package com.doublekit.apibox.client.mock.mocker;
 import com.doublekit.apibox.client.model.ApiPropertyMeta;
 import com.doublekit.apibox.client.parser.ApiModelParser;
 import com.doublekit.utils.BeanUtils;
-import com.doublekit.common.exception.DarthException;
+import com.doublekit.common.exception.ApplicationException;
 import com.doublekit.apibox.annotation.ApiProperty;
 import com.doublekit.apibox.client.mock.support.MockUtils;
 
@@ -62,11 +62,11 @@ public class BeanMocker {
                 writeMethod.invoke(instance, value);
             }
         } catch (InstantiationException e) {
-            throw new DarthException(e);
+            throw new ApplicationException(e);
         } catch (IllegalAccessException e) {
-            throw new DarthException(e);
+            throw new ApplicationException(e);
         } catch (InvocationTargetException e) {
-            throw new DarthException(e);
+            throw new ApplicationException(e);
         }
         return instance;
     }

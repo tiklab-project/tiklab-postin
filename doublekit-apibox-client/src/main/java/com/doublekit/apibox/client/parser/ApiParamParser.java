@@ -6,7 +6,7 @@ import com.doublekit.apibox.annotation.ApiParams;
 import com.doublekit.apibox.client.mock.JMockit;
 import com.doublekit.apibox.client.model.ApiParamMeta;
 import com.doublekit.apibox.client.model.ParamItemType;
-import com.doublekit.common.exception.DarthException;
+import com.doublekit.common.exception.ApplicationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.LocalVariableTableParameterNameDiscoverer;
@@ -142,7 +142,7 @@ public class ApiParamParser extends ParamItemParser{
             }
         }
 
-        throw new DarthException(String.format("param:%s not found.",paramName));
+        throw new ApplicationException(String.format("param:%s not found.",paramName));
     }
 
     /**
