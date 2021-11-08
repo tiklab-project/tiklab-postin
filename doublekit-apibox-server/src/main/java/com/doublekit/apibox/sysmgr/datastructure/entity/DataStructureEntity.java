@@ -4,12 +4,12 @@ package com.doublekit.apibox.sysmgr.datastructure.entity;
 import com.doublekit.dal.jpa.mapper.annotation.Column;
 import com.doublekit.dal.jpa.mapper.annotation.GeneratorValue;
 import com.doublekit.dal.jpa.mapper.annotation.Id;
-import com.doublekit.dal.jpa.mapper.annotation.Table;
+import com.doublekit.dal.jpa.mapper.annotation.Table;import com.doublekit.dal.jpa.mapper.annotation.Entity;
 
 import java.io.Serializable;
 import java.util.Date;
 
-@Table(name="stru_subject")
+@Entity @Table(name="stru_subject")
 public class DataStructureEntity implements Serializable {
 
     @Id

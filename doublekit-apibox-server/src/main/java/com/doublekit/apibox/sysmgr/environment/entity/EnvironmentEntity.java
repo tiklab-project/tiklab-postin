@@ -5,10 +5,12 @@ import com.doublekit.dal.jpa.mapper.annotation.Column;
 import com.doublekit.dal.jpa.mapper.annotation.GeneratorValue;
 import com.doublekit.dal.jpa.mapper.annotation.Id;
 import com.doublekit.dal.jpa.mapper.annotation.Table;
+import com.doublekit.dal.jpa.mapper.annotation.Entity;
 
 import java.io.Serializable;
 import java.util.Date;
 
+@Entity
 @Table(name="apibox_environment")
 public class EnvironmentEntity implements Serializable {
 

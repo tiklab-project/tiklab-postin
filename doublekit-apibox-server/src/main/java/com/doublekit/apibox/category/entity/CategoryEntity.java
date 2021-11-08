@@ -4,11 +4,11 @@ package com.doublekit.apibox.category.entity;
 import com.doublekit.dal.jpa.mapper.annotation.Column;
 import com.doublekit.dal.jpa.mapper.annotation.GeneratorValue;
 import com.doublekit.dal.jpa.mapper.annotation.Id;
-import com.doublekit.dal.jpa.mapper.annotation.Table;
+import com.doublekit.dal.jpa.mapper.annotation.Table;import com.doublekit.dal.jpa.mapper.annotation.Entity;
 
 import java.io.Serializable;
 
-@Table(name="apibox_category")
+@Entity @Table(name="apibox_category")
 public class CategoryEntity implements Serializable {
 
     @Id

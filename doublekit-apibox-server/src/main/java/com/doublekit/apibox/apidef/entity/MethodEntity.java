@@ -4,12 +4,12 @@ package com.doublekit.apibox.apidef.entity;
 import com.doublekit.dal.jpa.mapper.annotation.Column;
 import com.doublekit.dal.jpa.mapper.annotation.GeneratorValue;
 import com.doublekit.dal.jpa.mapper.annotation.Id;
-import com.doublekit.dal.jpa.mapper.annotation.Table;
+import com.doublekit.dal.jpa.mapper.annotation.Table;import com.doublekit.dal.jpa.mapper.annotation.Entity;
 
 import java.io.Serializable;
 import java.sql.Date;
 
-@Table(name="apibox_method")
+@Entity @Table(name="apibox_method")
 public class MethodEntity implements Serializable {
 
     @Id

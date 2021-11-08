@@ -3,11 +3,11 @@ package com.doublekit.apibox.apidef.entity;
 
 import com.doublekit.dal.jpa.mapper.annotation.Column;
 import com.doublekit.dal.jpa.mapper.annotation.Id;
-import com.doublekit.dal.jpa.mapper.annotation.Table;
+import com.doublekit.dal.jpa.mapper.annotation.Table;import com.doublekit.dal.jpa.mapper.annotation.Entity;
 
 import java.io.Serializable;
 
-@Table(name="apibox_after_script")
+@Entity @Table(name="apibox_after_script")
 public class AfterScriptEntity implements Serializable {
 
     @Id

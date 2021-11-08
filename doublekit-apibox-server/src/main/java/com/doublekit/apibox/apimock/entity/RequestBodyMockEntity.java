@@ -3,11 +3,11 @@ package com.doublekit.apibox.apimock.entity;
 
 import com.doublekit.dal.jpa.mapper.annotation.Column;
 import com.doublekit.dal.jpa.mapper.annotation.Id;
-import com.doublekit.dal.jpa.mapper.annotation.Table;
+import com.doublekit.dal.jpa.mapper.annotation.Table;import com.doublekit.dal.jpa.mapper.annotation.Entity;
 
 import java.io.Serializable;
 
-@Table(name="apibox_request_body_mock")
+@Entity @Table(name="apibox_request_body_mock")
 public class RequestBodyMockEntity implements Serializable {
 
     @Id

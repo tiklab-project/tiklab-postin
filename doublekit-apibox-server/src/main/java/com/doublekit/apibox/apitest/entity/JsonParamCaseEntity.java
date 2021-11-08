@@ -5,9 +5,11 @@ import com.doublekit.dal.jpa.mapper.annotation.Column;
 import com.doublekit.dal.jpa.mapper.annotation.GeneratorValue;
 import com.doublekit.dal.jpa.mapper.annotation.Id;
 import com.doublekit.dal.jpa.mapper.annotation.Table;
+import com.doublekit.dal.jpa.mapper.annotation.Entity;
 
 import java.io.Serializable;
 
+@Entity
 @Table(name="apibox_json_param_testcase")
 public class JsonParamCaseEntity implements Serializable {
 

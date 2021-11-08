@@ -4,11 +4,11 @@ package com.doublekit.apibox.apidef.entity;
 import com.doublekit.dal.jpa.mapper.annotation.Column;
 import com.doublekit.dal.jpa.mapper.annotation.GeneratorValue;
 import com.doublekit.dal.jpa.mapper.annotation.Id;
-import com.doublekit.dal.jpa.mapper.annotation.Table;
+import com.doublekit.dal.jpa.mapper.annotation.Table;import com.doublekit.dal.jpa.mapper.annotation.Entity;
 
 import java.io.Serializable;
 
-@Table(name="apibox_form_param")
+@Entity @Table(name="apibox_form_param")
 public class FormParamEntity implements Serializable {
 
     @Id
