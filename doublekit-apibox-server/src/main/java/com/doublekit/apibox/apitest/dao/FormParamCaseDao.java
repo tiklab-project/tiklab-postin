@@ -69,10 +69,10 @@ public class FormParamCaseDao{
     }
 
     public List<FormParamCaseEntity> findFormParamCaseList(FormParamCaseQuery formParamCaseQuery) {
-        return jpaTemplate.findList(FormParamCaseEntity.class,formParamCaseQuery);
+        return jpaTemplate.findList(formParamCaseQuery, FormParamCaseEntity.class);
     }
 
     public Pagination<FormParamCaseEntity> findFormParamCasePage(FormParamCaseQuery formParamCaseQuery) {
-        return jpaTemplate.findPage(FormParamCaseEntity.class,formParamCaseQuery);
+        return jpaTemplate.findPage(formParamCaseQuery, FormParamCaseEntity.class);
     }
 }

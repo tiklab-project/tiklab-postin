@@ -74,10 +74,10 @@ public class JsonParamDSDao{
     }
 
     public List<JsonParamDSEntity> findJsonParamDSList(JsonParamDSQuery jsonParamDSQuery) {
-        return jpaTemplate.findList(JsonParamDSEntity.class,jsonParamDSQuery);
+        return jpaTemplate.findList(jsonParamDSQuery, JsonParamDSEntity.class);
     }
 
     public Pagination<JsonParamDSEntity> findJsonParamDSPage(JsonParamDSQuery jsonParamDSQuery) {
-        return jpaTemplate.findPage(JsonParamDSEntity.class,jsonParamDSQuery);
+        return jpaTemplate.findPage(jsonParamDSQuery, JsonParamDSEntity.class);
     }
 }

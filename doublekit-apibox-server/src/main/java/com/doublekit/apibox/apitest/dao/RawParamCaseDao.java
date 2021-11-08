@@ -69,10 +69,10 @@ public class RawParamCaseDao{
     }
 
     public List<RawParamCaseEntity> findRawParamCaseList(RawParamCaseQuery rawParamCaseQuery) {
-        return jpaTemplate.findList(RawParamCaseEntity.class,rawParamCaseQuery);
+        return jpaTemplate.findList(rawParamCaseQuery, RawParamCaseEntity.class);
     }
 
     public Pagination<RawParamCaseEntity> findRawParamCasePage(RawParamCaseQuery rawParamCaseQuery) {
-        return jpaTemplate.findPage(RawParamCaseEntity.class,rawParamCaseQuery);
+        return jpaTemplate.findPage(rawParamCaseQuery, RawParamCaseEntity.class);
     }
 }

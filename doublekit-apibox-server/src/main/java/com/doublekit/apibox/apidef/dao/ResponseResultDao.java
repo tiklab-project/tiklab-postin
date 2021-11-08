@@ -75,10 +75,10 @@ public class ResponseResultDao{
     }
 
     public List<ResponseResultEntity> findResponseResultList(ResponseResultQuery responseResultQuery) {
-        return jpaTemplate.findList(ResponseResultEntity.class,responseResultQuery);
+        return jpaTemplate.findList(responseResultQuery, ResponseResultEntity.class);
     }
 
     public Pagination<ResponseResultEntity> findResponseResultPage(ResponseResultQuery responseResultQuery) {
-        return jpaTemplate.findPage(ResponseResultEntity.class,responseResultQuery);
+        return jpaTemplate.findPage(responseResultQuery, ResponseResultEntity.class);
     }
 }

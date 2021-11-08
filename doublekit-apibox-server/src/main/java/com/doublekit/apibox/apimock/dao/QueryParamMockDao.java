@@ -65,10 +65,10 @@ public class QueryParamMockDao{
     }
 
     public List<QueryParamMockEntity> findQueryParamMockList(QueryParamMockQuery queryParamMockQuery) {
-        return jpaTemplate.findList(QueryParamMockEntity.class,queryParamMockQuery);
+        return jpaTemplate.findList(queryParamMockQuery, QueryParamMockEntity.class);
     }
 
     public Pagination<QueryParamMockEntity> findQueryParamMockPage(QueryParamMockQuery queryParamMockQuery) {
-        return jpaTemplate.findPage(QueryParamMockEntity.class,queryParamMockQuery);
+        return jpaTemplate.findPage(queryParamMockQuery, QueryParamMockEntity.class);
     }
 }

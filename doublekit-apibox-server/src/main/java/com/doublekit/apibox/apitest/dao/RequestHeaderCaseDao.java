@@ -69,10 +69,10 @@ public class RequestHeaderCaseDao{
     }
 
     public List<RequestHeaderCaseEntity> findRequestHeaderCaseList(RequestHeaderCaseQuery requestHeaderCaseQuery) {
-        return jpaTemplate.findList(RequestHeaderCaseEntity.class,requestHeaderCaseQuery);
+        return jpaTemplate.findList(requestHeaderCaseQuery, RequestHeaderCaseEntity.class);
     }
 
     public Pagination<RequestHeaderCaseEntity> findRequestHeaderCasePage(RequestHeaderCaseQuery requestHeaderCaseQuery) {
-        return jpaTemplate.findPage(RequestHeaderCaseEntity.class,requestHeaderCaseQuery);
+        return jpaTemplate.findPage(requestHeaderCaseQuery, RequestHeaderCaseEntity.class);
     }
 }

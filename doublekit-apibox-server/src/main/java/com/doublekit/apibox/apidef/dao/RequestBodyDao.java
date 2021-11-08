@@ -73,10 +73,10 @@ public class RequestBodyDao{
     }
 
     public List<RequestBodyEntity> findRequestBodyList(RequestBodyExQuery requestBodyQuery) {
-        return jpaTemplate.findList(RequestBodyEntity.class,requestBodyQuery);
+        return jpaTemplate.findList(requestBodyQuery, RequestBodyEntity.class);
     }
 
     public Pagination<RequestBodyEntity> findRequestBodyPage(RequestBodyExQuery requestBodyQuery) {
-        return jpaTemplate.findPage(RequestBodyEntity.class,requestBodyQuery);
+        return jpaTemplate.findPage(requestBodyQuery, RequestBodyEntity.class);
     }
 }

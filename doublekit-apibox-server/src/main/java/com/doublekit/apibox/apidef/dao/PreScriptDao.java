@@ -1,6 +1,5 @@
 package com.doublekit.apibox.apidef.dao;
 
-import com.doublekit.apibox.apidef.entity.JsonResponseEntity;
 import com.doublekit.common.Pagination;
 import com.doublekit.apibox.apidef.entity.PreScriptEntity;
 import com.doublekit.apibox.apidef.model.PreScriptQuery;
@@ -76,10 +75,10 @@ public class PreScriptDao{
     }
 
     public List<PreScriptEntity> findPreScriptList(PreScriptQuery preScriptQuery) {
-        return jpaTemplate.findList(PreScriptEntity.class,preScriptQuery);
+        return jpaTemplate.findList(preScriptQuery, PreScriptEntity.class);
     }
 
     public Pagination<PreScriptEntity> findPreScriptPage(PreScriptQuery preScriptQuery) {
-        return jpaTemplate.findPage(PreScriptEntity.class,preScriptQuery);
+        return jpaTemplate.findPage(preScriptQuery, PreScriptEntity.class);
     }
 }

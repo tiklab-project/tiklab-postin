@@ -74,10 +74,10 @@ public class DataStructureDao{
     }
 
     public List<DataStructureEntity> findDataStructureList(DataStructureQuery dataStructureQuery) {
-        return jpaTemplate.findList(DataStructureEntity.class,dataStructureQuery);
+        return jpaTemplate.findList(dataStructureQuery, DataStructureEntity.class);
     }
 
     public Pagination<DataStructureEntity> findDataStructurePage(DataStructureQuery dataStructureQuery) {
-        return jpaTemplate.findPage(DataStructureEntity.class,dataStructureQuery);
+        return jpaTemplate.findPage(dataStructureQuery, DataStructureEntity.class);
     }
 }

@@ -69,10 +69,10 @@ public class AssertCaseDao{
     }
 
     public List<AssertCaseEntity> findAssertCaseList(AssertCaseQuery assertCaseQuery) {
-        return jpaTemplate.findList(AssertCaseEntity.class,assertCaseQuery);
+        return jpaTemplate.findList(assertCaseQuery, AssertCaseEntity.class);
     }
 
     public Pagination<AssertCaseEntity> findAssertCasePage(AssertCaseQuery assertCaseQuery) {
-        return jpaTemplate.findPage(AssertCaseEntity.class,assertCaseQuery);
+        return jpaTemplate.findPage(assertCaseQuery, AssertCaseEntity.class);
     }
 }

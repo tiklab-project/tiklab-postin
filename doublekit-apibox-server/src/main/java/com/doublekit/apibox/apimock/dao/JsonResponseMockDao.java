@@ -65,10 +65,10 @@ public class JsonResponseMockDao{
     }
 
     public List<JsonResponseMockEntity> findJsonResponseMockList(JsonResponseMockQuery jsonResponseMockQuery) {
-        return jpaTemplate.findList(JsonResponseMockEntity.class,jsonResponseMockQuery);
+        return jpaTemplate.findList(jsonResponseMockQuery, JsonResponseMockEntity.class);
     }
 
     public Pagination<JsonResponseMockEntity> findJsonResponseMockPage(JsonResponseMockQuery jsonResponseMockQuery) {
-        return jpaTemplate.findPage(JsonResponseMockEntity.class,jsonResponseMockQuery);
+        return jpaTemplate.findPage(jsonResponseMockQuery, JsonResponseMockEntity.class);
     }
 }

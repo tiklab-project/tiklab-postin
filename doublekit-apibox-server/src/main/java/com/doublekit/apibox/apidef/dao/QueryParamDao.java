@@ -1,6 +1,5 @@
 package com.doublekit.apibox.apidef.dao;
 
-import com.doublekit.apibox.apidef.entity.JsonResponseEntity;
 import com.doublekit.apibox.apidef.entity.QueryParamEntity;
 import com.doublekit.apibox.apidef.model.QueryParamQuery;
 import com.doublekit.common.Pagination;
@@ -75,10 +74,10 @@ public class QueryParamDao{
     }
 
     public List<QueryParamEntity> findQueryParamList(QueryParamQuery queryParamQuery) {
-        return jpaTemplate.findList(QueryParamEntity.class,queryParamQuery);
+        return jpaTemplate.findList(queryParamQuery, QueryParamEntity.class);
     }
 
     public Pagination<QueryParamEntity> findQueryParamPage(QueryParamQuery queryParamQuery) {
-        return jpaTemplate.findPage(QueryParamEntity.class,queryParamQuery);
+        return jpaTemplate.findPage(queryParamQuery, QueryParamEntity.class);
     }
 }

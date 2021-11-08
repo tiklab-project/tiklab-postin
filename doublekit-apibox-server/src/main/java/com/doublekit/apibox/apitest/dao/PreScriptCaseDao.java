@@ -69,10 +69,10 @@ public class PreScriptCaseDao{
     }
 
     public List<PreScriptCaseEntity> findPreScriptCaseList(PreScriptCaseQuery preScriptCaseQuery) {
-        return jpaTemplate.findList(PreScriptCaseEntity.class,preScriptCaseQuery);
+        return jpaTemplate.findList(preScriptCaseQuery, PreScriptCaseEntity.class);
     }
 
     public Pagination<PreScriptCaseEntity> findPreScriptCasePage(PreScriptCaseQuery preScriptCaseQuery) {
-        return jpaTemplate.findPage(PreScriptCaseEntity.class,preScriptCaseQuery);
+        return jpaTemplate.findPage(preScriptCaseQuery, PreScriptCaseEntity.class);
     }
 }

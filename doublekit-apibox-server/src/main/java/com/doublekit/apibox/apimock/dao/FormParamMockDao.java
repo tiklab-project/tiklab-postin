@@ -65,10 +65,10 @@ public class FormParamMockDao{
     }
 
     public List<FormParamMockEntity> findFormParamMockList(FormParamMockQuery formParamMockQuery) {
-        return jpaTemplate.findList(FormParamMockEntity.class,formParamMockQuery);
+        return jpaTemplate.findList(formParamMockQuery, FormParamMockEntity.class);
     }
 
     public Pagination<FormParamMockEntity> findFormParamMockPage(FormParamMockQuery formParamMockQuery) {
-        return jpaTemplate.findPage(FormParamMockEntity.class,formParamMockQuery);
+        return jpaTemplate.findPage(formParamMockQuery, FormParamMockEntity.class);
     }
 }

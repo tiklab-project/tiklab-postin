@@ -1,6 +1,5 @@
 package com.doublekit.apibox.apidef.dao;
 
-import com.doublekit.apibox.apidef.entity.JsonParamEntity;
 import com.doublekit.apibox.apidef.entity.MethodEntity;
 import com.doublekit.apibox.apidef.model.JsonResponseQuery;
 import com.doublekit.common.Pagination;
@@ -80,10 +79,10 @@ public class JsonResponseDao {
     }
 
     public List<JsonResponseEntity> findJsonResponseList(JsonResponseQuery jsonResponseQuery) {
-        return jpaTemplate.findList(JsonResponseEntity.class,jsonResponseQuery);
+        return jpaTemplate.findList(jsonResponseQuery, JsonResponseEntity.class);
     }
 
     public Pagination<JsonResponseEntity> findJsonResponsePage(JsonResponseQuery jsonResponseQuery) {
-        return jpaTemplate.findPage(JsonResponseEntity.class,jsonResponseQuery);
+        return jpaTemplate.findPage(jsonResponseQuery, JsonResponseEntity.class);
     }
 }

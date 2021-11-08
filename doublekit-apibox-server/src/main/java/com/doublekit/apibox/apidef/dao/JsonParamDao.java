@@ -1,6 +1,5 @@
 package com.doublekit.apibox.apidef.dao;
 
-import com.doublekit.apibox.apidef.entity.FormParamEntity;
 import com.doublekit.apibox.apidef.entity.JsonParamEntity;
 import com.doublekit.apibox.apidef.model.JsonParamQuery;
 import com.doublekit.common.Pagination;
@@ -79,10 +78,10 @@ public class JsonParamDao{
     }
 
     public List<JsonParamEntity> findJsonParamList(JsonParamQuery jsonParamQuery) {
-        return jpaTemplate.findList(JsonParamEntity.class,jsonParamQuery);
+        return jpaTemplate.findList(jsonParamQuery, JsonParamEntity.class);
     }
 
     public Pagination<JsonParamEntity> findJsonParamPage(JsonParamQuery jsonParamQuery) {
-        return jpaTemplate.findPage(JsonParamEntity.class,jsonParamQuery);
+        return jpaTemplate.findPage(jsonParamQuery, JsonParamEntity.class);
     }
 }

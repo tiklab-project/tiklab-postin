@@ -1,7 +1,6 @@
 package com.doublekit.apibox.apidef.dao;
 
 import com.doublekit.apibox.apidef.entity.MethodEntity;
-import com.doublekit.apibox.apidef.model.MethodEx;
 import com.doublekit.apibox.apidef.model.MethodExQuery;
 import com.doublekit.common.Pagination;
 import com.doublekit.dal.jpa.JpaTemplate;
@@ -72,12 +71,12 @@ public class MethodDao {
 
     public List<MethodEntity> findMethodList(MethodExQuery methodExQuery) {
 
-        return  filterMethod(jpaTemplate.findList(MethodEntity.class,methodExQuery));
+        return  filterMethod(jpaTemplate.findList(methodExQuery, MethodEntity.class));
     }
 
     public Pagination<MethodEntity> findMethodPage(MethodExQuery methodExQuery) {
 
-        return jpaTemplate.findPage(MethodEntity.class,methodExQuery);
+        return jpaTemplate.findPage(methodExQuery, MethodEntity.class);
     }
 
     //过滤查询最新版本的方法

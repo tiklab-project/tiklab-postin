@@ -1,7 +1,6 @@
 package com.doublekit.apibox.apidef.dao;
 
 import com.doublekit.apibox.apidef.entity.AfterScriptEntity;
-import com.doublekit.apibox.apidef.entity.ResponseResultEntity;
 import com.doublekit.apibox.apidef.model.AfterScriptQuery;
 import com.doublekit.common.Pagination;
 import com.doublekit.dal.jpa.JpaTemplate;
@@ -74,10 +73,10 @@ public class AfterScriptDao{
     }
 
     public List<AfterScriptEntity> findAfterScriptList(AfterScriptQuery afterScriptQuery) {
-        return jpaTemplate.findList(AfterScriptEntity.class,afterScriptQuery);
+        return jpaTemplate.findList(afterScriptQuery, AfterScriptEntity.class);
     }
 
     public Pagination<AfterScriptEntity> findAfterScriptPage(AfterScriptQuery afterScriptQuery) {
-        return jpaTemplate.findPage(AfterScriptEntity.class,afterScriptQuery);
+        return jpaTemplate.findPage(afterScriptQuery, AfterScriptEntity.class);
     }
 }

@@ -69,10 +69,10 @@ public class MockDao{
     }
 
     public List<MockEntity> findMockList(MockQuery mockQuery) {
-        return jpaTemplate.findList(MockEntity.class,mockQuery);
+        return jpaTemplate.findList(mockQuery, MockEntity.class);
     }
 
     public Pagination<MockEntity> findMockPage(MockQuery mockQuery) {
-        return jpaTemplate.findPage(MockEntity.class,mockQuery);
+        return jpaTemplate.findPage(mockQuery, MockEntity.class);
     }
 }

@@ -69,10 +69,10 @@ public class RequestBodyMockDao{
     }
 
     public List<RequestBodyMockEntity> findRequestBodyMockList(RequestBodyMockQuery requestBodyMockQuery) {
-        return jpaTemplate.findList(RequestBodyMockEntity.class,requestBodyMockQuery);
+        return jpaTemplate.findList(requestBodyMockQuery, RequestBodyMockEntity.class);
     }
 
     public Pagination<RequestBodyMockEntity> findRequestBodyMockPage(RequestBodyMockQuery requestBodyMockQuery) {
-        return jpaTemplate.findPage(RequestBodyMockEntity.class,requestBodyMockQuery);
+        return jpaTemplate.findPage(requestBodyMockQuery, RequestBodyMockEntity.class);
     }
 }

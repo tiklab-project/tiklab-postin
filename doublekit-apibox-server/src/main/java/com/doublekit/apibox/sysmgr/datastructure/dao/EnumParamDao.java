@@ -74,10 +74,10 @@ public class EnumParamDao{
     }
 
     public List<EnumParamEntity> findEnumParamList(EnumParamQuery enumParamQuery) {
-        return jpaTemplate.findList(EnumParamEntity.class,enumParamQuery);
+        return jpaTemplate.findList(enumParamQuery, EnumParamEntity.class);
     }
 
     public Pagination<EnumParamEntity> findEnumParamPage(EnumParamQuery enumParamQuery) {
-        return jpaTemplate.findPage(EnumParamEntity.class,enumParamQuery);
+        return jpaTemplate.findPage(enumParamQuery, EnumParamEntity.class);
     }
 }

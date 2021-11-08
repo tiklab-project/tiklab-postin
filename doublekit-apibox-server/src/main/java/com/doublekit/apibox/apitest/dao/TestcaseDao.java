@@ -69,10 +69,10 @@ public class TestcaseDao{
     }
 
     public List<TestcaseEntity> findTestcaseList(TestcaseQuery testcaseQuery) {
-        return jpaTemplate.findList(TestcaseEntity.class,testcaseQuery);
+        return jpaTemplate.findList(testcaseQuery, TestcaseEntity.class);
     }
 
     public Pagination<TestcaseEntity> findTestcasePage(TestcaseQuery testcaseQuery) {
-        return jpaTemplate.findPage(TestcaseEntity.class,testcaseQuery);
+        return jpaTemplate.findPage(testcaseQuery, TestcaseEntity.class);
     }
 }

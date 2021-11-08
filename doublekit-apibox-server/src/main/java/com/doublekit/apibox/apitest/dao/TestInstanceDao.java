@@ -69,10 +69,10 @@ public class TestInstanceDao{
     }
 
     public List<TestInstanceEntity> findTestInstanceList(TestInstanceQuery testInstanceQuery) {
-        return jpaTemplate.findList(TestInstanceEntity.class,testInstanceQuery);
+        return jpaTemplate.findList(testInstanceQuery, TestInstanceEntity.class);
     }
 
     public Pagination<TestInstanceEntity> findTestInstancePage(TestInstanceQuery testInstanceQuery) {
-        return jpaTemplate.findPage(TestInstanceEntity.class,testInstanceQuery);
+        return jpaTemplate.findPage(testInstanceQuery, TestInstanceEntity.class);
     }
 }

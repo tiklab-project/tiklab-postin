@@ -69,10 +69,10 @@ public class QueryParamCaseDao{
     }
 
     public List<QueryParamCaseEntity> findQueryParamCaseList(QueryParamCaseQuery queryParamCaseQuery) {
-        return jpaTemplate.findList(QueryParamCaseEntity.class,queryParamCaseQuery);
+        return jpaTemplate.findList(queryParamCaseQuery, QueryParamCaseEntity.class);
     }
 
     public Pagination<QueryParamCaseEntity> findQueryParamCasePage(QueryParamCaseQuery queryParamCaseQuery) {
-        return jpaTemplate.findPage(QueryParamCaseEntity.class,queryParamCaseQuery);
+        return jpaTemplate.findPage(queryParamCaseQuery, QueryParamCaseEntity.class);
     }
 }

@@ -74,10 +74,10 @@ public class EnvironmentDao{
     }
 
     public List<EnvironmentEntity> findEnvironmentList(EnvironmentQuery environmentQuery) {
-        return jpaTemplate.findList(EnvironmentEntity.class,environmentQuery);
+        return jpaTemplate.findList(environmentQuery, EnvironmentEntity.class);
     }
 
     public Pagination<EnvironmentEntity> findEnvironmentPage(EnvironmentQuery environmentQuery) {
-        return jpaTemplate.findPage(EnvironmentEntity.class,environmentQuery);
+        return jpaTemplate.findPage(environmentQuery, EnvironmentEntity.class);
     }
 }

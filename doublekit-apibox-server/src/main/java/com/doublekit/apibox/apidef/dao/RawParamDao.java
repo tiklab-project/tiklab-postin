@@ -1,6 +1,5 @@
 package com.doublekit.apibox.apidef.dao;
 
-import com.doublekit.apibox.apidef.entity.QueryParamEntity;
 import com.doublekit.common.Pagination;
 import com.doublekit.apibox.apidef.entity.RawParamEntity;
 import com.doublekit.apibox.apidef.model.RawParamQuery;
@@ -75,10 +74,10 @@ public class RawParamDao{
     }
 
     public List<RawParamEntity> findRawParamList(RawParamQuery rawParamQuery) {
-        return jpaTemplate.findList(RawParamEntity.class,rawParamQuery);
+        return jpaTemplate.findList(rawParamQuery, RawParamEntity.class);
     }
 
     public Pagination<RawParamEntity> findRawParamPage(RawParamQuery rawParamQuery) {
-        return jpaTemplate.findPage(RawParamEntity.class,rawParamQuery);
+        return jpaTemplate.findPage(rawParamQuery, RawParamEntity.class);
     }
 }

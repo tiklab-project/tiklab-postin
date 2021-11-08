@@ -74,10 +74,10 @@ public class FormParamDao{
     }
 
     public List<FormParamEntity> findFormParamList(FormParamQuery formParamQuery) {
-        return jpaTemplate.findList(FormParamEntity.class,formParamQuery);
+        return jpaTemplate.findList(formParamQuery, FormParamEntity.class);
     }
 
     public Pagination<FormParamEntity> findFormParamPage(FormParamQuery formParamQuery) {
-        return jpaTemplate.findPage(FormParamEntity.class,formParamQuery);
+        return jpaTemplate.findPage(formParamQuery, FormParamEntity.class);
     }
 }

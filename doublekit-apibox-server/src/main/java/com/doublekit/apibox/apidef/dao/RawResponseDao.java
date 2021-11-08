@@ -1,6 +1,5 @@
 package com.doublekit.apibox.apidef.dao;
 
-import com.doublekit.apibox.apidef.entity.RawParamEntity;
 import com.doublekit.apibox.apidef.entity.RawResponseEntity;
 import com.doublekit.apibox.apidef.model.RawResponseQuery;
 import com.doublekit.common.Pagination;
@@ -75,10 +74,10 @@ public class RawResponseDao{
     }
 
     public List<RawResponseEntity> findRawResponseList(RawResponseQuery rawResponseQuery) {
-        return jpaTemplate.findList(RawResponseEntity.class,rawResponseQuery);
+        return jpaTemplate.findList(rawResponseQuery, RawResponseEntity.class);
     }
 
     public Pagination<RawResponseEntity> findRawResponsePage(RawResponseQuery rawResponseQuery) {
-        return jpaTemplate.findPage(RawResponseEntity.class,rawResponseQuery);
+        return jpaTemplate.findPage(rawResponseQuery, RawResponseEntity.class);
     }
 }

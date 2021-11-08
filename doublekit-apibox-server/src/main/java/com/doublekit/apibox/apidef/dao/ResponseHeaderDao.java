@@ -1,6 +1,5 @@
 package com.doublekit.apibox.apidef.dao;
 
-import com.doublekit.apibox.apidef.entity.RequestHeaderEntity;
 import com.doublekit.common.Pagination;
 import com.doublekit.apibox.apidef.entity.ResponseHeaderEntity;
 import com.doublekit.apibox.apidef.model.ResponseHeaderQuery;
@@ -76,10 +75,10 @@ public class ResponseHeaderDao{
     }
 
     public List<ResponseHeaderEntity> findResponseHeaderList(ResponseHeaderQuery responseHeaderQuery) {
-        return jpaTemplate.findList(ResponseHeaderEntity.class,responseHeaderQuery);
+        return jpaTemplate.findList(responseHeaderQuery, ResponseHeaderEntity.class);
     }
 
     public Pagination<ResponseHeaderEntity> findResponseHeaderPage(ResponseHeaderQuery responseHeaderQuery) {
-        return jpaTemplate.findPage(ResponseHeaderEntity.class,responseHeaderQuery);
+        return jpaTemplate.findPage(responseHeaderQuery, ResponseHeaderEntity.class);
     }
 }
