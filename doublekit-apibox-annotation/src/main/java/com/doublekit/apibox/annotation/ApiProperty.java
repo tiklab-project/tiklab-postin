@@ -9,7 +9,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 @Target({METHOD, FIELD})
 @Retention(RUNTIME)
-public @interface ApiProperty {
+public @interface ApiProperty{
 
     /**
      * 属性名称

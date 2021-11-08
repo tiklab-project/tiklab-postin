@@ -17,8 +17,6 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.BeanUtils;
-
 /**
 * 用户服务业务处理
 */
@@ -29,7 +27,7 @@ public class JsonParamServiceImpl implements JsonParamService {
     JsonParamDao jsonParamDao;
 
     @Autowired
-    JoinTemplate joinQuery;
+    JoinTemplate joinTemplate;
 
     @Override
     public String createJsonParam(@NotNull @Valid JsonParam jsonParam) {
@@ -64,7 +62,7 @@ public class JsonParamServiceImpl implements JsonParamService {
 
         List<JsonParam> jsonParamList = BeanMapper.mapList(jsonParamPoList,JsonParam.class);
 
-        joinQuery.queryList(jsonParamList);
+        joinTemplate.queryList(jsonParamList);
         return jsonParamList;
     }
 
@@ -72,7 +70,7 @@ public class JsonParamServiceImpl implements JsonParamService {
     public JsonParam findJsonParam(@NotNull String id) {
         JsonParam jsonParam = findOne(id);
 
-        joinQuery.queryOne(jsonParam);
+        joinTemplate.queryOne(jsonParam);
         return jsonParam;
     }
 
@@ -82,7 +80,7 @@ public class JsonParamServiceImpl implements JsonParamService {
 
         List<JsonParam> jsonParamList = BeanMapper.mapList(jsonParamPoList,JsonParam.class);
 
-        joinQuery.queryList(jsonParamList);
+        joinTemplate.queryList(jsonParamList);
         return jsonParamList;
     }
 
@@ -92,7 +90,7 @@ public class JsonParamServiceImpl implements JsonParamService {
 
         List<JsonParam> jsonParamList = BeanMapper.mapList(jsonParamPoList,JsonParam.class);
 
-        joinQuery.queryList(jsonParamList);
+        joinTemplate.queryList(jsonParamList);
 
         return jsonParamList;
     }
@@ -153,7 +151,7 @@ public class JsonParamServiceImpl implements JsonParamService {
 
         List<JsonParam> jsonParamList = BeanMapper.mapList(pagination.getDataList(),JsonParam.class);
 
-        joinQuery.queryList(jsonParamList);
+        joinTemplate.queryList(jsonParamList);
 
         return PaginationBuilder.build(pagination,jsonParamList);
     }
