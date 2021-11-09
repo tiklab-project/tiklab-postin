@@ -1,15 +1,13 @@
 package com.doublekit.apibox.apistatus.entity;
 
 
-import com.doublekit.dal.jpa.mapper.annotation.Column;
-import com.doublekit.dal.jpa.mapper.annotation.GeneratorValue;
-import com.doublekit.dal.jpa.mapper.annotation.Id;
-import com.doublekit.dal.jpa.mapper.annotation.Table;
+import com.doublekit.dal.jpa.mapper.annotation.*;
 
 import java.io.Serializable;
 
+@Entity
 @Table(name="apibox_method_status")
-public class StatusEntity implements Serializable {
+public class ApiStatusEntity implements Serializable {
 
     @Id
     @GeneratorValue
