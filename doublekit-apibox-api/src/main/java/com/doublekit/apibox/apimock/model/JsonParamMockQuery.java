@@ -11,7 +11,7 @@ import com.doublekit.dal.jpa.criteria.annotation.QueryTypeEnum;
 import java.util.List;
 
 @ApiModel
-@CriteriaQuery
+@CriteriaQuery(entityAlias = "JsonParamMockEntity")
 public class JsonParamMockQuery {
 
     @ApiProperty(name ="mockId",desc = "mockId，精确匹配")

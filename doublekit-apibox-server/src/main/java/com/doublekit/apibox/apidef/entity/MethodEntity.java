@@ -9,7 +9,8 @@ import com.doublekit.dal.jpa.mapper.annotation.Table;import com.doublekit.dal.jp
 import java.io.Serializable;
 import java.sql.Date;
 
-@Entity @Table(name="apibox_method")
+@Entity
+@Table(name="apibox_method")
 public class MethodEntity implements Serializable {
 
     @Id

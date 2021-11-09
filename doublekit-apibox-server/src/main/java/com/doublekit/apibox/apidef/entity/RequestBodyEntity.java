@@ -7,7 +7,8 @@ import com.doublekit.dal.jpa.mapper.annotation.Table;import com.doublekit.dal.jp
 
 import java.io.Serializable;
 
-@Entity @Table(name="apibox_request_body")
+@Entity
+@Table(name="apibox_request_body")
 public class RequestBodyEntity implements Serializable {
 
     @Id

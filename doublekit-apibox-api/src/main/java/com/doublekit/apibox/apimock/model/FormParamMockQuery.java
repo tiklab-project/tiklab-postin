@@ -14,7 +14,7 @@ import com.doublekit.dal.jpa.criteria.model.Orders;
 import java.util.List;
 
 @ApiModel
-@CriteriaQuery
+@CriteriaQuery(entityAlias = "FormParamMockEntity")
 public class FormParamMockQuery {
 
     @ApiProperty(name ="mockId",desc = "mockId，精确匹配")

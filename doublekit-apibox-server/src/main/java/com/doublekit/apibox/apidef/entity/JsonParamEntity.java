@@ -8,7 +8,8 @@ import com.doublekit.dal.jpa.mapper.annotation.Table;import com.doublekit.dal.jp
 
 import java.io.Serializable;
 
-@Entity @Table(name="apibox_json_param")
+@Entity
+@Table(name="apibox_json_param")
 public class JsonParamEntity implements Serializable {
 
     @Id

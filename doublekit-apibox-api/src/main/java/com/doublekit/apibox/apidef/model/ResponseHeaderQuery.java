@@ -11,7 +11,7 @@ import com.doublekit.dal.jpa.criteria.annotation.QueryTypeEnum;
 import java.util.List;
 
 @ApiModel
-@CriteriaQuery
+@CriteriaQuery(entityAlias = "ResponseHeaderEntity")
 public class ResponseHeaderQuery {
 
     @ApiProperty(name ="methodId",desc = "接口ID，精确匹配")

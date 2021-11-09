@@ -11,7 +11,7 @@ import com.doublekit.dal.jpa.criteria.annotation.QueryTypeEnum;
 import java.util.List;
 
 @ApiModel
-@CriteriaQuery
+@CriteriaQuery(entityAlias = "MethodEntity")
 public class MethodExQuery {
     @ApiProperty(name ="id",desc = "方法id")
     @QueryField(type = QueryTypeEnum.equal)
