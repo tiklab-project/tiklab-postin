@@ -14,7 +14,7 @@ import com.doublekit.dal.jpa.criteria.model.Orders;
 import java.util.List;
 
 @ApiModel
-@CriteriaQuery
+@CriteriaQuery(entityAlias = "JsonResponseMockEntity")
 public class JsonResponseMockQuery {
 
     @ApiProperty(name ="mockId",desc = "所属mockId，精确匹配")

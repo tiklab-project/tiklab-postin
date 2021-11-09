@@ -7,7 +7,8 @@ import com.doublekit.dal.jpa.mapper.annotation.Table;import com.doublekit.dal.jp
 
 import java.io.Serializable;
 
-@Entity @Table(name="apibox_json_response_mock")
+@Entity
+@Table(name="apibox_json_response_mock")
 public class JsonResponseMockEntity implements Serializable {
 
     @Id

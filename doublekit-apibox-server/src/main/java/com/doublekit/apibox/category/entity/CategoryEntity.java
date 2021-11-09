@@ -8,7 +8,8 @@ import com.doublekit.dal.jpa.mapper.annotation.Table;import com.doublekit.dal.jp
 
 import java.io.Serializable;
 
-@Entity @Table(name="apibox_category")
+@Entity
+@Table(name="apibox_category")
 public class CategoryEntity implements Serializable {
 
     @Id
