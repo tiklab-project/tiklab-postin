@@ -10,8 +10,8 @@ import com.doublekit.apibox.apidef.support.MessageTemplateConstant;
 import com.doublekit.beans.BeanMapper;
 import com.doublekit.common.Pagination;
 import com.doublekit.common.PaginationBuilder;
-import com.doublekit.dal.jpa.builder.deletelist.condition.DeleteCondition;
-import com.doublekit.dal.jpa.builder.deletelist.conditionbuilder.DeleteBuilders;
+import com.doublekit.dal.jpa.criterial.model.DeleteCondition;
+import com.doublekit.dal.jpa.criterial.DeleteBuilders;
 import com.doublekit.dss.client.DssClient;
 import com.doublekit.eam.common.Ticket;
 import com.doublekit.eam.common.TicketContext;
@@ -22,7 +22,6 @@ import com.doublekit.message.message.model.MessageReceiver;
 import com.doublekit.message.message.model.MessageTemplate;
 import com.doublekit.message.message.service.MessageService;
 import com.doublekit.user.user.model.User;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -173,7 +172,7 @@ public class MethodServiceImpl implements MethodService {
         //删除方法
         methodDao.deleteMethod(id);
 
-        DeleteCondition deleteCondition = DeleteBuilders.instance().eq("methodId", id).get();
+        DeleteCondition deleteCondition = DeleteBuilders.create().eq("methodId", id).get();
         //删除后置脚本数据
         afterScriptDao.deleteAfterScriptList(deleteCondition);
 

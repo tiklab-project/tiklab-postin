@@ -9,8 +9,8 @@ import com.doublekit.apibox.sysmgr.datastructure.model.DataStructureQuery;
 import com.doublekit.beans.BeanMapper;
 import com.doublekit.common.Pagination;
 import com.doublekit.common.PaginationBuilder;
-import com.doublekit.dal.jpa.builder.deletelist.condition.DeleteCondition;
-import com.doublekit.dal.jpa.builder.deletelist.conditionbuilder.DeleteBuilders;
+import com.doublekit.dal.jpa.criterial.model.DeleteCondition;
+import com.doublekit.dal.jpa.criterial.DeleteBuilders;
 import com.doublekit.eam.common.Ticket;
 import com.doublekit.eam.common.TicketContext;
 import com.doublekit.eam.common.TicketHolder;
@@ -63,7 +63,7 @@ public class DataStructureServiceImpl implements DataStructureService {
     public void deleteDataStructure(@NotNull String id) {
 
         //删除相关联的子表
-        DeleteCondition deleteCondition = DeleteBuilders.instance().eq("subjectId", id).get();
+        DeleteCondition deleteCondition = DeleteBuilders.create().eq("subjectId", id).get();
         jsonParamDSDao.deleteJsonParamDS(deleteCondition);
         enumParamDao.deleteEnumParam(deleteCondition);
         dataStructureDao.deleteDataStructure(id);
