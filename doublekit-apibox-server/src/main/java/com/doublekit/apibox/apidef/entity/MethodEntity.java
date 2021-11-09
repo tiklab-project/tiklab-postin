@@ -41,8 +41,15 @@ public class MethodEntity implements Serializable {
 
     @Column(name = "on_version_id",length = 255)
     private String onVersionId;
+
     @Column(name = "create_user",length = 30 )
     private String createUser;
+
+    @Column(name = "update_user",length = 30 )
+    private String updateUser;
+
+    @Column(name = "executor_id",length = 32 )
+    private String executor;
 
     @Column(name = "create_time",length = 4)
     private Date createTime;
@@ -50,6 +57,8 @@ public class MethodEntity implements Serializable {
     @Column(name = "update_time",length = 4)
     private Date updateTime;
 
+    @Column(name = "status",length = 8)
+    private String status;
 
     public String getId() {
         return id;
@@ -131,6 +140,14 @@ public class MethodEntity implements Serializable {
         this.createUser = createUser;
     }
 
+    public String getUpdateUser() {
+        return updateUser;
+    }
+
+    public void setUpdateUser(String updateUser) {
+        this.updateUser = updateUser;
+    }
+
     public Date getCreateTime() {
         return createTime;
     }
@@ -147,5 +164,15 @@ public class MethodEntity implements Serializable {
         this.updateTime = updateTime;
     }
 
+    public String getStatus() {return status;}
 
+    public void setStatus(String status) {this.status = status;}
+
+    public String getExecutor() {
+        return executor;
+    }
+
+    public void setExecutor(String executor) {
+        this.executor = executor;
+    }
 }

@@ -8,10 +8,12 @@ CREATE TABLE apibox_method(
         sort int,
         version_code varchar(255) ,
         on_version_id varchar (255),
-        create_user varchar(30),
+        create_user varchar(64),
         create_time timestamp ,
-        update_time timestamp
-
+        update_time timestamp,
+        status varchar(32),
+        update_user varchar(64)
+        executor_id varchar(32)
 );
 CREATE TABLE apibox_request_header(
         id VARCHAR(32) PRIMARY KEY,

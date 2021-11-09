@@ -14,6 +14,10 @@ import java.util.List;
 @CriteriaQuery
 public class WorkspaceQuery {
 
+    @ApiProperty(name ="userId",desc = "用户ID，精确匹配")
+    @QueryField(type = QueryTypeEnum.equal)
+    private String userId;
+
     @ApiProperty(name ="workspaceName",desc = "空间名称，模糊匹配")
     @QueryField(type = QueryTypeEnum.like)
     private String workspaceName;
@@ -25,6 +29,14 @@ public class WorkspaceQuery {
     @ApiProperty(name ="pageParam",desc = "分页参数")
     @PageField
     private PageParam pageParam = new PageParam();
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
     public String getWorkspaceName() {
         return workspaceName;

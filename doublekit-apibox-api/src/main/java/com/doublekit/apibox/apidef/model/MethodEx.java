@@ -67,12 +67,26 @@ public class MethodEx extends BaseModel {
     @IndexField
     private java.lang.String onVersionId;
 
-    @ApiProperty(name="user",desc="创建人")
+    @ApiProperty(name="createUser",desc="创建人")
     @Mappings({
-            @Mapping(source = "user.id",target = "createUser")
+            @Mapping(source = "createUser.id",target = "createUser")
     })
     @JoinField(id = "id")
-    private User user;
+    private User createUser;
+
+    @ApiProperty(name="updateUser",desc="更新者")
+    @Mappings({
+            @Mapping(source = "updateUser.id",target = "updateUser")
+    })
+    @JoinField(id = "id")
+    private User updateUser;
+
+    @ApiProperty(name="executor",desc="创建人")
+    @Mappings({
+            @Mapping(source = "executor.id",target = "executor")
+    })
+    @JoinField(id = "id")
+    private User executor;
 
     @ApiProperty(name="createTime",desc="创建时间")
     @IndexField
@@ -81,6 +95,10 @@ public class MethodEx extends BaseModel {
     @ApiProperty(name="updateTime",desc="更新时间")
     @IndexField
     private java.sql.Date updateTime;
+
+    @ApiProperty(name="status",desc="状态")
+    @IndexField
+    private java.lang.String status;
 
 
 
@@ -157,14 +175,13 @@ public class MethodEx extends BaseModel {
         this.onVersionId = onVersionId;
     }
 
-    public User getUser() {
-        return user;
+    public User getCreateUser() {
+        return createUser;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setCreateUser(User createUser) {
+        this.createUser = createUser;
     }
-
 
     public Date getCreateTime() {
         return createTime;
@@ -172,6 +189,14 @@ public class MethodEx extends BaseModel {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public User getUpdateUser() {
+        return updateUser;
+    }
+
+    public void setUpdateUser(User updateUser) {
+        this.updateUser = updateUser;
     }
 
     public Date getUpdateTime() {
@@ -182,5 +207,19 @@ public class MethodEx extends BaseModel {
         this.updateTime = updateTime;
     }
 
+    public String getStatus() {
+        return status;
+    }
 
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public User getExecutor() {
+        return executor;
+    }
+
+    public void setExecutor(User executor) {
+        this.executor = executor;
+    }
 }

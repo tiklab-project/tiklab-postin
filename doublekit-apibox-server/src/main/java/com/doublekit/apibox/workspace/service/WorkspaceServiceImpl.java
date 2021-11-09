@@ -1,5 +1,6 @@
 package com.doublekit.apibox.workspace.service;
 
+import com.doublekit.apibox.common.CurrentRegUser;
 import com.doublekit.apibox.workspace.dao.WorkspaceDao;
 import com.doublekit.apibox.workspace.entity.WorkspaceEntity;
 import com.doublekit.apibox.workspace.model.Workspace;
@@ -46,12 +47,15 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         //创建项目
         WorkspaceEntity workspaceEntity = BeanMapper.map(workspace, WorkspaceEntity.class);
 
-        String projectId = workspaceDao.createWorkspace(workspaceEntity);
-
         //初始化项目成员
         String ticketId = TicketHolder.get();
         Ticket ticket = TicketContext.get(ticketId);
         String userId = ticket.getUserId();
+//        String userId = CurrentRegUser.getInstace().findCreatUser();
+
+        workspaceEntity.setUserId(userId);
+        String projectId = workspaceDao.createWorkspace(workspaceEntity);
+
         DmUser dmUser = new DmUser();
         dmUser.setDomainId(projectId);
         dmUser.setUser(new User().setId(userId));
@@ -128,4 +132,13 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         List<Workspace> workspaceList = BeanMapper.mapList(pagination.getDataList(),Workspace.class);
         return PaginationBuilder.build(pagination,workspaceList);
     }
+
+
+    @Override
+    public List<Workspace> findWorkspaceJoinList(WorkspaceQuery workspaceQuery) {
+        List<WorkspaceEntity> workspaceEntityList = workspaceDao.findWorkspaceJoinList(workspaceQuery);
+
+        return BeanMapper.mapList(workspaceEntityList,Workspace.class);
+    }
+
 }

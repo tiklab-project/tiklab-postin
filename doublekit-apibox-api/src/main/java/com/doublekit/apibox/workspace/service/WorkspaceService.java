@@ -72,4 +72,13 @@ public interface WorkspaceService {
     */
     Pagination<Workspace> findWorkspacePage(WorkspaceQuery workspaceQuery);
 
+
+    /**
+     * 查询我加入的列表
+     * @param workspaceQuery
+     * @return
+     */
+    List<Workspace> findWorkspaceJoinList(WorkspaceQuery workspaceQuery);
+
+
 }

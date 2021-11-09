@@ -7,6 +7,7 @@ import com.doublekit.dal.jpa.JpaTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -75,4 +76,15 @@ public class WorkspaceDao{
     public Pagination<WorkspaceEntity> findWorkspacePage(WorkspaceQuery workspaceQuery) {
         return jpaTemplate.findPage(workspaceQuery, WorkspaceEntity.class);
     }
+
+    public List<WorkspaceEntity> findWorkspaceJoinList(WorkspaceQuery workspaceQuery) {
+        String userId = workspaceQuery.getUserId();
+        String sql = "select apibox_workspace.workspace_name,apibox_workspace.id,apibox_workspace.description,apibox_workspace.user_id,orc_dm_user.user_id  " +
+                "from apibox_workspace,orc_dm_user " +
+                "where  apibox_workspace.id = orc_dm_user.domain_id and orc_dm_user.user_id= ? ";
+
+        List<WorkspaceEntity> workspaceList = jpaTemplate.getJdbcTemplate().query(sql, new Object[]{userId}, new BeanPropertyRowMapper<>(WorkspaceEntity.class));
+        return workspaceList;
+    }
+
 }

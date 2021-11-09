@@ -136,6 +136,9 @@ public class MethodServiceImpl implements MethodService {
         //更新接口
         MethodEntity methodEntity = BeanMapper.map(method, MethodEntity.class);
 
+        //添加更新人
+        String updateUserId = findCreatUser();
+        methodEntity.setUpdateUser(updateUserId);
         methodDao.updateMethod(methodEntity);
 
         //更新索引
@@ -286,7 +289,7 @@ public class MethodServiceImpl implements MethodService {
     }
 
     /**
-     * 查询用户（创建人）id
+     * 查询用户（创建/更新 人）id
      * @param
      */
     public String findCreatUser(){

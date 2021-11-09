@@ -22,6 +22,9 @@ public class WorkspaceEntity implements Serializable {
     @Column(name = "description",length = 64)
     private String desc;
 
+    @Column(name = "user_id",length = 32)
+    private String userId;
+
     public String getId() {
         return id;
     }
@@ -44,5 +47,13 @@ public class WorkspaceEntity implements Serializable {
 
     public void setDesc(String desc) {
         this.desc = desc;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }
