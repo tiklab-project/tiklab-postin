@@ -11,7 +11,7 @@ import com.doublekit.dal.jpa.criteria.annotation.QueryTypeEnum;
 import java.util.List;
 
 @ApiModel
-@CriteriaQuery
+@CriteriaQuery(entityAlias = "AssertInstanceEntity")
 public class AssertInstanceQuery {
 
     @ApiProperty(name ="instanceId",desc = "测试实例ID，精确匹配")

@@ -11,7 +11,7 @@ import com.doublekit.dal.jpa.criteria.annotation.QueryTypeEnum;
 import java.util.List;
 
 @ApiModel
-@CriteriaQuery
+@CriteriaQuery(entityAlias = "JsonParamDSEntity")
 public class JsonParamDSQuery {
         @ApiProperty(name ="orderParams",desc = "排序参数")
         @OrderField

@@ -6,7 +6,7 @@ import com.doublekit.apibox.annotation.ApiModel;
 import com.doublekit.dal.jpa.criteria.annotation.QueryTypeEnum;
 
 @ApiModel
-@CriteriaQuery
+@CriteriaQuery(entityAlias = "ResponseResultEntity")
 public class ResponseResultQuery {
 
     @ApiProperty(name ="methodId",desc = "接口ID，精确匹配")

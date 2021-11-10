@@ -11,7 +11,7 @@ import com.doublekit.dal.jpa.criteria.annotation.QueryTypeEnum;
 import java.util.List;
 
 @ApiModel
-@CriteriaQuery
+@CriteriaQuery(entityAlias = "EnumParamEntity")
 public class EnumParamQuery {
 
         @ApiProperty(name ="methodId",desc = "主表ID，精确匹配")

@@ -14,7 +14,7 @@ import com.doublekit.dal.jpa.criteria.model.Orders;
 import java.util.List;
 
 @ApiModel
-@CriteriaQuery
+@CriteriaQuery(entityAlias = "RequestHeaderMockEntity")
 public class RequestHeaderMockQuery {
 
     @ApiProperty(name ="mockId",desc = "mockId，精确匹配")

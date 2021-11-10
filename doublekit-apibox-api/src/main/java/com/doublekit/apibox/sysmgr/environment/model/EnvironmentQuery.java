@@ -11,7 +11,7 @@ import com.doublekit.dal.jpa.criteria.annotation.QueryTypeEnum;
 import java.util.List;
 
 @ApiModel
-@CriteriaQuery
+@CriteriaQuery(entityAlias = "EnvironmentEntity")
 public class EnvironmentQuery {
 
     @ApiProperty(name ="name",desc = "分类名称，模糊匹配")
