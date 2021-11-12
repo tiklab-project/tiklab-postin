@@ -4,6 +4,8 @@ import com.doublekit.apibox.sysmgr.datastructure.dao.DataStructureDao;
 import com.doublekit.apibox.sysmgr.datastructure.dao.EnumParamDao;
 import com.doublekit.apibox.sysmgr.datastructure.dao.JsonParamDSDao;
 import com.doublekit.apibox.sysmgr.datastructure.entity.DataStructureEntity;
+import com.doublekit.apibox.sysmgr.datastructure.entity.EnumParamEntity;
+import com.doublekit.apibox.sysmgr.datastructure.entity.JsonParamDSEntity;
 import com.doublekit.apibox.sysmgr.datastructure.model.DataStructure;
 import com.doublekit.apibox.sysmgr.datastructure.model.DataStructureQuery;
 import com.doublekit.beans.BeanMapper;
@@ -61,11 +63,17 @@ public class DataStructureServiceImpl implements DataStructureService {
 
     @Override
     public void deleteDataStructure(@NotNull String id) {
-
         //删除相关联的子表
-        DeleteCondition deleteCondition = DeleteBuilders.create().eq("subjectId", id).get();
+        DeleteCondition deleteCondition = DeleteBuilders.createDelete(JsonParamDSEntity.class)
+                .eq("subjectId", id)
+                .get();
         jsonParamDSDao.deleteJsonParamDS(deleteCondition);
+
+        deleteCondition = DeleteBuilders.createDelete(EnumParamEntity.class)
+                .eq("subjectId", id)
+                .get();
         enumParamDao.deleteEnumParam(deleteCondition);
+
         dataStructureDao.deleteDataStructure(id);
     }
 

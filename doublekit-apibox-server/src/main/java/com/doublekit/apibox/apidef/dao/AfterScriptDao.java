@@ -53,7 +53,7 @@ public class AfterScriptDao{
      * @param deleteCondition
      */
     public void deleteAfterScriptList(DeleteCondition deleteCondition){
-        jpaTemplate.delete(AfterScriptEntity.class,deleteCondition);
+        jpaTemplate.delete(deleteCondition);
     }
     /**
      * 查找用户

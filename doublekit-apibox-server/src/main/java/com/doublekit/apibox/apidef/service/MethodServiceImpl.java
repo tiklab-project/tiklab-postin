@@ -3,7 +3,7 @@ package com.doublekit.apibox.apidef.service;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.doublekit.apibox.apidef.dao.*;
-import com.doublekit.apibox.apidef.entity.MethodEntity;
+import com.doublekit.apibox.apidef.entity.*;
 import com.doublekit.apibox.apidef.model.MethodEx;
 import com.doublekit.apibox.apidef.model.MethodExQuery;
 import com.doublekit.apibox.apidef.support.MessageTemplateConstant;
@@ -175,41 +175,76 @@ public class MethodServiceImpl implements MethodService {
         //删除方法
         methodDao.deleteMethod(id);
 
-        DeleteCondition deleteCondition = DeleteBuilders.create().eq("methodId", id).get();
         //删除后置脚本数据
+        DeleteCondition deleteCondition = DeleteBuilders.createDelete(AfterScriptEntity.class)
+                .eq("methodId", id)
+                .get();
         afterScriptDao.deleteAfterScriptList(deleteCondition);
 
         //删除form类型请求体
+        deleteCondition = DeleteBuilders.createDelete(FormParamEntity.class)
+                .eq("methodId", id)
+                .get();
         formParamDao.deleteFormParamLsit(deleteCondition);
 
         //删除json类型请求体
+        deleteCondition = DeleteBuilders.createDelete(JsonParamEntity.class)
+                .eq("methodId", id)
+                .get();
         jsonParamDao.deleteJsonParamList(deleteCondition);
 
         //删除json类型响应结果
+        deleteCondition = DeleteBuilders.createDelete(JsonResponseEntity.class)
+                .eq("methodId", id)
+                .get();
         jsonResponseDao.deleteJsonResponseList(deleteCondition);
 
         //删除preScrit 前置脚本
+        deleteCondition = DeleteBuilders.createDelete(PreScriptEntity.class)
+                .eq("methodId", id)
+                .get();
         preScriptDao.deletePreScriptList(deleteCondition);
 
         //删除query类型请求体
+        deleteCondition = DeleteBuilders.createDelete(QueryParamEntity.class)
+                .eq("methodId", id)
+                .get();
         queryParamDao.deleteQueryParamList(deleteCondition);
 
         //删除rawParam 类型请求体
+        deleteCondition = DeleteBuilders.createDelete(RawParamEntity.class)
+                .eq("methodId", id)
+                .get();
         rawParamDao.deleteRawParamlist(deleteCondition);
 
         //删除rawResponse返回类型
+        deleteCondition = DeleteBuilders.createDelete(RawResponseEntity.class)
+                .eq("methodId", id)
+                .get();
         rawResponseDao.deleteRawResponseList(deleteCondition);
 
         //删除requestBoy
+        deleteCondition = DeleteBuilders.createDelete(RequestBodyEntity.class)
+                .eq("methodId", id)
+                .get();
         requestBodyDao.deleteRequestBodyList(deleteCondition);
 
         //删除requestHeader
+        deleteCondition = DeleteBuilders.createDelete(RequestHeaderEntity.class)
+                .eq("methodId", id)
+                .get();
         requestHeaderDao.deleteRequestHeaderList(deleteCondition);
 
         //删除responseHeader
+        deleteCondition = DeleteBuilders.createDelete(ResponseHeaderEntity.class)
+                .eq("methodId", id)
+                .get();
         responseHeaderDao.deleteResponseHeaderList(deleteCondition);
 
         //删除responseResult
+        deleteCondition = DeleteBuilders.createDelete(ResponseResultEntity.class)
+                .eq("methodId", id)
+                .get();
         responseResultDao.deleteResponseResultList(deleteCondition);
 
         //删除索引

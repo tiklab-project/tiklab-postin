@@ -53,7 +53,7 @@ public class PreScriptDao{
      * @param deleteCondition
      */
     public void deletePreScriptList(DeleteCondition deleteCondition){
-        jpaTemplate.delete(PreScriptEntity.class,deleteCondition);
+        jpaTemplate.delete(deleteCondition);
     }
 
 

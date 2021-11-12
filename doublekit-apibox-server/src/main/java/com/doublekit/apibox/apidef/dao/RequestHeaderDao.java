@@ -53,7 +53,7 @@ public class RequestHeaderDao{
      * @param deleteCondition
      */
     public void deleteRequestHeaderList(DeleteCondition deleteCondition){
-        jpaTemplate.delete(RequestHeaderEntity.class,deleteCondition);
+        jpaTemplate.delete(deleteCondition);
     }
 
     /**

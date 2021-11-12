@@ -49,7 +49,7 @@ public class DataStructureDao{
     }
 
     public void deleteDataStructure(DeleteCondition deleteCondition){
-        jpaTemplate.delete(DataStructureEntity.class,deleteCondition);
+        jpaTemplate.delete(deleteCondition);
     }
 
     /**

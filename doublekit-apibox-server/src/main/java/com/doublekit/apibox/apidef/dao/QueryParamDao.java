@@ -53,7 +53,7 @@ public class QueryParamDao{
      * @param deleteCondition
      */
     public void deleteQueryParamList(DeleteCondition deleteCondition){
-        jpaTemplate.delete(QueryParamEntity.class,deleteCondition);
+        jpaTemplate.delete(deleteCondition);
     }
 
     /**

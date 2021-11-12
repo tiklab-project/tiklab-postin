@@ -45,7 +45,7 @@ public class RequestBodyDao{
      * @param deleteCondition
      */
     public void deleteRequestBodyList(DeleteCondition deleteCondition){
-        jpaTemplate.delete(RequestBodyEntity.class,deleteCondition);
+        jpaTemplate.delete(deleteCondition);
     }
     /**
      * 删除

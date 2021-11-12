@@ -58,7 +58,7 @@ public class JsonResponseDao {
      * @param deleteCondition
      */
     public void deleteJsonResponseList(DeleteCondition deleteCondition){
-        jpaTemplate.delete(JsonResponseEntity.class,deleteCondition);
+        jpaTemplate.delete(deleteCondition);
     }
 
     /**
