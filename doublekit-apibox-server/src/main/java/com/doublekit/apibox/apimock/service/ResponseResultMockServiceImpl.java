@@ -26,7 +26,7 @@ public class ResponseResultMockServiceImpl implements ResponseResultMockService 
     ResponseResultMockDao responseResultMockDao;
 
     @Autowired
-    JoinTemplate joinQuery;
+    JoinTemplate joinTemplate;
 
     @Override
     public String createResponseResultMock(@NotNull @Valid ResponseResultMock responseResultMock) {
@@ -53,7 +53,7 @@ public class ResponseResultMockServiceImpl implements ResponseResultMockService 
 
         ResponseResultMock responseResultMock = BeanMapper.map(responseResultMockEntity, ResponseResultMock.class);
 
-        joinQuery.queryOne(responseResultMock);
+        joinTemplate.joinQuery(responseResultMock);
 
         return responseResultMock;
     }
@@ -64,7 +64,7 @@ public class ResponseResultMockServiceImpl implements ResponseResultMockService 
 
         List<ResponseResultMock> responseResultMockList =  BeanMapper.mapList(responseResultMockEntityList,ResponseResultMock.class);
 
-        joinQuery.queryList(responseResultMockList);
+        joinTemplate.joinQuery(responseResultMockList);
 
         return responseResultMockList;
     }
@@ -75,7 +75,7 @@ public class ResponseResultMockServiceImpl implements ResponseResultMockService 
 
         List<ResponseResultMock> responseResultMockList = BeanMapper.mapList(responseResultMockEntityList,ResponseResultMock.class);
 
-        joinQuery.queryList(responseResultMockList);
+        joinTemplate.joinQuery(responseResultMockList);
 
         return responseResultMockList;
     }
@@ -87,7 +87,7 @@ public class ResponseResultMockServiceImpl implements ResponseResultMockService 
 
         List<ResponseResultMock> responseResultMockList = BeanMapper.mapList(pagination.getDataList(),ResponseResultMock.class);
 
-        joinQuery.queryList(responseResultMockList);
+        joinTemplate.joinQuery(responseResultMockList);
 
         return PaginationBuilder.build(pagination,responseResultMockList);
     }

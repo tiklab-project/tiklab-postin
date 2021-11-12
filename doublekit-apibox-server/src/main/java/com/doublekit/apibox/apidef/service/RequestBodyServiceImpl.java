@@ -26,7 +26,7 @@ public class RequestBodyServiceImpl implements RequestBodyService {
     RequestBodyDao requestBodyDao;
 
     @Autowired
-    JoinTemplate joinQuery;
+    JoinTemplate joinTemplate;
 
     @Override
     public String createRequestBody(@NotNull @Valid RequestBodyEx requestBody) {
@@ -53,7 +53,7 @@ public class RequestBodyServiceImpl implements RequestBodyService {
 
         RequestBodyEx requestBody = BeanMapper.map(requestBodyEntity, RequestBodyEx.class);
 
-        joinQuery.queryOne(requestBody);
+        joinTemplate.joinQuery(requestBody);
 
         return requestBody;
     }
@@ -64,7 +64,7 @@ public class RequestBodyServiceImpl implements RequestBodyService {
 
         List<RequestBodyEx> requestBodyList =  BeanMapper.mapList(requestBodyEntityList, RequestBodyEx.class);
 
-        joinQuery.queryList(requestBodyList);
+        joinTemplate.joinQuery(requestBodyList);
 
         return requestBodyList;
     }
@@ -75,7 +75,7 @@ public class RequestBodyServiceImpl implements RequestBodyService {
 
         List<RequestBodyEx> requestBodyList = BeanMapper.mapList(requestBodyEntityList, RequestBodyEx.class);
 
-        joinQuery.queryList(requestBodyList);
+        joinTemplate.joinQuery(requestBodyList);
 
         return requestBodyList;
     }
@@ -87,7 +87,7 @@ public class RequestBodyServiceImpl implements RequestBodyService {
 
         List<RequestBodyEx> requestBodyList = BeanMapper.mapList(pagination.getDataList(), RequestBodyEx.class);
 
-        joinQuery.queryList(requestBodyList);
+        joinTemplate.joinQuery(requestBodyList);
 
         return PaginationBuilder.build(pagination,requestBodyList);
     }

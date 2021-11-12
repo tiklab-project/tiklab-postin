@@ -26,7 +26,7 @@ public class ResponseHeaderMockServiceImpl implements ResponseHeaderMockService 
     ResponseHeaderMockDao responseHeaderMockDao;
 
     @Autowired
-    JoinTemplate joinQuery;
+    JoinTemplate joinTemplate;
 
     @Override
     public String createResponseHeaderMock(@NotNull @Valid ResponseHeaderMock responseHeaderMock) {
@@ -53,7 +53,7 @@ public class ResponseHeaderMockServiceImpl implements ResponseHeaderMockService 
 
         ResponseHeaderMock responseHeaderMock = BeanMapper.map(responseHeaderMockEntity, ResponseHeaderMock.class);
 
-        joinQuery.queryOne(responseHeaderMock);
+        joinTemplate.joinQuery(responseHeaderMock);
 
         return responseHeaderMock;
     }
@@ -64,7 +64,7 @@ public class ResponseHeaderMockServiceImpl implements ResponseHeaderMockService 
 
         List<ResponseHeaderMock> responseHeaderMockList =  BeanMapper.mapList(responseHeaderMockEntityList,ResponseHeaderMock.class);
 
-        joinQuery.queryList(responseHeaderMockList);
+        joinTemplate.joinQuery(responseHeaderMockList);
 
         return responseHeaderMockList;
     }
@@ -75,7 +75,7 @@ public class ResponseHeaderMockServiceImpl implements ResponseHeaderMockService 
 
         List<ResponseHeaderMock> responseHeaderMockList = BeanMapper.mapList(responseHeaderMockEntityList,ResponseHeaderMock.class);
 
-        joinQuery.queryList(responseHeaderMockList);
+        joinTemplate.joinQuery(responseHeaderMockList);
 
         return responseHeaderMockList;
     }
@@ -87,7 +87,7 @@ public class ResponseHeaderMockServiceImpl implements ResponseHeaderMockService 
 
         List<ResponseHeaderMock> responseHeaderMockList = BeanMapper.mapList(pagination.getDataList(),ResponseHeaderMock.class);
 
-        joinQuery.queryList(responseHeaderMockList);
+        joinTemplate.joinQuery(responseHeaderMockList);
 
         return PaginationBuilder.build(pagination,responseHeaderMockList);
     }

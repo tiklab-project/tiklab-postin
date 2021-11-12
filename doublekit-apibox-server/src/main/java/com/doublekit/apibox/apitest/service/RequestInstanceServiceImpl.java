@@ -26,7 +26,7 @@ public class RequestInstanceServiceImpl implements RequestInstanceService {
     RequestInstanceDao requestInstanceDao;
 
     @Autowired
-    JoinTemplate joinQuery;
+    JoinTemplate joinTemplate;
 
     @Override
     public String createRequestInstance(@NotNull @Valid RequestInstance requestInstance) {
@@ -67,7 +67,7 @@ public class RequestInstanceServiceImpl implements RequestInstanceService {
     public RequestInstance findRequestInstance(@NotNull String id) {
         RequestInstance requestInstance = findOne(id);
 
-        joinQuery.queryOne(requestInstance);
+        joinTemplate.joinQuery(requestInstance);
         return requestInstance;
     }
 
@@ -77,7 +77,7 @@ public class RequestInstanceServiceImpl implements RequestInstanceService {
 
         List<RequestInstance> requestInstanceList =  BeanMapper.mapList(requestInstanceEntityList,RequestInstance.class);
 
-        joinQuery.queryList(requestInstanceList);
+        joinTemplate.joinQuery(requestInstanceList);
         return requestInstanceList;
     }
 
@@ -87,7 +87,7 @@ public class RequestInstanceServiceImpl implements RequestInstanceService {
 
         List<RequestInstance> requestInstanceList = BeanMapper.mapList(requestInstanceEntityList,RequestInstance.class);
 
-        joinQuery.queryList(requestInstanceList);
+        joinTemplate.joinQuery(requestInstanceList);
 
         return requestInstanceList;
     }
@@ -99,7 +99,7 @@ public class RequestInstanceServiceImpl implements RequestInstanceService {
 
         List<RequestInstance> requestInstanceList = BeanMapper.mapList(pagination.getDataList(),RequestInstance.class);
 
-        joinQuery.queryList(requestInstanceList);
+        joinTemplate.joinQuery(requestInstanceList);
 
         return PaginationBuilder.build(pagination,requestInstanceList);
     }

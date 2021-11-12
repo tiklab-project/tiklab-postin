@@ -26,7 +26,7 @@ public class RequestBodyCaseServiceImpl implements RequestBodyCaseService {
     RequestBodyCaseDao requestBodyCaseDao;
 
     @Autowired
-    JoinTemplate joinQuery;
+    JoinTemplate joinTemplate;
 
     @Override
     public String createRequestBodyCase(@NotNull @Valid RequestBodyCase requestBodyCase) {
@@ -67,7 +67,7 @@ public class RequestBodyCaseServiceImpl implements RequestBodyCaseService {
     public RequestBodyCase findRequestBodyCase(@NotNull String id) {
         RequestBodyCase requestBodyCase = findOne(id);
 
-        joinQuery.queryOne(requestBodyCase);
+        joinTemplate.joinQuery(requestBodyCase);
         return requestBodyCase;
     }
 
@@ -77,7 +77,7 @@ public class RequestBodyCaseServiceImpl implements RequestBodyCaseService {
 
         List<RequestBodyCase> requestBodyCaseList =  BeanMapper.mapList(requestBodyCaseEntityList,RequestBodyCase.class);
 
-        joinQuery.queryList(requestBodyCaseList);
+        joinTemplate.joinQuery(requestBodyCaseList);
         return requestBodyCaseList;
     }
 
@@ -87,7 +87,7 @@ public class RequestBodyCaseServiceImpl implements RequestBodyCaseService {
 
         List<RequestBodyCase> requestBodyCaseList = BeanMapper.mapList(requestBodyCaseEntityList,RequestBodyCase.class);
 
-        joinQuery.queryList(requestBodyCaseList);
+        joinTemplate.joinQuery(requestBodyCaseList);
 
         return requestBodyCaseList;
     }
@@ -99,7 +99,7 @@ public class RequestBodyCaseServiceImpl implements RequestBodyCaseService {
 
         List<RequestBodyCase> requestBodyCaseList = BeanMapper.mapList(pagination.getDataList(),RequestBodyCase.class);
 
-        joinQuery.queryList(requestBodyCaseList);
+        joinTemplate.joinQuery(requestBodyCaseList);
 
         return PaginationBuilder.build(pagination,requestBodyCaseList);
     }

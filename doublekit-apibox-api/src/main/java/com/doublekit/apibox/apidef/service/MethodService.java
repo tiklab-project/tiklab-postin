@@ -5,7 +5,7 @@ import com.doublekit.common.page.Pagination;
 import com.doublekit.apibox.apidef.model.MethodEx;
 import com.doublekit.apibox.apidef.model.MethodExQuery;
 import com.doublekit.join.annotation.FindList;
-import com.doublekit.join.annotation.Provider;
+import com.doublekit.join.annotation.JoinProvider;
 import com.doublekit.join.annotation.FindAll;
 import com.doublekit.join.annotation.FindOne;
 
@@ -16,7 +16,7 @@ import java.util.List;
 /**
 * 用户服务接口
 */
-@Provider(model = MethodEx.class)
+@JoinProvider(model = MethodEx.class)
 public interface MethodService {
 
     /**

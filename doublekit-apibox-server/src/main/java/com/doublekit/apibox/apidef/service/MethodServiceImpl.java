@@ -40,7 +40,7 @@ public class MethodServiceImpl implements MethodService {
     MethodDao methodDao;
 
     @Autowired
-    JoinTemplate joinQuery;
+    JoinTemplate joinTemplate;
 
     @Autowired
     MessageService messageService;
@@ -272,7 +272,7 @@ public class MethodServiceImpl implements MethodService {
     public MethodEx findMethod(@NotNull String id) {
         MethodEx methodEx = findOne(id);
 
-        joinQuery.queryOne(methodEx);
+        joinTemplate.joinQuery(methodEx);
         return methodEx;
     }
 
@@ -282,7 +282,7 @@ public class MethodServiceImpl implements MethodService {
 
         List<MethodEx> methodExList = BeanMapper.mapList(methodEntityList, MethodEx.class);
 
-        joinQuery.queryList(methodExList);
+        joinTemplate.joinQuery(methodExList);
 
         return methodExList;
         }
@@ -293,7 +293,7 @@ public class MethodServiceImpl implements MethodService {
 
         List<MethodEx> methodExList = BeanMapper.mapList(methodEntityList, MethodEx.class);
 
-        joinQuery.queryList(methodExList);
+        joinTemplate.joinQuery(methodExList);
 
         return methodExList;
     }
@@ -318,7 +318,7 @@ public class MethodServiceImpl implements MethodService {
 
         List<MethodEx> methodExList = BeanMapper.mapList(pagination.getDataList(), MethodEx.class);
 
-        joinQuery.queryList(methodExList);
+        joinTemplate.joinQuery(methodExList);
 
         return PaginationBuilder.build(pagination,methodExList);
     }

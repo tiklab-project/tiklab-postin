@@ -25,7 +25,7 @@ public class TestcaseServiceImpl implements TestcaseService {
     TestcaseDao testcaseDao;
 
     @Autowired
-    JoinTemplate joinQuery;
+    JoinTemplate joinTemplate;
 
     @Autowired
     RequestHeaderCaseService requestHeaderCaseService;
@@ -181,7 +181,7 @@ public class TestcaseServiceImpl implements TestcaseService {
     public Testcase findTestcase(@NotNull String id) {
         Testcase testcase = findOne(id);
 
-        joinQuery.queryOne(testcase);
+        joinTemplate.joinQuery(testcase);
         return testcase;
     }
 
@@ -191,7 +191,7 @@ public class TestcaseServiceImpl implements TestcaseService {
 
         List<Testcase> testcaseList =  BeanMapper.mapList(testcaseEntityList,Testcase.class);
 
-        joinQuery.queryList(testcaseList);
+        joinTemplate.joinQuery(testcaseList);
         return testcaseList;
     }
 
@@ -201,7 +201,7 @@ public class TestcaseServiceImpl implements TestcaseService {
 
         List<Testcase> testcaseList = BeanMapper.mapList(testcaseEntityList,Testcase.class);
 
-        joinQuery.queryList(testcaseList);
+        joinTemplate.joinQuery(testcaseList);
 
         return testcaseList;
     }
@@ -213,7 +213,7 @@ public class TestcaseServiceImpl implements TestcaseService {
 
         List<Testcase> testcaseList = BeanMapper.mapList(pagination.getDataList(),Testcase.class);
 
-        joinQuery.queryList(testcaseList);
+        joinTemplate.joinQuery(testcaseList);
 
         return PaginationBuilder.build(pagination,testcaseList);
     }

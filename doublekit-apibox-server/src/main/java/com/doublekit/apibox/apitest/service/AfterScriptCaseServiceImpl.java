@@ -26,7 +26,7 @@ public class AfterScriptCaseServiceImpl implements AfterScriptCaseService {
     AfterScriptCaseDao afterScriptCaseDao;
 
     @Autowired
-    JoinTemplate joinQuery;
+    JoinTemplate joinTemplate;
 
     @Override
     public String createAfterScriptCase(@NotNull @Valid AfterScriptCase afterScriptCase) {
@@ -67,7 +67,7 @@ public class AfterScriptCaseServiceImpl implements AfterScriptCaseService {
     public AfterScriptCase findAfterScriptCase(@NotNull String id) {
         AfterScriptCase afterScriptCase = findOne(id);
 
-        joinQuery.queryOne(afterScriptCase);
+        joinTemplate.joinQuery(afterScriptCase);
         return afterScriptCase;
     }
 
@@ -77,7 +77,7 @@ public class AfterScriptCaseServiceImpl implements AfterScriptCaseService {
 
         List<AfterScriptCase> afterScriptCaseList =  BeanMapper.mapList(afterScriptCaseEntityList,AfterScriptCase.class);
 
-        joinQuery.queryList(afterScriptCaseList);
+        joinTemplate.joinQuery(afterScriptCaseList);
         return afterScriptCaseList;
     }
 
@@ -87,7 +87,7 @@ public class AfterScriptCaseServiceImpl implements AfterScriptCaseService {
 
         List<AfterScriptCase> afterScriptCaseList = BeanMapper.mapList(afterScriptCaseEntityList,AfterScriptCase.class);
 
-        joinQuery.queryList(afterScriptCaseList);
+        joinTemplate.joinQuery(afterScriptCaseList);
 
         return afterScriptCaseList;
     }
@@ -99,7 +99,7 @@ public class AfterScriptCaseServiceImpl implements AfterScriptCaseService {
 
         List<AfterScriptCase> afterScriptCaseList = BeanMapper.mapList(pagination.getDataList(),AfterScriptCase.class);
 
-        joinQuery.queryList(afterScriptCaseList);
+        joinTemplate.joinQuery(afterScriptCaseList);
 
         return PaginationBuilder.build(pagination,afterScriptCaseList);
     }

@@ -26,7 +26,7 @@ public class JsonParamMockServiceImpl implements JsonParamMockService {
     JsonParamMockDao jsonParamMockDao;
 
     @Autowired
-    JoinTemplate joinQuery;
+    JoinTemplate joinTemplate;
 
     @Override
     public String createJsonParamMock(@NotNull @Valid JsonParamMock jsonParamMock) {
@@ -67,7 +67,7 @@ public class JsonParamMockServiceImpl implements JsonParamMockService {
     public JsonParamMock findJsonParamMock(@NotNull String id) {
         JsonParamMock jsonParamMock = findOne(id);
 
-        joinQuery.queryOne(jsonParamMock);
+        joinTemplate.joinQuery(jsonParamMock);
         return jsonParamMock;
     }
 
@@ -77,7 +77,7 @@ public class JsonParamMockServiceImpl implements JsonParamMockService {
 
         List<JsonParamMock> jsonParamMockList =  BeanMapper.mapList(jsonParamMockEntityList,JsonParamMock.class);
 
-        joinQuery.queryList(jsonParamMockList);
+        joinTemplate.joinQuery(jsonParamMockList);
         return jsonParamMockList;
     }
 
@@ -87,7 +87,7 @@ public class JsonParamMockServiceImpl implements JsonParamMockService {
 
         List<JsonParamMock> jsonParamMockList = BeanMapper.mapList(jsonParamMockEntityList,JsonParamMock.class);
 
-        joinQuery.queryList(jsonParamMockList);
+        joinTemplate.joinQuery(jsonParamMockList);
 
         return jsonParamMockList;
     }
@@ -99,7 +99,7 @@ public class JsonParamMockServiceImpl implements JsonParamMockService {
 
         List<JsonParamMock> jsonParamMockList = BeanMapper.mapList(pagination.getDataList(),JsonParamMock.class);
 
-        joinQuery.queryList(jsonParamMockList);
+        joinTemplate.joinQuery(jsonParamMockList);
 
         return PaginationBuilder.build(pagination,jsonParamMockList);
     }

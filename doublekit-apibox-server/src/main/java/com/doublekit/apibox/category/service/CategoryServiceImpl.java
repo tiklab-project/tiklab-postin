@@ -33,7 +33,7 @@ public class CategoryServiceImpl implements CategoryService {
     //NodeDao nodeDao;
 
     @Autowired
-    JoinTemplate joinQuery;
+    JoinTemplate joinTemplate;
 
     @Autowired
     MethodDao methodDao;
@@ -91,7 +91,7 @@ public class CategoryServiceImpl implements CategoryService {
     public Category findCategory(@NotNull String id) {
         Category category = findOne(id);
 
-        joinQuery.queryOne(category);
+        joinTemplate.joinQuery(category);
         return category;
     }
 
@@ -101,7 +101,7 @@ public class CategoryServiceImpl implements CategoryService {
 
         List<Category> categoryList = BeanMapper.mapList(categoryEntityList,Category.class);
 
-        joinQuery.queryList(categoryList);
+        joinTemplate.joinQuery(categoryList);
 
         return categoryList;
     }
@@ -112,7 +112,7 @@ public class CategoryServiceImpl implements CategoryService {
 
         List<Category> categoryList = BeanMapper.mapList(categoryEntityList,Category.class);
 
-        joinQuery.queryList(categoryList);
+        joinTemplate.joinQuery(categoryList);
 
         return categoryList;
     }
@@ -124,7 +124,7 @@ public class CategoryServiceImpl implements CategoryService {
 
         List<Category> categoryList = BeanMapper.mapList(pagination.getDataList(),Category.class);
 
-        joinQuery.queryList(categoryList);
+        joinTemplate.joinQuery(categoryList);
 
         return PaginationBuilder.build(pagination,categoryList);
     }

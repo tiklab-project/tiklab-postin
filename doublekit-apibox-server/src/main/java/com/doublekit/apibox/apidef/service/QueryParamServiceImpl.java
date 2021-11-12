@@ -26,7 +26,7 @@ public class QueryParamServiceImpl implements QueryParamService {
     QueryParamDao queryParamDao;
 
     @Autowired
-    JoinTemplate joinQuery;
+    JoinTemplate joinTemplate;
 
     @Override
     public String createQueryParam(@NotNull @Valid QueryParam queryParam) {
@@ -53,7 +53,7 @@ public class QueryParamServiceImpl implements QueryParamService {
 
         QueryParam queryParam = BeanMapper.map(queryParamEntity, QueryParam.class);
 
-        joinQuery.queryOne(queryParam);
+        joinTemplate.joinQuery(queryParam);
 
         return queryParam;
     }
@@ -64,7 +64,7 @@ public class QueryParamServiceImpl implements QueryParamService {
 
         List<QueryParam> queryParamList = BeanMapper.mapList(queryParamEntityList,QueryParam.class);
 
-        joinQuery.queryList(queryParamList);
+        joinTemplate.joinQuery(queryParamList);
 
         return queryParamList;
     }
@@ -75,7 +75,7 @@ public class QueryParamServiceImpl implements QueryParamService {
 
         List<QueryParam> queryParamList = BeanMapper.mapList(queryParamEntityList,QueryParam.class);
 
-        joinQuery.queryList(queryParamList);
+        joinTemplate.joinQuery(queryParamList);
 
         return queryParamList;
     }
@@ -87,7 +87,7 @@ public class QueryParamServiceImpl implements QueryParamService {
 
         List<QueryParam> queryParamList = BeanMapper.mapList(pagination.getDataList(),QueryParam.class);
 
-        joinQuery.queryList(queryParamList);
+        joinTemplate.joinQuery(queryParamList);
 
         return PaginationBuilder.build(pagination,queryParamList);
     }

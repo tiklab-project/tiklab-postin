@@ -26,7 +26,7 @@ public class PreScriptCaseServiceImpl implements PreScriptCaseService {
     PreScriptCaseDao preScriptCaseDao;
 
     @Autowired
-    JoinTemplate joinQuery;
+    JoinTemplate joinTemplate;
 
     @Override
     public String createPreScriptCase(@NotNull @Valid PreScriptCase preScriptCase) {
@@ -67,7 +67,7 @@ public class PreScriptCaseServiceImpl implements PreScriptCaseService {
     public PreScriptCase findPreScriptCase(@NotNull String id) {
         PreScriptCase preScriptCase = findOne(id);
 
-        joinQuery.queryOne(preScriptCase);
+        joinTemplate.joinQuery(preScriptCase);
         return preScriptCase;
     }
 
@@ -77,7 +77,7 @@ public class PreScriptCaseServiceImpl implements PreScriptCaseService {
 
         List<PreScriptCase> preScriptCaseList =  BeanMapper.mapList(preScriptCaseEntityList,PreScriptCase.class);
 
-        joinQuery.queryList(preScriptCaseList);
+        joinTemplate.joinQuery(preScriptCaseList);
         return preScriptCaseList;
     }
 
@@ -87,7 +87,7 @@ public class PreScriptCaseServiceImpl implements PreScriptCaseService {
 
         List<PreScriptCase> preScriptCaseList = BeanMapper.mapList(preScriptCaseEntityList,PreScriptCase.class);
 
-        joinQuery.queryList(preScriptCaseList);
+        joinTemplate.joinQuery(preScriptCaseList);
 
         return preScriptCaseList;
     }
@@ -99,7 +99,7 @@ public class PreScriptCaseServiceImpl implements PreScriptCaseService {
 
         List<PreScriptCase> preScriptCaseList = BeanMapper.mapList(pagination.getDataList(),PreScriptCase.class);
 
-        joinQuery.queryList(preScriptCaseList);
+        joinTemplate.joinQuery(preScriptCaseList);
 
         return PaginationBuilder.build(pagination,preScriptCaseList);
     }

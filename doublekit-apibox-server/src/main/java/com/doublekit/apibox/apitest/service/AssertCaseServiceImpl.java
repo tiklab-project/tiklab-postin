@@ -26,7 +26,7 @@ public class AssertCaseServiceImpl implements AssertCaseService {
     AssertCaseDao assertCaseDao;
 
     @Autowired
-    JoinTemplate joinQuery;
+    JoinTemplate joinTemplate;
 
     @Override
     public String createAssertCase(@NotNull @Valid AssertCase assertCase) {
@@ -67,7 +67,7 @@ public class AssertCaseServiceImpl implements AssertCaseService {
     public AssertCase findAssertCase(@NotNull String id) {
         AssertCase assertCase = findOne(id);
 
-        joinQuery.queryOne(assertCase);
+        joinTemplate.joinQuery(assertCase);
         return assertCase;
     }
 
@@ -77,7 +77,7 @@ public class AssertCaseServiceImpl implements AssertCaseService {
 
         List<AssertCase> assertCaseList =  BeanMapper.mapList(assertCaseEntityList,AssertCase.class);
 
-        joinQuery.queryList(assertCaseList);
+        joinTemplate.joinQuery(assertCaseList);
         return assertCaseList;
     }
 
@@ -87,7 +87,7 @@ public class AssertCaseServiceImpl implements AssertCaseService {
 
         List<AssertCase> assertCaseList = BeanMapper.mapList(assertCaseEntityList,AssertCase.class);
 
-        joinQuery.queryList(assertCaseList);
+        joinTemplate.joinQuery(assertCaseList);
 
         return assertCaseList;
     }
@@ -99,7 +99,7 @@ public class AssertCaseServiceImpl implements AssertCaseService {
 
         List<AssertCase> assertCaseList = BeanMapper.mapList(pagination.getDataList(),AssertCase.class);
 
-        joinQuery.queryList(assertCaseList);
+        joinTemplate.joinQuery(assertCaseList);
 
 
         return PaginationBuilder.build(pagination,assertCaseList);

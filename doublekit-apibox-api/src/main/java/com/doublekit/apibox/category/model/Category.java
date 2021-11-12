@@ -4,12 +4,11 @@ import com.doublekit.apibox.annotation.ApiModel;
 import com.doublekit.apibox.annotation.ApiProperty;
 import com.doublekit.apibox.apidef.model.MethodEx;
 import com.doublekit.apibox.workspace.model.Workspace;
-import com.doublekit.beans.annotation.Mapper;
 import com.doublekit.beans.annotation.Mapping;
 import com.doublekit.beans.annotation.Mappings;
 import com.doublekit.common.BaseModel;
 import com.doublekit.join.annotation.Join;
-import com.doublekit.join.annotation.JoinField;
+import com.doublekit.join.annotation.JoinQuery;
 
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
@@ -30,14 +29,14 @@ public class Category extends BaseModel {
     @Mappings({
             @Mapping(source = "workspace.id",target = "workspaceId")
     })
-    @JoinField(id = "id")
+    @JoinQuery(key = "id")
     private Workspace workspace;
 
     @ApiProperty(name="parentCategory",desc="上级分类",eg="@selectOne")
     @Mappings({
             @Mapping(source = "parentCategory.id",target = "parentCategoryId")
     })
-    @JoinField(id = "id")
+    @JoinQuery(key = "id")
     private Category parentCategory;
 
     @ApiProperty(name="sort",desc="排序")

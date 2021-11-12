@@ -26,7 +26,7 @@ public class ResponseInstanceServiceImpl implements ResponseInstanceService {
     ResponseInstanceDao responseInstanceDao;
 
     @Autowired
-    JoinTemplate joinQuery;
+    JoinTemplate joinTemplate;
 
     @Override
     public String createResponseInstance(@NotNull @Valid ResponseInstance responseInstance) {
@@ -67,7 +67,7 @@ public class ResponseInstanceServiceImpl implements ResponseInstanceService {
     public ResponseInstance findResponseInstance(@NotNull String id) {
         ResponseInstance responseInstance = findOne(id);
 
-        joinQuery.queryOne(responseInstance);
+        joinTemplate.joinQuery(responseInstance);
         return responseInstance;
     }
 
@@ -77,7 +77,7 @@ public class ResponseInstanceServiceImpl implements ResponseInstanceService {
 
         List<ResponseInstance> responseInstanceList =  BeanMapper.mapList(responseInstanceEntityList,ResponseInstance.class);
 
-        joinQuery.queryList(responseInstanceList);
+        joinTemplate.joinQuery(responseInstanceList);
         return responseInstanceList;
     }
 
@@ -87,7 +87,7 @@ public class ResponseInstanceServiceImpl implements ResponseInstanceService {
 
         List<ResponseInstance> responseInstanceList = BeanMapper.mapList(responseInstanceEntityList,ResponseInstance.class);
 
-        joinQuery.queryList(responseInstanceList);
+        joinTemplate.joinQuery(responseInstanceList);
 
         return responseInstanceList;
     }
@@ -99,7 +99,7 @@ public class ResponseInstanceServiceImpl implements ResponseInstanceService {
 
         List<ResponseInstance> responseInstanceList = BeanMapper.mapList(pagination.getDataList(),ResponseInstance.class);
 
-        joinQuery.queryList(responseInstanceList);
+        joinTemplate.joinQuery(responseInstanceList);
 
         return PaginationBuilder.build(pagination,responseInstanceList);
     }

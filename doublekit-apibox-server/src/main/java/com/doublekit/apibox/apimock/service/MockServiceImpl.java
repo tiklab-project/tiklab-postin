@@ -26,7 +26,7 @@ public class MockServiceImpl implements MockService {
     MockDao mockDao;
 
     @Autowired
-    JoinTemplate joinQuery;
+    JoinTemplate joinTemplate;
 
     @Override
     public String createMock(@NotNull @Valid Mock mock) {
@@ -67,7 +67,7 @@ public class MockServiceImpl implements MockService {
     public Mock findMock(@NotNull String id) {
         Mock mock = findOne(id);
 
-        joinQuery.queryOne(mock);
+        joinTemplate.joinQuery(mock);
         return mock;
     }
 
@@ -77,7 +77,7 @@ public class MockServiceImpl implements MockService {
 
         List<Mock> mockList =  BeanMapper.mapList(mockEntityList,Mock.class);
 
-        joinQuery.queryList(mockList);
+        joinTemplate.joinQuery(mockList);
 
         return mockList;
     }
@@ -88,7 +88,7 @@ public class MockServiceImpl implements MockService {
 
         List<Mock> mockList = BeanMapper.mapList(mockEntityList,Mock.class);
 
-        joinQuery.queryList(mockList);
+        joinTemplate.joinQuery(mockList);
 
         return mockList;
     }
@@ -100,7 +100,7 @@ public class MockServiceImpl implements MockService {
 
         List<Mock> mockList = BeanMapper.mapList(pagination.getDataList(),Mock.class);
 
-        joinQuery.queryList(mockList);
+        joinTemplate.joinQuery(mockList);
 
         return PaginationBuilder.build(pagination,mockList);
     }

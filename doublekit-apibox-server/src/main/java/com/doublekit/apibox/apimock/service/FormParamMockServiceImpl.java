@@ -26,7 +26,7 @@ public class FormParamMockServiceImpl implements FormParamMockService {
     FormParamMockDao formParamMockDao;
 
     @Autowired
-    JoinTemplate joinQuery;
+    JoinTemplate joinTemplate;
 
     @Override
     public String createFormParamMock(@NotNull @Valid FormParamMock formParamMock) {
@@ -53,7 +53,7 @@ public class FormParamMockServiceImpl implements FormParamMockService {
 
         FormParamMock formParamMock = BeanMapper.map(formParamMockEntity, FormParamMock.class);
 
-        joinQuery.queryOne(formParamMock);
+        joinTemplate.joinQuery(formParamMock);
 
         return formParamMock;
     }
@@ -64,7 +64,7 @@ public class FormParamMockServiceImpl implements FormParamMockService {
 
         List<FormParamMock> formParamMockList =  BeanMapper.mapList(formParamMockEntityList,FormParamMock.class);
 
-        joinQuery.queryList(formParamMockList);
+        joinTemplate.joinQuery(formParamMockList);
 
         return formParamMockList;
     }
@@ -75,7 +75,7 @@ public class FormParamMockServiceImpl implements FormParamMockService {
 
         List<FormParamMock> formParamMockList = BeanMapper.mapList(formParamMockEntityList,FormParamMock.class);
 
-        joinQuery.queryList(formParamMockList);
+        joinTemplate.joinQuery(formParamMockList);
 
         return formParamMockList;
     }
@@ -87,7 +87,7 @@ public class FormParamMockServiceImpl implements FormParamMockService {
 
         List<FormParamMock> formParamMockList = BeanMapper.mapList(pagination.getDataList(),FormParamMock.class);
 
-        joinQuery.queryList(formParamMockList);
+        joinTemplate.joinQuery(formParamMockList);
 
         return PaginationBuilder.build(pagination,formParamMockList);
     }

@@ -26,7 +26,7 @@ public class RequestBodyMockServiceImpl implements RequestBodyMockService {
     RequestBodyMockDao requestBodyMockDao;
 
     @Autowired
-    JoinTemplate joinQuery;
+    JoinTemplate joinTemplate;
 
     @Override
     public String createRequestBodyMock(@NotNull @Valid RequestBodyMock requestBodyMock) {
@@ -67,7 +67,7 @@ public class RequestBodyMockServiceImpl implements RequestBodyMockService {
     public RequestBodyMock findRequestBodyMock(@NotNull String id) {
         RequestBodyMock requestBodyMock = findOne(id);
 
-        joinQuery.queryOne(requestBodyMock);
+        joinTemplate.joinQuery(requestBodyMock);
         return requestBodyMock;
     }
 
@@ -77,7 +77,7 @@ public class RequestBodyMockServiceImpl implements RequestBodyMockService {
 
         List<RequestBodyMock> requestBodyMockList =  BeanMapper.mapList(requestBodyMockEntityList,RequestBodyMock.class);
 
-        joinQuery.queryList(requestBodyMockList);
+        joinTemplate.joinQuery(requestBodyMockList);
         return requestBodyMockList;
     }
 
@@ -87,7 +87,7 @@ public class RequestBodyMockServiceImpl implements RequestBodyMockService {
 
         List<RequestBodyMock> requestBodyMockList = BeanMapper.mapList(requestBodyMockEntityList,RequestBodyMock.class);
 
-        joinQuery.queryList(requestBodyMockList);
+        joinTemplate.joinQuery(requestBodyMockList);
 
         return requestBodyMockList;
     }
@@ -99,7 +99,7 @@ public class RequestBodyMockServiceImpl implements RequestBodyMockService {
 
         List<RequestBodyMock> requestBodyMockList = BeanMapper.mapList(pagination.getDataList(),RequestBodyMock.class);
 
-        joinQuery.queryList(requestBodyMockList);
+        joinTemplate.joinQuery(requestBodyMockList);
 
         return PaginationBuilder.build(pagination,requestBodyMockList);
     }

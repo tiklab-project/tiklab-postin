@@ -27,7 +27,7 @@ public class EnumParamServiceImpl implements EnumParamService {
     EnumParamDao enumParamDao;
 
     @Autowired
-    JoinTemplate joinQuery;
+    JoinTemplate joinTemplate;
 
     @Override
     public String createEnumParam(@NotNull @Valid EnumParam enumParam) {
@@ -68,7 +68,7 @@ public class EnumParamServiceImpl implements EnumParamService {
     public EnumParam findEnumParam(@NotNull String id) {
         EnumParam enumParam = findOne(id);
 
-        joinQuery.queryOne(enumParam);
+        joinTemplate.joinQuery(enumParam);
         return enumParam;
     }
 
@@ -78,7 +78,7 @@ public class EnumParamServiceImpl implements EnumParamService {
 
         List<EnumParam> enumParamList =  BeanMapper.mapList(enumParamEntityList,EnumParam.class);
 
-        joinQuery.queryList(enumParamList);
+        joinTemplate.joinQuery(enumParamList);
         return enumParamList;
     }
 
@@ -88,7 +88,7 @@ public class EnumParamServiceImpl implements EnumParamService {
 
         List<EnumParam> enumParamList = BeanMapper.mapList(enumParamEntityList,EnumParam.class);
 
-        joinQuery.queryList(enumParamList);
+        joinTemplate.joinQuery(enumParamList);
 
         return enumParamList;
     }
@@ -100,7 +100,7 @@ public class EnumParamServiceImpl implements EnumParamService {
 
         List<EnumParam> enumParamList = BeanMapper.mapList(pagination.getDataList(),EnumParam.class);
 
-        joinQuery.queryList(enumParamList);
+        joinTemplate.joinQuery(enumParamList);
 
         return PaginationBuilder.build(pagination,enumParamList);
     }

@@ -26,7 +26,7 @@ public class AfterScriptServiceImpl implements AfterScriptService {
     AfterScriptDao afterScriptDao;
 
     @Autowired
-    JoinTemplate joinQuery;
+    JoinTemplate joinTemplate;
 
     @Override
     public String createAfterScript(@NotNull @Valid AfterScript afterScript) {
@@ -53,7 +53,7 @@ public class AfterScriptServiceImpl implements AfterScriptService {
 
         AfterScript afterScript = BeanMapper.map(afterScriptEntity, AfterScript.class);
 
-        joinQuery.queryOne(afterScript);
+        joinTemplate.joinQuery(afterScript);
 
         return afterScript;
     }
@@ -64,7 +64,7 @@ public class AfterScriptServiceImpl implements AfterScriptService {
 
         List<AfterScript> afterScriptList =  BeanMapper.mapList(afterScriptEntityList,AfterScript.class);
 
-        joinQuery.queryList(afterScriptList);
+        joinTemplate.joinQuery(afterScriptList);
 
         return afterScriptList;
     }
@@ -75,7 +75,7 @@ public class AfterScriptServiceImpl implements AfterScriptService {
 
         List<AfterScript> afterScriptList = BeanMapper.mapList(afterScriptEntityList,AfterScript.class);
 
-        joinQuery.queryList(afterScriptList);
+        joinTemplate.joinQuery(afterScriptList);
 
         return afterScriptList;
     }
@@ -87,7 +87,7 @@ public class AfterScriptServiceImpl implements AfterScriptService {
 
         List<AfterScript> afterScriptList = BeanMapper.mapList(pagination.getDataList(),AfterScript.class);
 
-        joinQuery.queryList(afterScriptList);
+        joinTemplate.joinQuery(afterScriptList);
 
         return PaginationBuilder.build(pagination,afterScriptList);
     }

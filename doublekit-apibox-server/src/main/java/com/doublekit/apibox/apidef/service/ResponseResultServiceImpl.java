@@ -26,7 +26,7 @@ public class ResponseResultServiceImpl implements ResponseResultService {
     ResponseResultDao responseResultDao;
 
     @Autowired
-    JoinTemplate joinQuery;
+    JoinTemplate joinTemplate;
 
     @Override
     public String createResponseResult(@NotNull @Valid ResponseResult responseResult) {
@@ -53,7 +53,7 @@ public class ResponseResultServiceImpl implements ResponseResultService {
 
         ResponseResult responseResult = BeanMapper.map(responseResultEntity, ResponseResult.class);
 
-        joinQuery.queryOne(responseResult);
+        joinTemplate.joinQuery(responseResult);
 
         return responseResult;
     }
@@ -64,7 +64,7 @@ public class ResponseResultServiceImpl implements ResponseResultService {
 
         List<ResponseResult> responseResultList =  BeanMapper.mapList(responseResultEntityList,ResponseResult.class);
 
-        joinQuery.queryList(responseResultList);
+        joinTemplate.joinQuery(responseResultList);
 
         return responseResultList;
     }
@@ -75,7 +75,7 @@ public class ResponseResultServiceImpl implements ResponseResultService {
 
         List<ResponseResult> responseResultList = BeanMapper.mapList(responseResultEntityList,ResponseResult.class);
 
-        joinQuery.queryList(responseResultList);
+        joinTemplate.joinQuery(responseResultList);
 
         return responseResultList;
     }
@@ -87,7 +87,7 @@ public class ResponseResultServiceImpl implements ResponseResultService {
 
         List<ResponseResult> responseResultList = BeanMapper.mapList(pagination.getDataList(),ResponseResult.class);
 
-        joinQuery.queryList(responseResultList);
+        joinTemplate.joinQuery(responseResultList);
 
         return PaginationBuilder.build(pagination,responseResultList);
     }

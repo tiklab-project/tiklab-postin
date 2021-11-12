@@ -62,7 +62,7 @@ public class JsonParamServiceImpl implements JsonParamService {
 
         List<JsonParam> jsonParamList = BeanMapper.mapList(jsonParamPoList,JsonParam.class);
 
-        joinTemplate.queryList(jsonParamList);
+        joinTemplate.joinQuery(jsonParamList);
         return jsonParamList;
     }
 
@@ -70,7 +70,7 @@ public class JsonParamServiceImpl implements JsonParamService {
     public JsonParam findJsonParam(@NotNull String id) {
         JsonParam jsonParam = findOne(id);
 
-        joinTemplate.queryOne(jsonParam);
+        joinTemplate.joinQuery(jsonParam);
         return jsonParam;
     }
 
@@ -80,7 +80,7 @@ public class JsonParamServiceImpl implements JsonParamService {
 
         List<JsonParam> jsonParamList = BeanMapper.mapList(jsonParamPoList,JsonParam.class);
 
-        joinTemplate.queryList(jsonParamList);
+        joinTemplate.joinQuery(jsonParamList);
         return jsonParamList;
     }
 
@@ -90,7 +90,7 @@ public class JsonParamServiceImpl implements JsonParamService {
 
         List<JsonParam> jsonParamList = BeanMapper.mapList(jsonParamPoList,JsonParam.class);
 
-        joinTemplate.queryList(jsonParamList);
+        joinTemplate.joinQuery(jsonParamList);
 
         return jsonParamList;
     }
@@ -151,7 +151,7 @@ public class JsonParamServiceImpl implements JsonParamService {
 
         List<JsonParam> jsonParamList = BeanMapper.mapList(pagination.getDataList(),JsonParam.class);
 
-        joinTemplate.queryList(jsonParamList);
+        joinTemplate.joinQuery(jsonParamList);
 
         return PaginationBuilder.build(pagination,jsonParamList);
     }

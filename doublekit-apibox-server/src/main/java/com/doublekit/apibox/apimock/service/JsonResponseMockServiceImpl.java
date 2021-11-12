@@ -26,7 +26,7 @@ public class JsonResponseMockServiceImpl implements JsonResponseMockService {
     JsonResponseMockDao jsonResponseMockDao;
 
     @Autowired
-    JoinTemplate joinQuery;
+    JoinTemplate joinTemplate;
 
     @Override
     public String createJsonResponseMock(@NotNull @Valid JsonResponseMock jsonResponseMock) {
@@ -53,7 +53,7 @@ public class JsonResponseMockServiceImpl implements JsonResponseMockService {
 
         JsonResponseMock jsonResponseMock = BeanMapper.map(jsonResponseMockEntity, JsonResponseMock.class);
 
-        joinQuery.queryOne(jsonResponseMock);
+        joinTemplate.joinQuery(jsonResponseMock);
 
         return jsonResponseMock;
     }
@@ -64,7 +64,7 @@ public class JsonResponseMockServiceImpl implements JsonResponseMockService {
 
         List<JsonResponseMock> jsonResponseMockList =  BeanMapper.mapList(jsonResponseMockEntityList,JsonResponseMock.class);
 
-        joinQuery.queryList(jsonResponseMockList);
+        joinTemplate.joinQuery(jsonResponseMockList);
 
         return jsonResponseMockList;
     }
@@ -75,7 +75,7 @@ public class JsonResponseMockServiceImpl implements JsonResponseMockService {
 
         List<JsonResponseMock> jsonResponseMockList = BeanMapper.mapList(jsonResponseMockEntityList,JsonResponseMock.class);
 
-        joinQuery.queryList(jsonResponseMockList);
+        joinTemplate.joinQuery(jsonResponseMockList);
 
         return jsonResponseMockList;
     }
@@ -87,7 +87,7 @@ public class JsonResponseMockServiceImpl implements JsonResponseMockService {
 
         List<JsonResponseMock> jsonResponseMockList = BeanMapper.mapList(pagination.getDataList(),JsonResponseMock.class);
 
-        joinQuery.queryList(jsonResponseMockList);
+        joinTemplate.joinQuery(jsonResponseMockList);
 
         return PaginationBuilder.build(pagination,jsonResponseMockList);
     }

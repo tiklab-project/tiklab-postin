@@ -26,7 +26,7 @@ public class FormParamServiceImpl implements FormParamService {
     FormParamDao formParamDao;
 
     @Autowired
-    JoinTemplate joinQuery;
+    JoinTemplate joinTemplate;
 
     @Override
     public String createFormParam(@NotNull @Valid FormParam formParam) {
@@ -53,7 +53,7 @@ public class FormParamServiceImpl implements FormParamService {
 
         FormParam formParam = BeanMapper.map(formParamEntity, FormParam.class);
 
-        joinQuery.queryOne(formParam);
+        joinTemplate.joinQuery(formParam);
 
         return formParam;
     }
@@ -64,7 +64,7 @@ public class FormParamServiceImpl implements FormParamService {
 
         List<FormParam> formParamList = BeanMapper.mapList(formParamEntityList,FormParam.class);
 
-        joinQuery.queryList(formParamList);
+        joinTemplate.joinQuery(formParamList);
 
         return formParamList;
     }
@@ -75,7 +75,7 @@ public class FormParamServiceImpl implements FormParamService {
 
         List<FormParam> formParamList = BeanMapper.mapList(formParamEntityList,FormParam.class);
 
-        joinQuery.queryList(formParamList);
+        joinTemplate.joinQuery(formParamList);
 
         return formParamList;
     }
@@ -87,7 +87,7 @@ public class FormParamServiceImpl implements FormParamService {
 
         List<FormParam> formParamList = BeanMapper.mapList(pagination.getDataList(),FormParam.class);
 
-        joinQuery.queryList(formParamList);
+        joinTemplate.joinQuery(formParamList);
 
         return PaginationBuilder.build(pagination,formParamList);
     }

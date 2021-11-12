@@ -27,7 +27,7 @@ public class JsonResponseServiceImpl implements JsonResponseService {
     JsonResponseDao jsonResponseDao;
 
     @Autowired
-    JoinTemplate joinQuery;
+    JoinTemplate joinTemplate;
 
     @Override
     public String createJsonResponse(@NotNull @Valid JsonResponse jsonResponse) {
@@ -54,7 +54,7 @@ public class JsonResponseServiceImpl implements JsonResponseService {
 
         JsonResponse jsonResponse = BeanMapper.map(jsonResponseEntity, JsonResponse.class);
 
-        joinQuery.queryOne(jsonResponse);
+        joinTemplate.joinQuery(jsonResponse);
 
         return jsonResponse;
     }
@@ -65,7 +65,7 @@ public class JsonResponseServiceImpl implements JsonResponseService {
 
         List<JsonResponse> jsonResponseList = BeanMapper.mapList(jsonResponseEntityList, JsonResponse.class);
 
-        joinQuery.queryList(jsonResponseList);
+        joinTemplate.joinQuery(jsonResponseList);
 
         return jsonResponseList;
     }
@@ -76,7 +76,7 @@ public class JsonResponseServiceImpl implements JsonResponseService {
 
         List<JsonResponse> jsonResponseList = BeanMapper.mapList(jsonResponseEntityList, JsonResponse.class);
 
-        joinQuery.queryList(jsonResponseList);
+        joinTemplate.joinQuery(jsonResponseList);
 
         return jsonResponseList;
     }
@@ -88,7 +88,7 @@ public class JsonResponseServiceImpl implements JsonResponseService {
 
         List<JsonResponse> jsonResponseList = BeanMapper.mapList(pagination.getDataList(), JsonResponse.class);
 
-        joinQuery.queryList(jsonResponseList);
+        joinTemplate.joinQuery(jsonResponseList);
 
         return PaginationBuilder.build(pagination,jsonResponseList);
     }

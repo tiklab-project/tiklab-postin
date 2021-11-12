@@ -7,7 +7,7 @@ import com.doublekit.apibox.sysmgr.datastructure.model.DataStructureQuery;
 import com.doublekit.join.annotation.FindAll;
 import com.doublekit.join.annotation.FindList;
 import com.doublekit.join.annotation.FindOne;
-import com.doublekit.join.annotation.Provider;
+import com.doublekit.join.annotation.JoinProvider;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -16,7 +16,7 @@ import java.util.List;
 /**
 * DataStructureService
 */
-@Provider(model = DataStructure.class)
+@JoinProvider(model = DataStructure.class)
 public interface DataStructureService {
 
     /**

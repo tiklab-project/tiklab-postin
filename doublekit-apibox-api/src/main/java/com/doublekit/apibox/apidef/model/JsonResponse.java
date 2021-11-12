@@ -2,12 +2,11 @@ package com.doublekit.apibox.apidef.model;
 
 import com.doublekit.apibox.annotation.ApiModel;
 import com.doublekit.apibox.annotation.ApiProperty;
-import com.doublekit.beans.annotation.Mapper;
 import com.doublekit.beans.annotation.Mapping;
 import com.doublekit.beans.annotation.Mappings;
 import com.doublekit.common.BaseModel;
 import com.doublekit.join.annotation.Join;
-import com.doublekit.join.annotation.JoinField;
+import com.doublekit.join.annotation.JoinQuery;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -23,7 +22,7 @@ public class JsonResponse extends BaseModel {
     @Mappings({
             @Mapping(source = "parent.id",target = "parentId")
     })
-    @JoinField(id = "id")
+    @JoinQuery(key = "id")
     private JsonResponse parent;
 
     @NotNull
@@ -31,7 +30,7 @@ public class JsonResponse extends BaseModel {
     @Mappings({
             @Mapping(source = "method.id",target = "methodId")
     })
-    @JoinField(id = "id")
+    @JoinQuery(key = "id")
     private MethodEx method;
 
     @ApiProperty(name="preVersionId",desc="上一个版本的id")

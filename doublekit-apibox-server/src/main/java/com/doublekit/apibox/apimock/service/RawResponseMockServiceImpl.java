@@ -26,7 +26,7 @@ public class RawResponseMockServiceImpl implements RawResponseMockService {
     RawResponseMockDao rawResponseMockDao;
 
     @Autowired
-    JoinTemplate joinQuery;
+    JoinTemplate joinTemplate;
 
     @Override
     public String createRawResponseMock(@NotNull @Valid RawResponseMock rawResponseMock) {
@@ -53,7 +53,7 @@ public class RawResponseMockServiceImpl implements RawResponseMockService {
 
         RawResponseMock rawResponseMock = BeanMapper.map(rawResponseMockEntity, RawResponseMock.class);
 
-        joinQuery.queryOne(rawResponseMock);
+        joinTemplate.joinQuery(rawResponseMock);
 
         return rawResponseMock;
     }
@@ -64,7 +64,7 @@ public class RawResponseMockServiceImpl implements RawResponseMockService {
 
         List<RawResponseMock> rawResponseMockList =  BeanMapper.mapList(rawResponseMockEntityList,RawResponseMock.class);
 
-        joinQuery.queryList(rawResponseMockList);
+        joinTemplate.joinQuery(rawResponseMockList);
 
         return rawResponseMockList;
     }
@@ -75,7 +75,7 @@ public class RawResponseMockServiceImpl implements RawResponseMockService {
 
         List<RawResponseMock> rawResponseMockList = BeanMapper.mapList(rawResponseMockEntityList,RawResponseMock.class);
 
-        joinQuery.queryList(rawResponseMockList);
+        joinTemplate.joinQuery(rawResponseMockList);
 
         return rawResponseMockList;
     }
@@ -87,7 +87,7 @@ public class RawResponseMockServiceImpl implements RawResponseMockService {
 
         List<RawResponseMock> rawResponseMockList = BeanMapper.mapList(pagination.getDataList(),RawResponseMock.class);
 
-        joinQuery.queryList(rawResponseMockList);
+        joinTemplate.joinQuery(rawResponseMockList);
 
         return PaginationBuilder.build(pagination,rawResponseMockList);
     }

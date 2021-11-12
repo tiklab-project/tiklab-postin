@@ -26,7 +26,7 @@ public class PreScriptServiceImpl implements PreScriptService {
     PreScriptDao preScriptDao;
 
     @Autowired
-    JoinTemplate joinQuery;
+    JoinTemplate joinTemplate;
 
     @Override
     public String createPreScript(@NotNull @Valid PreScript preScript) {
@@ -53,7 +53,7 @@ public class PreScriptServiceImpl implements PreScriptService {
 
         PreScript preScript = BeanMapper.map(preScriptEntity, PreScript.class);
 
-        joinQuery.queryOne(preScript);
+        joinTemplate.joinQuery(preScript);
 
         return preScript;
     }
@@ -64,7 +64,7 @@ public class PreScriptServiceImpl implements PreScriptService {
 
         List<PreScript> preScriptList =  BeanMapper.mapList(preScriptEntityList,PreScript.class);
 
-        joinQuery.queryList(preScriptList);
+        joinTemplate.joinQuery(preScriptList);
 
         return preScriptList;
     }
@@ -75,7 +75,7 @@ public class PreScriptServiceImpl implements PreScriptService {
 
         List<PreScript> preScriptList = BeanMapper.mapList(preScriptEntityList,PreScript.class);
 
-        joinQuery.queryList(preScriptList);
+        joinTemplate.joinQuery(preScriptList);
 
         return preScriptList;
     }
@@ -87,7 +87,7 @@ public class PreScriptServiceImpl implements PreScriptService {
 
         List<PreScript> preScriptList = BeanMapper.mapList(pagination.getDataList(),PreScript.class);
 
-        joinQuery.queryList(preScriptList);
+        joinTemplate.joinQuery(preScriptList);
 
         return PaginationBuilder.build(pagination,preScriptList);
     }

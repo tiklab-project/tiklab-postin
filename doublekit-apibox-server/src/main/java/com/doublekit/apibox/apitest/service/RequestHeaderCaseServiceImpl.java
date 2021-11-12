@@ -26,7 +26,7 @@ public class RequestHeaderCaseServiceImpl implements RequestHeaderCaseService {
     RequestHeaderCaseDao requestHeaderCaseDao;
 
     @Autowired
-    JoinTemplate joinQuery;
+    JoinTemplate joinTemplate;
 
     @Override
     public String createRequestHeaderCase(@NotNull @Valid RequestHeaderCase requestHeaderCase) {
@@ -67,7 +67,7 @@ public class RequestHeaderCaseServiceImpl implements RequestHeaderCaseService {
     public RequestHeaderCase findRequestHeaderCase(@NotNull String id) {
         RequestHeaderCase requestHeaderCase = findOne(id);
 
-        joinQuery.queryOne(requestHeaderCase);
+        joinTemplate.joinQuery(requestHeaderCase);
         return requestHeaderCase;
     }
 
@@ -77,7 +77,7 @@ public class RequestHeaderCaseServiceImpl implements RequestHeaderCaseService {
 
         List<RequestHeaderCase> requestHeaderCaseList =  BeanMapper.mapList(requestHeaderCaseEntityList,RequestHeaderCase.class);
 
-        joinQuery.queryList(requestHeaderCaseList);
+        joinTemplate.joinQuery(requestHeaderCaseList);
         return requestHeaderCaseList;
     }
 
@@ -87,7 +87,7 @@ public class RequestHeaderCaseServiceImpl implements RequestHeaderCaseService {
 
         List<RequestHeaderCase> requestHeaderCaseList = BeanMapper.mapList(requestHeaderCaseEntityList,RequestHeaderCase.class);
 
-        joinQuery.queryList(requestHeaderCaseList);
+        joinTemplate.joinQuery(requestHeaderCaseList);
 
         return requestHeaderCaseList;
     }
@@ -99,7 +99,7 @@ public class RequestHeaderCaseServiceImpl implements RequestHeaderCaseService {
 
         List<RequestHeaderCase> requestHeaderCaseList = BeanMapper.mapList(pagination.getDataList(),RequestHeaderCase.class);
 
-        joinQuery.queryList(requestHeaderCaseList);
+        joinTemplate.joinQuery(requestHeaderCaseList);
 
         return PaginationBuilder.build(pagination,requestHeaderCaseList);
     }

@@ -26,7 +26,7 @@ public class RawParamCaseServiceImpl implements RawParamCaseService {
     RawParamCaseDao rawParamCaseDao;
 
     @Autowired
-    JoinTemplate joinQuery;
+    JoinTemplate joinTemplate;
 
     @Override
     public String createRawParamCase(@NotNull @Valid RawParamCase rawParamCase) {
@@ -67,7 +67,7 @@ public class RawParamCaseServiceImpl implements RawParamCaseService {
     public RawParamCase findRawParamCase(@NotNull String id) {
         RawParamCase rawParamCase = findOne(id);
 
-        joinQuery.queryOne(rawParamCase);
+        joinTemplate.joinQuery(rawParamCase);
         return rawParamCase;
     }
 
@@ -77,7 +77,7 @@ public class RawParamCaseServiceImpl implements RawParamCaseService {
 
         List<RawParamCase> rawParamCaseList =  BeanMapper.mapList(rawParamCaseEntityList,RawParamCase.class);
 
-        joinQuery.queryList(rawParamCaseList);
+        joinTemplate.joinQuery(rawParamCaseList);
         return rawParamCaseList;
     }
 
@@ -87,7 +87,7 @@ public class RawParamCaseServiceImpl implements RawParamCaseService {
 
         List<RawParamCase> rawParamCaseList = BeanMapper.mapList(rawParamCaseEntityList,RawParamCase.class);
 
-        joinQuery.queryList(rawParamCaseList);
+        joinTemplate.joinQuery(rawParamCaseList);
 
         return rawParamCaseList;
     }
@@ -99,7 +99,7 @@ public class RawParamCaseServiceImpl implements RawParamCaseService {
 
         List<RawParamCase> rawParamCaseList = BeanMapper.mapList(pagination.getDataList(),RawParamCase.class);
 
-        joinQuery.queryList(rawParamCaseList);
+        joinTemplate.joinQuery(rawParamCaseList);
 
         return PaginationBuilder.build(pagination,rawParamCaseList);
     }

@@ -26,7 +26,7 @@ public class QueryParamCaseServiceImpl implements QueryParamCaseService {
     QueryParamCaseDao queryParamCaseDao;
 
     @Autowired
-    JoinTemplate joinQuery;
+    JoinTemplate joinTemplate;
 
     @Override
     public String createQueryParamCase(@NotNull @Valid QueryParamCase queryParamCase) {
@@ -67,7 +67,7 @@ public class QueryParamCaseServiceImpl implements QueryParamCaseService {
     public QueryParamCase findQueryParamCase(@NotNull String id) {
         QueryParamCase queryParamCase = findOne(id);
 
-        joinQuery.queryOne(queryParamCase);
+        joinTemplate.joinQuery(queryParamCase);
         return queryParamCase;
     }
 
@@ -77,7 +77,7 @@ public class QueryParamCaseServiceImpl implements QueryParamCaseService {
 
         List<QueryParamCase> queryParamCaseList =  BeanMapper.mapList(queryParamCaseEntityList,QueryParamCase.class);
 
-        joinQuery.queryList(queryParamCaseList);
+        joinTemplate.joinQuery(queryParamCaseList);
         return queryParamCaseList;
     }
 
@@ -87,7 +87,7 @@ public class QueryParamCaseServiceImpl implements QueryParamCaseService {
 
         List<QueryParamCase> queryParamCaseList = BeanMapper.mapList(queryParamCaseEntityList,QueryParamCase.class);
 
-        joinQuery.queryList(queryParamCaseList);
+        joinTemplate.joinQuery(queryParamCaseList);
 
         return queryParamCaseList;
     }
@@ -99,7 +99,7 @@ public class QueryParamCaseServiceImpl implements QueryParamCaseService {
 
         List<QueryParamCase> queryParamCaseList = BeanMapper.mapList(pagination.getDataList(),QueryParamCase.class);
 
-        joinQuery.queryList(queryParamCaseList);
+        joinTemplate.joinQuery(queryParamCaseList);
 
         return PaginationBuilder.build(pagination,queryParamCaseList);
     }

@@ -11,7 +11,7 @@ import com.doublekit.dss.annotation.IndexField;
 import com.doublekit.dss.annotation.IndexId;
 import com.doublekit.dss.annotation.IndexQueryField;
 import com.doublekit.join.annotation.Join;
-import com.doublekit.join.annotation.JoinField;
+import com.doublekit.join.annotation.JoinQuery;
 import com.doublekit.user.user.model.User;
 
 import javax.validation.constraints.NotNull;
@@ -33,7 +33,7 @@ public class MethodEx extends BaseModel {
     @Mappings({
             @Mapping(source = "category.id",target = "categoryId")
     })
-    @JoinField(id = "id")
+    @JoinQuery(key = "id")
     @IndexField
     private Category category;
 
@@ -71,21 +71,21 @@ public class MethodEx extends BaseModel {
     @Mappings({
             @Mapping(source = "createUser.id",target = "createUser")
     })
-    @JoinField(id = "id")
+    @JoinQuery(key = "id")
     private User createUser;
 
     @ApiProperty(name="updateUser",desc="更新者")
     @Mappings({
             @Mapping(source = "updateUser.id",target = "updateUser")
     })
-    @JoinField(id = "id")
+    @JoinQuery(key = "id")
     private User updateUser;
 
     @ApiProperty(name="executor",desc="执行者")
     @Mappings({
             @Mapping(source = "executor.id",target = "executor")
     })
-    @JoinField(id = "id")
+    @JoinQuery(key = "id")
     private User executor;
 
     @ApiProperty(name="createTime",desc="创建时间")

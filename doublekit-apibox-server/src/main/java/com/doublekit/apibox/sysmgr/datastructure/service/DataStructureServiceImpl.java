@@ -35,7 +35,7 @@ public class DataStructureServiceImpl implements DataStructureService {
     DataStructureDao dataStructureDao;
 
     @Autowired
-    JoinTemplate joinQuery;
+    JoinTemplate joinTemplate;
 
     @Autowired
     EnumParamDao enumParamDao;
@@ -97,7 +97,7 @@ public class DataStructureServiceImpl implements DataStructureService {
     public DataStructure findDataStructure(@NotNull String id) {
         DataStructure dataStructure = findOne(id);
 
-        joinQuery.queryOne(dataStructure);
+        joinTemplate.joinQuery(dataStructure);
         return dataStructure;
     }
 
@@ -107,7 +107,7 @@ public class DataStructureServiceImpl implements DataStructureService {
 
         List<DataStructure> dataStructureList =  BeanMapper.mapList(dataStructureEntityList,DataStructure.class);
 
-        joinQuery.queryList(dataStructureList);
+        joinTemplate.joinQuery(dataStructureList);
         return dataStructureList;
     }
 
@@ -117,7 +117,7 @@ public class DataStructureServiceImpl implements DataStructureService {
 
         List<DataStructure> dataStructureList = BeanMapper.mapList(dataStructureEntityList,DataStructure.class);
 
-        joinQuery.queryList(dataStructureList);
+        joinTemplate.joinQuery(dataStructureList);
 
         return dataStructureList;
     }
@@ -129,7 +129,7 @@ public class DataStructureServiceImpl implements DataStructureService {
 
         List<DataStructure> dataStructureList = BeanMapper.mapList(pagination.getDataList(),DataStructure.class);
 
-        joinQuery.queryList(dataStructureList);
+        joinTemplate.joinQuery(dataStructureList);
 
         return PaginationBuilder.build(pagination,dataStructureList);
     }

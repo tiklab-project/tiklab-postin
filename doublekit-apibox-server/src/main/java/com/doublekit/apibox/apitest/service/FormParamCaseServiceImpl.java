@@ -26,7 +26,7 @@ public class FormParamCaseServiceImpl implements FormParamCaseService {
     FormParamCaseDao formParamCaseDao;
 
     @Autowired
-    JoinTemplate joinQuery;
+    JoinTemplate joinTemplate;
 
     @Override
     public String createFormParamCase(@NotNull @Valid FormParamCase formParamCase) {
@@ -67,7 +67,7 @@ public class FormParamCaseServiceImpl implements FormParamCaseService {
     public FormParamCase findFormParamCase(@NotNull String id) {
         FormParamCase formParamCase = findOne(id);
 
-        joinQuery.queryOne(formParamCase);
+        joinTemplate.joinQuery(formParamCase);
         return formParamCase;
     }
 
@@ -77,7 +77,7 @@ public class FormParamCaseServiceImpl implements FormParamCaseService {
 
         List<FormParamCase> formParamCaseList =  BeanMapper.mapList(formParamCaseEntityList,FormParamCase.class);
 
-        joinQuery.queryList(formParamCaseList);
+        joinTemplate.joinQuery(formParamCaseList);
         return formParamCaseList;
     }
 
@@ -87,7 +87,7 @@ public class FormParamCaseServiceImpl implements FormParamCaseService {
 
         List<FormParamCase> formParamCaseList = BeanMapper.mapList(formParamCaseEntityList,FormParamCase.class);
 
-        joinQuery.queryList(formParamCaseList);
+        joinTemplate.joinQuery(formParamCaseList);
 
         return formParamCaseList;
     }
@@ -99,7 +99,7 @@ public class FormParamCaseServiceImpl implements FormParamCaseService {
 
         List<FormParamCase> formParamCaseList = BeanMapper.mapList(pagination.getDataList(),FormParamCase.class);
 
-        joinQuery.queryList(formParamCaseList);
+        joinTemplate.joinQuery(formParamCaseList);
 
         return PaginationBuilder.build(pagination,formParamCaseList);
     }

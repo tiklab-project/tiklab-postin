@@ -6,7 +6,7 @@ import com.doublekit.apibox.apitest.model.JsonParamCase;
 import com.doublekit.apibox.apitest.model.JsonParamCaseQuery;
 import com.doublekit.join.annotation.FindList;
 import com.doublekit.join.annotation.FindOne;
-import com.doublekit.join.annotation.Provider;
+import com.doublekit.join.annotation.JoinProvider;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -15,7 +15,7 @@ import java.util.List;
 /**
 * 用户服务接口
 */
-@Provider(model = JsonParamCase.class)
+@JoinProvider(model = JsonParamCase.class)
 public interface JsonParamCaseService {
 
     /**

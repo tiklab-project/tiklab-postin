@@ -2,12 +2,11 @@ package com.doublekit.apibox.apitest.model;
 
 import com.doublekit.apibox.annotation.ApiModel;
 import com.doublekit.apibox.annotation.ApiProperty;
-import com.doublekit.beans.annotation.Mapper;
 import com.doublekit.beans.annotation.Mapping;
 import com.doublekit.beans.annotation.Mappings;
 import com.doublekit.common.BaseModel;
 import com.doublekit.join.annotation.Join;
-import com.doublekit.join.annotation.JoinField;
+import com.doublekit.join.annotation.JoinQuery;
 
 import javax.validation.constraints.NotNull;
 
@@ -23,7 +22,7 @@ public class RequestInstance extends BaseModel {
     @Mappings({
             @Mapping(source = "testInstance.id",target = "instanceId")
     })
-    @JoinField(id = "id")
+    @JoinQuery(key = "id")
     private TestInstance testInstance;
 
     @NotNull

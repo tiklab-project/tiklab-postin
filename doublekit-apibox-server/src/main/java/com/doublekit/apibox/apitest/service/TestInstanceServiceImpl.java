@@ -26,7 +26,7 @@ public class TestInstanceServiceImpl implements TestInstanceService {
     TestInstanceDao testInstanceDao;
 
     @Autowired
-    JoinTemplate joinQuery;
+    JoinTemplate joinTemplate;
 
     @Autowired
     RequestInstanceService requestInstanceService;
@@ -110,7 +110,7 @@ public class TestInstanceServiceImpl implements TestInstanceService {
     public TestInstance findTestInstance(@NotNull String id) {
         TestInstance testInstance = findOne(id);
 
-        joinQuery.queryOne(testInstance);
+        joinTemplate.joinQuery(testInstance);
         return testInstance;
     }
 
@@ -148,7 +148,7 @@ public class TestInstanceServiceImpl implements TestInstanceService {
 
         List<TestInstance> testInstanceList =  BeanMapper.mapList(testInstanceEntityList,TestInstance.class);
 
-        joinQuery.queryList(testInstanceList);
+        joinTemplate.joinQuery(testInstanceList);
         return testInstanceList;
     }
 
@@ -158,7 +158,7 @@ public class TestInstanceServiceImpl implements TestInstanceService {
 
         List<TestInstance> testInstanceList = BeanMapper.mapList(testInstanceEntityList,TestInstance.class);
 
-        joinQuery.queryList(testInstanceList);
+        joinTemplate.joinQuery(testInstanceList);
 
         return testInstanceList;
     }
@@ -170,7 +170,7 @@ public class TestInstanceServiceImpl implements TestInstanceService {
 
         List<TestInstance> testInstanceList = BeanMapper.mapList(pagination.getDataList(),TestInstance.class);
 
-        joinQuery.queryList(testInstanceList);
+        joinTemplate.joinQuery(testInstanceList);
 
         return PaginationBuilder.build(pagination,testInstanceList);
     }

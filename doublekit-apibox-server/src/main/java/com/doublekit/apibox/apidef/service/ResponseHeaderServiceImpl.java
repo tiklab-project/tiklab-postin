@@ -26,7 +26,7 @@ public class ResponseHeaderServiceImpl implements ResponseHeaderService {
     ResponseHeaderDao responseHeaderDao;
 
     @Autowired
-    JoinTemplate joinQuery;
+    JoinTemplate joinTemplate;
 
     @Override
     public String createResponseHeader(@NotNull @Valid ResponseHeader responseHeader) {
@@ -53,7 +53,7 @@ public class ResponseHeaderServiceImpl implements ResponseHeaderService {
 
         ResponseHeader responseHeader = BeanMapper.map(responseHeaderEntity, ResponseHeader.class);
 
-        joinQuery.queryOne(responseHeader);
+        joinTemplate.joinQuery(responseHeader);
 
         return responseHeader;
     }
@@ -64,7 +64,7 @@ public class ResponseHeaderServiceImpl implements ResponseHeaderService {
 
         List<ResponseHeader> responseHeaderList = BeanMapper.mapList(responseHeaderEntityList,ResponseHeader.class);
 
-        joinQuery.queryList(responseHeaderList);
+        joinTemplate.joinQuery(responseHeaderList);
 
         return responseHeaderList;
     }
@@ -75,7 +75,7 @@ public class ResponseHeaderServiceImpl implements ResponseHeaderService {
 
         List<ResponseHeader> responseHeaderList = BeanMapper.mapList(responseHeaderEntityList,ResponseHeader.class);
 
-        joinQuery.queryList(responseHeaderList);
+        joinTemplate.joinQuery(responseHeaderList);
 
         return responseHeaderList;
     }
@@ -87,7 +87,7 @@ public class ResponseHeaderServiceImpl implements ResponseHeaderService {
 
         List<ResponseHeader> responseHeaderList = BeanMapper.mapList(pagination.getDataList(),ResponseHeader.class);
 
-        joinQuery.queryList(responseHeaderList);
+        joinTemplate.joinQuery(responseHeaderList);
 
         return PaginationBuilder.build(pagination,responseHeaderList);
     }

@@ -27,7 +27,7 @@ public class JsonParamCaseServiceImpl implements JsonParamCaseService {
     JsonParamCaseDao jsonParamCaseDao;
 
     @Autowired
-    JoinTemplate joinQuery;
+    JoinTemplate joinTemplate;
 
     @Override
     public String createJsonParamCase(@NotNull @Valid JsonParamCase jsonParamCase) {
@@ -68,7 +68,7 @@ public class JsonParamCaseServiceImpl implements JsonParamCaseService {
     public JsonParamCase findJsonParamCase(@NotNull String id) {
         JsonParamCase jsonParamCase = findOne(id);
 
-        joinQuery.queryOne(jsonParamCase);
+        joinTemplate.joinQuery(jsonParamCase);
         return jsonParamCase;
     }
 
@@ -78,7 +78,7 @@ public class JsonParamCaseServiceImpl implements JsonParamCaseService {
 
         List<JsonParamCase> jsonParamCaseList =  BeanMapper.mapList(jsonParamCaseEntityList,JsonParamCase.class);
 
-        joinQuery.queryList(jsonParamCaseList);
+        joinTemplate.joinQuery(jsonParamCaseList);
         return jsonParamCaseList;
     }
 
@@ -88,7 +88,7 @@ public class JsonParamCaseServiceImpl implements JsonParamCaseService {
 
         List<JsonParamCase> jsonParamCaseList = BeanMapper.mapList(jsonParamCaseEntityList,JsonParamCase.class);
 
-        joinQuery.queryList(jsonParamCaseList);
+        joinTemplate.joinQuery(jsonParamCaseList);
 
         return jsonParamCaseList;
     }
@@ -100,7 +100,7 @@ public class JsonParamCaseServiceImpl implements JsonParamCaseService {
 
         List<JsonParamCase> jsonParamCaseList = BeanMapper.mapList(pagination.getDataList(),JsonParamCase.class);
 
-        joinQuery.queryList(jsonParamCaseList);
+        joinTemplate.joinQuery(jsonParamCaseList);
 
         return PaginationBuilder.build(pagination,jsonParamCaseList);
     }

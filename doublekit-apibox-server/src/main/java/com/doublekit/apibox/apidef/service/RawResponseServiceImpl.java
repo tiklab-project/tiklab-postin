@@ -26,7 +26,7 @@ public class RawResponseServiceImpl implements RawResponseService {
     RawResponseDao rawResponseDao;
 
     @Autowired
-    JoinTemplate joinQuery;
+    JoinTemplate joinTemplate;
 
     @Override
     public String createRawResponse(@NotNull @Valid RawResponse rawResponse) {
@@ -53,7 +53,7 @@ public class RawResponseServiceImpl implements RawResponseService {
 
         RawResponse rawResponse = BeanMapper.map(rawResponseEntity, RawResponse.class);
 
-        joinQuery.queryOne(rawResponse);
+        joinTemplate.joinQuery(rawResponse);
 
         return rawResponse;
     }
@@ -64,7 +64,7 @@ public class RawResponseServiceImpl implements RawResponseService {
 
         List<RawResponse> rawResponseList =  BeanMapper.mapList(rawResponseEntityList,RawResponse.class);
 
-        joinQuery.queryList(rawResponseList);
+        joinTemplate.joinQuery(rawResponseList);
 
         return rawResponseList;
     }
@@ -75,7 +75,7 @@ public class RawResponseServiceImpl implements RawResponseService {
 
         List<RawResponse> rawResponseList = BeanMapper.mapList(rawResponseEntityList,RawResponse.class);
 
-        joinQuery.queryList(rawResponseList);
+        joinTemplate.joinQuery(rawResponseList);
 
         return rawResponseList;
     }
@@ -87,7 +87,7 @@ public class RawResponseServiceImpl implements RawResponseService {
 
         List<RawResponse> rawResponseList = BeanMapper.mapList(pagination.getDataList(),RawResponse.class);
 
-        joinQuery.queryList(rawResponseList);
+        joinTemplate.joinQuery(rawResponseList);
 
         return PaginationBuilder.build(pagination,rawResponseList);
     }

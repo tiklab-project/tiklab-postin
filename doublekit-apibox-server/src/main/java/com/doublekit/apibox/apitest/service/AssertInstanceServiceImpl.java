@@ -26,7 +26,7 @@ public class AssertInstanceServiceImpl implements AssertInstanceService {
     AssertInstanceDao assertInstanceDao;
 
     @Autowired
-    JoinTemplate joinQuery;
+    JoinTemplate joinTemplate;
 
     @Override
     public String createAssertInstance(@NotNull @Valid AssertInstance assertInstance) {
@@ -67,7 +67,7 @@ public class AssertInstanceServiceImpl implements AssertInstanceService {
     public AssertInstance findAssertInstance(@NotNull String id) {
         AssertInstance assertInstance = findOne(id);
 
-        joinQuery.queryOne(assertInstance);
+        joinTemplate.joinQuery(assertInstance);
         return assertInstance;
     }
 
@@ -77,7 +77,7 @@ public class AssertInstanceServiceImpl implements AssertInstanceService {
 
         List<AssertInstance> assertInstanceList =  BeanMapper.mapList(assertInstanceEntityList,AssertInstance.class);
 
-        joinQuery.queryList(assertInstanceList);
+        joinTemplate.joinQuery(assertInstanceList);
         return assertInstanceList;
     }
 
@@ -87,7 +87,7 @@ public class AssertInstanceServiceImpl implements AssertInstanceService {
 
         List<AssertInstance> assertInstanceList = BeanMapper.mapList(assertInstanceEntityList,AssertInstance.class);
 
-        joinQuery.queryList(assertInstanceList);
+        joinTemplate.joinQuery(assertInstanceList);
 
         return assertInstanceList;
     }
@@ -99,7 +99,7 @@ public class AssertInstanceServiceImpl implements AssertInstanceService {
 
         List<AssertInstance> assertInstanceList = BeanMapper.mapList(pagination.getDataList(),AssertInstance.class);
 
-        joinQuery.queryList(assertInstanceList);
+        joinTemplate.joinQuery(assertInstanceList);
 
         return PaginationBuilder.build(pagination,assertInstanceList);
     }

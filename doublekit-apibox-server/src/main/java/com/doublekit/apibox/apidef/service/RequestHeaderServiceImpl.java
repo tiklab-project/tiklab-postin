@@ -26,7 +26,7 @@ public class RequestHeaderServiceImpl implements RequestHeaderService {
     RequestHeaderDao requestHeaderDao;
 
     @Autowired
-    JoinTemplate joinQuery;
+    JoinTemplate joinTemplate;
 
     @Override
     public String createRequestHeader(@NotNull @Valid RequestHeader requestHeader) {
@@ -53,7 +53,7 @@ public class RequestHeaderServiceImpl implements RequestHeaderService {
 
         RequestHeader requestHeader = BeanMapper.map(requestHeaderEntity, RequestHeader.class);
 
-        joinQuery.queryOne(requestHeader);
+        joinTemplate.joinQuery(requestHeader);
 
         return requestHeader;
     }
@@ -64,7 +64,7 @@ public class RequestHeaderServiceImpl implements RequestHeaderService {
 
         List<RequestHeader> requestHeaderList = BeanMapper.mapList(requestHeaderEntityList,RequestHeader.class);
 
-        joinQuery.queryList(requestHeaderList);
+        joinTemplate.joinQuery(requestHeaderList);
 
         return requestHeaderList;
     }
@@ -75,7 +75,7 @@ public class RequestHeaderServiceImpl implements RequestHeaderService {
 
         List<RequestHeader> requestHeaderList = BeanMapper.mapList(requestHeaderEntityList,RequestHeader.class);
 
-        joinQuery.queryList(requestHeaderList);
+        joinTemplate.joinQuery(requestHeaderList);
 
         return requestHeaderList;
     }
@@ -87,7 +87,7 @@ public class RequestHeaderServiceImpl implements RequestHeaderService {
 
         List<RequestHeader> requestHeaderList = BeanMapper.mapList(pagination.getDataList(),RequestHeader.class);
 
-        joinQuery.queryList(requestHeaderList);
+        joinTemplate.joinQuery(requestHeaderList);
 
         return PaginationBuilder.build(pagination,requestHeaderList);
     }

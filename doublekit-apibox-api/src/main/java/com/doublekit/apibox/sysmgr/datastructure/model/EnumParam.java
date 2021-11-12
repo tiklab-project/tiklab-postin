@@ -6,7 +6,7 @@ import com.doublekit.beans.annotation.Mapping;
 import com.doublekit.beans.annotation.Mappings;
 import com.doublekit.common.BaseModel;
 import com.doublekit.join.annotation.Join;
-import com.doublekit.join.annotation.JoinField;
+import com.doublekit.join.annotation.JoinQuery;
 
 import javax.validation.constraints.NotNull;
 
@@ -25,7 +25,7 @@ public class EnumParam extends BaseModel{
     @Mappings({
             @Mapping(source = "dataStructure.id",target = "dataStructureId")
     })
-    @JoinField(id = "id")
+    @JoinQuery(key = "id")
     private DataStructure dataStructure;
 
     @ApiProperty(name="dataType",desc="类型")

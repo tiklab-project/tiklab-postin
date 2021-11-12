@@ -26,7 +26,7 @@ public class RawParamServiceImpl implements RawParamService {
     RawParamDao rawParamDao;
 
     @Autowired
-    JoinTemplate joinQuery;
+    JoinTemplate joinTemplate;
 
     @Override
     public String createRawParam(@NotNull @Valid RawParam rawParam) {
@@ -53,7 +53,7 @@ public class RawParamServiceImpl implements RawParamService {
 
         RawParam rawParam = BeanMapper.map(rawParamEntity, RawParam.class);
 
-        joinQuery.queryOne(rawParam);
+        joinTemplate.joinQuery(rawParam);
 
         return rawParam;
     }
@@ -64,7 +64,7 @@ public class RawParamServiceImpl implements RawParamService {
 
         List<RawParam> rawParamList =  BeanMapper.mapList(rawParamEntityList,RawParam.class);
 
-        joinQuery.queryList(rawParamList);
+        joinTemplate.joinQuery(rawParamList);
 
         return rawParamList;
     }
@@ -75,7 +75,7 @@ public class RawParamServiceImpl implements RawParamService {
 
         List<RawParam> rawParamList = BeanMapper.mapList(rawParamEntityList,RawParam.class);
 
-        joinQuery.queryList(rawParamList);
+        joinTemplate.joinQuery(rawParamList);
 
         return rawParamList;
     }
@@ -87,7 +87,7 @@ public class RawParamServiceImpl implements RawParamService {
 
         List<RawParam> rawParamList = BeanMapper.mapList(pagination.getDataList(),RawParam.class);
 
-        joinQuery.queryList(rawParamList);
+        joinTemplate.joinQuery(rawParamList);
 
         return PaginationBuilder.build(pagination,rawParamList);
     }

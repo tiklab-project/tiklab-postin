@@ -6,7 +6,7 @@ import com.doublekit.beans.annotation.Mapping;
 import com.doublekit.beans.annotation.Mappings;
 import com.doublekit.common.BaseModel;
 import com.doublekit.join.annotation.Join;
-import com.doublekit.join.annotation.JoinField;
+import com.doublekit.join.annotation.JoinQuery;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -26,7 +26,7 @@ public class JsonParamDS extends BaseModel{
     @Mappings({
             @Mapping(source = "dataStructure.id",target = "dataStructureId")
     })
-    @JoinField(id = "id")
+    @JoinQuery(key = "id")
     private DataStructure dataStructure;
 
     @ApiProperty(name="dataType",desc="类型")
@@ -42,7 +42,7 @@ public class JsonParamDS extends BaseModel{
     @Mappings({
             @Mapping(source = "parent.id",target = "parentId")
     })
-    @JoinField(id = "parent")
+    @JoinQuery(key = "parent")
     private JsonParamDS parent;
 
     @ApiProperty(name="children",desc="子节点列表")
