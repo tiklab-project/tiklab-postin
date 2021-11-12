@@ -81,7 +81,7 @@ public class MethodEx extends BaseModel {
     @JoinField(id = "id")
     private User updateUser;
 
-    @ApiProperty(name="executor",desc="创建人")
+    @ApiProperty(name="executor",desc="执行者")
     @Mappings({
             @Mapping(source = "executor.id",target = "executor")
     })

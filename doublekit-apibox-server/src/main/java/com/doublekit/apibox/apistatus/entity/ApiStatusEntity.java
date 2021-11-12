@@ -17,7 +17,11 @@ public class ApiStatusEntity implements Serializable {
     @Column(name = "code",length = 32)
     private String code;
 
+    @Column(name = "name",length = 32)
+    private String name;
 
+    @Column(name = "type",length = 32)
+    private String type;
 
     public String getId() {
         return id;
@@ -33,6 +37,22 @@ public class ApiStatusEntity implements Serializable {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }
 

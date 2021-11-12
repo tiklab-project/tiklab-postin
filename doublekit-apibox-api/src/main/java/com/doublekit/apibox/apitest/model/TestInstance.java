@@ -2,6 +2,7 @@ package com.doublekit.apibox.apitest.model;
 
 import com.doublekit.apibox.annotation.ApiModel;
 import com.doublekit.apibox.annotation.ApiProperty;
+import com.doublekit.apibox.apidef.model.MethodEx;
 import com.doublekit.beans.annotation.Mapper;
 import com.doublekit.beans.annotation.Mapping;
 import com.doublekit.beans.annotation.Mappings;
@@ -20,7 +21,7 @@ public class TestInstance extends BaseModel {
     @ApiProperty(name="id",desc="id")
     private java.lang.String id;
 
-    @NotNull
+//    @NotNull
     @ApiProperty(name="testcase",desc="所属接口用例",required = true)
     @Mappings({
             @Mapping(source = "testcase.id",target = "testcaseId")
@@ -28,8 +29,19 @@ public class TestInstance extends BaseModel {
     @JoinField(id = "id")
     private Testcase testcase;
 
+    @ApiProperty(name="method",desc="所属接口用例",required = true)
+    @Mappings({
+            @Mapping(source = "method.id",target = "methodId")
+    })
+    @JoinField(id = "id")
+    private MethodEx method;
+
+    @ApiProperty(name="type",desc="类型:method，testcase")
+    private java.lang.String type;
+
+
     @ApiProperty(name="testNo",desc="测试序号")
-    private java.lang.Integer testNo;
+    private Integer testNo;
 
     @NotNull
     @ApiProperty(name="statusCode",desc="状态码",required = true)
@@ -111,5 +123,21 @@ public class TestInstance extends BaseModel {
 
     public void setAssertInstanceList(List<AssertInstance> assertInstanceList) {
         this.assertInstanceList = assertInstanceList;
+    }
+
+    public MethodEx getMethod() {
+        return method;
+    }
+
+    public void setMethod(MethodEx method) {
+        this.method = method;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

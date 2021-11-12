@@ -68,10 +68,12 @@ CREATE TABLE apibox_assert_testcase(
 );
 CREATE TABLE apibox_test_instance(
         id VARCHAR(32) PRIMARY KEY,
-        testcase_id VARCHAR(32) NOT NULL,
+        testcase_id VARCHAR(32) ,
         testNo int NOT NULL,
         statusCode int NOT NULL,
-        result int NOT NULL
+        result int NOT NULL,
+        method_id VARCHAR(32),
+        type VARCHAR(16) NOT NULL
 );
 CREATE TABLE apibox_request_instance(
         id VARCHAR(32) PRIMARY KEY,
