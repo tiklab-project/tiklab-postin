@@ -16,8 +16,14 @@ public class TestInstanceEntity implements Serializable {
     @Column(name = "id",length = 32)
     private String id;
 
-    @Column(name = "testcase_id",length = 32,notNull = true)
+    @Column(name = "testcase_id",length = 32)
     private String testcaseId;
+
+    @Column(name = "method_id",length = 32)
+    private String methodId;
+
+    @Column(name = "type",length = 32)
+    private String type;
 
     @Column(name = "testNo",notNull = true)
     private Integer testNo;
@@ -66,5 +72,21 @@ public class TestInstanceEntity implements Serializable {
 
     public void setResult(Integer result) {
         this.result = result;
+    }
+
+    public String getMethodId() {
+        return methodId;
+    }
+
+    public void setMethodId(String methodId) {
+        this.methodId = methodId;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

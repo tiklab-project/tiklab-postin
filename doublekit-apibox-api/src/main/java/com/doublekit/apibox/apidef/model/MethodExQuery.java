@@ -16,6 +16,7 @@ public class MethodExQuery {
     @ApiProperty(name ="id",desc = "方法id")
     @QueryField(type = QueryTypeEnum.equal)
     private String id;
+
     @ApiProperty(name ="categoryId",desc = "分类ID，精确匹配")
     @QueryField(type = QueryTypeEnum.equal)
     private String categoryId;
