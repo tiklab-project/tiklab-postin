@@ -53,7 +53,7 @@ public class RawParamDao{
      * @param deleteCondition
      */
     public void deleteRawParamlist(DeleteCondition deleteCondition){
-        jpaTemplate.delete(RawParamEntity.class,deleteCondition);
+        jpaTemplate.delete(deleteCondition);
     }
 
     /**

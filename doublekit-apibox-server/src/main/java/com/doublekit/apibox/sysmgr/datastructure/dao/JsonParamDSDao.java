@@ -49,7 +49,7 @@ public class JsonParamDSDao{
     }
 
     public void deleteJsonParamDS(DeleteCondition deleteCondition){
-        jpaTemplate.delete(JsonParamDSEntity.class,deleteCondition);
+        jpaTemplate.delete(deleteCondition);
     }
 
     /**

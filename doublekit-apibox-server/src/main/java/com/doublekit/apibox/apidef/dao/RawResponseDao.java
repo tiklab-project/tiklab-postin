@@ -53,7 +53,7 @@ public class RawResponseDao{
      * @param deleteCondition
      */
     public void deleteRawResponseList(DeleteCondition deleteCondition){
-        jpaTemplate.delete(RawResponseEntity.class,deleteCondition);
+        jpaTemplate.delete(deleteCondition);
     }
 
     /**

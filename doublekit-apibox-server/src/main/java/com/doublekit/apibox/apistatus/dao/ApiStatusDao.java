@@ -49,7 +49,7 @@ public class ApiStatusDao{
     }
 
     public void deleteApiStatus(DeleteCondition deleteCondition){
-        jpaTemplate.delete(ApiStatusEntity.class,deleteCondition);
+        jpaTemplate.delete(deleteCondition);
     }
 
     /**

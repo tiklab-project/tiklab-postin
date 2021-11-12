@@ -53,7 +53,7 @@ public class JsonParamDao{
      * @param deleteCondition
      */
     public void deleteJsonParamList(DeleteCondition deleteCondition){
-        jpaTemplate.delete(JsonParamEntity.class,deleteCondition);
+        jpaTemplate.delete(deleteCondition);
     }
 
     /**

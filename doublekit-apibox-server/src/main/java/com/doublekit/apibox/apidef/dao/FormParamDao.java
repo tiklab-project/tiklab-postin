@@ -53,7 +53,7 @@ public class FormParamDao{
      * @param deleteCondition
      */
     public void deleteFormParamLsit(DeleteCondition deleteCondition){
-        jpaTemplate.delete(FormParamEntity.class,deleteCondition);
+        jpaTemplate.delete(deleteCondition);
     }
 
     /**

@@ -49,7 +49,7 @@ public class EnumParamDao{
     }
 
     public void deleteEnumParam(DeleteCondition deleteCondition){
-        jpaTemplate.delete(EnumParamEntity.class,deleteCondition);
+        jpaTemplate.delete(deleteCondition);
     }
 
     /**
