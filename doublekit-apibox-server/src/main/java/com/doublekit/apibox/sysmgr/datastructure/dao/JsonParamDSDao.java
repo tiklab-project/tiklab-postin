@@ -1,6 +1,6 @@
 package com.doublekit.apibox.sysmgr.datastructure.dao;
 
-import com.doublekit.common.Pagination;
+import com.doublekit.common.page.Pagination;
 import com.doublekit.apibox.sysmgr.datastructure.entity.JsonParamDSEntity;
 import com.doublekit.apibox.sysmgr.datastructure.model.JsonParamDSQuery;
 import com.doublekit.dal.jpa.JpaTemplate;

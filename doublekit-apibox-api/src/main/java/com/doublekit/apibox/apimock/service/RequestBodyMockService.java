@@ -1,6 +1,6 @@
 package com.doublekit.apibox.apimock.service;
 
-import com.doublekit.common.Pagination;
+import com.doublekit.common.page.Pagination;
 
 import com.doublekit.apibox.apimock.model.RequestBodyMock;
 import com.doublekit.apibox.apimock.model.RequestBodyMockQuery;

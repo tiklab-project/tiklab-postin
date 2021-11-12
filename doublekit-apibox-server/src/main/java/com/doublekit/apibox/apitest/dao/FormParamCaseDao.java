@@ -2,7 +2,7 @@ package com.doublekit.apibox.apitest.dao;
 
 import com.doublekit.apibox.apitest.entity.FormParamCaseEntity;
 import com.doublekit.apibox.apitest.model.FormParamCaseQuery;
-import com.doublekit.common.Pagination;
+import com.doublekit.common.page.Pagination;
 import com.doublekit.dal.jpa.JpaTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

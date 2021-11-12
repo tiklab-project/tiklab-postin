@@ -1,6 +1,6 @@
 package com.doublekit.apibox.apitest.dao;
 
-import com.doublekit.common.Pagination;
+import com.doublekit.common.page.Pagination;
 import com.doublekit.apibox.apitest.entity.RequestInstanceEntity;
 import com.doublekit.apibox.apitest.model.RequestInstanceQuery;
 import com.doublekit.dal.jpa.JpaTemplate;

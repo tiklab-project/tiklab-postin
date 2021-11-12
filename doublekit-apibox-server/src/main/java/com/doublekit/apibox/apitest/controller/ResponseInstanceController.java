@@ -4,7 +4,7 @@ import com.doublekit.apibox.annotation.Api;
 import com.doublekit.apibox.apitest.model.ResponseInstance;
 import com.doublekit.apibox.apitest.model.ResponseInstanceQuery;
 import com.doublekit.apibox.apitest.service.ResponseInstanceService;
-import com.doublekit.common.Pagination;
+import com.doublekit.common.page.Pagination;
 import com.doublekit.common.Result;
 import com.doublekit.apibox.annotation.ApiMethod;
 import com.doublekit.apibox.annotation.ApiParam;

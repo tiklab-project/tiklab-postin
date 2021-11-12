@@ -4,7 +4,7 @@ import com.doublekit.apibox.annotation.Api;
 import com.doublekit.apibox.apimock.model.JsonResponseMock;
 import com.doublekit.apibox.apimock.model.JsonResponseMockQuery;
 import com.doublekit.apibox.apimock.service.JsonResponseMockService;
-import com.doublekit.common.Pagination;
+import com.doublekit.common.page.Pagination;
 import com.doublekit.common.Result;
 import com.doublekit.apibox.annotation.ApiMethod;
 import com.doublekit.apibox.annotation.ApiParam;

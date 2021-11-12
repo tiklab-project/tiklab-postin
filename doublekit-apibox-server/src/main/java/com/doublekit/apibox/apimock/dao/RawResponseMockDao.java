@@ -2,7 +2,7 @@ package com.doublekit.apibox.apimock.dao;
 
 import com.doublekit.apibox.apimock.entity.RawResponseMockEntity;
 import com.doublekit.apibox.apimock.model.RawResponseMockQuery;
-import com.doublekit.common.Pagination;
+import com.doublekit.common.page.Pagination;
 import com.doublekit.dal.jpa.JpaTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

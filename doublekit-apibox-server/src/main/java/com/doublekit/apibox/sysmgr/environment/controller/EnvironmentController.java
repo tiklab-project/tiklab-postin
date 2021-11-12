@@ -4,7 +4,7 @@ import com.doublekit.apibox.annotation.Api;
 import com.doublekit.apibox.sysmgr.environment.model.Environment;
 import com.doublekit.apibox.sysmgr.environment.model.EnvironmentQuery;
 import com.doublekit.apibox.sysmgr.environment.service.EnvironmentService;
-import com.doublekit.common.Pagination;
+import com.doublekit.common.page.Pagination;
 import com.doublekit.common.Result;
 import com.doublekit.apibox.annotation.ApiMethod;
 import com.doublekit.apibox.annotation.ApiParam;

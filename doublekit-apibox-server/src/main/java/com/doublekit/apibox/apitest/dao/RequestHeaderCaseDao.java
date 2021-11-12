@@ -1,7 +1,7 @@
 package com.doublekit.apibox.apitest.dao;
 
 import com.doublekit.apibox.apitest.model.RequestHeaderCaseQuery;
-import com.doublekit.common.Pagination;
+import com.doublekit.common.page.Pagination;
 import com.doublekit.apibox.apitest.entity.RequestHeaderCaseEntity;
 import com.doublekit.dal.jpa.JpaTemplate;
 import org.slf4j.Logger;

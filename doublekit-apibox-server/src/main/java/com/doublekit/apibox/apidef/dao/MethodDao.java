@@ -2,7 +2,7 @@ package com.doublekit.apibox.apidef.dao;
 
 import com.doublekit.apibox.apidef.entity.MethodEntity;
 import com.doublekit.apibox.apidef.model.MethodExQuery;
-import com.doublekit.common.Pagination;
+import com.doublekit.common.page.Pagination;
 import com.doublekit.dal.jpa.JpaTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

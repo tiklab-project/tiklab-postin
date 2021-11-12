@@ -2,7 +2,7 @@ package com.doublekit.apibox.category.dao;
 
 import com.doublekit.apibox.category.entity.CategoryEntity;
 import com.doublekit.apibox.category.model.CategoryQuery;
-import com.doublekit.common.Pagination;
+import com.doublekit.common.page.Pagination;
 import com.doublekit.dal.jpa.JpaTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

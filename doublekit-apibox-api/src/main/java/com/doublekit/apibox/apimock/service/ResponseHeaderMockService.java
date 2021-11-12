@@ -1,6 +1,6 @@
 package com.doublekit.apibox.apimock.service;
 
-import com.doublekit.common.Pagination;
+import com.doublekit.common.page.Pagination;
 
 import com.doublekit.apibox.apimock.model.ResponseHeaderMock;
 import com.doublekit.apibox.apimock.model.ResponseHeaderMockQuery;

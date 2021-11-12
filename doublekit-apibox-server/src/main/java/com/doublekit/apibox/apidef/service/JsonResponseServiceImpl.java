@@ -5,12 +5,10 @@ import com.doublekit.apibox.apidef.entity.JsonResponseEntity;
 import com.doublekit.apibox.apidef.entity.MethodEntity;
 import com.doublekit.apibox.apidef.model.JsonResponse;
 import com.doublekit.apibox.apidef.model.JsonResponseQuery;
-import com.doublekit.apibox.apidef.model.MethodEx;
 import com.doublekit.beans.BeanMapper;
-import com.doublekit.common.Pagination;
-import com.doublekit.common.PaginationBuilder;
+import com.doublekit.common.page.Pagination;
+import com.doublekit.common.page.PaginationBuilder;
 import com.doublekit.join.JoinTemplate;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

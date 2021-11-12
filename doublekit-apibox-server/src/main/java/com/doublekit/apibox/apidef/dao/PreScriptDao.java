@@ -1,6 +1,6 @@
 package com.doublekit.apibox.apidef.dao;
 
-import com.doublekit.common.Pagination;
+import com.doublekit.common.page.Pagination;
 import com.doublekit.apibox.apidef.entity.PreScriptEntity;
 import com.doublekit.apibox.apidef.model.PreScriptQuery;
 import com.doublekit.dal.jpa.JpaTemplate;

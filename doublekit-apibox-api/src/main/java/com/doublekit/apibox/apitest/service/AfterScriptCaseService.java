@@ -1,6 +1,6 @@
 package com.doublekit.apibox.apitest.service;
 
-import com.doublekit.common.Pagination;
+import com.doublekit.common.page.Pagination;
 
 import com.doublekit.apibox.apitest.model.AfterScriptCase;
 import com.doublekit.apibox.apitest.model.AfterScriptCaseQuery;

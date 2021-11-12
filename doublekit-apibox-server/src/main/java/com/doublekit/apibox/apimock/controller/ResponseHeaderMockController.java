@@ -4,7 +4,7 @@ import com.doublekit.apibox.annotation.Api;
 import com.doublekit.apibox.apimock.model.ResponseHeaderMock;
 import com.doublekit.apibox.apimock.model.ResponseHeaderMockQuery;
 import com.doublekit.apibox.apimock.service.ResponseHeaderMockService;
-import com.doublekit.common.Pagination;
+import com.doublekit.common.page.Pagination;
 import com.doublekit.common.Result;
 import com.doublekit.apibox.annotation.ApiMethod;
 import com.doublekit.apibox.annotation.ApiParam;

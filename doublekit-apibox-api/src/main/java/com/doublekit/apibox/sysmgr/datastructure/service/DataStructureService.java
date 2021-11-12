@@ -1,6 +1,6 @@
 package com.doublekit.apibox.sysmgr.datastructure.service;
 
-import com.doublekit.common.Pagination;
+import com.doublekit.common.page.Pagination;
 
 import com.doublekit.apibox.sysmgr.datastructure.model.DataStructure;
 import com.doublekit.apibox.sysmgr.datastructure.model.DataStructureQuery;

@@ -1,6 +1,6 @@
 package com.doublekit.apibox.sysmgr.environment.dao;
 
-import com.doublekit.common.Pagination;
+import com.doublekit.common.page.Pagination;
 import com.doublekit.apibox.sysmgr.environment.entity.EnvironmentEntity;
 import com.doublekit.apibox.sysmgr.environment.model.EnvironmentQuery;
 import com.doublekit.dal.jpa.JpaTemplate;

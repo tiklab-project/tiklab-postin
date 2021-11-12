@@ -5,9 +5,9 @@ import com.doublekit.apibox.apidef.entity.JsonParamEntity;
 import com.doublekit.apibox.apidef.model.JsonParam;
 import com.doublekit.apibox.apidef.model.JsonParamQuery;
 
-import com.doublekit.common.Pagination;
+import com.doublekit.common.page.Pagination;
 import com.doublekit.beans.BeanMapper;
-import com.doublekit.common.PaginationBuilder;
+import com.doublekit.common.page.PaginationBuilder;
 import com.doublekit.join.JoinTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

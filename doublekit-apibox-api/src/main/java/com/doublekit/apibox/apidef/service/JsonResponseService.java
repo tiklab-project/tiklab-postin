@@ -2,8 +2,7 @@ package com.doublekit.apibox.apidef.service;
 
 import com.doublekit.apibox.apidef.model.JsonResponse;
 import com.doublekit.apibox.apidef.model.JsonResponseQuery;
-import com.doublekit.apibox.apidef.model.MethodEx;
-import com.doublekit.common.Pagination;
+import com.doublekit.common.page.Pagination;
 import com.doublekit.join.annotation.FindList;
 import com.doublekit.join.annotation.Provider;
 import com.doublekit.join.annotation.FindAll;

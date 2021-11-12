@@ -4,7 +4,7 @@ import com.doublekit.apibox.annotation.Api;
 import com.doublekit.apibox.sysmgr.datastructure.model.DataStructure;
 import com.doublekit.apibox.sysmgr.datastructure.model.DataStructureQuery;
 import com.doublekit.apibox.sysmgr.datastructure.service.DataStructureService;
-import com.doublekit.common.Pagination;
+import com.doublekit.common.page.Pagination;
 import com.doublekit.common.Result;
 import com.doublekit.apibox.annotation.ApiMethod;
 import com.doublekit.apibox.annotation.ApiParam;

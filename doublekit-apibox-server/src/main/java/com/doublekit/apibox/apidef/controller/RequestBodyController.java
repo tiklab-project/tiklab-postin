@@ -6,7 +6,7 @@ import com.doublekit.apibox.annotation.ApiParam;
 import com.doublekit.apibox.apidef.model.RequestBodyEx;
 import com.doublekit.apibox.apidef.model.RequestBodyExQuery;
 import com.doublekit.apibox.apidef.service.RequestBodyService;
-import com.doublekit.common.Pagination;
+import com.doublekit.common.page.Pagination;
 import com.doublekit.common.Result;
 
 import org.slf4j.Logger;

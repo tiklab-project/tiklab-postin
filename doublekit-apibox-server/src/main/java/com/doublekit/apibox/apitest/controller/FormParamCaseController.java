@@ -4,7 +4,7 @@ import com.doublekit.apibox.annotation.Api;
 import com.doublekit.apibox.apitest.model.FormParamCase;
 import com.doublekit.apibox.apitest.model.FormParamCaseQuery;
 import com.doublekit.apibox.apitest.service.FormParamCaseService;
-import com.doublekit.common.Pagination;
+import com.doublekit.common.page.Pagination;
 import com.doublekit.common.Result;
 import com.doublekit.apibox.annotation.ApiMethod;
 import com.doublekit.apibox.annotation.ApiParam;

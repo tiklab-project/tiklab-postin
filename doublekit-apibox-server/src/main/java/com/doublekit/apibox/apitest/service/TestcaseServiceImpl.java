@@ -4,9 +4,9 @@ import com.doublekit.apibox.apitest.dao.TestcaseDao;
 import com.doublekit.apibox.apitest.entity.TestcaseEntity;
 import com.doublekit.apibox.apitest.model.*;
 
-import com.doublekit.common.Pagination;
+import com.doublekit.common.page.Pagination;
 import com.doublekit.beans.BeanMapper;
-import com.doublekit.common.PaginationBuilder;
+import com.doublekit.common.page.PaginationBuilder;
 import com.doublekit.join.JoinTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,8 +14,6 @@ import org.springframework.stereotype.Service;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
-
-import org.springframework.beans.BeanUtils;
 
 /**
 * 用户服务业务处理

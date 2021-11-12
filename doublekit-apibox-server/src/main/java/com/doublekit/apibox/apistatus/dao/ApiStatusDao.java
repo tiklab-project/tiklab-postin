@@ -2,7 +2,7 @@ package com.doublekit.apibox.apistatus.dao;
 
 import com.doublekit.apibox.apistatus.entity.ApiStatusEntity;
 import com.doublekit.apibox.apistatus.model.ApiStatusQuery;
-import com.doublekit.common.Pagination;
+import com.doublekit.common.page.Pagination;
 import com.doublekit.dal.jpa.JpaTemplate;
 import com.doublekit.dal.jpa.criterial.model.DeleteCondition;
 import org.slf4j.Logger;

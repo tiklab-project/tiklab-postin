@@ -1,6 +1,6 @@
 package com.doublekit.apibox.apidef.service;
 
-import com.doublekit.common.Pagination;
+import com.doublekit.common.page.Pagination;
 
 import com.doublekit.apibox.apidef.model.ResponseResult;
 import com.doublekit.apibox.apidef.model.ResponseResultQuery;

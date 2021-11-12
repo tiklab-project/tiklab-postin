@@ -4,7 +4,7 @@ import com.doublekit.apibox.annotation.Api;
 import com.doublekit.apibox.workspace.model.Workspace;
 import com.doublekit.apibox.workspace.model.WorkspaceQuery;
 import com.doublekit.apibox.workspace.service.WorkspaceService;
-import com.doublekit.common.Pagination;
+import com.doublekit.common.page.Pagination;
 import com.doublekit.common.Result;
 import com.doublekit.apibox.annotation.ApiMethod;
 import com.doublekit.apibox.annotation.ApiParam;
