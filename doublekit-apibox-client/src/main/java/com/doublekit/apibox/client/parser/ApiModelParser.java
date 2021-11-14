@@ -2,6 +2,7 @@ package com.doublekit.apibox.client.parser;
 
 import com.doublekit.apibox.annotation.ApiProperty;
 import com.doublekit.apibox.client.model.ApiPropertyMeta;
+import com.doublekit.common.exception.SystemException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,9 +44,14 @@ public class ApiModelParser {
             return apiPropertyMetaList;
         }
 
-        Field[] fields = ((Class)beanType).getDeclaredFields();
-        if(fields == null || fields.length == 0){
-            return apiPropertyMetaList;
+        Field[] fields = null;
+        try {
+            fields = ((Class)beanType).getDeclaredFields();
+            if(fields == null || fields.length == 0){
+                return apiPropertyMetaList;
+            }
+        } catch (Throwable e) {
+            throw new SystemException("parse model error,model:" + beanType.getTypeName(),e);
         }
 
         for (Field field:fields){
