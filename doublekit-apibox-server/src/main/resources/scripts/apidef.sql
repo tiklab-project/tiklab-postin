@@ -11,7 +11,7 @@ CREATE TABLE apibox_method(
         create_user varchar(64),
         create_time timestamp ,
         update_time timestamp,
-        status varchar(32),
+        status_id varchar(32),
         update_user varchar(64),
         executor_id varchar(32)
 );
@@ -21,7 +21,7 @@ CREATE TABLE apibox_request_header(
         header_name VARCHAR(64) NOT NULL,
         required int NOT NULL,
         description VARCHAR(128),
-        eg VARCHAR(128),
+        value VARCHAR(128),
         sort int
 );
 CREATE TABLE apibox_query_param(
@@ -31,7 +31,7 @@ CREATE TABLE apibox_query_param(
         data_type VARCHAR(32) NOT NULL,
         required int NOT NULL,
         description VARCHAR(128),
-        eg VARCHAR(128),
+        value VARCHAR(128),
         sort int
 );
 CREATE TABLE apibox_request_body(
@@ -46,7 +46,17 @@ CREATE TABLE apibox_form_param(
         data_type VARCHAR(32) NOT NULL,
         required int NOT NULL,
         description VARCHAR(128),
-        eg VARCHAR(128),
+        value VARCHAR(128),
+        sort int
+);
+CREATE TABLE apibox_form_urlencoded(
+        id VARCHAR(32) PRIMARY KEY,
+        method_id VARCHAR(32) NOT NULL,
+        param_name VARCHAR(64) NOT NULL,
+        data_type VARCHAR(32) NOT NULL,
+        required int NOT NULL,
+        description VARCHAR(128),
+        value VARCHAR(128),
         sort int
 );
 CREATE TABLE apibox_json_param(
@@ -56,7 +66,7 @@ CREATE TABLE apibox_json_param(
         data_type VARCHAR(32) NOT NULL,
         required int NOT NULL,
         description VARCHAR(128),
-        eg VARCHAR(128),
+        value VARCHAR(128),
         sort int,
         parent_id VARCHAR(32),
         pre_version_id varchar (32)
@@ -82,7 +92,7 @@ CREATE TABLE apibox_response_header(
         header_name VARCHAR(64) NOT NULL,
         required int NOT NULL,
         description VARCHAR(128),
-        eg VARCHAR(128),
+        value VARCHAR(128),
         sort int
 );
 CREATE TABLE apibox_response_result(
@@ -97,7 +107,7 @@ CREATE TABLE apibox_json_response(
         data_type VARCHAR(32) NOT NULL,
         required int NOT NULL,
         description VARCHAR(128),
-        eg VARCHAR(128),
+        value VARCHAR(128),
         sort int,
         parent_id VARCHAR(32),
          pre_version_id varchar (32)

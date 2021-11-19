@@ -57,8 +57,8 @@ public class MethodEntity implements Serializable {
     @Column(name = "update_time",length = 4)
     private Date updateTime;
 
-    @Column(name = "status",length = 8)
-    private String status;
+    @Column(name = "status_id",length = 8)
+    private String statusId;
 
     public String getId() {
         return id;
@@ -164,9 +164,13 @@ public class MethodEntity implements Serializable {
         this.updateTime = updateTime;
     }
 
-    public String getStatus() {return status;}
+    public String getStatusId() {
+        return statusId;
+    }
 
-    public void setStatus(String status) {this.status = status;}
+    public void setStatusId(String statusId) {
+        this.statusId = statusId;
+    }
 
     public String getExecutor() {
         return executor;

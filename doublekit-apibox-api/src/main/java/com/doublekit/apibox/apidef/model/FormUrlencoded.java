@@ -2,6 +2,7 @@ package com.doublekit.apibox.apidef.model;
 
 import com.doublekit.apibox.annotation.ApiModel;
 import com.doublekit.apibox.annotation.ApiProperty;
+import com.doublekit.beans.annotation.Mapper;
 import com.doublekit.beans.annotation.Mapping;
 import com.doublekit.beans.annotation.Mappings;
 import com.doublekit.common.BaseModel;
@@ -12,9 +13,9 @@ import javax.validation.constraints.NotNull;
 
 @ApiModel
 @Join
-public class QueryParam extends BaseModel {
+public class FormUrlencoded extends BaseModel{
 
-    @ApiProperty(name="id",desc="唯一标识")
+    @ApiProperty(name="id",desc="id")
     private java.lang.String id;
 
     @NotNull
@@ -26,31 +27,31 @@ public class QueryParam extends BaseModel {
     private MethodEx method;
 
     @NotNull
-    @ApiProperty(name="paramName",desc="参数名称",eg="@text32",required = true)
+    @ApiProperty(name="paramName",desc="paramName",required = true)
     private java.lang.String paramName;
 
     @NotNull
-    @ApiProperty(name="dataType",desc="数据类型",eg="@text32",required = true)
+    @ApiProperty(name="dataType",desc="dataType",required = true)
     private java.lang.String dataType;
 
     @NotNull
-    @ApiProperty(name="required",desc="是否必须,0:非必须;1:必须",eg="@int16",required = true)
-    private java.lang.Integer required = 0;
+    @ApiProperty(name="required",desc="required",required = true)
+    private java.lang.Integer required;
 
-    @ApiProperty(name="desc",desc="描述",eg="@text32")
+    @ApiProperty(name="desc",desc="desc")
     private java.lang.String desc;
 
-    @ApiProperty(name="value",desc="示例值",eg="@text32")
+    @ApiProperty(name="value",desc="value")
     private java.lang.String value;
 
-    @ApiProperty(name="sort",desc="排序",eg="@int16")
+    @ApiProperty(name="sort",desc="sort")
     private java.lang.Integer sort;
 
-    public String getId() {
+    public java.lang.String getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(java.lang.String id) {
         this.id = id;
     }
 
@@ -62,36 +63,41 @@ public class QueryParam extends BaseModel {
         this.method = method;
     }
 
-    public String getParamName() {
+    public java.lang.String getParamName() {
         return paramName;
     }
 
-    public void setParamName(String paramName) {
+    public void setParamName(java.lang.String paramName) {
         this.paramName = paramName;
     }
-
-    public String getDataType() {
+    public java.lang.String getDataType() {
         return dataType;
     }
 
-    public void setDataType(String dataType) {
+    public void setDataType(java.lang.String dataType) {
         this.dataType = dataType;
     }
-
-    public Integer getRequired() {
+    public java.lang.Integer getRequired() {
         return required;
     }
 
-    public void setRequired(Integer required) {
+    public void setRequired(java.lang.Integer required) {
         this.required = required;
     }
-
-    public String getDesc() {
+    public java.lang.String getDesc() {
         return desc;
     }
 
-    public void setDesc(String desc) {
+    public void setDesc(java.lang.String desc) {
         this.desc = desc;
+    }
+
+    public java.lang.Integer getSort() {
+        return sort;
+    }
+
+    public void setSort(java.lang.Integer sort) {
+        this.sort = sort;
     }
 
     public String getValue() {
@@ -101,13 +107,4 @@ public class QueryParam extends BaseModel {
     public void setValue(String value) {
         this.value = value;
     }
-
-    public Integer getSort() {
-        return sort;
-    }
-
-    public void setSort(Integer sort) {
-        this.sort = sort;
-    }
-
 }

@@ -2,6 +2,7 @@ package com.doublekit.apibox.apidef.model;
 
 import com.doublekit.apibox.annotation.ApiModel;
 import com.doublekit.apibox.annotation.ApiProperty;
+import com.doublekit.apibox.apistatus.model.ApiStatus;
 import com.doublekit.apibox.category.model.Category;
 import com.doublekit.beans.annotation.Mapping;
 import com.doublekit.beans.annotation.Mappings;
@@ -63,6 +64,7 @@ public class MethodEx extends BaseModel {
     @ApiProperty(name="versionCode",desc="版本号")
     @IndexField
     private java.lang.String versionCode;
+
     @ApiProperty(name="onVersionId",desc="上一个版本id")
     @IndexField
     private java.lang.String onVersionId;
@@ -97,9 +99,12 @@ public class MethodEx extends BaseModel {
     private java.sql.Date updateTime;
 
     @ApiProperty(name="status",desc="状态")
+    @Mappings({
+            @Mapping(source = "status.id",target = "statusId")
+    })
+    @JoinQuery(key = "id")
     @IndexField
-    private java.lang.String status;
-
+    private ApiStatus status;
 
 
     public String getId() {
@@ -207,11 +212,11 @@ public class MethodEx extends BaseModel {
         this.updateTime = updateTime;
     }
 
-    public String getStatus() {
+    public ApiStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(ApiStatus status) {
         this.status = status;
     }
 

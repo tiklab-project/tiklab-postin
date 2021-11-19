@@ -7,6 +7,7 @@ import com.doublekit.dal.jpa.mapper.annotation.Id;
 import com.doublekit.dal.jpa.mapper.annotation.Table;import com.doublekit.dal.jpa.mapper.annotation.Entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 @Table(name="apibox_mock")
@@ -22,6 +23,15 @@ public class MockEntity implements Serializable {
 
     @Column(name = "name",length = 64,notNull = true)
     private String name;
+
+    @Column(name = "create_user",length = 32 )
+    private String createUser;
+
+    @Column(name = "create_time",length = 4)
+    private Date createTime;
+
+    @Column(name = "enable",length = 2,notNull = true)
+    private Integer enable;
 
     @Column(name = "description",length = 128)
     private String desc;
@@ -56,5 +66,29 @@ public class MockEntity implements Serializable {
 
     public void setDesc(String desc) {
         this.desc = desc;
+    }
+
+    public String getCreateUser() {
+        return createUser;
+    }
+
+    public void setCreateUser(String createUser) {
+        this.createUser = createUser;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Integer getEnable() {
+        return enable;
+    }
+
+    public void setEnable(Integer enable) {
+        this.enable = enable;
     }
 }

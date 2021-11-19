@@ -1,7 +1,6 @@
 package com.doublekit.apibox.apidef.controller;
 
 import com.doublekit.apibox.annotation.Api;
-import com.doublekit.apibox.apidef.entity.StatusEnum;
 import com.doublekit.apibox.apidef.model.MethodEx;
 import com.doublekit.apibox.apidef.model.MethodExQuery;
 import com.doublekit.apibox.apidef.service.MethodService;
@@ -100,10 +99,5 @@ public class MethodController {
         return Result.ok(pagination);
     }
 
-    @RequestMapping(path = "/findStatusEnum",method = RequestMethod.POST)
-    @ApiMethod(name = "findStatusEnum",desc = "status字典项")
-    public Result<StatusEnum[]> findStatusEnum() {
-        StatusEnum[] values = StatusEnum.values();
-        return Result.ok(values);
-    }
+
 }
