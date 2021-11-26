@@ -5,6 +5,7 @@ import com.doublekit.apibox.apimock.entity.MockEntity;
 import com.doublekit.apibox.apimock.model.Mock;
 import com.doublekit.apibox.apimock.model.MockQuery;
 
+import com.doublekit.apibox.common.CurrentRegUser;
 import com.doublekit.common.page.Pagination;
 import com.doublekit.beans.BeanMapper;
 import com.doublekit.common.page.PaginationBuilder;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -31,6 +33,13 @@ public class MockServiceImpl implements MockService {
     @Override
     public String createMock(@NotNull @Valid Mock mock) {
         MockEntity mockEntity = BeanMapper.map(mock, MockEntity.class);
+
+        //创建人
+        String createUserId = CurrentRegUser.getInstace().findCreatUser();
+        mockEntity.setCreateUser(createUserId);
+
+        //创建时间
+        mockEntity.setCreateTime(new Date());
 
         return mockDao.createMock(mockEntity);
     }

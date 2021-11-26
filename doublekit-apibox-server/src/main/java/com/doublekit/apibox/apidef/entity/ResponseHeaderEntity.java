@@ -29,8 +29,8 @@ public class ResponseHeaderEntity implements Serializable {
     @Column(name = "description",length = 128)
     private String desc;
 
-    @Column(name = "eg",length = 128)
-    private String eg;
+    @Column(name = "value",length = 128)
+    private String value;
 
     @Column(name = "sort",length = 4)
     private Integer sort;
@@ -75,12 +75,12 @@ public class ResponseHeaderEntity implements Serializable {
         this.desc = desc;
     }
 
-    public String getEg() {
-        return eg;
+    public String getValue() {
+        return value;
     }
 
-    public void setEg(String eg) {
-        this.eg = eg;
+    public void setValue(String value) {
+        this.value = value;
     }
 
     public Integer getSort() {

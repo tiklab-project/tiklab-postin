@@ -10,6 +10,7 @@ import com.doublekit.dss.annotation.IndexField;
 import com.doublekit.dss.annotation.IndexId;
 import com.doublekit.dss.annotation.IndexQueryField;
 import com.doublekit.join.annotation.JoinQuery;
+import com.doublekit.user.user.model.User;
 
 import javax.validation.constraints.NotNull;
 
@@ -37,7 +38,7 @@ public class Workspace extends BaseModel {
             @Mapping(source = "user.id",target = "userId")
     })
     @JoinQuery(key = "id")
-    private Workspace user;
+    private User user;
 
     public java.lang.String getId() {
         return id;
@@ -61,11 +62,11 @@ public class Workspace extends BaseModel {
         this.desc = desc;
     }
 
-    public Workspace getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(Workspace user) {
+    public void setUser(User user) {
         this.user = user;
     }
 }

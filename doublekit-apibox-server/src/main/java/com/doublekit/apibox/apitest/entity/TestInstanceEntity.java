@@ -7,6 +7,7 @@ import com.doublekit.dal.jpa.mapper.annotation.Id;
 import com.doublekit.dal.jpa.mapper.annotation.Table;import com.doublekit.dal.jpa.mapper.annotation.Entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity @Table(name="apibox_test_instance")
 public class TestInstanceEntity implements Serializable {
@@ -33,6 +34,9 @@ public class TestInstanceEntity implements Serializable {
 
     @Column(name = "result",notNull = true)
     private Integer result;
+
+    @Column(name = "create_time",length = 4)
+    private Date createTime;
 
     public String getId() {
         return id;
@@ -88,5 +92,13 @@ public class TestInstanceEntity implements Serializable {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 }

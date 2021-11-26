@@ -1,16 +1,12 @@
 package com.doublekit.apibox.apidef.entity;
 
-
-import com.doublekit.dal.jpa.mapper.annotation.Column;
-import com.doublekit.dal.jpa.mapper.annotation.GeneratorValue;
-import com.doublekit.dal.jpa.mapper.annotation.Id;
-import com.doublekit.dal.jpa.mapper.annotation.Table;import com.doublekit.dal.jpa.mapper.annotation.Entity;
+import com.doublekit.dal.jpa.mapper.annotation.*;
 
 import java.io.Serializable;
 
 @Entity
-@Table(name="apibox_request_header")
-public class RequestHeaderEntity implements Serializable {
+@Table(name="apibox_form_urlencoded")
+public class FormUrlencodedEntity implements Serializable {
 
     @Id
     @GeneratorValue
@@ -20,8 +16,11 @@ public class RequestHeaderEntity implements Serializable {
     @Column(name = "method_id",length = 32,notNull = true)
     private String methodId;
 
-    @Column(name = "header_name",length = 64,notNull = true)
-    private String headerName;
+    @Column(name = "param_name",length = 64,notNull = true)
+    private String paramName;
+
+    @Column(name = "data_type",length = 32,notNull = true)
+    private String dataType;
 
     @Column(name = "required",length = 2,notNull = true)
     private Integer required;
@@ -34,6 +33,7 @@ public class RequestHeaderEntity implements Serializable {
 
     @Column(name = "sort",length = 4)
     private Integer sort;
+
 
     public String getId() {
         return id;
@@ -51,12 +51,20 @@ public class RequestHeaderEntity implements Serializable {
         this.methodId = methodId;
     }
 
-    public String getHeaderName() {
-        return headerName;
+    public String getParamName() {
+        return paramName;
     }
 
-    public void setHeaderName(String headerName) {
-        this.headerName = headerName;
+    public void setParamName(String paramName) {
+        this.paramName = paramName;
+    }
+
+    public String getDataType() {
+        return dataType;
+    }
+
+    public void setDataType(String dataType) {
+        this.dataType = dataType;
     }
 
     public Integer getRequired() {
@@ -75,19 +83,19 @@ public class RequestHeaderEntity implements Serializable {
         this.desc = desc;
     }
 
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
-
     public Integer getSort() {
         return sort;
     }
 
     public void setSort(Integer sort) {
         this.sort = sort;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
     }
 }

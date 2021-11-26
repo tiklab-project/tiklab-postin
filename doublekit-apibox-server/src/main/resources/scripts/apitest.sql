@@ -73,7 +73,8 @@ CREATE TABLE apibox_test_instance(
         statusCode int NOT NULL,
         result int NOT NULL,
         method_id VARCHAR(32),
-        type VARCHAR(16) NOT NULL
+        type VARCHAR(16) NOT NULL,
+        create_time timestamp
 );
 CREATE TABLE apibox_request_instance(
         id VARCHAR(32) PRIMARY KEY,
@@ -97,4 +98,12 @@ CREATE TABLE apibox_assert_instance(
         comparator VARCHAR(32) NOT NULL,
         value VARCHAR(128),
         result int
+);
+CREATE TABLE apibox_form_urlencoded_testcase(
+        id VARCHAR(32) PRIMARY KEY,
+        testcase_id VARCHAR(32) NOT NULL,
+        param_name VARCHAR(64) NOT NULL,
+        data_type VARCHAR(32) NOT NULL,
+        value VARCHAR(128),
+        sort int
 );

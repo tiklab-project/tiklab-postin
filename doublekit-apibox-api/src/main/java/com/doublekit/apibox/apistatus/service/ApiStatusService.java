@@ -4,6 +4,10 @@ import com.doublekit.common.page.Pagination;
 
 import com.doublekit.apibox.apistatus.model.ApiStatus;
 import com.doublekit.apibox.apistatus.model.ApiStatusQuery;
+import com.doublekit.join.annotation.FindAll;
+import com.doublekit.join.annotation.FindList;
+import com.doublekit.join.annotation.FindOne;
+import com.doublekit.join.annotation.JoinProvider;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -12,6 +16,7 @@ import java.util.List;
 /**
 * ApiStatusService
 */
+@JoinProvider(model = ApiStatus.class)
 public interface ApiStatusService {
 
     /**
@@ -33,8 +38,10 @@ public interface ApiStatusService {
     */
     void deleteApiStatus(@NotNull String id);
 
+    @FindOne
     ApiStatus findOne(@NotNull String id);
 
+    @FindList
     List<ApiStatus> findList(List<String> idList);
 
     /**
@@ -48,6 +55,7 @@ public interface ApiStatusService {
     * 查找所有
     * @return
     */
+    @FindAll
     List<ApiStatus> findAllApiStatus();
 
     /**

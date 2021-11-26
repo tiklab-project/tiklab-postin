@@ -11,7 +11,7 @@ import com.doublekit.dal.jpa.criteria.annotation.QueryTypeEnum;
 import java.util.List;
 
 @ApiModel
-@CriteriaQuery(entityAlias = "RequestHeaderCase")
+@CriteriaQuery(entityAlias = "RequestHeaderCaseEntity")
 public class RequestHeaderCaseQuery {
 
     @ApiProperty(name ="testcaseId",desc = "接口用例ID，精确匹配")

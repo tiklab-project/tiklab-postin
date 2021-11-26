@@ -6,11 +6,13 @@ import com.doublekit.apibox.apidef.model.MethodEx;
 import com.doublekit.beans.annotation.Mapping;
 import com.doublekit.beans.annotation.Mappings;
 import com.doublekit.common.BaseModel;
+import com.doublekit.dss.annotation.IndexField;
 import com.doublekit.join.annotation.Join;
 import com.doublekit.join.annotation.JoinQuery;
 
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @ApiModel
@@ -38,6 +40,9 @@ public class TestInstance extends BaseModel {
     @ApiProperty(name="type",desc="类型:method，testcase")
     private java.lang.String type;
 
+    @ApiProperty(name="createTime",desc="创建时间")
+    @IndexField
+    private Date createTime;
 
     @ApiProperty(name="testNo",desc="测试序号")
     private Integer testNo;
@@ -138,5 +143,13 @@ public class TestInstance extends BaseModel {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 }

@@ -2,7 +2,10 @@ CREATE TABLE apibox_mock(
         id VARCHAR(32) PRIMARY KEY,
         method_id VARCHAR(32) NOT NULL,
         name VARCHAR(64) NOT NULL,
-        description VARCHAR(128)
+        description VARCHAR(128),
+        create_user VARCHAR(32),
+        create_time timestamp,
+        enable int NOT NULL
 );
 CREATE TABLE apibox_request_header_mock(
         id VARCHAR(32) PRIMARY KEY,

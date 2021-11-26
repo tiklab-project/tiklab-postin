@@ -40,8 +40,8 @@ public class FormParam extends BaseModel {
     @ApiProperty(name="desc",desc="描述",eg="@text32")
     private java.lang.String desc;
 
-    @ApiProperty(name="eg",desc="示例值",eg="@text32")
-    private java.lang.String eg;
+    @ApiProperty(name="value",desc="示例值",eg="@text32")
+    private java.lang.String value;
 
     @ApiProperty(name="sort",desc="排序",eg="@int16")
     private java.lang.Integer sort;
@@ -94,12 +94,12 @@ public class FormParam extends BaseModel {
         this.desc = desc;
     }
 
-    public String getEg() {
-        return eg;
+    public String getValue() {
+        return value;
     }
 
-    public void setEg(String eg) {
-        this.eg = eg;
+    public void setValue(String value) {
+        this.value = value;
     }
 
     public Integer getSort() {
