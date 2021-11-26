@@ -26,7 +26,7 @@
     </modules>
 
     <properties>
-        <doublekit.version>1.0.0-SNAPSHOT</doublekit.version>
+        <project.version>1.0.0-SNAPSHOT</project.version>
     </properties>
 
     <dependencyManagement>
@@ -35,97 +35,97 @@
             <dependency>
                 <groupId>com.doublekit</groupId>
                 <artifactId>doublekit-framework-common</artifactId>
-                <version>${doublekit.version}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.doublekit</groupId>
                 <artifactId>doublekit-framework-utils</artifactId>
-                <version>${doublekit.version}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.doublekit</groupId>
                 <artifactId>doublekit-web-spring-boot-starter</artifactId>
-                <version>${doublekit.version}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.doublekit</groupId>
                 <artifactId>doublekit-framework-beans-annotation</artifactId>
-                <version>${doublekit.version}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.doublekit</groupId>
                 <artifactId>doublekit-framework-beans</artifactId>
-                <version>${doublekit.version}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.doublekit</groupId>
                 <artifactId>doublekit-framework-join-annotation</artifactId>
-                <version>${doublekit.version}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.doublekit</groupId>
                 <artifactId>doublekit-framework-join</artifactId>
-                <version>${doublekit.version}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.doublekit</groupId>
                 <artifactId>doublekit-framework-spring-boot-starter</artifactId>
-                <version>${doublekit.version}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.doublekit</groupId>
                 <artifactId>doublekit-dal-jpa-annotation</artifactId>
-                <version>${doublekit.version}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.doublekit</groupId>
                 <artifactId>doublekit-dal-spring-boot-starter</artifactId>
-                <version>${doublekit.version}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.doublekit</groupId>
                 <artifactId>doublekit-rpc-spring-boot-starter</artifactId>
-                <version>${doublekit.version}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.doublekit</groupId>
                 <artifactId>doublekit-dfs-api</artifactId>
-                <version>${doublekit.version}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.doublekit</groupId>
                 <artifactId>doublekit-dfs-spring-boot-starter</artifactId>
-                <version>${doublekit.version}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.doublekit</groupId>
                 <artifactId>doublekit-dcs-spring-boot-starter</artifactId>
-                <version>${doublekit.version}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.doublekit</groupId>
                 <artifactId>doublekit-dss-annotation</artifactId>
-                <version>${doublekit.version}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.doublekit</groupId>
                 <artifactId>doublekit-dss-spring-boot-starter</artifactId>
-                <version>${doublekit.version}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.doublekit</groupId>
                 <artifactId>doublekit-codegen-core</artifactId>
-                <version>${doublekit.version}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.doublekit</groupId>
                 <artifactId>doublekit-apibox-annotation</artifactId>
-                <version>${doublekit.version}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.doublekit</groupId>
                 <artifactId>doublekit-apibox-client</artifactId>
-                <version>${doublekit.version}</version>
+                <version>${project.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -134,19 +134,19 @@
         <repository>
             <id>doublekit-maven</id>
             <name>doublekit maven</name>
-            <url>http://118.178.122.35:8081/repository/maven-public/</url>
+            <url>http://192.168.2.102:8081/repository/maven-public/</url>
         </repository>
     </repositories>
     <distributionManagement>
         <repository>
             <id>nexus-releases</id>
             <name>nexus releases</name>
-            <url>http://118.178.122.35:8081/repository/maven-releases/</url>
+            <url>http://192.168.2.102:8081/repository/maven-releases/</url>
         </repository>
         <snapshotRepository>
             <id>nexus-snapshots</id>
             <name>nexus snapshots</name>
-            <url>http://118.178.122.35:8081/repository/maven-snapshots/</url>
+            <url>http://192.168.2.102:8081/repository/maven-snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
 </project>
