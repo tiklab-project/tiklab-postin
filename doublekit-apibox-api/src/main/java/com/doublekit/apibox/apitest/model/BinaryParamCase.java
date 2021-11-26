@@ -2,19 +2,19 @@ package com.doublekit.apibox.apitest.model;
 
 import com.doublekit.apibox.annotation.ApiModel;
 import com.doublekit.apibox.annotation.ApiProperty;
+import com.doublekit.beans.annotation.Mapper;
 import com.doublekit.beans.annotation.Mapping;
 import com.doublekit.beans.annotation.Mappings;
 import com.doublekit.common.BaseModel;
-import com.doublekit.join.annotation.Join;
 import com.doublekit.join.annotation.JoinQuery;
 
 import javax.validation.constraints.NotNull;
 
 @ApiModel
-@Join
-public class QueryParamCase extends BaseModel {
+@Mapper(targetAlias = "BinaryParamCaseEntity")
+public class BinaryParamCase extends BaseModel{
 
-    @ApiProperty(name="id",desc="唯一标识")
+    @ApiProperty(name="id",desc="id")
     private java.lang.String id;
 
     @NotNull
@@ -26,20 +26,17 @@ public class QueryParamCase extends BaseModel {
     private Testcase testcase;
 
     @NotNull
-    @ApiProperty(name="paramName",desc="参数名称",required = true)
-    private java.lang.String paramName;
+    @ApiProperty(name="fileName",desc="fileName",required = true)
+    private java.lang.String fileName;
 
-    @ApiProperty(name="value",desc="值")
-    private java.lang.String value;
+    @ApiProperty(name = "streamData", desc = "文件流")
+    private String streamData;
 
-    @ApiProperty(name="sort",desc="排序")
-    private java.lang.Integer sort;
-
-    public String getId() {
+    public java.lang.String getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(java.lang.String id) {
         this.id = id;
     }
 
@@ -51,27 +48,19 @@ public class QueryParamCase extends BaseModel {
         this.testcase = testcase;
     }
 
-    public String getParamName() {
-        return paramName;
+    public java.lang.String getFileName() {
+        return fileName;
     }
 
-    public void setParamName(String paramName) {
-        this.paramName = paramName;
+    public void setFileName(java.lang.String fileName) {
+        this.fileName = fileName;
     }
 
-    public String getValue() {
-        return value;
+    public String getStreamData() {
+        return streamData;
     }
 
-    public void setValue(String value) {
-        this.value = value;
-    }
-
-    public Integer getSort() {
-        return sort;
-    }
-
-    public void setSort(Integer sort) {
-        this.sort = sort;
+    public void setStreamData(String streamData) {
+        this.streamData = streamData;
     }
 }

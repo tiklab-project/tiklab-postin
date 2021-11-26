@@ -4,7 +4,7 @@ CREATE TABLE apibox_workspace(
         description VARCHAR(64)
 );
 CREATE TABLE apibox_category(
-        id VARCHAR(32) PRIMARY KEY,
+        id VARCHAR(40) PRIMARY KEY,
         name VARCHAR(64) NOT NULL,
         workspace_id VARCHAR(32),
         parent_category_id VARCHAR(32),

@@ -1,9 +1,11 @@
 package com.doublekit.apibox.category.service;
 
-import com.doublekit.apibox.apidef.dao.MethodDao;
-import com.doublekit.apibox.apidef.entity.MethodEntity;
+import com.doublekit.apibox.apidef.dao.*;
+import com.doublekit.apibox.apidef.entity.*;
 import com.doublekit.apibox.apidef.model.MethodEx;
 import com.doublekit.apibox.apidef.model.MethodExQuery;
+import com.doublekit.apibox.apidef.service.JsonParamService;
+import com.doublekit.apibox.apidef.service.JsonResponseService;
 import com.doublekit.apibox.category.dao.CategoryDao;
 import com.doublekit.apibox.category.entity.CategoryEntity;
 import com.doublekit.apibox.category.model.Category;
@@ -11,13 +13,19 @@ import com.doublekit.apibox.category.model.CategoryQuery;
 import com.doublekit.beans.BeanMapper;
 import com.doublekit.common.page.Pagination;
 import com.doublekit.common.page.PaginationBuilder;
+import com.doublekit.dal.jpa.criterial.DeleteBuilders;
+import com.doublekit.dal.jpa.criterial.model.DeleteCondition;
+import com.doublekit.dss.client.DssClient;
 import com.doublekit.join.JoinTemplate;
+import com.doublekit.message.message.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 /**
@@ -29,46 +37,47 @@ public class CategoryServiceImpl implements CategoryService {
     @Autowired
     CategoryDao categoryDao;
 
-    //@Autowired
-    //NodeDao nodeDao;
+    @Autowired
+    MethodDao methodDao;
 
     @Autowired
     JoinTemplate joinTemplate;
 
-    @Autowired
-    MethodDao methodDao;
-
     @Override
     public String createCategory(@NotNull @Valid Category category) {
         CategoryEntity categoryEntity = BeanMapper.map(category, CategoryEntity.class);
+        if (StringUtils.isEmpty(category.getId())) {
+            UUID uniqueKey = UUID.randomUUID();
+            categoryEntity.setId(uniqueKey.toString());
+        }
 
         String id = categoryDao.createCategory(categoryEntity);
 
-//        //创建node
-//        NodeEntity nodeEntity = BeanMapper.map(categoryEntity, NodeEntity.class);
-//
-//        nodeDao.createNode(nodeEntity);
         return id;
     }
 
     @Override
     public void updateCategory(@NotNull @Valid Category category) {
+
         CategoryEntity categoryEntity = BeanMapper.map(category, CategoryEntity.class);
 
         categoryDao.updateCategory(categoryEntity);
 
-//        //更新node
-//        NodeEntity nodeEntity = BeanMapper.map(categoryEntity, NodeEntity.class);
-//
-//        nodeDao.createNode(nodeEntity);
+
     }
 
     @Override
     public void deleteCategory(@NotNull String id) {
+
         categoryDao.deleteCategory(id);
 
-        //删除node
-//        nodeDao.deleteNode(id);
+        //删除接口数据
+        DeleteCondition deleteCondition = DeleteBuilders.createDelete(MethodEntity.class)
+                .eq("categoryId", id)
+                .get();
+        methodDao.deleteMethod(deleteCondition);
+
+
     }
 
     @Override

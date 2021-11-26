@@ -13,8 +13,8 @@ import java.io.Serializable;
 public class CategoryEntity implements Serializable {
 
     @Id
-    @GeneratorValue
-    @Column(name = "id",length = 32)
+//    @GeneratorValue
+    @Column(name = "id",length = 40)
     private String id;
 
     @Column(name = "name",length = 64,notNull = true)

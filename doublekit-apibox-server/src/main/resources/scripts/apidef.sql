@@ -1,6 +1,6 @@
 CREATE TABLE apibox_method(
         id VARCHAR(32) PRIMARY KEY,
-        category_id VARCHAR(32),
+        category_id VARCHAR(40),
         name VARCHAR(64) NOT NULL,
         request_type VARCHAR(32) NOT NULL,
         path VARCHAR(256) NOT NULL,
@@ -28,7 +28,6 @@ CREATE TABLE apibox_query_param(
         id VARCHAR(32) PRIMARY KEY,
         method_id VARCHAR(32) NOT NULL,
         param_name VARCHAR(64) NOT NULL,
-        data_type VARCHAR(32) NOT NULL,
         required int NOT NULL,
         description VARCHAR(128),
         value VARCHAR(128),
@@ -46,7 +45,7 @@ CREATE TABLE apibox_form_param(
         data_type VARCHAR(32) NOT NULL,
         required int NOT NULL,
         description VARCHAR(128),
-        value VARCHAR(128),
+        value VARCHAR(256),
         sort int
 );
 CREATE TABLE apibox_form_urlencoded(
@@ -116,4 +115,9 @@ CREATE TABLE apibox_raw_response(
         id VARCHAR(32) PRIMARY KEY,
         method_id VARCHAR(32) NOT NULL,
         raw VARCHAR(2048) NOT NULL
+);
+CREATE TABLE apibox_binary_param(
+        id VARCHAR(32) PRIMARY KEY,
+        method_id VARCHAR(32) NOT NULL,
+        filename VARCHAR(64) NOT NULL
 );

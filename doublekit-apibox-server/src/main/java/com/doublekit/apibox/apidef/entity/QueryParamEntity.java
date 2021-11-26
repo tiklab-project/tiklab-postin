@@ -23,9 +23,6 @@ public class QueryParamEntity implements Serializable {
     @Column(name = "param_name",length = 64,notNull = true)
     private String paramName;
 
-    @Column(name = "data_type",length = 32,notNull = true)
-    private String dataType;
-
     @Column(name = "required",length = 2,notNull = true)
     private Integer required;
 
@@ -60,14 +57,6 @@ public class QueryParamEntity implements Serializable {
 
     public void setParamName(String paramName) {
         this.paramName = paramName;
-    }
-
-    public String getDataType() {
-        return dataType;
-    }
-
-    public void setDataType(String dataType) {
-        this.dataType = dataType;
     }
 
     public Integer getRequired() {

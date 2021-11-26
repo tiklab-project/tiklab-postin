@@ -25,7 +25,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/formUrlencoded")
-@Api(name = "FormUrlencodedController",desc = "FormUrlencodedController")
+@Api(name = "FormUrlencodedController",desc = "x-www-formUrlencoded参数管理")
 public class FormUrlencodedController {
 
     private static Logger logger = LoggerFactory.getLogger(FormUrlencodedController.class);

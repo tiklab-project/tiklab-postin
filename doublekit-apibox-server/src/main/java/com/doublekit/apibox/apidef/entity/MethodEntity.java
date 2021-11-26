@@ -14,11 +14,11 @@ import java.sql.Date;
 public class MethodEntity implements Serializable {
 
     @Id
-    @GeneratorValue
+//    @GeneratorValue
     @Column(name = "id",length = 32)
     private String id;
 
-    @Column(name = "category_id",length = 32)
+    @Column(name = "category_id",length = 40)
     private String categoryId;
 
     @Column(name = "name",length = 64,notNull = true)

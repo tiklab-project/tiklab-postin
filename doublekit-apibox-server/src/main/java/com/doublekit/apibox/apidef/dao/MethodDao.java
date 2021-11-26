@@ -4,6 +4,7 @@ import com.doublekit.apibox.apidef.entity.MethodEntity;
 import com.doublekit.apibox.apidef.model.MethodExQuery;
 import com.doublekit.common.page.Pagination;
 import com.doublekit.dal.jpa.JpaTemplate;
+import com.doublekit.dal.jpa.criterial.model.DeleteCondition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +49,13 @@ public class MethodDao {
         jpaTemplate.delete(MethodEntity.class,id);
     }
 
+    /**
+     * 通过条件删除
+     * @param deleteCondition
+     */
+    public void deleteMethod(DeleteCondition deleteCondition){
+        jpaTemplate.delete(deleteCondition);
+    }
     /**
      * 查找用户
      * @param id
