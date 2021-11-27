@@ -4,7 +4,8 @@ package com.doublekit.apibox.apidef.entity;
 import com.doublekit.dal.jpa.mapper.annotation.Column;
 import com.doublekit.dal.jpa.mapper.annotation.GeneratorValue;
 import com.doublekit.dal.jpa.mapper.annotation.Id;
-import com.doublekit.dal.jpa.mapper.annotation.Table;import com.doublekit.dal.jpa.mapper.annotation.Entity;
+import com.doublekit.dal.jpa.mapper.annotation.Table;
+import com.doublekit.dal.jpa.mapper.annotation.Entity;
 
 import java.io.Serializable;
 
@@ -32,7 +33,7 @@ public class FormParamEntity implements Serializable {
     @Column(name = "description",length = 128)
     private String desc;
 
-    @Column(name = "value",length = 128)
+    @Column(name = "value",length = 256)
     private String value;
 
     @Column(name = "sort",length = 4)

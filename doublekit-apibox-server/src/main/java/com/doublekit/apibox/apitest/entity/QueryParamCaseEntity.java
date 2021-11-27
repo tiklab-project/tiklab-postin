@@ -22,9 +22,6 @@ public class QueryParamCaseEntity implements Serializable {
     @Column(name = "param_name",length = 64,notNull = true)
     private String paramName;
 
-    @Column(name = "data_type",length = 32,notNull = true)
-    private String dataType;
-
     @Column(name = "value",length = 128)
     private String value;
 
@@ -53,14 +50,6 @@ public class QueryParamCaseEntity implements Serializable {
 
     public void setParamName(String paramName) {
         this.paramName = paramName;
-    }
-
-    public String getDataType() {
-        return dataType;
-    }
-
-    public void setDataType(String dataType) {
-        this.dataType = dataType;
     }
 
     public String getValue() {

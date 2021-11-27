@@ -15,7 +15,7 @@ import javax.validation.constraints.NotNull;
 @Join
 public class FormUrlencoded extends BaseModel{
 
-    @ApiProperty(name="id",desc="id")
+    @ApiProperty(name="id",desc="唯一标识")
     private java.lang.String id;
 
     @NotNull

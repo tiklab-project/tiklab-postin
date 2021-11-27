@@ -30,10 +30,6 @@ public class QueryParam extends BaseModel {
     private java.lang.String paramName;
 
     @NotNull
-    @ApiProperty(name="dataType",desc="数据类型",eg="@text32",required = true)
-    private java.lang.String dataType;
-
-    @NotNull
     @ApiProperty(name="required",desc="是否必须,0:非必须;1:必须",eg="@int16",required = true)
     private java.lang.Integer required = 0;
 
@@ -68,14 +64,6 @@ public class QueryParam extends BaseModel {
 
     public void setParamName(String paramName) {
         this.paramName = paramName;
-    }
-
-    public String getDataType() {
-        return dataType;
-    }
-
-    public void setDataType(String dataType) {
-        this.dataType = dataType;
     }
 
     public Integer getRequired() {

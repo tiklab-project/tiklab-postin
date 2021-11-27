@@ -24,11 +24,13 @@ import com.doublekit.message.message.service.MessageService;
 import com.doublekit.user.user.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
 * 用户服务业务处理
@@ -95,6 +97,12 @@ public class MethodServiceImpl implements MethodService {
         methodEx.setVersionCode("current");
         //创建接口
         MethodEntity methodEntity = BeanMapper.map(methodEx, MethodEntity.class);
+
+        //如果没有id自动生成id
+        if (StringUtils.isEmpty(methodEx.getId())) {
+            UUID uniqueKey = UUID.randomUUID();
+            methodEntity.setId(uniqueKey.toString());
+        }
 
         //添加创建人
         String creatUserId = findCreatUser();
