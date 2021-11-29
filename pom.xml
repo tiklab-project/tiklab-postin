@@ -21,6 +21,7 @@
         <module>doublekit-apibox-client</module>
         <module>doublekit-apibox-server</module>
         <module>doublekit-apibox-ui</module>
+        <module>doublekit-apibox-plugin</module>
         <module>doublekit-apibox-distribution</module>
         <module>doublekit-apibox-starter</module>
     </modules>
@@ -49,27 +50,27 @@
             </dependency>
             <dependency>
                 <groupId>com.doublekit</groupId>
-                <artifactId>doublekit-framework-beans-annotation</artifactId>
+                <artifactId>doublekit-beans-annotation</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.doublekit</groupId>
-                <artifactId>doublekit-framework-beans</artifactId>
+                <artifactId>doublekit-beans-core</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.doublekit</groupId>
-                <artifactId>doublekit-framework-join-annotation</artifactId>
+                <artifactId>doublekit-dsl-join-annotation</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.doublekit</groupId>
-                <artifactId>doublekit-framework-join</artifactId>
+                <artifactId>doublekit-dsl-join-core</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.doublekit</groupId>
-                <artifactId>doublekit-framework-spring-boot-starter</artifactId>
+                <artifactId>doublekit-framework-common</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
