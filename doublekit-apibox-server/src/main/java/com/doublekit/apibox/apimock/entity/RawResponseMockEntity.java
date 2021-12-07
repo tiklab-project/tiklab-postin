@@ -21,6 +21,9 @@ public class RawResponseMockEntity implements Serializable {
     @Column(name = "result",length = 2048)
     private String result;
 
+    @Column(name = "type",length = 32,notNull = true)
+    private String type;
+
     public String getId() {
         return id;
     }
@@ -43,5 +46,13 @@ public class RawResponseMockEntity implements Serializable {
 
     public void setResult(String result) {
         this.result = result;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

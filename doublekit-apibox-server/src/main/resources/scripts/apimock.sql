@@ -43,7 +43,9 @@ CREATE TABLE apibox_json_param_mock(
 CREATE TABLE apibox_response_header_mock(
         id VARCHAR(32) PRIMARY KEY,
         mock_id VARCHAR(32) NOT NULL,
-        result VARCHAR(2048)
+        header_name VARCHAR(64),
+        value VARCHAR(64),
+        sort int
 );
 CREATE TABLE apibox_response_mock(
         id VARCHAR(32) PRIMARY KEY,
@@ -63,5 +65,6 @@ CREATE TABLE apibox_json_response_mock(
 CREATE TABLE apibox_raw_response_mock(
         id VARCHAR(32) PRIMARY KEY,
         mock_id VARCHAR(32) NOT NULL,
-        result VARCHAR(2048)
+        result VARCHAR(2048),
+        type VARCHAR(32) NOT NULL
 );

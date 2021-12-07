@@ -33,8 +33,9 @@ public class RequestHeaderMockQuery {
         return mockId;
     }
 
-    public void setMockId(String mockId) {
+    public RequestHeaderMockQuery setMockId(String mockId) {
         this.mockId = mockId;
+        return this;
     }
 
     public List<Order> getOrderParams() {

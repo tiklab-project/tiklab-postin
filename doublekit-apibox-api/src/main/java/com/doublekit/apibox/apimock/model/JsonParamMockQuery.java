@@ -30,8 +30,9 @@ public class JsonParamMockQuery {
         return mockId;
     }
 
-    public void setMockId(String mockId) {
+    public JsonParamMockQuery setMockId(String mockId) {
         this.mockId = mockId;
+        return this;
     }
 
     public List<Order> getOrderParams() {

@@ -34,8 +34,9 @@ public class MockQuery {
         return methodId;
     }
 
-    public void setMethodId(String methodId) {
+    public MockQuery setMethodId(String methodId) {
         this.methodId = methodId;
+        return this;
     }
 
     public List<Order> getOrderParams() {

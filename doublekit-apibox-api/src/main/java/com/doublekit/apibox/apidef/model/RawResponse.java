@@ -29,6 +29,10 @@ public class RawResponse extends BaseModel {
     @ApiProperty(name="raw",desc="raw自定义文本",required = true)
     private java.lang.String raw;
 
+    @NotNull
+    @ApiProperty(name = "type",desc = "raw中类型",required = true)
+    private java.lang.String type;
+
     public java.lang.String getId() {
         return id;
     }
@@ -51,5 +55,13 @@ public class RawResponse extends BaseModel {
 
     public void setRaw(java.lang.String raw) {
         this.raw = raw;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

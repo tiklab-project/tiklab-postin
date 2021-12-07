@@ -33,8 +33,9 @@ public class FormParamMockQuery {
         return mockId;
     }
 
-    public void setMockId(String mockId) {
+    public FormParamMockQuery setMockId(String mockId) {
         this.mockId = mockId;
+        return this;
     }
 
     public List<Order> getOrderParams() {

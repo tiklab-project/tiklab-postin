@@ -28,6 +28,10 @@ public class RawParamCase extends BaseModel {
     @ApiProperty(name="raw",desc="自定义文本")
     private java.lang.String raw;
 
+    @NotNull
+    @ApiProperty(name = "type",desc = "raw中类型" , required = true)
+    private java.lang.String type;
+
     public String getId() {
         return id;
     }
@@ -50,5 +54,13 @@ public class RawParamCase extends BaseModel {
 
     public void setRaw(String raw) {
         this.raw = raw;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

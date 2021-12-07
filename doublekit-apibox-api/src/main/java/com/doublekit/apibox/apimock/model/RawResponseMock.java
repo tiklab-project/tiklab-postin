@@ -28,6 +28,10 @@ public class RawResponseMock extends BaseModel {
     @ApiProperty(name="result",desc="预期返回结果")
     private java.lang.String result;
 
+    @NotNull
+    @ApiProperty(name = "type",desc = "raw中类型",required = true)
+    private java.lang.String type;
+
     public java.lang.String getId() {
         return id;
     }
@@ -50,5 +54,13 @@ public class RawResponseMock extends BaseModel {
 
     public void setResult(java.lang.String result) {
         this.result = result;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

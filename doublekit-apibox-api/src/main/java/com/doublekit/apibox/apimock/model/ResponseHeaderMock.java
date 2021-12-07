@@ -25,8 +25,14 @@ public class ResponseHeaderMock extends BaseModel {
     @JoinQuery(key = "id")
     private Mock mock;
 
-    @ApiProperty(name="result",desc="响应头结果")
-    private java.lang.String result;
+    @ApiProperty(name="headerName",desc="响应头名称")
+    private java.lang.String headerName;
+
+    @ApiProperty(name="value",desc="值",eg="@text32")
+    private java.lang.String value;
+
+    @ApiProperty(name="sort",desc="排序",eg="@int16")
+    private java.lang.Integer sort;
 
     public java.lang.String getId() {
         return id;
@@ -44,12 +50,27 @@ public class ResponseHeaderMock extends BaseModel {
         this.mock = mock;
     }
 
-    public java.lang.String getResult() {
-        return result;
+    public String getHeaderName() {
+        return headerName;
     }
 
-    public void setResult(java.lang.String result) {
-        this.result = result;
+    public void setHeaderName(String headerName) {
+        this.headerName = headerName;
     }
 
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public Integer getSort() {
+        return sort;
+    }
+
+    public void setSort(Integer sort) {
+        this.sort = sort;
+    }
 }

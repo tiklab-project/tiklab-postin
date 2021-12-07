@@ -12,14 +12,17 @@ import java.io.Serializable;
 public class RawParamEntity implements Serializable {
 
     @Id
-    @Column(name = "id",length = 32)
+    @Column(name = "id",length = 40)
     private String id;
 
-    @Column(name = "method_id",length = 32,notNull = true)
+    @Column(name = "method_id",length = 40,notNull = true)
     private String methodId;
 
     @Column(name = "raw",length = 2048,notNull = true)
     private String raw;
+
+    @Column(name = "type",length = 32,notNull = true)
+    private String type;
 
     public String getId() {
         return id;
@@ -43,5 +46,13 @@ public class RawParamEntity implements Serializable {
 
     public void setRaw(String raw) {
         this.raw = raw;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

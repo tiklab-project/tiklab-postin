@@ -54,31 +54,37 @@ public class MethodServiceImpl implements MethodService {
     AfterScriptDao afterScriptDao;
 
     @Autowired
+    RequestHeaderDao requestHeaderDao;
+
+    @Autowired
+    QueryParamDao queryParamDao;
+
+    @Autowired
+    RequestBodyDao requestBodyDao;
+
+    @Autowired
     FormParamDao formParamDao;
 
     @Autowired
     JsonParamDao jsonParamDao;
 
     @Autowired
-    JsonResponseDao jsonResponseDao;
-
-    @Autowired
-    PreScriptDao preScriptDao;
-
-    @Autowired
-    QueryParamDao queryParamDao;
+    FormUrlencodedDao formUrlencodedDao;
 
     @Autowired
     RawParamDao rawParamDao;
 
     @Autowired
+    BinaryParamDao binaryParamDao;
+
+    @Autowired
+    PreScriptDao preScriptDao;
+
+    @Autowired
+    JsonResponseDao jsonResponseDao;
+
+    @Autowired
     RawResponseDao rawResponseDao;
-
-    @Autowired
-    RequestBodyDao requestBodyDao;
-
-    @Autowired
-    RequestHeaderDao requestHeaderDao;
 
     @Autowired
     ResponseHeaderDao responseHeaderDao;
@@ -91,6 +97,7 @@ public class MethodServiceImpl implements MethodService {
 
     @Autowired
     JsonResponseService jsonResponseService;
+
     @Override
     public String createMethod(@NotNull @Valid MethodEx methodEx) {
         //添加版本号  默认初始版本号为current
@@ -189,11 +196,35 @@ public class MethodServiceImpl implements MethodService {
                 .get();
         afterScriptDao.deleteAfterScriptList(deleteCondition);
 
+        //删除requestHeader
+        deleteCondition = DeleteBuilders.createDelete(RequestHeaderEntity.class)
+                .eq("methodId", id)
+                .get();
+        requestHeaderDao.deleteRequestHeaderList(deleteCondition);
+
+        //删除query类型请求体
+        deleteCondition = DeleteBuilders.createDelete(QueryParamEntity.class)
+                .eq("methodId", id)
+                .get();
+        queryParamDao.deleteQueryParamList(deleteCondition);
+
+        //删除requestBoy
+        deleteCondition = DeleteBuilders.createDelete(RequestBodyEntity.class)
+                .eq("methodId", id)
+                .get();
+        requestBodyDao.deleteRequestBodyList(deleteCondition);
+
         //删除form类型请求体
         deleteCondition = DeleteBuilders.createDelete(FormParamEntity.class)
                 .eq("methodId", id)
                 .get();
         formParamDao.deleteFormParamLsit(deleteCondition);
+
+        //删除formUrlencodedDao
+        deleteCondition = DeleteBuilders.createDelete(FormParamEntity.class)
+                .eq("methodId", id)
+                .get();
+        formUrlencodedDao.deleteFormUrlencoded(deleteCondition);
 
         //删除json类型请求体
         deleteCondition = DeleteBuilders.createDelete(JsonParamEntity.class)
@@ -207,41 +238,29 @@ public class MethodServiceImpl implements MethodService {
                 .get();
         jsonResponseDao.deleteJsonResponseList(deleteCondition);
 
-        //删除preScrit 前置脚本
-        deleteCondition = DeleteBuilders.createDelete(PreScriptEntity.class)
-                .eq("methodId", id)
-                .get();
-        preScriptDao.deletePreScriptList(deleteCondition);
-
-        //删除query类型请求体
-        deleteCondition = DeleteBuilders.createDelete(QueryParamEntity.class)
-                .eq("methodId", id)
-                .get();
-        queryParamDao.deleteQueryParamList(deleteCondition);
-
         //删除rawParam 类型请求体
         deleteCondition = DeleteBuilders.createDelete(RawParamEntity.class)
                 .eq("methodId", id)
                 .get();
         rawParamDao.deleteRawParamlist(deleteCondition);
 
+        //删除binaryParam
+        deleteCondition = DeleteBuilders.createDelete(RawParamEntity.class)
+                .eq("methodId", id)
+                .get();
+        binaryParamDao.deleteBinaryParam(deleteCondition);
+
+        //删除preScrit 前置脚本
+        deleteCondition = DeleteBuilders.createDelete(PreScriptEntity.class)
+                .eq("methodId", id)
+                .get();
+        preScriptDao.deletePreScriptList(deleteCondition);
+
         //删除rawResponse返回类型
         deleteCondition = DeleteBuilders.createDelete(RawResponseEntity.class)
                 .eq("methodId", id)
                 .get();
         rawResponseDao.deleteRawResponseList(deleteCondition);
-
-        //删除requestBoy
-        deleteCondition = DeleteBuilders.createDelete(RequestBodyEntity.class)
-                .eq("methodId", id)
-                .get();
-        requestBodyDao.deleteRequestBodyList(deleteCondition);
-
-        //删除requestHeader
-        deleteCondition = DeleteBuilders.createDelete(RequestHeaderEntity.class)
-                .eq("methodId", id)
-                .get();
-        requestHeaderDao.deleteRequestHeaderList(deleteCondition);
 
         //删除responseHeader
         deleteCondition = DeleteBuilders.createDelete(ResponseHeaderEntity.class)

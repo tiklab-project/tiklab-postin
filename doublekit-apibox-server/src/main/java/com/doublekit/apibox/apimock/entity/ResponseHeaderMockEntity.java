@@ -1,9 +1,7 @@
 package com.doublekit.apibox.apimock.entity;
 
 
-import com.doublekit.dal.jpa.mapper.annotation.Column;
-import com.doublekit.dal.jpa.mapper.annotation.Id;
-import com.doublekit.dal.jpa.mapper.annotation.Table;import com.doublekit.dal.jpa.mapper.annotation.Entity;
+import com.doublekit.dal.jpa.mapper.annotation.*;
 
 import java.io.Serializable;
 
@@ -12,14 +10,21 @@ import java.io.Serializable;
 public class ResponseHeaderMockEntity implements Serializable {
 
     @Id
+    @GeneratorValue
     @Column(name = "id",length = 32)
     private String id;
 
     @Column(name = "mock_id",length = 32,notNull = true)
     private String mockId;
 
-    @Column(name = "result",length = 2048)
-    private String result;
+    @Column(name = "header_name",length = 64)
+    private String headerName;
+
+    @Column(name = "value",length = 64)
+    private String value;
+
+    @Column(name = "sort",length = 4)
+    private Integer sort;
 
     public String getId() {
         return id;
@@ -37,11 +42,27 @@ public class ResponseHeaderMockEntity implements Serializable {
         this.mockId = mockId;
     }
 
-    public String getResult() {
-        return result;
+    public String getHeaderName() {
+        return headerName;
     }
 
-    public void setResult(String result) {
-        this.result = result;
+    public void setHeaderName(String headerName) {
+        this.headerName = headerName;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public Integer getSort() {
+        return sort;
+    }
+
+    public void setSort(Integer sort) {
+        this.sort = sort;
     }
 }

@@ -15,10 +15,10 @@ public class FormParamEntity implements Serializable {
 
     @Id
     @GeneratorValue
-    @Column(name = "id",length = 32)
+    @Column(name = "id",length = 40)
     private String id;
 
-    @Column(name = "method_id",length = 32,notNull = true)
+    @Column(name = "method_id",length = 40,notNull = true)
     private String methodId;
 
     @Column(name = "param_name",length = 64,notNull = true)

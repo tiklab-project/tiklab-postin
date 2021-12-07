@@ -15,7 +15,7 @@ public class MethodEntity implements Serializable {
 
     @Id
 //    @GeneratorValue
-    @Column(name = "id",length = 32)
+    @Column(name = "id",length = 40)
     private String id;
 
     @Column(name = "category_id",length = 40)

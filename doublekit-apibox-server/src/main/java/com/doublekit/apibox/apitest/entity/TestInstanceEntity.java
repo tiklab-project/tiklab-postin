@@ -14,13 +14,13 @@ public class TestInstanceEntity implements Serializable {
 
     @Id
     @GeneratorValue
-    @Column(name = "id",length = 32)
+    @Column(name = "id",length = 40)
     private String id;
 
-    @Column(name = "testcase_id",length = 32)
+    @Column(name = "testcase_id",length = 40)
     private String testcaseId;
 
-    @Column(name = "method_id",length = 32)
+    @Column(name = "method_id",length = 40)
     private String methodId;
 
     @Column(name = "type",length = 32)

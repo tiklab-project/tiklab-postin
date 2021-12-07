@@ -62,7 +62,12 @@ public class TicketFilterAutoConfiguration {
                         "/file",
                         "/plugin",
                         "/authConfig",
-                        "/app"
+                        "/app",
+                        "/swagger-resources",
+                        "/webjars",
+                        "/csrf",
+                        "/v2",
+                        "/mockx"
                 })
                 .get();
     }

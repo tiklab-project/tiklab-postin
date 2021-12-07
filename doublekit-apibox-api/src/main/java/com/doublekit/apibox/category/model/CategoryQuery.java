@@ -34,8 +34,9 @@ public class CategoryQuery {
         return workspaceId;
     }
 
-    public void setWorkspaceId(String workspaceId) {
+    public CategoryQuery setWorkspaceId(String workspaceId) {
         this.workspaceId = workspaceId;
+        return this;
     }
 
     public List<Order> getOrderParams() {

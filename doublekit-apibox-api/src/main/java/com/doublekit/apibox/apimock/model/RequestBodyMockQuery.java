@@ -30,8 +30,9 @@ public class RequestBodyMockQuery {
         return mockId;
     }
 
-    public void setMockId(String mockId) {
+    public String setMockId(String mockId) {
         this.mockId = mockId;
+        return mockId;
     }
 
     public List<Order> getOrderParams() {

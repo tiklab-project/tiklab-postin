@@ -6,6 +6,7 @@ import com.doublekit.apibox.apidef.model.MethodEx;
 import com.doublekit.apibox.apidef.model.MethodExQuery;
 import com.doublekit.apibox.apidef.service.JsonParamService;
 import com.doublekit.apibox.apidef.service.JsonResponseService;
+import com.doublekit.apibox.apidef.service.MethodService;
 import com.doublekit.apibox.category.dao.CategoryDao;
 import com.doublekit.apibox.category.entity.CategoryEntity;
 import com.doublekit.apibox.category.model.Category;
@@ -18,6 +19,7 @@ import com.doublekit.dal.jpa.criterial.model.DeleteCondition;
 import com.doublekit.dss.client.DssClient;
 import com.doublekit.join.JoinTemplate;
 import com.doublekit.message.message.service.MessageService;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -39,6 +41,9 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Autowired
     MethodDao methodDao;
+
+    @Autowired
+    MethodService methodService;
 
     @Autowired
     JoinTemplate joinTemplate;
@@ -70,13 +75,12 @@ public class CategoryServiceImpl implements CategoryService {
     public void deleteCategory(@NotNull String id) {
 
         categoryDao.deleteCategory(id);
-
-        //删除接口数据
-        DeleteCondition deleteCondition = DeleteBuilders.createDelete(MethodEntity.class)
-                .eq("categoryId", id)
-                .get();
-        methodDao.deleteMethod(deleteCondition);
-
+        List<MethodEx> methodList = methodService.findMethodList(new MethodExQuery().setCategoryId(id));
+        if (CollectionUtils.isNotEmpty(methodList)){
+            for (MethodEx methodEx:methodList){
+                methodService.deleteMethod(methodEx.getId());
+            }
+        }
 
     }
 

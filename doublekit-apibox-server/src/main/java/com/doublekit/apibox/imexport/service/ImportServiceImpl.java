@@ -2,26 +2,25 @@ package com.doublekit.apibox.imexport.service;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.doublekit.apibox.apidef.model.FormParam;
-import com.doublekit.apibox.apidef.model.MethodEx;
-import com.doublekit.apibox.apidef.model.QueryParam;
-import com.doublekit.apibox.apidef.model.RequestHeader;
-import com.doublekit.apibox.apidef.service.FormParamService;
-import com.doublekit.apibox.apidef.service.MethodService;
-import com.doublekit.apibox.apidef.service.QueryParamService;
-import com.doublekit.apibox.apidef.service.RequestHeaderService;
+import com.doublekit.apibox.apidef.model.*;
+import com.doublekit.apibox.apidef.service.*;
 import com.doublekit.apibox.category.model.Category;
+import com.doublekit.apibox.category.model.CategoryQuery;
 import com.doublekit.apibox.category.service.CategoryService;
 import com.doublekit.apibox.imexport.utils.Md5;
 import com.doublekit.apibox.workspace.model.Workspace;
+import com.doublekit.apibox.workspace.service.WorkspaceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 import java.io.*;
+import java.util.List;
 
 @Service
 public class ImportServiceImpl implements ImportService{
+
+    @Autowired
+    private WorkspaceService workspaceService;
 
     @Autowired
     private CategoryService categoryService;
@@ -36,7 +35,16 @@ public class ImportServiceImpl implements ImportService{
     private QueryParamService queryParamService;
 
     @Autowired
+    private RequestBodyService requestBodyService;
+
+    @Autowired
     private FormParamService formParamService;
+
+    @Autowired
+    private FormUrlencodedService formUrlencodedService;
+
+    @Autowired
+    private RawParamService rawParamService;
 
     @Override
     public String importData(String type, String workspaceId, InputStream stream) throws IOException {
@@ -56,6 +64,14 @@ public class ImportServiceImpl implements ImportService{
         String categoryName = info.getString("name");
         String categoryId = info.getString("_postman_id");
 
+        List<Category> categoryListTree = categoryService.findCategoryListTree(new CategoryQuery().setWorkspaceId(workspaceId));
+        for(Category category:categoryListTree){
+            String categoryDataId = category.getId();
+            if(categoryDataId.equals(categoryId)){
+                categoryService.deleteCategory(categoryId);
+            }
+        }
+
         Category category = new Category();
         category.setId(categoryId);
         category.setName(categoryName);
@@ -72,11 +88,11 @@ public class ImportServiceImpl implements ImportService{
 
             //获取request对象
             JSONObject request = obj.getJSONObject("request");
-
-            //获取url
+            //获取request中的对象url
             JSONObject url = request.getJSONObject("url");
-
-            //获取path
+            //获取request中的对象body
+            JSONObject body = request.getJSONObject("body");
+            //获取request中的对象path
             JSONArray urlPath = url.getJSONArray("path");
             String path= new String();
             for(int j=0; j<urlPath.toArray().length;j++){
@@ -101,8 +117,9 @@ public class ImportServiceImpl implements ImportService{
             //添加接口
             methodService.createMethod(methodEx);
 
-            JSONArray header = request.getJSONArray("header");
-            if(header.toArray().length>0){
+            //添加header
+            if(request.containsKey("header")){
+                JSONArray header = request.getJSONArray("header");
                 for(int hi=0;hi<header.toArray().length;hi++){
                     JSONObject headerObj = header.getJSONObject(hi);
 
@@ -121,17 +138,18 @@ public class ImportServiceImpl implements ImportService{
                 }
             }
 
-            JSONArray query = url.getJSONArray("query");
-            if(query.toArray().length>0){
+            //添加query参数
+            if(url.containsKey("query")){
+                JSONArray query = url.getJSONArray("query");
                 for(int qi = 0;qi<query.toArray().length;qi++){
                     JSONObject queryObj = query.getJSONObject(qi);
-//
+
                     String queryName = queryObj.getString("key");
                     String queryValue = queryObj.getString("value");
                     String queryDesc = queryObj.getString("description");
                     MethodEx queryMethod = new MethodEx();
                     queryMethod.setId(methodId);
-//
+
                     QueryParam queryParam = new QueryParam();
                     queryParam.setParamName(queryName);
                     queryParam.setValue(queryValue);
@@ -141,36 +159,84 @@ public class ImportServiceImpl implements ImportService{
                 }
             }
 
-            JSONObject body = request.getJSONObject("body");
+            if(request.containsKey("body")){
+                //添加requestBody
+                if(body.containsKey("mode")){
+                    String requestBody = body.getString("mode");
+                    MethodEx requestBodyMethod = new MethodEx();
+                    requestBodyMethod.setId(methodId);
 
-            JSONArray formdata = body.getJSONArray("formdata");
-            if(formdata.toArray().length>0){
-                for(int fi = 0; fi<formdata.toArray().length;fi++){
-                    JSONObject formdataObj = query.getJSONObject(fi);
-
-                    String formdataName = formdataObj.getString("key");
-                    String formdataValue = formdataObj.getString("value");
-                    String formdataType = formdataObj.getString("type");
-                    String formdataDesc = formdataObj.getString("description");
-                    MethodEx formdataMethod = new MethodEx();
-                    formdataMethod.setId(methodId);
-
-                    FormParam formParam = new FormParam();
-                    formParam.setParamName(formdataName);
-                    formParam.setValue(formdataValue);
-                    formParam.setDesc(formdataDesc);
-                    formParam.setDataType(formdataType);
-                    formParam.setMethod(formdataMethod);
-                    formParamService.createFormParam(formParam);
-
-
-
-
+                    RequestBodyEx requestBodyEx = new RequestBodyEx();
+                    requestBodyEx.setId(methodId);
+                    requestBodyEx.setBodyType(requestBody);
+                    requestBodyEx.setMethod(requestBodyMethod);
+                    requestBodyService.createRequestBody(requestBodyEx);
                 }
+
+                //添加formdata
+                if(body.containsKey("formdata")){
+                    JSONArray formParam = body.getJSONArray("formdata");
+                    for(int fi = 0; fi<formParam.toArray().length;fi++){
+                        JSONObject formParamObj = formParam.getJSONObject(fi);
+
+                        String formParamName = formParamObj.getString("key");
+                        String formParamValue = formParamObj.getString("value");
+                        String formParamType = formParamObj.getString("type");
+                        String formParamDesc = formParamObj.getString("description");
+                        MethodEx formParamMethod = new MethodEx();
+                        formParamMethod.setId(methodId);
+
+                        FormParam formParams = new FormParam();
+                        formParams.setParamName(formParamName);
+                        formParams.setValue(formParamValue);
+                        formParams.setDesc(formParamDesc);
+                        formParams.setDataType(formParamType);
+                        formParams.setMethod(formParamMethod);
+                        formParamService.createFormParam(formParams);
+                    }
+                }
+
+                //添加formurlencoded
+                if(body.containsKey("urlencoded")){
+                    JSONArray urlencoded = body.getJSONArray("urlencoded");
+                    for(int urlencodedi = 0;urlencodedi<urlencoded.toArray().length;urlencodedi++){
+                        JSONObject urlObj = urlencoded.getJSONObject(urlencodedi);
+
+                        String urlencodedName = urlObj.getString("key");
+                        String urlencodedValue = urlObj.getString("value");
+                        String urlencodedType = urlObj.getString("type");
+                        String urlencodedDesc = urlObj.getString("description");
+                        MethodEx urlencodedMethod = new MethodEx();
+                        urlencodedMethod.setId(methodId);
+
+                        FormUrlencoded formUrlencoded = new FormUrlencoded();
+                        formUrlencoded.setParamName(urlencodedName);
+                        formUrlencoded.setDataType(urlencodedType);
+                        formUrlencoded.setValue(urlencodedValue);
+                        formUrlencoded.setDesc(urlencodedDesc);
+                        formUrlencodedService.createFormUrlencoded(formUrlencoded);
+                    }
+                }
+
+                //添加raw: json,html,xml,javascript
+                if(body.containsKey("raw")){
+                    JSONObject options = body.getJSONObject("options");
+                    JSONObject raw = options.getJSONObject("raw");
+                    String rawType = raw.getString("language");
+                    String rawData = body.getString("raw");
+                    MethodEx rawMethod = new MethodEx();
+                    rawMethod.setId(methodId);
+
+                    RawParam rawParam = new RawParam();
+                    rawParam.setRaw(rawData);
+                    rawParam.setType(rawType);
+                    rawParam.setId(methodId);
+                    rawParam.setMethod(rawMethod);
+                    rawParamService.createRawParam(rawParam);
+                }
+
+
             }
-
-
-            System.out.println(methodId);
         }
 
 

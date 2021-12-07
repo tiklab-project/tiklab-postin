@@ -20,6 +20,9 @@ public class RawParamCaseEntity implements Serializable {
     @Column(name = "raw",length = 2048)
     private String raw;
 
+    @Column(name = "type",length = 32,notNull = true)
+    private String type;
+
     public String getId() {
         return id;
     }
@@ -42,5 +45,13 @@ public class RawParamCaseEntity implements Serializable {
 
     public void setRaw(String raw) {
         this.raw = raw;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

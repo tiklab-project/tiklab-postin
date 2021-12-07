@@ -26,6 +26,10 @@ public class RawParam extends BaseModel {
     private MethodEx method;
 
     @NotNull
+    @ApiProperty(name = "type",desc = "raw中类型",required = true)
+    private java.lang.String type;
+
+    @NotNull
     @ApiProperty(name="raw",desc="raw自定义文本",required = true)
     private java.lang.String raw;
 
@@ -51,5 +55,13 @@ public class RawParam extends BaseModel {
 
     public void setRaw(java.lang.String raw) {
         this.raw = raw;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

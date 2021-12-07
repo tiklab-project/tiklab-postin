@@ -1,6 +1,6 @@
 CREATE TABLE apibox_testcase(
-        id VARCHAR(32) PRIMARY KEY,
-        method_id VARCHAR(32) NOT NULL,
+        id VARCHAR(40) PRIMARY KEY,
+        method_id VARCHAR(40) NOT NULL,
         name VARCHAR(64) NOT NULL,
         base_url VARCHAR(128)
 );
@@ -43,7 +43,8 @@ CREATE TABLE apibox_json_param_testcase(
 CREATE TABLE apibox_raw_param_testcase(
         id VARCHAR(32) PRIMARY KEY,
         testcase_id VARCHAR(32) NOT NULL,
-        raw VARCHAR(2048)
+        raw VARCHAR(2048),
+        type VARCHAR(32) NOT NULL
 );
 CREATE TABLE apibox_pre_script_testcase(
         id VARCHAR(32) PRIMARY KEY,
@@ -66,12 +67,12 @@ CREATE TABLE apibox_assert_testcase(
         sort int
 );
 CREATE TABLE apibox_test_instance(
-        id VARCHAR(32) PRIMARY KEY,
-        testcase_id VARCHAR(32) ,
+        id VARCHAR(40) PRIMARY KEY,
+        testcase_id VARCHAR(40) ,
         testNo int NOT NULL,
         statusCode int NOT NULL,
         result int NOT NULL,
-        method_id VARCHAR(32),
+        method_id VARCHAR(40),
         type VARCHAR(16) NOT NULL,
         create_time timestamp
 );

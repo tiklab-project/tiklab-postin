@@ -50,8 +50,9 @@ public class MethodExQuery {
         return categoryId;
     }
 
-    public void setCategoryId(String categoryId) {
+    public MethodExQuery setCategoryId(String categoryId) {
         this.categoryId = categoryId;
+        return this;
     }
 
     public List<Order> getOrderParams() {
