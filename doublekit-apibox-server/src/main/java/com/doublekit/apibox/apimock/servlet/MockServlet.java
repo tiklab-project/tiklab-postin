@@ -1,5 +1,12 @@
 package com.doublekit.apibox.apimock.servlet;
 
+import cn.hutool.cache.Cache;
+import cn.hutool.cache.CacheUtil;
+import cn.hutool.core.date.DateUnit;
+import cn.hutool.core.io.FileUtil;
+import cn.hutool.http.HttpUtil;
+import cn.hutool.script.JavaScriptEngine;
+import cn.hutool.script.ScriptUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.JSONPath;
 import com.doublekit.apibox.apidef.dao.MethodDao;
@@ -8,6 +15,8 @@ import com.doublekit.apibox.apidef.model.MethodExQuery;
 import com.doublekit.apibox.apimock.dao.*;
 import com.doublekit.apibox.apimock.entity.*;
 import com.doublekit.apibox.apimock.model.*;
+import com.doublekit.apibox.apimock.utils.MockFun;
+import com.doublekit.apibox.apimock.utils.MockProcess;
 import com.doublekit.apibox.category.dao.CategoryDao;
 import com.doublekit.apibox.category.entity.CategoryEntity;
 import com.doublekit.apibox.category.model.CategoryQuery;
@@ -17,9 +26,14 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.jboss.netty.util.CharsetUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ObjectUtils;
 
+import javax.script.Invocable;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
@@ -27,6 +41,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
@@ -77,6 +92,8 @@ public class MockServlet extends HttpServlet {
     @Autowired
     RawResponseMockDao rawResponseMockDao;
 
+    private static Cache<String, String> lfuCache = CacheUtil.newLFUCache(1);
+    private static JavaScriptEngine scriptEngine = ScriptUtil.getJavaScriptEngine();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -256,14 +273,21 @@ public class MockServlet extends HttpServlet {
                     for(ResponseHeaderMockEntity responseHeaderMock : responseHeaderMockList){
                         String headerName = responseHeaderMock.getHeaderName();
                         String headerValue = responseHeaderMock.getValue();
-                        response.setHeader(headerName,headerValue);
+                        String mockVal = null;
+                        try {
+                             mockVal =  MockProcess.mock(headerValue);
+                             System.out.println(MockProcess.mock("@naturel(50,66)"));
+                            System.out.println(MockProcess.mock("@naturel(100)"));
+                            System.out.println(MockProcess.mock("@float(1,100)"));
+                        } catch (ScriptException e) {
+                            e.printStackTrace();
+                        }
+                        response.setHeader(headerName,mockVal);
                         if(headers!=null){
                             headers =headers+headerName+",";
                         }else {
                             headers =headerName+",";
                         }
-
-
                     }
                 }
                 response.setHeader("Content-Type", "text/html;charset=UTF-8");
