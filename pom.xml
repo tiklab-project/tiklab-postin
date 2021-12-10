@@ -20,9 +20,7 @@
         <module>doublekit-apibox-api</module>
         <module>doublekit-apibox-client</module>
         <module>doublekit-apibox-server</module>
-        <module>doublekit-apibox-ui</module>
         <module>doublekit-apibox-plugin</module>
-        <module>doublekit-apibox-distribution</module>
         <module>doublekit-apibox-starter</module>
     </modules>
 
@@ -90,11 +88,6 @@
             </dependency>
             <dependency>
                 <groupId>com.doublekit</groupId>
-                <artifactId>doublekit-dfs-api</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.doublekit</groupId>
                 <artifactId>doublekit-dfs-spring-boot-starter</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -133,8 +126,8 @@
 
     <repositories>
         <repository>
-            <id>doublekit-maven</id>
-            <name>doublekit maven</name>
+            <id>maven-public</id>
+            <name>maven public</name>
             <url>http://192.168.2.102:8081/repository/maven-public/</url>
         </repository>
     </repositories>
