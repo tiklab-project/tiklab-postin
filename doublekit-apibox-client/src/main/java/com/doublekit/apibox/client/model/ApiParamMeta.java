@@ -18,10 +18,12 @@ public class ApiParamMeta extends ParamItem{
 
     private Object def;
 
+    @JSONField(serialize = false)
     private String textDef = "";
 
     private Object eg;
 
+    @JSONField(serialize = false)
     private String textEg = "";
 
     public ApiParamMeta() {

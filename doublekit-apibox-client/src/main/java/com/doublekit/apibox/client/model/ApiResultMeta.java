@@ -1,11 +1,17 @@
 package com.doublekit.apibox.client.model;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class ApiResultMeta extends ParamItem{
 
-    //--------------
     private Object def;
+
+    @JSONField(serialize = false)
     private String textDef="";
+
     private Object eg;
+
+    @JSONField(serialize = false)
     private String textEg = "";
 
     //返回类型，字符串
