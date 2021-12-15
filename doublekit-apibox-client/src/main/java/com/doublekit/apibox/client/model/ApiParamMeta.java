@@ -26,6 +26,9 @@ public class ApiParamMeta extends ParamItem{
     @JSONField(serialize = false)
     private String textEg = "";
 
+    //请求格式类型，form-data/json等，默认form-data
+    private String paramDataType = "form-data";
+
     public ApiParamMeta() {
     }
 
@@ -87,5 +90,13 @@ public class ApiParamMeta extends ParamItem{
 
     public void setTextEg(String textEg) {
         this.textEg = textEg;
+    }
+
+    public String getParamDataType() {
+        return paramDataType;
+    }
+
+    public void setParamDataType(String paramDataType) {
+        this.paramDataType = paramDataType;
     }
 }

@@ -6,6 +6,7 @@ import com.doublekit.apibox.client.model.ApiMeta;
 import com.doublekit.apibox.client.model.ApiMethodMeta;
 import com.doublekit.apibox.client.model.ApiParamMeta;
 import com.doublekit.apibox.client.model.ApiResultMeta;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -69,13 +70,17 @@ public class ApiMethodParser {
                 }
             }
 
-            //parse param metas
+            //解析参数
             List<ApiParamMeta> paramMetaList = new ApiParamParser().parseParamMetas(method);
             methodMeta.setApiParamMetaList(paramMetaList);
+
             Map<String,Object> paramEgMap = getParamEgMap(paramMetaList);
             methodMeta.setParamEg(JSON.toJSONString(paramEgMap));
 
-            //parse return metas
+            String dataType = getMethodDataType(paramMetaList);
+            methodMeta.setParamDataType(dataType);
+
+            //解析返回结果
             ApiResultMeta resultMeta = new ApiResultParser().parseResultMetas(method);
             methodMeta.setApiResultMeta(resultMeta);
 
@@ -83,6 +88,26 @@ public class ApiMethodParser {
             apiMethodMetaList.add(methodMeta);
         }
         return apiMethodMetaList;
+    }
+
+    /**
+     * 获取方法请求格式类型
+     * @param paramMetaList
+     * @return
+     */
+    String getMethodDataType(List<ApiParamMeta> paramMetaList){
+        String dataType = "form-data";
+        if(CollectionUtils.isEmpty(paramMetaList)){
+            return dataType;
+        }
+
+        for(ApiParamMeta apiParamMeta:paramMetaList){
+            if("json".equals(apiParamMeta.getParamDataType())){
+                dataType = "json";
+                break;
+            }
+        }
+        return dataType;
     }
 
     Map<String,Object> getParamEgMap(List<ApiParamMeta> paramMetaList){

@@ -28,6 +28,8 @@ public class ApiMethodMeta {
 
     private String paramEg;
 
+    private String paramDataType;
+
     @JSONField(name = "result")
     private ApiResultMeta apiResultMeta;
 
@@ -109,5 +111,13 @@ public class ApiMethodMeta {
 
     public void setRequestType(String requestType) {
         this.requestType = requestType;
+    }
+
+    public String getParamDataType() {
+        return paramDataType;
+    }
+
+    public void setParamDataType(String paramDataType) {
+        this.paramDataType = paramDataType;
     }
 }

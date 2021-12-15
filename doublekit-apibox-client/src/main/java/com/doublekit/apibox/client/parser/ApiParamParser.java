@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.LocalVariableTableParameterNameDiscoverer;
 import org.springframework.core.ParameterNameDiscoverer;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
@@ -101,6 +102,12 @@ public class ApiParamParser extends ParamItemParser{
         paramMeta.setRequired(apiParam.required());
         Class type = parameter.getType();
         paramMeta.setType(type);
+        //获取请求类型,form-data或json等
+        RequestBody requestBody = parameter.getDeclaredAnnotation(RequestBody.class);
+        if(requestBody != null){
+            paramMeta.setParamDataType("json");
+        }
+
         /*
         Type type = null;
         Type paramType = null;
