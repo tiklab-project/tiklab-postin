@@ -14,6 +14,10 @@ import java.util.List;
 @CriteriaQuery(entityAlias = "FormUrlencodedEntity")
 public class FormUrlencodedQuery {
 
+        @ApiProperty(name ="methodId",desc = "接口ID，精确匹配")
+        @QueryField(type = QueryTypeEnum.equal)
+        private String methodId;
+
         @ApiProperty(name ="orderParams",desc = "排序参数")
         @OrderField
         private List<Order> orderParams = OrderBuilders.instance().asc("id").get();
@@ -36,5 +40,13 @@ public class FormUrlencodedQuery {
 
         public void setPageParam(Page pageParam) {
             this.pageParam = pageParam;
+        }
+
+        public String getMethodId() {
+            return methodId;
+        }
+
+        public void setMethodId(String methodId) {
+            this.methodId = methodId;
         }
 }

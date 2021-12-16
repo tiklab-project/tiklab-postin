@@ -1,5 +1,8 @@
 package com.doublekit.apibox.workspace.service;
 
+import com.doublekit.apibox.category.model.Category;
+import com.doublekit.apibox.category.model.CategoryQuery;
+import com.doublekit.apibox.category.service.CategoryService;
 import com.doublekit.apibox.workspace.dao.WorkspaceDao;
 import com.doublekit.apibox.workspace.entity.WorkspaceEntity;
 import com.doublekit.apibox.workspace.model.Workspace;
@@ -15,6 +18,7 @@ import com.doublekit.privilege.prjprivilege.service.DmPrjRoleService;
 import com.doublekit.user.dmuser.model.DmUser;
 import com.doublekit.user.dmuser.service.DmUserService;
 import com.doublekit.user.user.model.User;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +34,9 @@ public class WorkspaceServiceImpl implements WorkspaceService {
 
     @Autowired
     WorkspaceDao workspaceDao;
+
+    @Autowired
+    CategoryService categoryService;
 
     @Autowired
     DmUserService dmUserService;
@@ -64,7 +71,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
 
         //添加索引
         Workspace entity = findWorkspace(projectId);
-        dssClient.save(entity);
+//        dssClient.save(entity);
         return projectId;
     }
 
@@ -84,7 +91,12 @@ public class WorkspaceServiceImpl implements WorkspaceService {
     public void deleteWorkspace(@NotNull String id) {
         //删除数据
         workspaceDao.deleteWorkspace(id);
-
+        List<Category> categoryList = categoryService.findCategoryList(new CategoryQuery().setWorkspaceId(id));
+        if(CollectionUtils.isNotEmpty(categoryList)){
+            for(Category category:categoryList){
+                categoryService.deleteCategory(category.getId());
+            }
+        }
         //删除索引
         dssClient.delete(Workspace.class,id);
     }
@@ -135,7 +147,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
     @Override
     public List<Workspace> findWorkspaceJoinList(WorkspaceQuery workspaceQuery) {
         List<WorkspaceEntity> workspaceEntityList = workspaceDao.findWorkspaceJoinList(workspaceQuery);
-
+        System.out.println(System.getProperty("user.dir"));
         return BeanMapper.mapList(workspaceEntityList,Workspace.class);
     }
 

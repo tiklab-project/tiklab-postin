@@ -118,7 +118,7 @@ public class MethodServiceImpl implements MethodService {
 
         //添加索引
         MethodEx entity = findMethod(id);
-        dssClient.save(entity);
+//        dssClient.save(entity);
 
         //发送消息
         sendMessageForCreate(entity);
@@ -158,7 +158,7 @@ public class MethodServiceImpl implements MethodService {
 
         //更新索引
         MethodEx entity = findMethod(method.getId());
-        dssClient.update(entity);
+//        dssClient.update(entity);
 
         //发送更新消息提醒
         sendMessageForUpdate(entity);
@@ -275,7 +275,7 @@ public class MethodServiceImpl implements MethodService {
         responseResultDao.deleteResponseResultList(deleteCondition);
 
         //删除索引
-        dssClient.delete(MethodEx.class,id);
+//        dssClient.delete(MethodEx.class,id);
     }
 
     @Override
