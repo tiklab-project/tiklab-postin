@@ -82,7 +82,6 @@ public class FunctionImport {
         }
     }
 
-    //添加
     private void addCategroy(String workspaceId, String categoryId, String categoryName){
         Category category = new Category();
         category.setId(categoryId);
@@ -104,6 +103,24 @@ public class FunctionImport {
         methodService.createMethod(methodEx);
     }
 
+    public void addHeader(String headerName, String headerValue, String headerDesc, MethodEx headerMethod){
+        RequestHeader requestHeader = new RequestHeader();
+        requestHeader.setHeaderName(headerName);
+        requestHeader.setDesc(headerDesc);
+        requestHeader.setValue(headerValue);
+        requestHeader.setMethod(headerMethod);
+        requestHeaderService.createRequestHeader(requestHeader);
+    }
+
+    public void addQuery(String queryName, String queryValue, String queryDesc, MethodEx queryMethod){
+        QueryParam queryParam = new QueryParam();
+        queryParam.setParamName(queryName);
+        queryParam.setValue(queryValue);
+        queryParam.setDesc(queryDesc);
+        queryParam.setMethod(queryMethod);
+        queryParamService.createQueryParam(queryParam);
+    }
+
     public void actBody(String requestBody,String methodId){
         MethodEx requestBodyMethod = new MethodEx();
         requestBodyMethod.setId(methodId);
@@ -114,20 +131,34 @@ public class FunctionImport {
         requestBodyService.createRequestBody(requestBodyEx);
     }
 
-    public void actFromData(String methodId, String formParamName, String formParamValue, String formParamType, String formParamDesc, int required){
-        MethodEx formParamMethod = new MethodEx();
-        formParamMethod.setId(methodId);
+    public void actFormData(String methodId, String formParamName, String formParamValue, String formParamType, String formParamDesc, int required){
+        MethodEx methodEx = new MethodEx();
+        methodEx.setId(methodId);
         FormParam formParams = new FormParam();
         formParams.setParamName(formParamName);
         formParams.setValue(formParamValue);
         formParams.setDesc(formParamDesc);
         formParams.setDataType(formParamType);
-        formParams.setMethod(formParamMethod);
+        formParams.setMethod(methodEx);
         formParams.setRequired(required);
         formParamService.createFormParam(formParams);
     }
 
-    public void actJson(String methodId, String name, String value, String type, int required, String desc ){
+    public void actFormUrlencoded(String methodId, String name, String value, String dataType, String desc, int required){
+        MethodEx methodEx = new MethodEx();
+        methodEx.setId(methodId);
+        FormUrlencoded formUrlencoded = new FormUrlencoded();
+        formUrlencoded.setParamName(name);
+        formUrlencoded.setValue(value);
+        formUrlencoded.setRequired(required);
+        formUrlencoded.setDataType(dataType);
+        formUrlencoded.setDesc(desc);
+        formUrlencoded.setMethod(methodEx);
+
+        formUrlencodedService.createFormUrlencoded(formUrlencoded);
+    }
+
+    public String actJson(String methodId, String name, String value, String type, int required, String desc, JsonParam pId){
         MethodEx methodEx = new MethodEx();
         methodEx.setId(methodId);
         JsonParam jsonParam = new JsonParam();
@@ -137,7 +168,20 @@ public class FunctionImport {
         jsonParam.setRequired(required);
         jsonParam.setDesc(desc);
         jsonParam.setMethod(methodEx);
-        jsonParamService.createJsonParam(jsonParam);
+        jsonParam.setParent(pId);
+        String pid = jsonParamService.createJsonParam(jsonParam);
+        return pid;
+    }
+
+    public void actRaw(String methodId, String rawType, String rawData){
+        MethodEx rawMethod = new MethodEx();
+        rawMethod.setId(methodId);
+        RawParam rawParam = new RawParam();
+        rawParam.setRaw(rawData);
+        rawParam.setType(rawType);
+        rawParam.setId(methodId);
+        rawParam.setMethod(rawMethod);
+        rawParamService.createRawParam(rawParam);
     }
 
     public void actResponseBody(String methodId){
@@ -150,7 +194,7 @@ public class FunctionImport {
         responseResultService.createResponseResult(responseResult);
     }
 
-    public void actResponseJson( String methodId, String name, String dataType, int required,String desc){
+    public String actResponseJson( String methodId, String name, String dataType, int required,String desc,JsonResponse pId){
         MethodEx methodEx = new MethodEx();
         methodEx.setId(methodId);
         JsonResponse jsonResponse = new JsonResponse();
@@ -159,6 +203,10 @@ public class FunctionImport {
         jsonResponse.setDataType(dataType);
         jsonResponse.setRequired(required);
         jsonResponse.setDesc(desc);
-        jsonResponseService.createJsonResponse(jsonResponse);
+        jsonResponse.setParent(pId);
+        String pid = jsonResponseService.createJsonResponse(jsonResponse);
+        return pid;
     }
+
+
 }

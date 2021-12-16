@@ -2,6 +2,9 @@ package com.doublekit.apibox.imexport.type;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.doublekit.apibox.apidef.model.JsonParam;
+import com.doublekit.apibox.apidef.model.JsonResponse;
+import com.doublekit.apibox.apidef.service.JsonParamService;
 import com.doublekit.apibox.category.model.Category;
 import com.doublekit.apibox.imexport.common.FunctionImport;
 import com.doublekit.apibox.imexport.utils.Md5;
@@ -16,6 +19,7 @@ public  class ReportImport {
 
     @Autowired
     FunctionImport functionImport;
+
 
     public void importData(String workspaceId,InputStream stream ) throws IOException {
         //文件数据转换为JSONObject
@@ -37,7 +41,7 @@ public  class ReportImport {
             JSONObject methodItem = methodArr.getJSONObject(i);
             String name = methodItem.getString("name");
             String path = methodItem.getString("path");
-            String requestType = methodItem.getString("requestType");
+            String requestType =methodItem.getString("requestType");
             String desc = methodItem.getString("desc");
             Category categoryID = new Category();
             categoryID.setId(categoryId);
@@ -50,7 +54,7 @@ public  class ReportImport {
         }
     }
 
-    //请求的参数
+
     private void actRequest(JSONObject methodItem, String methodId){
         //获取请求体类型
         String bodyType = transferBodyType(methodItem.getString("paramDataType"));
@@ -58,6 +62,7 @@ public  class ReportImport {
         functionImport.actBody(bodyType,methodId);
 
         JSONArray param = methodItem.getJSONArray("param");
+
         actBodyType(bodyType,param,methodId);
 
         //响应
@@ -75,6 +80,7 @@ public  class ReportImport {
                 break;
             case "json":
                 actRequestJson(param,methodId);
+                break;
         }
     }
 
@@ -87,34 +93,64 @@ public  class ReportImport {
             String type = "text";
             int required= transferRequired(formDataItem.getString("required"));
 
-            functionImport.actFromData(methodId,name,value,desc,type,required);
+            functionImport.actFormData(methodId,name,value,desc,type,required);
         }
     }
 
     private void actRequestJson(JSONArray param, String methodId){
+        String parentId = null;
+        jsonParamLoop(param, methodId,parentId);
+    }
+
+    //jsonParam递归
+    private void jsonParamLoop(JSONArray param,String methodId,String parentId){
         for(int i = 0;i<param.size();i++){
             JSONObject jsonItem = param.getJSONObject(i);
             String name = jsonItem.getString("name");
             String value = null;
             String desc = jsonItem.getString("desc");
-            String type = "string";
+            String type = transferDataType(jsonItem.getString("dataType"));
             int required= transferRequired(jsonItem.getString("required"));
 
-            functionImport.actJson(methodId,name,value,type, required,desc);
+            JsonParam jsonParam = new JsonParam();
+            if(parentId!=null){
+                jsonParam.setId(parentId);
+            }
+
+            String pid =functionImport.actJson(methodId,name,value,type, required,desc,jsonParam);
+
+            if(jsonItem.containsKey("model")){
+                jsonParamLoop(jsonItem.getJSONArray("model"),methodId,pid);
+            }
         }
     }
 
     private void actResponseJson(JSONObject methodItem, String methodId){
         JSONObject result = methodItem.getJSONObject("result");
         JSONArray model = result.getJSONArray("model");
-        for(int i = 0;i<model.size();i++){
-            JSONObject jsonItem = model.getJSONObject(i);
-            String name = jsonItem.getString("name");
-            String dataType = transferDataType(jsonItem.getString("dataType"));
-            String desc = jsonItem.getString("desc");
-            int required = transferRequired(jsonItem.getString("required"));
+        String parentId = null;
+        jsonResponseloop(model,methodId,parentId);
+    }
 
-            functionImport.actResponseJson(methodId,name,dataType,required,desc);
+    //jsonParam递归
+    private void jsonResponseloop(JSONArray param,String methodId,String parentId){
+        for(int i = 0;i<param.size();i++){
+            JSONObject jsonItem = param.getJSONObject(i);
+            String name = jsonItem.getString("name");
+            String desc = jsonItem.getString("desc");
+            String type = transferDataType(jsonItem.getString("dataType"));
+            int required= transferRequired(jsonItem.getString("required"));
+
+            JsonResponse jsonResponse = new JsonResponse();
+            if(parentId!=null){
+                jsonResponse.setId(parentId);
+            }
+
+            String pid =functionImport.actResponseJson(methodId,name,type, required,desc,jsonResponse);
+
+            if(jsonItem.containsKey("model")){
+                jsonResponseloop(jsonItem.getJSONArray("model"),methodId,pid);
+            }
         }
     }
 
@@ -131,19 +167,19 @@ public  class ReportImport {
 
     //转换类型
     private String transferDataType(String dataType){
-        String type = null;
-        if(dataType.equals("java.lang.String")){
-            type= "string";
-        }else if(dataType.equals("java.lang.Integer")){
-            type= "int";
-        }else if(dataType.equals("int")){
-            type= "int";
-        }else if(dataType.equals("java.lang.Void")){
-            type= "null";
-        }else {
-            type= "object";
+        switch (dataType){
+            case "java.lang.String":
+                return "string";
+            case "java.lang.Integer":
+                return "int";
+            case "int":
+                return "int";
+            case "java.lang.Void":
+                return "null";
+            case "java.util.List":
+                return "array";
         }
-        return type;
+        return "object";
     }
 
     //转换required
