@@ -21,7 +21,7 @@ public class ParamItemParser {
     protected void loop(ParamItem paramItem, int paramItemType,int deep){
         if(paramItemType == ParamItemType.TYPE_INPUT){
             //请求参数只解析两层嵌套模型
-            if(deep > 2){
+            if(deep > 3){
                 return;
             }
         }else if(paramItemType == ParamItemType.TYPE_OUPUT){

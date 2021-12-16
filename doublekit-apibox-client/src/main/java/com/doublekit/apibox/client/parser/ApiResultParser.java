@@ -41,7 +41,7 @@ public class ApiResultParser extends ParamItemParser{
         }
 
         //解析子节点列表
-        loop(resultMeta, ParamItemType.TYPE_OUPUT,2);
+        loop(resultMeta, ParamItemType.TYPE_OUPUT,3);
 
         //deep = 0;
 
