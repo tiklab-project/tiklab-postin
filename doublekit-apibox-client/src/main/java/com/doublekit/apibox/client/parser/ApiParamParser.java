@@ -121,7 +121,7 @@ public class ApiParamParser extends ParamItemParser{
          */
 
         //解析子节点列表
-        loop(paramMeta, ParamItemType.TYPE_INPUT,1);
+        loop(paramMeta, ParamItemType.TYPE_INPUT,2);
 
         //deep = 0;
 
