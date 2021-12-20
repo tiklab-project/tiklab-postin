@@ -1,5 +1,7 @@
 package com.doublekit.apibox.client.builder;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.doublekit.apibox.client.model.ApiMeta;
 import com.doublekit.apibox.client.model.ApiMethodMeta;
 import com.doublekit.apibox.client.parser.ApiParser;
@@ -35,15 +37,24 @@ public class ApiboxBuilder {
 
     public void build(){
         List<ApiMeta> apiMetaList = scanPackage(scanPackage);
+
         ApiMetaContext.setApiMetaList(apiMetaList);
 
+        Map<String,ApiMeta> apiMetaMap = new HashMap<>();
+
         if(apiMetaList != null){
-            Map<String,ApiMeta> apiMetaMap = new HashMap<>();
             for(ApiMeta apiMeta:apiMetaList){
                 apiMetaMap.put(apiMeta.getName(),apiMeta);
             }
             ApiMetaContext.setApiMetaMap(apiMetaMap);
         }
+
+//        String data = JSON.toJSONString(apiMetaList);
+//        System.out.println(data);
+//        actHttpServer(data);
+
+        //写入文本
+        createReportFile(apiMetaMap);
 
         /*
         if(formater == 1){
@@ -146,4 +157,18 @@ public class ApiboxBuilder {
             }
         }
     }
+
+    private void createReportFile(Map<String, ApiMeta> apiMetaMap){
+        String data = JSON.toJSONString(apiMetaMap);
+        File file=new File(System.getProperty("user.dir")+"\\report.json");
+        try{
+            FileOutputStream out=new FileOutputStream(file,false);
+            out.write(data.getBytes());
+        } catch (FileNotFoundException e) {
+            System.out.println("文件不存在或者文件不可读或者文件是目录");
+        } catch (IOException e) {
+            System.out.println("读取过程存在异常");
+        }
+    }
+
 }

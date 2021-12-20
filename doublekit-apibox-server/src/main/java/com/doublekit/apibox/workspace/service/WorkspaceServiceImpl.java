@@ -1,5 +1,8 @@
 package com.doublekit.apibox.workspace.service;
 
+import com.doublekit.apibox.category.model.Category;
+import com.doublekit.apibox.category.model.CategoryQuery;
+import com.doublekit.apibox.category.service.CategoryService;
 import com.doublekit.apibox.workspace.dao.WorkspaceDao;
 import com.doublekit.apibox.workspace.entity.WorkspaceEntity;
 import com.doublekit.apibox.workspace.model.Workspace;
@@ -11,10 +14,11 @@ import com.doublekit.dss.client.DssClient;
 import com.doublekit.eam.common.Ticket;
 import com.doublekit.eam.common.TicketContext;
 import com.doublekit.eam.common.TicketHolder;
-import com.doublekit.privilege.role.service.DmRoleService;
-import com.doublekit.user.user.model.DmUser;
+import com.doublekit.privilege.prjprivilege.service.DmPrjRoleService;
+import com.doublekit.user.dmuser.model.DmUser;
+import com.doublekit.user.dmuser.service.DmUserService;
 import com.doublekit.user.user.model.User;
-import com.doublekit.user.user.service.DmUserService;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,10 +36,13 @@ public class WorkspaceServiceImpl implements WorkspaceService {
     WorkspaceDao workspaceDao;
 
     @Autowired
+    CategoryService categoryService;
+
+    @Autowired
     DmUserService dmUserService;
 
     @Autowired
-    DmRoleService dmRoleService;
+    DmPrjRoleService dmPrjRoleService;
 
     @Autowired
     DssClient dssClient;
@@ -60,11 +67,11 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         dmUserService.createDmUser(dmUser);
 
         //初始化项目权限
-        dmRoleService.initDmRoles(projectId,userId);
+        dmPrjRoleService.initDmPrjRoles(projectId,userId);
 
         //添加索引
         Workspace entity = findWorkspace(projectId);
-        dssClient.save(entity);
+//        dssClient.save(entity);
         return projectId;
     }
 
@@ -84,7 +91,12 @@ public class WorkspaceServiceImpl implements WorkspaceService {
     public void deleteWorkspace(@NotNull String id) {
         //删除数据
         workspaceDao.deleteWorkspace(id);
-
+        List<Category> categoryList = categoryService.findCategoryList(new CategoryQuery().setWorkspaceId(id));
+        if(CollectionUtils.isNotEmpty(categoryList)){
+            for(Category category:categoryList){
+                categoryService.deleteCategory(category.getId());
+            }
+        }
         //删除索引
         dssClient.delete(Workspace.class,id);
     }
@@ -135,7 +147,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
     @Override
     public List<Workspace> findWorkspaceJoinList(WorkspaceQuery workspaceQuery) {
         List<WorkspaceEntity> workspaceEntityList = workspaceDao.findWorkspaceJoinList(workspaceQuery);
-
+        System.out.println(System.getProperty("user.dir"));
         return BeanMapper.mapList(workspaceEntityList,Workspace.class);
     }
 

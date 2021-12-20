@@ -22,7 +22,7 @@ import java.io.InputStream;
 public class ImportController {
 
     @Autowired
-    private ImportService importService;
+    ImportService importService;
 
     @RequestMapping(path = "/importData",method = RequestMethod.POST)
     @ApiMethod(name = "importData",desc = "导入数据")
@@ -30,13 +30,8 @@ public class ImportController {
     public Result<Void> importData(@NotNull String type, String workspaceId,@RequestParam("file") MultipartFile file ){
         try {
             if(file!=null){
-                System.out.println(file.getContentType());
-                System.out.println(file.getName());
-                System.out.println(file.getOriginalFilename());
-                System.out.println(type);
-//                System.out.println(workspaceId);
                 InputStream inputStream = file.getInputStream();
-               importService.importData(type,workspaceId,inputStream);
+                importService.importData(type,workspaceId,inputStream);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -44,4 +39,6 @@ public class ImportController {
 
         return Result.ok();
     }
+
+
 }
