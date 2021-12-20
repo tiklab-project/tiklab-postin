@@ -11,10 +11,6 @@
     <artifactId>doublekit-apibox-client</artifactId>
     <name>${project.artifactId}</name>
 
-    <properties>
-        <springfox-swagger.version>2.8.0</springfox-swagger.version>
-    </properties>
-
     <dependencies>
         <!--common-->
         <dependency>
@@ -36,18 +32,6 @@
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
         </dependency>
-        <!--
-        <dependency>
-          <groupId>io.springfox</groupId>
-          <artifactId>springfox-swagger2</artifactId>
-          <version>${springfox-swagger.version}</version>
-        </dependency>
-        <dependency>
-          <groupId>io.springfox</groupId>
-          <artifactId>springfox-swagger-ui</artifactId>
-          <version>${springfox-swagger.version}</version>
-        </dependency>
-        -->
         <!--spring-->
         <dependency>
             <groupId>org.springframework</groupId>
