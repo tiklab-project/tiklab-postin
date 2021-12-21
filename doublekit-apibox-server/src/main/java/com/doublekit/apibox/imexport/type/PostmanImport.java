@@ -32,6 +32,7 @@ public class PostmanImport {
         action(item,categoryId);
     }
 
+    //获取path
     private String actPath(JSONArray urlPath){
         String path= new String();
         for(int j=0; j<urlPath.size();j++){

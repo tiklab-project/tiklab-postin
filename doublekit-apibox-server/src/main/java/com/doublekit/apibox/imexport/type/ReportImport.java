@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.doublekit.apibox.apidef.model.JsonParam;
 import com.doublekit.apibox.apidef.model.JsonResponse;
-import com.doublekit.apibox.apidef.service.JsonParamService;
 import com.doublekit.apibox.category.model.Category;
 import com.doublekit.apibox.imexport.common.FunctionImport;
 import com.doublekit.apibox.imexport.utils.Md5;
@@ -15,7 +14,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 @Component
-public  class ReportImport {
+public class ReportImport {
 
     @Autowired
     FunctionImport functionImport;
@@ -50,12 +49,11 @@ public  class ReportImport {
 
             functionImport.addMethod(methodId,name,requestType,path,categoryID,desc);
 
-            actRequest(methodItem,methodId);
+            actRequestResponse(methodItem,methodId);
         }
     }
 
-
-    private void actRequest(JSONObject methodItem, String methodId){
+    private void actRequestResponse(JSONObject methodItem, String methodId){
         //获取请求体类型
         String bodyType = transferBodyType(methodItem.getString("paramDataType"));
 
@@ -146,6 +144,7 @@ public  class ReportImport {
                 jsonResponse.setId(parentId);
             }
 
+            //获取父级id
             String pid =functionImport.actResponseJson(methodId,name,type, required,desc,jsonResponse);
 
             if(jsonItem.containsKey("model")){

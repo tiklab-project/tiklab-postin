@@ -56,9 +56,6 @@ public class MockServletResponse {
                 String mockVal = null;
                 try {
                     mockVal =  MockProcess.mock(headerValue);
-                    System.out.println(MockProcess.mock("@naturel(50,66)"));
-                    System.out.println(MockProcess.mock("@naturel(100)"));
-                    System.out.println(MockProcess.mock("@float(1,100)"));
                 } catch (ScriptException e) {
                     e.printStackTrace();
                 }
