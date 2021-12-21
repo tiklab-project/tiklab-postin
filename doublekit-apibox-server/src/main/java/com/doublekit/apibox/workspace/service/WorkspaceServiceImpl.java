@@ -14,10 +14,10 @@ import com.doublekit.dss.client.DssClient;
 import com.doublekit.eam.common.Ticket;
 import com.doublekit.eam.common.TicketContext;
 import com.doublekit.eam.common.TicketHolder;
-import com.doublekit.privilege.prjprivilege.service.DmPrjRoleService;
-import com.doublekit.user.dmuser.model.DmUser;
-import com.doublekit.user.dmuser.service.DmUserService;
+import com.doublekit.privilege.role.service.DmRoleService;
+import com.doublekit.user.user.model.DmUser;
 import com.doublekit.user.user.model.User;
+import com.doublekit.user.user.service.DmUserService;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,7 +42,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
     DmUserService dmUserService;
 
     @Autowired
-    DmPrjRoleService dmPrjRoleService;
+    DmRoleService dmRoleService;
 
     @Autowired
     DssClient dssClient;
@@ -67,7 +67,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         dmUserService.createDmUser(dmUser);
 
         //初始化项目权限
-        dmPrjRoleService.initDmPrjRoles(projectId,userId);
+        dmRoleService.initDmRoles(projectId,userId);
 
         //添加索引
         Workspace entity = findWorkspace(projectId);
