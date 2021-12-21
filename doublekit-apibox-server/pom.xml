@@ -110,6 +110,12 @@
             <artifactId>doublekit-apibox-api</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.doublekit</groupId>
+            <artifactId>doublekit-apibox-client</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
+        </dependency>
         <!--hutool 快速开发工具包-->
         <dependency>
             <groupId>cn.hutool</groupId>
