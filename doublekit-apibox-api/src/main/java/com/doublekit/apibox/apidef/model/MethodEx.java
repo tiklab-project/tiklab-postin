@@ -2,7 +2,7 @@ package com.doublekit.apibox.apidef.model;
 
 import com.doublekit.apibox.annotation.ApiModel;
 import com.doublekit.apibox.annotation.ApiProperty;
-import com.doublekit.apibox.apistatus.model.ApiStatus;
+import com.doublekit.apibox.sysmgr.apistatus.model.ApiStatus;
 import com.doublekit.apibox.category.model.Category;
 import com.doublekit.beans.annotation.Mapping;
 import com.doublekit.beans.annotation.Mappings;
