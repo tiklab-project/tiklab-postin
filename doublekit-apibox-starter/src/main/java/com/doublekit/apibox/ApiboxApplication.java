@@ -18,7 +18,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableApibox
 @EnableEamServer
 @EnableEamClient
-@PropertySource(value = "classpath:application-${env:local}.properties")
+@PropertySource(value = "classpath:application-${env:dev}.properties")
 public class ApiboxApplication {
 
     public static final Logger logger = LoggerFactory.getLogger(ApiboxApplication.class);

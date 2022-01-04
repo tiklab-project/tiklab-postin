@@ -1,9 +1,9 @@
 package com.doublekit.apibox.search.service;
 
-import com.doublekit.dss.model.CountResponse;
-import com.doublekit.dss.model.PageCondition;
-import com.doublekit.dss.model.PageResponse;
-import com.doublekit.dss.model.TopResponse;
+import com.doublekit.dss.common.model.CountResponse;
+import com.doublekit.dss.common.model.PageCondition;
+import com.doublekit.dss.common.model.PageResponse;
+import com.doublekit.dss.common.model.TopResponse;
 
 import java.util.Map;
 
