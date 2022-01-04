@@ -48,9 +48,6 @@ public class MethodServiceImpl implements MethodService {
     MessageService messageService;
 
     @Autowired
-    DssClient dssClient;
-
-    @Autowired
     AfterScriptDao afterScriptDao;
 
     @Autowired
@@ -92,11 +89,6 @@ public class MethodServiceImpl implements MethodService {
     @Autowired
     ResponseResultDao responseResultDao;
 
-    @Autowired
-    JsonParamService jsonParamService;
-
-    @Autowired
-    JsonResponseService jsonResponseService;
 
     @Override
     public String createMethod(@NotNull @Valid MethodEx methodEx) {

@@ -98,7 +98,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
             }
         }
         //删除索引
-        dssClient.delete(Workspace.class,id);
+//        dssClient.delete(Workspace.class,id);
     }
 
     @Override
