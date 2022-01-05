@@ -42,6 +42,11 @@
             <artifactId>doublekit-apibox-server</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.doublekit</groupId>
+            <artifactId>doublekit-ocs-iam-client</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 <!--        <dependency>-->
 <!--            <groupId>com.doublekit</groupId>-->
 <!--            <artifactId>doublekit-apibox-ui</artifactId>-->
