@@ -26,7 +26,7 @@ public class RequestBodyCase extends BaseModel {
     private Testcase testcase;
 
     @NotNull
-    @ApiProperty(name="bodyType",desc="请求体类型",required = true)
+    @ApiProperty(name="bodyType",desc="请求体类型none/formdata/formxurlcoded/json/raw/binary",required = true)
     private java.lang.String bodyType;
 
     public String getId() {
