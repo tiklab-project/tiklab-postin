@@ -13,11 +13,11 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 /**
  * ApiboxApplication
  */
-@EnableSwagger2
 @SpringBootApplication
-@EnableApibox
 @EnableEamServer
 @EnableEamClient
+@EnableApibox
+@EnableSwagger2
 @PropertySource(value = "classpath:application-${env:dev}.properties")
 public class ApiboxApplication {
 

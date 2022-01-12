@@ -10,9 +10,8 @@ import com.doublekit.apibox.apidef.support.MessageTemplateConstant;
 import com.doublekit.beans.BeanMapper;
 import com.doublekit.common.page.Pagination;
 import com.doublekit.common.page.PaginationBuilder;
-import com.doublekit.dal.jpa.criterial.model.DeleteCondition;
 import com.doublekit.dal.jpa.criterial.DeleteBuilders;
-import com.doublekit.dss.client.DssClient;
+import com.doublekit.dal.jpa.criterial.model.DeleteCondition;
 import com.doublekit.eam.common.Ticket;
 import com.doublekit.eam.common.TicketContext;
 import com.doublekit.eam.common.TicketHolder;
@@ -130,8 +129,8 @@ public class MethodServiceImpl implements MethodService {
         message.setData(data);
         //设置接收人
         List<MessageReceiver> messageReceiverList = new ArrayList<>();
-        MessageReceiver messageReceiver = new MessageReceiver()
-                .setReceiver(new User().setId(TicketHolder.get()));
+        MessageReceiver messageReceiver = new MessageReceiver();
+        messageReceiver.setReceiver(TicketHolder.get());//去除message->user依賴 zhangzh
         messageReceiverList.add(messageReceiver);
         message.setMessageReceiverList(messageReceiverList);
 
@@ -169,8 +168,8 @@ public class MethodServiceImpl implements MethodService {
         message.setData(data);
         //设置接收人
         List<MessageReceiver> messageReceiverList = new ArrayList<>();
-        MessageReceiver messageReceiver = new MessageReceiver()
-                .setReceiver(new User().setId(TicketHolder.get()));
+        MessageReceiver messageReceiver = new MessageReceiver();
+        messageReceiver.setReceiver(TicketHolder.get());//去除message->user依賴 zhangzh
         messageReceiverList.add(messageReceiver);
         message.setMessageReceiverList(messageReceiverList);
 
