@@ -9,6 +9,7 @@ import com.doublekit.dss.annotation.Index;
 import com.doublekit.dss.annotation.IndexField;
 import com.doublekit.dss.annotation.IndexId;
 import com.doublekit.dss.annotation.IndexQueryField;
+import com.doublekit.join.annotation.Join;
 import com.doublekit.join.annotation.JoinQuery;
 import com.doublekit.user.user.model.User;
 
@@ -16,6 +17,7 @@ import javax.validation.constraints.NotNull;
 
 @ApiModel
 @Index
+@Join
 public class Workspace extends BaseModel {
 
     @ApiProperty(name="id",desc="空间ID")

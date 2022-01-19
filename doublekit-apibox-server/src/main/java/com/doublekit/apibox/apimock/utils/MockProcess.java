@@ -113,34 +113,6 @@ public class MockProcess {
         return bool;
     }
 
-    public static String floatNumber(List<String> paramList) throws ScriptException {
-        float floatNum =0;
-        String flonum =null;
-        if(paramList.size()==0){
-            floatNum = MockFun.floatNumber();
-            flonum = Float.toString(floatNum);
-        }else {
-            if (paramList.size()>0){
-                float s1=0;
-                float s2=0;
-                float s3=0;
-                float s0 = Float.valueOf(paramList.get(0));
-                if (paramList.size()>1){
-                     s1 = Float.valueOf(paramList.get(1));
-                    if (paramList.size()>2){
-                         s2 = Float.valueOf(paramList.get(2));
-                        if (paramList.size()>3){
-                             s3 = Float.valueOf(paramList.get(3));
-                        }
-                    }
-                }
-                floatNum = MockFun.floatNumber(s0,s1,s2,s3);
-            }
-
-            flonum = Float.toString(floatNum);
-        }
-        return flonum;
-    }
 
     public static String character(List<String> paramList) throws ScriptException {
         char cha;
@@ -245,6 +217,35 @@ public class MockProcess {
 
     public static String first() throws ScriptException {
         return MockFun.first();
+    }
+
+    public static String floatNumber(List<String> paramList) throws ScriptException {
+        float floatNum =0;
+        String flonum =null;
+        if(paramList.size()==0){
+            floatNum = MockFun.floatNumber();
+            flonum = Float.toString(floatNum);
+        }else {
+            if (paramList.size()>0){
+                float s1=0;
+                float s2=0;
+                float s3=0;
+                float s0 = Float.valueOf(paramList.get(0));
+                if (paramList.size()>1){
+                    s1 = Float.valueOf(paramList.get(1));
+                    if (paramList.size()>2){
+                        s2 = Float.valueOf(paramList.get(2));
+                        if (paramList.size()>3){
+                            s3 = Float.valueOf(paramList.get(3));
+                        }
+                    }
+                }
+                floatNum = MockFun.floatNumber(s0,s1,s2,s3);
+            }
+
+            flonum = Float.toString(floatNum);
+        }
+        return flonum;
     }
 
     public static String cfirst() throws ScriptException {

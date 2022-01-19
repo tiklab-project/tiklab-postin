@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.doublekit.apibox.client.model.ApiMeta;
 import com.doublekit.apibox.client.model.ApiMethodMeta;
 import com.doublekit.apibox.client.parser.ApiParser;
+import com.doublekit.common.exception.ApplicationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -160,9 +161,9 @@ public class ApiboxBuilder {
             FileOutputStream out=new FileOutputStream(file,false);
             out.write(data.getBytes());
         } catch (FileNotFoundException e) {
-            logger.error("文件不存在或者文件不可读或者文件是目录");
+            throw new ApplicationException(e);
         } catch (IOException e) {
-            logger.error("读取过程存在异常");
+            throw new ApplicationException(e);
         }
     }
 

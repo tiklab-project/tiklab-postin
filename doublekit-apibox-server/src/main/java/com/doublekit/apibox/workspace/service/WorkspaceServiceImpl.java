@@ -3,6 +3,7 @@ package com.doublekit.apibox.workspace.service;
 import com.doublekit.apibox.category.model.Category;
 import com.doublekit.apibox.category.model.CategoryQuery;
 import com.doublekit.apibox.category.service.CategoryService;
+import com.doublekit.apibox.common.CurrentRegUser;
 import com.doublekit.apibox.workspace.dao.WorkspaceDao;
 import com.doublekit.apibox.workspace.entity.WorkspaceEntity;
 import com.doublekit.apibox.workspace.model.Workspace;
@@ -11,9 +12,7 @@ import com.doublekit.beans.BeanMapper;
 import com.doublekit.common.page.Pagination;
 import com.doublekit.common.page.PaginationBuilder;
 import com.doublekit.dss.client.DssClient;
-import com.doublekit.eam.common.Ticket;
-import com.doublekit.eam.common.TicketContext;
-import com.doublekit.eam.common.TicketHolder;
+import com.doublekit.join.JoinTemplate;
 import com.doublekit.privilege.role.service.DmRoleService;
 import com.doublekit.user.user.model.DmUser;
 import com.doublekit.user.user.model.User;
@@ -45,6 +44,9 @@ public class WorkspaceServiceImpl implements WorkspaceService {
     DmRoleService dmRoleService;
 
     @Autowired
+    JoinTemplate joinTemplate;
+
+    @Autowired
     DssClient dssClient;
 
     @Override
@@ -53,10 +55,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         WorkspaceEntity workspaceEntity = BeanMapper.map(workspace, WorkspaceEntity.class);
 
         //初始化项目成员
-        String ticketId = TicketHolder.get();
-        Ticket ticket = TicketContext.get(ticketId);
-        String userId = ticket.getUserId();
-//        String userId = CurrentRegUser.getInstace().findCreatUser();
+        String userId = CurrentRegUser.getInstace().findCreatUser();
 
         workspaceEntity.setUserId(userId);
         String projectId = workspaceDao.createWorkspace(workspaceEntity);
@@ -83,8 +82,8 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         workspaceDao.updateWorkspace(workspaceEntity);
 
         //更新索引
-        Workspace entity = findWorkspace(workspace.getId());
-        dssClient.update(entity);
+//        Workspace entity = findWorkspace(workspace.getId());
+//        dssClient.update(entity);
     }
 
     @Override
@@ -140,6 +139,8 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         Pagination<WorkspaceEntity>  pagination = workspaceDao.findWorkspacePage(workspaceQuery);
 
         List<Workspace> workspaceList = BeanMapper.mapList(pagination.getDataList(),Workspace.class);
+
+        joinTemplate.joinQuery(workspaceList);
         return PaginationBuilder.build(pagination,workspaceList);
     }
 
@@ -147,7 +148,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
     @Override
     public List<Workspace> findWorkspaceJoinList(WorkspaceQuery workspaceQuery) {
         List<WorkspaceEntity> workspaceEntityList = workspaceDao.findWorkspaceJoinList(workspaceQuery);
-        System.out.println(System.getProperty("user.dir"));
+//        System.out.println(System.getProperty("user.dir"));
         return BeanMapper.mapList(workspaceEntityList,Workspace.class);
     }
 

@@ -6,6 +6,7 @@ import com.doublekit.apibox.annotation.ApiMethod;
 import com.doublekit.apibox.client.builder.ApiMetaContext;
 import com.doublekit.apibox.client.model.ApiMeta;
 import com.doublekit.common.Result;
+import com.doublekit.common.exception.ApplicationException;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,9 +34,9 @@ public class ReportTestController {
 
         } catch (FileNotFoundException e) {
 
-            System.out.println("文件不存在或者文件不可读或者文件是目录");
+            throw new ApplicationException(e);
         } catch (IOException e) {
-            System.out.println("读取过程存在异常");
+            throw new ApplicationException(e);
         }
 
         return Result.ok();

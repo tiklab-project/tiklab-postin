@@ -130,7 +130,7 @@ public class ReportImport {
         jsonResponseloop(model,methodId,parentId);
     }
 
-    //jsonParam递归
+    //jsonResponse递归
     private void jsonResponseloop(JSONArray param,String methodId,String parentId){
         for(int i = 0;i<param.size();i++){
             JSONObject jsonItem = param.getJSONObject(i);

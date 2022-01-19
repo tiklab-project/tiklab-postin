@@ -3,13 +3,19 @@ package com.doublekit.apibox.apimock.servlet;
 import com.alibaba.fastjson.JSONPath;
 import com.doublekit.apibox.apidef.dao.MethodDao;
 import com.doublekit.apibox.apidef.entity.MethodEntity;
+import com.doublekit.apibox.apidef.model.MethodEx;
 import com.doublekit.apibox.apidef.model.MethodExQuery;
+import com.doublekit.apibox.apidef.service.MethodService;
 import com.doublekit.apibox.apimock.dao.*;
 import com.doublekit.apibox.apimock.entity.*;
 import com.doublekit.apibox.apimock.model.*;
+import com.doublekit.apibox.apimock.service.*;
 import com.doublekit.apibox.category.dao.CategoryDao;
 import com.doublekit.apibox.category.entity.CategoryEntity;
+import com.doublekit.apibox.category.model.Category;
 import com.doublekit.apibox.category.model.CategoryQuery;
+import com.doublekit.apibox.category.service.CategoryService;
+import com.doublekit.common.exception.SystemException;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
@@ -31,61 +37,67 @@ import java.util.stream.Collectors;
 
 @Component
 public class MockServletRequest {
-    @Autowired
-    CategoryDao categoryDao;
 
     @Autowired
-    MethodDao methodDao;
+    MockService mockService;
 
     @Autowired
-    MockDao mockDao;
+    CategoryService categoryService;
 
     @Autowired
-    RequestHeaderMockDao requestHeaderMockDao;
+    MethodService methodService;
 
     @Autowired
-    QueryParamMockDao queryParamMockDao;
+    RequestHeaderMockService requestHeaderMockService;
 
     @Autowired
-    RequestBodyMockDao requestBodyMockDao;
+    QueryParamMockService queryParamMockService;
 
     @Autowired
-    FormParamMockDao formParamMockDao;
+    RequestBodyMockService requestBodyMockService;
 
     @Autowired
-    JsonParamMockDao jsonParamMockDao;
+    FormParamMockService formParamMockService;
+
+    @Autowired
+    JsonParamMockService jsonParamMockService;
 
     @Autowired
     MockServletResponse mockServletResponse;
 
 
+
     public void actRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
         //获取路径
         String mockPath = request.getRequestURI().replaceAll("/mockx","");
+
+        mockOperate(request,response,mockPath);
+
+    }
+
+    private void mockOperate(HttpServletRequest request, HttpServletResponse response, String mockPath) throws IOException {
+        //workspaceId
         String workspaceId = mockPath.substring(1,33);
+        //接口路径
         String path = mockPath.substring(33);
 
-        Enumeration headerNames =getHeader(request);
-        List<Map> formdataList = getForm(request);
-        Enumeration<String> urlParam = getUrlParam(request);
-        String jsonData = getJson(request);
         String methodId = getMethodId(workspaceId,path);
 
         //通过methodid查询所有mock
-        List<MockEntity> mockList=mockDao.findMockList(new MockQuery().setMethodId(methodId));
-        for(MockEntity mock:mockList){
+        List<Mock> mockList = mockService.findMockList(new MockQuery().setMethodId(methodId));
+        for(Mock mock:mockList){
             String mockId = mock.getId();
             int enabled = mock.getEnable();
             //启用：1, 停用：0
             if(enabled == 1){
                 //Header
-                boolean headerStatus = getHeaderStatus( mockId, headerNames, request);
+                boolean headerStatus = getHeaderStatus( mockId, request);
 
                 //query
-                boolean queryStatus = getQueryStatus( mockId, urlParam, request);
+                boolean queryStatus = getQueryStatus( mockId, request);
 
                 //body
-                boolean bodyStatus = getRequestTypeStatus(mockId,formdataList,jsonData);
+                boolean bodyStatus = getRequestTypeStatus(mockId,request);
 
                 //如果都匹配返回数据
                 if(headerStatus&&queryStatus&&bodyStatus){
@@ -97,20 +109,19 @@ public class MockServletRequest {
         }
     }
 
-
     //获取methodId
     public  String getMethodId(String workspaceId, String path){
-        List<CategoryEntity> categoryList = categoryDao.findCategoryList(new CategoryQuery().setWorkspaceId(workspaceId));
+        List<Category> categoryList = categoryService.findCategoryList(new CategoryQuery().setWorkspaceId(workspaceId));
         String methodId = null;
-        for (CategoryEntity category:categoryList){
+        for (Category category:categoryList){
             //查询所有接口
-            List<MethodEntity> methodList = methodDao.findMethodList(new MethodExQuery().setCategoryId(category.getId()));
+            List<MethodEx> methodList = methodService.findMethodList(new MethodExQuery().setCategoryId(category.getId()));
             if (CollectionUtils.isNotEmpty(methodList)){
                 //通过path查询接口
-                List<MethodEntity> collect = methodList.stream().filter(a -> path.equals(a.getPath())).collect(Collectors.toList());
+                List<MethodEx> collect = methodList.stream().filter(a -> path.equals(a.getPath())).collect(Collectors.toList());
                 if(CollectionUtils.isNotEmpty(collect)){
-                    MethodEntity methodEntity = collect.get(0);
-                    String id= methodEntity.getId();
+                    MethodEx methodEx = collect.get(0);
+                    String id= methodEx.getId();
                     methodId=id;
                 }
             }
@@ -149,7 +160,7 @@ public class MockServletRequest {
                 }
             }
         } catch (FileUploadException | UnsupportedEncodingException e) {
-            e.printStackTrace();
+            throw new SystemException(e);
         }
         return formdataList;
     }
@@ -167,17 +178,20 @@ public class MockServletRequest {
     }
 
 
-    public  boolean getHeaderStatus( String mockId, Enumeration headerNames, HttpServletRequest request){
+    public  boolean getHeaderStatus( String mockId, HttpServletRequest request){
+        Enumeration headerNames =getHeader(request);
+
         boolean headerStatus = false;
-        List<RequestHeaderMockEntity> requestHeaderMockList = requestHeaderMockDao.findRequestHeaderMockList(new RequestHeaderMockQuery().setMockId(mockId));
+
+        RequestHeaderMockQuery requestHeaderMockQuery = new RequestHeaderMockQuery().setMockId(mockId);
+        List<RequestHeaderMock> requestHeaderMockList = requestHeaderMockService.findRequestHeaderMockList(requestHeaderMockQuery);
         if(CollectionUtils.isNotEmpty(requestHeaderMockList)){
-            for(RequestHeaderMockEntity mockHeader:requestHeaderMockList){
+            for(RequestHeaderMock mockHeader:requestHeaderMockList){
                 String mockHeaderName =mockHeader.getHeaderName();
                 String mockHeaserValue = mockHeader.getValue();
                 while (headerNames.hasMoreElements()){
                     String headerName = (String) headerNames.nextElement();
                     String headerValue = request.getHeader(headerName);
-                    System.out.println(headerName+":"+headerValue);
                     if( mockHeaderName.equals(headerName)&&mockHeaserValue.equals(headerValue)){
                         headerStatus=true;
                     }else {
@@ -191,13 +205,16 @@ public class MockServletRequest {
         return headerStatus;
     }
 
-    public  boolean getQueryStatus(String mockId, Enumeration<String> urlParam, HttpServletRequest request){
+    public  boolean getQueryStatus(String mockId,  HttpServletRequest request){
+        Enumeration<String> urlParam = getUrlParam(request);
         boolean queryStatus = false;
-        List<QueryParamMockEntity> queryParamMockList = queryParamMockDao.findQueryParamMockList(new QueryParamMockQuery().setMockId(mockId));
+        List<QueryParamMock> queryParamMockList = queryParamMockService.findQueryParamMockList(new QueryParamMockQuery().setMockId(mockId));
+
         if(CollectionUtils.isNotEmpty(queryParamMockList)){
-            for(QueryParamMockEntity mockQuery:queryParamMockList){
+            for(QueryParamMock mockQuery:queryParamMockList){
                 String mockQueryName =mockQuery.getParamName();
                 String mockQueryValue = mockQuery.getValue();
+
                 if(!ObjectUtils.isEmpty(urlParam)){
                     while(urlParam.hasMoreElements()){
                         String parm=urlParam.nextElement();
@@ -216,8 +233,11 @@ public class MockServletRequest {
         return queryStatus;
     }
 
-    public  boolean getRequestTypeStatus( String mockId, List<Map> formdataList, String jsonData){
-        RequestBodyMockEntity requestBodyMock = requestBodyMockDao.findRequestBodyMock(new RequestBodyMockQuery().setMockId(mockId));
+    public  boolean getRequestTypeStatus(String mockId, HttpServletRequest request) throws IOException {
+        List<Map> formdataList = getForm(request);
+
+        String jsonData = getJson(request);
+        RequestBodyMock requestBodyMock = requestBodyMockService.findRequestBodyMock(new RequestBodyMockQuery().setMockId(mockId));
         String bodyType = requestBodyMock.getBodyType();
         boolean bodyStatus = false;
         if(bodyType.equals("formdata")){
@@ -230,11 +250,12 @@ public class MockServletRequest {
 
     public  boolean getFormStatus( String mockId, List<Map> formdataList){
         boolean bodyStatus = false;
-        List<FormParamMockEntity> formParamMockList = formParamMockDao.findFormParamMockList(new FormParamMockQuery().setMockId(mockId));
+        List<FormParamMock> formParamMockList = formParamMockService.findFormParamMockList(new FormParamMockQuery().setMockId(mockId));
         if(CollectionUtils.isNotEmpty(formParamMockList)){
-            for(FormParamMockEntity mockForm: formParamMockList){
+            for(FormParamMock mockForm: formParamMockList){
                 String formName = mockForm.getParamName();
                 String formValue = mockForm.getValue();
+
                 if(CollectionUtils.isNotEmpty(formdataList)){
                     for(Map<String, Object> map:formdataList){
                         for(String key : map.keySet()){
@@ -255,9 +276,9 @@ public class MockServletRequest {
 
     public  boolean getJsonStatus(String mockId, String jsonData){
         boolean bodyStatus = false;
-        List<JsonParamMockEntity> jsonParamMockList = jsonParamMockDao.findJsonParamMockList(new JsonParamMockQuery().setMockId(mockId));
+        List<JsonParamMock> jsonParamMockList = jsonParamMockService.findJsonParamMockList(new JsonParamMockQuery().setMockId(mockId));
         if(CollectionUtils.isNotEmpty(jsonParamMockList)){
-            for(JsonParamMockEntity jsonParamMock:jsonParamMockList){
+            for(JsonParamMock jsonParamMock:jsonParamMockList){
                 String jsonKey = jsonParamMock.getExp();
                 String jsonValue = jsonParamMock.getValue();
                 Object jsonDataValue =  JSONPath.read(jsonData,"$."+jsonKey);
