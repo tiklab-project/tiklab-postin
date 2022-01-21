@@ -24,12 +24,15 @@ public class MethodExQuery {
     @ApiProperty(name ="name",desc = "接口名称，模糊匹配")
     @QueryField(type = QueryTypeEnum.like)
     private String name;
+
     @ApiProperty(name ="versionCode",desc = "版本号精确查询")
     @QueryField(type = QueryTypeEnum.equal)
     private String versionCode;
+
     @ApiProperty(name ="onVersionId",desc = "上个版本号id精确查询")
     @QueryField(type = QueryTypeEnum.equal)
     private String onVersionId;
+
     @ApiProperty(name ="orderParams",desc = "排序参数")
     @OrderField
     private List<Order> orderParams = OrderBuilders.instance().asc("name").get();

@@ -4,8 +4,11 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.doublekit.apibox.apidef.model.JsonParam;
 import com.doublekit.apibox.apidef.model.JsonResponse;
-import com.doublekit.apibox.category.model.Category;
 import com.doublekit.apibox.integration.imexport.common.FunctionImport;
+import com.doublekit.apibox.integration.imexport.model.FormDataImportVo;
+import com.doublekit.apibox.integration.imexport.model.JsonParamImportVo;
+import com.doublekit.apibox.integration.imexport.model.JsonResponseImportVo;
+import com.doublekit.apibox.integration.imexport.model.MethodImportVo;
 import com.doublekit.apibox.integration.imexport.utils.Md5;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -27,6 +30,8 @@ public class ReportImport {
             JSONObject controllerData = allData.getJSONObject(key);
             String controllerName = controllerData.getString("name");
             String categoryId = Md5.getMD5String(controllerData.getString("path"));
+
+            //如果已经导入过了，覆盖之前的导入数据
             functionImport.coverCategory(workspaceId,categoryId,controllerName);
 
             actMethod(controllerData,categoryId);
@@ -38,33 +43,37 @@ public class ReportImport {
         JSONArray methodArr = controllerData.getJSONArray("method");
         for(int i = 0;i<methodArr.size();i++){
             JSONObject methodItem = methodArr.getJSONObject(i);
-            String name = methodItem.getString("name");
             String path = methodItem.getString("path");
-            String requestType =methodItem.getString("requestType");
-            String desc = methodItem.getString("desc");
-            Category categoryID = new Category();
-            categoryID.setId(categoryId);
-            //根据path Md5加密，获取id
-            String methodId = Md5.getMD5String(path);
+            String methodId = Md5.getMD5String(path+"report");//后面加report,防止与其他导入类型id相同
 
-            functionImport.addMethod(methodId,name,requestType,path,categoryID,desc);
+            MethodImportVo mVo = new MethodImportVo();
+            mVo.setCategoryId(categoryId);
+            mVo.setMethodId(methodId);
+            mVo.setName(methodItem.getString("name"));
+            mVo.setRequestType(methodItem.getString("requestType"));
+            mVo.setPath(path);
+            mVo.setDesc(methodItem.getString("desc"));
 
+            functionImport.addMethod(mVo);
+
+            //解析request response
             actRequestResponse(methodItem,methodId);
         }
     }
 
+    //解析request response
     private void actRequestResponse(JSONObject methodItem, String methodId){
         //获取请求体类型
         String bodyType = transferBodyType(methodItem.getString("paramDataType"));
 
-        functionImport.actBody(bodyType,methodId);
+        functionImport.addBody(bodyType,methodId);
 
         JSONArray param = methodItem.getJSONArray("param");
 
         actBodyType(bodyType,param,methodId);
 
         //响应
-        functionImport.actResponseBody(methodId);
+        functionImport.addResponseBody(methodId);
 
         actResponseJson(methodItem,methodId);
 
@@ -85,28 +94,27 @@ public class ReportImport {
     private void actFormData(JSONArray param, String methodId){
         for(int i = 0;i<param.size();i++){
             JSONObject formDataItem = param.getJSONObject(i);
-            String name = formDataItem.getString("name");
-            String value = null;
-            String desc = formDataItem.getString("desc");
-            String type = "text";
-            int required= transferRequired(formDataItem.getString("required"));
 
-            functionImport.actFormData(methodId,name,value,desc,type,required);
+            FormDataImportVo formData = new FormDataImportVo();
+            formData.setName(formDataItem.getString("name"));
+            formData.setType("text");
+            formData.setRequired(transferRequired(formDataItem.getString("required")));
+            formData.setDesc(formDataItem.getString("desc"));
+            formData.setMethodId(methodId);
+
+            functionImport.addFormData(formData);
         }
     }
+
 
     private void actRequestJson(JSONArray param, String methodId){
         String parentId = null;
         jsonParamLoop(param, methodId,parentId);
     }
-
     //jsonParam递归
     private void jsonParamLoop(JSONArray param,String methodId,String parentId){
         for(int i = 0;i<param.size();i++){
             JSONObject jsonItem = param.getJSONObject(i);
-            String name = jsonItem.getString("name");
-            String value = null;
-            String desc = jsonItem.getString("desc");
             String type = transferDataType(jsonItem.getString("dataType"));
             int required= transferRequired(jsonItem.getString("required"));
 
@@ -115,13 +123,23 @@ public class ReportImport {
                 jsonParam.setId(parentId);
             }
 
-            String pid =functionImport.actJson(methodId,name,value,type, required,desc,jsonParam);
+            JsonParamImportVo jVo = new JsonParamImportVo();
+            jVo.setParentId(jsonParam);
+            jVo.setMethodId(methodId);
+            jVo.setName(jsonItem.getString("name"));
+            jVo.setDataType(type);
+            jVo.setRequired(required);
+            jVo.setDesc(jsonItem.getString("desc"));
 
+            String pid =functionImport.addJsonParam(jVo);
+
+            //是否有model， 有 递归
             if(jsonItem.containsKey("model")){
                 jsonParamLoop(jsonItem.getJSONArray("model"),methodId,pid);
             }
         }
     }
+
 
     private void actResponseJson(JSONObject methodItem, String methodId){
         JSONObject result = methodItem.getJSONObject("result");
@@ -129,13 +147,10 @@ public class ReportImport {
         String parentId = null;
         jsonResponseloop(model,methodId,parentId);
     }
-
     //jsonResponse递归
     private void jsonResponseloop(JSONArray param,String methodId,String parentId){
         for(int i = 0;i<param.size();i++){
             JSONObject jsonItem = param.getJSONObject(i);
-            String name = jsonItem.getString("name");
-            String desc = jsonItem.getString("desc");
             String type = transferDataType(jsonItem.getString("dataType"));
             int required= transferRequired(jsonItem.getString("required"));
 
@@ -144,14 +159,25 @@ public class ReportImport {
                 jsonResponse.setId(parentId);
             }
 
-            //获取父级id
-            String pid =functionImport.actResponseJson(methodId,name,type, required,desc,jsonResponse);
+            JsonResponseImportVo jRVo = new JsonResponseImportVo();
+            jRVo.setParentId(jsonResponse);
+            jRVo.setMethodId(methodId);
+            jRVo.setName(jsonItem.getString("name"));
+            jRVo.setDataType(type);
+            jRVo.setRequired(required);
+            jRVo.setDesc(jsonItem.getString("desc"));
 
+
+            //获取父级id
+            String pid =functionImport.addResponseJson(jRVo);
+
+            //是否有model， 有 递归
             if(jsonItem.containsKey("model")){
                 jsonResponseloop(jsonItem.getJSONArray("model"),methodId,pid);
             }
         }
     }
+
 
     //转换请求体类型：json formdata
     private String transferBodyType(String bodyType){
@@ -161,7 +187,7 @@ public class ReportImport {
             case "form-data":
                 return "formdata";
         }
-        return null;
+        return "none";
     }
 
     //转换类型

@@ -7,6 +7,7 @@ import com.doublekit.apibox.apidef.model.BinaryParamQuery;
 
 import com.doublekit.apibox.apitest.model.BinaryParamCase;
 import com.doublekit.apibox.apitest.model.BinaryParamCaseQuery;
+import com.doublekit.common.exception.ApplicationException;
 import com.doublekit.common.page.Pagination;
 import com.doublekit.common.page.PaginationBuilder;
 import com.doublekit.beans.BeanMapper;
@@ -121,7 +122,7 @@ public class BinaryParamServiceImpl implements BinaryParamService {
         if (CollectionUtils.isNotEmpty(binaryParamList)){
             String fileName = binaryParamList.get(0).getFileName();
             try {
-                String path="http://192.168.2.6:8070/file/"+fileName;
+                String path="http://192.168.2.5:8070/file/"+fileName;
                 URL url = new URL(path);
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();// 利用HttpURLConnection对象,我们可以从网络中获取网页数据.
                 conn.setDoInput(true);
@@ -137,7 +138,7 @@ public class BinaryParamServiceImpl implements BinaryParamService {
                 br.close();
                 return sb.toString();
             } catch (Exception e) {
-                e.printStackTrace();
+                throw new ApplicationException(e);
             }
         }
 

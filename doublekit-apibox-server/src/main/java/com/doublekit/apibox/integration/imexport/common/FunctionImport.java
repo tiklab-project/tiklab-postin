@@ -6,6 +6,7 @@ import com.doublekit.apibox.apidef.service.*;
 import com.doublekit.apibox.category.model.Category;
 import com.doublekit.apibox.category.model.CategoryQuery;
 import com.doublekit.apibox.category.service.CategoryService;
+import com.doublekit.apibox.integration.imexport.model.*;
 import com.doublekit.apibox.workspace.model.Workspace;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -86,124 +87,163 @@ public class FunctionImport {
         Category category = new Category();
         category.setId(categoryId);
         category.setName(categoryName);
+
         Workspace workspace = new Workspace();
         workspace.setId(workspaceId);
         category.setWorkspace(workspace);
+
         categoryService.createCategory(category);
     }
 
-    public void addMethod(String methodId,String methodName,String requestType,String path,Category categoryId,String desc){
+    public void addMethod(MethodImportVo methodVo){
+        Category categoryID = new Category();
+        categoryID.setId(methodVo.getCategoryId());
+
         MethodEx methodEx = new MethodEx();
-        methodEx.setId(methodId);
-        methodEx.setName(methodName);
-        methodEx.setRequestType(requestType);
-        methodEx.setPath(path);
-        methodEx.setCategory(categoryId);
-        methodEx.setDesc(desc);
+
+        methodEx.setCategory(categoryID);
+        methodEx.setId(methodVo.getMethodId());
+        methodEx.setName(methodVo.getName());
+        methodEx.setRequestType(methodVo.getRequestType());
+        methodEx.setPath(methodVo.getPath());
+        methodEx.setDesc(methodVo.getDesc());
+
         methodService.createMethod(methodEx);
     }
 
-    public void addHeader(String headerName, String headerValue, String headerDesc, MethodEx headerMethod){
+    public void addHeader(HeaderParamImportVo hVo){
+        MethodEx methodEx = new MethodEx();
+        methodEx.setId(hVo.getMethodId());
+
         RequestHeader requestHeader = new RequestHeader();
-        requestHeader.setHeaderName(headerName);
-        requestHeader.setDesc(headerDesc);
-        requestHeader.setValue(headerValue);
-        requestHeader.setMethod(headerMethod);
+
+        requestHeader.setMethod(methodEx);
+        requestHeader.setHeaderName(hVo.getName());
+        requestHeader.setValue(hVo.getValue());
+        requestHeader.setDesc(hVo.getDesc());
+
         requestHeaderService.createRequestHeader(requestHeader);
     }
 
-    public void addQuery(String queryName, String queryValue, String queryDesc, MethodEx queryMethod){
+    public void addQuery(QueryParamImportVo qVo){
+        MethodEx methodEx = new MethodEx();
+        methodEx.setId(qVo.getMethodId());
+
         QueryParam queryParam = new QueryParam();
-        queryParam.setParamName(queryName);
-        queryParam.setValue(queryValue);
-        queryParam.setDesc(queryDesc);
-        queryParam.setMethod(queryMethod);
+
+        queryParam.setMethod(methodEx);
+        queryParam.setParamName(qVo.getName());
+        queryParam.setValue(qVo.getValue());
+        queryParam.setDesc(qVo.getDesc());
+
         queryParamService.createQueryParam(queryParam);
     }
 
-    public void actBody(String requestBody,String methodId){
+    public void addBody(String requestBody,String methodId){
         MethodEx requestBodyMethod = new MethodEx();
         requestBodyMethod.setId(methodId);
+
         RequestBodyEx requestBodyEx = new RequestBodyEx();
+
         requestBodyEx.setId(methodId);
         requestBodyEx.setBodyType(requestBody);
         requestBodyEx.setMethod(requestBodyMethod);
+
         requestBodyService.createRequestBody(requestBodyEx);
     }
 
-    public void actFormData(String methodId, String formParamName, String formParamValue, String formParamType, String formParamDesc, int required){
+    public void addFormData(FormDataImportVo fvo){
         MethodEx methodEx = new MethodEx();
-        methodEx.setId(methodId);
+        methodEx.setId(fvo.getMethodId());
+
         FormParam formParams = new FormParam();
-        formParams.setParamName(formParamName);
-        formParams.setValue(formParamValue);
-        formParams.setDesc(formParamDesc);
-        formParams.setDataType(formParamType);
+
         formParams.setMethod(methodEx);
-        formParams.setRequired(required);
+        formParams.setParamName(fvo.getName());
+        formParams.setValue(fvo.getValue());
+        formParams.setDesc(fvo.getDesc());
+        formParams.setDataType(fvo.getType());
+        formParams.setRequired(fvo.getRequired());
+
         formParamService.createFormParam(formParams);
     }
 
-    public void actFormUrlencoded(String methodId, String name, String value, String dataType, String desc, int required){
+    public void addFormUrlencoded(FormUrlencodedImportVo fUVo){
         MethodEx methodEx = new MethodEx();
-        methodEx.setId(methodId);
+        methodEx.setId(fUVo.getMethodId());
+
         FormUrlencoded formUrlencoded = new FormUrlencoded();
-        formUrlencoded.setParamName(name);
-        formUrlencoded.setValue(value);
-        formUrlencoded.setRequired(required);
-        formUrlencoded.setDataType(dataType);
-        formUrlencoded.setDesc(desc);
+
         formUrlencoded.setMethod(methodEx);
+        formUrlencoded.setParamName(fUVo.getName());
+        formUrlencoded.setValue(fUVo.getValue());
+        formUrlencoded.setRequired(fUVo.getRequired());
+        formUrlencoded.setDataType(fUVo.getDataType());
+        formUrlencoded.setDesc(fUVo.getDesc());
 
         formUrlencodedService.createFormUrlencoded(formUrlencoded);
     }
 
-    public String actJson(String methodId, String name, String value, String type, int required, String desc, JsonParam pId){
+    public String addJsonParam(JsonParamImportVo jVo){
         MethodEx methodEx = new MethodEx();
-        methodEx.setId(methodId);
+        methodEx.setId(jVo.getMethodId());
+
         JsonParam jsonParam = new JsonParam();
-        jsonParam.setParamName(name);
-        jsonParam.setValue(value);
-        jsonParam.setDataType(type);
-        jsonParam.setRequired(required);
-        jsonParam.setDesc(desc);
+
+        jsonParam.setParamName(jVo.getName());
+        jsonParam.setValue(jVo.getValue());
+        jsonParam.setDataType(jVo.getDataType());
+        jsonParam.setRequired(jVo.getRequired());
+        jsonParam.setDesc(jVo.getDesc());
         jsonParam.setMethod(methodEx);
-        jsonParam.setParent(pId);
+        jsonParam.setParent(jVo.getParentId());
+
         String pid = jsonParamService.createJsonParam(jsonParam);
+
         return pid;
     }
 
-    public void actRaw(String methodId, String rawType, String rawData){
+    public void addRaw(String methodId, String rawType, String rawData){
         MethodEx rawMethod = new MethodEx();
         rawMethod.setId(methodId);
+
         RawParam rawParam = new RawParam();
+
         rawParam.setRaw(rawData);
         rawParam.setType(rawType);
         rawParam.setId(methodId);
         rawParam.setMethod(rawMethod);
+
         rawParamService.createRawParam(rawParam);
     }
 
-    public void actResponseBody(String methodId){
+    public void addResponseBody(String methodId){
         MethodEx methodEx = new MethodEx();
         methodEx.setId(methodId);
+
         ResponseResult responseResult = new ResponseResult();
+
         responseResult.setId(methodId);
         responseResult.setResultType("json");
         responseResult.setMethod(methodEx);
+
         responseResultService.createResponseResult(responseResult);
     }
 
-    public String actResponseJson( String methodId, String name, String dataType, int required,String desc,JsonResponse pId){
+    public String addResponseJson(JsonResponseImportVo jRVo){
         MethodEx methodEx = new MethodEx();
-        methodEx.setId(methodId);
+        methodEx.setId(jRVo.getMethodId());
+
         JsonResponse jsonResponse = new JsonResponse();
+
         jsonResponse.setMethod(methodEx);
-        jsonResponse.setPropertyName(name);
-        jsonResponse.setDataType(dataType);
-        jsonResponse.setRequired(required);
-        jsonResponse.setDesc(desc);
-        jsonResponse.setParent(pId);
+        jsonResponse.setParent(jRVo.getParentId());
+        jsonResponse.setPropertyName(jRVo.getName());
+        jsonResponse.setValue(jRVo.getValue());
+        jsonResponse.setDataType(jRVo.getDataType());
+        jsonResponse.setRequired(jRVo.getRequired());
+        jsonResponse.setDesc(jRVo.getDesc());
+
         String pid = jsonResponseService.createJsonResponse(jsonResponse);
         return pid;
     }

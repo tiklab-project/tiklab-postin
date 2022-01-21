@@ -1,5 +1,7 @@
 package com.doublekit.apibox.integration.imexport.utils;
 
+import com.doublekit.common.exception.ApplicationException;
+
 import java.math.BigInteger;
 import java.security.MessageDigest;
 
@@ -15,8 +17,7 @@ public class Md5 {
             //一个byte是八位二进制，也就是2位十六进制字符（2的8次方等于16的2次方）
             return new BigInteger(1, md.digest()).toString(16);
         } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+            throw new ApplicationException(e);
         }
     }
 }

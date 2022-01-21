@@ -1,9 +1,9 @@
 package com.doublekit.apibox.apimock.servlet;
 
-import com.doublekit.apibox.apimock.dao.*;
-import com.doublekit.apibox.apimock.entity.*;
 import com.doublekit.apibox.apimock.model.*;
+import com.doublekit.apibox.apimock.service.*;
 import com.doublekit.apibox.apimock.utils.MockProcess;
+import com.doublekit.common.exception.ApplicationException;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -18,19 +18,19 @@ import java.util.List;
 public class MockServletResponse {
 
     @Autowired
-    ResponseMockDao responseMockDao;
+    ResponseMockService responseMockService;
 
     @Autowired
-    ResponseResultMockDao responseResultMockDao;
+    ResponseResultMockService responseResultMockService;
 
     @Autowired
-    ResponseHeaderMockDao responseHeaderMockDao;
+    ResponseHeaderMockService responseHeaderMockService;
 
     @Autowired
-    JsonResponseMockDao jsonResponseMockDao;
+    JsonResponseMockService jsonResponseMockService;
 
     @Autowired
-    RawResponseMockDao rawResponseMockDao;
+    RawResponseMockService rawResponseMockService;
 
     public void actResponse(String mockId, HttpServletResponse response) throws IOException {
         setHttpCode(mockId,response);
@@ -40,24 +40,27 @@ public class MockServletResponse {
         setBody(mockId,response);
     }
 
+    //从数据库获取httpcode，设置到servlet中
     public  void setHttpCode(String mockId, HttpServletResponse response){
-        ResponseMockEntity responseMock = responseMockDao.findResponseMock(new ResponseMockQuery().setMockId(mockId));
+        ResponseMock responseMock = responseMockService.findResponseMock(mockId);
         int HttpCode =Integer.parseInt(responseMock.getHttpCode());
         response.setStatus(HttpCode);
     }
 
-    public  void setHeader(String mockId, HttpServletResponse response){
-        List<ResponseHeaderMockEntity> responseHeaderMockList = responseHeaderMockDao.findResponseHeaderMockList(new ResponseHeaderMockQuery().setMockId(mockId));
+    //从数据库获取header，设置到servlet header中
+    public void setHeader(String mockId, HttpServletResponse response){
+        ResponseHeaderMockQuery responseHeaderMockQuery = new ResponseHeaderMockQuery().setMockId(mockId);
+        List<ResponseHeaderMock> responseHeaderMockList = responseHeaderMockService.findResponseHeaderMockList(responseHeaderMockQuery);
         String headers = null;
         if(CollectionUtils.isNotEmpty(responseHeaderMockList)){
-            for(ResponseHeaderMockEntity responseHeaderMock : responseHeaderMockList){
+            for(ResponseHeaderMock responseHeaderMock : responseHeaderMockList){
                 String headerName = responseHeaderMock.getHeaderName();
                 String headerValue = responseHeaderMock.getValue();
                 String mockVal = null;
                 try {
                     mockVal =  MockProcess.mock(headerValue);
                 } catch (ScriptException e) {
-                    e.printStackTrace();
+                    throw new ApplicationException(e);
                 }
                 response.setHeader(headerName,mockVal);
                 if(headers!=null){
@@ -71,8 +74,9 @@ public class MockServletResponse {
         response.setHeader("Access-Control-Expose-Headers ",headers);
     }
 
-    public  void setBody(String mockId,  HttpServletResponse response) throws IOException {
-        ResponseResultMockEntity responseResultMock = responseResultMockDao.findResponseResultMock(new ResponseResultMockQuery().setMockId(mockId));
+    //从数据库获取body类型，设置对应的body类型
+    public void setBody(String mockId,  HttpServletResponse response) throws IOException {
+        ResponseResultMock responseResultMock = responseResultMockService.findResponseResultMock(mockId);
         String responseType = responseResultMock.getResultType();
         if(responseType.equals("json")){
             setJson(mockId,response);
@@ -81,15 +85,17 @@ public class MockServletResponse {
         }
     }
 
-    public  void setJson(String mockId, HttpServletResponse response) throws IOException {
-        JsonResponseMockEntity jsonResponseMock = jsonResponseMockDao.findJsonResponseMock(new JsonResponseMockQuery().setMockId(mockId));
+    //从数据库获取json，设置到servlet json中
+    public void setJson(String mockId, HttpServletResponse response) throws IOException {
+        JsonResponseMock jsonResponseMock = jsonResponseMockService.findJsonResponseMock(mockId);
         String jsonMockData = jsonResponseMock.getResult();
         ServletOutputStream servletOutputStream = response.getOutputStream();
         servletOutputStream.write(jsonMockData.getBytes("UTF-8"));
     }
 
-    public  void setRaw( String mockId, HttpServletResponse response) throws IOException {
-        RawResponseMockEntity rawResponseMock = rawResponseMockDao.findRawResponseMock(new RawResponseMockQuery().setMockId(mockId));
+    //从数据库获取raw，设置到servlet raw中
+    public void setRaw( String mockId, HttpServletResponse response) throws IOException {
+        RawResponseMock rawResponseMock = rawResponseMockService.findRawResponseMock(mockId);
         String rawMockData = rawResponseMock.getResult();
         ServletOutputStream servletOutputStream = response.getOutputStream();
         servletOutputStream.write(rawMockData.getBytes("UTF-8"));

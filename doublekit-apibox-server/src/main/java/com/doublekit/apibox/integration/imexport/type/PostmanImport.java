@@ -3,8 +3,8 @@ package com.doublekit.apibox.integration.imexport.type;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.doublekit.apibox.apidef.model.*;
-import com.doublekit.apibox.category.model.Category;
 import com.doublekit.apibox.integration.imexport.common.FunctionImport;
+import com.doublekit.apibox.integration.imexport.model.*;
 import com.doublekit.apibox.integration.imexport.utils.Md5;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -22,15 +22,15 @@ public class PostmanImport {
     public void postmanAnalysisData( String workspaceId, InputStream stream) throws IOException {
         JSONObject jsonObject =functionImport.getJsonData(stream);
 
-        //解析
+        //解析相应的字段
         JSONObject info = jsonObject.getJSONObject("info");
         String categoryName = info.getString("name");
         String categoryId = info.getString("_postman_id");
 
+        //如果已经导入过了，覆盖之前的导入数据
         functionImport.coverCategory(workspaceId,categoryId,categoryName);
 
-        JSONArray item = jsonObject.getJSONArray("item");
-        action(item,categoryId);
+        methodAnalysis(jsonObject,categoryId);
     }
 
     //获取path
@@ -42,40 +42,44 @@ public class PostmanImport {
         return path;
     }
 
-    private void action(JSONArray item, String categoryId){
+    private void methodAnalysis(JSONObject jsonObject, String categoryId){
+        JSONArray item = jsonObject.getJSONArray("item");
         for (int i =0 ;i<item.toArray().length;i++){
             //获取当前对象
             JSONObject obj = item.getJSONObject(i);
-
             //获取request对象
             JSONObject request = obj.getJSONObject("request");
             //获取request中的对象url
             JSONObject url = request.getJSONObject("url");
-            //获取request中的对象body
-            JSONObject body = request.getJSONObject("body");
             //获取request中的对象path
             String path = actPath(url.getJSONArray("path"));
             //根据path Md5加密，获取id
-            String methodId = Md5.getMD5String(path);
+            String methodId = Md5.getMD5String(path+"postman");//后面加postman,防止与其他导入类型id相同
 
-            actMethod(path,obj,request,categoryId,methodId);
+            actMethod(obj,categoryId,methodId);
 
             actHeader(request,methodId);
 
             actQuery(url,methodId);
 
-            actBody(request,body,methodId);
+            actBody(request,methodId);
         }
     }
 
     //操作method
-    private void actMethod(String path, JSONObject obj, JSONObject request, String categoryId, String methodId){
-        String methodName = obj.getString("name");
-        String requestType = request.getString("method");
-        Category categoryID = new Category();
-        categoryID.setId(categoryId);
-        String desc = null;
-        functionImport.addMethod(methodId,methodName,requestType,path,categoryID,desc);
+    private void actMethod( JSONObject obj, String categoryId, String methodId){
+        JSONObject request = obj.getJSONObject("request");
+        JSONObject url = request.getJSONObject("url");
+
+        MethodImportVo methodImportVo = new MethodImportVo();
+
+        methodImportVo.setMethodId(methodId);
+        methodImportVo.setCategoryId(categoryId);
+        methodImportVo.setName(obj.getString("name"));
+        methodImportVo.setRequestType(request.getString("method"));
+        methodImportVo.setPath(actPath(url.getJSONArray("path")));
+
+        functionImport.addMethod(methodImportVo);
     }
 
     //添加header
@@ -85,13 +89,13 @@ public class PostmanImport {
             for(int hi=0;hi<header.toArray().length;hi++){
                 JSONObject headerObj = header.getJSONObject(hi);
 
-                String headerName = headerObj.getString("key");
-                String headerDesc = headerObj.getString("description");
-                String headerValue = headerObj.getString("value");
-                MethodEx headerMethod = new MethodEx();
-                headerMethod.setId(methodId);
-                functionImport.addHeader(headerName,headerValue,headerDesc,headerMethod);
+                HeaderParamImportVo hVo = new HeaderParamImportVo();
+                hVo.setMethodId(methodId);
+                hVo.setName(headerObj.getString("key"));
+                hVo.setValue(headerObj.getString("value"));
+                hVo.setDesc(headerObj.getString("description"));
 
+                functionImport.addHeader(hVo);
             }
         }
     }
@@ -103,23 +107,24 @@ public class PostmanImport {
             for(int qi = 0;qi<query.toArray().length;qi++){
                 JSONObject queryObj = query.getJSONObject(qi);
 
-                String queryName = queryObj.getString("key");
-                String queryValue = queryObj.getString("value");
-                String queryDesc = queryObj.getString("description");
-                MethodEx queryMethod = new MethodEx();
-                queryMethod.setId(methodId);
+                QueryParamImportVo qVo = new QueryParamImportVo();
+                qVo.setMethodId(methodId);
+                qVo.setName(queryObj.getString("key"));
+                qVo.setValue(queryObj.getString("value"));
+                qVo.setDesc(queryObj.getString("description"));
 
-                functionImport.addQuery(queryName,queryValue,queryDesc,queryMethod);
-
+                functionImport.addQuery(qVo);
             }
         }
     }
 
     //添加requestBody
-    private void actBody(JSONObject request, JSONObject body, String methodId){
+    private void actBody(JSONObject request,  String methodId){
+        //获取request中的对象body
+        JSONObject body = request.getJSONObject("body");
         if(request.containsKey("body")){
             String requestBody = transferBodyType(body.getString("mode"));
-            functionImport.actBody(requestBody,methodId);
+            functionImport.addBody(requestBody,methodId);
 
             switch (requestBody){
                 case "formdata":
@@ -133,7 +138,7 @@ public class PostmanImport {
                     break;
             }
         }else {
-            functionImport.actBody("none",methodId);
+            functionImport.addBody("none",methodId);
         }
     }
 
@@ -144,13 +149,22 @@ public class PostmanImport {
             for(int fi = 0; fi<formParam.toArray().length;fi++){
                 JSONObject formParamObj = formParam.getJSONObject(fi);
 
-                String formParamName = formParamObj.getString("key");
-                String formParamValue = formParamObj.getString("value");
-                String formParamType = formParamObj.getString("type");
-                String formParamDesc = formParamObj.getString("description");
-                int required = 0;//postman没有是否必须，就全部设为不必须
+                FormDataImportVo formData = new FormDataImportVo();
+                formData.setName(formParamObj.getString("key"));
+                formData.setValue(formParamObj.getString("value"));
+                formData.setType(formParamObj.getString("type"));
+                formData.setDesc(formParamObj.getString("description"));
+                formData.setRequired(0);
+                formData.setMethodId(methodId);
 
-                functionImport.actFormData(methodId,formParamName,formParamValue,formParamType,formParamDesc,required);
+                functionImport.addFormData(formData);
+//                String formParamName = formParamObj.getString("key");
+//                String formParamValue = formParamObj.getString("value");
+//                String formParamType = formParamObj.getString("type");
+//                String formParamDesc = formParamObj.getString("description");
+//                int required = 0;//postman没有是否必须，就全部设为不必须
+
+//                functionImport.actFormData(methodId,formParamName,formParamValue,formParamType,formParamDesc,required);
             }
         }
     }
@@ -162,12 +176,15 @@ public class PostmanImport {
             for(int urlencodedi = 0;urlencodedi<urlencoded.toArray().length;urlencodedi++){
                 JSONObject urlObj = urlencoded.getJSONObject(urlencodedi);
 
-                String name = urlObj.getString("key");
-                String value = urlObj.getString("value");
-                String type = urlObj.getString("type");
-                String desc = urlObj.getString("description");
-                int required = 0;//postman没有是否必须，就全部设为不必须
-                functionImport.actFormUrlencoded(methodId,name,value,type,desc,required);
+                FormUrlencodedImportVo fUVo = new FormUrlencodedImportVo();
+                fUVo.setMethodId(methodId);
+                fUVo.setName(urlObj.getString("key"));
+                fUVo.setValue(urlObj.getString("value"));
+                fUVo.setDataType(urlObj.getString("type"));
+                fUVo.setRequired(0);//postman没有是否必须，就全部设为不必须
+                fUVo.setDesc(urlObj.getString("description"));
+
+                functionImport.addFormUrlencoded(fUVo);
             }
         }
     }
@@ -180,7 +197,7 @@ public class PostmanImport {
             String rawType = raw.getString("language");
             String rawData = body.getString("raw");
 
-            functionImport.actRaw(methodId,rawType,rawData);
+            functionImport.addRaw(methodId,rawType,rawData);
         }
     }
 

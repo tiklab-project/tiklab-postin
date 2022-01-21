@@ -29,9 +29,9 @@ public class RawResponseMockQuery {
         return mockId;
     }
 
-    public String setMockId(String mockId) {
+    public RawResponseMockQuery setMockId(String mockId) {
         this.mockId = mockId;
-        return mockId;
+        return this;
     }
 
     public List<Order> getOrderParams() {

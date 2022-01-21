@@ -83,35 +83,37 @@ public class MockServletRequest {
 
         String methodId = getMethodId(workspaceId,path);
 
+
+        MockQuery mockQuery = new MockQuery().setMethodId(methodId);
         //通过methodid查询所有mock
-        List<Mock> mockList = mockService.findMockList(new MockQuery().setMethodId(methodId));
+        List<Mock> mockList = mockService.findMockList(mockQuery);
         for(Mock mock:mockList){
             String mockId = mock.getId();
             int enabled = mock.getEnable();
             //启用：1, 停用：0
             if(enabled == 1){
-                //Header
+
+                //获取Header状态
                 boolean headerStatus = getHeaderStatus( mockId, request);
 
-                //query
+                //获取query状态
                 boolean queryStatus = getQueryStatus( mockId, request);
 
-                //body
+                //获取body状态
                 boolean bodyStatus = getRequestTypeStatus(mockId,request);
 
                 //如果都匹配返回数据
                 if(headerStatus&&queryStatus&&bodyStatus){
                     mockServletResponse.actResponse(mockId,response);
                 }
-            }else {
-                continue;
             }
         }
     }
 
     //获取methodId
     public  String getMethodId(String workspaceId, String path){
-        List<Category> categoryList = categoryService.findCategoryList(new CategoryQuery().setWorkspaceId(workspaceId));
+        CategoryQuery categoryQuery = new CategoryQuery().setWorkspaceId(workspaceId);
+        List<Category> categoryList = categoryService.findCategoryList(categoryQuery);
         String methodId = null;
         for (Category category:categoryList){
             //查询所有接口
@@ -180,9 +182,7 @@ public class MockServletRequest {
 
     public  boolean getHeaderStatus( String mockId, HttpServletRequest request){
         Enumeration headerNames =getHeader(request);
-
         boolean headerStatus = false;
-
         RequestHeaderMockQuery requestHeaderMockQuery = new RequestHeaderMockQuery().setMockId(mockId);
         List<RequestHeaderMock> requestHeaderMockList = requestHeaderMockService.findRequestHeaderMockList(requestHeaderMockQuery);
         if(CollectionUtils.isNotEmpty(requestHeaderMockList)){
@@ -208,7 +208,8 @@ public class MockServletRequest {
     public  boolean getQueryStatus(String mockId,  HttpServletRequest request){
         Enumeration<String> urlParam = getUrlParam(request);
         boolean queryStatus = false;
-        List<QueryParamMock> queryParamMockList = queryParamMockService.findQueryParamMockList(new QueryParamMockQuery().setMockId(mockId));
+        QueryParamMockQuery queryParamMockQuery = new QueryParamMockQuery().setMockId(mockId);
+        List<QueryParamMock> queryParamMockList = queryParamMockService.findQueryParamMockList(queryParamMockQuery);
 
         if(CollectionUtils.isNotEmpty(queryParamMockList)){
             for(QueryParamMock mockQuery:queryParamMockList){
@@ -237,7 +238,7 @@ public class MockServletRequest {
         List<Map> formdataList = getForm(request);
 
         String jsonData = getJson(request);
-        RequestBodyMock requestBodyMock = requestBodyMockService.findRequestBodyMock(new RequestBodyMockQuery().setMockId(mockId));
+        RequestBodyMock requestBodyMock = requestBodyMockService.findRequestBodyMock(mockId);
         String bodyType = requestBodyMock.getBodyType();
         boolean bodyStatus = false;
         if(bodyType.equals("formdata")){
@@ -250,7 +251,9 @@ public class MockServletRequest {
 
     public  boolean getFormStatus( String mockId, List<Map> formdataList){
         boolean bodyStatus = false;
-        List<FormParamMock> formParamMockList = formParamMockService.findFormParamMockList(new FormParamMockQuery().setMockId(mockId));
+
+        FormParamMockQuery formParamMockQuery = new FormParamMockQuery().setMockId(mockId);
+        List<FormParamMock> formParamMockList = formParamMockService.findFormParamMockList(formParamMockQuery);
         if(CollectionUtils.isNotEmpty(formParamMockList)){
             for(FormParamMock mockForm: formParamMockList){
                 String formName = mockForm.getParamName();
@@ -276,7 +279,8 @@ public class MockServletRequest {
 
     public  boolean getJsonStatus(String mockId, String jsonData){
         boolean bodyStatus = false;
-        List<JsonParamMock> jsonParamMockList = jsonParamMockService.findJsonParamMockList(new JsonParamMockQuery().setMockId(mockId));
+        JsonParamMockQuery jsonParamMockQuery = new JsonParamMockQuery().setMockId(mockId);
+        List<JsonParamMock> jsonParamMockList = jsonParamMockService.findJsonParamMockList(jsonParamMockQuery);
         if(CollectionUtils.isNotEmpty(jsonParamMockList)){
             for(JsonParamMock jsonParamMock:jsonParamMockList){
                 String jsonKey = jsonParamMock.getExp();

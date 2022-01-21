@@ -30,9 +30,9 @@ public class ResponseResultMockQuery {
         return mockId;
     }
 
-    public String setMockId(String mockId) {
+    public ResponseResultMockQuery setMockId(String mockId) {
         this.mockId = mockId;
-        return mockId;
+        return this;
     }
 
     public List<Order> getOrderParams() {

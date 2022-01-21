@@ -1,18 +1,18 @@
 package com.doublekit.apibox.integration.imexport.model;
 
-public class FormDataImportVo {
+public class MethodImportVo {
 
     private String methodId;
 
+    private String categoryId;
+
     private String name;
 
-    private String value;
+    private String requestType;
 
-    private String type;
+    private String path;
 
     private String desc;
-
-    private Integer required;
 
     public String getMethodId() {
         return methodId;
@@ -20,6 +20,14 @@ public class FormDataImportVo {
 
     public void setMethodId(String methodId) {
         this.methodId = methodId;
+    }
+
+    public String getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
     }
 
     public String getName() {
@@ -30,20 +38,20 @@ public class FormDataImportVo {
         this.name = name;
     }
 
-    public String getValue() {
-        return value;
+    public String getRequestType() {
+        return requestType;
     }
 
-    public void setValue(String value) {
-        this.value = value;
+    public void setRequestType(String requestType) {
+        this.requestType = requestType;
     }
 
-    public String getType() {
-        return type;
+    public String getPath() {
+        return path;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setPath(String path) {
+        this.path = path;
     }
 
     public String getDesc() {
@@ -52,13 +60,5 @@ public class FormDataImportVo {
 
     public void setDesc(String desc) {
         this.desc = desc;
-    }
-
-    public Integer getRequired() {
-        return required;
-    }
-
-    public void setRequired(Integer required) {
-        this.required = required;
     }
 }

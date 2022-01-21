@@ -63,7 +63,7 @@ public class ApiParamParser extends ParamItemParser{
             try {
                 parameter = parameters[paramIndex];
             } catch (Exception e) {
-                e.printStackTrace();
+                throw new ApplicationException(e);
             }
 
             ApiParamMeta paramMeta = parseParamMeta(apiParam,parameter,paramName);

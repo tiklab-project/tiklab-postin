@@ -3,7 +3,6 @@ package com.doublekit.apibox.integration.imexport.controller;
 import com.doublekit.apibox.annotation.Api;
 import com.doublekit.apibox.annotation.ApiMethod;
 import com.doublekit.apibox.annotation.ApiParam;
-import com.doublekit.apibox.apidef.controller.AfterScriptController;
 import com.doublekit.apibox.integration.imexport.service.ImportService;
 import com.doublekit.common.Result;
 import com.doublekit.common.exception.SystemException;

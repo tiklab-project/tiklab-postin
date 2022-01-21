@@ -5,6 +5,7 @@ import com.doublekit.apibox.apitest.entity.BinaryParamCaseEntity;
 import com.doublekit.apibox.apitest.model.BinaryParamCase;
 import com.doublekit.apibox.apitest.model.BinaryParamCaseQuery;
 
+import com.doublekit.common.exception.ApplicationException;
 import com.doublekit.common.page.Pagination;
 import com.doublekit.common.page.PaginationBuilder;
 import com.doublekit.beans.BeanMapper;
@@ -136,7 +137,7 @@ public class BinaryParamCaseServiceImpl implements BinaryParamCaseService {
                 br.close();
                 return sb.toString();
             } catch (Exception e) {
-                e.printStackTrace();
+                throw new ApplicationException(e);
             }
         }
 

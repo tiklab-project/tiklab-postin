@@ -1,6 +1,6 @@
 package com.doublekit.apibox.integration.imexport.model;
 
-public class FormDataImportVo {
+public class QueryParamImportVo {
 
     private String methodId;
 
@@ -8,11 +8,7 @@ public class FormDataImportVo {
 
     private String value;
 
-    private String type;
-
     private String desc;
-
-    private Integer required;
 
     public String getMethodId() {
         return methodId;
@@ -38,27 +34,11 @@ public class FormDataImportVo {
         this.value = value;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
     public String getDesc() {
         return desc;
     }
 
     public void setDesc(String desc) {
         this.desc = desc;
-    }
-
-    public Integer getRequired() {
-        return required;
-    }
-
-    public void setRequired(Integer required) {
-        this.required = required;
     }
 }
