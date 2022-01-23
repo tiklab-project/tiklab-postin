@@ -21,6 +21,7 @@ import com.doublekit.toolkit.annotation.EnableToolkitServer;
 import com.doublekit.user.annotation.EnableUserServer;
 import com.doublekit.web.starter.annotation.EnableWeb;
 import org.springframework.context.annotation.Configuration;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
 //platform
@@ -45,6 +46,7 @@ import org.springframework.context.annotation.Configuration;
 //other
 @EnableApiboxServer
 @EnableApiboxClient
+@EnableSwagger2
 public class ApiboxAutoConfiguration {
 
 }
