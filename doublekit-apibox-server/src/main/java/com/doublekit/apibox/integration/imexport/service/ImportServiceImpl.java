@@ -18,11 +18,11 @@ public class ImportServiceImpl implements ImportService{
 
     @Override
     public void importPostman( String workspaceId, InputStream stream) throws IOException {
-        postmanImport.postmanAnalysisData(workspaceId,stream);
+        postmanImport.analysisPostmanData(workspaceId,stream);
     }
 
     @Override
     public void importReport( String workspaceId, InputStream stream) throws IOException {
-        reportImport.reportAnalysisData(workspaceId,stream);
+        reportImport.analysisReportData(workspaceId,stream);
     }
 }

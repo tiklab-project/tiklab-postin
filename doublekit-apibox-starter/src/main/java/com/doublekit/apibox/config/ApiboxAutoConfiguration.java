@@ -5,6 +5,7 @@ import com.doublekit.apibox.annotation.EnableApiboxServer;
 import com.doublekit.apibox.client.annotation.EnableApiboxClient;
 import com.doublekit.beans.starter.annotation.EnableBeans;
 import com.doublekit.dal.starter.annotation.EnableDal;
+import com.doublekit.datafly.annotation.DataFly;
 import com.doublekit.datafly.starter.annotation.EnableDataFly;
 import com.doublekit.dcs.starter.annotation.EnableDcs;
 import com.doublekit.dfs.starter.annotation.EnableDfs;
@@ -33,6 +34,19 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableDcs
 @EnableDss
 @EnableMessage
+@DataFly(modules = {
+        "user",
+        "privilege",
+        "eam",
+        "tool",
+        "message",
+        "apibase",
+        "apidef",
+        "apitest",
+        "apimock",
+        "datastru",
+        "apiStatus"
+})
 @EnableDataFly
 @EnableRpcServer(basePackages = "com.doublekit")
 @EnableRpcClient(basePackages = "com.doublekit")

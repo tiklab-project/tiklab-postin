@@ -8,14 +8,7 @@ import org.springframework.context.annotation.Configuration;
 
 //扫描sql配置
 @Configuration
-@DataFly(modules = {
-        "apibase",
-        "apidef",
-        "apitest",
-        "apimock",
-        "datastru",
-        "apiStatus"
-})
+
 @ComponentScan({"com.doublekit.apibox"})
 @ServletComponentScan({"com.doublekit.apibox"})
 public class ApiboxServerAutoConfiguration {

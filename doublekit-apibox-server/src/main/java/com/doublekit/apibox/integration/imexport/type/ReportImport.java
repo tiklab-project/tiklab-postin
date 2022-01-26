@@ -23,7 +23,7 @@ public class ReportImport {
     FunctionImport functionImport;
 
 
-    public void reportAnalysisData(String workspaceId,InputStream stream ) throws IOException {
+    public void analysisReportData(String workspaceId,InputStream stream ) throws IOException {
         //文件数据转换为JSONObject
         JSONObject allData =functionImport.getJsonData(stream);
         for(String key:allData.keySet()){
@@ -34,12 +34,12 @@ public class ReportImport {
             //如果已经导入过了，覆盖之前的导入数据
             functionImport.coverCategory(workspaceId,categoryId,controllerName);
 
-            actMethod(controllerData,categoryId);
+            analysisMethod(controllerData,categoryId);
         }
     }
 
     //method操作
-    private void actMethod(JSONObject controllerData, String categoryId){
+    private void analysisMethod(JSONObject controllerData, String categoryId){
         JSONArray methodArr = controllerData.getJSONArray("method");
         for(int i = 0;i<methodArr.size();i++){
             JSONObject methodItem = methodArr.getJSONObject(i);
@@ -57,41 +57,41 @@ public class ReportImport {
             functionImport.addMethod(mVo);
 
             //解析request response
-            actRequestResponse(methodItem,methodId);
+            analysisRequestResponse(methodItem,methodId);
         }
     }
 
     //解析request response
-    private void actRequestResponse(JSONObject methodItem, String methodId){
+    private void analysisRequestResponse(JSONObject methodItem, String methodId){
         //获取请求体类型
         String bodyType = transferBodyType(methodItem.getString("paramDataType"));
 
         functionImport.addBody(bodyType,methodId);
 
         JSONArray param = methodItem.getJSONArray("param");
+        analysisBodyType(bodyType,param,methodId);
 
-        actBodyType(bodyType,param,methodId);
 
         //响应
         functionImport.addResponseBody(methodId);
 
-        actResponseJson(methodItem,methodId);
+        analysisResponseJson(methodItem,methodId);
 
     }
 
     //根据请求体类型操作
-    private void actBodyType(String bodyType, JSONArray param, String methodId){
+    private void analysisBodyType(String bodyType, JSONArray param, String methodId){
         switch (bodyType){
             case "formdata":
-                actFormData(param,methodId);
+                analysisFormData(param,methodId);
                 break;
             case "json":
-                actRequestJson(param,methodId);
+                analysisRequestJson(param,methodId);
                 break;
         }
     }
 
-    private void actFormData(JSONArray param, String methodId){
+    private void analysisFormData(JSONArray param, String methodId){
         for(int i = 0;i<param.size();i++){
             JSONObject formDataItem = param.getJSONObject(i);
 
@@ -107,7 +107,7 @@ public class ReportImport {
     }
 
 
-    private void actRequestJson(JSONArray param, String methodId){
+    private void analysisRequestJson(JSONArray param, String methodId){
         String parentId = null;
         jsonParamLoop(param, methodId,parentId);
     }
@@ -141,7 +141,7 @@ public class ReportImport {
     }
 
 
-    private void actResponseJson(JSONObject methodItem, String methodId){
+    private void analysisResponseJson(JSONObject methodItem, String methodId){
         JSONObject result = methodItem.getJSONObject("result");
         JSONArray model = result.getJSONArray("model");
         String parentId = null;

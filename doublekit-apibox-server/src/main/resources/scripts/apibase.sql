@@ -5,10 +5,10 @@ CREATE TABLE apibox_workspace(
         user_id VARCHAR(32)
 );
 CREATE TABLE apibox_category(
-        id VARCHAR(40) PRIMARY KEY,
+        id VARCHAR(48) PRIMARY KEY,
         name VARCHAR(64) NOT NULL,
         workspace_id VARCHAR(32),
-        parent_category_id VARCHAR(32),
+        parent_category_id VARCHAR(48),
         sort int
 );
 CREATE TABLE apibox_environment(

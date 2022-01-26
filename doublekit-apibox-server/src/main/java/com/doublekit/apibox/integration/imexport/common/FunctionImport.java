@@ -68,28 +68,36 @@ public class FunctionImport {
 
     //覆盖
     public void coverCategory(String workspaceId, String categoryId, String categoryName){
+        //把之前的删除
         delCategory(workspaceId,categoryId);
+
+        //添加新导入的
         addCategroy(workspaceId,categoryId,categoryName);
+
     }
 
     //遍历是否有相同的categoryId，有就删除
     private void delCategory(String workspaceId,String categoryId){
-        List<Category> categoryListTree = categoryService.findCategoryListTree(new CategoryQuery().setWorkspaceId(workspaceId));
+        CategoryQuery categoryQuery = new CategoryQuery().setWorkspaceId(workspaceId);
+        List<Category> categoryListTree = categoryService.findCategoryListTree(categoryQuery);
+
         for(Category category:categoryListTree){
             String categoryDataId = category.getId();
             if(categoryDataId.equals(categoryId)){
                 categoryService.deleteCategory(categoryId);
             }
         }
+
     }
 
     private void addCategroy(String workspaceId, String categoryId, String categoryName){
-        Category category = new Category();
-        category.setId(categoryId);
-        category.setName(categoryName);
-
         Workspace workspace = new Workspace();
         workspace.setId(workspaceId);
+
+        Category category = new Category();
+
+        category.setId(categoryId);
+        category.setName(categoryName);
         category.setWorkspace(workspace);
 
         categoryService.createCategory(category);
@@ -198,9 +206,9 @@ public class FunctionImport {
         jsonParam.setMethod(methodEx);
         jsonParam.setParent(jVo.getParentId());
 
-        String pid = jsonParamService.createJsonParam(jsonParam);
+        String parentid = jsonParamService.createJsonParam(jsonParam);
 
-        return pid;
+        return parentid;
     }
 
     public void addRaw(String methodId, String rawType, String rawData){
@@ -244,8 +252,8 @@ public class FunctionImport {
         jsonResponse.setRequired(jRVo.getRequired());
         jsonResponse.setDesc(jRVo.getDesc());
 
-        String pid = jsonResponseService.createJsonResponse(jsonResponse);
-        return pid;
+        String parentid = jsonResponseService.createJsonResponse(jsonResponse);
+        return parentid;
     }
 
 

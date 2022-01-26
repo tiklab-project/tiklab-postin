@@ -56,7 +56,7 @@ public class TicketFilterAutoConfiguration {
                         "/share/verifyAuthCode",
                         "/share/judgeAuthCode",
                         "/port/reportImport",
-                        "/dingdingcfg/findId"
+                        "/dingdingcfg/findId",
                 })
                 .ignorePreUrls(new String[]{
                         "/apis",

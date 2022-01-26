@@ -1,17 +1,11 @@
 package com.doublekit.apibox.apimock.servlet;
 
 import com.alibaba.fastjson.JSONPath;
-import com.doublekit.apibox.apidef.dao.MethodDao;
-import com.doublekit.apibox.apidef.entity.MethodEntity;
 import com.doublekit.apibox.apidef.model.MethodEx;
 import com.doublekit.apibox.apidef.model.MethodExQuery;
 import com.doublekit.apibox.apidef.service.MethodService;
-import com.doublekit.apibox.apimock.dao.*;
-import com.doublekit.apibox.apimock.entity.*;
 import com.doublekit.apibox.apimock.model.*;
 import com.doublekit.apibox.apimock.service.*;
-import com.doublekit.apibox.category.dao.CategoryDao;
-import com.doublekit.apibox.category.entity.CategoryEntity;
 import com.doublekit.apibox.category.model.Category;
 import com.doublekit.apibox.category.model.CategoryQuery;
 import com.doublekit.apibox.category.service.CategoryService;
@@ -80,7 +74,6 @@ public class MockServletRequest {
         String workspaceId = mockPath.substring(1,33);
         //接口路径
         String path = mockPath.substring(33);
-
         String methodId = getMethodId(workspaceId,path);
 
 
@@ -116,16 +109,19 @@ public class MockServletRequest {
         List<Category> categoryList = categoryService.findCategoryList(categoryQuery);
         String methodId = null;
         for (Category category:categoryList){
+
             //查询所有接口
             List<MethodEx> methodList = methodService.findMethodList(new MethodExQuery().setCategoryId(category.getId()));
-            if (CollectionUtils.isNotEmpty(methodList)){
-                //通过path查询接口
-                List<MethodEx> collect = methodList.stream().filter(a -> path.equals(a.getPath())).collect(Collectors.toList());
-                if(CollectionUtils.isNotEmpty(collect)){
-                    MethodEx methodEx = collect.get(0);
-                    String id= methodEx.getId();
-                    methodId=id;
-                }
+            if(CollectionUtils.isEmpty(methodList)){
+                continue;
+            }
+
+            //通过path查询接口
+            List<MethodEx> collect = methodList.stream().filter(a -> path.equals(a.getPath())).collect(Collectors.toList());
+            if(CollectionUtils.isNotEmpty(collect)){
+                MethodEx methodEx = collect.get(0);
+                String id= methodEx.getId();
+                methodId=id;
             }
         }
         return methodId;
@@ -147,12 +143,14 @@ public class MockServletRequest {
     public  List<Map> getForm (HttpServletRequest request){
         List<Map> formdataList = new ArrayList<>();
         try {
-            DiskFileItemFactory factory=new DiskFileItemFactory();
+            DiskFileItemFactory factory = new DiskFileItemFactory();
             ServletFileUpload servletFileUpload = new ServletFileUpload(factory);
             servletFileUpload.setHeaderEncoding("UTF-8");
             List<FileItem> fileItems = servletFileUpload.parseRequest(request);
+
             if(CollectionUtils.isNotEmpty(fileItems)){
                 for(FileItem item :fileItems){
+                    //判断是否是普通类型
                     if (item.isFormField()) {
                         Map<String, String> formdatavalue = new HashMap<>();
                         String value = item.getString("utf-8");
@@ -182,22 +180,26 @@ public class MockServletRequest {
 
     public  boolean getHeaderStatus( String mockId, HttpServletRequest request){
         Enumeration headerNames =getHeader(request);
+
         boolean headerStatus = false;
+
         RequestHeaderMockQuery requestHeaderMockQuery = new RequestHeaderMockQuery().setMockId(mockId);
         List<RequestHeaderMock> requestHeaderMockList = requestHeaderMockService.findRequestHeaderMockList(requestHeaderMockQuery);
+
         if(CollectionUtils.isNotEmpty(requestHeaderMockList)){
             for(RequestHeaderMock mockHeader:requestHeaderMockList){
                 String mockHeaderName =mockHeader.getHeaderName();
                 String mockHeaserValue = mockHeader.getValue();
+
                 while (headerNames.hasMoreElements()){
                     String headerName = (String) headerNames.nextElement();
                     String headerValue = request.getHeader(headerName);
+
                     if( mockHeaderName.equals(headerName)&&mockHeaserValue.equals(headerValue)){
                         headerStatus=true;
-                    }else {
-                        continue;
                     }
                 }
+
             }
         }else {
             headerStatus=true;
@@ -207,7 +209,9 @@ public class MockServletRequest {
 
     public  boolean getQueryStatus(String mockId,  HttpServletRequest request){
         Enumeration<String> urlParam = getUrlParam(request);
+
         boolean queryStatus = false;
+
         QueryParamMockQuery queryParamMockQuery = new QueryParamMockQuery().setMockId(mockId);
         List<QueryParamMock> queryParamMockList = queryParamMockService.findQueryParamMockList(queryParamMockQuery);
 
@@ -220,10 +224,9 @@ public class MockServletRequest {
                     while(urlParam.hasMoreElements()){
                         String parm=urlParam.nextElement();
                         String values=request.getParameter(parm);
+
                         if(mockQueryName.equals(parm)&&mockQueryValue.equals(values)){
                             queryStatus=true;
-                        }else {
-                            continue;
                         }
                     }
                 }
@@ -235,66 +238,80 @@ public class MockServletRequest {
     }
 
     public  boolean getRequestTypeStatus(String mockId, HttpServletRequest request) throws IOException {
-        List<Map> formdataList = getForm(request);
-
-        String jsonData = getJson(request);
         RequestBodyMock requestBodyMock = requestBodyMockService.findRequestBodyMock(mockId);
         String bodyType = requestBodyMock.getBodyType();
+
         boolean bodyStatus = false;
+
         if(bodyType.equals("formdata")){
-            bodyStatus = getFormStatus(mockId,formdataList);
+            bodyStatus = getFormStatus(mockId,request);
         }else {
-            bodyStatus = getJsonStatus(mockId,jsonData);
+            bodyStatus = getJsonStatus(mockId,request);
         }
+
         return bodyStatus;
     }
 
-    public  boolean getFormStatus( String mockId, List<Map> formdataList){
+    public  boolean getFormStatus(String mockId, HttpServletRequest request){
+        //请求参数中获取的formlist
+        List<Map> formdataList = getForm(request);
+
         boolean bodyStatus = false;
 
+        //数据库获取的formlist
         FormParamMockQuery formParamMockQuery = new FormParamMockQuery().setMockId(mockId);
         List<FormParamMock> formParamMockList = formParamMockService.findFormParamMockList(formParamMockQuery);
+
         if(CollectionUtils.isNotEmpty(formParamMockList)){
             for(FormParamMock mockForm: formParamMockList){
                 String formName = mockForm.getParamName();
                 String formValue = mockForm.getValue();
 
-                if(CollectionUtils.isNotEmpty(formdataList)){
-                    for(Map<String, Object> map:formdataList){
-                        for(String key : map.keySet()){
-                            if(formName.equals(key)&&formValue.equals(map.get(key))){
-                                bodyStatus=true;
-                            }else {
-                                continue;
-                            }
+                if(CollectionUtils.isEmpty(formdataList)){
+                    break;
+                }
+
+                for(Map<String, Object> map:formdataList){
+                    for(String key : map.keySet()){
+                        if(formName.equals(key)&&formValue.equals(map.get(key))){
+                            bodyStatus=true;
                         }
                     }
                 }
+
             }
         }else {
             bodyStatus=true;
         }
+
         return bodyStatus;
     }
 
-    public  boolean getJsonStatus(String mockId, String jsonData){
+    public  boolean getJsonStatus(String mockId, HttpServletRequest request) throws IOException {
+        //请求参数中获取的json
+        String jsonData = getJson(request);
+
         boolean bodyStatus = false;
+
+        //数据库中获取的jsonlist
         JsonParamMockQuery jsonParamMockQuery = new JsonParamMockQuery().setMockId(mockId);
         List<JsonParamMock> jsonParamMockList = jsonParamMockService.findJsonParamMockList(jsonParamMockQuery);
+
         if(CollectionUtils.isNotEmpty(jsonParamMockList)){
             for(JsonParamMock jsonParamMock:jsonParamMockList){
                 String jsonKey = jsonParamMock.getExp();
                 String jsonValue = jsonParamMock.getValue();
+
                 Object jsonDataValue =  JSONPath.read(jsonData,"$."+jsonKey);
+
                 if(jsonValue.equals(jsonDataValue)){
                     bodyStatus=true;
-                }else {
-                    continue;
                 }
             }
         }else {
             bodyStatus=true;
         }
+
         return bodyStatus;
     }
 
