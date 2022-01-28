@@ -33,6 +33,7 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        
         <!--platform-->
         <dependency>
             <groupId>com.doublekit</groupId>
