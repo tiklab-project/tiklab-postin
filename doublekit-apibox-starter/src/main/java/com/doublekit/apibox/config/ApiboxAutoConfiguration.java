@@ -60,7 +60,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 //other
 @EnableApiboxServer
 @EnableApiboxClient
-@EnableSwagger2
+//@EnableSwagger2
 public class ApiboxAutoConfiguration {
 
 }

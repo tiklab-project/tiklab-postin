@@ -46,7 +46,7 @@ public class ApiParamParser extends ParamItemParser{
             for(ApiParam apiParam:apiParamsArr){
                 //根据名称查找下标，查找对应的参数
                 String paramName = apiParam.name();
-                int paramIndex = getParamIndex(parameterNames,paramName);
+                int paramIndex = getParamIndex(method, parameterNames, paramName);
                 Parameter parameter = parameters[paramIndex];
 
                 ApiParamMeta paramMeta = parseParamMeta(apiParam,parameter,paramName);
@@ -58,7 +58,7 @@ public class ApiParamParser extends ParamItemParser{
 
             //根据名称查找下标，查找对应的参数
             String paramName = apiParam.name();
-            int paramIndex = getParamIndex(parameterNames,paramName);
+            int paramIndex = getParamIndex(method, parameterNames, paramName);
             Parameter parameter = null;
             try {
                 parameter = parameters[paramIndex];
@@ -142,14 +142,23 @@ public class ApiParamParser extends ParamItemParser{
         return paramMeta;
     }
 
-    int getParamIndex(String[] parameterNames,String paramName){
+    /**
+     * 获取参数名称的参数顺序序号
+     * @param method
+     * @param parameterNames
+     * @param paramName
+     * @return
+     */
+    int getParamIndex(Method method, String[] parameterNames, String paramName){
         for(int i=0;i<parameterNames.length;i++){
             if(paramName.equals(parameterNames[i])){
                 return i;
             }
         }
 
-        throw new ApplicationException(String.format("param:%s not found.",paramName));
+        String className = method.getDeclaringClass().getName();
+        String errorMsg = String.format("class:%s,method:%s,param:%s not found.",className,method.getName(),paramName);
+        throw new ApplicationException(errorMsg);
     }
 
     /**
