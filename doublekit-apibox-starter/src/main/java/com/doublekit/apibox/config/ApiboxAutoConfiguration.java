@@ -16,6 +16,7 @@ import com.doublekit.eam.client.annotation.EnableEamClient;
 import com.doublekit.message.annotation.EnableMessage;
 import com.doublekit.plugin.annotation.EnablePluginServer;
 import com.doublekit.privilege.annotation.EnablePrivilegeServer;
+import com.doublekit.rpc.starter.annotation.EnableRpc;
 import com.doublekit.rpc.starter.annotation.EnableRpcClient;
 import com.doublekit.rpc.starter.annotation.EnableRpcServer;
 import com.doublekit.toolkit.annotation.EnableToolkitServer;
@@ -29,27 +30,13 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableBeans
 @EnableWeb
 @EnableDal
+@EnableDataFly
 @EnableDsl
 @EnableDfs
 @EnableDcs
 @EnableDss
+@EnableRpc
 @EnableMessage
-@DataFly(modules = {
-        "user",
-        "privilege",
-        "eam",
-        "tool",
-        "message",
-        "apibase",
-        "apidef",
-        "apitest",
-        "apimock",
-        "datastru",
-        "apiStatus"
-})
-@EnableDataFly
-@EnableRpcServer(basePackages = "com.doublekit")
-@EnableRpcClient(basePackages = "com.doublekit")
 //pcs
 @EnableUserServer
 @EnableEamServer
