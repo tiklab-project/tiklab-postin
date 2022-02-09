@@ -70,7 +70,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
 
         //添加索引
         Workspace entity = findWorkspace(projectId);
-//        dssClient.save(entity);
+        dssClient.save(entity);
         return projectId;
     }
 
