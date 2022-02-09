@@ -68,9 +68,17 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         //初始化项目权限
         dmRoleService.initDmRoles(projectId,userId);
 
+        //初始化默认分组
+        Category category = new Category();
+        Workspace ws = new Workspace();
+        ws.setId(projectId);
+        category.setWorkspace(ws);
+        category.setName("默认分组");
+        categoryService.createCategory(category);
+
         //添加索引
-        Workspace entity = findWorkspace(projectId);
-        dssClient.save(entity);
+//        Workspace entity = findWorkspace(projectId);
+//        dssClient.save(entity);
         return projectId;
     }
 
@@ -148,7 +156,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
     @Override
     public List<Workspace> findWorkspaceJoinList(WorkspaceQuery workspaceQuery) {
         List<WorkspaceEntity> workspaceEntityList = workspaceDao.findWorkspaceJoinList(workspaceQuery);
-//        System.out.println(System.getProperty("user.dir"));
+
         return BeanMapper.mapList(workspaceEntityList,Workspace.class);
     }
 

@@ -4,7 +4,8 @@ CREATE TABLE apibox_method_status(
         name VARCHAR(64),
         type VARCHAR(32)
 );
-INSERT INTO apibox_method_status values    ("designid","design","设计中","system"),
+INSERT INTO apibox_method_status values     ("publishid","publish","已发布","system"),
+                                            ("designid","design","设计中","system"),
                                             ("developmentid","development","开发中","system"),
                                             ("testid","test","测试","system"),
                                             ("completeid","complete","完成","system"),

@@ -57,6 +57,7 @@ public class TicketFilterAutoConfiguration {
                         "/share/judgeAuthCode",
                         "/port/reportImport",
                         "/dingdingcfg/findId",
+
                 })
                 .ignorePreUrls(new String[]{
                         "/apis",
@@ -69,7 +70,8 @@ public class TicketFilterAutoConfiguration {
                         "/webjars",
                         "/csrf",
                         "/v2",
-                        "/mockx"
+                        "/mockx",
+                        "/licence"
                 })
                 .get();
     }

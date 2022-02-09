@@ -107,6 +107,11 @@
             <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.doublekit</groupId>
+            <artifactId>doublekit-pcs-licence-server</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
         <!--hutool 快速开发工具包-->
         <dependency>
             <groupId>cn.hutool</groupId>
@@ -119,6 +124,7 @@
             <version>1.0.0-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
+
     </dependencies>
 
     <build>

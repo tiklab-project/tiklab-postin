@@ -14,7 +14,7 @@ import java.util.List;
 public class ApiStatusQuery {
         @ApiProperty(name ="orderParams",desc = "排序参数")
         @OrderField
-        private List<Order> orderParams = OrderBuilders.instance().asc("id").get();
+        private List<Order> orderParams = OrderBuilders.instance().asc("name").get();
 
         @ApiProperty(name ="pageParam",desc = "分页参数")
         @PageField

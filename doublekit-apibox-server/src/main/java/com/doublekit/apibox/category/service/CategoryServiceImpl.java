@@ -184,9 +184,8 @@ public class CategoryServiceImpl implements CategoryService {
         List<Category> categoryList = matchCategoryList.stream().map(category -> {
             MethodExQuery methodExQuery = new MethodExQuery();
             methodExQuery.setCategoryId(category.getId());
-            List<MethodEntity> methodList = methodDao.findMethodList(methodExQuery);
-            List<MethodEx> methodExes = BeanMapper.mapList(methodList, MethodEx.class);
-            category.setCategoryMethod(methodExes);
+            List<MethodEx> methodList = methodService.findMethodList(methodExQuery);
+            category.setCategoryMethod(methodList);
             return category;
         }).collect(Collectors.toList());
         return  categoryList;
