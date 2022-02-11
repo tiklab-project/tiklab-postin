@@ -12,6 +12,7 @@ import com.doublekit.common.page.Pagination;
 import com.doublekit.common.page.PaginationBuilder;
 import com.doublekit.dal.jpa.criterial.DeleteBuilders;
 import com.doublekit.dal.jpa.criterial.model.DeleteCondition;
+import com.doublekit.dss.client.DssClient;
 import com.doublekit.eam.common.Ticket;
 import com.doublekit.eam.common.TicketContext;
 import com.doublekit.eam.common.TicketHolder;
@@ -88,6 +89,8 @@ public class MethodServiceImpl implements MethodService {
     @Autowired
     ResponseResultDao responseResultDao;
 
+    @Autowired
+    DssClient dssClient;
 
     @Override
     public String createMethod(@NotNull @Valid MethodEx methodEx) {
@@ -109,7 +112,7 @@ public class MethodServiceImpl implements MethodService {
 
         //添加索引
         MethodEx entity = findMethod(id);
-//        dssClient.save(entity);
+        dssClient.save(entity);
 
         //发送消息
         sendMessageForCreate(entity);
