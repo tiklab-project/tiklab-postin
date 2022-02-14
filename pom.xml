@@ -125,13 +125,6 @@
         </dependencies>
     </dependencyManagement>
 
-    <repositories>
-        <repository>
-            <id>maven-public</id>
-            <name>maven public</name>
-            <url>http://172.12.1.11:8081/repository/maven-public/</url>
-        </repository>
-    </repositories>
     <distributionManagement>
         <repository>
             <id>nexus-releases</id>
