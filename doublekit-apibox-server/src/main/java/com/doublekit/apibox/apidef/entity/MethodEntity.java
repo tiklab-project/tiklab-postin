@@ -8,6 +8,7 @@ import com.doublekit.dal.jpa.mapper.annotation.Table;import com.doublekit.dal.jp
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name="apibox_method")
@@ -52,10 +53,10 @@ public class MethodEntity implements Serializable {
     private String executor;
 
     @Column(name = "create_time",length = 4)
-    private Date createTime;
+    private Timestamp createTime;
 
     @Column(name = "update_time",length = 4)
-    private Date updateTime;
+    private Timestamp updateTime;
 
     @Column(name = "status_id",length = 8)
     private String statusId;
@@ -148,19 +149,19 @@ public class MethodEntity implements Serializable {
         this.updateUser = updateUser;
     }
 
-    public Date getCreateTime() {
+    public Timestamp getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(Timestamp createTime) {
         this.createTime = createTime;
     }
 
-    public Date getUpdateTime() {
+    public Timestamp getUpdateTime() {
         return updateTime;
     }
 
-    public void setUpdateTime(Date updateTime) {
+    public void setUpdateTime(Timestamp updateTime) {
         this.updateTime = updateTime;
     }
 

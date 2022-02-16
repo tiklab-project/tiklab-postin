@@ -40,9 +40,6 @@ public class CategoryServiceImpl implements CategoryService {
     CategoryDao categoryDao;
 
     @Autowired
-    MethodDao methodDao;
-
-    @Autowired
     MethodService methodService;
 
     @Autowired

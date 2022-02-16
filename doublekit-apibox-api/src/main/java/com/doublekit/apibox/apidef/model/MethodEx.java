@@ -14,9 +14,11 @@ import com.doublekit.dss.annotation.IndexQueryField;
 import com.doublekit.join.annotation.Join;
 import com.doublekit.join.annotation.JoinQuery;
 import com.doublekit.user.user.model.User;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.validation.constraints.NotNull;
 import java.sql.Date;
+import java.sql.Timestamp;
 
 @ApiModel
 //@Mapper(target = "com.doublekit.apibox.apidef.entity.MethodEntity")
@@ -92,11 +94,13 @@ public class MethodEx extends BaseModel {
 
     @ApiProperty(name="createTime",desc="创建时间")
     @IndexField
-    private  java.sql.Date createTime;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
+    private  java.sql.Timestamp createTime;
 
     @ApiProperty(name="updateTime",desc="更新时间")
     @IndexField
-    private java.sql.Date updateTime;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
+    private java.sql.Timestamp updateTime;
 
     @ApiProperty(name="status",desc="状态")
     @Mappings({
@@ -188,14 +192,6 @@ public class MethodEx extends BaseModel {
         this.createUser = createUser;
     }
 
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
     public User getUpdateUser() {
         return updateUser;
     }
@@ -204,11 +200,19 @@ public class MethodEx extends BaseModel {
         this.updateUser = updateUser;
     }
 
-    public Date getUpdateTime() {
+    public Timestamp getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Timestamp createTime) {
+        this.createTime = createTime;
+    }
+
+    public Timestamp getUpdateTime() {
         return updateTime;
     }
 
-    public void setUpdateTime(Date updateTime) {
+    public void setUpdateTime(Timestamp updateTime) {
         this.updateTime = updateTime;
     }
 

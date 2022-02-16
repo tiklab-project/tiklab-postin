@@ -28,6 +28,7 @@ import org.springframework.util.StringUtils;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -108,6 +109,8 @@ public class MethodServiceImpl implements MethodService {
         //添加创建人
         String creatUserId = findCreatUser();
         methodEntity.setCreateUser(creatUserId);
+        methodEntity.setCreateTime(new Timestamp(System.currentTimeMillis()));
+        methodEntity.setUpdateTime(new Timestamp(System.currentTimeMillis()));
         String id = methodDao.createMethod(methodEntity);
 
         //添加索引
@@ -148,10 +151,12 @@ public class MethodServiceImpl implements MethodService {
         //添加更新人
         String updateUserId = findCreatUser();
         methodEntity.setUpdateUser(updateUserId);
+        methodEntity.setUpdateTime(new Timestamp(System.currentTimeMillis()));
         methodDao.updateMethod(methodEntity);
 
         //更新索引
         MethodEx entity = findMethod(method.getId());
+
         dssClient.update(entity);
 
         //发送更新消息提醒
