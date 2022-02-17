@@ -16,113 +16,11 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>doublekit-apibox-language-en-plugin</module>
+        <module>doublekit-apibox-bundle-plugin</module>
     </modules>
 
     <properties>
         <doublekit.version>1.0.0-SNAPSHOT</doublekit.version>
     </properties>
-
-    <dependencyManagement>
-        <dependencies>
-            <!--doublekit-->
-            <dependency>
-                <groupId>com.doublekit</groupId>
-                <artifactId>doublekit-framework-common</artifactId>
-                <version>${doublekit.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.doublekit</groupId>
-                <artifactId>doublekit-framework-utils</artifactId>
-                <version>${doublekit.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.doublekit</groupId>
-                <artifactId>doublekit-web-spring-boot-starter</artifactId>
-                <version>${doublekit.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.doublekit</groupId>
-                <artifactId>doublekit-beans-annotation</artifactId>
-                <version>${doublekit.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.doublekit</groupId>
-                <artifactId>doublekit-beans-core</artifactId>
-                <version>${doublekit.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.doublekit</groupId>
-                <artifactId>doublekit-dsl-join-annotation</artifactId>
-                <version>${doublekit.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.doublekit</groupId>
-                <artifactId>doublekit-dsl-join-core</artifactId>
-                <version>${doublekit.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.doublekit</groupId>
-                <artifactId>doublekit-framework-common</artifactId>
-                <version>${doublekit.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.doublekit</groupId>
-                <artifactId>doublekit-dal-jpa-annotation</artifactId>
-                <version>${doublekit.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.doublekit</groupId>
-                <artifactId>doublekit-dal-spring-boot-starter</artifactId>
-                <version>${doublekit.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.doublekit</groupId>
-                <artifactId>doublekit-rpc-spring-boot-starter</artifactId>
-                <version>${doublekit.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.doublekit</groupId>
-                <artifactId>doublekit-dfs-store-api</artifactId>
-                <version>${doublekit.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.doublekit</groupId>
-                <artifactId>doublekit-dfs-spring-boot-starter</artifactId>
-                <version>${doublekit.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.doublekit</groupId>
-                <artifactId>doublekit-dcs-spring-boot-starter</artifactId>
-                <version>${doublekit.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.doublekit</groupId>
-                <artifactId>doublekit-dss-store-api</artifactId>
-                <version>${doublekit.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.doublekit</groupId>
-                <artifactId>doublekit-dss-spring-boot-starter</artifactId>
-                <version>${doublekit.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.doublekit</groupId>
-                <artifactId>doublekit-codegen-core</artifactId>
-                <version>${doublekit.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.doublekit</groupId>
-                <artifactId>doublekit-apibox-ce-annotation</artifactId>
-                <version>${doublekit.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.doublekit</groupId>
-                <artifactId>doublekit-apibox-client</artifactId>
-                <version>${doublekit.version}</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
 </project>
 

@@ -9,7 +9,7 @@
         <artifactId>doublekit-apibox-plugin</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
-    <artifactId>doublekit-apibox-language-en-plugin</artifactId>
+    <artifactId>doublekit-apibox-bundle-plugin</artifactId>
     <name>${project.artifactId}</name>
 
     <properties>
