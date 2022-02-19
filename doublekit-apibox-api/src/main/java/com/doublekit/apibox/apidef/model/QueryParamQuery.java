@@ -30,8 +30,9 @@ public class QueryParamQuery {
         return methodId;
     }
 
-    public void setMethodId(String methodId) {
+    public QueryParamQuery setMethodId(String methodId) {
         this.methodId = methodId;
+        return this;
     }
 
     public List<Order> getOrderParams() {

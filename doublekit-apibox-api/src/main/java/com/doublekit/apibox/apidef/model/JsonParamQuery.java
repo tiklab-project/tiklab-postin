@@ -34,8 +34,9 @@ public class JsonParamQuery {
         return methodId;
     }
 
-    public void setMethodId(String methodId) {
+    public JsonParamQuery setMethodId(String methodId) {
         this.methodId = methodId;
+        return this;
     }
 
     public List<Order> getOrderParams() {

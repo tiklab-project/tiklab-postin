@@ -7,6 +7,9 @@ import com.doublekit.apibox.apidef.entity.*;
 import com.doublekit.apibox.apidef.model.MethodEx;
 import com.doublekit.apibox.apidef.model.MethodExQuery;
 import com.doublekit.apibox.apidef.support.MessageTemplateConstant;
+import com.doublekit.apibox.category.model.Category;
+import com.doublekit.apibox.category.model.CategoryQuery;
+import com.doublekit.apibox.category.service.CategoryService;
 import com.doublekit.beans.BeanMapper;
 import com.doublekit.common.page.Pagination;
 import com.doublekit.common.page.PaginationBuilder;
@@ -32,6 +35,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 /**
 * 用户服务业务处理
@@ -39,6 +43,8 @@ import java.util.UUID;
 @Service
 public class MethodServiceImpl implements MethodService {
 
+    @Autowired
+    CategoryService categoryService;
     @Autowired
     MethodDao methodDao;
 
@@ -329,9 +335,24 @@ public class MethodServiceImpl implements MethodService {
 
         //添加当前版本
         methodExQuery.setVersionCode("current");
+        Pagination<MethodEx> methodExPagination=null;
+        if(!StringUtils.isEmpty(methodExQuery.getWorkspaceId())){
+            List<Category> categoryList = categoryService.findCategoryList(new CategoryQuery().setWorkspaceId(methodExQuery.getWorkspaceId()));
+            List<String> collect = categoryList.stream().map(Category::getId).collect(Collectors.toList());
+            String[] strings = new String[collect.size()];
+            String[] toArray = collect.toArray(strings);
+
+            Pagination<MethodEntity> methodEntityPagination = methodDao.findMethodByCategoryIdlist(toArray, methodExQuery);
+            List<MethodEx> methodExList = BeanMapper.mapList(methodEntityPagination.getDataList(), MethodEx.class);
+
+            joinTemplate.joinQuery(methodExList);
+            methodExPagination = PaginationBuilder.build(methodEntityPagination, methodExList);
+        }else {
+            methodExPagination = findMethod(methodExQuery);
+        }
 
 
-        return  findMethod(methodExQuery);
+        return methodExPagination ;
     }
     /**
      * 分页查询

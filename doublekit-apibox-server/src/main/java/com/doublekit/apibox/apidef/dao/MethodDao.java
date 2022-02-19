@@ -3,14 +3,20 @@ package com.doublekit.apibox.apidef.dao;
 import com.doublekit.apibox.apidef.entity.MethodEntity;
 import com.doublekit.apibox.apidef.model.MethodExQuery;
 import com.doublekit.common.page.Pagination;
+import com.doublekit.dal.jdbc.NamedParameterJdbcTemplate;
 import com.doublekit.dal.jpa.JpaTemplate;
+import com.doublekit.dal.jpa.criterial.QueryBuilders;
 import com.doublekit.dal.jpa.criterial.model.DeleteCondition;
+import com.doublekit.dal.jpa.criterial.model.QueryCondition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -91,5 +97,14 @@ public class MethodDao {
     List<MethodEntity> filterMethod (List<MethodEntity> methodExList){
         List<MethodEntity> collect = methodExList.stream().filter(a -> "current".equals(a.getVersionCode())).collect(Collectors.toList());
         return collect;
+    }
+
+    public Pagination<MethodEntity> findMethodByCategoryIdlist(String[] ids,MethodExQuery methodExQuery) {
+        QueryCondition queryCondition = QueryBuilders.createQuery(MethodEntity.class)
+                .in("categoryId", ids)
+                .pagination(methodExQuery.getPageParam())
+                .get();
+        Pagination<MethodEntity> page = jpaTemplate.findPage(queryCondition, MethodEntity.class);
+        return page;
     }
 }

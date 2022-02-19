@@ -59,7 +59,8 @@ public class CategoryQuery {
         return name;
     }
 
-    public void setName(String name) {
+    public CategoryQuery setName(String name) {
         this.name = name;
+        return this;
     }
 }

@@ -30,8 +30,9 @@ public class RequestHeaderQuery {
         return methodId;
     }
 
-    public void setMethodId(String methodId) {
+    public RequestHeaderQuery setMethodId(String methodId) {
         this.methodId = methodId;
+        return this;
     }
 
     public List<Order> getOrderParams() {
