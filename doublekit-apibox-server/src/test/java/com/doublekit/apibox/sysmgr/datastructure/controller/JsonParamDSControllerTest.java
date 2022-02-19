@@ -1,6 +1,6 @@
 package com.doublekit.apibox.sysmgr.datastructure.controller;
 
-import com.alibaba.fastjson.JSONObject;
+import com.doublekit.utils.MapUtils;
 import com.doublekit.common.Result;
 import com.doublekit.apibox.client.mock.JMockit;
 import com.doublekit.apibox.config.TestConfig;
@@ -59,9 +59,8 @@ public class JsonParamDSControllerTest {
     public void test01ForSaveJsonParamDS() {
         JsonParamDS jsonParamDS = JMockit.mock(JsonParamDS.class);
 
-        Map paramMap  = JSONObject.parseObject(JSONObject.toJSONString(jsonParamDS));
-        MultiValueMap<String, String> multiValueMap = new LinkedMultiValueMap<>();
-        multiValueMap.setAll(paramMap);
+        MultiValueMap<String, String> multiValueMap = MapUtils.toMultiMap(jsonParamDS);
+
         try {
             MvcResult mvcResult = mockMvc.perform(
                                 post("/jsonParamDS/createJsonParamDS")
@@ -87,9 +86,8 @@ public class JsonParamDSControllerTest {
         JsonParamDS jsonParamDS = JMockit.mock(JsonParamDS.class);
         jsonParamDS.setId(id);
 
-        Map paramMap  = JSONObject.parseObject(JSONObject.toJSONString(jsonParamDS));
-        MultiValueMap<String, String> multiValueMap = new LinkedMultiValueMap<>();
-        multiValueMap.setAll(paramMap);
+        MultiValueMap<String, String> multiValueMap = MapUtils.toMultiMap(jsonParamDS);
+
         try {
             MvcResult mvcResult = mockMvc.perform(
                                 post("/jsonParamDS/updateJsonParamDS")

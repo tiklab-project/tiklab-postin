@@ -1,6 +1,6 @@
 package com.doublekit.apibox.apimock.controller;
 
-import com.alibaba.fastjson.JSONObject;
+import com.doublekit.utils.MapUtils;
 import com.doublekit.common.Result;
 import com.doublekit.apibox.client.mock.JMockit;
 import com.doublekit.apibox.config.TestConfig;
@@ -59,9 +59,8 @@ public class RequestHeaderMockControllerTest {
     public void test01ForSaveRequestHeaderMock() {
         RequestHeaderMock requestHeaderMock = JMockit.mock(RequestHeaderMock.class);
 
-        Map paramMap  = JSONObject.parseObject(JSONObject.toJSONString(requestHeaderMock));
-        MultiValueMap<String, String> multiValueMap = new LinkedMultiValueMap<>();
-        multiValueMap.setAll(paramMap);
+        MultiValueMap<String, String> multiValueMap = MapUtils.toMultiMap(requestHeaderMock);
+
         try {
             MvcResult mvcResult = mockMvc.perform(
                                 post("/requestHeaderMock/createRequestHeaderMock")
@@ -87,9 +86,8 @@ public class RequestHeaderMockControllerTest {
         RequestHeaderMock requestHeaderMock = JMockit.mock(RequestHeaderMock.class);
         requestHeaderMock.setId(id);
 
-        Map paramMap  = JSONObject.parseObject(JSONObject.toJSONString(requestHeaderMock));
-        MultiValueMap<String, String> multiValueMap = new LinkedMultiValueMap<>();
-        multiValueMap.setAll(paramMap);
+        MultiValueMap<String, String> multiValueMap = MapUtils.toMultiMap(requestHeaderMock);
+
         try {
             MvcResult mvcResult = mockMvc.perform(
                                 post("/requestHeaderMock/updateRequestHeaderMock")

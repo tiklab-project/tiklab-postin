@@ -1,10 +1,10 @@
 package com.doublekit.apibox.apidef.controller;
 
-import com.alibaba.fastjson.JSONObject;
 import com.doublekit.apibox.apidef.model.AfterScript;
 import com.doublekit.apibox.client.mock.JMockit;
 import com.doublekit.apibox.config.TestConfig;
 import com.doublekit.common.Result;
+import com.doublekit.utils.MapUtils;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -22,11 +22,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.context.WebApplicationContext;
-
-import java.util.Map;
 
 import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -59,9 +56,7 @@ public class AfterScriptControllerTest {
     public void test01ForSaveAfterScript() {
         AfterScript afterScript = JMockit.mock(AfterScript.class);
 
-        Map paramMap  = JSONObject.parseObject(JSONObject.toJSONString(afterScript));
-        MultiValueMap<String, String> multiValueMap = new LinkedMultiValueMap<>();
-        multiValueMap.setAll(paramMap);
+        MultiValueMap<String, String> multiValueMap = MapUtils.toMultiMap(afterScript);
         try {
             MvcResult mvcResult = mockMvc.perform(
                                 post("/afterScript/createAfterScript")
@@ -87,9 +82,7 @@ public class AfterScriptControllerTest {
         AfterScript afterScript = JMockit.mock(AfterScript.class);
         afterScript.setId(id);
 
-        Map paramMap  = JSONObject.parseObject(JSONObject.toJSONString(afterScript));
-        MultiValueMap<String, String> multiValueMap = new LinkedMultiValueMap<>();
-        multiValueMap.setAll(paramMap);
+        MultiValueMap<String, String> multiValueMap = MapUtils.toMultiMap(afterScript);
         try {
             MvcResult mvcResult = mockMvc.perform(
                                 post("/afterScript/updateAfterScript")

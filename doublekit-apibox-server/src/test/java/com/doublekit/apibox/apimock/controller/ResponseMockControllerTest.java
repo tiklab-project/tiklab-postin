@@ -5,6 +5,7 @@ import com.doublekit.apibox.apimock.model.ResponseMock;
 import com.doublekit.apibox.client.mock.JMockit;
 import com.doublekit.apibox.config.TestConfig;
 import com.doublekit.common.Result;
+import com.doublekit.utils.MapUtils;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -59,9 +60,8 @@ public class ResponseMockControllerTest {
     public void test01ForSaveResponseMock() {
         ResponseMock responseMock = JMockit.mock(ResponseMock.class);
 
-        Map paramMap  = JSONObject.parseObject(JSONObject.toJSONString(responseMock));
-        MultiValueMap<String, String> multiValueMap = new LinkedMultiValueMap<>();
-        multiValueMap.setAll(paramMap);
+        MultiValueMap<String, String> multiValueMap = MapUtils.toMultiMap(responseMock);
+
         try {
             MvcResult mvcResult = mockMvc.perform(
                                 post("/responseMock/createResponseMock")
@@ -87,9 +87,8 @@ public class ResponseMockControllerTest {
         ResponseMock responseMock = JMockit.mock(ResponseMock.class);
         responseMock.setId(id);
 
-        Map paramMap  = JSONObject.parseObject(JSONObject.toJSONString(responseMock));
-        MultiValueMap<String, String> multiValueMap = new LinkedMultiValueMap<>();
-        multiValueMap.setAll(paramMap);
+        MultiValueMap<String, String> multiValueMap = MapUtils.toMultiMap(responseMock);
+
         try {
             MvcResult mvcResult = mockMvc.perform(
                                 post("/responseMock/updateResponseMock")

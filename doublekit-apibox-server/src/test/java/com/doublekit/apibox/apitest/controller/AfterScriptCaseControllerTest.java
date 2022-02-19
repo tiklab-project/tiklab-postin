@@ -1,6 +1,6 @@
 package com.doublekit.apibox.apitest.controller;
 
-import com.alibaba.fastjson.JSONObject;
+import com.doublekit.utils.MapUtils;
 import com.doublekit.common.Result;
 import com.doublekit.apibox.client.mock.JMockit;
 import com.doublekit.apibox.config.TestConfig;
@@ -59,9 +59,8 @@ public class AfterScriptCaseControllerTest {
     public void test01ForSaveAfterScriptCase() {
         AfterScriptCase afterScriptCase = JMockit.mock(AfterScriptCase.class);
 
-        Map paramMap  = JSONObject.parseObject(JSONObject.toJSONString(afterScriptCase));
-        MultiValueMap<String, String> multiValueMap = new LinkedMultiValueMap<>();
-        multiValueMap.setAll(paramMap);
+        MultiValueMap<String, String> multiValueMap = MapUtils.toMultiMap(afterScriptCase);
+
         try {
             MvcResult mvcResult = mockMvc.perform(
                                 post("/afterScriptCase/createAfterScriptCase")
@@ -87,9 +86,8 @@ public class AfterScriptCaseControllerTest {
         AfterScriptCase afterScriptCase = JMockit.mock(AfterScriptCase.class);
         afterScriptCase.setId(id);
 
-        Map paramMap  = JSONObject.parseObject(JSONObject.toJSONString(afterScriptCase));
-        MultiValueMap<String, String> multiValueMap = new LinkedMultiValueMap<>();
-        multiValueMap.setAll(paramMap);
+        MultiValueMap<String, String> multiValueMap = MapUtils.toMultiMap(afterScriptCase);
+
         try {
             MvcResult mvcResult = mockMvc.perform(
                                 post("/afterScriptCase/updateAfterScriptCase")

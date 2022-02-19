@@ -5,6 +5,7 @@ import com.doublekit.apibox.apitest.model.RequestHeaderCase;
 import com.doublekit.apibox.client.mock.JMockit;
 import com.doublekit.apibox.config.TestConfig;
 import com.doublekit.common.Result;
+import com.doublekit.utils.MapUtils;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -59,9 +60,8 @@ public class RequestHeaderCaseControllerTest {
     public void test01ForSaveRequestHeaderCase() {
         RequestHeaderCase requestHeaderCase = JMockit.mock(RequestHeaderCase.class);
 
-        Map paramMap  = JSONObject.parseObject(JSONObject.toJSONString(requestHeaderCase));
-        MultiValueMap<String, String> multiValueMap = new LinkedMultiValueMap<>();
-        multiValueMap.setAll(paramMap);
+        MultiValueMap<String, String> multiValueMap = MapUtils.toMultiMap(requestHeaderCase);
+
         try {
             MvcResult mvcResult = mockMvc.perform(
                                 post("/requestHeaderCase/createRequestHeaderCase")
@@ -87,9 +87,8 @@ public class RequestHeaderCaseControllerTest {
         RequestHeaderCase requestHeaderCase = JMockit.mock(RequestHeaderCase.class);
         requestHeaderCase.setId(id);
 
-        Map paramMap  = JSONObject.parseObject(JSONObject.toJSONString(requestHeaderCase));
-        MultiValueMap<String, String> multiValueMap = new LinkedMultiValueMap<>();
-        multiValueMap.setAll(paramMap);
+        MultiValueMap<String, String> multiValueMap = MapUtils.toMultiMap(requestHeaderCase);
+
         try {
             MvcResult mvcResult = mockMvc.perform(
                                 post("/requestHeaderCase/updateRequestHeaderCase")

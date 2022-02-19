@@ -1,6 +1,6 @@
 package com.doublekit.apibox.sysmgr.datastructure.controller;
 
-import com.alibaba.fastjson.JSONObject;
+import com.doublekit.utils.MapUtils;
 import com.doublekit.common.Result;
 import com.doublekit.apibox.client.mock.JMockit;
 import com.doublekit.apibox.config.TestConfig;
@@ -59,9 +59,8 @@ public class DataStructureControllerTest {
     public void test01ForSaveDataStructure() {
         DataStructure dataStructure = JMockit.mock(DataStructure.class);
 
-        Map paramMap  = JSONObject.parseObject(JSONObject.toJSONString(dataStructure));
-        MultiValueMap<String, String> multiValueMap = new LinkedMultiValueMap<>();
-        multiValueMap.setAll(paramMap);
+        MultiValueMap<String, String> multiValueMap = MapUtils.toMultiMap(dataStructure);
+
         try {
             MvcResult mvcResult = mockMvc.perform(
                                 post("/dataStructure/createDataStructure")
@@ -87,9 +86,8 @@ public class DataStructureControllerTest {
         DataStructure dataStructure = JMockit.mock(DataStructure.class);
         dataStructure.setId(id);
 
-        Map paramMap  = JSONObject.parseObject(JSONObject.toJSONString(dataStructure));
-        MultiValueMap<String, String> multiValueMap = new LinkedMultiValueMap<>();
-        multiValueMap.setAll(paramMap);
+        MultiValueMap<String, String> multiValueMap = MapUtils.toMultiMap(dataStructure);
+
         try {
             MvcResult mvcResult = mockMvc.perform(
                                 post("/dataStructure/updateDataStructure")

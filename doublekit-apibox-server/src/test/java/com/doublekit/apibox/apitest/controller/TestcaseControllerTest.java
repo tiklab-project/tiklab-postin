@@ -1,6 +1,6 @@
 package com.doublekit.apibox.apitest.controller;
 
-import com.alibaba.fastjson.JSONObject;
+import com.doublekit.utils.MapUtils;
 import com.doublekit.common.Result;
 import com.doublekit.apibox.client.mock.JMockit;
 import com.doublekit.apibox.config.TestConfig;
@@ -59,9 +59,8 @@ public class TestcaseControllerTest {
     public void test01ForSaveTestcase() {
         Testcase testcase = JMockit.mock(Testcase.class);
 
-        Map paramMap  = JSONObject.parseObject(JSONObject.toJSONString(testcase));
-        MultiValueMap<String, String> multiValueMap = new LinkedMultiValueMap<>();
-        multiValueMap.setAll(paramMap);
+        MultiValueMap<String, String> multiValueMap = MapUtils.toMultiMap(testcase);
+
         try {
             MvcResult mvcResult = mockMvc.perform(
                                 post("/testcase/createTestcase")
@@ -87,9 +86,8 @@ public class TestcaseControllerTest {
         Testcase testcase = JMockit.mock(Testcase.class);
         testcase.setId(id);
 
-        Map paramMap  = JSONObject.parseObject(JSONObject.toJSONString(testcase));
-        MultiValueMap<String, String> multiValueMap = new LinkedMultiValueMap<>();
-        multiValueMap.setAll(paramMap);
+        MultiValueMap<String, String> multiValueMap = MapUtils.toMultiMap(testcase);
+
         try {
             MvcResult mvcResult = mockMvc.perform(
                                 post("/testcase/updateTestcase")

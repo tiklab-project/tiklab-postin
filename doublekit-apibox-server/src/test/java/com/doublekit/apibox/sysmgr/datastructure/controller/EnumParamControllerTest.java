@@ -1,6 +1,6 @@
 package com.doublekit.apibox.sysmgr.datastructure.controller;
 
-import com.alibaba.fastjson.JSONObject;
+import com.doublekit.utils.MapUtils;
 import com.doublekit.common.Result;
 import com.doublekit.apibox.client.mock.JMockit;
 import com.doublekit.apibox.config.TestConfig;
@@ -59,9 +59,8 @@ public class EnumParamControllerTest {
     public void test01ForSaveEnumParam() {
         EnumParam enumParam = JMockit.mock(EnumParam.class);
 
-        Map paramMap  = JSONObject.parseObject(JSONObject.toJSONString(enumParam));
-        MultiValueMap<String, String> multiValueMap = new LinkedMultiValueMap<>();
-        multiValueMap.setAll(paramMap);
+        MultiValueMap<String, String> multiValueMap = MapUtils.toMultiMap(enumParam);
+
         try {
             MvcResult mvcResult = mockMvc.perform(
                                 post("/enumParam/createEnumParam")
@@ -87,9 +86,8 @@ public class EnumParamControllerTest {
         EnumParam enumParam = JMockit.mock(EnumParam.class);
         enumParam.setId(id);
 
-        Map paramMap  = JSONObject.parseObject(JSONObject.toJSONString(enumParam));
-        MultiValueMap<String, String> multiValueMap = new LinkedMultiValueMap<>();
-        multiValueMap.setAll(paramMap);
+        MultiValueMap<String, String> multiValueMap = MapUtils.toMultiMap(enumParam);
+
         try {
             MvcResult mvcResult = mockMvc.perform(
                                 post("/enumParam/updateEnumParam")

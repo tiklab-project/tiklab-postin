@@ -1,6 +1,6 @@
 package com.doublekit.apibox.sysmgr.apistatus.controller;
 
-import com.alibaba.fastjson.JSONObject;
+import com.doublekit.utils.MapUtils;
 import com.doublekit.common.Result;
 import com.doublekit.apibox.client.mock.JMockit;
 import com.doublekit.apibox.config.TestConfig;
@@ -59,9 +59,8 @@ public class ApiStatusControllerTest {
     public void test01ForSaveApiStatus() {
         ApiStatus apiStatus = JMockit.mock(ApiStatus.class);
 
-        Map paramMap  = JSONObject.parseObject(JSONObject.toJSONString(apiStatus));
-        MultiValueMap<String, String> multiValueMap = new LinkedMultiValueMap<>();
-        multiValueMap.setAll(paramMap);
+        MultiValueMap<String, String> multiValueMap = MapUtils.toMultiMap(apiStatus);
+
         try {
             MvcResult mvcResult = mockMvc.perform(
                                 post("/apiStatus/createApiStatus")
@@ -87,9 +86,8 @@ public class ApiStatusControllerTest {
         ApiStatus apiStatus = JMockit.mock(ApiStatus.class);
         apiStatus.setId(id);
 
-        Map paramMap  = JSONObject.parseObject(JSONObject.toJSONString(apiStatus));
-        MultiValueMap<String, String> multiValueMap = new LinkedMultiValueMap<>();
-        multiValueMap.setAll(paramMap);
+        MultiValueMap<String, String> multiValueMap = MapUtils.toMultiMap(apiStatus);
+
         try {
             MvcResult mvcResult = mockMvc.perform(
                                 post("/apiStatus/updateApiStatus")

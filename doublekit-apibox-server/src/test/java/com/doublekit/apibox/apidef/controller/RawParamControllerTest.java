@@ -1,14 +1,14 @@
 package com.doublekit.apibox.apidef.controller;
 
-import com.alibaba.fastjson.JSONObject;
+import com.doublekit.apibox.apidef.model.RawParam;
+import com.doublekit.apibox.client.mock.JMockit;
 import com.doublekit.apibox.config.TestConfig;
 import com.doublekit.common.Result;
-import com.doublekit.apibox.client.mock.JMockit;
-import com.doublekit.apibox.apidef.model.RawParam;
+import com.doublekit.utils.MapUtils;
 import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.FixMethodOrder;
 import org.junit.runners.MethodSorters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,11 +22,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.context.WebApplicationContext;
-
-import java.util.Map;
 
 import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -59,9 +56,8 @@ public class RawParamControllerTest {
     public void test01ForSaveRawParam() {
         RawParam rawParam = JMockit.mock(RawParam.class);
 
-        Map paramMap  = JSONObject.parseObject(JSONObject.toJSONString(rawParam));
-        MultiValueMap<String, String> multiValueMap = new LinkedMultiValueMap<>();
-        multiValueMap.setAll(paramMap);
+        MultiValueMap<String, String> multiValueMap = MapUtils.toMultiMap(rawParam);
+
         try {
             MvcResult mvcResult = mockMvc.perform(
                                 post("/rawParam/createRawParam")
@@ -87,9 +83,8 @@ public class RawParamControllerTest {
         RawParam rawParam = JMockit.mock(RawParam.class);
         rawParam.setId(id);
 
-        Map paramMap  = JSONObject.parseObject(JSONObject.toJSONString(rawParam));
-        MultiValueMap<String, String> multiValueMap = new LinkedMultiValueMap<>();
-        multiValueMap.setAll(paramMap);
+        MultiValueMap<String, String> multiValueMap = MapUtils.toMultiMap(rawParam);
+
         try {
             MvcResult mvcResult = mockMvc.perform(
                                 post("/rawParam/updateRawParam")

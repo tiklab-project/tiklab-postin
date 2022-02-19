@@ -1,6 +1,6 @@
 package com.doublekit.apibox.sysmgr.environment.controller;
 
-import com.alibaba.fastjson.JSONObject;
+import com.doublekit.utils.MapUtils;
 import com.doublekit.common.Result;
 import com.doublekit.apibox.client.mock.JMockit;
 import com.doublekit.apibox.config.TestConfig;
@@ -59,9 +59,8 @@ public class EnvironmentControllerTest {
     public void test01ForSaveEnvironment() {
         Environment environment = JMockit.mock(Environment.class);
 
-        Map paramMap  = JSONObject.parseObject(JSONObject.toJSONString(environment));
-        MultiValueMap<String, String> multiValueMap = new LinkedMultiValueMap<>();
-        multiValueMap.setAll(paramMap);
+        MultiValueMap<String, String> multiValueMap = MapUtils.toMultiMap(environment);
+
         try {
             MvcResult mvcResult = mockMvc.perform(
                                 post("/environment/createEnvironment")
@@ -87,9 +86,8 @@ public class EnvironmentControllerTest {
         Environment environment = JMockit.mock(Environment.class);
         environment.setId(id);
 
-        Map paramMap  = JSONObject.parseObject(JSONObject.toJSONString(environment));
-        MultiValueMap<String, String> multiValueMap = new LinkedMultiValueMap<>();
-        multiValueMap.setAll(paramMap);
+        MultiValueMap<String, String> multiValueMap = MapUtils.toMultiMap(environment);
+
         try {
             MvcResult mvcResult = mockMvc.perform(
                                 post("/environment/updateEnvironment")

@@ -1,10 +1,10 @@
 package com.doublekit.apibox.apimock.controller;
 
-import com.alibaba.fastjson.JSONObject;
 import com.doublekit.apibox.apimock.model.RawResponseMock;
 import com.doublekit.apibox.client.mock.JMockit;
 import com.doublekit.apibox.config.TestConfig;
 import com.doublekit.common.Result;
+import com.doublekit.utils.MapUtils;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -22,11 +22,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.context.WebApplicationContext;
-
-import java.util.Map;
 
 import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -59,9 +56,8 @@ public class RawResponseMockControllerTest {
     public void test01ForSaveRawResponseMock() {
         RawResponseMock rawResponseMock = JMockit.mock(RawResponseMock.class);
 
-        Map paramMap  = JSONObject.parseObject(JSONObject.toJSONString(rawResponseMock));
-        MultiValueMap<String, String> multiValueMap = new LinkedMultiValueMap<>();
-        multiValueMap.setAll(paramMap);
+        MultiValueMap<String, String> multiValueMap = MapUtils.toMultiMap(rawResponseMock);
+
         try {
             MvcResult mvcResult = mockMvc.perform(
                                 post("/rawResponseMock/createRawResponseMock")
@@ -87,9 +83,8 @@ public class RawResponseMockControllerTest {
         RawResponseMock rawResponseMock = JMockit.mock(RawResponseMock.class);
         rawResponseMock.setId(id);
 
-        Map paramMap  = JSONObject.parseObject(JSONObject.toJSONString(rawResponseMock));
-        MultiValueMap<String, String> multiValueMap = new LinkedMultiValueMap<>();
-        multiValueMap.setAll(paramMap);
+        MultiValueMap<String, String> multiValueMap = MapUtils.toMultiMap(rawResponseMock);
+
         try {
             MvcResult mvcResult = mockMvc.perform(
                                 post("/rawResponseMock/updateRawResponseMock")

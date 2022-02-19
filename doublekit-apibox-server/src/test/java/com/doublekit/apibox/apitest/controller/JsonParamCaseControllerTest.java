@@ -7,6 +7,7 @@ import com.doublekit.common.Result;
 import com.doublekit.apibox.client.mock.JMockit;
 import com.doublekit.apibox.config.TestConfig;
 import com.doublekit.apibox.apitest.model.JsonParamCase;
+import com.doublekit.utils.MapUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -61,9 +62,8 @@ public class JsonParamCaseControllerTest {
     public void test01ForSaveJsonParamCase() {
         JsonParamCase jsonParamCase = JMockit.mock(JsonParamCase.class);
 
-        Map paramMap  = JSONObject.parseObject(JSONObject.toJSONString(jsonParamCase));
-        MultiValueMap<String, String> multiValueMap = new LinkedMultiValueMap<>();
-        multiValueMap.setAll(paramMap);
+        MultiValueMap<String, String> multiValueMap = MapUtils.toMultiMap(jsonParamCase);
+
         try {
             MvcResult mvcResult = mockMvc.perform(
                                 post("/jsonParamCase/createJsonParamCase")
@@ -89,9 +89,8 @@ public class JsonParamCaseControllerTest {
         JsonParamCase jsonParamCase = JMockit.mock(JsonParamCase.class);
         jsonParamCase.setId(id);
 
-        Map paramMap  = JSONObject.parseObject(JSONObject.toJSONString(jsonParamCase));
-        MultiValueMap<String, String> multiValueMap = new LinkedMultiValueMap<>();
-        multiValueMap.setAll(paramMap);
+        MultiValueMap<String, String> multiValueMap = MapUtils.toMultiMap(jsonParamCase);
+
         try {
             MvcResult mvcResult = mockMvc.perform(
                                 post("/jsonParamCase/updateJsonParamCase")

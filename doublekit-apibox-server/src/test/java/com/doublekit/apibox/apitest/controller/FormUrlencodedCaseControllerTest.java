@@ -1,6 +1,6 @@
 package com.doublekit.apibox.apitest.controller;
 
-import com.alibaba.fastjson.JSONObject;
+import com.doublekit.utils.MapUtils;
 import com.doublekit.common.Result;
 import com.doublekit.apibox.client.mock.JMockit;
 import com.doublekit.apibox.config.TestConfig;
@@ -59,9 +59,8 @@ public class FormUrlencodedCaseControllerTest {
     public void test01ForSaveFormUrlencodedCase() {
         FormUrlencodedCase formUrlencodedCase = JMockit.mock(FormUrlencodedCase.class);
 
-        Map paramMap  = JSONObject.parseObject(JSONObject.toJSONString(formUrlencodedCase));
-        MultiValueMap<String, String> multiValueMap = new LinkedMultiValueMap<>();
-        multiValueMap.setAll(paramMap);
+        MultiValueMap<String, String> multiValueMap = MapUtils.toMultiMap(formUrlencodedCase);
+
         try {
             MvcResult mvcResult = mockMvc.perform(
                                 post("/formUrlencodedCase/createFormUrlencodedCase")
@@ -87,9 +86,8 @@ public class FormUrlencodedCaseControllerTest {
         FormUrlencodedCase formUrlencodedCase = JMockit.mock(FormUrlencodedCase.class);
         formUrlencodedCase.setId(id);
 
-        Map paramMap  = JSONObject.parseObject(JSONObject.toJSONString(formUrlencodedCase));
-        MultiValueMap<String, String> multiValueMap = new LinkedMultiValueMap<>();
-        multiValueMap.setAll(paramMap);
+        MultiValueMap<String, String> multiValueMap = MapUtils.toMultiMap(formUrlencodedCase);
+
         try {
             MvcResult mvcResult = mockMvc.perform(
                                 post("/formUrlencodedCase/updateFormUrlencodedCase")

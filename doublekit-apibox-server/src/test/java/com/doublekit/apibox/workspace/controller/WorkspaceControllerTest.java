@@ -1,6 +1,6 @@
 package com.doublekit.apibox.workspace.controller;
 
-import com.alibaba.fastjson.JSONObject;
+import com.doublekit.utils.MapUtils;
 import com.doublekit.common.Result;
 import com.doublekit.apibox.client.mock.JMockit;
 import com.doublekit.apibox.config.TestConfig;
@@ -59,9 +59,8 @@ public class WorkspaceControllerTest {
     public void test01ForSaveWorkspace() {
         Workspace workspace = JMockit.mock(Workspace.class);
 
-        Map paramMap  = JSONObject.parseObject(JSONObject.toJSONString(workspace));
-        MultiValueMap<String, String> multiValueMap = new LinkedMultiValueMap<>();
-        multiValueMap.setAll(paramMap);
+        MultiValueMap<String, String> multiValueMap = MapUtils.toMultiMap(workspace);
+
         try {
             MvcResult mvcResult = mockMvc.perform(
                                 post("/workspace/createWorkspace")
@@ -87,9 +86,8 @@ public class WorkspaceControllerTest {
         Workspace workspace = JMockit.mock(Workspace.class);
         workspace.setId(id);
 
-        Map paramMap  = JSONObject.parseObject(JSONObject.toJSONString(workspace));
-        MultiValueMap<String, String> multiValueMap = new LinkedMultiValueMap<>();
-        multiValueMap.setAll(paramMap);
+        MultiValueMap<String, String> multiValueMap = MapUtils.toMultiMap(workspace);
+
         try {
             MvcResult mvcResult = mockMvc.perform(
                                 post("/workspace/updateWorkspace")

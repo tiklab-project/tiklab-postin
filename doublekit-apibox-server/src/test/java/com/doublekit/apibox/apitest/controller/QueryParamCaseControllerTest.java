@@ -5,6 +5,7 @@ import com.doublekit.apibox.apitest.model.QueryParamCase;
 import com.doublekit.common.Result;
 import com.doublekit.apibox.client.mock.JMockit;
 import com.doublekit.apibox.config.TestConfig;
+import com.doublekit.utils.MapUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -59,9 +60,8 @@ public class QueryParamCaseControllerTest {
     public void test01ForSaveQueryParamCase() {
         QueryParamCase queryParamCase = JMockit.mock(QueryParamCase.class);
 
-        Map paramMap  = JSONObject.parseObject(JSONObject.toJSONString(queryParamCase));
-        MultiValueMap<String, String> multiValueMap = new LinkedMultiValueMap<>();
-        multiValueMap.setAll(paramMap);
+        MultiValueMap<String, String> multiValueMap = MapUtils.toMultiMap(queryParamCase);
+
         try {
             MvcResult mvcResult = mockMvc.perform(
                                 post("/queryParamCase/createQueryParamCase")
@@ -87,9 +87,8 @@ public class QueryParamCaseControllerTest {
         QueryParamCase queryParamCase = JMockit.mock(QueryParamCase.class);
         queryParamCase.setId(id);
 
-        Map paramMap  = JSONObject.parseObject(JSONObject.toJSONString(queryParamCase));
-        MultiValueMap<String, String> multiValueMap = new LinkedMultiValueMap<>();
-        multiValueMap.setAll(paramMap);
+        MultiValueMap<String, String> multiValueMap = MapUtils.toMultiMap(queryParamCase);
+
         try {
             MvcResult mvcResult = mockMvc.perform(
                                 post("/queryParamCase/updateQueryParamCase")
