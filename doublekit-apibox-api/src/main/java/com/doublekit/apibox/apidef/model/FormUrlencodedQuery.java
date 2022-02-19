@@ -46,7 +46,8 @@ public class FormUrlencodedQuery {
             return methodId;
         }
 
-        public void setMethodId(String methodId) {
+        public FormUrlencodedQuery setMethodId(String methodId) {
             this.methodId = methodId;
+            return this;
         }
 }

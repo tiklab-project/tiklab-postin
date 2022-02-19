@@ -3,11 +3,13 @@ package com.doublekit.apibox.apidef.dao;
 import com.doublekit.common.page.Pagination;
 import com.doublekit.apibox.apidef.entity.RawParamEntity;
 import com.doublekit.apibox.apidef.model.RawParamQuery;
+import com.doublekit.dal.jdbc.JdbcTemplate;
 import com.doublekit.dal.jpa.JpaTemplate;
 import com.doublekit.dal.jpa.criterial.model.DeleteCondition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -80,4 +82,14 @@ public class RawParamDao{
     public Pagination<RawParamEntity> findRawParamPage(RawParamQuery rawParamQuery) {
         return jpaTemplate.findPage(rawParamQuery, RawParamEntity.class);
     }
+
+    public RawParamEntity findRawParamData(String id){
+        String sql = "select raw,type FROM  apibox_raw_param where method_id=?";
+
+        List<RawParamEntity> query = jpaTemplate.getJdbcTemplate().query(sql, new Object[]{id}, new BeanPropertyRowMapper<>(RawParamEntity.class));
+        RawParamEntity rawParamEntity = query.get(0);
+
+        return rawParamEntity;
+    }
+
 }

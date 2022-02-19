@@ -79,4 +79,11 @@ public interface CategoryService {
      */
     List<Category> findCategoryListTree(CategoryQuery categoryQuery);
 
+    /**
+     * 模糊查找列表树
+     * @param categoryQuery
+     * @return
+     */
+    List<Category> likeFindCategoryListTree(CategoryQuery categoryQuery);
+
 }

@@ -41,6 +41,9 @@ public class MethodExQuery {
     @PageField
     private Page pageParam = new Page();
 
+    @ApiProperty(name ="workspaceId",desc = "空间id")
+    private String workspaceId;
+
     public String getName() {
         return name;
     }
@@ -96,5 +99,13 @@ public class MethodExQuery {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getWorkspaceId() {
+        return workspaceId;
+    }
+
+    public void setWorkspaceId(String workspaceId) {
+        this.workspaceId = workspaceId;
     }
 }
