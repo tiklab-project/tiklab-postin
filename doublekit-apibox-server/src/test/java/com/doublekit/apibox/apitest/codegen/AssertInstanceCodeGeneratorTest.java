@@ -2,7 +2,7 @@ package com.doublekit.apibox.apitest.codegen;
 
 import com.doublekit.apibox.apitest.entity.AssertInstanceEntity;
 import com.doublekit.codegen.CodeGeneratorTemplate;
-import com.doublekit.codegen.config.ModuleGeneratorConfig;
+import com.doublekit.codegen.config.CodeGeneratorConfig;
 import com.doublekit.codegen.config.ProjectGeneratorConfig;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,8 +18,8 @@ public class AssertInstanceCodeGeneratorTest extends CodeGeneratorTemplate {
     ProjectGeneratorConfig projectGeneratorConfig;
 
     @Override
-    protected ModuleGeneratorConfig getModuleGeneratorConfig() {
-        ModuleGeneratorConfig config = new ModuleGeneratorConfig();
+    protected CodeGeneratorConfig getCodeGeneratorConfig() {
+        CodeGeneratorConfig config = new CodeGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
         config.setEntity(AssertInstanceEntity.class);
         config.setPkg("com.doublekit.apibox.apitest");

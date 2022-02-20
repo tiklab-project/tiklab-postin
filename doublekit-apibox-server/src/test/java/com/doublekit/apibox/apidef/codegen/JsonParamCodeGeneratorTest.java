@@ -3,7 +3,7 @@ package com.doublekit.apibox.apidef.codegen;
 import com.doublekit.apibox.apidef.entity.JsonParamEntity;
 import com.doublekit.codegen.CodeGeneratorTemplate;
 import com.doublekit.codegen.config.ProjectGeneratorConfig;
-import com.doublekit.codegen.config.ModuleGeneratorConfig;
+import com.doublekit.codegen.config.CodeGeneratorConfig;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +18,8 @@ public class JsonParamCodeGeneratorTest extends CodeGeneratorTemplate {
     ProjectGeneratorConfig projectGeneratorConfig;
 
     @Override
-    protected ModuleGeneratorConfig getModuleGeneratorConfig() {
-        ModuleGeneratorConfig config = new ModuleGeneratorConfig();
+    protected CodeGeneratorConfig getCodeGeneratorConfig() {
+        CodeGeneratorConfig config = new CodeGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
         config.setEntity(JsonParamEntity.class);
         config.setPkg("com.doublekit.apibox.requestparam");

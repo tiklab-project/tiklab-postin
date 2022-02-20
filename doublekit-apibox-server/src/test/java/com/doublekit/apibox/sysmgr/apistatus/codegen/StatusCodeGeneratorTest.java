@@ -2,7 +2,7 @@ package com.doublekit.apibox.sysmgr.apistatus.codegen;
 
 import com.doublekit.apibox.sysmgr.apistatus.entity.ApiStatusEntity;
 import com.doublekit.codegen.CodeGeneratorTemplate;
-import com.doublekit.codegen.config.ModuleGeneratorConfig;
+import com.doublekit.codegen.config.CodeGeneratorConfig;
 import com.doublekit.codegen.config.ProjectGeneratorConfig;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,8 +18,8 @@ public class StatusCodeGeneratorTest extends CodeGeneratorTemplate {
     ProjectGeneratorConfig projectGeneratorConfig;
 
     @Override
-    protected ModuleGeneratorConfig getModuleGeneratorConfig() {
-        ModuleGeneratorConfig config = new ModuleGeneratorConfig();
+    protected CodeGeneratorConfig getCodeGeneratorConfig() {
+        CodeGeneratorConfig config = new CodeGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
         config.setEntity(ApiStatusEntity.class);
         config.setPkg("com.doublekit.apibox.sysmgr.apistatus");

@@ -4,7 +4,7 @@ import com.doublekit.apibox.apidef.entity.RawResponseEntity;
 import com.doublekit.apibox.apidef.model.RawResponseQuery;
 import com.doublekit.common.page.Pagination;
 import com.doublekit.dal.jpa.JpaTemplate;
-import com.doublekit.dal.jpa.criterial.model.DeleteCondition;
+import com.doublekit.dal.jpa.criterial.condition.DeleteCondition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

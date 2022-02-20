@@ -2,7 +2,7 @@ package com.doublekit.apibox.apitest.codegen;
 
 import com.doublekit.apibox.apitest.entity.JsonParamCaseEntity;
 import com.doublekit.codegen.CodeGeneratorTemplate;
-import com.doublekit.codegen.config.ModuleGeneratorConfig;
+import com.doublekit.codegen.config.CodeGeneratorConfig;
 import com.doublekit.codegen.config.ProjectGeneratorConfig;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,8 +18,8 @@ public class JsonParamCaseCodeGeneratorTest extends CodeGeneratorTemplate {
     ProjectGeneratorConfig projectGeneratorConfig;
 
     @Override
-    protected ModuleGeneratorConfig getModuleGeneratorConfig() {
-        ModuleGeneratorConfig config = new ModuleGeneratorConfig();
+    protected CodeGeneratorConfig getCodeGeneratorConfig() {
+        CodeGeneratorConfig config = new CodeGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
         config.setEntity(JsonParamCaseEntity.class);
         config.setPkg("com.doublekit.apibox.apitest");

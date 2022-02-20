@@ -1,11 +1,7 @@
 package com.doublekit.apibox.category.service;
 
-import com.doublekit.apibox.apidef.dao.*;
-import com.doublekit.apibox.apidef.entity.*;
 import com.doublekit.apibox.apidef.model.MethodEx;
 import com.doublekit.apibox.apidef.model.MethodExQuery;
-import com.doublekit.apibox.apidef.service.JsonParamService;
-import com.doublekit.apibox.apidef.service.JsonResponseService;
 import com.doublekit.apibox.apidef.service.MethodService;
 import com.doublekit.apibox.category.dao.CategoryDao;
 import com.doublekit.apibox.category.entity.CategoryEntity;
@@ -14,11 +10,7 @@ import com.doublekit.apibox.category.model.CategoryQuery;
 import com.doublekit.beans.BeanMapper;
 import com.doublekit.common.page.Pagination;
 import com.doublekit.common.page.PaginationBuilder;
-import com.doublekit.dal.jpa.criterial.DeleteBuilders;
-import com.doublekit.dal.jpa.criterial.model.DeleteCondition;
-import com.doublekit.dss.client.DssClient;
 import com.doublekit.join.JoinTemplate;
-import com.doublekit.message.message.service.MessageService;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,10 +21,8 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
 * 用户服务业务处理

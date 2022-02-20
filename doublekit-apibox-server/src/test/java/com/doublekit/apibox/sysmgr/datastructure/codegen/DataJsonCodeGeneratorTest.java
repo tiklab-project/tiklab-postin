@@ -2,7 +2,7 @@ package com.doublekit.apibox.sysmgr.datastructure.codegen;
 
 import com.doublekit.apibox.sysmgr.datastructure.entity.JsonParamDSEntity;
 import com.doublekit.codegen.CodeGeneratorTemplate;
-import com.doublekit.codegen.config.ModuleGeneratorConfig;
+import com.doublekit.codegen.config.CodeGeneratorConfig;
 import com.doublekit.codegen.config.ProjectGeneratorConfig;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,8 +18,8 @@ public class DataJsonCodeGeneratorTest extends CodeGeneratorTemplate {
     ProjectGeneratorConfig projectGeneratorConfig;
 
     @Override
-    protected ModuleGeneratorConfig getModuleGeneratorConfig() {
-        ModuleGeneratorConfig config = new ModuleGeneratorConfig();
+    protected CodeGeneratorConfig getCodeGeneratorConfig() {
+        CodeGeneratorConfig config = new CodeGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
         config.setEntity(JsonParamDSEntity.class);
         config.setPkg("com.doublekit.apibox.datastructure");
