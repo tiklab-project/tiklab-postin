@@ -5,8 +5,6 @@ import com.doublekit.apibox.apidef.entity.BinaryParamEntity;
 import com.doublekit.apibox.apidef.model.BinaryParam;
 import com.doublekit.apibox.apidef.model.BinaryParamQuery;
 
-import com.doublekit.apibox.apitest.model.BinaryParamCase;
-import com.doublekit.apibox.apitest.model.BinaryParamCaseQuery;
 import com.doublekit.common.exception.ApplicationException;
 import com.doublekit.common.page.Pagination;
 import com.doublekit.common.page.PaginationBuilder;
@@ -24,8 +22,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
-
-import org.springframework.beans.BeanUtils;
 
 /**
 * BinaryParamServiceImpl

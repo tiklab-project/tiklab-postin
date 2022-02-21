@@ -150,11 +150,12 @@ public class CategoryServiceImpl implements CategoryService {
     public List<Category> likeFindCategoryListTree(CategoryQuery categoryQuery){
         List<Category> categories=null;
         if (StringUtils.isEmpty(categoryQuery.getName())){
-            categories=  findCategoryListTree(categoryQuery);
+            categories =  findCategoryListTree(categoryQuery);
         } else {
             MethodExQuery methodExQuery = new MethodExQuery();
             methodExQuery.setWorkspaceId(categoryQuery.getWorkspaceId());
             methodExQuery.setName(categoryQuery.getName());
+            //查询出所有匹配的接口
             List<MethodEx> methodList = methodService.findMethodList(methodExQuery);
 
             if(CollectionUtils.isNotEmpty(methodList)){
@@ -166,7 +167,8 @@ public class CategoryServiceImpl implements CategoryService {
 
                 List<String> categoryParentByMethod = findCategoryParentByMethod(methodInCategoryList);
 
-                List<Category> categoryMethods = tes(categoryParentByMethod, methodInCategoryList);
+                //满足条件的目录
+                List<Category> categoryMethods = findAllCategories(categoryParentByMethod, methodInCategoryList);
 
                 categories = packageResult(categoryMethods);
             }
@@ -175,7 +177,13 @@ public class CategoryServiceImpl implements CategoryService {
         return categories;
     }
 
-    private List<Category>  tes(List<String> categoryParentByMethod, List<Category> methodInCategoryList) {
+    /**
+     * 查询符合条件的所有目录
+     * @param categoryParentByMethod
+     * @param methodInCategoryList
+     * @return
+     */
+    private List<Category>  findAllCategories(List<String> categoryParentByMethod, List<Category> methodInCategoryList) {
         List<Category> categoryList = new ArrayList<>();
         List<String> collect = categoryParentByMethod.stream().distinct().collect(Collectors.toList());
         for (String categoryId:collect){
@@ -189,6 +197,11 @@ public class CategoryServiceImpl implements CategoryService {
 
     }
 
+    /**
+     * 通过接口，查询目录id，父级id
+     * @param methodInCategoryList
+     * @return
+     */
     private List<String> findCategoryParentByMethod(List<Category> methodInCategoryList) {
         List<String> categoryIdList = new ArrayList<>();
 
@@ -202,17 +215,22 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryIdList;
     }
 
+
     public void addParentCategoryId(List<String> categoryIdList,Category parentCategory){
         if (ObjectUtils.isNotEmpty(parentCategory)){
             categoryIdList.add(parentCategory.getId());
+
             if (ObjectUtils.isNotEmpty(parentCategory.getParentCategory())){
                 addParentCategoryId( categoryIdList,parentCategory.getParentCategory());
             }
-
         }
     }
 
-
+    /**
+     * 封装目录返回结果
+     * @param matchCategoryList
+     * @return
+     */
     public List<Category> packageResult(List<Category> matchCategoryList){
         //查找第一级分类列表
         List<Category> topCategoryList = findTopCategoryList(matchCategoryList);
@@ -223,6 +241,7 @@ public class CategoryServiceImpl implements CategoryService {
                 setChildren(matchCategoryList,topCategory);
             }
         }
+
         return topCategoryList;
     }
     /**
@@ -239,7 +258,6 @@ public class CategoryServiceImpl implements CategoryService {
             category.setCategoryMethod(methods);
 
             return category;
-
         }).collect(Collectors.toList());
 
         return collect;

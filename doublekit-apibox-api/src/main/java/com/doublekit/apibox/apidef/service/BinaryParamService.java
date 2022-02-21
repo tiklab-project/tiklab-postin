@@ -1,6 +1,5 @@
 package com.doublekit.apibox.apidef.service;
 
-import com.doublekit.apibox.apitest.model.BinaryParamCaseQuery;
 import com.doublekit.common.page.Pagination;
 
 import com.doublekit.apibox.apidef.model.BinaryParam;
