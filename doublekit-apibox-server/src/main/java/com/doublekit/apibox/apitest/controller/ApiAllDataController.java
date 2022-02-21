@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.constraints.NotNull;
 
-@RestController
-@RequestMapping("/apiAllData")
+//@RestController
+//@RequestMapping("/apiAllData")
 @Api(name = "ApiAllDataController",desc = "接口所有数据管理")
 public class ApiAllDataController {
 
