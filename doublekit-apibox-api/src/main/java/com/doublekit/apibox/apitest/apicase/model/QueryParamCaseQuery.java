@@ -30,8 +30,9 @@ public class QueryParamCaseQuery {
         return testcaseId;
     }
 
-    public void setTestcaseId(String testcaseId) {
+    public QueryParamCaseQuery setTestcaseId(String testcaseId) {
         this.testcaseId = testcaseId;
+        return this;
     }
 
     public List<Order> getOrderParams() {

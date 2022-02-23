@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -41,7 +42,7 @@ public class TestInstanceServiceImpl implements TestInstanceService {
     @Override
     public String createTestInstance(@NotNull @Valid TestInstance testInstance) {
         TestInstanceEntity testInstanceEntity = BeanMapper.map(testInstance, TestInstanceEntity.class);
-        testInstanceEntity.setCreateTime(new Date());
+        testInstanceEntity.setCreateTime(new Timestamp(System.currentTimeMillis()));
         return testInstanceDao.createTestInstance(testInstanceEntity);
     }
 

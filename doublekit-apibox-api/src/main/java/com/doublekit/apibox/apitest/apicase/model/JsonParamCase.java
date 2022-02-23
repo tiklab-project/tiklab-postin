@@ -27,7 +27,7 @@ public class JsonParamCase extends BaseModel {
     private JsonParamCase parent;
 
     @NotNull
-    @ApiProperty(name="mock",desc="所属接口用例",required = true)
+    @ApiProperty(name="testcase",desc="所属接口用例",required = true)
     @Mappings({
             @Mapping(source = "testcase.id",target = "testcaseId")
     })

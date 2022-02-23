@@ -1,11 +1,13 @@
 package com.doublekit.apibox.apitest.apicase.model;
 
 import com.doublekit.apibox.annotation.ApiProperty;
-import com.doublekit.apibox.apidef.model.*;
 import com.doublekit.common.BaseModel;
+
 import java.util.List;
 
-public class ApiAllData extends BaseModel {
+public class CaseApiAllData extends BaseModel {
+    @ApiProperty(name = "name")
+    private String name;
 
     @ApiProperty(name = "requestType",desc = "请求类型",eg = "post,get")
     private String requestType;
@@ -14,35 +16,42 @@ public class ApiAllData extends BaseModel {
     private String path;
 
     @ApiProperty(name = "headerList")
-    private List<RequestHeader> requestHeaderList;
+    private List<RequestHeaderCase> requestHeaderList;
 
     @ApiProperty(name = "queryList")
-    private List<QueryParam> queryParamList;
+    private List<QueryParamCase> queryParamList;
 
     @ApiProperty(name = "bodyType")
     private String bodyType;
 
     @ApiProperty(name = "formParamList")
-    private List<FormParam> formParamList;
+    private List<FormParamCase> formParamList;
 
     @ApiProperty(name = "formUrlencodedList")
-    private List<FormUrlencoded> formUrlencodedList;
+    private List<FormUrlencodedCase> formUrlencodedList;
 
     @ApiProperty(name = "jsonParamList")
-    private List<JsonParam> jsonParamList;
+    private List<JsonParamCase> jsonParamList;
 
     @ApiProperty(name = "raw")
-    private RawParam rawParam;
+    private RawParamCase rawParam;
 
     @ApiProperty(name = "preScript")
-    private PreScript preScript;
+    private PreScriptCase preScript;
 
     @ApiProperty(name = "afterScript")
-    private AfterScript afterScript;
-
+    private AfterScriptCase afterScript;
 
     public String getRequestType() {
-        return this.requestType;
+        return requestType;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setRequestType(String requestType) {
@@ -50,26 +59,26 @@ public class ApiAllData extends BaseModel {
     }
 
     public String getPath() {
-        return this.path;
+        return path;
     }
 
     public void setPath(String path) {
         this.path = path;
     }
 
-    public List<RequestHeader> getRequestHeaderList() {
+    public List<RequestHeaderCase> getRequestHeaderList() {
         return requestHeaderList;
     }
 
-    public void setRequestHeaderList(List<RequestHeader> requestHeaderList) {
+    public void setRequestHeaderList(List<RequestHeaderCase> requestHeaderList) {
         this.requestHeaderList = requestHeaderList;
     }
 
-    public List<QueryParam> getQueryParamList() {
+    public List<QueryParamCase> getQueryParamList() {
         return queryParamList;
     }
 
-    public void setQueryParamList(List<QueryParam> queryParamList) {
+    public void setQueryParamList(List<QueryParamCase> queryParamList) {
         this.queryParamList = queryParamList;
     }
 
@@ -81,51 +90,51 @@ public class ApiAllData extends BaseModel {
         this.bodyType = bodyType;
     }
 
-    public List<FormParam> getFormParamList() {
+    public List<FormParamCase> getFormParamList() {
         return formParamList;
     }
 
-    public void setFormParamList(List<FormParam> formParamList) {
+    public void setFormParamList(List<FormParamCase> formParamList) {
         this.formParamList = formParamList;
     }
 
-    public List<FormUrlencoded> getFormUrlencodedList() {
+    public List<FormUrlencodedCase> getFormUrlencodedList() {
         return formUrlencodedList;
     }
 
-    public void setFormUrlencodedList(List<FormUrlencoded> formUrlencodedList) {
+    public void setFormUrlencodedList(List<FormUrlencodedCase> formUrlencodedList) {
         this.formUrlencodedList = formUrlencodedList;
     }
 
-    public List<JsonParam> getJsonParamList() {
+    public List<JsonParamCase> getJsonParamList() {
         return jsonParamList;
     }
 
-    public void setJsonParamList(List<JsonParam> jsonParamList) {
+    public void setJsonParamList(List<JsonParamCase> jsonParamList) {
         this.jsonParamList = jsonParamList;
     }
 
-    public RawParam getRawParam() {
+    public RawParamCase getRawParam() {
         return rawParam;
     }
 
-    public void setRawParam(RawParam rawParam) {
+    public void setRawParam(RawParamCase rawParam) {
         this.rawParam = rawParam;
     }
 
-    public PreScript getPreScript() {
+    public PreScriptCase getPreScript() {
         return preScript;
     }
 
-    public void setPreScript(PreScript preScript) {
+    public void setPreScript(PreScriptCase preScript) {
         this.preScript = preScript;
     }
 
-    public AfterScript getAfterScript() {
+    public AfterScriptCase getAfterScript() {
         return afterScript;
     }
 
-    public void setAfterScript(AfterScript afterScript) {
+    public void setAfterScript(AfterScriptCase afterScript) {
         this.afterScript = afterScript;
     }
 }

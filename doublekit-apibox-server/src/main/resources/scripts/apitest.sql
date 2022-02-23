@@ -72,9 +72,8 @@ CREATE TABLE apibox_test_instance(
         testNo int NOT NULL,
         statusCode int NOT NULL,
         result int NOT NULL,
-        method_id VARCHAR(40),
-        type VARCHAR(16) NOT NULL,
-        create_time timestamp
+        create_time timestamp,
+        request_type VARCHAR(32)
 );
 CREATE TABLE apibox_request_instance(
         id VARCHAR(32) PRIMARY KEY,

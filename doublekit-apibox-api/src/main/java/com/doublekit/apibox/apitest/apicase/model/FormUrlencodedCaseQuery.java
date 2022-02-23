@@ -13,27 +13,40 @@ import java.util.List;
 @CriteriaQuery(entityAlias = "FormUrlencodedCaseEntity")
 public class FormUrlencodedCaseQuery {
 
-        @ApiProperty(name ="orderParams",desc = "排序参数")
-        @OrderField
-        private List<Order> orderParams = OrderBuilders.instance().asc("id").get();
+    @ApiProperty(name ="testcaseId",desc = "接口用例ID，精确匹配")
+    @QueryField(type = QueryTypeEnum.equal)
+    private String testcaseId;
 
-        @ApiProperty(name ="pageParam",desc = "分页参数")
-        @PageField
-        private Page pageParam = new Page();
+    @ApiProperty(name ="orderParams",desc = "排序参数")
+    @OrderField
+    private List<Order> orderParams = OrderBuilders.instance().asc("id").get();
 
-        public List<Order> getOrderParams() {
-            return orderParams;
-        }
+    @ApiProperty(name ="pageParam",desc = "分页参数")
+    @PageField
+    private Page pageParam = new Page();
 
-        public void setOrderParams(List<Order> orderParams) {
-            this.orderParams = orderParams;
-        }
+    public List<Order> getOrderParams() {
+        return orderParams;
+    }
 
-        public Page getPageParam() {
-            return pageParam;
-        }
+    public void setOrderParams(List<Order> orderParams) {
+        this.orderParams = orderParams;
+    }
 
-        public void setPageParam(Page pageParam) {
-            this.pageParam = pageParam;
-        }
+    public Page getPageParam() {
+        return pageParam;
+    }
+
+    public void setPageParam(Page pageParam) {
+        this.pageParam = pageParam;
+    }
+
+    public String getTestcaseId() {
+        return testcaseId;
+    }
+
+    public FormUrlencodedCaseQuery setTestcaseId(String testcaseId) {
+        this.testcaseId = testcaseId;
+        return this;
+    }
 }

@@ -30,8 +30,9 @@ public class RequestHeaderCaseQuery {
         return testcaseId;
     }
 
-    public void setTestcaseId(String testcaseId) {
+    public RequestHeaderCaseQuery setTestcaseId(String testcaseId) {
         this.testcaseId = testcaseId;
+        return this;
     }
 
     public List<Order> getOrderParams() {

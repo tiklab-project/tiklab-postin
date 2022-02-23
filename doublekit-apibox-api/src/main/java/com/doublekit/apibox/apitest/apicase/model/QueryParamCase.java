@@ -18,7 +18,7 @@ public class QueryParamCase extends BaseModel {
     private java.lang.String id;
 
     @NotNull
-    @ApiProperty(name="mock",desc="所属接口用例",required = true)
+    @ApiProperty(name="testcase",desc="所属接口用例",required = true)
     @Mappings({
             @Mapping(source = "testcase.id",target = "testcaseId")
     })

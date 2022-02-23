@@ -7,6 +7,7 @@ import com.doublekit.dal.jpa.mapper.annotation.Id;
 import com.doublekit.dal.jpa.mapper.annotation.Table;import com.doublekit.dal.jpa.mapper.annotation.Entity;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.Date;
 
 @Entity @Table(name="apibox_test_instance")
@@ -20,12 +21,6 @@ public class TestInstanceEntity implements Serializable {
     @Column(name = "testcase_id",length = 40)
     private String testcaseId;
 
-    @Column(name = "method_id",length = 40)
-    private String methodId;
-
-    @Column(name = "type",length = 32)
-    private String type;
-
     @Column(name = "testNo",notNull = true)
     private Integer testNo;
 
@@ -36,7 +31,10 @@ public class TestInstanceEntity implements Serializable {
     private Integer result;
 
     @Column(name = "create_time",length = 4)
-    private Date createTime;
+    private Timestamp createTime;
+
+    @Column(name = "request_type",notNull = true)
+    private String requestType;
 
     public String getId() {
         return id;
@@ -78,27 +76,19 @@ public class TestInstanceEntity implements Serializable {
         this.result = result;
     }
 
-    public String getMethodId() {
-        return methodId;
-    }
-
-    public void setMethodId(String methodId) {
-        this.methodId = methodId;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public Date getCreateTime() {
+    public Timestamp getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(Timestamp createTime) {
         this.createTime = createTime;
+    }
+
+    public String getRequestType() {
+        return requestType;
+    }
+
+    public void setRequestType(String requestType) {
+        this.requestType = requestType;
     }
 }

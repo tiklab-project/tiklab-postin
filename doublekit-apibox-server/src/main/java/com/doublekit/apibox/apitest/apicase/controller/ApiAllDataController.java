@@ -4,6 +4,7 @@ import com.doublekit.apibox.annotation.Api;
 import com.doublekit.apibox.annotation.ApiMethod;
 import com.doublekit.apibox.annotation.ApiParam;
 import com.doublekit.apibox.apitest.apicase.model.ApiAllData;
+import com.doublekit.apibox.apitest.apicase.model.CaseApiAllData;
 import com.doublekit.apibox.apitest.apicase.service.ApiAllDataService;
 import com.doublekit.common.Result;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ public class ApiAllDataController {
 
 
     @RequestMapping(path="/findApiAllData",method = RequestMethod.POST)
-    @ApiMethod(name = "findApiAllData",desc = "findApiAllData")
+    @ApiMethod(name = "findApiAllData",desc = "查询接口所有数据")
     @ApiParam(name = "methodId",desc = "methodId",required = true)
     public Result<ApiAllData> findApiAllData(@NotNull String methodId){
         ApiAllData apiAllData = apiAllDataService.findApiAllData(methodId);
@@ -33,12 +34,12 @@ public class ApiAllDataController {
     }
 
     @RequestMapping(path="/findCaseApiAllData",method = RequestMethod.POST)
-    @ApiMethod(name = "findCaseApiAllData",desc = "findCaseApiAllData")
-    @ApiParam(name = "methodId",desc = "methodId",required = true)
-    public Result<ApiAllData> findCaseApiAllData(@NotNull String methodId){
-        ApiAllData apiAllData = apiAllDataService.findApiAllData(methodId);
+    @ApiMethod(name = "findCaseApiAllData",desc = "查询接口用例所有数据")
+    @ApiParam(name = "testcaseId",desc = "testcaseId",required = true)
+    public Result<CaseApiAllData> findCaseApiAllData(@NotNull String testcaseId){
+        CaseApiAllData caseApiAllData = apiAllDataService.findCaseApiAllData(testcaseId);
 
-        return Result.ok(apiAllData);
+        return Result.ok(caseApiAllData);
 
     }
 

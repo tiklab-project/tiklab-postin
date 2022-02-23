@@ -30,8 +30,9 @@ public class JsonParamCaseQuery {
         return testcaseId;
     }
 
-    public void setTestcaseId(String testcaseId) {
+    public JsonParamCaseQuery setTestcaseId(String testcaseId) {
         this.testcaseId = testcaseId;
+        return this;
     }
 
     public List<Order> getOrderParams() {

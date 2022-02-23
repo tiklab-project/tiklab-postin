@@ -2,7 +2,6 @@ package com.doublekit.apibox.apitest.apiinstance.model;
 
 import com.doublekit.apibox.annotation.ApiModel;
 import com.doublekit.apibox.annotation.ApiProperty;
-import com.doublekit.apibox.apidef.model.MethodEx;
 import com.doublekit.apibox.apitest.apicase.model.Testcase;
 import com.doublekit.beans.annotation.Mapping;
 import com.doublekit.beans.annotation.Mappings;
@@ -10,8 +9,10 @@ import com.doublekit.common.BaseModel;
 import com.doublekit.dss.annotation.IndexField;
 import com.doublekit.join.annotation.Join;
 import com.doublekit.join.annotation.JoinQuery;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.validation.constraints.NotNull;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -23,7 +24,7 @@ public class TestInstance extends BaseModel {
     @ApiProperty(name="id",desc="id")
     private java.lang.String id;
 
-//    @NotNull
+    @NotNull
     @ApiProperty(name="testcase",desc="所属接口用例",required = true)
     @Mappings({
             @Mapping(source = "testcase.id",target = "testcaseId")
@@ -31,22 +32,16 @@ public class TestInstance extends BaseModel {
     @JoinQuery(key = "id")
     private Testcase testcase;
 
-    @ApiProperty(name="method",desc="所属接口用例",required = true)
-    @Mappings({
-            @Mapping(source = "method.id",target = "methodId")
-    })
-    @JoinQuery(key = "id")
-    private MethodEx method;
-
-    @ApiProperty(name="type",desc="类型:method，testcase")
-    private java.lang.String type;
-
     @ApiProperty(name="createTime",desc="创建时间")
     @IndexField
-    private Date createTime;
+    @JsonFormat(pattern = "yy-MM-dd HH:mm:ss")
+    private Timestamp createTime;
 
     @ApiProperty(name="testNo",desc="测试序号")
     private Integer testNo;
+
+    @ApiProperty(name = "requestType",desc = "请求类型")
+    private String requestType;
 
     @NotNull
     @ApiProperty(name="statusCode",desc="状态码",required = true)
@@ -130,27 +125,19 @@ public class TestInstance extends BaseModel {
         this.assertInstanceList = assertInstanceList;
     }
 
-    public MethodEx getMethod() {
-        return method;
-    }
-
-    public void setMethod(MethodEx method) {
-        this.method = method;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public Date getCreateTime() {
+    public Timestamp getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(Timestamp createTime) {
         this.createTime = createTime;
+    }
+
+    public String getRequestType() {
+        return requestType;
+    }
+
+    public void setRequestType(String requestType) {
+        this.requestType = requestType;
     }
 }
