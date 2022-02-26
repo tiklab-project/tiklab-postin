@@ -42,6 +42,7 @@ public class PostmanImport {
         return path;
     }
 
+    //解析数据
     private void analysisData(JSONObject jsonObject, String categoryId){
         JSONArray item = jsonObject.getJSONArray("item");
         for (int i =0 ;i<item.toArray().length;i++){
