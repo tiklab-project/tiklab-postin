@@ -3,30 +3,39 @@ package com.doublekit.apibox.config;
 import com.doublekit.eam.client.auth.Authenticator;
 import com.doublekit.eam.client.config.TicketConfig;
 import com.doublekit.eam.client.config.TicketConfigBuilder;
-import com.doublekit.eam.client.filter.TicketFilter;
+import com.doublekit.eam.client.handler.TicketHandler;
+import com.doublekit.gateway.filter.GatewayFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class TicketFilterAutoConfiguration {
+public class GatewayFilterAutoConfiguration {
 
     @Autowired
     Authenticator authenticator;
 
     @Bean
-    public FilterRegistrationBean ticketFilterRegistration(TicketConfig ticketConfig) {
-        TicketFilter ticketFilter = new TicketFilter();
-        ticketFilter.setTicketConfig(ticketConfig);
-        ticketFilter.setAuthenticator(authenticator);
+    public FilterRegistrationBean ticketFilterRegistration(TicketHandler ticketHandler) {
+        GatewayFilter gatewayFilter = new GatewayFilter();
+        gatewayFilter.addHandler(ticketHandler);
 
         FilterRegistrationBean registration = new FilterRegistrationBean();
-        registration.setFilter(ticketFilter);
-        registration.setName("ticketFilter");
+        registration.setFilter(gatewayFilter);
+        registration.setName("gatewayFilter");
         registration.addUrlPatterns("/*");
         registration.setOrder(2);
         return registration;
+    }
+
+    @Bean
+    public TicketHandler ticketHandler(TicketConfig ticketConfig){
+        TicketHandler ticketFilter = new TicketHandler();
+        ticketFilter.setTicketConfig(ticketConfig);
+        ticketFilter.setAuthenticator(authenticator);
+
+        return ticketFilter;
     }
 
     @Bean
