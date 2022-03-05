@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -159,6 +160,8 @@ public class TestInstanceServiceImpl implements TestInstanceService {
         List<TestInstanceEntity> testInstanceEntityList = testInstanceDao.findTestInstanceList(testInstanceQuery);
 
         List<TestInstance> testInstanceList = BeanMapper.mapList(testInstanceEntityList,TestInstance.class);
+
+        testInstanceList.sort(Comparator.comparing(TestInstance::getCreateTime,Comparator.reverseOrder()));
 
         joinTemplate.joinQuery(testInstanceList);
 

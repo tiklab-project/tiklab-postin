@@ -30,11 +30,11 @@ public class RequestInstance extends BaseModel {
     @ApiProperty(name="requestBase",desc="请求基本信息",required = true)
     private java.lang.String requestBase;
 
-    @NotNull
+
     @ApiProperty(name="requestHeader",desc="请求头",required = true)
     private java.lang.String requestHeader;
 
-    @NotNull
+
     @ApiProperty(name="requestParam",desc="请求参数",required = true)
     private java.lang.String requestParam;
 

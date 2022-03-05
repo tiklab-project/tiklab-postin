@@ -46,6 +46,9 @@ public class Testcase extends BaseModel {
     @ApiProperty(name="formParamCaseList",desc="用例-请求体form参数")
     private List<FormParamCase> formParamCaseList;
 
+    @ApiProperty(name = "form")
+    private List<FormUrlencodedCase> formUrlencodedCaseList;
+
     @ApiProperty(name="jsonParamCaseList",desc="用例-请求体json参数")
     private List<JsonParamCase> jsonParamCaseList;
 
@@ -124,6 +127,14 @@ public class Testcase extends BaseModel {
 
     public void setFormParamCaseList(List<FormParamCase> formParamCaseList) {
         this.formParamCaseList = formParamCaseList;
+    }
+
+    public List<FormUrlencodedCase> getFormUrlencodedCaseList() {
+        return formUrlencodedCaseList;
+    }
+
+    public void setFormUrlencodedCaseList(List<FormUrlencodedCase> formUrlencodedCaseList) {
+        this.formUrlencodedCaseList = formUrlencodedCaseList;
     }
 
     public List<JsonParamCase> getJsonParamCaseList() {
