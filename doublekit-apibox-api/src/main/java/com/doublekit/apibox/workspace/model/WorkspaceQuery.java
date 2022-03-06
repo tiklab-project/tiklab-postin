@@ -3,10 +3,9 @@ package com.doublekit.apibox.workspace.model;
 import com.doublekit.apibox.annotation.ApiModel;
 import com.doublekit.apibox.annotation.ApiProperty;
 import com.doublekit.common.page.Page;
-import com.doublekit.dal.jpa.criteria.annotation.*;
-import com.doublekit.dal.jpa.criteria.model.Order;
-import com.doublekit.dal.jpa.criteria.model.OrderBuilders;
-import com.doublekit.dal.jpa.criteria.annotation.QueryTypeEnum;
+import com.doublekit.dal.jpa.annotation.criteria.*;
+import com.doublekit.common.order.Order;
+import com.doublekit.common.order.OrderBuilders;
 
 import java.util.List;
 

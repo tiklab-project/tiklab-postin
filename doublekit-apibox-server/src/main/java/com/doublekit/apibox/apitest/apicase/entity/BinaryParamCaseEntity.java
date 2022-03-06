@@ -1,6 +1,6 @@
 package com.doublekit.apibox.apitest.apicase.entity;
 
-import com.doublekit.dal.jpa.mapper.annotation.*;
+import com.doublekit.dal.jpa.annotation.*;
 
 import java.io.Serializable;
 

@@ -1,9 +1,11 @@
 package com.doublekit.apibox.sysmgr.apistatus.model;
 
 import com.doublekit.common.page.Page;
-import com.doublekit.dal.jpa.criteria.annotation.*;
-import com.doublekit.dal.jpa.criteria.model.Order;
-import com.doublekit.dal.jpa.criteria.model.OrderBuilders;
+import com.doublekit.dal.jpa.annotation.criteria.CriteriaQuery;
+import com.doublekit.dal.jpa.annotation.criteria.OrderField;
+import com.doublekit.dal.jpa.annotation.criteria.PageField;
+import com.doublekit.common.order.Order;
+import com.doublekit.common.order.OrderBuilders;
 import com.doublekit.apibox.annotation.ApiModel;
 import com.doublekit.apibox.annotation.ApiProperty;
 

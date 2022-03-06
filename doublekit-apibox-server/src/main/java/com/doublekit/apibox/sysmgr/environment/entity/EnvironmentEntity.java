@@ -1,11 +1,11 @@
 package com.doublekit.apibox.sysmgr.environment.entity;
 
 
-import com.doublekit.dal.jpa.mapper.annotation.Column;
-import com.doublekit.dal.jpa.mapper.annotation.GeneratorValue;
-import com.doublekit.dal.jpa.mapper.annotation.Id;
-import com.doublekit.dal.jpa.mapper.annotation.Table;
-import com.doublekit.dal.jpa.mapper.annotation.Entity;
+import com.doublekit.dal.jpa.annotation.Column;
+import com.doublekit.dal.jpa.annotation.GeneratorValue;
+import com.doublekit.dal.jpa.annotation.Id;
+import com.doublekit.dal.jpa.annotation.Table;
+import com.doublekit.dal.jpa.annotation.Entity;
 
 import java.io.Serializable;
 import java.util.Date;
