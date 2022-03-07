@@ -4,6 +4,7 @@ import com.doublekit.apibox.client.mock.support.MockUtils;
 import com.doublekit.apibox.client.model.ApiPropertyMeta;
 import com.doublekit.apibox.client.model.ParamItem;
 import com.doublekit.apibox.client.model.ParamItemType;
+import com.doublekit.common.exception.SystemException;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -63,7 +64,12 @@ public class ParamItemParser {
                 }
             }
         }else{
-            List<ApiPropertyMeta> apiPropertyMetaList = new ApiModelParser().parsePropertyMetas(type, paramType);
+            List<ApiPropertyMeta> apiPropertyMetaList = null;
+            try {
+                apiPropertyMetaList = new ApiModelParser().parsePropertyMetas(type, paramType);
+            } catch (Exception e) {
+                throw new SystemException("parse property failed,type:" + type.getTypeName());
+            }
             if(apiPropertyMetaList != null && apiPropertyMetaList.size() > 0){
                 paramItem.setChildren(apiPropertyMetaList);
 
