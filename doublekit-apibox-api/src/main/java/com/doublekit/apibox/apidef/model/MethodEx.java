@@ -4,6 +4,7 @@ import com.doublekit.apibox.annotation.ApiModel;
 import com.doublekit.apibox.annotation.ApiProperty;
 import com.doublekit.apibox.sysmgr.apistatus.model.ApiStatus;
 import com.doublekit.apibox.category.model.Category;
+import com.doublekit.beans.annotation.Mapper;
 import com.doublekit.beans.annotation.Mapping;
 import com.doublekit.beans.annotation.Mappings;
 import com.doublekit.common.BaseModel;
@@ -21,9 +22,9 @@ import java.sql.Date;
 import java.sql.Timestamp;
 
 @ApiModel
-//@Mapper(target = "com.doublekit.apibox.apidef.entity.MethodEntity")
 @Join
 @Index
+@Mapper(targetAlias = "MethodEntity")
 public class MethodEx extends BaseModel {
 
     @ApiProperty(name="id",desc="唯一ID")

@@ -3,6 +3,7 @@ package com.doublekit.apibox.apimock.model;
 import com.doublekit.apibox.annotation.ApiModel;
 import com.doublekit.apibox.annotation.ApiProperty;
 import com.doublekit.apibox.apidef.model.MethodEx;
+import com.doublekit.beans.annotation.Mapper;
 import com.doublekit.beans.annotation.Mapping;
 import com.doublekit.beans.annotation.Mappings;
 import com.doublekit.common.BaseModel;
@@ -16,6 +17,7 @@ import java.sql.Date;
 
 @ApiModel
 @Join
+@Mapper(targetAlias = "MockEntity")
 public class Mock extends BaseModel {
 
     @ApiProperty(name="id",desc="唯一标识")

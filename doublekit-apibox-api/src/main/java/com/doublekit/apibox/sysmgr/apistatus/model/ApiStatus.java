@@ -2,9 +2,11 @@ package com.doublekit.apibox.sysmgr.apistatus.model;
 
 import com.doublekit.apibox.annotation.ApiModel;
 import com.doublekit.apibox.annotation.ApiProperty;
+import com.doublekit.beans.annotation.Mapper;
 import com.doublekit.common.BaseModel;
 
 @ApiModel
+@Mapper(targetAlias = "ApiStatusEntity")
 public class ApiStatus extends BaseModel{
 
     @ApiProperty(name="id",desc="id")

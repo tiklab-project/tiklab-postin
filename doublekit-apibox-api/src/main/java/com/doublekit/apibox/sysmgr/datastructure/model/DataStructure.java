@@ -8,6 +8,7 @@ import com.doublekit.common.BaseModel;
 import javax.validation.constraints.NotNull;
 
 @ApiModel
+@Mapper(targetAlias = "DataStructureEntity")
 public class DataStructure extends BaseModel{
 
     @ApiProperty(name="id",desc="id")

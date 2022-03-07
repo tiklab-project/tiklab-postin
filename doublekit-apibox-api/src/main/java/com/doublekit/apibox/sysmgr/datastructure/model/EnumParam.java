@@ -2,6 +2,7 @@ package com.doublekit.apibox.sysmgr.datastructure.model;
 
 import com.doublekit.apibox.annotation.ApiModel;
 import com.doublekit.apibox.annotation.ApiProperty;
+import com.doublekit.beans.annotation.Mapper;
 import com.doublekit.beans.annotation.Mapping;
 import com.doublekit.beans.annotation.Mappings;
 import com.doublekit.common.BaseModel;
@@ -12,6 +13,7 @@ import javax.validation.constraints.NotNull;
 
 @ApiModel
 @Join
+@Mapper(targetAlias = "EnumParamEntity")
 public class EnumParam extends BaseModel{
 
     @ApiProperty(name="id",desc="id")

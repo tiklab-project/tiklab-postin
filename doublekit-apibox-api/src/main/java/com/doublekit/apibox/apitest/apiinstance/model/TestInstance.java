@@ -3,6 +3,7 @@ package com.doublekit.apibox.apitest.apiinstance.model;
 import com.doublekit.apibox.annotation.ApiModel;
 import com.doublekit.apibox.annotation.ApiProperty;
 import com.doublekit.apibox.apitest.apicase.model.Testcase;
+import com.doublekit.beans.annotation.Mapper;
 import com.doublekit.beans.annotation.Mapping;
 import com.doublekit.beans.annotation.Mappings;
 import com.doublekit.common.BaseModel;
@@ -19,6 +20,7 @@ import java.util.List;
 
 @ApiModel
 @Join
+@Mapper(targetAlias = "TestInstanceEntity")
 public class TestInstance extends BaseModel {
 
     @ApiProperty(name="id",desc="id")
