@@ -6,6 +6,7 @@ import com.doublekit.apibox.apidef.dao.*;
 import com.doublekit.apibox.apidef.entity.*;
 import com.doublekit.apibox.apidef.model.MethodEx;
 import com.doublekit.apibox.apidef.model.MethodExQuery;
+import com.doublekit.apibox.apidef.support.ApiAllDataFn;
 import com.doublekit.apibox.apidef.support.MessageTemplateConstant;
 import com.doublekit.apibox.category.model.Category;
 import com.doublekit.apibox.category.model.CategoryQuery;
@@ -94,6 +95,9 @@ public class MethodServiceImpl implements MethodService {
 
     @Autowired
     ResponseResultDao responseResultDao;
+
+    @Autowired
+    ApiAllDataFn apiAllDataFn;
 
     @Autowired
     DssClient dssClient;
@@ -302,6 +306,8 @@ public class MethodServiceImpl implements MethodService {
     @Override
     public MethodEx findMethod(@NotNull String id) {
         MethodEx methodEx = findOne(id);
+
+        apiAllDataFn.getData(methodEx.getId(),methodEx);
 
         joinTemplate.joinQuery(methodEx);
         return methodEx;

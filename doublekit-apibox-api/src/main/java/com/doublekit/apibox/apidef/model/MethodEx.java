@@ -18,8 +18,8 @@ import com.doublekit.user.user.model.User;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.validation.constraints.NotNull;
-import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.List;
 
 @ApiModel
 @Join
@@ -106,6 +106,33 @@ public class MethodEx extends BaseModel {
     @JoinQuery(key = "id")
     @IndexField
     private ApiStatus status;
+
+    @ApiProperty(name = "headerList")
+    private List<RequestHeader> requestHeaderList;
+
+    @ApiProperty(name = "queryList")
+    private List<QueryParam> queryParamList;
+
+    @ApiProperty(name = "requestBody")
+    private RequestBodyEx requestBody;
+
+    @ApiProperty(name = "formParamList")
+    private List<FormParam> formParamList;
+
+    @ApiProperty(name = "formUrlencodedList")
+    private List<FormUrlencoded> formUrlencodedList;
+
+    @ApiProperty(name = "jsonParamList")
+    private List<JsonParam> jsonParamList;
+
+    @ApiProperty(name = "raw")
+    private RawParam rawParam;
+
+    @ApiProperty(name = "preScript")
+    private PreScript preScript;
+
+    @ApiProperty(name = "afterScript")
+    private AfterScript afterScript;
 
 
     public String getId() {
@@ -219,5 +246,77 @@ public class MethodEx extends BaseModel {
 
     public void setExecutor(User executor) {
         this.executor = executor;
+    }
+
+    public List<RequestHeader> getRequestHeaderList() {
+        return requestHeaderList;
+    }
+
+    public void setRequestHeaderList(List<RequestHeader> requestHeaderList) {
+        this.requestHeaderList = requestHeaderList;
+    }
+
+    public List<QueryParam> getQueryParamList() {
+        return queryParamList;
+    }
+
+    public void setQueryParamList(List<QueryParam> queryParamList) {
+        this.queryParamList = queryParamList;
+    }
+
+    public RequestBodyEx getRequestBody() {
+        return requestBody;
+    }
+
+    public void setRequestBody(RequestBodyEx requestBody) {
+        this.requestBody = requestBody;
+    }
+
+    public List<FormParam> getFormParamList() {
+        return formParamList;
+    }
+
+    public void setFormParamList(List<FormParam> formParamList) {
+        this.formParamList = formParamList;
+    }
+
+    public List<FormUrlencoded> getFormUrlencodedList() {
+        return formUrlencodedList;
+    }
+
+    public void setFormUrlencodedList(List<FormUrlencoded> formUrlencodedList) {
+        this.formUrlencodedList = formUrlencodedList;
+    }
+
+    public List<JsonParam> getJsonParamList() {
+        return jsonParamList;
+    }
+
+    public void setJsonParamList(List<JsonParam> jsonParamList) {
+        this.jsonParamList = jsonParamList;
+    }
+
+    public RawParam getRawParam() {
+        return rawParam;
+    }
+
+    public void setRawParam(RawParam rawParam) {
+        this.rawParam = rawParam;
+    }
+
+    public PreScript getPreScript() {
+        return preScript;
+    }
+
+    public void setPreScript(PreScript preScript) {
+        this.preScript = preScript;
+    }
+
+    public AfterScript getAfterScript() {
+        return afterScript;
+    }
+
+    public void setAfterScript(AfterScript afterScript) {
+        this.afterScript = afterScript;
     }
 }

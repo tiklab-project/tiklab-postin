@@ -82,7 +82,7 @@ public class MethodDao {
     public List<MethodEntity> findMethodList(MethodExQuery methodExQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(MethodEntity.class)
                 .eq("categoryId", methodExQuery.getCategoryId())
-                .eq("workspaceId", methodExQuery.getCategoryId())
+                .eq("workspaceId", methodExQuery.getWorkspaceId())
                 .like("name", methodExQuery.getName())
                 .orders(methodExQuery.getOrderParams())
                 .get();
@@ -92,7 +92,7 @@ public class MethodDao {
     public Pagination<MethodEntity> findMethodPage(MethodExQuery methodExQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(MethodEntity.class)
                 .eq("categoryId", methodExQuery.getCategoryId())
-                .eq("workspaceId", methodExQuery.getCategoryId())
+                .eq("workspaceId", methodExQuery.getWorkspaceId())
                 .pagination(methodExQuery.getPageParam())
                 .like("name", methodExQuery.getName())
                 .orders(methodExQuery.getOrderParams())

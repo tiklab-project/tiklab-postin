@@ -4,6 +4,7 @@ import com.doublekit.apibox.apitest.apicase.dao.TestcaseDao;
 import com.doublekit.apibox.apitest.apicase.entity.TestcaseEntity;
 import com.doublekit.apibox.apitest.apicase.model.*;
 
+import com.doublekit.apibox.apitest.apicase.support.CaseApiAllDataFn;
 import com.doublekit.common.page.Pagination;
 import com.doublekit.beans.BeanMapper;
 import com.doublekit.common.page.PaginationBuilder;
@@ -56,6 +57,9 @@ public class TestcaseServiceImpl implements TestcaseService {
 
     @Autowired
     AssertCaseService assertCaseService;
+
+    @Autowired
+    CaseApiAllDataFn caseApiAllDataFn;
 
     @Override
     public String createTestcase(@NotNull @Valid Testcase testcase) {
@@ -193,6 +197,8 @@ public class TestcaseServiceImpl implements TestcaseService {
     public Testcase findTestcase(@NotNull String id) {
         Testcase testcase = findOne(id);
 
+        caseApiAllDataFn.getData(testcase.getId(),testcase);
+
         joinTemplate.joinQuery(testcase);
         return testcase;
     }
@@ -226,6 +232,8 @@ public class TestcaseServiceImpl implements TestcaseService {
         List<Testcase> testcaseList = BeanMapper.mapList(pagination.getDataList(),Testcase.class);
 
         for(Testcase testcase:testcaseList){
+
+
             List<RequestHeaderCase> requestHeaderCaseList = requestHeaderCaseService.findRequestHeaderCaseList(new RequestHeaderCaseQuery().setTestcaseId(testcase.getId()));
             if(requestHeaderCaseList.size()>0){
                 testcase.setRequestHeaderCaseList(requestHeaderCaseList);
