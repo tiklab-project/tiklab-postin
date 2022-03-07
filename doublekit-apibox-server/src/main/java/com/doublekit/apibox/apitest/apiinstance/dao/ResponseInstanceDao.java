@@ -1,9 +1,12 @@
 package com.doublekit.apibox.apitest.apiinstance.dao;
 
+import com.doublekit.apibox.apitest.apiinstance.entity.RequestInstanceEntity;
 import com.doublekit.apibox.apitest.apiinstance.model.ResponseInstanceQuery;
 import com.doublekit.common.page.Pagination;
 import com.doublekit.apibox.apitest.apiinstance.entity.ResponseInstanceEntity;
 import com.doublekit.dal.jpa.JpaTemplate;
+import com.doublekit.dal.jpa.criterial.condition.QueryCondition;
+import com.doublekit.dal.jpa.criterial.conditionbuilder.QueryBuilders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,10 +72,19 @@ public class ResponseInstanceDao{
     }
 
     public List<ResponseInstanceEntity> findResponseInstanceList(ResponseInstanceQuery responseInstanceQuery) {
-        return jpaTemplate.findList(responseInstanceQuery, ResponseInstanceEntity.class);
+        QueryCondition queryCondition = QueryBuilders.createQuery(RequestInstanceEntity.class)
+                .eq("instanceId", responseInstanceQuery.getInstanceId())
+                .orders(responseInstanceQuery.getOrderParams())
+                .get();
+        return jpaTemplate.findList(queryCondition, ResponseInstanceEntity.class);
     }
 
     public Pagination<ResponseInstanceEntity> findResponseInstancePage(ResponseInstanceQuery responseInstanceQuery) {
-        return jpaTemplate.findPage(responseInstanceQuery, ResponseInstanceEntity.class);
+        QueryCondition queryCondition = QueryBuilders.createQuery(RequestInstanceEntity.class)
+                .eq("instanceId", responseInstanceQuery.getInstanceId())
+                .pagination(responseInstanceQuery.getPageParam())
+                .orders(responseInstanceQuery.getOrderParams())
+                .get();
+        return jpaTemplate.findPage(queryCondition, ResponseInstanceEntity.class);
     }
 }

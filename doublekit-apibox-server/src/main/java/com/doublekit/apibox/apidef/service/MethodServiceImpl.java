@@ -332,8 +332,6 @@ public class MethodServiceImpl implements MethodService {
     @Override
     public Pagination<MethodEx> findMethodPage(MethodExQuery methodExQuery) {
 
-        //添加当前版本
-        methodExQuery.setVersionCode("current");
         Pagination<MethodEx> methodExPagination=null;
         if(!StringUtils.isEmpty(methodExQuery.getWorkspaceId())){
             List<Category> categoryList = categoryService.findCategoryList(new CategoryQuery().setWorkspaceId(methodExQuery.getWorkspaceId()));

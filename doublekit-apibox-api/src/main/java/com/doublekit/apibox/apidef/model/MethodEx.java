@@ -68,10 +68,6 @@ public class MethodEx extends BaseModel {
     @IndexField
     private java.lang.String versionCode;
 
-    @ApiProperty(name="onVersionId",desc="上一个版本id")
-    @IndexField
-    private java.lang.String onVersionId;
-
     @ApiProperty(name="createUser",desc="创建人")
     @Mappings({
             @Mapping(source = "createUser.id",target = "createUser")
@@ -175,14 +171,6 @@ public class MethodEx extends BaseModel {
 
     public void setVersionCode(String versionCode) {
         this.versionCode = versionCode;
-    }
-
-    public String getOnVersionId() {
-        return onVersionId;
-    }
-
-    public void setOnVersionId(String onVersionId) {
-        this.onVersionId = onVersionId;
     }
 
     public User getCreateUser() {

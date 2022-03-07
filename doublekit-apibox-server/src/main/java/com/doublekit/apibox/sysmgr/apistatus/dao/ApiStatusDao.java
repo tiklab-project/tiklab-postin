@@ -5,6 +5,8 @@ import com.doublekit.apibox.sysmgr.apistatus.model.ApiStatusQuery;
 import com.doublekit.common.page.Pagination;
 import com.doublekit.dal.jpa.JpaTemplate;
 import com.doublekit.dal.jpa.criterial.condition.DeleteCondition;
+import com.doublekit.dal.jpa.criterial.condition.QueryCondition;
+import com.doublekit.dal.jpa.criterial.conditionbuilder.QueryBuilders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,10 +76,17 @@ public class ApiStatusDao{
     }
 
     public List<ApiStatusEntity> findApiStatusList(ApiStatusQuery apiStatusQuery) {
-        return jpaTemplate.findList(apiStatusQuery,ApiStatusEntity.class);
+        QueryCondition queryCondition = QueryBuilders.createQuery(ApiStatusEntity.class)
+                .orders(apiStatusQuery.getOrderParams())
+                .get();
+        return jpaTemplate.findList(queryCondition,ApiStatusEntity.class);
     }
 
     public Pagination<ApiStatusEntity> findApiStatusPage(ApiStatusQuery apiStatusQuery) {
-        return jpaTemplate.findPage(apiStatusQuery,ApiStatusEntity.class);
+        QueryCondition queryCondition = QueryBuilders.createQuery(ApiStatusEntity.class)
+                .orders(apiStatusQuery.getOrderParams())
+                .pagination(apiStatusQuery.getPageParam())
+                .get();
+        return jpaTemplate.findPage(queryCondition,ApiStatusEntity.class);
     }
 }

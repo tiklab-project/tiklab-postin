@@ -1,7 +1,6 @@
 package com.doublekit.apibox.apitest.apicase.model;
 
 import com.doublekit.common.page.Page;
-import com.doublekit.dal.jpa.annotation.criteria.*;
 import com.doublekit.apibox.annotation.ApiModel;
 import com.doublekit.apibox.annotation.ApiProperty;
 import com.doublekit.common.order.Order;
@@ -10,23 +9,18 @@ import com.doublekit.common.order.OrderBuilders;
 import java.util.List;
 
 @ApiModel
-@CriteriaQuery(entityAlias = "TestcaseEntity")
 public class TestcaseQuery {
 
     @ApiProperty(name ="methodId",desc = "接口ID，精确匹配")
-    @QueryField(type = QueryTypeEnum.equal)
     private String methodId;
 
     @ApiProperty(name ="name",desc = "用例名称，模糊匹配")
-    @QueryField(type = QueryTypeEnum.like)
     private String name;
 
     @ApiProperty(name ="orderParams",desc = "排序参数")
-    @OrderField
     private List<Order> orderParams = OrderBuilders.instance().asc("name").get();
 
     @ApiProperty(name ="pageParam",desc = "分页参数")
-    @PageField
     private Page pageParam = new Page();
 
     public String getMethodId() {

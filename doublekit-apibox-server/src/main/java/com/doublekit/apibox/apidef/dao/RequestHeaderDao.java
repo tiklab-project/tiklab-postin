@@ -5,6 +5,8 @@ import com.doublekit.apibox.apidef.model.RequestHeaderQuery;
 import com.doublekit.common.page.Pagination;
 import com.doublekit.dal.jpa.JpaTemplate;
 import com.doublekit.dal.jpa.criterial.condition.DeleteCondition;
+import com.doublekit.dal.jpa.criterial.condition.QueryCondition;
+import com.doublekit.dal.jpa.criterial.conditionbuilder.QueryBuilders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,10 +76,19 @@ public class RequestHeaderDao{
     }
 
     public List<RequestHeaderEntity> findRequestHeaderList(RequestHeaderQuery requestHeaderQuery) {
-        return jpaTemplate.findList(requestHeaderQuery, RequestHeaderEntity.class);
+        QueryCondition queryCondition = QueryBuilders.createQuery(RequestHeaderEntity.class)
+                .eq("methodId", requestHeaderQuery.getMethodId())
+                .orders(requestHeaderQuery.getOrderParams())
+                .get();
+        return jpaTemplate.findList(queryCondition, RequestHeaderEntity.class);
     }
 
     public Pagination<RequestHeaderEntity> findRequestHeaderPage(RequestHeaderQuery requestHeaderQuery) {
+        QueryCondition queryCondition = QueryBuilders.createQuery(RequestHeaderEntity.class)
+                .eq("methodId", requestHeaderQuery.getMethodId())
+                .pagination(requestHeaderQuery.getPageParam())
+                .orders(requestHeaderQuery.getOrderParams())
+                .get();
         return jpaTemplate.findPage(requestHeaderQuery, RequestHeaderEntity.class);
     }
 }

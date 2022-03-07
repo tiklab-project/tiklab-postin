@@ -6,6 +6,8 @@ import com.doublekit.common.page.Pagination;
 import com.doublekit.apibox.apidef.entity.JsonResponseEntity;
 import com.doublekit.dal.jpa.JpaTemplate;
 import com.doublekit.dal.jpa.criterial.condition.DeleteCondition;
+import com.doublekit.dal.jpa.criterial.condition.QueryCondition;
+import com.doublekit.dal.jpa.criterial.conditionbuilder.QueryBuilders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,10 +81,19 @@ public class JsonResponseDao {
     }
 
     public List<JsonResponseEntity> findJsonResponseList(JsonResponseQuery jsonResponseQuery) {
-        return jpaTemplate.findList(jsonResponseQuery, JsonResponseEntity.class);
+        QueryCondition queryCondition = QueryBuilders.createQuery(JsonResponseEntity.class)
+                .eq("methodId", jsonResponseQuery.getMethodId())
+                .orders(jsonResponseQuery.getOrderParams())
+                .get();
+        return jpaTemplate.findList(queryCondition, JsonResponseEntity.class);
     }
 
     public Pagination<JsonResponseEntity> findJsonResponsePage(JsonResponseQuery jsonResponseQuery) {
-        return jpaTemplate.findPage(jsonResponseQuery, JsonResponseEntity.class);
+        QueryCondition queryCondition = QueryBuilders.createQuery(JsonResponseEntity.class)
+                .eq("methodId", jsonResponseQuery.getMethodId())
+                .pagination(jsonResponseQuery.getPageParam())
+                .orders(jsonResponseQuery.getOrderParams())
+                .get();
+        return jpaTemplate.findPage(queryCondition, JsonResponseEntity.class);
     }
 }

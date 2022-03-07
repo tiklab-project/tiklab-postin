@@ -4,6 +4,8 @@ import com.doublekit.apibox.category.entity.CategoryEntity;
 import com.doublekit.apibox.category.model.CategoryQuery;
 import com.doublekit.common.page.Pagination;
 import com.doublekit.dal.jpa.JpaTemplate;
+import com.doublekit.dal.jpa.criterial.condition.QueryCondition;
+import com.doublekit.dal.jpa.criterial.conditionbuilder.QueryBuilders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,10 +72,21 @@ public class CategoryDao{
     }
 
     public List<CategoryEntity> findCategoryList(CategoryQuery categoryQuery) {
-        return jpaTemplate.findList(categoryQuery, CategoryEntity.class);
+        QueryCondition queryCondition = QueryBuilders.createQuery(CategoryEntity.class)
+                .eq("workspaceId", categoryQuery.getWorkspaceId())
+                .like("name", categoryQuery.getName())
+                .orders(categoryQuery.getOrderParams())
+                .get();
+        return jpaTemplate.findList(queryCondition, CategoryEntity.class);
     }
 
     public Pagination<CategoryEntity> findCategoryPage(CategoryQuery categoryQuery) {
-        return jpaTemplate.findPage(categoryQuery, CategoryEntity.class);
+        QueryCondition queryCondition = QueryBuilders.createQuery(CategoryEntity.class)
+                .eq("workspaceId", categoryQuery.getWorkspaceId())
+                .like("name", categoryQuery.getName())
+                .pagination(categoryQuery.getPageParam())
+                .orders(categoryQuery.getOrderParams())
+                .get();
+        return jpaTemplate.findPage(queryCondition, CategoryEntity.class);
     }
 }

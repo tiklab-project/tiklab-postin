@@ -5,6 +5,8 @@ import com.doublekit.apibox.sysmgr.datastructure.entity.DataStructureEntity;
 import com.doublekit.apibox.sysmgr.datastructure.model.DataStructureQuery;
 import com.doublekit.dal.jpa.JpaTemplate;
 import com.doublekit.dal.jpa.criterial.condition.DeleteCondition;
+import com.doublekit.dal.jpa.criterial.condition.QueryCondition;
+import com.doublekit.dal.jpa.criterial.conditionbuilder.QueryBuilders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,10 +76,19 @@ public class DataStructureDao{
     }
 
     public List<DataStructureEntity> findDataStructureList(DataStructureQuery dataStructureQuery) {
-        return jpaTemplate.findList(dataStructureQuery, DataStructureEntity.class);
+        QueryCondition queryCondition = QueryBuilders.createQuery(DataStructureEntity.class)
+                .like("name", dataStructureQuery.getName())
+                .orders(dataStructureQuery.getOrderParams())
+                .get();
+        return jpaTemplate.findList(queryCondition, DataStructureEntity.class);
     }
 
     public Pagination<DataStructureEntity> findDataStructurePage(DataStructureQuery dataStructureQuery) {
-        return jpaTemplate.findPage(dataStructureQuery, DataStructureEntity.class);
+        QueryCondition queryCondition = QueryBuilders.createQuery(DataStructureEntity.class)
+                .like("name", dataStructureQuery.getName())
+                .pagination(dataStructureQuery.getPageParam())
+                .orders(dataStructureQuery.getOrderParams())
+                .get();
+        return jpaTemplate.findPage(queryCondition, DataStructureEntity.class);
     }
 }

@@ -5,6 +5,8 @@ import com.doublekit.apibox.sysmgr.datastructure.entity.EnumParamEntity;
 import com.doublekit.apibox.sysmgr.datastructure.model.EnumParamQuery;
 import com.doublekit.dal.jpa.JpaTemplate;
 import com.doublekit.dal.jpa.criterial.condition.DeleteCondition;
+import com.doublekit.dal.jpa.criterial.condition.QueryCondition;
+import com.doublekit.dal.jpa.criterial.conditionbuilder.QueryBuilders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,10 +76,19 @@ public class EnumParamDao{
     }
 
     public List<EnumParamEntity> findEnumParamList(EnumParamQuery enumParamQuery) {
-        return jpaTemplate.findList(enumParamQuery, EnumParamEntity.class);
+        QueryCondition queryCondition = QueryBuilders.createQuery(EnumParamEntity.class)
+                .eq("dataStructureId", enumParamQuery.getDataStructureId())
+                .orders(enumParamQuery.getOrderParams())
+                .get();
+        return jpaTemplate.findList(queryCondition, EnumParamEntity.class);
     }
 
     public Pagination<EnumParamEntity> findEnumParamPage(EnumParamQuery enumParamQuery) {
-        return jpaTemplate.findPage(enumParamQuery, EnumParamEntity.class);
+        QueryCondition queryCondition = QueryBuilders.createQuery(EnumParamEntity.class)
+                .eq("dataStructureId", enumParamQuery.getDataStructureId())
+                .pagination(enumParamQuery.getPageParam())
+                .orders(enumParamQuery.getOrderParams())
+                .get();
+        return jpaTemplate.findPage(queryCondition, EnumParamEntity.class);
     }
 }

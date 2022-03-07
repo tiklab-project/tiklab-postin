@@ -4,6 +4,8 @@ import com.doublekit.apibox.workspace.entity.WorkspaceEntity;
 import com.doublekit.apibox.workspace.model.WorkspaceQuery;
 import com.doublekit.common.page.Pagination;
 import com.doublekit.dal.jpa.JpaTemplate;
+import com.doublekit.dal.jpa.criterial.condition.QueryCondition;
+import com.doublekit.dal.jpa.criterial.conditionbuilder.QueryBuilders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,11 +72,22 @@ public class WorkspaceDao{
     }
 
     public List<WorkspaceEntity> findWorkspaceList(WorkspaceQuery workspaceQuery) {
-        return jpaTemplate.findList(workspaceQuery, WorkspaceEntity.class);
+        QueryCondition queryCondition = QueryBuilders.createQuery(WorkspaceEntity.class)
+                .eq("userId", workspaceQuery.getUserId())
+                .like("workspaceName", workspaceQuery.getWorkspaceName())
+                .orders(workspaceQuery.getOrderParams())
+                .get();
+        return jpaTemplate.findList(queryCondition, WorkspaceEntity.class);
     }
 
     public Pagination<WorkspaceEntity> findWorkspacePage(WorkspaceQuery workspaceQuery) {
-        return jpaTemplate.findPage(workspaceQuery, WorkspaceEntity.class);
+        QueryCondition queryCondition = QueryBuilders.createQuery(WorkspaceEntity.class)
+                .eq("userId", workspaceQuery.getUserId())
+                .like("workspaceName", workspaceQuery.getWorkspaceName())
+                .pagination(workspaceQuery.getPageParam())
+                .orders(workspaceQuery.getOrderParams())
+                .get();
+        return jpaTemplate.findPage(queryCondition, WorkspaceEntity.class);
     }
 
     public List<WorkspaceEntity> findWorkspaceJoinList(WorkspaceQuery workspaceQuery) {

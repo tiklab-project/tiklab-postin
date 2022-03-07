@@ -5,6 +5,8 @@ import com.doublekit.apibox.sysmgr.environment.entity.EnvironmentEntity;
 import com.doublekit.apibox.sysmgr.environment.model.EnvironmentQuery;
 import com.doublekit.dal.jpa.JpaTemplate;
 import com.doublekit.dal.jpa.criterial.condition.DeleteCondition;
+import com.doublekit.dal.jpa.criterial.condition.QueryCondition;
+import com.doublekit.dal.jpa.criterial.conditionbuilder.QueryBuilders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,10 +76,19 @@ public class EnvironmentDao{
     }
 
     public List<EnvironmentEntity> findEnvironmentList(EnvironmentQuery environmentQuery) {
-        return jpaTemplate.findList(environmentQuery, EnvironmentEntity.class);
+        QueryCondition queryCondition = QueryBuilders.createQuery(EnvironmentEntity.class)
+                .like("name", environmentQuery.getName())
+                .orders(environmentQuery.getOrderParams())
+                .get();
+        return jpaTemplate.findList(queryCondition, EnvironmentEntity.class);
     }
 
     public Pagination<EnvironmentEntity> findEnvironmentPage(EnvironmentQuery environmentQuery) {
-        return jpaTemplate.findPage(environmentQuery, EnvironmentEntity.class);
+        QueryCondition queryCondition = QueryBuilders.createQuery(EnvironmentEntity.class)
+                .like("name", environmentQuery.getName())
+                .pagination(environmentQuery.getPageParam())
+                .orders(environmentQuery.getOrderParams())
+                .get();
+        return jpaTemplate.findPage(queryCondition, EnvironmentEntity.class);
     }
 }

@@ -5,6 +5,8 @@ import com.doublekit.apibox.apidef.entity.ResponseHeaderEntity;
 import com.doublekit.apibox.apidef.model.ResponseHeaderQuery;
 import com.doublekit.dal.jpa.JpaTemplate;
 import com.doublekit.dal.jpa.criterial.condition.DeleteCondition;
+import com.doublekit.dal.jpa.criterial.condition.QueryCondition;
+import com.doublekit.dal.jpa.criterial.conditionbuilder.QueryBuilders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,10 +77,19 @@ public class ResponseHeaderDao{
     }
 
     public List<ResponseHeaderEntity> findResponseHeaderList(ResponseHeaderQuery responseHeaderQuery) {
-        return jpaTemplate.findList(responseHeaderQuery, ResponseHeaderEntity.class);
+        QueryCondition queryCondition = QueryBuilders.createQuery(ResponseHeaderEntity.class)
+                .eq("methodId", responseHeaderQuery.getMethodId())
+                .orders(responseHeaderQuery.getOrderParams())
+                .get();
+        return jpaTemplate.findList(queryCondition, ResponseHeaderEntity.class);
     }
 
     public Pagination<ResponseHeaderEntity> findResponseHeaderPage(ResponseHeaderQuery responseHeaderQuery) {
-        return jpaTemplate.findPage(responseHeaderQuery, ResponseHeaderEntity.class);
+        QueryCondition queryCondition = QueryBuilders.createQuery(ResponseHeaderEntity.class)
+                .eq("methodId", responseHeaderQuery.getMethodId())
+                .pagination(responseHeaderQuery.getPageParam())
+                .orders(responseHeaderQuery.getOrderParams())
+                .get();
+        return jpaTemplate.findPage(queryCondition, ResponseHeaderEntity.class);
     }
 }

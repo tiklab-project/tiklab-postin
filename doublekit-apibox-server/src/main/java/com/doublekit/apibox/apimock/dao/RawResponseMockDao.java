@@ -4,6 +4,8 @@ import com.doublekit.apibox.apimock.entity.RawResponseMockEntity;
 import com.doublekit.apibox.apimock.model.RawResponseMockQuery;
 import com.doublekit.common.page.Pagination;
 import com.doublekit.dal.jpa.JpaTemplate;
+import com.doublekit.dal.jpa.criterial.condition.QueryCondition;
+import com.doublekit.dal.jpa.criterial.conditionbuilder.QueryBuilders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,10 +67,19 @@ public class RawResponseMockDao{
     }
 
     public List<RawResponseMockEntity> findRawResponseMockList(RawResponseMockQuery rawResponseMockQuery) {
-        return jpaTemplate.findList(rawResponseMockQuery, RawResponseMockEntity.class);
+        QueryCondition queryCondition = QueryBuilders.createQuery(RawResponseMockEntity.class)
+                .eq("mockId", rawResponseMockQuery.getMockId())
+                .orders(rawResponseMockQuery.getOrderParams())
+                .get();
+        return jpaTemplate.findList(queryCondition, RawResponseMockEntity.class);
     }
 
     public Pagination<RawResponseMockEntity> findRawResponseMockPage(RawResponseMockQuery rawResponseMockQuery) {
-        return jpaTemplate.findPage(rawResponseMockQuery, RawResponseMockEntity.class);
+        QueryCondition queryCondition = QueryBuilders.createQuery(RawResponseMockEntity.class)
+                .eq("mockId", rawResponseMockQuery.getMockId())
+                .pagination(rawResponseMockQuery.getPageParam())
+                .orders(rawResponseMockQuery.getOrderParams())
+                .get();
+        return jpaTemplate.findPage(queryCondition, RawResponseMockEntity.class);
     }
 }

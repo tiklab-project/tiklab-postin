@@ -4,6 +4,8 @@ import com.doublekit.apibox.apimock.entity.MockEntity;
 import com.doublekit.apibox.apimock.model.MockQuery;
 import com.doublekit.common.page.Pagination;
 import com.doublekit.dal.jpa.JpaTemplate;
+import com.doublekit.dal.jpa.criterial.condition.QueryCondition;
+import com.doublekit.dal.jpa.criterial.conditionbuilder.QueryBuilders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,10 +71,21 @@ public class MockDao{
     }
 
     public List<MockEntity> findMockList(MockQuery mockQuery) {
-        return jpaTemplate.findList(mockQuery, MockEntity.class);
+        QueryCondition queryCondition = QueryBuilders.createQuery(MockEntity.class)
+                .eq("methodId", mockQuery.getMethodId())
+                .like("name", mockQuery.getName())
+                .orders(mockQuery.getOrderParams())
+                .get();
+        return jpaTemplate.findList(queryCondition, MockEntity.class);
     }
 
     public Pagination<MockEntity> findMockPage(MockQuery mockQuery) {
-        return jpaTemplate.findPage(mockQuery, MockEntity.class);
+        QueryCondition queryCondition = QueryBuilders.createQuery(MockEntity.class)
+                .eq("methodId", mockQuery.getMethodId())
+                .like("name", mockQuery.getName())
+                .pagination(mockQuery.getPageParam())
+                .orders(mockQuery.getOrderParams())
+                .get();
+        return jpaTemplate.findPage(queryCondition, MockEntity.class);
     }
 }

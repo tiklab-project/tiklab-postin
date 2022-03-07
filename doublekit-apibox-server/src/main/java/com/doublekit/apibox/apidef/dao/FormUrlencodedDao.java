@@ -5,6 +5,8 @@ import com.doublekit.apibox.apidef.model.FormUrlencodedQuery;
 import com.doublekit.common.page.Pagination;
 import com.doublekit.dal.jpa.JpaTemplate;
 import com.doublekit.dal.jpa.criterial.condition.DeleteCondition;
+import com.doublekit.dal.jpa.criterial.condition.QueryCondition;
+import com.doublekit.dal.jpa.criterial.conditionbuilder.QueryBuilders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,10 +76,19 @@ public class FormUrlencodedDao{
     }
 
     public List<FormUrlencodedEntity> findFormUrlencodedList(FormUrlencodedQuery formUrlencodedQuery) {
-        return jpaTemplate.findList(formUrlencodedQuery,FormUrlencodedEntity.class);
+        QueryCondition queryCondition = QueryBuilders.createQuery(FormUrlencodedEntity.class)
+                .eq("methodId", formUrlencodedQuery.getMethodId())
+                .orders(formUrlencodedQuery.getOrderParams())
+                .get();
+        return jpaTemplate.findList(queryCondition,FormUrlencodedEntity.class);
     }
 
     public Pagination<FormUrlencodedEntity> findFormUrlencodedPage(FormUrlencodedQuery formUrlencodedQuery) {
-        return jpaTemplate.findPage(formUrlencodedQuery,FormUrlencodedEntity.class);
+        QueryCondition queryCondition = QueryBuilders.createQuery(FormUrlencodedEntity.class)
+                .eq("methodId", formUrlencodedQuery.getMethodId())
+                .pagination(formUrlencodedQuery.getPageParam())
+                .orders(formUrlencodedQuery.getOrderParams())
+                .get();
+        return jpaTemplate.findPage(queryCondition,FormUrlencodedEntity.class);
     }
 }

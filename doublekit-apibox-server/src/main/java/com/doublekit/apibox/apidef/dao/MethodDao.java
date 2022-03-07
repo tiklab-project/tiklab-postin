@@ -80,13 +80,24 @@ public class MethodDao {
     }
 
     public List<MethodEntity> findMethodList(MethodExQuery methodExQuery) {
-
-        return  filterMethod(jpaTemplate.findList(methodExQuery, MethodEntity.class));
+        QueryCondition queryCondition = QueryBuilders.createQuery(MethodEntity.class)
+                .eq("categoryId", methodExQuery.getCategoryId())
+                .eq("workspaceId", methodExQuery.getCategoryId())
+                .like("name", methodExQuery.getName())
+                .orders(methodExQuery.getOrderParams())
+                .get();
+        return  jpaTemplate.findList(queryCondition, MethodEntity.class);
     }
 
     public Pagination<MethodEntity> findMethodPage(MethodExQuery methodExQuery) {
-
-        return jpaTemplate.findPage(methodExQuery, MethodEntity.class);
+        QueryCondition queryCondition = QueryBuilders.createQuery(MethodEntity.class)
+                .eq("categoryId", methodExQuery.getCategoryId())
+                .eq("workspaceId", methodExQuery.getCategoryId())
+                .pagination(methodExQuery.getPageParam())
+                .like("name", methodExQuery.getName())
+                .orders(methodExQuery.getOrderParams())
+                .get();
+        return jpaTemplate.findPage(queryCondition, MethodEntity.class);
     }
 
     //过滤查询最新版本的方法

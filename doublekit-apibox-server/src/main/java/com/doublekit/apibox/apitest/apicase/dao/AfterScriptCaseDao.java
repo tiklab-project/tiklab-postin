@@ -4,6 +4,8 @@ import com.doublekit.apibox.apitest.apicase.entity.AfterScriptCaseEntity;
 import com.doublekit.apibox.apitest.apicase.model.AfterScriptCaseQuery;
 import com.doublekit.common.page.Pagination;
 import com.doublekit.dal.jpa.JpaTemplate;
+import com.doublekit.dal.jpa.criterial.condition.QueryCondition;
+import com.doublekit.dal.jpa.criterial.conditionbuilder.QueryBuilders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,10 +71,19 @@ public class AfterScriptCaseDao{
     }
 
     public List<AfterScriptCaseEntity> findAfterScriptCaseList(AfterScriptCaseQuery afterScriptCaseQuery) {
-        return jpaTemplate.findList(afterScriptCaseQuery, AfterScriptCaseEntity.class);
+        QueryCondition queryCondition = QueryBuilders.createQuery(AfterScriptCaseEntity.class)
+                .eq("testcaseId", afterScriptCaseQuery.getTestcaseId())
+                .orders(afterScriptCaseQuery.getOrderParams())
+                .get();
+        return jpaTemplate.findList(queryCondition, AfterScriptCaseEntity.class);
     }
 
     public Pagination<AfterScriptCaseEntity> findAfterScriptCasePage(AfterScriptCaseQuery afterScriptCaseQuery) {
-        return jpaTemplate.findPage(afterScriptCaseQuery, AfterScriptCaseEntity.class);
+        QueryCondition queryCondition = QueryBuilders.createQuery(AfterScriptCaseEntity.class)
+                .eq("testcaseId", afterScriptCaseQuery.getTestcaseId())
+                .pagination(afterScriptCaseQuery.getPageParam())
+                .orders(afterScriptCaseQuery.getOrderParams())
+                .get();
+        return jpaTemplate.findPage(queryCondition, AfterScriptCaseEntity.class);
     }
 }

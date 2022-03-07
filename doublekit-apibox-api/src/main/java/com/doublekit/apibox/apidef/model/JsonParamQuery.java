@@ -1,7 +1,6 @@
 package com.doublekit.apibox.apidef.model;
 
 import com.doublekit.common.page.Page;
-import com.doublekit.dal.jpa.annotation.criteria.*;
 import com.doublekit.apibox.annotation.ApiModel;
 import com.doublekit.apibox.annotation.ApiProperty;
 import com.doublekit.common.order.Order;
@@ -10,23 +9,15 @@ import com.doublekit.common.order.OrderBuilders;
 import java.util.List;
 
 @ApiModel
-@CriteriaQuery(entityAlias = "JsonParamEntity")
 public class JsonParamQuery {
 
     @ApiProperty(name ="methodId",desc = "接口ID，精确匹配")
-    @QueryField(type = QueryTypeEnum.equal)
     private String methodId;
 
-    @ApiProperty(name ="preVersionId",desc = "上个版本id，精确匹配")
-    @QueryField(type = QueryTypeEnum.equal)
-    private String preVersionId;
-
     @ApiProperty(name ="orderParams",desc = "排序参数")
-    @OrderField
     private List<Order> orderParams = OrderBuilders.instance().asc("paramName").get();
 
     @ApiProperty(name ="pageParam",desc = "分页参数")
-    @PageField
     private Page pageParam = new Page();
 
     public String getMethodId() {
@@ -54,11 +45,4 @@ public class JsonParamQuery {
         this.pageParam = pageParam;
     }
 
-    public String getPreVersionId() {
-        return preVersionId;
-    }
-
-    public void setPreVersionId(String preVersionId) {
-        this.preVersionId = preVersionId;
-    }
 }

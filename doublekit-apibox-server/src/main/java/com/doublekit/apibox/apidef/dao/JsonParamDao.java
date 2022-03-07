@@ -5,6 +5,8 @@ import com.doublekit.apibox.apidef.model.JsonParamQuery;
 import com.doublekit.common.page.Pagination;
 import com.doublekit.dal.jpa.JpaTemplate;
 import com.doublekit.dal.jpa.criterial.condition.DeleteCondition;
+import com.doublekit.dal.jpa.criterial.condition.QueryCondition;
+import com.doublekit.dal.jpa.criterial.conditionbuilder.QueryBuilders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,10 +80,19 @@ public class JsonParamDao{
     }
 
     public List<JsonParamEntity> findJsonParamList(JsonParamQuery jsonParamQuery) {
-        return jpaTemplate.findList(jsonParamQuery, JsonParamEntity.class);
+        QueryCondition queryCondition = QueryBuilders.createQuery(JsonParamEntity.class)
+                .eq("methodId", jsonParamQuery.getMethodId())
+                .orders(jsonParamQuery.getOrderParams())
+                .get();
+        return jpaTemplate.findList(queryCondition, JsonParamEntity.class);
     }
 
     public Pagination<JsonParamEntity> findJsonParamPage(JsonParamQuery jsonParamQuery) {
-        return jpaTemplate.findPage(jsonParamQuery, JsonParamEntity.class);
+        QueryCondition queryCondition = QueryBuilders.createQuery(JsonParamEntity.class)
+                .eq("methodId", jsonParamQuery.getMethodId())
+                .pagination(jsonParamQuery.getPageParam())
+                .orders(jsonParamQuery.getOrderParams())
+                .get();
+        return jpaTemplate.findPage(queryCondition, JsonParamEntity.class);
     }
 }

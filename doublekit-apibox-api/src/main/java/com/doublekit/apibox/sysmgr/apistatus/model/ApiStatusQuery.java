@@ -1,9 +1,6 @@
 package com.doublekit.apibox.sysmgr.apistatus.model;
 
 import com.doublekit.common.page.Page;
-import com.doublekit.dal.jpa.annotation.criteria.CriteriaQuery;
-import com.doublekit.dal.jpa.annotation.criteria.OrderField;
-import com.doublekit.dal.jpa.annotation.criteria.PageField;
 import com.doublekit.common.order.Order;
 import com.doublekit.common.order.OrderBuilders;
 import com.doublekit.apibox.annotation.ApiModel;
@@ -12,14 +9,12 @@ import com.doublekit.apibox.annotation.ApiProperty;
 import java.util.List;
 
 @ApiModel
-@CriteriaQuery(entityAlias = "ApiStatusEntity")
 public class ApiStatusQuery {
+
         @ApiProperty(name ="orderParams",desc = "排序参数")
-        @OrderField
         private List<Order> orderParams = OrderBuilders.instance().asc("name").get();
 
         @ApiProperty(name ="pageParam",desc = "分页参数")
-        @PageField
         private Page pageParam = new Page();
 
         public List<Order> getOrderParams() {

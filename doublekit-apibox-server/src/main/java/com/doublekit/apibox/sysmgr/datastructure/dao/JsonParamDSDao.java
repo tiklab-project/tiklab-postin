@@ -5,6 +5,8 @@ import com.doublekit.apibox.sysmgr.datastructure.entity.JsonParamDSEntity;
 import com.doublekit.apibox.sysmgr.datastructure.model.JsonParamDSQuery;
 import com.doublekit.dal.jpa.JpaTemplate;
 import com.doublekit.dal.jpa.criterial.condition.DeleteCondition;
+import com.doublekit.dal.jpa.criterial.condition.QueryCondition;
+import com.doublekit.dal.jpa.criterial.conditionbuilder.QueryBuilders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,10 +76,19 @@ public class JsonParamDSDao{
     }
 
     public List<JsonParamDSEntity> findJsonParamDSList(JsonParamDSQuery jsonParamDSQuery) {
-        return jpaTemplate.findList(jsonParamDSQuery, JsonParamDSEntity.class);
+        QueryCondition queryCondition = QueryBuilders.createQuery(JsonParamDSEntity.class)
+                .eq("dataStructureId", jsonParamDSQuery.getDataStructureId())
+                .orders(jsonParamDSQuery.getOrderParams())
+                .get();
+        return jpaTemplate.findList(queryCondition, JsonParamDSEntity.class);
     }
 
     public Pagination<JsonParamDSEntity> findJsonParamDSPage(JsonParamDSQuery jsonParamDSQuery) {
-        return jpaTemplate.findPage(jsonParamDSQuery, JsonParamDSEntity.class);
+        QueryCondition queryCondition = QueryBuilders.createQuery(JsonParamDSEntity.class)
+                .eq("dataStructureId", jsonParamDSQuery.getDataStructureId())
+                .pagination(jsonParamDSQuery.getPageParam())
+                .orders(jsonParamDSQuery.getOrderParams())
+                .get();
+        return jpaTemplate.findPage(queryCondition, JsonParamDSEntity.class);
     }
 }

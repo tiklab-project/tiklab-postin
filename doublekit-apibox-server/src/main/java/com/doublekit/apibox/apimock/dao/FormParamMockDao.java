@@ -4,6 +4,8 @@ import com.doublekit.apibox.apimock.entity.FormParamMockEntity;
 import com.doublekit.apibox.apimock.model.FormParamMockQuery;
 import com.doublekit.common.page.Pagination;
 import com.doublekit.dal.jpa.JpaTemplate;
+import com.doublekit.dal.jpa.criterial.condition.QueryCondition;
+import com.doublekit.dal.jpa.criterial.conditionbuilder.QueryBuilders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,10 +67,19 @@ public class FormParamMockDao{
     }
 
     public List<FormParamMockEntity> findFormParamMockList(FormParamMockQuery formParamMockQuery) {
-        return jpaTemplate.findList(formParamMockQuery, FormParamMockEntity.class);
+        QueryCondition queryCondition = QueryBuilders.createQuery(FormParamMockEntity.class)
+                .eq("mockId", formParamMockQuery.getMockId())
+                .orders(formParamMockQuery.getOrderParams())
+                .get();
+        return jpaTemplate.findList(queryCondition, FormParamMockEntity.class);
     }
 
     public Pagination<FormParamMockEntity> findFormParamMockPage(FormParamMockQuery formParamMockQuery) {
-        return jpaTemplate.findPage(formParamMockQuery, FormParamMockEntity.class);
+        QueryCondition queryCondition = QueryBuilders.createQuery(FormParamMockEntity.class)
+                .eq("mockId", formParamMockQuery.getMockId())
+                .pagination(formParamMockQuery.getPageParam())
+                .orders(formParamMockQuery.getOrderParams())
+                .get();
+        return jpaTemplate.findPage(queryCondition, FormParamMockEntity.class);
     }
 }

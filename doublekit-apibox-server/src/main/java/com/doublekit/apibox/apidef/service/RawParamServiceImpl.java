@@ -92,14 +92,4 @@ public class RawParamServiceImpl implements RawParamService {
         return PaginationBuilder.build(pagination,rawParamList);
     }
 
-    @Override
-    public RawParam findRawParamData(@NotNull String id){
-        RawParamEntity rawParamEntity = rawParamDao.findRawParamData(id);
-
-        RawParam rawParam = BeanMapper.map(rawParamEntity, RawParam.class);
-
-        joinTemplate.joinQuery(rawParam);
-
-        return rawParam;
-    }
 }

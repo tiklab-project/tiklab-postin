@@ -1,7 +1,6 @@
 package com.doublekit.apibox.apimock.model;
 
 import com.doublekit.common.page.Page;
-import com.doublekit.dal.jpa.annotation.criteria.*;
 import com.doublekit.apibox.annotation.ApiModel;
 import com.doublekit.apibox.annotation.ApiProperty;
 import com.doublekit.common.order.Order;
@@ -10,19 +9,15 @@ import com.doublekit.common.order.OrderBuilders;
 import java.util.List;
 
 @ApiModel
-@CriteriaQuery(entityAlias = "RequestBodyMockEntity")
 public class RequestBodyMockQuery {
 
     @ApiProperty(name ="mockId",desc = "mockId，精确匹配")
-    @QueryField(type = QueryTypeEnum.equal)
     private String mockId;
 
     @ApiProperty(name ="orderParams",desc = "排序参数")
-    @OrderField
     private List<Order> orderParams = OrderBuilders.instance().asc("id").get();
 
     @ApiProperty(name ="pageParam",desc = "分页参数")
-    @PageField
     private Page pageParam = new Page();
 
     public String getMockId() {

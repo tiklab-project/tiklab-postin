@@ -4,6 +4,8 @@ import com.doublekit.apibox.apimock.entity.ResponseHeaderMockEntity;
 import com.doublekit.apibox.apimock.model.ResponseHeaderMockQuery;
 import com.doublekit.common.page.Pagination;
 import com.doublekit.dal.jpa.JpaTemplate;
+import com.doublekit.dal.jpa.criterial.condition.QueryCondition;
+import com.doublekit.dal.jpa.criterial.conditionbuilder.QueryBuilders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,10 +67,19 @@ public class ResponseHeaderMockDao{
     }
 
     public List<ResponseHeaderMockEntity> findResponseHeaderMockList(ResponseHeaderMockQuery responseHeaderMockQuery) {
-        return jpaTemplate.findList(responseHeaderMockQuery, ResponseHeaderMockEntity.class);
+        QueryCondition queryCondition = QueryBuilders.createQuery(ResponseHeaderMockEntity.class)
+                .eq("mockId", responseHeaderMockQuery.getMockId())
+                .orders(responseHeaderMockQuery.getOrderParams())
+                .get();
+        return jpaTemplate.findList(queryCondition, ResponseHeaderMockEntity.class);
     }
 
     public Pagination<ResponseHeaderMockEntity> findResponseHeaderMockPage(ResponseHeaderMockQuery responseHeaderMockQuery) {
-        return jpaTemplate.findPage(responseHeaderMockQuery, ResponseHeaderMockEntity.class);
+        QueryCondition queryCondition = QueryBuilders.createQuery(ResponseHeaderMockEntity.class)
+                .eq("mockId", responseHeaderMockQuery.getMockId())
+                .pagination(responseHeaderMockQuery.getPageParam())
+                .orders(responseHeaderMockQuery.getOrderParams())
+                .get();
+        return jpaTemplate.findPage(queryCondition, ResponseHeaderMockEntity.class);
     }
 }

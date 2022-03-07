@@ -5,6 +5,8 @@ import com.doublekit.apibox.apidef.model.AfterScriptQuery;
 import com.doublekit.common.page.Pagination;
 import com.doublekit.dal.jpa.JpaTemplate;
 import com.doublekit.dal.jpa.criterial.condition.DeleteCondition;
+import com.doublekit.dal.jpa.criterial.condition.QueryCondition;
+import com.doublekit.dal.jpa.criterial.conditionbuilder.QueryBuilders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,10 +75,19 @@ public class AfterScriptDao{
     }
 
     public List<AfterScriptEntity> findAfterScriptList(AfterScriptQuery afterScriptQuery) {
-        return jpaTemplate.findList(afterScriptQuery, AfterScriptEntity.class);
+        QueryCondition queryCondition = QueryBuilders.createQuery(AfterScriptEntity.class)
+                .eq("methodId", afterScriptQuery.getMethodId())
+                .orders(afterScriptQuery.getOrderParams())
+                .get();
+        return jpaTemplate.findList(queryCondition, AfterScriptEntity.class);
     }
 
     public Pagination<AfterScriptEntity> findAfterScriptPage(AfterScriptQuery afterScriptQuery) {
-        return jpaTemplate.findPage(afterScriptQuery, AfterScriptEntity.class);
+        QueryCondition queryCondition = QueryBuilders.createQuery(AfterScriptEntity.class)
+                .eq("methodId", afterScriptQuery.getMethodId())
+                .pagination(afterScriptQuery.getPageParam())
+                .orders(afterScriptQuery.getOrderParams())
+                .get();
+        return jpaTemplate.findPage(queryCondition, AfterScriptEntity.class);
     }
 }

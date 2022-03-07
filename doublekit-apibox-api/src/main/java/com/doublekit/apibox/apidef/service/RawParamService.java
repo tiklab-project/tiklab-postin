@@ -60,11 +60,5 @@ public interface RawParamService {
     */
     Pagination<RawParam> findRawParamPage(RawParamQuery rawParamQuery);
 
-    /**
-     * 或许需要两个的字段，type，raw
-     * @param id
-     * @return
-     */
-    RawParam findRawParamData(@NotNull String id);
 
 }

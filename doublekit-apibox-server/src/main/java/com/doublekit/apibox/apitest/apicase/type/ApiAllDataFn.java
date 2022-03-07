@@ -160,7 +160,7 @@ public class ApiAllDataFn {
      * @param apiAllData
      */
     private void getRawParamData(String methodId, ApiAllData apiAllData) {
-        RawParam rawParam = rawParamService.findRawParamData(methodId);
+        RawParam rawParam = rawParamService.findRawParam(methodId);
 
         if(!ObjectUtils.isEmpty(rawParam)){
             apiAllData.setRawParam(rawParam);

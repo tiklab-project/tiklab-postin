@@ -7,7 +7,6 @@ CREATE TABLE apibox_method(
         description VARCHAR(256),
         sort int,
         version_code varchar(255) ,
-        on_version_id varchar (255),
         create_user varchar(64),
         create_time timestamp ,
         update_time timestamp,
@@ -68,7 +67,6 @@ CREATE TABLE apibox_json_param(
         value VARCHAR(128),
         sort int,
         parent_id VARCHAR(40),
-        pre_version_id varchar (40)
 );
 CREATE TABLE apibox_raw_param(
         id VARCHAR(40) PRIMARY KEY,
@@ -110,7 +108,6 @@ CREATE TABLE apibox_json_response(
         value VARCHAR(128),
         sort int,
         parent_id VARCHAR(40),
-         pre_version_id varchar (40)
 );
 CREATE TABLE apibox_raw_response(
         id VARCHAR(40) PRIMARY KEY,

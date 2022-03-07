@@ -5,6 +5,8 @@ import com.doublekit.apibox.apidef.model.BinaryParamQuery;
 import com.doublekit.common.page.Pagination;
 import com.doublekit.dal.jpa.JpaTemplate;
 import com.doublekit.dal.jpa.criterial.condition.DeleteCondition;
+import com.doublekit.dal.jpa.criterial.condition.QueryCondition;
+import com.doublekit.dal.jpa.criterial.conditionbuilder.QueryBuilders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,10 +76,19 @@ public class BinaryParamDao{
     }
 
     public List<BinaryParamEntity> findBinaryParamList(BinaryParamQuery binaryParamQuery) {
-        return jpaTemplate.findList(binaryParamQuery,BinaryParamEntity.class);
+        QueryCondition queryCondition = QueryBuilders.createQuery(BinaryParamEntity.class)
+                .eq("methodId",binaryParamQuery.getMethodId())
+                .orders(binaryParamQuery.getOrderParams())
+                .get();
+        return jpaTemplate.findList(queryCondition,BinaryParamEntity.class);
     }
 
     public Pagination<BinaryParamEntity> findBinaryParamPage(BinaryParamQuery binaryParamQuery) {
-        return jpaTemplate.findPage(binaryParamQuery,BinaryParamEntity.class);
+        QueryCondition queryCondition = QueryBuilders.createQuery(BinaryParamEntity.class)
+                .eq("methodId",binaryParamQuery.getMethodId())
+                .pagination(binaryParamQuery.getPageParam())
+                .orders(binaryParamQuery.getOrderParams())
+                .get();
+        return jpaTemplate.findPage(queryCondition,BinaryParamEntity.class);
     }
 }

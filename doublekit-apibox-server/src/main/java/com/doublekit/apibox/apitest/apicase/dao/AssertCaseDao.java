@@ -4,6 +4,8 @@ import com.doublekit.apibox.apitest.apicase.entity.AssertCaseEntity;
 import com.doublekit.apibox.apitest.apicase.model.AssertCaseQuery;
 import com.doublekit.common.page.Pagination;
 import com.doublekit.dal.jpa.JpaTemplate;
+import com.doublekit.dal.jpa.criterial.condition.QueryCondition;
+import com.doublekit.dal.jpa.criterial.conditionbuilder.QueryBuilders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,10 +71,19 @@ public class AssertCaseDao{
     }
 
     public List<AssertCaseEntity> findAssertCaseList(AssertCaseQuery assertCaseQuery) {
-        return jpaTemplate.findList(assertCaseQuery, AssertCaseEntity.class);
+        QueryCondition queryCondition = QueryBuilders.createQuery(AssertCaseEntity.class)
+                .eq("testcaseId", assertCaseQuery.getTestcaseId())
+                .orders(assertCaseQuery.getOrderParams())
+                .get();
+        return jpaTemplate.findList(queryCondition, AssertCaseEntity.class);
     }
 
     public Pagination<AssertCaseEntity> findAssertCasePage(AssertCaseQuery assertCaseQuery) {
-        return jpaTemplate.findPage(assertCaseQuery, AssertCaseEntity.class);
+        QueryCondition queryCondition = QueryBuilders.createQuery(AssertCaseEntity.class)
+                .eq("testcaseId", assertCaseQuery.getTestcaseId())
+                .pagination(assertCaseQuery.getPageParam())
+                .orders(assertCaseQuery.getOrderParams())
+                .get();
+        return jpaTemplate.findPage(queryCondition, AssertCaseEntity.class);
     }
 }

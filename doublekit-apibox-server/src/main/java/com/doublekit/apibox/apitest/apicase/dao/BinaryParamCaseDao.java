@@ -5,6 +5,8 @@ import com.doublekit.apibox.apitest.apicase.model.BinaryParamCaseQuery;
 import com.doublekit.common.page.Pagination;
 import com.doublekit.dal.jpa.JpaTemplate;
 import com.doublekit.dal.jpa.criterial.condition.DeleteCondition;
+import com.doublekit.dal.jpa.criterial.condition.QueryCondition;
+import com.doublekit.dal.jpa.criterial.conditionbuilder.QueryBuilders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,10 +76,19 @@ public class BinaryParamCaseDao{
     }
 
     public List<BinaryParamCaseEntity> findBinaryParamCaseList(BinaryParamCaseQuery binaryParamCaseQuery) {
-        return jpaTemplate.findList(binaryParamCaseQuery,BinaryParamCaseEntity.class);
+        QueryCondition queryCondition = QueryBuilders.createQuery(BinaryParamCaseEntity.class)
+                .eq("testcaseId", binaryParamCaseQuery.getTestcaseId())
+                .orders(binaryParamCaseQuery.getOrderParams())
+                .get();
+        return jpaTemplate.findList(queryCondition,BinaryParamCaseEntity.class);
     }
 
     public Pagination<BinaryParamCaseEntity> findBinaryParamCasePage(BinaryParamCaseQuery binaryParamCaseQuery) {
-        return jpaTemplate.findPage(binaryParamCaseQuery,BinaryParamCaseEntity.class);
+        QueryCondition queryCondition = QueryBuilders.createQuery(BinaryParamCaseEntity.class)
+                .eq("testcaseId", binaryParamCaseQuery.getTestcaseId())
+                .pagination(binaryParamCaseQuery.getPageParam())
+                .orders(binaryParamCaseQuery.getOrderParams())
+                .get();
+        return jpaTemplate.findPage(queryCondition,BinaryParamCaseEntity.class);
     }
 }

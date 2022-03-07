@@ -5,6 +5,8 @@ import com.doublekit.apibox.apidef.model.ResponseResultQuery;
 import com.doublekit.common.page.Pagination;
 import com.doublekit.dal.jpa.JpaTemplate;
 import com.doublekit.dal.jpa.criterial.condition.DeleteCondition;
+import com.doublekit.dal.jpa.criterial.condition.QueryCondition;
+import com.doublekit.dal.jpa.criterial.conditionbuilder.QueryBuilders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,10 +77,16 @@ public class ResponseResultDao{
     }
 
     public List<ResponseResultEntity> findResponseResultList(ResponseResultQuery responseResultQuery) {
-        return jpaTemplate.findList(responseResultQuery, ResponseResultEntity.class);
+        QueryCondition queryCondition = QueryBuilders.createQuery(ResponseResultEntity.class)
+                .eq("methodId", responseResultQuery.getMethodId())
+                .get();
+        return jpaTemplate.findList(queryCondition, ResponseResultEntity.class);
     }
 
     public Pagination<ResponseResultEntity> findResponseResultPage(ResponseResultQuery responseResultQuery) {
+        QueryCondition queryCondition = QueryBuilders.createQuery(ResponseResultEntity.class)
+                .eq("methodId", responseResultQuery.getMethodId())
+                .get();
         return jpaTemplate.findPage(responseResultQuery, ResponseResultEntity.class);
     }
 }

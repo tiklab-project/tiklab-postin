@@ -5,6 +5,8 @@ import com.doublekit.apibox.apidef.entity.PreScriptEntity;
 import com.doublekit.apibox.apidef.model.PreScriptQuery;
 import com.doublekit.dal.jpa.JpaTemplate;
 import com.doublekit.dal.jpa.criterial.condition.DeleteCondition;
+import com.doublekit.dal.jpa.criterial.condition.QueryCondition;
+import com.doublekit.dal.jpa.criterial.conditionbuilder.QueryBuilders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,10 +77,19 @@ public class PreScriptDao{
     }
 
     public List<PreScriptEntity> findPreScriptList(PreScriptQuery preScriptQuery) {
-        return jpaTemplate.findList(preScriptQuery, PreScriptEntity.class);
+        QueryCondition queryCondition = QueryBuilders.createQuery(PreScriptEntity.class)
+                .eq("methodId", preScriptQuery.getMethodId())
+                .orders(preScriptQuery.getOrderParams())
+                .get();
+        return jpaTemplate.findList(queryCondition, PreScriptEntity.class);
     }
 
     public Pagination<PreScriptEntity> findPreScriptPage(PreScriptQuery preScriptQuery) {
-        return jpaTemplate.findPage(preScriptQuery, PreScriptEntity.class);
+        QueryCondition queryCondition = QueryBuilders.createQuery(PreScriptEntity.class)
+                .eq("methodId", preScriptQuery.getMethodId())
+                .pagination(preScriptQuery.getPageParam())
+                .orders(preScriptQuery.getOrderParams())
+                .get();
+        return jpaTemplate.findPage(queryCondition, PreScriptEntity.class);
     }
 }

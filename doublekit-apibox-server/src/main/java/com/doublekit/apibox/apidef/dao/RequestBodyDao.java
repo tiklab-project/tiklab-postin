@@ -5,6 +5,8 @@ import com.doublekit.apibox.apidef.entity.RequestBodyEntity;
 import com.doublekit.apibox.apidef.model.RequestBodyExQuery;
 import com.doublekit.dal.jpa.JpaTemplate;
 import com.doublekit.dal.jpa.criterial.condition.DeleteCondition;
+import com.doublekit.dal.jpa.criterial.condition.QueryCondition;
+import com.doublekit.dal.jpa.criterial.conditionbuilder.QueryBuilders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,10 +75,19 @@ public class RequestBodyDao{
     }
 
     public List<RequestBodyEntity> findRequestBodyList(RequestBodyExQuery requestBodyQuery) {
-        return jpaTemplate.findList(requestBodyQuery, RequestBodyEntity.class);
+        QueryCondition queryCondition = QueryBuilders.createQuery(RequestBodyEntity.class)
+                .eq("methodId", requestBodyQuery.getMethodId())
+                .orders(requestBodyQuery.getOrderParams())
+                .get();
+        return jpaTemplate.findList(queryCondition, RequestBodyEntity.class);
     }
 
     public Pagination<RequestBodyEntity> findRequestBodyPage(RequestBodyExQuery requestBodyQuery) {
-        return jpaTemplate.findPage(requestBodyQuery, RequestBodyEntity.class);
+        QueryCondition queryCondition = QueryBuilders.createQuery(RequestBodyEntity.class)
+                .eq("methodId", requestBodyQuery.getMethodId())
+                .pagination(requestBodyQuery.getPageParam())
+                .orders(requestBodyQuery.getOrderParams())
+                .get();
+        return jpaTemplate.findPage(queryCondition, RequestBodyEntity.class);
     }
 }

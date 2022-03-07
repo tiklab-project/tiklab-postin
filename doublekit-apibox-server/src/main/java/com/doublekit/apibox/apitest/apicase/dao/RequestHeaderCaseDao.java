@@ -4,6 +4,8 @@ import com.doublekit.apibox.apitest.apicase.model.RequestHeaderCaseQuery;
 import com.doublekit.common.page.Pagination;
 import com.doublekit.apibox.apitest.apicase.entity.RequestHeaderCaseEntity;
 import com.doublekit.dal.jpa.JpaTemplate;
+import com.doublekit.dal.jpa.criterial.condition.QueryCondition;
+import com.doublekit.dal.jpa.criterial.conditionbuilder.QueryBuilders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,10 +71,19 @@ public class RequestHeaderCaseDao{
     }
 
     public List<RequestHeaderCaseEntity> findRequestHeaderCaseList(RequestHeaderCaseQuery requestHeaderCaseQuery) {
-        return jpaTemplate.findList(requestHeaderCaseQuery, RequestHeaderCaseEntity.class);
+        QueryCondition queryCondition = QueryBuilders.createQuery(RequestHeaderCaseEntity.class)
+                .eq("testcaseId", requestHeaderCaseQuery.getTestcaseId())
+                .orders(requestHeaderCaseQuery.getOrderParams())
+                .get();
+        return jpaTemplate.findList(queryCondition, RequestHeaderCaseEntity.class);
     }
 
     public Pagination<RequestHeaderCaseEntity> findRequestHeaderCasePage(RequestHeaderCaseQuery requestHeaderCaseQuery) {
-        return jpaTemplate.findPage(requestHeaderCaseQuery, RequestHeaderCaseEntity.class);
+        QueryCondition queryCondition = QueryBuilders.createQuery(RequestHeaderCaseEntity.class)
+                .eq("testcaseId", requestHeaderCaseQuery.getTestcaseId())
+                .pagination(requestHeaderCaseQuery.getPageParam())
+                .orders(requestHeaderCaseQuery.getOrderParams())
+                .get();
+        return jpaTemplate.findPage(queryCondition, RequestHeaderCaseEntity.class);
     }
 }

@@ -5,6 +5,8 @@ import com.doublekit.apibox.apidef.model.QueryParamQuery;
 import com.doublekit.common.page.Pagination;
 import com.doublekit.dal.jpa.JpaTemplate;
 import com.doublekit.dal.jpa.criterial.condition.DeleteCondition;
+import com.doublekit.dal.jpa.criterial.condition.QueryCondition;
+import com.doublekit.dal.jpa.criterial.conditionbuilder.QueryBuilders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,10 +76,19 @@ public class QueryParamDao{
     }
 
     public List<QueryParamEntity> findQueryParamList(QueryParamQuery queryParamQuery) {
-        return jpaTemplate.findList(queryParamQuery, QueryParamEntity.class);
+        QueryCondition queryCondition = QueryBuilders.createQuery(QueryParamEntity.class)
+                .eq("methodId", queryParamQuery.getMethodId())
+                .orders(queryParamQuery.getOrderParams())
+                .get();
+        return jpaTemplate.findList(queryCondition, QueryParamEntity.class);
     }
 
     public Pagination<QueryParamEntity> findQueryParamPage(QueryParamQuery queryParamQuery) {
+        QueryCondition queryCondition = QueryBuilders.createQuery(QueryParamEntity.class)
+                .eq("methodId", queryParamQuery.getMethodId())
+                .pagination(queryParamQuery.getPageParam())
+                .orders(queryParamQuery.getOrderParams())
+                .get();
         return jpaTemplate.findPage(queryParamQuery, QueryParamEntity.class);
     }
 }

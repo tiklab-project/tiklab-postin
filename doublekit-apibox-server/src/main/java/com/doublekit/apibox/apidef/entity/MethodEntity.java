@@ -38,9 +38,6 @@ public class MethodEntity implements Serializable {
     @Column(name = "version_code",length = 255)
     private String versionCode;
 
-    @Column(name = "on_version_id",length = 255)
-    private String onVersionId;
-
     @Column(name = "create_user",length = 30 )
     private String createUser;
 
@@ -121,14 +118,6 @@ public class MethodEntity implements Serializable {
 
     public void setVersionCode(String versionCode) {
         this.versionCode = versionCode;
-    }
-
-    public String getOnVersionId() {
-        return onVersionId;
-    }
-
-    public void setOnVersionId(String onVersionId) {
-        this.onVersionId = onVersionId;
     }
 
     public String getCreateUser() {

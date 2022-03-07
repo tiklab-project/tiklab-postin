@@ -4,6 +4,8 @@ import com.doublekit.common.page.Pagination;
 import com.doublekit.apibox.apitest.apicase.entity.TestcaseEntity;
 import com.doublekit.apibox.apitest.apicase.model.TestcaseQuery;
 import com.doublekit.dal.jpa.JpaTemplate;
+import com.doublekit.dal.jpa.criterial.condition.QueryCondition;
+import com.doublekit.dal.jpa.criterial.conditionbuilder.QueryBuilders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,10 +71,20 @@ public class TestcaseDao{
     }
 
     public List<TestcaseEntity> findTestcaseList(TestcaseQuery testcaseQuery) {
-        return jpaTemplate.findList(testcaseQuery, TestcaseEntity.class);
+        QueryCondition queryCondition = QueryBuilders.createQuery(TestcaseEntity.class)
+                .eq("methodId", testcaseQuery.getMethodId())
+                .orders(testcaseQuery.getOrderParams())
+                .get();
+        return jpaTemplate.findList(queryCondition, TestcaseEntity.class);
     }
 
     public Pagination<TestcaseEntity> findTestcasePage(TestcaseQuery testcaseQuery) {
-        return jpaTemplate.findPage(testcaseQuery, TestcaseEntity.class);
+        QueryCondition queryCondition = QueryBuilders.createQuery(TestcaseEntity.class)
+                .eq("methodId", testcaseQuery.getMethodId())
+                .like("name",testcaseQuery.getName())
+                .pagination(testcaseQuery.getPageParam())
+                .orders(testcaseQuery.getOrderParams())
+                .get();
+        return jpaTemplate.findPage(queryCondition, TestcaseEntity.class);
     }
 }

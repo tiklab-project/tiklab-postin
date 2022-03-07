@@ -5,6 +5,8 @@ import com.doublekit.apibox.apidef.entity.RawParamEntity;
 import com.doublekit.apibox.apidef.model.RawParamQuery;
 import com.doublekit.dal.jpa.JpaTemplate;
 import com.doublekit.dal.jpa.criterial.condition.DeleteCondition;
+import com.doublekit.dal.jpa.criterial.condition.QueryCondition;
+import com.doublekit.dal.jpa.criterial.conditionbuilder.QueryBuilders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,20 +77,21 @@ public class RawParamDao{
     }
 
     public List<RawParamEntity> findRawParamList(RawParamQuery rawParamQuery) {
-        return jpaTemplate.findList(rawParamQuery, RawParamEntity.class);
+        QueryCondition queryCondition = QueryBuilders.createQuery(RawParamEntity.class)
+                .eq("methodId", rawParamQuery.getMethodId())
+                .orders(rawParamQuery.getOrderParams())
+                .get();
+        return jpaTemplate.findList(queryCondition, RawParamEntity.class);
     }
 
     public Pagination<RawParamEntity> findRawParamPage(RawParamQuery rawParamQuery) {
-        return jpaTemplate.findPage(rawParamQuery, RawParamEntity.class);
+        QueryCondition queryCondition = QueryBuilders.createQuery(RawParamEntity.class)
+                .eq("methodId", rawParamQuery.getMethodId())
+                .pagination(rawParamQuery.getPageParam())
+                .orders(rawParamQuery.getOrderParams())
+                .get();
+        return jpaTemplate.findPage(queryCondition, RawParamEntity.class);
     }
 
-    public RawParamEntity findRawParamData(String id){
-        String sql = "select raw,type FROM  apibox_raw_param where method_id=?";
-
-        List<RawParamEntity> query = jpaTemplate.getJdbcTemplate().query(sql, new Object[]{id}, new BeanPropertyRowMapper<>(RawParamEntity.class));
-        RawParamEntity rawParamEntity = query.get(0);
-
-        return rawParamEntity;
-    }
 
 }

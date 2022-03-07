@@ -4,6 +4,8 @@ import com.doublekit.apibox.apitest.apicase.entity.FormParamCaseEntity;
 import com.doublekit.apibox.apitest.apicase.model.FormParamCaseQuery;
 import com.doublekit.common.page.Pagination;
 import com.doublekit.dal.jpa.JpaTemplate;
+import com.doublekit.dal.jpa.criterial.condition.QueryCondition;
+import com.doublekit.dal.jpa.criterial.conditionbuilder.QueryBuilders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,10 +71,19 @@ public class FormParamCaseDao{
     }
 
     public List<FormParamCaseEntity> findFormParamCaseList(FormParamCaseQuery formParamCaseQuery) {
-        return jpaTemplate.findList(formParamCaseQuery, FormParamCaseEntity.class);
+        QueryCondition queryCondition = QueryBuilders.createQuery(FormParamCaseEntity.class)
+                .eq("testcaseId",formParamCaseQuery.getTestcaseId())
+                .orders(formParamCaseQuery.getOrderParams())
+                .get();
+        return jpaTemplate.findList(queryCondition, FormParamCaseEntity.class);
     }
 
     public Pagination<FormParamCaseEntity> findFormParamCasePage(FormParamCaseQuery formParamCaseQuery) {
-        return jpaTemplate.findPage(formParamCaseQuery, FormParamCaseEntity.class);
+        QueryCondition queryCondition = QueryBuilders.createQuery(FormParamCaseEntity.class)
+                .eq("testcaseId",formParamCaseQuery.getTestcaseId())
+                .pagination(formParamCaseQuery.getPageParam())
+                .orders(formParamCaseQuery.getOrderParams())
+                .get();
+        return jpaTemplate.findPage(queryCondition, FormParamCaseEntity.class);
     }
 }
