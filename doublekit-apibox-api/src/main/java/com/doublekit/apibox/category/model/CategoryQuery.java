@@ -14,6 +14,9 @@ public class CategoryQuery {
     @ApiProperty(name ="workspaceId",desc = "空间ID，精确匹配")
     private String workspaceId;
 
+    @ApiProperty(name ="type",desc = "type:quick，api ,精确匹配")
+    private String type;
+
     @ApiProperty(name ="name",desc = "分类名称，模糊匹配")
     private String name;
 
@@ -30,6 +33,14 @@ public class CategoryQuery {
     public CategoryQuery setWorkspaceId(String workspaceId) {
         this.workspaceId = workspaceId;
         return this;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public List<Order> getOrderParams() {

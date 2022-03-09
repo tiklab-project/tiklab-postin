@@ -25,6 +25,12 @@ public class TestcaseEntity implements Serializable {
     @Column(name = "base_url",length = 128)
     private String baseUrl;
 
+    @Column(name = "path",length = 256)
+    private String path;
+
+    @Column(name = "request_type",length = 64)
+    private String requestType;
+
     public String getId() {
         return id;
     }
@@ -55,5 +61,21 @@ public class TestcaseEntity implements Serializable {
 
     public void setBaseUrl(String baseUrl) {
         this.baseUrl = baseUrl;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    public String getRequestType() {
+        return requestType;
+    }
+
+    public void setRequestType(String requestType) {
+        this.requestType = requestType;
     }
 }

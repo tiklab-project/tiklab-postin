@@ -74,6 +74,7 @@ public class CategoryDao{
     public List<CategoryEntity> findCategoryList(CategoryQuery categoryQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(CategoryEntity.class)
                 .eq("workspaceId", categoryQuery.getWorkspaceId())
+                .eq("type",categoryQuery.getType())
                 .like("name", categoryQuery.getName())
                 .orders(categoryQuery.getOrderParams())
                 .get();
@@ -83,6 +84,7 @@ public class CategoryDao{
     public Pagination<CategoryEntity> findCategoryPage(CategoryQuery categoryQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(CategoryEntity.class)
                 .eq("workspaceId", categoryQuery.getWorkspaceId())
+                .eq("type",categoryQuery.getType())
                 .like("name", categoryQuery.getName())
                 .pagination(categoryQuery.getPageParam())
                 .orders(categoryQuery.getOrderParams())

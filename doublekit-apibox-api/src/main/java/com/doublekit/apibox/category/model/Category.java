@@ -105,4 +105,5 @@ public class Category extends BaseModel {
     public void setCategoryMethod(List<MethodEx> categoryMethod) {
         this.categoryMethod = categoryMethod;
     }
+
 }

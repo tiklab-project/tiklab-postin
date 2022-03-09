@@ -36,6 +36,12 @@ public class Testcase extends BaseModel {
     @ApiProperty(name="baseUrl",desc="路径前缀")
     private java.lang.String baseUrl;
 
+    @ApiProperty(name = "path",desc = "接口路径")
+    private String path;
+
+    @ApiProperty(name = "requestType",desc = "请求方式")
+    private String requestType;
+
     @ApiProperty(name="requestHeaderCaseList",desc="用例-请求头列表")
     private List<RequestHeaderCase> requestHeaderCaseList;
 
@@ -97,6 +103,22 @@ public class Testcase extends BaseModel {
 
     public void setBaseUrl(String baseUrl) {
         this.baseUrl = baseUrl;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    public String getRequestType() {
+        return requestType;
+    }
+
+    public void setRequestType(String requestType) {
+        this.requestType = requestType;
     }
 
     public List<RequestHeaderCase> getRequestHeaderCaseList() {

@@ -2,7 +2,9 @@ CREATE TABLE apibox_testcase(
         id VARCHAR(40) PRIMARY KEY,
         method_id VARCHAR(40) NOT NULL,
         name VARCHAR(64) NOT NULL,
-        base_url VARCHAR(128)
+        base_url VARCHAR(128),
+        request_type VARCHAR(64),
+        path VARCHAR(256)
 );
 CREATE TABLE apibox_request_header_testcase(
         id VARCHAR(32) PRIMARY KEY,
