@@ -22,7 +22,6 @@
         <module>doublekit-apibox-server</module>
         <module>doublekit-apibox-plugin</module>
         <module>doublekit-apibox-starter</module>
-        <module>doublekit-apibox-plugin</module>
     </modules>
 
     <properties>

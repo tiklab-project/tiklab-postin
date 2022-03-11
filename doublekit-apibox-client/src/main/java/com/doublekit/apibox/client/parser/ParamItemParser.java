@@ -51,7 +51,12 @@ public class ParamItemParser {
             if(paramType == null){
                 return;
             }else{
-                List<ApiPropertyMeta> apiPropertyMetaList = new ApiModelParser().parsePropertyMetas(paramType,null);
+                List<ApiPropertyMeta> apiPropertyMetaList = null;
+                try {
+                    apiPropertyMetaList = new ApiModelParser().parsePropertyMetas(paramType,null);
+                } catch (Exception e) {
+                    throw new SystemException("parse model property failed,type:" + type.getTypeName());
+                }
                 if(apiPropertyMetaList != null && apiPropertyMetaList.size() > 0){
                     paramItem.setChildren(apiPropertyMetaList);
 
@@ -68,7 +73,7 @@ public class ParamItemParser {
             try {
                 apiPropertyMetaList = new ApiModelParser().parsePropertyMetas(type, paramType);
             } catch (Exception e) {
-                throw new SystemException("parse property failed,type:" + type.getTypeName());
+                throw new SystemException("parse model property failed,type:" + type.getTypeName());
             }
             if(apiPropertyMetaList != null && apiPropertyMetaList.size() > 0){
                 paramItem.setChildren(apiPropertyMetaList);

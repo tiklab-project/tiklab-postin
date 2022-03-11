@@ -6,6 +6,7 @@ import com.doublekit.apibox.client.model.ApiMeta;
 import com.doublekit.apibox.client.model.ApiMethodMeta;
 import com.doublekit.apibox.client.model.ApiParamMeta;
 import com.doublekit.apibox.client.model.ApiResultMeta;
+import com.doublekit.common.exception.ApplicationException;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,7 +46,7 @@ public class ApiMethodParser {
             methodMeta.setApiMethod(apiMethod);
             methodMeta.setName(apiMethod.name());
             methodMeta.setDesc(apiMethod.desc());
-            RequestMapping requestMapping = (RequestMapping)method.getDeclaredAnnotation(RequestMapping.class);
+            RequestMapping requestMapping = method.getDeclaredAnnotation(RequestMapping.class);
             if(requestMapping != null){
                 String path = null;
                 String[] urls = requestMapping.path();
@@ -71,7 +72,12 @@ public class ApiMethodParser {
             }
 
             //解析参数
-            List<ApiParamMeta> paramMetaList = new ApiParamParser().parseParamMetas(method);
+            List<ApiParamMeta> paramMetaList = null;
+            try {
+                paramMetaList = new ApiParamParser().parseParamMetas(method);
+            } catch (Exception e) {
+                throw new ApplicationException("parse method params failed.",e);
+            }
             methodMeta.setApiParamMetaList(paramMetaList);
 
             Map<String,Object> paramEgMap = getParamEgMap(paramMetaList);
@@ -81,7 +87,12 @@ public class ApiMethodParser {
             methodMeta.setParamDataType(dataType);
 
             //解析返回结果
-            ApiResultMeta resultMeta = new ApiResultParser().parseResultMetas(method);
+            ApiResultMeta resultMeta = null;
+            try {
+                resultMeta = new ApiResultParser().parseResultMetas(method);
+            } catch (Exception e) {
+                throw new ApplicationException("parse method result failed.",e);
+            }
             methodMeta.setApiResultMeta(resultMeta);
 
             //add to list
