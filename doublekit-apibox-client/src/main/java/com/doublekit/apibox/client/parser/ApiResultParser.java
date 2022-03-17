@@ -3,7 +3,8 @@ package com.doublekit.apibox.client.parser;
 import com.alibaba.fastjson.JSON;
 import com.doublekit.apibox.client.mock.JMockitForGeneric;
 import com.doublekit.apibox.client.model.ApiResultMeta;
-import com.doublekit.apibox.client.model.ParamItemType;
+import com.doublekit.apibox.client.model.TypeMetaEnum;
+import com.doublekit.common.exception.SystemException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,43 +12,48 @@ import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
-public class ApiResultParser extends ParamItemParser{
+public class ApiResultParser {
 
     private static Logger logger = LoggerFactory.getLogger(ApiResultParser.class);
 
-    public ApiResultMeta parseResultMetas(Method method){
+    public ApiResultMeta parseResult(Method method){
         ApiResultMeta resultMeta = new ApiResultMeta();
 
-        Type fieldType = null;
-        Type paramType = null;
-        Type genericReturnType = method.getGenericReturnType();
-        if(genericReturnType instanceof ParameterizedType){
-            ParameterizedType parameterizedType = (ParameterizedType) genericReturnType;
-            fieldType = parameterizedType.getRawType();
-            for (Type type : parameterizedType.getActualTypeArguments()) {
-                paramType = type;
+        try {
+            Type fieldType = null;
+            Type paramType = null;
+            Type genericReturnType = method.getGenericReturnType();
+            if(genericReturnType instanceof ParameterizedType){
+                ParameterizedType parameterizedType = (ParameterizedType) genericReturnType;
+                fieldType = parameterizedType.getRawType();
+                for (Type type : parameterizedType.getActualTypeArguments()) {
+                    paramType = type;
+                }
+                String returnTypeText = parameterizedType.toString();
+                returnTypeText = returnTypeText.replaceAll("<","&lt;");
+                returnTypeText = returnTypeText.replaceAll(">","&gt;");
+
+                resultMeta.setType(fieldType);
+                resultMeta.setParamType(paramType);
+                resultMeta.setReturnTypeText(returnTypeText);
+            }else{
+                fieldType = method.getReturnType();
+                resultMeta.setType(fieldType);
+                resultMeta.setReturnTypeText(fieldType.getTypeName());
             }
-            String returnTypeText = parameterizedType.toString();
-            returnTypeText = returnTypeText.replaceAll("<","&lt;");
-            returnTypeText = returnTypeText.replaceAll(">","&gt;");
 
-            resultMeta.setType(fieldType);
-            resultMeta.setParamType(paramType);
-            resultMeta.setReturnTypeText(returnTypeText);
-        }else{
-            fieldType = method.getReturnType();
-            resultMeta.setType(fieldType);
-            resultMeta.setReturnTypeText(fieldType.getTypeName());
-        }
+            //解析子节点列表
+            new ApiTypeParser().parseChildren(resultMeta, TypeMetaEnum.TYPE_OUPUT,3);
 
-        //解析子节点列表
-        loop(resultMeta, ParamItemType.TYPE_OUPUT,3);
+            //deep = 0;
 
-        //deep = 0;
-
-        if(resultMeta.getChildren() != null && resultMeta.getChildren().size() > 0){
-            String textDef = JSON.toJSONString(resultMeta.getChildren(),true);
-            resultMeta.setTextDef(textDef);
+            if(resultMeta.getChildren() != null && resultMeta.getChildren().size() > 0){
+                String textDef = JSON.toJSONString(resultMeta.getChildren(),true);
+                resultMeta.setTextDef(textDef);
+            }
+        } catch (Throwable e) {
+            String errorMsg = String.format("parse method result failed,method:%s.",method.getName());
+            throw new SystemException(errorMsg,e);
         }
 
         /*
@@ -63,6 +69,7 @@ public class ApiResultParser extends ParamItemParser{
             resultMeta.setTextEg(textEg);
         }
          */
+
         return resultMeta;
     }
 

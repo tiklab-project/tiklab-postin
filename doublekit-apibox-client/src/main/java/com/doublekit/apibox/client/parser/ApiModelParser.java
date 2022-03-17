@@ -26,61 +26,71 @@ public class ApiModelParser {
      * @param actualType
      * @return
      */
-    public List<ApiPropertyMeta> parsePropertyMetas(Type modelType, Type actualType){
+    public List<ApiPropertyMeta> parseProperties(Type modelType, Type actualType){
         List<ApiPropertyMeta> apiPropertyMetaList = new ArrayList<>();
 
-        Type beanType = null;
-        if(modelType instanceof ParameterizedType){
-            ParameterizedType parameterizedType = (ParameterizedType) modelType;
-            beanType = parameterizedType.getRawType();
-            for (Type type : parameterizedType.getActualTypeArguments()) {}
-        }else{
-            beanType = modelType;
-        }
-
-        //TODO
-        if(beanType instanceof TypeVariable){
-            TypeVariable typeVariable = ((TypeVariable) beanType);
-            return apiPropertyMetaList;
-        }
-
-        Field[] fields = null;
+        Field[] fields = new Field[0];
         try {
+            Type beanType = null;
+            if(modelType instanceof ParameterizedType){
+                ParameterizedType parameterizedType = (ParameterizedType) modelType;
+                beanType = parameterizedType.getRawType();
+                for (Type type : parameterizedType.getActualTypeArguments()) {}
+            }else{
+                beanType = modelType;
+            }
+
+            //TODO
+            if(beanType instanceof TypeVariable){
+                TypeVariable typeVariable = ((TypeVariable) beanType);
+                return apiPropertyMetaList;
+            }
+
             fields = ((Class)beanType).getDeclaredFields();
             if(fields == null || fields.length == 0){
                 return apiPropertyMetaList;
             }
         } catch (Throwable e) {
-            throw new SystemException("parse model error,model:" + beanType.getTypeName(),e);
+            String errorMsg = String.format("parse model failed,modelType:%s",modelType);
+            throw new SystemException(errorMsg,e);
         }
 
         for (Field field:fields){
-            ApiProperty apiProperty = field.getAnnotation(ApiProperty.class);
-            if(apiProperty == null){
-                continue;
-            }
+            ApiProperty apiProperty = null;
             Type fieldType = null;
             Type paramType = null;
-            Type genericType = field.getGenericType();
-            if (genericType instanceof ParameterizedType) {
-                ParameterizedType parameterizedType = (ParameterizedType) genericType;
-                fieldType = parameterizedType.getRawType();
-                for (Type type : parameterizedType.getActualTypeArguments()) {
-                    paramType = type;
-                }
-            }else if(genericType instanceof TypeVariable){
-                TypeVariable typeVariable = (TypeVariable)genericType;
-                if(actualType != null){
-                    fieldType = actualType;
-                }else{
+            try {
+                apiProperty = field.getAnnotation(ApiProperty.class);
+                if(apiProperty == null){
                     continue;
                 }
-            }else{
-                fieldType = field.getType();
+                fieldType = null;
+                paramType = null;
+                Type genericType = field.getGenericType();
+                if (genericType instanceof ParameterizedType) {
+                    ParameterizedType parameterizedType = (ParameterizedType) genericType;
+                    fieldType = parameterizedType.getRawType();
+                    for (Type type : parameterizedType.getActualTypeArguments()) {
+                        paramType = type;
+                    }
+                }else if(genericType instanceof TypeVariable){
+                    TypeVariable typeVariable = (TypeVariable)genericType;
+                    if(actualType != null){
+                        fieldType = actualType;
+                    }else{
+                        continue;
+                    }
+                }else{
+                    fieldType = field.getType();
+                }
+            } catch (Throwable e) {
+                String errorMsg = String.format("parse model property failed,modelType:%s,fieldType:%s",modelType,field.getType());
+                throw new SystemException(errorMsg,e);
             }
 
             apiPropertyMetaList.add(new ApiPropertyMeta(field,apiProperty,fieldType, paramType));
         }
+
         return apiPropertyMetaList;
     }
 

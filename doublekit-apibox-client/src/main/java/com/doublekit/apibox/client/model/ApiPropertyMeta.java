@@ -6,7 +6,7 @@ import com.doublekit.apibox.annotation.ApiProperty;
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 
-public class ApiPropertyMeta extends ParamItem{
+public class ApiPropertyMeta extends TypeMeta {
 
     @JSONField(serialize = false)
     private Field field;

@@ -5,7 +5,7 @@ import com.alibaba.fastjson.annotation.JSONField;
 import java.lang.reflect.Type;
 import java.util.List;
 
-public class ParamItem {
+public class TypeMeta {
 
     //名称
     @JSONField(ordinal = 1)
