@@ -3,7 +3,7 @@ package com.doublekit.apibox.search.controller;
 import com.doublekit.apibox.annotation.Api;
 import com.doublekit.apibox.annotation.ApiMethod;
 import com.doublekit.apibox.annotation.ApiParam;
-import com.doublekit.apibox.apidef.model.MethodEx;
+import com.doublekit.apibox.apidef.http.model.HttpApi;
 import com.doublekit.apibox.search.service.SearchService;
 import com.doublekit.apibox.workspace.model.Workspace;
 import com.doublekit.common.Result;
@@ -51,7 +51,7 @@ public class SearchController {
     @ApiMethod(name = "get",desc = "根据ID查找")
     @ApiParam(name = "id",desc = "id",required = true)
     public Result<Map<String,Object>> get(@NotNull String id){
-        Map<String,Object> map = searchService.findOne(MethodEx.class,id);
+        Map<String,Object> map = searchService.findOne(HttpApi.class,id);
 
         return Result.ok(map);
     }
@@ -70,7 +70,7 @@ public class SearchController {
         }
 
         //搜索事项
-        topResponse = searchService.searchForTop(MethodEx.class,keyword);
+        topResponse = searchService.searchForTop(HttpApi.class,keyword);
         if(topResponse != null && topResponse.getTotalRecord() > 0){
             allTopResponse.getResponseList().add(topResponse);
         }
@@ -90,7 +90,7 @@ public class SearchController {
         allCountResponse.getResponseList().add(countResponse);
 
         //搜索事项
-        countResponse = searchService.searchForCount(MethodEx.class,keyword);
+        countResponse = searchService.searchForCount(HttpApi.class,keyword);
         allCountResponse.getResponseList().add(countResponse);
 
         return Result.ok(allCountResponse);
@@ -128,7 +128,7 @@ public class SearchController {
             if("workspace".equalsIgnoreCase(index)){
                 indexMapping.put(index,Workspace.class);
             }else if("methodex".equalsIgnoreCase(index)){
-                indexMapping.put(index,MethodEx.class);
+                indexMapping.put(index, HttpApi.class);
             }else{
                 throw new ApplicationException("unsupport index type:" + index);
             }

@@ -1,6 +1,6 @@
 package com.doublekit.apibox.apitest.codegen;
 
-import com.doublekit.apibox.apitest.apiinstance.entity.TestInstanceEntity;
+import com.doublekit.apibox.apitest.http.httpinstance.entity.HttpTestInstanceEntity;
 import com.doublekit.codegen.CodeGeneratorTemplate;
 import com.doublekit.codegen.config.CodeGeneratorConfig;
 import com.doublekit.codegen.config.ProjectGeneratorConfig;
@@ -21,7 +21,7 @@ public class TestInstanceCodeGeneratorTest extends CodeGeneratorTemplate {
     protected CodeGeneratorConfig getCodeGeneratorConfig() {
         CodeGeneratorConfig config = new CodeGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
-        config.setEntity(TestInstanceEntity.class);
+        config.setEntity(HttpTestInstanceEntity.class);
         config.setPkg("com.doublekit.apibox.apitest");
         config.setModel("TestInstance");
         return config;

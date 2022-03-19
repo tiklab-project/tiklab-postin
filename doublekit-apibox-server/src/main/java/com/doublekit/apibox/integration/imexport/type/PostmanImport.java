@@ -73,15 +73,15 @@ public class PostmanImport {
         JSONObject request = obj.getJSONObject("request");
         JSONObject url = request.getJSONObject("url");
 
-        MethodImportVo methodImportVo = new MethodImportVo();
+        ApixImportVo apixImportVo = new ApixImportVo();
 
-        methodImportVo.setMethodId(methodId);
-        methodImportVo.setCategoryId(categoryId);
-        methodImportVo.setName(obj.getString("name"));
-        methodImportVo.setRequestType(request.getString("method"));
-        methodImportVo.setPath(getPath(url.getJSONArray("path")));
+        apixImportVo.setMethodId(methodId);
+        apixImportVo.setCategoryId(categoryId);
+        apixImportVo.setName(obj.getString("name"));
+        apixImportVo.setRequestType(request.getString("method"));
+        apixImportVo.setPath(getPath(url.getJSONArray("path")));
 
-        functionImport.addMethod(methodImportVo);
+        functionImport.addMethod(apixImportVo);
     }
 
     //header

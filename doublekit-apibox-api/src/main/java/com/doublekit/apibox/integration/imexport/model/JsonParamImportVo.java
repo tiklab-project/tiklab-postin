@@ -1,6 +1,6 @@
 package com.doublekit.apibox.integration.imexport.model;
 
-import com.doublekit.apibox.apidef.model.JsonParam;
+import com.doublekit.apibox.apidef.http.model.JsonParam;
 
 public class JsonParamImportVo {
 

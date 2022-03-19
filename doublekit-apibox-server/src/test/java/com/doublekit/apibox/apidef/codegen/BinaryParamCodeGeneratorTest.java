@@ -1,6 +1,6 @@
 package com.doublekit.apibox.apidef.codegen;
 
-import com.doublekit.apibox.apidef.entity.BinaryParamEntity;
+import com.doublekit.apibox.apidef.http.entity.BinaryParamEntity;
 import com.doublekit.codegen.CodeGeneratorTemplate;
 import com.doublekit.codegen.config.CodeGeneratorConfig;
 import com.doublekit.codegen.config.ProjectGeneratorConfig;

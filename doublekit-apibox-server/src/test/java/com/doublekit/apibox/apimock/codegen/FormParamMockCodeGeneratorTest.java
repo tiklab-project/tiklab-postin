@@ -1,6 +1,6 @@
 package com.doublekit.apibox.apimock.codegen;
 
-import com.doublekit.apibox.apimock.entity.FormParamMockEntity;
+import com.doublekit.apibox.apimock.http.entity.FormParamMockEntity;
 import com.doublekit.codegen.CodeGeneratorTemplate;
 import com.doublekit.codegen.config.ProjectGeneratorConfig;
 import com.doublekit.codegen.config.CodeGeneratorConfig;

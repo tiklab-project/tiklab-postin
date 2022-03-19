@@ -1,6 +1,6 @@
 package com.doublekit.apibox.apimock.codegen;
 
-import com.doublekit.apibox.apimock.entity.JsonResponseMockEntity;
+import com.doublekit.apibox.apimock.http.entity.JsonResponseMockEntity;
 import com.doublekit.codegen.CodeGeneratorTemplate;
 import com.doublekit.codegen.config.ProjectGeneratorConfig;
 import com.doublekit.codegen.config.CodeGeneratorConfig;

@@ -1,6 +1,6 @@
 package com.doublekit.apibox.apidef.codegen;
 
-import com.doublekit.apibox.apidef.entity.ResponseHeaderEntity;
+import com.doublekit.apibox.apidef.http.entity.ResponseHeaderEntity;
 import com.doublekit.codegen.CodeGeneratorTemplate;
 import com.doublekit.codegen.config.ProjectGeneratorConfig;
 import com.doublekit.codegen.config.CodeGeneratorConfig;

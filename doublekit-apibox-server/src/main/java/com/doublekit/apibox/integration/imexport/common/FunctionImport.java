@@ -1,8 +1,10 @@
 package com.doublekit.apibox.integration.imexport.common;
 
 import com.alibaba.fastjson.JSONObject;
-import com.doublekit.apibox.apidef.model.*;
-import com.doublekit.apibox.apidef.service.*;
+import com.doublekit.apibox.apidef.apix.model.Apix;
+import com.doublekit.apibox.apidef.apix.service.ApixService;
+import com.doublekit.apibox.apidef.http.model.*;
+import com.doublekit.apibox.apidef.http.service.*;
 import com.doublekit.apibox.category.model.Category;
 import com.doublekit.apibox.category.model.CategoryQuery;
 import com.doublekit.apibox.category.service.CategoryService;
@@ -24,7 +26,10 @@ public class FunctionImport {
     CategoryService categoryService;
 
     @Autowired
-    MethodService methodService;
+    ApixService apixService;
+
+    @Autowired
+    HttpApiService httpApiService;
 
     @Autowired
     RequestHeaderService requestHeaderService;
@@ -87,7 +92,6 @@ public class FunctionImport {
                 categoryService.deleteCategory(categoryId);
             }
         }
-
     }
 
     private void addCategroy(String workspaceId, String categoryId, String categoryName){
@@ -103,29 +107,35 @@ public class FunctionImport {
         categoryService.createCategory(category);
     }
 
-    public void addMethod(MethodImportVo methodVo){
+    public void addMethod(ApixImportVo ApixVo){
         Category categoryID = new Category();
-        categoryID.setId(methodVo.getCategoryId());
+        categoryID.setId(ApixVo.getCategoryId());
 
-        MethodEx methodEx = new MethodEx();
+        Apix apix = new Apix();
 
-        methodEx.setCategory(categoryID);
-        methodEx.setId(methodVo.getMethodId());
-        methodEx.setName(methodVo.getName());
-        methodEx.setRequestType(methodVo.getRequestType());
-        methodEx.setPath(methodVo.getPath());
-        methodEx.setDesc(methodVo.getDesc());
+        apix.setCategory(categoryID);
 
-        methodService.createMethod(methodEx);
+
+        apixService.createApix(apix);
+
+
+//        httpApi.setCategory(categoryID);
+//        httpApi.setId(methodVo.getMethodId());
+//        httpApi.setName(methodVo.getName());
+//        httpApi.setRequestType(methodVo.getRequestType());
+//        httpApi.setPath(methodVo.getPath());
+//        httpApi.setDesc(methodVo.getDesc());
+
+//        httpApiService.createHttpApi(httpApi);
     }
 
     public void addHeader(HeaderParamImportVo hVo){
-        MethodEx methodEx = new MethodEx();
-        methodEx.setId(hVo.getMethodId());
+        HttpApi httpApi = new HttpApi();
+        httpApi.setId(hVo.getMethodId());
 
         RequestHeader requestHeader = new RequestHeader();
 
-        requestHeader.setMethod(methodEx);
+        requestHeader.setHttp(httpApi);
         requestHeader.setHeaderName(hVo.getName());
         requestHeader.setValue(hVo.getValue());
         requestHeader.setDesc(hVo.getDesc());
@@ -134,12 +144,12 @@ public class FunctionImport {
     }
 
     public void addQuery(QueryParamImportVo qVo){
-        MethodEx methodEx = new MethodEx();
-        methodEx.setId(qVo.getMethodId());
+        HttpApi httpApi = new HttpApi();
+        httpApi.setId(qVo.getMethodId());
 
         QueryParam queryParam = new QueryParam();
 
-        queryParam.setMethod(methodEx);
+        queryParam.setHttp(httpApi);
         queryParam.setParamName(qVo.getName());
         queryParam.setValue(qVo.getValue());
         queryParam.setDesc(qVo.getDesc());
@@ -148,25 +158,25 @@ public class FunctionImport {
     }
 
     public void addBody(String requestBody,String methodId){
-        MethodEx requestBodyMethod = new MethodEx();
+        HttpApi requestBodyMethod = new HttpApi();
         requestBodyMethod.setId(methodId);
 
         RequestBodyEx requestBodyEx = new RequestBodyEx();
 
         requestBodyEx.setId(methodId);
         requestBodyEx.setBodyType(requestBody);
-        requestBodyEx.setMethod(requestBodyMethod);
+        requestBodyEx.setHttp(requestBodyMethod);
 
         requestBodyService.createRequestBody(requestBodyEx);
     }
 
     public void addFormData(FormDataImportVo fvo){
-        MethodEx methodEx = new MethodEx();
-        methodEx.setId(fvo.getMethodId());
+        HttpApi httpApi = new HttpApi();
+        httpApi.setId(fvo.getMethodId());
 
         FormParam formParams = new FormParam();
 
-        formParams.setMethod(methodEx);
+        formParams.setHttp(httpApi);
         formParams.setParamName(fvo.getName());
         formParams.setValue(fvo.getValue());
         formParams.setDesc(fvo.getDesc());
@@ -177,12 +187,12 @@ public class FunctionImport {
     }
 
     public void addFormUrlencoded(FormUrlencodedImportVo fUVo){
-        MethodEx methodEx = new MethodEx();
-        methodEx.setId(fUVo.getMethodId());
+        HttpApi httpApi = new HttpApi();
+        httpApi.setId(fUVo.getMethodId());
 
         FormUrlencoded formUrlencoded = new FormUrlencoded();
 
-        formUrlencoded.setMethod(methodEx);
+        formUrlencoded.setHttp(httpApi);
         formUrlencoded.setParamName(fUVo.getName());
         formUrlencoded.setValue(fUVo.getValue());
         formUrlencoded.setRequired(fUVo.getRequired());
@@ -193,8 +203,8 @@ public class FunctionImport {
     }
 
     public String addJsonParam(JsonParamImportVo jVo){
-        MethodEx methodEx = new MethodEx();
-        methodEx.setId(jVo.getMethodId());
+        HttpApi httpApi = new HttpApi();
+        httpApi.setId(jVo.getMethodId());
 
         JsonParam jsonParam = new JsonParam();
 
@@ -203,7 +213,7 @@ public class FunctionImport {
         jsonParam.setDataType(jVo.getDataType());
         jsonParam.setRequired(jVo.getRequired());
         jsonParam.setDesc(jVo.getDesc());
-        jsonParam.setMethod(methodEx);
+        jsonParam.setHttp(httpApi);
         jsonParam.setParent(jVo.getParentId());
 
         String parentid = jsonParamService.createJsonParam(jsonParam);
@@ -212,7 +222,7 @@ public class FunctionImport {
     }
 
     public void addRaw(String methodId, String rawType, String rawData){
-        MethodEx rawMethod = new MethodEx();
+        HttpApi rawMethod = new HttpApi();
         rawMethod.setId(methodId);
 
         RawParam rawParam = new RawParam();
@@ -220,31 +230,31 @@ public class FunctionImport {
         rawParam.setRaw(rawData);
         rawParam.setType(rawType);
         rawParam.setId(methodId);
-        rawParam.setMethod(rawMethod);
+        rawParam.setHttp(rawMethod);
 
         rawParamService.createRawParam(rawParam);
     }
 
     public void addResponseBody(String methodId){
-        MethodEx methodEx = new MethodEx();
-        methodEx.setId(methodId);
+        HttpApi httpApi = new HttpApi();
+        httpApi.setId(methodId);
 
         ResponseResult responseResult = new ResponseResult();
 
         responseResult.setId(methodId);
         responseResult.setResultType("json");
-        responseResult.setMethod(methodEx);
+        responseResult.setHttp(httpApi);
 
         responseResultService.createResponseResult(responseResult);
     }
 
     public String addResponseJson(JsonResponseImportVo jRVo){
-        MethodEx methodEx = new MethodEx();
-        methodEx.setId(jRVo.getMethodId());
+        HttpApi httpApi = new HttpApi();
+        httpApi.setId(jRVo.getMethodId());
 
         JsonResponse jsonResponse = new JsonResponse();
 
-        jsonResponse.setMethod(methodEx);
+        jsonResponse.setHttp(httpApi);
         jsonResponse.setParent(jRVo.getParentId());
         jsonResponse.setPropertyName(jRVo.getName());
         jsonResponse.setValue(jRVo.getValue());

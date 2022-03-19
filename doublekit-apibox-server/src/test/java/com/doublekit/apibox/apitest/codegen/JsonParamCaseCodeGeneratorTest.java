@@ -1,6 +1,6 @@
 package com.doublekit.apibox.apitest.codegen;
 
-import com.doublekit.apibox.apitest.apicase.entity.JsonParamCaseEntity;
+import com.doublekit.apibox.apitest.http.httpcase.entity.JsonParamCaseEntity;
 import com.doublekit.codegen.CodeGeneratorTemplate;
 import com.doublekit.codegen.config.CodeGeneratorConfig;
 import com.doublekit.codegen.config.ProjectGeneratorConfig;

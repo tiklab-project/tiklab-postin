@@ -1,6 +1,6 @@
 package com.doublekit.apibox.apidef.codegen;
 
-import com.doublekit.apibox.apidef.entity.MethodEntity;
+import com.doublekit.apibox.apidef.http.entity.HttpApiEntity;
 import com.doublekit.codegen.CodeGeneratorTemplate;
 import com.doublekit.codegen.config.ProjectGeneratorConfig;
 import com.doublekit.codegen.config.CodeGeneratorConfig;
@@ -21,7 +21,7 @@ public class ApxMethodCodeGeneratorTest extends CodeGeneratorTemplate {
     protected CodeGeneratorConfig getCodeGeneratorConfig() {
         CodeGeneratorConfig config = new CodeGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
-        config.setEntity(MethodEntity.class);
+        config.setEntity(HttpApiEntity.class);
         config.setPkg("com.doublekit.apibox.apxmethod");
         config.setModel("ApxMethod");
         return config;

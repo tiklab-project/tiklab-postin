@@ -1,7 +1,7 @@
 package com.doublekit.apibox.integration.imexport.model;
 
 
-import com.doublekit.apibox.apidef.model.JsonResponse;
+import com.doublekit.apibox.apidef.http.model.JsonResponse;
 
 public class JsonResponseImportVo {
 

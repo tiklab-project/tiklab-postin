@@ -1,6 +1,6 @@
 CREATE TABLE apibox_mock(
         id VARCHAR(40) PRIMARY KEY,
-        method_id VARCHAR(40) NOT NULL,
+        http_id VARCHAR(40) NOT NULL,
         name VARCHAR(64) NOT NULL,
         description VARCHAR(128),
         create_user VARCHAR(32),

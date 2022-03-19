@@ -1,8 +1,8 @@
 package com.doublekit.apibox.category.service;
 
-import com.doublekit.apibox.apidef.model.MethodEx;
-import com.doublekit.apibox.apidef.model.MethodExQuery;
-import com.doublekit.apibox.apidef.service.MethodService;
+import com.doublekit.apibox.apidef.apix.model.Apix;
+import com.doublekit.apibox.apidef.apix.model.ApixQuery;
+import com.doublekit.apibox.apidef.apix.service.ApixService;
 import com.doublekit.apibox.category.dao.CategoryDao;
 import com.doublekit.apibox.category.entity.CategoryEntity;
 import com.doublekit.apibox.category.model.Category;
@@ -34,7 +34,7 @@ public class CategoryServiceImpl implements CategoryService {
     CategoryDao categoryDao;
 
     @Autowired
-    MethodService methodService;
+    ApixService apixService;
 
     @Autowired
     JoinTemplate joinTemplate;
@@ -66,10 +66,10 @@ public class CategoryServiceImpl implements CategoryService {
     public void deleteCategory(@NotNull String id) {
 
         categoryDao.deleteCategory(id);
-        List<MethodEx> methodList = methodService.findMethodList(new MethodExQuery().setCategoryId(id));
-        if (CollectionUtils.isNotEmpty(methodList)){
-            for (MethodEx methodEx:methodList){
-                methodService.deleteMethod(methodEx.getId());
+        List<Apix> apixList = apixService.findApixList(new ApixQuery().setCategoryId(id));
+        if (CollectionUtils.isNotEmpty(apixList)){
+            for (Apix apix : apixList){
+                apixService.deleteApix(apix.getId());
             }
         }
 
@@ -152,18 +152,20 @@ public class CategoryServiceImpl implements CategoryService {
         if (StringUtils.isEmpty(categoryQuery.getName())){
             categories =  findCategoryListTree(categoryQuery);
         } else {
-            MethodExQuery methodExQuery = new MethodExQuery();
-            methodExQuery.setWorkspaceId(categoryQuery.getWorkspaceId());
-            methodExQuery.setName(categoryQuery.getName());
-            //查询出所有匹配的接口
-            List<MethodEx> methodList = methodService.findMethodList(methodExQuery);
+            ApixQuery apixQuery = new ApixQuery();
+            apixQuery.setWorkspaceId(categoryQuery.getWorkspaceId());
+            apixQuery.setName(categoryQuery.getName());
 
-            if(CollectionUtils.isNotEmpty(methodList)){
+
+            //查询出所有匹配的接口
+            List<Apix> apixList = apixService.findApixList(apixQuery);
+
+            if(CollectionUtils.isNotEmpty(apixList)){
                 //查询空间下所有目录，将name 设为null 不想模糊匹配目录
                 List<Category> categoryList = findCategoryList(categoryQuery.setName(null));
 
                 //查询目录下面的接口，并放到相应的目录下
-                List<Category> methodInCategoryList = findMethodInCategoryList(categoryList, methodList);
+                List<Category> methodInCategoryList = findHttpApiInCategoryList(categoryList, apixList);
 
                 List<String> categoryParentByMethod = findCategoryParentByMethod(methodInCategoryList);
 
@@ -247,15 +249,15 @@ public class CategoryServiceImpl implements CategoryService {
     /**
      * 查询目录下的接口，并放到相应的目录下面
      * @param categoryList
-     * @param methodList
+     * @param apixList
      * @return
      */
-    private List<Category> findMethodInCategoryList(List<Category> categoryList, List<MethodEx> methodList) {
+    private List<Category> findHttpApiInCategoryList(List<Category> categoryList, List<Apix> apixList) {
 
         List<Category> collect = categoryList.stream().map(category -> {
 
-            List<MethodEx> methods = methodList.stream().filter(item -> category.getId().equals(item.getCategory().getId())).collect(Collectors.toList());
-            category.setCategoryMethod(methods);
+            List<Apix> apixes = apixList.stream().filter(item -> category.getId().equals(item.getCategory().getId())).collect(Collectors.toList());
+            category.setCategoryMethod(apixes);
 
             return category;
         }).collect(Collectors.toList());
@@ -283,13 +285,12 @@ public class CategoryServiceImpl implements CategoryService {
     List<Category> findCategoryMethodList(List<Category> matchCategoryList){
 
         List<Category> categoryList = matchCategoryList.stream().map(category -> {
-            MethodExQuery methodExQuery = new MethodExQuery();
-            methodExQuery.setCategoryId(category.getId());
-            List<MethodEx> methodList = methodService.findMethodList(methodExQuery);
 
-            category.setCategoryMethod(methodList);
+            List<Apix> apixList = apixService.findApixList(new ApixQuery().setCategoryId(category.getId()));
+
+            category.setCategoryMethod(apixList);
+
             return category;
-
         }).collect(Collectors.toList());
 
         return  categoryList;

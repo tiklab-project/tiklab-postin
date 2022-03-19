@@ -2,13 +2,13 @@ package com.doublekit.apibox.integration.imexport.type;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.doublekit.apibox.apidef.model.JsonParam;
-import com.doublekit.apibox.apidef.model.JsonResponse;
+import com.doublekit.apibox.apidef.http.model.JsonParam;
+import com.doublekit.apibox.apidef.http.model.JsonResponse;
 import com.doublekit.apibox.integration.imexport.common.FunctionImport;
 import com.doublekit.apibox.integration.imexport.model.FormDataImportVo;
 import com.doublekit.apibox.integration.imexport.model.JsonParamImportVo;
 import com.doublekit.apibox.integration.imexport.model.JsonResponseImportVo;
-import com.doublekit.apibox.integration.imexport.model.MethodImportVo;
+import com.doublekit.apibox.integration.imexport.model.ApixImportVo;
 import com.doublekit.apibox.integration.imexport.utils.Md5;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -46,7 +46,7 @@ public class ReportImport {
             String path = methodItem.getString("path");
             String methodId = Md5.getMD5String(path+"report");//后面加report,防止与其他导入类型id相同
 
-            MethodImportVo mVo = new MethodImportVo();
+            ApixImportVo mVo = new ApixImportVo();
             mVo.setCategoryId(categoryId);
             mVo.setMethodId(methodId);
             mVo.setName(methodItem.getString("name"));

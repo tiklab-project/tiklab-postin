@@ -2,7 +2,8 @@ package com.doublekit.apibox.category.model;
 
 import com.doublekit.apibox.annotation.ApiModel;
 import com.doublekit.apibox.annotation.ApiProperty;
-import com.doublekit.apibox.apidef.model.MethodEx;
+import com.doublekit.apibox.apidef.apix.model.Apix;
+import com.doublekit.apibox.apidef.http.model.HttpApi;
 import com.doublekit.apibox.workspace.model.Workspace;
 import com.doublekit.beans.annotation.Mapper;
 import com.doublekit.beans.annotation.Mapping;
@@ -48,7 +49,7 @@ public class Category extends BaseModel {
     private List<Category> children = new ArrayList<>();
 
     @ApiProperty(name="categoryMethod",desc="分类下的接口")
-    private List<MethodEx> categoryMethod=new ArrayList<>();
+    private List<Apix> categoryMethod=new ArrayList<>();
 
     public String getId() {
         return id;
@@ -98,12 +99,11 @@ public class Category extends BaseModel {
         this.children = children;
     }
 
-    public List<MethodEx> getCategoryMethod() {
+    public List<Apix> getCategoryMethod() {
         return categoryMethod;
     }
 
-    public void setCategoryMethod(List<MethodEx> categoryMethod) {
+    public void setCategoryMethod(List<Apix> categoryMethod) {
         this.categoryMethod = categoryMethod;
     }
-
 }

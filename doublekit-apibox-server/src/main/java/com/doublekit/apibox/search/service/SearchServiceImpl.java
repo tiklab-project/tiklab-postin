@@ -1,7 +1,7 @@
 package com.doublekit.apibox.search.service;
 
-import com.doublekit.apibox.apidef.model.MethodEx;
-import com.doublekit.apibox.apidef.service.MethodService;
+import com.doublekit.apibox.apidef.http.model.HttpApi;
+import com.doublekit.apibox.apidef.http.service.HttpApiService;
 import com.doublekit.apibox.workspace.model.Workspace;
 import com.doublekit.apibox.workspace.service.WorkspaceService;
 import com.doublekit.dss.client.DssClient;
@@ -28,7 +28,7 @@ public class SearchServiceImpl implements SearchService {
     WorkspaceService workspaceService;
 
     @Autowired
-    MethodService methodService;
+    HttpApiService httpApiService;
 
     @Override
     public void rebuild() {
@@ -44,7 +44,7 @@ public class SearchServiceImpl implements SearchService {
      */
     void deleteIndex(){
         dssClient.deleteAll(Workspace.class);
-        dssClient.deleteAll(MethodEx.class);
+        dssClient.deleteAll(HttpApi.class);
     }
 
     /**
@@ -56,7 +56,7 @@ public class SearchServiceImpl implements SearchService {
             dssClient.saveBatch(workspaceList);
         }
 
-        List<MethodEx> methodList = methodService.findAllMethod();
+        List<HttpApi> methodList = httpApiService.findAllHttpApi();
         if(methodList != null){
             dssClient.saveBatch(methodList);
         }
