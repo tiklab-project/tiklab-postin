@@ -6,6 +6,8 @@ import com.doublekit.apibox.client.model.ApiMeta;
 import com.doublekit.apibox.client.model.ApiMethodMeta;
 import com.doublekit.apibox.client.model.ApiParamMeta;
 import com.doublekit.apibox.client.model.ApiResultMeta;
+import com.doublekit.common.exception.ApplicationException;
+import com.doublekit.common.exception.SystemException;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,24 +30,39 @@ public class ApiMethodParser {
      * @param apiMeta
      * @return
      */
-    public List<ApiMethodMeta> parseMethodMetas(Class clz, ApiMeta apiMeta){
+    public List<ApiMethodMeta> parseMethods(Class clz, ApiMeta apiMeta){
         List<ApiMethodMeta> apiMethodMetaList = new ArrayList<>();
+
         Method[] methods = clz.getDeclaredMethods();
         if(methods == null  || methods.length==0){
             return apiMethodMetaList;
         }
-        for(Method method:methods){
-            ApiMethod apiMethod = method.getDeclaredAnnotation(ApiMethod.class);
-            if(apiMethod == null){
-                continue;
-            }
 
-            ApiMethodMeta methodMeta = new ApiMethodMeta();
+        for(Method method:methods){
+            ApiMethodMeta methodMeta = parseMethod(apiMeta,method);
+
+            apiMethodMetaList.add(methodMeta);
+        }
+
+        return apiMethodMetaList;
+    }
+
+    /**
+     * 解析方法定义
+     * @param apiMeta
+     * @param method
+     * @return
+     */
+    ApiMethodMeta parseMethod(ApiMeta apiMeta,Method method){
+        ApiMethodMeta methodMeta = new ApiMethodMeta();
+
+        try {
+            ApiMethod apiMethod = method.getDeclaredAnnotation(ApiMethod.class);
             methodMeta.setMethod(method);
             methodMeta.setApiMethod(apiMethod);
             methodMeta.setName(apiMethod.name());
             methodMeta.setDesc(apiMethod.desc());
-            RequestMapping requestMapping = (RequestMapping)method.getDeclaredAnnotation(RequestMapping.class);
+            RequestMapping requestMapping = method.getDeclaredAnnotation(RequestMapping.class);
             if(requestMapping != null){
                 String path = null;
                 String[] urls = requestMapping.path();
@@ -71,7 +88,7 @@ public class ApiMethodParser {
             }
 
             //解析参数
-            List<ApiParamMeta> paramMetaList = new ApiParamParser().parseParamMetas(method);
+            List<ApiParamMeta> paramMetaList = new ApiParamParser().parseParams(method);
             methodMeta.setApiParamMetaList(paramMetaList);
 
             Map<String,Object> paramEgMap = getParamEgMap(paramMetaList);
@@ -81,13 +98,14 @@ public class ApiMethodParser {
             methodMeta.setParamDataType(dataType);
 
             //解析返回结果
-            ApiResultMeta resultMeta = new ApiResultParser().parseResultMetas(method);
+            ApiResultMeta resultMeta = new ApiResultParser().parseResult(method);
             methodMeta.setApiResultMeta(resultMeta);
-
-            //add to list
-            apiMethodMetaList.add(methodMeta);
+        } catch (Exception e) {
+            String errorMsg = String.format("parse method failed,method:%s",method.getName());
+            throw new SystemException(errorMsg,e);
         }
-        return apiMethodMetaList;
+
+        return methodMeta;
     }
 
     /**

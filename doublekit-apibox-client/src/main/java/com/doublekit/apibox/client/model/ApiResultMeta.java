@@ -2,7 +2,7 @@ package com.doublekit.apibox.client.model;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
-public class ApiResultMeta extends ParamItem{
+public class ApiResultMeta extends TypeMeta {
 
     private Object def;
 

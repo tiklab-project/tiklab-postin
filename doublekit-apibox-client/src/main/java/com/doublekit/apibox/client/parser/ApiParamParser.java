@@ -5,8 +5,9 @@ import com.doublekit.apibox.annotation.ApiParam;
 import com.doublekit.apibox.annotation.ApiParams;
 import com.doublekit.apibox.client.mock.JMockit;
 import com.doublekit.apibox.client.model.ApiParamMeta;
-import com.doublekit.apibox.client.model.ParamItemType;
+import com.doublekit.apibox.client.model.TypeMetaEnum;
 import com.doublekit.common.exception.ApplicationException;
+import com.doublekit.common.exception.SystemException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.LocalVariableTableParameterNameDiscoverer;
@@ -21,7 +22,7 @@ import java.util.List;
 /**
  * api参数解析
  */
-public class ApiParamParser extends ParamItemParser{
+public class ApiParamParser {
 
     private static Logger logger = LoggerFactory.getLogger(ApiParamParser.class);
 
@@ -30,59 +31,65 @@ public class ApiParamParser extends ParamItemParser{
      * @param method
      * @return
      */
-    public List<ApiParamMeta> parseParamMetas(Method method){
+    public List<ApiParamMeta> parseParams(Method method){
         List<ApiParamMeta> apiParamMetaList = new ArrayList<>();
         Parameter[] parameters = method.getParameters();
         if(parameters == null || parameters.length == 0){
             return apiParamMetaList;
         }
 
-        ParameterNameDiscoverer parameterNameDiscoverer = new LocalVariableTableParameterNameDiscoverer();
-        String[] parameterNames  = parameterNameDiscoverer.getParameterNames(method);
+        try {
+            ParameterNameDiscoverer parameterNameDiscoverer = new LocalVariableTableParameterNameDiscoverer();
+            String[] parameterNames  = parameterNameDiscoverer.getParameterNames(method);
 
-        if(method.getDeclaredAnnotation(ApiParams.class) != null){//ApiParams方法头定义方式
-            ApiParams apiParams = method.getDeclaredAnnotation(ApiParams.class);
-            ApiParam[] apiParamsArr = apiParams.value();
-            for(ApiParam apiParam:apiParamsArr){
+            if(method.getDeclaredAnnotation(ApiParams.class) != null){//ApiParams方法头定义方式
+                ApiParams apiParams = method.getDeclaredAnnotation(ApiParams.class);
+                ApiParam[] apiParamsArr = apiParams.value();
+                for(ApiParam apiParam:apiParamsArr){
+                    //根据名称查找下标，查找对应的参数
+                    String paramName = apiParam.name();
+                    int paramIndex = getParamIndex(method, parameterNames, paramName);
+                    Parameter parameter = parameters[paramIndex];
+
+                    ApiParamMeta paramMeta = parseParam(apiParam,parameter,paramName);
+
+                    apiParamMetaList.add(paramMeta);
+                }
+            }else if(method.getDeclaredAnnotation(ApiParam.class) != null){//ApiParam方法头定义方式
+                ApiParam apiParam = method.getDeclaredAnnotation(ApiParam.class);
+
                 //根据名称查找下标，查找对应的参数
                 String paramName = apiParam.name();
                 int paramIndex = getParamIndex(method, parameterNames, paramName);
-                Parameter parameter = parameters[paramIndex];
-
-                ApiParamMeta paramMeta = parseParamMeta(apiParam,parameter,paramName);
-
-                apiParamMetaList.add(paramMeta);
-            }
-        }else if(method.getDeclaredAnnotation(ApiParam.class) != null){//ApiParam方法头定义方式
-            ApiParam apiParam = method.getDeclaredAnnotation(ApiParam.class);
-
-            //根据名称查找下标，查找对应的参数
-            String paramName = apiParam.name();
-            int paramIndex = getParamIndex(method, parameterNames, paramName);
-            Parameter parameter = null;
-            try {
-                parameter = parameters[paramIndex];
-            } catch (Exception e) {
-                throw new ApplicationException(e);
-            }
-
-            ApiParamMeta paramMeta = parseParamMeta(apiParam,parameter,paramName);
-
-            apiParamMetaList.add(paramMeta);
-        }else{//ApiParam参数定义方式
-            for(int i=0;i<parameters.length;i++){
-                Parameter parameter = parameters[i];
-                ApiParam apiParam = parameter.getDeclaredAnnotation(ApiParam.class);
-                if(apiParam == null){
-                    continue;
+                Parameter parameter = null;
+                try {
+                    parameter = parameters[paramIndex];
+                } catch (Exception e) {
+                    throw new ApplicationException(e);
                 }
-                String paramName = parameterNames[i];
 
-                ApiParamMeta paramMeta = parseParamMeta(apiParam,parameter,paramName);
+                ApiParamMeta paramMeta = parseParam(apiParam,parameter,paramName);
 
                 apiParamMetaList.add(paramMeta);
+            }else{//ApiParam参数定义方式
+                for(int i=0;i<parameters.length;i++){
+                    Parameter parameter = parameters[i];
+                    ApiParam apiParam = parameter.getDeclaredAnnotation(ApiParam.class);
+                    if(apiParam == null){
+                        continue;
+                    }
+                    String paramName = parameterNames[i];
+
+                    ApiParamMeta paramMeta = parseParam(apiParam,parameter,paramName);
+
+                    apiParamMetaList.add(paramMeta);
+                }
             }
+        } catch (Throwable e) {
+            String errorMsg = String.format("prase method params failed,method:%s.",method.getName());
+            throw new SystemException(errorMsg,e);
         }
+
         return apiParamMetaList;
     }
 
@@ -93,41 +100,47 @@ public class ApiParamParser extends ParamItemParser{
      * @param paramName
      * @return
      */
-    ApiParamMeta parseParamMeta(ApiParam apiParam, Parameter parameter, String paramName){
+    ApiParamMeta parseParam(ApiParam apiParam, Parameter parameter, String paramName){
         ApiParamMeta paramMeta = new ApiParamMeta();
-        paramMeta.setApiParam(apiParam);
-        paramMeta.setParameter(parameter);
-        paramMeta.setName(paramName);
-        paramMeta.setDesc(apiParam.desc());
-        paramMeta.setRequired(apiParam.required());
-        Class type = parameter.getType();
-        paramMeta.setType(type);
-        //获取请求类型,form-data或json等
-        RequestBody requestBody = parameter.getDeclaredAnnotation(RequestBody.class);
-        if(requestBody != null){
-            paramMeta.setParamDataType("json");
-        }
 
-        /*
-        Type type = null;
-        Type paramType = null;
-        ParameterizedType parameterizedType = (ParameterizedType)parameter.getParameterizedType();
-        type = parameterizedType.getRawType();
-        for (Type actualType : parameterizedType.getActualTypeArguments()) {
-            paramType = actualType;
-        }
-        paramMeta.setType(type);
-        paramMeta.setParamType(paramType);
-         */
+        try {
+            paramMeta.setApiParam(apiParam);
+            paramMeta.setParameter(parameter);
+            paramMeta.setName(paramName);
+            paramMeta.setDesc(apiParam.desc());
+            paramMeta.setRequired(apiParam.required());
+            Class type = parameter.getType();
+            paramMeta.setType(type);
+            //获取请求类型,form-data或json等
+            RequestBody requestBody = parameter.getDeclaredAnnotation(RequestBody.class);
+            if(requestBody != null){
+                paramMeta.setParamDataType("json");
+            }
 
-        //解析子节点列表
-        loop(paramMeta, ParamItemType.TYPE_INPUT,3);
+            /*
+            Type type = null;
+            Type paramType = null;
+            ParameterizedType parameterizedType = (ParameterizedType)parameter.getParameterizedType();
+            type = parameterizedType.getRawType();
+            for (Type actualType : parameterizedType.getActualTypeArguments()) {
+                paramType = actualType;
+            }
+            paramMeta.setType(type);
+            paramMeta.setParamType(paramType);
+             */
 
-        //deep = 0;
+            //解析子节点列表
+            new ApiTypeParser().parseChildren(paramMeta, TypeMetaEnum.TYPE_INPUT,3);
 
-        if(paramMeta.getChildren() != null && paramMeta.getChildren().size() > 0){
-            String textDef = JSON.toJSONString(paramMeta.getChildren(),true);
-            paramMeta.setTextDef(textDef);
+            //deep = 0;
+
+            if(paramMeta.getChildren() != null && paramMeta.getChildren().size() > 0){
+                String textDef = JSON.toJSONString(paramMeta.getChildren(),true);
+                paramMeta.setTextDef(textDef);
+            }
+        } catch (Exception e) {
+            String errorMsg = String.format("parse param failed,param:%s.",paramName);
+            throw new SystemException(errorMsg,e);
         }
 
         /*

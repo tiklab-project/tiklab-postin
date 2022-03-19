@@ -3,6 +3,7 @@ package com.doublekit.apibox.client.parser;
 import com.doublekit.apibox.annotation.Api;
 import com.doublekit.apibox.client.model.ApiMeta;
 import com.doublekit.apibox.client.model.ApiMethodMeta;
+import com.doublekit.common.exception.SystemException;
 import com.doublekit.utils.AnnotationScannerUtil;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -18,36 +19,41 @@ public class ApiParser {
     public List<ApiMeta> parseApiMeta(String basePackage){
         List<ApiMeta> apiMetaList = new ArrayList();
 
-        Set<Class> apiClzSet = AnnotationScannerUtil.scan(basePackage, Api.class);
-        if(apiClzSet == null || apiClzSet.size()==0){
+        Set<Class> classSet = AnnotationScannerUtil.scan(basePackage, Api.class);
+        if(classSet == null || classSet.size()==0){
             return apiMetaList;
         }
 
         //parse api meta
-        for(Class apiClz:apiClzSet){
+        for(Class aClass:classSet){
             ApiMeta apiMeta = new ApiMeta();
 
-            Api api = (Api)apiClz.getAnnotation(Api.class);
-            apiMeta.setApi(api);
-            apiMeta.setCls(apiClz);
-            apiMeta.setName(api.name());
-            apiMeta.setDesc(api.desc());
+            try {
+                Api api = (Api)aClass.getAnnotation(Api.class);
+                apiMeta.setApi(api);
+                apiMeta.setCls(aClass);
+                apiMeta.setName(api.name());
+                apiMeta.setDesc(api.desc());
 
-            RequestMapping requestMapping = (RequestMapping)apiClz.getDeclaredAnnotation(RequestMapping.class);
-            if(requestMapping != null){
-                String[] urls = requestMapping.path();
-                if(urls != null && urls.length > 0){
-                    apiMeta.setPath(urls[0]);
+                RequestMapping requestMapping = (RequestMapping)aClass.getDeclaredAnnotation(RequestMapping.class);
+                if(requestMapping != null){
+                    String[] urls = requestMapping.path();
+                    if(urls != null && urls.length > 0){
+                        apiMeta.setPath(urls[0]);
+                    }
+                    String[] vls = requestMapping.value();
+                    if(vls != null && vls.length > 0){
+                        apiMeta.setPath(vls[0]);
+                    }
                 }
-                String[] vls = requestMapping.value();
-                if(vls != null && vls.length > 0){
-                    apiMeta.setPath(vls[0]);
-                }
+
+                //parse method meta
+                List<ApiMethodMeta> apiMethodMetaList = new ApiMethodParser().parseMethods(aClass, apiMeta);
+                apiMeta.setApiMethodMetaList(apiMethodMetaList);
+            } catch (Exception e) {
+                String errorMsg = String.format("parse api failed,clz:%s",aClass.getName());
+                throw new SystemException(errorMsg,e);
             }
-
-            //parse method meta
-            List<ApiMethodMeta> apiMethodMetaList = new ApiMethodParser().parseMethodMetas(apiClz, apiMeta);
-            apiMeta.setApiMethodMetaList(apiMethodMetaList);
 
             apiMetaList.add(apiMeta);
         }
