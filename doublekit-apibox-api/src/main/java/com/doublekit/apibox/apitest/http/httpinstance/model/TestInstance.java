@@ -28,7 +28,7 @@ public class TestInstance extends BaseModel {
     @NotNull
     @ApiProperty(name="testcase",desc="所属接口用例",required = true)
     @Mappings({
-            @Mapping(source = "testcase.id",target = "testcaseId")
+            @Mapping(source = "httpTestcase.id",target = "testcaseId")
     })
     @JoinQuery(key = "id")
     private HttpTestcase httpTestcase;

@@ -17,7 +17,7 @@ public class ApiboxClientAutoConfiguration {
     @Value("${apibox.scan.package:com.doublekit}")
     private String scanPackage;
 
-    @Bean
+    //@Bean
     @DependsOn({"joinQuery"})
     public ApiboxIniter apiboxIniter(){
         new ApiboxBuilder()
