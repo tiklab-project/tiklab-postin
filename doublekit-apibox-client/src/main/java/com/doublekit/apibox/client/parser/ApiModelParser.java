@@ -56,14 +56,14 @@ public class ApiModelParser {
         }
 
         for (Field field:fields){
-            ApiProperty apiProperty = null;
+            ApiProperty apiProperty = field.getAnnotation(ApiProperty.class);
+            if(apiProperty == null){
+                continue;
+            }
+
             Type fieldType = null;
             Type paramType = null;
             try {
-                apiProperty = field.getAnnotation(ApiProperty.class);
-                if(apiProperty == null){
-                    continue;
-                }
                 fieldType = null;
                 paramType = null;
                 Type genericType = field.getGenericType();

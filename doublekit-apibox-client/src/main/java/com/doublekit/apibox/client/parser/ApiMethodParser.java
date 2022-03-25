@@ -39,8 +39,12 @@ public class ApiMethodParser {
         }
 
         for(Method method:methods){
-            ApiMethodMeta methodMeta = parseMethod(apiMeta,method);
+            ApiMethod apiMethod = method.getDeclaredAnnotation(ApiMethod.class);
+            if(apiMethod == null){
+                continue;
+            }
 
+            ApiMethodMeta methodMeta = parseMethod(apiMeta,method);
             apiMethodMetaList.add(methodMeta);
         }
 
