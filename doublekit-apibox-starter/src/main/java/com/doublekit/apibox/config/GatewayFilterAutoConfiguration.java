@@ -25,7 +25,7 @@ public class GatewayFilterAutoConfiguration {
         registration.setFilter(gatewayFilter);
         registration.setName("gatewayFilter");
         registration.addUrlPatterns("/*");
-        registration.setOrder(2);
+        registration.setOrder(-1);
         return registration;
     }
 
