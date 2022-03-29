@@ -1,6 +1,6 @@
 package com.doublekit.apibox.config;
 
-import com.doublekit.eam.client.auth.Authenticator;
+import com.doublekit.eam.author.Authenticator;
 import com.doublekit.eam.client.config.TicketConfig;
 import com.doublekit.eam.client.config.TicketConfigBuilder;
 import com.doublekit.eam.client.handler.TicketHandler;
