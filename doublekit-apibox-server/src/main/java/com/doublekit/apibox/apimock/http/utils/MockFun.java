@@ -1,4 +1,5 @@
 package com.doublekit.apibox.apimock.http.utils;
+
 import cn.hutool.cache.Cache;
 import cn.hutool.cache.CacheUtil;
 import cn.hutool.core.convert.Convert;
@@ -8,7 +9,6 @@ import cn.hutool.core.text.StrFormatter;
 import cn.hutool.http.HttpUtil;
 import cn.hutool.script.JavaScriptEngine;
 import cn.hutool.script.ScriptUtil;
-import jdk.nashorn.api.scripting.ScriptObjectMirror;
 
 import javax.script.ScriptException;
 import java.util.Map;
@@ -167,8 +167,12 @@ public class MockFun {
      */
     public static Integer[] range(int start, int stop) throws ScriptException {
         String format = StrFormatter.format("Random.range({},{})", start, stop);
+        //jdk9+ 不再支持，更换为?，zhangzh
+        /*
         ScriptObjectMirror random = (ScriptObjectMirror) mockRandom(format);
         return Convert.toIntArray(random.values());
+         */
+        return null;
     }
 
     /**
@@ -180,8 +184,12 @@ public class MockFun {
      */
     public static Integer[] range(int start, int stop, int step) throws ScriptException {
         String format = StrFormatter.format("Random.range({},{},{})", start, stop, step);
+        //jdk9+ 不再支持，更换为?，zhangzh
+        /*
         ScriptObjectMirror random = (ScriptObjectMirror) mockRandom(format);
         return Convert.toIntArray(random.values());
+         */
+        return null;
     }
 
     /**
@@ -793,8 +801,13 @@ public class MockFun {
      */
     public static Map mock(String template) throws ScriptException {
         String format = StrFormatter.format("mock({})", template);
+        //jdk9+ 不再支持，更换为?，zhangzh
+        /*
         ScriptObjectMirror random = (ScriptObjectMirror) mockRandom(format);
         return Convert.convert(Map.class,random);
+         */
+
+        return null;
     }
 
       

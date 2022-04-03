@@ -12,7 +12,6 @@ import com.doublekit.common.page.Pagination;
 import com.doublekit.common.page.PaginationBuilder;
 import com.doublekit.join.JoinTemplate;
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -219,10 +218,10 @@ public class CategoryServiceImpl implements CategoryService {
 
 
     public void addParentCategoryId(List<String> categoryIdList,Category parentCategory){
-        if (ObjectUtils.isNotEmpty(parentCategory)){
+        if (parentCategory != null){
             categoryIdList.add(parentCategory.getId());
 
-            if (ObjectUtils.isNotEmpty(parentCategory.getParentCategory())){
+            if (parentCategory.getParentCategory() != null){
                 addParentCategoryId( categoryIdList,parentCategory.getParentCategory());
             }
         }
