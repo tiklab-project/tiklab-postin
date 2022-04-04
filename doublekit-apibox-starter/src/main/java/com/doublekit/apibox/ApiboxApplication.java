@@ -1,7 +1,7 @@
 package com.doublekit.apibox;
 
 import com.doublekit.apibox.annotation.EnableApibox;
-import com.doublekit.eam.starter.annotation.EnableEamServer;
+import com.doublekit.utils.property.PropertyAndYamlSourceFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
@@ -13,7 +13,7 @@ import org.springframework.context.annotation.PropertySource;
  */
 @SpringBootApplication
 @EnableApibox
-@PropertySource(value = "classpath:application-${env:dev}.properties")
+@PropertySource(value = "classpath:application-${env:dev}.yaml",factory = PropertyAndYamlSourceFactory.class)
 public class ApiboxApplication {
 
     public static final Logger logger = LoggerFactory.getLogger(ApiboxApplication.class);

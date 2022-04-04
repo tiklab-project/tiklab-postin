@@ -4,7 +4,7 @@ import com.doublekit.apibox.annotation.Api;
 import com.doublekit.apibox.client.model.ApiMeta;
 import com.doublekit.apibox.client.model.ApiMethodMeta;
 import com.doublekit.common.exception.SystemException;
-import com.doublekit.utils.AnnotationScannerUtil;
+import com.doublekit.utils.annotation.AnnotationResourceResolver;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.ArrayList;
@@ -19,7 +19,7 @@ public class ApiParser {
     public List<ApiMeta> parseApiMeta(String basePackage){
         List<ApiMeta> apiMetaList = new ArrayList();
 
-        Set<Class> classSet = AnnotationScannerUtil.scan(basePackage, Api.class);
+        Set<Class> classSet = AnnotationResourceResolver.resolve(basePackage, Api.class);
         if(classSet == null || classSet.size()==0){
             return apiMetaList;
         }
