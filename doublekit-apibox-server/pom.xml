@@ -76,27 +76,27 @@
         <!--pcs-->
         <dependency>
             <groupId>com.doublekit</groupId>
-            <artifactId>doublekit-plat-message-spring-boot-starter</artifactId>
+            <artifactId>doublekit-message-spring-boot-starter</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.doublekit</groupId>
-            <artifactId>doublekit-pcs-user-api</artifactId>
+            <artifactId>doublekit-user-api</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.doublekit</groupId>
-            <artifactId>doublekit-pcs-privilege-spring-boot-starter</artifactId>
+            <artifactId>doublekit-privilege-spring-boot-starter</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.doublekit</groupId>
-            <artifactId>doublekit-pcs-plugin-spring-boot-starter</artifactId>
+            <artifactId>doublekit-plugin-spring-boot-starter</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.doublekit</groupId>
-            <artifactId>doublekit-pcs-toolkit-spring-boot-starter</artifactId>
+            <artifactId>doublekit-toolkit-spring-boot-starter</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
@@ -112,7 +112,7 @@
         </dependency>
         <dependency>
             <groupId>com.doublekit</groupId>
-            <artifactId>doublekit-pcs-licence-spring-boot-starter</artifactId>
+            <artifactId>doublekit-licence-spring-boot-starter</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
         <!--hutool 快速开发工具包-->
@@ -123,7 +123,7 @@
         </dependency>
         <dependency>
             <groupId>com.doublekit</groupId>
-            <artifactId>doublekit-pcs-user-spring-boot-starter</artifactId>
+            <artifactId>doublekit-user-spring-boot-starter</artifactId>
             <version>1.0.0-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>

@@ -12,7 +12,7 @@ tomcat:
 #dal config
 jdbc:
   driverClassName: com.mysql.jdbc.Driver
-  url: jdbc:mysql://172.11.1.10:3306/darth_apibox?characterEncoding=utf8&useSSL=false
+  url: jdbc:mysql://172.11.1.10:3306/darth_apibox?characterEncoding=utf8&useSSL=false&serverTimezone=UTC
   username: root
   password: darth2020
 
