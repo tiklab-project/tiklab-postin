@@ -14,7 +14,7 @@ import com.doublekit.eam.starter.annotation.EnableEamServer;
 import com.doublekit.join.starter.annotation.EnableJoin;
 import com.doublekit.licence.starter.annotation.EnableLicenceServer;
 import com.doublekit.message.starter.annotation.EnableMessage;
-import com.doublekit.plugin.starter.annotation.EnablePluginServer;
+import com.doublekit.pluginx.starter.annotation.EnablePluginServer;
 import com.doublekit.privilege.starter.annotation.EnablePrivilegeServer;
 import com.doublekit.rpc.starter.annotation.EnableRpc;
 import com.doublekit.toolkit.starter.annotation.EnableToolkitServer;
