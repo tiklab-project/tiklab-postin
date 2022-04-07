@@ -13,7 +13,7 @@ import org.springframework.context.annotation.PropertySource;
  */
 @SpringBootApplication
 @EnableApibox
-@PropertySource(value = "classpath:application.yaml",factory = PropertyAndYamlSourceFactory.class)
+@PropertySource(value = "classpath:application-${env:dev}.yaml",factory = PropertyAndYamlSourceFactory.class)
 public class ApiboxApplication {
 
     public static final Logger logger = LoggerFactory.getLogger(ApiboxApplication.class);
