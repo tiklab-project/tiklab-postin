@@ -9,6 +9,7 @@ import com.doublekit.apibox.apidef.apix.model.ApixQuery;
 
 import com.doublekit.apibox.apidef.http.model.HttpApi;
 import com.doublekit.apibox.apidef.http.support.MessageTemplateConstant;
+import com.doublekit.apibox.common.CurrentRegUser;
 import com.doublekit.common.page.Pagination;
 import com.doublekit.common.page.PaginationBuilder;
 import com.doublekit.beans.BeanMapper;
@@ -60,7 +61,10 @@ public class ApixServiceImpl implements ApixService {
             apixEntity.setId(uniqueKey.toString());
         }
 
-        apixEntity.setCreateUser(findCreatUser());
+        //初始化项目成员
+        String userId = CurrentRegUser.getInstace().findCreatUser();
+        apixEntity.setCreateUser(userId);
+
         apixEntity.setCreateTime(new Timestamp(System.currentTimeMillis()));
         apixEntity.setUpdateTime(new Timestamp(System.currentTimeMillis()));
 
@@ -80,7 +84,9 @@ public class ApixServiceImpl implements ApixService {
         ApixEntity apixEntity = BeanMapper.map(apix, ApixEntity.class);
 
         apixEntity.setUpdateTime(new Timestamp(System.currentTimeMillis()));
-        apixEntity.setUpdateUser(findCreatUser());
+
+        String userId = CurrentRegUser.getInstace().findCreatUser();
+        apixEntity.setUpdateUser(userId);
         apixDao.updateApix(apixEntity);
 
         //更新索引
@@ -153,16 +159,6 @@ public class ApixServiceImpl implements ApixService {
         joinTemplate.joinQuery(apixList);
 
         return PaginationBuilder.build(pagination, apixList);
-    }
-
-    /**
-     * 查询用户（创建/更新 人）id
-     * @param
-     */
-    public String findCreatUser(){
-        String ticketId = TicketHolder.get();
-        Ticket ticket = TicketContext.get(ticketId);
-        return ticket.getUserId();
     }
 
     /**

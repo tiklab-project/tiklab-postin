@@ -66,6 +66,7 @@ public class GatewayFilterAutoConfiguration {
                         "/share/judgeAuthCode",
                         "/port/reportImport",
                         "/dingdingcfg/findId",
+                        "/dingding/passport/login"
 
                 })
                 .ignorePreUrls(new String[]{
