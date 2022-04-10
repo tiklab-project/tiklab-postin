@@ -70,6 +70,7 @@ public class GatewayFilterAutoConfiguration {
 
                 })
                 .ignorePreUrls(new String[]{
+                        "/service",
                         "/apis",
                         "/report/reportTest",
                         "/file",

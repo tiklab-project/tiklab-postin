@@ -22,6 +22,7 @@ import com.doublekit.message.message.model.Message;
 import com.doublekit.message.message.model.MessageReceiver;
 import com.doublekit.message.message.model.MessageTemplate;
 import com.doublekit.message.message.service.MessageService;
+import com.doublekit.rpc.annotation.Exporter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -37,6 +38,7 @@ import java.util.UUID;
 * BasedefServiceImpl
 */
 @Service
+@Exporter
 public class ApixServiceImpl implements ApixService {
 
     @Autowired

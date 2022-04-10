@@ -41,9 +41,9 @@ dss:
   url: server://127.0.0.1:7000/default
 
 #rpc config
-rpc:
-  server:
-    port: 8000
+#rpc:
+#  server:
+#    port: 8000
 
 #auth config
 #auth:
