@@ -6,16 +6,11 @@ import com.doublekit.apibox.apidef.apix.dao.ApixDao;
 import com.doublekit.apibox.apidef.apix.entity.ApixEntity;
 import com.doublekit.apibox.apidef.apix.model.Apix;
 import com.doublekit.apibox.apidef.apix.model.ApixQuery;
-
-import com.doublekit.apibox.apidef.http.model.HttpApi;
 import com.doublekit.apibox.apidef.http.support.MessageTemplateConstant;
-import com.doublekit.apibox.common.CurrentRegUser;
+import com.doublekit.beans.BeanMapper;
 import com.doublekit.common.page.Pagination;
 import com.doublekit.common.page.PaginationBuilder;
-import com.doublekit.beans.BeanMapper;
 import com.doublekit.dss.client.DssClient;
-import com.doublekit.eam.common.Ticket;
-import com.doublekit.eam.common.TicketContext;
 import com.doublekit.eam.common.TicketHolder;
 import com.doublekit.join.JoinTemplate;
 import com.doublekit.message.message.model.Message;
@@ -23,6 +18,7 @@ import com.doublekit.message.message.model.MessageReceiver;
 import com.doublekit.message.message.model.MessageTemplate;
 import com.doublekit.message.message.service.MessageService;
 import com.doublekit.rpc.annotation.Exporter;
+import com.doublekit.utils.context.LoginContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -64,7 +60,7 @@ public class ApixServiceImpl implements ApixService {
         }
 
         //初始化项目成员
-        String userId = CurrentRegUser.getInstace().findCreatUser();
+        String userId = LoginContext.getLoginId();
         apixEntity.setCreateUser(userId);
 
         apixEntity.setCreateTime(new Timestamp(System.currentTimeMillis()));
@@ -87,7 +83,7 @@ public class ApixServiceImpl implements ApixService {
 
         apixEntity.setUpdateTime(new Timestamp(System.currentTimeMillis()));
 
-        String userId = CurrentRegUser.getInstace().findCreatUser();
+        String userId = LoginContext.getLoginId();
         apixEntity.setUpdateUser(userId);
         apixDao.updateApix(apixEntity);
 

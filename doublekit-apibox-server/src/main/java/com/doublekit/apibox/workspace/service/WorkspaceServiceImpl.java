@@ -3,7 +3,6 @@ package com.doublekit.apibox.workspace.service;
 import com.doublekit.apibox.category.model.Category;
 import com.doublekit.apibox.category.model.CategoryQuery;
 import com.doublekit.apibox.category.service.CategoryService;
-import com.doublekit.apibox.common.CurrentRegUser;
 import com.doublekit.apibox.workspace.dao.WorkspaceDao;
 import com.doublekit.apibox.workspace.entity.WorkspaceEntity;
 import com.doublekit.apibox.workspace.model.Workspace;
@@ -17,6 +16,7 @@ import com.doublekit.privilege.role.service.DmRoleService;
 import com.doublekit.user.user.model.DmUser;
 import com.doublekit.user.user.model.User;
 import com.doublekit.user.user.service.DmUserService;
+import com.doublekit.utils.context.LoginContext;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -55,7 +55,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         WorkspaceEntity workspaceEntity = BeanMapper.map(workspace, WorkspaceEntity.class);
 
         //初始化项目成员
-        String userId = CurrentRegUser.getInstace().findCreatUser();
+        String userId = LoginContext.getLoginId();
 
         workspaceEntity.setUserId(userId);
         String projectId = workspaceDao.createWorkspace(workspaceEntity);

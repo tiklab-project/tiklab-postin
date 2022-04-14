@@ -9,8 +9,9 @@ import com.doublekit.datafly.starter.annotation.EnableDataFly;
 import com.doublekit.dcs.starter.annotation.EnableDcs;
 import com.doublekit.dfs.starter.annotation.EnableDfs;
 import com.doublekit.dss.starter.annotation.EnableDss;
-import com.doublekit.eam.starter.annotation.EnableEamClient;
-import com.doublekit.eam.starter.annotation.EnableEamServer;
+import com.doublekit.eam.client.EnableEamClient;
+import com.doublekit.eam.server.EnableEamServer;
+import com.doublekit.gateway.starter.annotation.EnableGateway;
 import com.doublekit.join.starter.annotation.EnableJoin;
 import com.doublekit.licence.starter.annotation.EnableLicenceServer;
 import com.doublekit.message.starter.annotation.EnableMessage;
@@ -34,6 +35,7 @@ import org.springframework.context.annotation.Configuration;
 @EnableDss
 @EnableRpc
 @EnableMessage
+@EnableGateway
 //pcs
 @EnableUserServer
 @EnableEamServer

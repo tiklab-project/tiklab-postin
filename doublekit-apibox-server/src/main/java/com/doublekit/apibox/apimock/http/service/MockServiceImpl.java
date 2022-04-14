@@ -4,12 +4,11 @@ import com.doublekit.apibox.apimock.http.dao.MockDao;
 import com.doublekit.apibox.apimock.http.entity.MockEntity;
 import com.doublekit.apibox.apimock.http.model.Mock;
 import com.doublekit.apibox.apimock.http.model.MockQuery;
-
-import com.doublekit.apibox.common.CurrentRegUser;
-import com.doublekit.common.page.Pagination;
 import com.doublekit.beans.BeanMapper;
+import com.doublekit.common.page.Pagination;
 import com.doublekit.common.page.PaginationBuilder;
 import com.doublekit.join.JoinTemplate;
+import com.doublekit.utils.context.LoginContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,7 +34,7 @@ public class MockServiceImpl implements MockService {
         MockEntity mockEntity = BeanMapper.map(mock, MockEntity.class);
 
         //创建人
-        String createUserId = CurrentRegUser.getInstace().findCreatUser();
+        String createUserId = LoginContext.getLoginId();
         mockEntity.setCreateUser(createUserId);
 
         //创建时间
