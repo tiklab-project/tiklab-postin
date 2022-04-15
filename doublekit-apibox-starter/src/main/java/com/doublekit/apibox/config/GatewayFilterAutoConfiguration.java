@@ -1,7 +1,7 @@
 package com.doublekit.apibox.config;
 
-import com.doublekit.gateway.author.config.TicketConfig;
-import com.doublekit.gateway.author.config.TicketConfigBuilder;
+import com.doublekit.gateway.author.config.IgnoreConfig;
+import com.doublekit.gateway.author.config.IgnoreConfigBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -9,8 +9,8 @@ import org.springframework.context.annotation.Configuration;
 public class GatewayFilterAutoConfiguration {
 
     @Bean
-    public TicketConfig ticketConfig(){
-        return TicketConfigBuilder.instance()
+    public IgnoreConfig ignoreConfig(){
+        return IgnoreConfigBuilder.instance()
                 .ignoreTypes(new String[]{
                         ".ico",
                         ".jpg",
