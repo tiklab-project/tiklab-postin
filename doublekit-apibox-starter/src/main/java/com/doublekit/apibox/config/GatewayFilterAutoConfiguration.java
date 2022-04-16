@@ -2,6 +2,9 @@ package com.doublekit.apibox.config;
 
 import com.doublekit.gateway.author.config.IgnoreConfig;
 import com.doublekit.gateway.author.config.IgnoreConfigBuilder;
+import com.doublekit.gateway.router.config.RouterConfig;
+import com.doublekit.gateway.router.config.RouterConfigBuilder;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -54,6 +57,20 @@ public class GatewayFilterAutoConfiguration {
                         "/mockx",
                         "/licence"
                 })
+                .get();
+    }
+
+    //路由转发配置
+
+    @Value("${project.address:null}")
+    String projectUrl;
+
+    @Bean
+    RouterConfig routerConfig(){
+        return RouterConfigBuilder.instance()
+                .route(new String[]{
+                        "/project/findAllProject"
+                }, projectUrl)
                 .get();
     }
 }
