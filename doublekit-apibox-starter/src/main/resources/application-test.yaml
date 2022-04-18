@@ -6,8 +6,13 @@ spring:
     active: dev
 
 #web config
-tomcat:
+server:
   port: 8080
+
+#rpc config
+rpc:
+  server:
+    port: 8000
 
 #dal config
 jdbc:
@@ -21,29 +26,30 @@ DATA_HOME: ${user.home}/doublekit/${app.name}
 
 #dfs config
 dfs:
-  mode: server
-  port: 5000
-  path: ${DATA_HOME}/data/dfs
-  url: server://127.0.0.1:5000/default
+  server:
+    mode: server
+    port: 5000
+    datapath: ${DATA_HOME}/data/dfs
+  client:
+    url: server://127.0.0.1:5000/default
 
 #dcs config
 dcs:
-  mode: server
-  port: 6000
-  path: ${DATA_HOME}/data/dcs
-  url: server://127.0.0.1:6000/default
+  server:
+    mode: server
+    port: 6000
+    datapath: ${DATA_HOME}/data/dcs
+  client:
+    url: server://127.0.0.1:6000/default
 
 #dss config
 dss:
-  mode: server
-  port: 7000
-  path: ${DATA_HOME}/data/dss
-  url: server://127.0.0.1:7000/default
-
-#rpc config
-rpc:
   server:
-    port: 8000
+    mode: server
+    port: 7000
+    datapath: ${DATA_HOME}/data/dss
+  client:
+    url: server://127.0.0.1:7000/default
 
 #auth config
 #auth:

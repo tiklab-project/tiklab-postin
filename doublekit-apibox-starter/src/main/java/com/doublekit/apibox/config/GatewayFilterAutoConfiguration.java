@@ -61,7 +61,6 @@ public class GatewayFilterAutoConfiguration {
     }
 
     //路由转发配置
-
     @Value("${project.address:null}")
     String projectUrl;
 
