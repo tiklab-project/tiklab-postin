@@ -51,19 +51,19 @@ dss:
   client:
     url: server://127.0.0.1:7000/default
 
+#user config
+#user:
+#  type: ucc
+#  address: http://192.168.0.1:4001
+
 #auth config
 #auth:
 #  type: acc
-#  acc:
-#    address: http://192.168.0.1:4001
-#    service:
-#      address: 192.168.0.16:8000
+#  address: http://192.168.0.1:4001
 
 #integration config
 homes:
   address: http://192.168.0.18:8080
-  service:
-    address: 192.168.0.18:8000
 
 #plugin config
 plugin:

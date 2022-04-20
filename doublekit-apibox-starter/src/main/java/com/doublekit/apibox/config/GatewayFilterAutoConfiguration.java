@@ -61,10 +61,10 @@ public class GatewayFilterAutoConfiguration {
     }
 
     //路由转发配置
-    @Value("${project.address:null}")
+    //@Value("${project.address:null}")
     String projectUrl;
 
-    @Bean
+    //@Bean
     RouterConfig routerConfig(){
         return RouterConfigBuilder.instance()
                 .route(new String[]{

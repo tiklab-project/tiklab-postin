@@ -1,4 +1,4 @@
-package com.doublekit.apibox.client.config;
+package com.doublekit.apibox.client;
 
 
 import com.doublekit.apibox.client.builder.ApiboxBuilder;

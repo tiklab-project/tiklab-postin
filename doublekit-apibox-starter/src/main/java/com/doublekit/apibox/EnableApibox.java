@@ -1,6 +1,5 @@
-package com.doublekit.apibox.annotation;
+package com.doublekit.apibox;
 
-import com.doublekit.apibox.config.ApiboxAutoConfiguration;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;

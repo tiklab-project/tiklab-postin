@@ -1,6 +1,5 @@
 package com.doublekit.apibox;
 
-import com.doublekit.apibox.annotation.EnableApibox;
 import com.doublekit.utils.property.PropertyAndYamlSourceFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

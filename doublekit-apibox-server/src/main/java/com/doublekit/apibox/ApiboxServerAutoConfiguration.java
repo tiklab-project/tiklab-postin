@@ -1,4 +1,4 @@
-package com.doublekit.apibox.config;
+package com.doublekit.apibox;
 
 
 import com.doublekit.datafly.annotation.DataFly;

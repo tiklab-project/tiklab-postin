@@ -1,8 +1,8 @@
-package com.doublekit.apibox.config;
+package com.doublekit.apibox;
 
 
-import com.doublekit.apibox.annotation.EnableApiboxServer;
-import com.doublekit.apibox.client.annotation.EnableApiboxClient;
+import com.doublekit.apibox.EnableApiboxServer;
+import com.doublekit.apibox.client.EnableApiboxClient;
 import com.doublekit.beans.starter.annotation.EnableBeans;
 import com.doublekit.dal.starter.annotation.EnableDal;
 import com.doublekit.datafly.starter.annotation.EnableDataFly;
@@ -19,7 +19,8 @@ import com.doublekit.pluginx.starter.annotation.EnablePluginServer;
 import com.doublekit.privilege.starter.annotation.EnablePrivilegeServer;
 import com.doublekit.rpc.starter.annotation.EnableRpc;
 import com.doublekit.toolkit.starter.annotation.EnableToolkitServer;
-import com.doublekit.user.starter.annotation.EnableUserServer;
+import com.doublekit.user.EnableUserServer;
+import com.doublekit.user.client.EnableUserClient;
 import com.doublekit.web.starter.annotation.EnableWeb;
 import org.springframework.context.annotation.Configuration;
 
@@ -38,6 +39,7 @@ import org.springframework.context.annotation.Configuration;
 @EnableGateway
 //pcs
 @EnableUserServer
+@EnableUserClient
 @EnableEamServer
 @EnableEamClient
 @EnablePrivilegeServer
