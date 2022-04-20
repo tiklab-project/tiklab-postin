@@ -1,0 +1,22 @@
+{
+    "name":"import&export",
+    "type":"function",
+    "extensions":[
+        {
+            "id": "export",
+            "version": "1.0.0",
+            "js": "/export/export.umd.js",
+            "css": "/export/export.css",
+            "point": "export",
+            "title": "导出"
+        },
+        {
+            "id": "import",
+            "version": "1.0.0",
+            "title": "导入",
+            "js": "/import/import.umd.js",
+            "css": "/import/import.css",
+            "point": "import"
+        }
+    ]
+}

@@ -1,0 +1,31 @@
+{
+    "name":"license",
+    "type":"function",
+    "extensions": [
+        {
+            "id": "license",
+            "version": "1.0.0",
+            "js": "/license/license.js",
+            "menuTitle":[
+                {
+                    "router": "/license",
+                    "menuTitle": "License 管理",
+                    "mount": "systemManagement"
+                }
+            ],
+
+            "routers": [
+                {
+                    "mount": "systemManagement",
+                    "router": "/license",
+                    "menuTitle": "License 管理"
+                }
+            ],
+            "point": "settingMenu",
+            "extraProps": {
+                "link": "/license",
+                "title": "License 管理"
+            }
+        }
+    ]
+}
