@@ -13,7 +13,6 @@
     <artifactId>doublekit-apibox-plugin</artifactId>
 
     <modules>
-        <module>doublekit-apibox-bundle-plugin</module>
         <module>doublekit-apibox-ext-plugin</module>
     </modules>
     <dependencyManagement>
