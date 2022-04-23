@@ -21,6 +21,7 @@ import com.doublekit.rpc.annotation.Exporter;
 import com.doublekit.utils.context.LoginContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
 import javax.validation.Valid;
@@ -54,9 +55,10 @@ public class ApixServiceImpl implements ApixService {
         ApixEntity apixEntity = BeanMapper.map(apix, ApixEntity.class);
 
         //如果没有id自动生成id
-        if (StringUtils.isEmpty(apix.getId())) {
-            UUID uniqueKey = UUID.randomUUID();
-            apixEntity.setId(uniqueKey.toString());
+        if (ObjectUtils.isEmpty(apix.getId())) {
+            String uid = UUID.randomUUID().toString();
+            String id = uid.trim().replaceAll("-", "");
+            apixEntity.setId(id);
         }
 
         //初始化项目成员
