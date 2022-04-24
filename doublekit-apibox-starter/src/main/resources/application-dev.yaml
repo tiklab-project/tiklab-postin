@@ -27,34 +27,29 @@ DATA_HOME: ${user.home}/doublekit/${app.name}
 #dfs config
 dfs:
   server:
-    mode: server
+    mode: standalone
     port: 5000
     datapath: ${DATA_HOME}/data/dfs
   client:
-    url: server://127.0.0.1:5000/default
+    url: standalone://127.0.0.1:5000/default
 
 #dcs config
 dcs:
   server:
-    mode: server
+    mode: standalone
     port: 6000
     datapath: ${DATA_HOME}/data/dcs
   client:
-    url: server://127.0.0.1:6000/default
+    url: standalone://127.0.0.1:6000/default
 
 #dss config
 dss:
   server:
-    mode: server
+    mode: standalone
     port: 7000
     datapath: ${DATA_HOME}/data/dss
   client:
-    url: server://127.0.0.1:7000/default
-
-#user config
-#user:
-#  type: ucc
-#  address: http://192.168.0.1:4001
+    url: standalone://127.0.0.1:7000/default
 
 #auth config
 #auth:
