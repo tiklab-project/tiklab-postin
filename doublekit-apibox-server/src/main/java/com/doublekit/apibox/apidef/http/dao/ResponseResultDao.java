@@ -87,6 +87,7 @@ public class ResponseResultDao{
         QueryCondition queryCondition = QueryBuilders.createQuery(ResponseResultEntity.class)
                 .eq("httpId", responseResultQuery.getHttpId())
                 .get();
-        return jpaTemplate.findPage(responseResultQuery, ResponseResultEntity.class);
+
+        return jpaTemplate.findPage(queryCondition, ResponseResultEntity.class);
     }
 }

@@ -89,6 +89,7 @@ public class QueryParamDao{
                 .pagination(queryParamQuery.getPageParam())
                 .orders(queryParamQuery.getOrderParams())
                 .get();
-        return jpaTemplate.findPage(queryParamQuery, QueryParamEntity.class);
+
+        return jpaTemplate.findPage(queryCondition, QueryParamEntity.class);
     }
 }

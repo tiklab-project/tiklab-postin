@@ -80,6 +80,7 @@ public class RequestHeaderDao{
                 .eq("httpId", requestHeaderQuery.getHttpId())
                 .orders(requestHeaderQuery.getOrderParams())
                 .get();
+
         return jpaTemplate.findList(queryCondition, RequestHeaderEntity.class);
     }
 
@@ -89,6 +90,7 @@ public class RequestHeaderDao{
                 .pagination(requestHeaderQuery.getPageParam())
                 .orders(requestHeaderQuery.getOrderParams())
                 .get();
-        return jpaTemplate.findPage(requestHeaderQuery, RequestHeaderEntity.class);
+
+        return jpaTemplate.findPage(queryCondition, RequestHeaderEntity.class);
     }
 }
