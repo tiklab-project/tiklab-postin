@@ -1,10 +1,13 @@
 {
-    "name":"import&export",
-    "type":"function",
+    "name": "apibox-calendar",
+    "auth": "apibox",
+    "desc": "这是一个新增用户是我增强功能。",
+    "tag": ["用户", "导入", "新增"],
     "extensions":[
         {
             "id": "export",
             "version": "1.0.0",
+            "type": "function",
             "js": "/export/export.umd.js",
             "css": "/export/export.css",
             "point": "export",
@@ -13,10 +16,17 @@
         {
             "id": "import",
             "version": "1.0.0",
+            "type": "function",
             "title": "导入",
             "js": "/import/import.umd.js",
             "css": "/import/import.css",
             "point": "import"
+        },
+        {
+            "name": "apibox",
+            "type": "language",
+            "country": "en",
+            "path": "/language/language-en.json"
         }
     ]
 }

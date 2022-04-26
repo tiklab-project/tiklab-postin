@@ -29,8 +29,6 @@ public class GatewayFilterAutoConfiguration {
                 })
                 .ignoreUrls(new String[]{
                         "/",
-                        "/passport/login",
-                        "/passport/logout",
                         "/passport/valid",
                         "/auth/valid",
                         "/document/view",
@@ -39,8 +37,16 @@ public class GatewayFilterAutoConfiguration {
                         "/share/judgeAuthCode",
                         "/port/reportImport",
                         "/dingdingcfg/findId",
-                        "/dingding/passport/login"
-
+                        "/version/getVersion",
+                        "/wechatcfg/findWechatById",
+                        "/dingding/passport/login",
+                        "/passport/login",
+                        "/wechat/passport/login",
+                        "/passport/logout",
+                        "/wechat/passport/logout",
+                        "/dingding/passport/logout",
+                        "/ldap/passport/login",
+                        "/ldap/passport/logout",
                 })
                 .ignorePreUrls(new String[]{
                         "/service",
