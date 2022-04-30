@@ -20,12 +20,12 @@ public class RawParamCase extends BaseModel {
     private java.lang.String id;
 
     @NotNull
-    @ApiProperty(name="testcase",desc="所属接口用例",required = true)
+    @ApiProperty(name="httpCase",desc="所属接口用例",required = true)
     @Mappings({
-            @Mapping(source = "httpTestcase.id",target = "testcaseId")
+            @Mapping(source = "httpCase.id",target = "httpCaseId")
     })
     @JoinQuery(key = "id")
-    private HttpTestcase httpTestcase;
+    private HttpTestcase httpCase;
 
     @ApiProperty(name="raw",desc="自定义文本")
     private java.lang.String raw;
@@ -42,12 +42,12 @@ public class RawParamCase extends BaseModel {
         this.id = id;
     }
 
-    public HttpTestcase getTestcase() {
-        return httpTestcase;
+    public HttpTestcase getHttpCase() {
+        return httpCase;
     }
 
-    public void setTestcase(HttpTestcase httpTestcase) {
-        this.httpTestcase = httpTestcase;
+    public void setHttpCase(HttpTestcase httpCase) {
+        this.httpCase = httpCase;
     }
 
     public String getRaw() {

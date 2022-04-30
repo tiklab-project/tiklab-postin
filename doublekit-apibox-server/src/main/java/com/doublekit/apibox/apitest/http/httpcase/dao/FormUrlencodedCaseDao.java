@@ -77,7 +77,7 @@ public class FormUrlencodedCaseDao{
 
     public List<FormUrlencodedCaseEntity> findFormUrlencodedCaseList(FormUrlencodedCaseQuery formUrlencodedCaseQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(FormUrlencodedCaseEntity.class)
-                .eq("testcaseId", formUrlencodedCaseQuery.getTestcaseId())
+                .eq("httpCaseId", formUrlencodedCaseQuery.getHttpCaseId())
                 .orders(formUrlencodedCaseQuery.getOrderParams())
                 .get();
         return jpaTemplate.findList(queryCondition,FormUrlencodedCaseEntity.class);
@@ -85,7 +85,7 @@ public class FormUrlencodedCaseDao{
 
     public Pagination<FormUrlencodedCaseEntity> findFormUrlencodedCasePage(FormUrlencodedCaseQuery formUrlencodedCaseQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(FormUrlencodedCaseEntity.class)
-                .eq("testcaseId", formUrlencodedCaseQuery.getTestcaseId())
+                .eq("httpCaseId", formUrlencodedCaseQuery.getHttpCaseId())
                 .pagination(formUrlencodedCaseQuery.getPageParam())
                 .orders(formUrlencodedCaseQuery.getOrderParams())
                 .get();

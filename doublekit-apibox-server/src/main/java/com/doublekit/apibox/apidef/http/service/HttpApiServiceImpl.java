@@ -1,15 +1,27 @@
 package com.doublekit.apibox.apidef.http.service;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.doublekit.apibox.apidef.apix.model.Apix;
+import com.doublekit.apibox.apidef.apix.model.ApixQuery;
+import com.doublekit.apibox.apidef.apix.service.ApixService;
 import com.doublekit.apibox.apidef.http.dao.*;
 import com.doublekit.apibox.apidef.http.entity.*;
 import com.doublekit.apibox.apidef.http.model.*;
+import com.doublekit.apibox.apidef.http.support.MessageTemplateConstant;
+import com.doublekit.apibox.category.model.Category;
 import com.doublekit.beans.BeanMapper;
 import com.doublekit.common.page.Pagination;
 import com.doublekit.common.page.PaginationBuilder;
 import com.doublekit.dal.jpa.criterial.conditionbuilder.DeleteBuilders;
 import com.doublekit.dal.jpa.criterial.condition.DeleteCondition;
 import com.doublekit.dss.client.DssClient;
+import com.doublekit.eam.common.TicketHolder;
 import com.doublekit.join.JoinTemplate;
+import com.doublekit.message.message.model.Message;
+import com.doublekit.message.message.model.MessageReceiver;
+import com.doublekit.message.message.model.MessageTemplate;
+import com.doublekit.message.message.service.MessageService;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +29,9 @@ import org.springframework.util.ObjectUtils;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
 * 用户服务业务处理
@@ -27,6 +41,9 @@ public class HttpApiServiceImpl implements HttpApiService {
 
     @Autowired
     HttpApiDao httpApiDao;
+
+    @Autowired
+    ApixService apixService;
 
     @Autowired
     JoinTemplate joinTemplate;
@@ -104,28 +121,84 @@ public class HttpApiServiceImpl implements HttpApiService {
     @Autowired
     DssClient dssClient;
 
+    @Autowired
+    MessageService messageService;
+
     @Override
-    public String createHttpApi() {
+    public String createHttpApi(@NotNull @Valid HttpApi httpApi) {
+        HttpApiEntity httpApiEntity = BeanMapper.map(httpApi, HttpApiEntity.class);
 
+        //如果没有id自动生成id
+        if (ObjectUtils.isEmpty(httpApi.getId())) {
+            String uid = UUID.randomUUID().toString();
+            String id = uid.trim().replaceAll("-", "");
+            httpApiEntity.setId(id);
+        }
 
-        return  httpApiDao.createHttpApi(new HttpApiEntity());
+        String id = httpApiDao.createHttpApi(httpApiEntity);
+
+        httpApiEntity.setApixId(id);
+        httpApiEntity.setId(id);
+        httpApiDao.updateHttpApi(httpApiEntity);
+
+        Apix apix = apix(httpApi, id);
+        apixService.createApix(apix);
+
+        //添加索引
+//        HttpApi entity = findHttpApi(id);
+//        dssClient.save(entity);
+
+        //发送消息
+//        sendMessageForCreate(entity);
+
+        return  id;
     }
 
 
     @Override
-    public void updateHttpApi(@NotNull @Valid HttpApi method) {
-        //更新接口
-        HttpApiEntity httpApiEntity = BeanMapper.map(method, HttpApiEntity.class);
+    public void updateHttpApi(@NotNull @Valid HttpApi httpApi) {
+        HttpApiEntity httpApiEntity = BeanMapper.map(httpApi, HttpApiEntity.class);
 
+        httpApiEntity.setApixId(httpApi.getId());
         httpApiDao.updateHttpApi(httpApiEntity);
+
+        Apix apix = apix(httpApi, httpApi.getId());
+        apixService.updateApix(apix);
+
+        //更新索引
+//        HttpApi entity = findHttpApi(apix.getId());
+//        dssClient.update(entity);
+
+        //发送更新消息提醒
+//        sendMessageForCreate(entity);
+
+    }
+
+    public Apix apix(HttpApi httpApi,String id){
+        Apix apix = new Apix();
+
+        Category category = new Category();
+        category.setId(httpApi.getApix().getCategory().getId());
+
+        apix.setCategory(category);
+        apix.setId(id);
+        apix.setName(httpApi.getApix().getName());
+        apix.setDesc(httpApi.getApix().getDesc());
+        apix.setProtocolType(httpApi.getApix().getProtocolType());
+        apix.setExecutor(httpApi.getApix().getExecutor());
+        apix.setStatus(httpApi.getApix().getStatus());
+
+        return apix;
     }
 
 
 
     @Override
     public void deleteHttpApi(@NotNull String id) {
-        //删除方法
+        //删除
         httpApiDao.deleteHttpApi(id);
+        //删除apix
+        apixService.deleteApix(id);
 
         //删除后置脚本数据
         DeleteCondition deleteCondition = DeleteBuilders.createDelete(AfterScriptEntity.class)
@@ -334,6 +407,25 @@ public class HttpApiServiceImpl implements HttpApiService {
 
         return  PaginationBuilder.build(httpApiPage,httpApis);
     }
+
+    @Override
+    public List<HttpApi> findHttpApiListByApix(ApixQuery apixQuery) {
+        List<Apix> apixList = apixService.findApixList(apixQuery);
+
+        ArrayList<HttpApi> arrayList = new ArrayList<>();
+
+        if(CollectionUtils.isNotEmpty(apixList)){
+            for (Apix apix : apixList) {
+                List<HttpApi> httpApiList = findHttpApiList(new HttpApiQuery().setApixId(apix.getId()));
+                if (CollectionUtils.isNotEmpty(httpApiList)) {
+                    arrayList.addAll(httpApiList);
+                }
+            }
+        }
+
+        return arrayList;
+    }
+
     /**
      * 分页查询
      * @param
@@ -349,5 +441,25 @@ public class HttpApiServiceImpl implements HttpApiService {
         return PaginationBuilder.build(pagination, httpApiList);
     }
 
+    /**
+     * 发送消息提醒
+     * @param apix
+     */
+    private void sendMessageForCreate(HttpApi apix){
+        Message message = new Message();
+        //设置模板ID
+        message.setMessageTemplate(new MessageTemplate().setId(MessageTemplateConstant.TEMPLATE_ID_API_UPDATE));
+        //设置发送数据
+        String data = JSON.toJSONString(apix, SerializerFeature.DisableCircularReferenceDetect,SerializerFeature.WriteDateUseDateFormat);
+        message.setData(data);
+        //设置接收人
+        List<MessageReceiver> messageReceiverList = new ArrayList<>();
+        MessageReceiver messageReceiver = new MessageReceiver();
+        messageReceiver.setReceiver(TicketHolder.get());//去除message->user依賴 zhangzh
+        messageReceiverList.add(messageReceiver);
+        message.setMessageReceiverList(messageReceiverList);
+
+        messageService.sendMessage(message);
+    }
 
 }

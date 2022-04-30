@@ -20,12 +20,12 @@ public class QueryParamCase extends BaseModel {
     private java.lang.String id;
 
     @NotNull
-    @ApiProperty(name="testcase",desc="所属接口用例",required = true)
+    @ApiProperty(name="httpCase",desc="所属接口用例",required = true)
     @Mappings({
-            @Mapping(source = "httpTestcase.id",target = "testcaseId")
+            @Mapping(source = "httpCase.id",target = "httpCaseId")
     })
     @JoinQuery(key = "id")
-    private HttpTestcase httpTestcase;
+    private HttpTestcase httpCase;
 
     @NotNull
     @ApiProperty(name="paramName",desc="参数名称",required = true)
@@ -45,12 +45,12 @@ public class QueryParamCase extends BaseModel {
         this.id = id;
     }
 
-    public HttpTestcase getTestcase() {
-        return httpTestcase;
+    public HttpTestcase getHttpCase() {
+        return httpCase;
     }
 
-    public void setTestcase(HttpTestcase httpTestcase) {
-        this.httpTestcase = httpTestcase;
+    public void setHttpCase(HttpTestcase httpCase) {
+        this.httpCase = httpCase;
     }
 
     public String getParamName() {

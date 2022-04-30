@@ -16,14 +16,14 @@ public class ApixQuery {
     @ApiProperty(name ="categoryId",desc = "分类id，精确匹配")
     private String categoryId;
 
+    @ApiProperty(name="protocolType",desc = "协议类型，精确匹配")
+    private String protocolType;
+
     @ApiProperty(name ="orderParams",desc = "排序参数")
     private List<Order> orderParams = OrderBuilders.instance().asc("id").get();
 
     @ApiProperty(name ="pageParam",desc = "分页参数")
     private Page pageParam = new Page();
-
-    @ApiProperty(name ="workspaceId",desc = "空间id")
-    private String workspaceId;
 
     public String getCategoryId() {
         return categoryId;
@@ -32,6 +32,14 @@ public class ApixQuery {
     public ApixQuery setCategoryId(String categoryId) {
         this.categoryId = categoryId;
         return this;
+    }
+
+    public String getProtocolType() {
+        return protocolType;
+    }
+
+    public void setProtocolType(String protocolType) {
+        this.protocolType = protocolType;
     }
 
     public List<Order> getOrderParams() {
@@ -49,14 +57,6 @@ public class ApixQuery {
     public void setPageParam(Page pageParam) {
             this.pageParam = pageParam;
         }
-
-    public String getWorkspaceId() {
-        return workspaceId;
-    }
-
-    public void setWorkspaceId(String workspaceId) {
-        this.workspaceId = workspaceId;
-    }
 
     public String getName() {
         return name;

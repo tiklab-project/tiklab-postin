@@ -78,7 +78,7 @@ public class HttpTestcaseServiceImpl implements TestcaseService {
         List<RequestHeaderCase> requestHeaderCaseList = httpTestcase.getRequestHeaderCaseList();
         if(requestHeaderCaseList != null){
             for(RequestHeaderCase requestHeaderCase:requestHeaderCaseList){
-                requestHeaderCase.setTestcase(httpTestcase);
+                requestHeaderCase.setHttpCase(httpTestcase);
                 requestHeaderCaseService.createRequestHeaderCase(requestHeaderCase);
             }
         }
@@ -87,7 +87,7 @@ public class HttpTestcaseServiceImpl implements TestcaseService {
         List<QueryParamCase> queryParamCaseList = httpTestcase.getQueryParamCaseList();
         if(queryParamCaseList != null){
             for(QueryParamCase queryParamCase:queryParamCaseList){
-                queryParamCase.setTestcase(httpTestcase);
+                queryParamCase.setHttpCase(httpTestcase);
                 queryParamCaseService.createQueryParamCase(queryParamCase);
             }
         }
@@ -96,14 +96,14 @@ public class HttpTestcaseServiceImpl implements TestcaseService {
         RequestBodyCase requestBodyCase = httpTestcase.getRequestBodyCase();
         if(requestBodyCase != null){
             requestBodyCase.setId(id);
-            requestBodyCase.setTestcase(httpTestcase);
+            requestBodyCase.setHttpCase(httpTestcase);
             requestBodyCaseService.createRequestBodyCase(requestBodyCase);
 
             //创建请求体-form参数
             List<FormParamCase> formParamCaseList = httpTestcase.getFormParamCaseList();
             if(formParamCaseList != null){
                 for(FormParamCase formParamCase:formParamCaseList){
-                    formParamCase.setTestcase(httpTestcase);
+                    formParamCase.setHttpCase(httpTestcase);
                     formParamCaseService.createFormParamCase(formParamCase);
                 }
             }
@@ -112,7 +112,7 @@ public class HttpTestcaseServiceImpl implements TestcaseService {
             List<FormUrlencodedCase> formUrlencodedCaseList = httpTestcase.getFormUrlencodedCaseList();
             if(formUrlencodedCaseList != null){
                 for(FormUrlencodedCase formUrlencodedCase:formUrlencodedCaseList){
-                    formUrlencodedCase.setTestcase(httpTestcase);
+                    formUrlencodedCase.setHttpCase(httpTestcase);
                     formUrlencodedCaseService.createFormUrlencodedCase(formUrlencodedCase);
                 }
             }
@@ -121,7 +121,7 @@ public class HttpTestcaseServiceImpl implements TestcaseService {
             List<JsonParamCase> jsonParamCaseList = httpTestcase.getJsonParamCaseList();
             if(jsonParamCaseList != null){
                 for(JsonParamCase jsonParamCase:jsonParamCaseList){
-                    jsonParamCase.setTestcase(httpTestcase);
+                    jsonParamCase.setHttpCase(httpTestcase);
                     jsonParamCaseService.createJsonParamCase(jsonParamCase);
                 }
             }
@@ -130,7 +130,7 @@ public class HttpTestcaseServiceImpl implements TestcaseService {
             RawParamCase rawParamCase = httpTestcase.getRawParamCase();
             if(rawParamCase != null){
                 rawParamCase.setId(id);
-                rawParamCase.setTestcase(httpTestcase);
+                rawParamCase.setHttpCase(httpTestcase);
                 rawParamCaseService.createRawParamCase(rawParamCase);
             }
         }
@@ -139,7 +139,7 @@ public class HttpTestcaseServiceImpl implements TestcaseService {
         PreScriptCase preScriptCase = httpTestcase.getPreScriptCase();
         if(preScriptCase != null){
             preScriptCase.setId(id);
-            preScriptCase.setTestcase(httpTestcase);
+            preScriptCase.setHttpCase(httpTestcase);
             preScriptCaseService.createPreScriptCase(preScriptCase);
         }
 
@@ -147,7 +147,7 @@ public class HttpTestcaseServiceImpl implements TestcaseService {
         AfterScriptCase afterScriptCase = httpTestcase.getAfterScriptCase();
         if(afterScriptCase != null){
             afterScriptCase.setId(id);
-            afterScriptCase.setTestcase(httpTestcase);
+            afterScriptCase.setHttpCase(httpTestcase);
             afterScriptCaseService.createAfterScriptCase(afterScriptCase);
         }
 
@@ -155,7 +155,7 @@ public class HttpTestcaseServiceImpl implements TestcaseService {
         List<AssertCase> assertCaseList = httpTestcase.getAssertCaseList();
         if(assertCaseList != null){
             for(AssertCase assertCase:assertCaseList){
-                assertCase.setTestcase(httpTestcase);
+                assertCase.setHttpCase(httpTestcase);
                 assertCaseService.createAssertCase(assertCase);
             }
         }
@@ -197,13 +197,13 @@ public class HttpTestcaseServiceImpl implements TestcaseService {
         String testcaseId = httpTestcase.getId();
 
         //获取请求头中的数据
-        List<RequestHeaderCase> requestHeaderCaseList = requestHeaderCaseService.findRequestHeaderCaseList(new RequestHeaderCaseQuery().setTestcaseId(testcaseId));
+        List<RequestHeaderCase> requestHeaderCaseList = requestHeaderCaseService.findRequestHeaderCaseList(new RequestHeaderCaseQuery().setHttpCaseId(testcaseId));
         if(CollectionUtils.isNotEmpty(requestHeaderCaseList)){
             httpTestcase.setRequestHeaderCaseList(requestHeaderCaseList);
         }
 
         //获取查询参数的数据
-        List<QueryParamCase> queryParamCaseList = queryParamCaseService.findQueryParamCaseList(new QueryParamCaseQuery().setTestcaseId(testcaseId));
+        List<QueryParamCase> queryParamCaseList = queryParamCaseService.findQueryParamCaseList(new QueryParamCaseQuery().setHttpCaseId(testcaseId));
         if(CollectionUtils.isNotEmpty(queryParamCaseList)){
             httpTestcase.setQueryParamCaseList(queryParamCaseList);
         }
@@ -216,21 +216,21 @@ public class HttpTestcaseServiceImpl implements TestcaseService {
 
         if(bodyType.equals("formdata")){
             //获取formdata数据
-            List<FormParamCase> formParamCaseList = formParamCaseService.findFormParamCaseList(new FormParamCaseQuery().setTestcaseId(testcaseId));
+            List<FormParamCase> formParamCaseList = formParamCaseService.findFormParamCaseList(new FormParamCaseQuery().setHttpCaseId(testcaseId));
             if(CollectionUtils.isNotEmpty(formParamCaseList)){
                 httpTestcase.setFormParamCaseList(formParamCaseList);
             }
 
         }else if(bodyType.equals("formUrlencoded")){
             //获取formurlencoded数据
-            List<FormUrlencodedCase> formUrlencodedCaseList = formUrlencodedCaseService.findFormUrlencodedCaseList(new FormUrlencodedCaseQuery().setTestcaseId(testcaseId));
+            List<FormUrlencodedCase> formUrlencodedCaseList = formUrlencodedCaseService.findFormUrlencodedCaseList(new FormUrlencodedCaseQuery().setHttpCaseId(testcaseId));
             if(CollectionUtils.isNotEmpty(formUrlencodedCaseList)){
                 httpTestcase.setFormUrlencodedCaseList(formUrlencodedCaseList);
             }
 
         }else if(bodyType.equals("json")){
             //获取json数据
-            List<JsonParamCase> jsonParamCaseList = jsonParamCaseService.findJsonParamCaseList(new JsonParamCaseQuery().setTestcaseId(testcaseId));
+            List<JsonParamCase> jsonParamCaseList = jsonParamCaseService.findJsonParamCaseList(new JsonParamCaseQuery().setHttpCaseId(testcaseId));
             if(CollectionUtils.isNotEmpty(jsonParamCaseList)){
                 httpTestcase.setJsonParamCaseList(jsonParamCaseList);
             }
@@ -291,13 +291,13 @@ public class HttpTestcaseServiceImpl implements TestcaseService {
         for(HttpTestcase httpTestcase : httpTestcaseList){
 
 
-            List<RequestHeaderCase> requestHeaderCaseList = requestHeaderCaseService.findRequestHeaderCaseList(new RequestHeaderCaseQuery().setTestcaseId(httpTestcase.getId()));
+            List<RequestHeaderCase> requestHeaderCaseList = requestHeaderCaseService.findRequestHeaderCaseList(new RequestHeaderCaseQuery().setHttpCaseId(httpTestcase.getId()));
             if(requestHeaderCaseList.size()>0){
                 httpTestcase.setRequestHeaderCaseList(requestHeaderCaseList);
             }
 
 
-            List<QueryParamCase> queryParamCaseList = queryParamCaseService.findQueryParamCaseList(new QueryParamCaseQuery().setTestcaseId(httpTestcase.getId()));
+            List<QueryParamCase> queryParamCaseList = queryParamCaseService.findQueryParamCaseList(new QueryParamCaseQuery().setHttpCaseId(httpTestcase.getId()));
             if(requestHeaderCaseList.size()>0) {
                 httpTestcase.setQueryParamCaseList(queryParamCaseList);
             }
@@ -308,19 +308,19 @@ public class HttpTestcaseServiceImpl implements TestcaseService {
 
                 switch (requestBodyCase.getBodyType()){
                     case "formdata":
-                        List<FormParamCase> formParamCaseList = formParamCaseService.findFormParamCaseList(new FormParamCaseQuery().setTestcaseId(httpTestcase.getId()));
+                        List<FormParamCase> formParamCaseList = formParamCaseService.findFormParamCaseList(new FormParamCaseQuery().setHttpCaseId(httpTestcase.getId()));
                         if(formParamCaseList.size()>0) {
                             httpTestcase.setFormParamCaseList(formParamCaseList);
                         }
                         break;
                     case "formUrlencoded":
-                        List<FormUrlencodedCase> formUrlencodedCaseList = formUrlencodedCaseService.findFormUrlencodedCaseList(new FormUrlencodedCaseQuery().setTestcaseId(httpTestcase.getId()));
+                        List<FormUrlencodedCase> formUrlencodedCaseList = formUrlencodedCaseService.findFormUrlencodedCaseList(new FormUrlencodedCaseQuery().setHttpCaseId(httpTestcase.getId()));
                         if(formUrlencodedCaseList.size()>0) {
                             httpTestcase.setFormUrlencodedCaseList(formUrlencodedCaseList);
                         }
                         break;
                     case "json":
-                        List<JsonParamCase> jsonParamCaseListTree = jsonParamCaseService.findJsonParamCaseListTree(new JsonParamCaseQuery().setTestcaseId(httpTestcase.getId()));
+                        List<JsonParamCase> jsonParamCaseListTree = jsonParamCaseService.findJsonParamCaseListTree(new JsonParamCaseQuery().setHttpCaseId(httpTestcase.getId()));
                         if(jsonParamCaseListTree.size()>0){
                             httpTestcase.setJsonParamCaseList(jsonParamCaseListTree);
                         }

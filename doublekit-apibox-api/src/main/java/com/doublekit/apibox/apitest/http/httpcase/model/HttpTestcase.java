@@ -15,7 +15,7 @@ import java.util.List;
 
 @ApiModel
 @Join
-@Mapper(targetAlias = "TestcaseEntity")
+@Mapper(targetAlias = "HttpTestcaseEntity")
 public class HttpTestcase extends BaseModel {
 
     @ApiProperty(name="id",desc="唯一标识")

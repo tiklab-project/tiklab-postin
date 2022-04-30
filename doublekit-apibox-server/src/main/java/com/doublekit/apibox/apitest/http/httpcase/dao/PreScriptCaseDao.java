@@ -72,7 +72,7 @@ public class PreScriptCaseDao{
 
     public List<PreScriptCaseEntity> findPreScriptCaseList(PreScriptCaseQuery preScriptCaseQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(PreScriptCaseEntity.class)
-                .eq("testcaseId", preScriptCaseQuery.getTestcaseId())
+                .eq("httpCaseId", preScriptCaseQuery.getHttpCaseId())
                 .orders(preScriptCaseQuery.getOrderParams())
                 .get();
         return jpaTemplate.findList(queryCondition, PreScriptCaseEntity.class);
@@ -80,7 +80,7 @@ public class PreScriptCaseDao{
 
     public Pagination<PreScriptCaseEntity> findPreScriptCasePage(PreScriptCaseQuery preScriptCaseQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(PreScriptCaseEntity.class)
-                .eq("testcaseId", preScriptCaseQuery.getTestcaseId())
+                .eq("httpCaseId", preScriptCaseQuery.getHttpCaseId())
                 .pagination(preScriptCaseQuery.getPageParam())
                 .orders(preScriptCaseQuery.getOrderParams())
                 .get();

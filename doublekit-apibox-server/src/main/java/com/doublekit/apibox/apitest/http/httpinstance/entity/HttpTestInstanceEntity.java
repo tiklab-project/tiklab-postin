@@ -17,8 +17,8 @@ public class HttpTestInstanceEntity implements Serializable {
     @Column(name = "id",length = 40)
     private String id;
 
-    @Column(name = "testcase_id",length = 40)
-    private String testcaseId;
+    @Column(name = "http_case_id",length = 40)
+    private String httpCaseId;
 
     @Column(name = "testNo",notNull = true)
     private Integer testNo;
@@ -43,12 +43,12 @@ public class HttpTestInstanceEntity implements Serializable {
         this.id = id;
     }
 
-    public String getTestcaseId() {
-        return testcaseId;
+    public String getHttpCaseId() {
+        return httpCaseId;
     }
 
-    public void setTestcaseId(String testcaseId) {
-        this.testcaseId = testcaseId;
+    public void setHttpCaseId(String httpCaseId) {
+        this.httpCaseId = httpCaseId;
     }
 
     public Integer getTestNo() {

@@ -72,7 +72,7 @@ public class AfterScriptCaseDao{
 
     public List<AfterScriptCaseEntity> findAfterScriptCaseList(AfterScriptCaseQuery afterScriptCaseQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(AfterScriptCaseEntity.class)
-                .eq("testcaseId", afterScriptCaseQuery.getTestcaseId())
+                .eq("httpCaseId", afterScriptCaseQuery.getHttpCaseId())
                 .orders(afterScriptCaseQuery.getOrderParams())
                 .get();
         return jpaTemplate.findList(queryCondition, AfterScriptCaseEntity.class);
@@ -80,7 +80,7 @@ public class AfterScriptCaseDao{
 
     public Pagination<AfterScriptCaseEntity> findAfterScriptCasePage(AfterScriptCaseQuery afterScriptCaseQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(AfterScriptCaseEntity.class)
-                .eq("testcaseId", afterScriptCaseQuery.getTestcaseId())
+                .eq("httpCaseId", afterScriptCaseQuery.getHttpCaseId())
                 .pagination(afterScriptCaseQuery.getPageParam())
                 .orders(afterScriptCaseQuery.getOrderParams())
                 .get();

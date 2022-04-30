@@ -152,7 +152,6 @@ public class CategoryServiceImpl implements CategoryService {
             categories =  findCategoryListTree(categoryQuery);
         } else {
             ApixQuery apixQuery = new ApixQuery();
-            apixQuery.setWorkspaceId(categoryQuery.getWorkspaceId());
             apixQuery.setName(categoryQuery.getName());
 
 

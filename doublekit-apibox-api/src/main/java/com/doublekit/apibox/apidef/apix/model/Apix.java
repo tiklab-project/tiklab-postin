@@ -44,15 +44,6 @@ public class Apix extends BaseModel{
     @ApiProperty(name="protocol_type",desc="protocol_type",required = true)
     private java.lang.String protocolType;
 
-    @NotNull
-    @ApiProperty(name="requestType",desc="requestType",required = true)
-    private java.lang.String requestType;
-
-    @NotNull
-    @ApiProperty(name="path",desc="path",required = true)
-    private java.lang.String path;
-
-
     @ApiProperty(name="createUser",desc="创建人")
     @Mappings({
             @Mapping(source = "createUser.id",target = "createUser")
@@ -126,21 +117,6 @@ public class Apix extends BaseModel{
 
     public void setProtocolType(String protocolType) {
         this.protocolType = protocolType;
-    }
-
-    public java.lang.String getRequestType() {
-        return requestType;
-    }
-
-    public void setRequestType(java.lang.String requestType) {
-        this.requestType = requestType;
-    }
-    public java.lang.String getPath() {
-        return path;
-    }
-
-    public void setPath(java.lang.String path) {
-        this.path = path;
     }
 
     public User getUpdateUser() {

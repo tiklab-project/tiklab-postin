@@ -11,8 +11,8 @@ import java.util.List;
 @ApiModel
 public class QueryParamCaseQuery {
 
-    @ApiProperty(name ="testcaseId",desc = "接口用例ID，精确匹配")
-    private String testcaseId;
+    @ApiProperty(name ="httpCaseId",desc = "接口用例ID，精确匹配")
+    private String httpCaseId;
 
     @ApiProperty(name ="orderParams",desc = "排序参数")
     private List<Order> orderParams = OrderBuilders.instance().asc("paramName").get();
@@ -20,12 +20,12 @@ public class QueryParamCaseQuery {
     @ApiProperty(name ="pageParam",desc = "分页参数")
     private Page pageParam = new Page();
 
-    public String getTestcaseId() {
-        return testcaseId;
+    public String getHttpCaseId() {
+        return httpCaseId;
     }
 
-    public QueryParamCaseQuery setTestcaseId(String testcaseId) {
-        this.testcaseId = testcaseId;
+    public QueryParamCaseQuery setHttpCaseId(String httpCaseId) {
+        this.httpCaseId = httpCaseId;
         return this;
     }
 

@@ -52,13 +52,13 @@ dss:
     url: standalone://127.0.0.1:7000/default
 
 #auth config
-auth:
-  type: acc
-  address: http://192.168.10.7:8080
+#auth:
+#  type: acc
+#  address: http://192.168.10.7:8080
 
 #integration config
 homes:
-  address: http://192.168.0.18:8080
+  address: http://192.168.10.29:8080
 
 #project:
 #  address: http://127.0.0.1:8081

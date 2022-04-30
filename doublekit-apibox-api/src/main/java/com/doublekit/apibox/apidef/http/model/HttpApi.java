@@ -35,6 +35,28 @@ public class HttpApi extends BaseModel {
     @IndexField
     private Apix apix;
 
+    @ApiProperty(name="path",desc="路径",required = true)
+    private String path;
+
+    @ApiProperty(name="requestType",desc="路径",required = true)
+    private String requestType;
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    public String getRequestType() {
+        return requestType;
+    }
+
+    public void setRequestType(String requestType) {
+        this.requestType = requestType;
+    }
+
     @ApiProperty(name = "headerList")
     private List<RequestHeader> requestHeaderList;
 

@@ -72,7 +72,7 @@ public class QueryParamCaseDao{
 
     public List<QueryParamCaseEntity> findQueryParamCaseList(QueryParamCaseQuery queryParamCaseQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(QueryParamCaseEntity.class)
-                .eq("testcaseId", queryParamCaseQuery.getTestcaseId())
+                .eq("httpCaseId", queryParamCaseQuery.getHttpCaseId())
                 .orders(queryParamCaseQuery.getOrderParams())
                 .get();
         return jpaTemplate.findList(queryCondition, QueryParamCaseEntity.class);
@@ -80,7 +80,7 @@ public class QueryParamCaseDao{
 
     public Pagination<QueryParamCaseEntity> findQueryParamCasePage(QueryParamCaseQuery queryParamCaseQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(QueryParamCaseEntity.class)
-                .eq("testcaseId", queryParamCaseQuery.getTestcaseId())
+                .eq("httpCaseId", queryParamCaseQuery.getHttpCaseId())
                 .pagination(queryParamCaseQuery.getPageParam())
                 .orders(queryParamCaseQuery.getOrderParams())
                 .get();

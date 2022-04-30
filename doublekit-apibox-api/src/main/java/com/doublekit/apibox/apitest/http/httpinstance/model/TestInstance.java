@@ -26,12 +26,12 @@ public class TestInstance extends BaseModel {
     private java.lang.String id;
 
     @NotNull
-    @ApiProperty(name="testcase",desc="所属接口用例",required = true)
+    @ApiProperty(name="httpCase",desc="所属接口用例",required = true)
     @Mappings({
-            @Mapping(source = "httpTestcase.id",target = "testcaseId")
+            @Mapping(source = "httpCase.id",target = "httpCaseId")
     })
     @JoinQuery(key = "id")
-    private HttpTestcase httpTestcase;
+    private HttpTestcase httpCase;
 
     @ApiProperty(name="createTime",desc="创建时间")
     @IndexField
@@ -70,12 +70,12 @@ public class TestInstance extends BaseModel {
         return this;
     }
 
-    public HttpTestcase getTestcase() {
-        return httpTestcase;
+    public HttpTestcase getHttpCase() {
+        return httpCase;
     }
 
-    public void setTestcase(HttpTestcase httpTestcase) {
-        this.httpTestcase = httpTestcase;
+    public void setHttpCase(HttpTestcase httpCase) {
+        this.httpCase = httpCase;
     }
 
     public Integer getTestNo() {

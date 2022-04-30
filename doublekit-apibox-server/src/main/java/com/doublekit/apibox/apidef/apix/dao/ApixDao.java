@@ -78,6 +78,7 @@ public class ApixDao {
     public List<ApixEntity> findApixList(ApixQuery apixQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(ApixEntity.class)
                 .eq("categoryId", apixQuery.getCategoryId())
+                .eq("protocolType", apixQuery.getProtocolType())
                 .like("name", apixQuery.getName())
                 .orders(apixQuery.getOrderParams())
                 .get();
@@ -87,6 +88,7 @@ public class ApixDao {
     public Pagination<ApixEntity> findApixPage(ApixQuery apixQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(ApixEntity.class)
                 .eq("categoryId", apixQuery.getCategoryId())
+                .eq("protocolType", apixQuery.getProtocolType())
                 .like("name", apixQuery.getName())
                 .pagination(apixQuery.getPageParam())
                 .orders(apixQuery.getOrderParams())

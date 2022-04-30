@@ -13,8 +13,8 @@ public class BinaryParamCaseEntity implements Serializable {
     @Column(name = "id", length = 32)
     private String id;
 
-    @Column(name = "testcase_id",length = 32,notNull = true)
-    private String testcaseId;
+    @Column(name = "http_case_id",length = 32,notNull = true)
+    private String httpCaseId;
 
     @Column(name = "filename",length = 64, notNull = true)
     private String fileName;
@@ -27,12 +27,12 @@ public class BinaryParamCaseEntity implements Serializable {
         this.id = id;
     }
 
-    public String getTestcaseId() {
-        return testcaseId;
+    public String getHttpCaseId() {
+        return httpCaseId;
     }
 
-    public void setTestcaseId(String testcaseId) {
-        this.testcaseId = testcaseId;
+    public void setHttpCaseId(String httpCaseId) {
+        this.httpCaseId = httpCaseId;
     }
 
     public String getFileName() {

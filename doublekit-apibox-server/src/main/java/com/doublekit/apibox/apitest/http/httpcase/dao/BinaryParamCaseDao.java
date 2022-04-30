@@ -77,7 +77,7 @@ public class BinaryParamCaseDao{
 
     public List<BinaryParamCaseEntity> findBinaryParamCaseList(BinaryParamCaseQuery binaryParamCaseQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(BinaryParamCaseEntity.class)
-                .eq("testcaseId", binaryParamCaseQuery.getTestcaseId())
+                .eq("httpCaseId", binaryParamCaseQuery.getHttpCaseId())
                 .orders(binaryParamCaseQuery.getOrderParams())
                 .get();
         return jpaTemplate.findList(queryCondition,BinaryParamCaseEntity.class);
@@ -85,7 +85,7 @@ public class BinaryParamCaseDao{
 
     public Pagination<BinaryParamCaseEntity> findBinaryParamCasePage(BinaryParamCaseQuery binaryParamCaseQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(BinaryParamCaseEntity.class)
-                .eq("testcaseId", binaryParamCaseQuery.getTestcaseId())
+                .eq("httpCaseId", binaryParamCaseQuery.getHttpCaseId())
                 .pagination(binaryParamCaseQuery.getPageParam())
                 .orders(binaryParamCaseQuery.getOrderParams())
                 .get();

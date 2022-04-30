@@ -8,12 +8,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @DataFly(modules = {
-        "apibase",
-        "apidef",
-        "apitest",
-        "apimock",
-        "datastru",
-        "apiStatus"
+        "apisql"
 })
 @ComponentScan({"com.doublekit.apibox"})
 @ServletComponentScan({"com.doublekit.apibox"})

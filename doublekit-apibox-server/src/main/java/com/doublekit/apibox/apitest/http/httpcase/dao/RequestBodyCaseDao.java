@@ -72,7 +72,7 @@ public class RequestBodyCaseDao{
 
     public List<RequestBodyCaseEntity> findRequestBodyCaseList(RequestBodyCaseQuery requestBodyCaseQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(RequestBodyCaseEntity.class)
-                .eq("testcaseId", requestBodyCaseQuery.getTestcaseId())
+                .eq("httpCaseId", requestBodyCaseQuery.getHttpCaseId())
                 .orders(requestBodyCaseQuery.getOrderParams())
                 .get();
         return jpaTemplate.findList(queryCondition, RequestBodyCaseEntity.class);
@@ -80,7 +80,7 @@ public class RequestBodyCaseDao{
 
     public Pagination<RequestBodyCaseEntity> findRequestBodyCasePage(RequestBodyCaseQuery requestBodyCaseQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(RequestBodyCaseEntity.class)
-                .eq("testcaseId", requestBodyCaseQuery.getTestcaseId())
+                .eq("httpCaseId", requestBodyCaseQuery.getHttpCaseId())
                 .pagination(requestBodyCaseQuery.getPageParam())
                 .orders(requestBodyCaseQuery.getOrderParams())
                 .get();

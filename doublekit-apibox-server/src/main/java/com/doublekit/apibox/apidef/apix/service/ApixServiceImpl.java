@@ -22,7 +22,6 @@ import com.doublekit.utils.context.LoginContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
-import org.springframework.util.StringUtils;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -44,22 +43,12 @@ public class ApixServiceImpl implements ApixService {
     @Autowired
     JoinTemplate joinTemplate;
 
-    @Autowired
-    MessageService messageService;
-
-    @Autowired
-    DssClient dssClient;
 
     @Override
     public String createApix(@NotNull @Valid Apix apix) {
         ApixEntity apixEntity = BeanMapper.map(apix, ApixEntity.class);
 
-        //如果没有id自动生成id
-        if (ObjectUtils.isEmpty(apix.getId())) {
-            String uid = UUID.randomUUID().toString();
-            String id = uid.trim().replaceAll("-", "");
-            apixEntity.setId(id);
-        }
+
 
         //初始化项目成员
         String userId = LoginContext.getLoginId();
@@ -70,12 +59,6 @@ public class ApixServiceImpl implements ApixService {
 
         String id = apixDao.createApix(apixEntity);
 
-        //添加索引
-        Apix entity = findApix(id);
-        dssClient.save(entity);
-
-        //发送消息
-        sendMessageForCreate(entity);
         return id;
     }
 
@@ -89,12 +72,6 @@ public class ApixServiceImpl implements ApixService {
         apixEntity.setUpdateUser(userId);
         apixDao.updateApix(apixEntity);
 
-        //更新索引
-        Apix entity = findApix(apix.getId());
-        dssClient.update(entity);
-
-        //发送更新消息提醒
-        sendMessageForCreate(entity);
 
     }
 
@@ -161,24 +138,5 @@ public class ApixServiceImpl implements ApixService {
         return PaginationBuilder.build(pagination, apixList);
     }
 
-    /**
-     * 发送消息提醒
-     * @param apix
-     */
-    private void sendMessageForCreate(Apix apix){
-        Message message = new Message();
-        //设置模板ID
-        message.setMessageTemplate(new MessageTemplate().setId(MessageTemplateConstant.TEMPLATE_ID_API_UPDATE));
-        //设置发送数据
-        String data = JSON.toJSONString(apix, SerializerFeature.DisableCircularReferenceDetect,SerializerFeature.WriteDateUseDateFormat);
-        message.setData(data);
-        //设置接收人
-        List<MessageReceiver> messageReceiverList = new ArrayList<>();
-        MessageReceiver messageReceiver = new MessageReceiver();
-        messageReceiver.setReceiver(TicketHolder.get());//去除message->user依賴 zhangzh
-        messageReceiverList.add(messageReceiver);
-        message.setMessageReceiverList(messageReceiverList);
 
-        messageService.sendMessage(message);
-    }
 }

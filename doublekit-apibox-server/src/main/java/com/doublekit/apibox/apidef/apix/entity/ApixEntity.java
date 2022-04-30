@@ -9,24 +9,17 @@ import java.sql.Timestamp;
 @Table(name = "apibox_apix")
 public class ApixEntity implements Serializable {
     @Id
-//    @GeneratorValue
     @Column(name = "id",length = 40)
     private String id;
-
-    @Column(name = "category_id",length = 40)
-    private String categoryId;
 
     @Column(name = "name",length = 64,notNull = true)
     private String name;
 
+    @Column(name = "category_id",length = 40)
+    private String categoryId;
+
     @Column(name = "protocol_type",length = 32,notNull = true)
     private String protocolType;
-
-    @Column(name = "request_type",length = 32,notNull = true)
-    private String requestType;
-
-    @Column(name = "path",length = 256,notNull = true)
-    private String path;
 
     @Column(name = "create_user",length = 30 )
     private String createUser;
@@ -74,22 +67,6 @@ public class ApixEntity implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getRequestType() {
-        return requestType;
-    }
-
-    public void setRequestType(String requestType) {
-        this.requestType = requestType;
-    }
-
-    public String getPath() {
-        return path;
-    }
-
-    public void setPath(String path) {
-        this.path = path;
     }
 
     public String getCreateUser() {

@@ -114,25 +114,28 @@ public class MockServletRequest {
         String httpApiId = null;
         for (Category category:categoryList){
 
+
+
+
             //查询所有定义
-            List<Apix> apixList = apixService.findApixList(new ApixQuery().setCategoryId(category.getId()));
-            if(CollectionUtils.isEmpty(apixList)){
-                continue;
-            }
-
-            //获取所有http定义
-            List<Apix> httpList = apixList.stream().filter(a -> protocolType.equals(a.getProtocolType())).collect(Collectors.toList());
-            if(CollectionUtils.isEmpty(httpList)){
-                continue;
-            }
-
-            //通过path找到相应的定义id
-            for(Apix apix : httpList){
-                if(path.equals(apix.getPath())){
-                    //apix 与 定义的id相同
-                    httpApiId=apix.getId();
-                }
-            }
+//            List<Apix> apixList = apixService.findApixList(new ApixQuery().setCategoryId(category.getId()));
+//            if(CollectionUtils.isEmpty(apixList)){
+//                continue;
+//            }
+//
+//            //获取所有http定义
+//            List<Apix> httpList = apixList.stream().filter(a -> protocolType.equals(a.getProtocolType())).collect(Collectors.toList());
+//            if(CollectionUtils.isEmpty(httpList)){
+//                continue;
+//            }
+//
+//            //通过path找到相应的定义id
+//            for(Apix apix : httpList){
+//                if(path.equals(apix.getPath())){
+//                    //apix 与 定义的id相同
+//                    httpApiId=apix.getId();
+//                }
+//            }
 
         }
         return httpApiId;

@@ -54,12 +54,9 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         //创建项目
         WorkspaceEntity workspaceEntity = BeanMapper.map(workspace, WorkspaceEntity.class);
 
-        //初始化项目成员
-        String userId = LoginContext.getLoginId();
-
-        workspaceEntity.setUserId(userId);
         String projectId = workspaceDao.createWorkspace(workspaceEntity);
 
+        String userId =workspace.getUser().getId();
         DmUser dmUser = new DmUser();
         dmUser.setDomainId(projectId);
         dmUser.setUser(new User().setId(userId));

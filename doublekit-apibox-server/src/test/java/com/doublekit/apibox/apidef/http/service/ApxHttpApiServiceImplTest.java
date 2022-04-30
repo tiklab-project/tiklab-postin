@@ -37,7 +37,7 @@ public class ApxHttpApiServiceImplTest {
     public void test01ForSaveApxMethod() {
         HttpApi apxMethod = JMockit.mock(HttpApi.class);
 
-        id = apxHttpApiService.createHttpApi();
+        id = apxHttpApiService.createHttpApi(apxMethod);
 
         assertNotNull(id);
     }

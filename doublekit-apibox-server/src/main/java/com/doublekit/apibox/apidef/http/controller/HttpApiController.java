@@ -1,6 +1,7 @@
 package com.doublekit.apibox.apidef.http.controller;
 
 import com.doublekit.apibox.annotation.Api;
+import com.doublekit.apibox.apidef.apix.model.ApixQuery;
 import com.doublekit.apibox.apidef.http.model.HttpApi;
 import com.doublekit.apibox.apidef.http.model.HttpApiQuery;
 import com.doublekit.apibox.apidef.http.service.HttpApiService;
@@ -37,9 +38,9 @@ public class HttpApiController {
     @RequestMapping(path="/createHttpApi",method = RequestMethod.POST)
     @ApiMethod(name = "createHttpApi",desc = "创建接口")
     @ApiParam(name = "httpApi",desc = "接口DTO",required = true)
-    public Result<String> createHttpApi( ){
+    public Result<String> createHttpApi(@RequestBody @NotNull @Valid  HttpApi httpApi){
 
-        String id = httpApiService.createHttpApi();
+        String id = httpApiService.createHttpApi(httpApi);
 
         return Result.ok(id);
     }
@@ -97,6 +98,15 @@ public class HttpApiController {
         Pagination<HttpApi> pagination = httpApiService.findHttpApiPage(httpApiQuery);
 
         return Result.ok(pagination);
+    }
+
+    @RequestMapping(path = "/findHttpApiListByApix",method = RequestMethod.POST)
+    @ApiMethod(name = "findHttpApiListByApix",desc = "根据查询对象查找接口列表")
+    @ApiParam(name = "apixQuery",desc = "查询对象",required = true)
+    public Result<List<HttpApi>> findHttpApiListByApix(@RequestBody @Valid @NotNull ApixQuery apixQuery){
+        List<HttpApi> httpApiList = httpApiService.findHttpApiListByApix(apixQuery);
+
+        return Result.ok(httpApiList);
     }
 
 
