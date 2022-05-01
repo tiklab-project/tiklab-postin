@@ -2,9 +2,9 @@ package com.doublekit.apibox.apidef.apix.model;
 
 import com.doublekit.apibox.annotation.ApiModel;
 import com.doublekit.apibox.annotation.ApiProperty;
-import com.doublekit.common.order.Order;
-import com.doublekit.common.order.OrderBuilders;
-import com.doublekit.common.page.Page;
+import com.doublekit.core.order.Order;
+import com.doublekit.core.order.OrderBuilders;
+import com.doublekit.core.page.Page;
 
 import java.util.List;
 

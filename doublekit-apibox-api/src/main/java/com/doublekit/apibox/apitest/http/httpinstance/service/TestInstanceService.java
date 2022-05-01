@@ -2,7 +2,7 @@ package com.doublekit.apibox.apitest.http.httpinstance.service;
 
 import com.doublekit.apibox.apitest.http.httpinstance.model.TestInstance;
 import com.doublekit.apibox.apitest.http.httpinstance.model.TestInstanceQuery;
-import com.doublekit.common.page.Pagination;
+import com.doublekit.core.page.Pagination;
 
 import com.doublekit.join.annotation.FindList;
 import com.doublekit.join.annotation.FindOne;

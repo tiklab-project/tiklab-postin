@@ -1,6 +1,6 @@
 package com.doublekit.apibox.integration.imexport.utils;
 
-import com.doublekit.common.exception.ApplicationException;
+import com.doublekit.core.exception.ApplicationException;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;

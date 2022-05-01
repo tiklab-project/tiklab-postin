@@ -1,6 +1,6 @@
 package com.doublekit.apibox.apidef.apix.service;
 
-import com.doublekit.common.page.Pagination;
+import com.doublekit.core.page.Pagination;
 
 import com.doublekit.apibox.apidef.apix.model.Apix;
 import com.doublekit.apibox.apidef.apix.model.ApixQuery;

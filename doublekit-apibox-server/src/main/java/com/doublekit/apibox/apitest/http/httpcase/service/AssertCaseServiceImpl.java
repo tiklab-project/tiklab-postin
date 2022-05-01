@@ -5,9 +5,9 @@ import com.doublekit.apibox.apitest.http.httpcase.entity.AssertCaseEntity;
 import com.doublekit.apibox.apitest.http.httpcase.model.AssertCase;
 import com.doublekit.apibox.apitest.http.httpcase.model.AssertCaseQuery;
 
-import com.doublekit.common.page.Pagination;
+import com.doublekit.core.page.Pagination;
 import com.doublekit.beans.BeanMapper;
-import com.doublekit.common.page.PaginationBuilder;
+import com.doublekit.core.page.PaginationBuilder;
 import com.doublekit.join.JoinTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

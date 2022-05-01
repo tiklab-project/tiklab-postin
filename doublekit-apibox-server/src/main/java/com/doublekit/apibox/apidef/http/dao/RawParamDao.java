@@ -1,6 +1,6 @@
 package com.doublekit.apibox.apidef.http.dao;
 
-import com.doublekit.common.page.Pagination;
+import com.doublekit.core.page.Pagination;
 import com.doublekit.apibox.apidef.http.entity.RawParamEntity;
 import com.doublekit.apibox.apidef.http.model.RawParamQuery;
 import com.doublekit.dal.jpa.JpaTemplate;

@@ -5,9 +5,9 @@ import com.doublekit.apibox.apidef.http.entity.BinaryParamEntity;
 import com.doublekit.apibox.apidef.http.model.BinaryParam;
 import com.doublekit.apibox.apidef.http.model.BinaryParamQuery;
 
-import com.doublekit.common.exception.ApplicationException;
-import com.doublekit.common.page.Pagination;
-import com.doublekit.common.page.PaginationBuilder;
+import com.doublekit.core.exception.ApplicationException;
+import com.doublekit.core.page.Pagination;
+import com.doublekit.core.page.PaginationBuilder;
 import com.doublekit.beans.BeanMapper;
 import com.doublekit.join.JoinTemplate;
 import org.apache.commons.collections.CollectionUtils;

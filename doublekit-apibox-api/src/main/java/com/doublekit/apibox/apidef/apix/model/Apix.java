@@ -7,7 +7,7 @@ import com.doublekit.apibox.sysmgr.apistatus.model.ApiStatus;
 import com.doublekit.beans.annotation.Mapper;
 import com.doublekit.beans.annotation.Mapping;
 import com.doublekit.beans.annotation.Mappings;
-import com.doublekit.common.BaseModel;
+import com.doublekit.core.BaseModel;
 import com.doublekit.dss.annotation.Index;
 import com.doublekit.dss.annotation.IndexField;
 import com.doublekit.join.annotation.Join;

@@ -2,7 +2,7 @@ package com.doublekit.apibox.apidef.apix.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.doublekit.apibox.config.TestConfig;
-import com.doublekit.common.Result;
+import com.doublekit.core.Result;
 import com.doublekit.apibox.client.mock.JMockit;
 import com.doublekit.apibox.apidef.apix.model.Apix;
 import org.junit.Before;

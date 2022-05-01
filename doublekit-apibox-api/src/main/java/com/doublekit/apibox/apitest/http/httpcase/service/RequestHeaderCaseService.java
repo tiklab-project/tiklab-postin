@@ -2,7 +2,7 @@ package com.doublekit.apibox.apitest.http.httpcase.service;
 
 import com.doublekit.apibox.apitest.http.httpcase.model.RequestHeaderCase;
 import com.doublekit.apibox.apitest.http.httpcase.model.RequestHeaderCaseQuery;
-import com.doublekit.common.page.Pagination;
+import com.doublekit.core.page.Pagination;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;

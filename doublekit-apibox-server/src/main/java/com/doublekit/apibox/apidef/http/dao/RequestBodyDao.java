@@ -1,6 +1,6 @@
 package com.doublekit.apibox.apidef.http.dao;
 
-import com.doublekit.common.page.Pagination;
+import com.doublekit.core.page.Pagination;
 import com.doublekit.apibox.apidef.http.entity.RequestBodyEntity;
 import com.doublekit.apibox.apidef.http.model.RequestBodyExQuery;
 import com.doublekit.dal.jpa.JpaTemplate;

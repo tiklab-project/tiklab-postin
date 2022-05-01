@@ -1,6 +1,6 @@
 package com.doublekit.apibox.sysmgr.apistatus.service;
 
-import com.doublekit.common.page.Pagination;
+import com.doublekit.core.page.Pagination;
 
 import com.doublekit.apibox.sysmgr.apistatus.model.ApiStatus;
 import com.doublekit.apibox.sysmgr.apistatus.model.ApiStatusQuery;

@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.doublekit.apibox.client.mock.JMockitForGeneric;
 import com.doublekit.apibox.client.model.ApiResultMeta;
 import com.doublekit.apibox.client.model.TypeMetaEnum;
-import com.doublekit.common.exception.SystemException;
+import com.doublekit.core.exception.SystemException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

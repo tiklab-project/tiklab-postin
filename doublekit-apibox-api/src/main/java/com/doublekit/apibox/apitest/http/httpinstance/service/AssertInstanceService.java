@@ -2,7 +2,7 @@ package com.doublekit.apibox.apitest.http.httpinstance.service;
 
 import com.doublekit.apibox.apitest.http.httpinstance.model.AssertInstance;
 import com.doublekit.apibox.apitest.http.httpinstance.model.AssertInstanceQuery;
-import com.doublekit.common.page.Pagination;
+import com.doublekit.core.page.Pagination;
 
 
 import javax.validation.Valid;

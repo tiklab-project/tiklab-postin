@@ -5,8 +5,8 @@ import com.doublekit.apibox.apitest.http.httpcase.entity.FormUrlencodedCaseEntit
 import com.doublekit.apibox.apitest.http.httpcase.model.FormUrlencodedCase;
 import com.doublekit.apibox.apitest.http.httpcase.model.FormUrlencodedCaseQuery;
 
-import com.doublekit.common.page.Pagination;
-import com.doublekit.common.page.PaginationBuilder;
+import com.doublekit.core.page.Pagination;
+import com.doublekit.core.page.PaginationBuilder;
 import com.doublekit.beans.BeanMapper;
 import com.doublekit.join.JoinTemplate;
 import org.springframework.beans.factory.annotation.Autowired;

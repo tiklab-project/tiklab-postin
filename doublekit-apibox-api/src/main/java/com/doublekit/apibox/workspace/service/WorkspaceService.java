@@ -1,7 +1,7 @@
 package com.doublekit.apibox.workspace.service;
 
 import com.doublekit.apibox.workspace.model.WorkspaceQuery;
-import com.doublekit.common.page.Pagination;
+import com.doublekit.core.page.Pagination;
 
 import com.doublekit.apibox.workspace.model.Workspace;
 import com.doublekit.join.annotation.FindList;

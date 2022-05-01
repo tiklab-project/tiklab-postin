@@ -1,8 +1,6 @@
 package com.doublekit.apibox.apimock.http.servlet;
 
 import com.alibaba.fastjson.JSONPath;
-import com.doublekit.apibox.apidef.apix.model.Apix;
-import com.doublekit.apibox.apidef.apix.model.ApixQuery;
 import com.doublekit.apibox.apidef.apix.service.ApixService;
 import com.doublekit.apibox.apidef.http.service.HttpApiService;
 import com.doublekit.apibox.apimock.http.model.*;
@@ -10,7 +8,7 @@ import com.doublekit.apibox.apimock.http.service.*;
 import com.doublekit.apibox.category.model.Category;
 import com.doublekit.apibox.category.model.CategoryQuery;
 import com.doublekit.apibox.category.service.CategoryService;
-import com.doublekit.common.exception.SystemException;
+import com.doublekit.core.exception.SystemException;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
@@ -27,7 +25,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.*;
-import java.util.stream.Collectors;
 
 
 @Component

@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.doublekit.apibox.client.model.ApiMeta;
 import com.doublekit.apibox.client.model.ApiMethodMeta;
 import com.doublekit.apibox.client.parser.ApiParser;
-import com.doublekit.common.exception.ApplicationException;
+import com.doublekit.core.exception.ApplicationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

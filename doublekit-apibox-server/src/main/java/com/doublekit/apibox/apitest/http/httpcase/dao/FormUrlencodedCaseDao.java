@@ -2,7 +2,7 @@ package com.doublekit.apibox.apitest.http.httpcase.dao;
 
 import com.doublekit.apibox.apitest.http.httpcase.entity.FormUrlencodedCaseEntity;
 import com.doublekit.apibox.apitest.http.httpcase.model.FormUrlencodedCaseQuery;
-import com.doublekit.common.page.Pagination;
+import com.doublekit.core.page.Pagination;
 import com.doublekit.dal.jpa.JpaTemplate;
 import com.doublekit.dal.jpa.criterial.condition.DeleteCondition;
 import com.doublekit.dal.jpa.criterial.condition.QueryCondition;

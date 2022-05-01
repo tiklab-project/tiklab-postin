@@ -1,6 +1,6 @@
 package com.doublekit.apibox.apimock.http.service;
 
-import com.doublekit.common.page.Pagination;
+import com.doublekit.core.page.Pagination;
 
 import com.doublekit.apibox.apimock.http.model.JsonResponseMock;
 import com.doublekit.apibox.apimock.http.model.JsonResponseMockQuery;

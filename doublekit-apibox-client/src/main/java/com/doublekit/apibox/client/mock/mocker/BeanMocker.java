@@ -3,7 +3,7 @@ package com.doublekit.apibox.client.mock.mocker;
 import com.doublekit.apibox.client.model.ApiPropertyMeta;
 import com.doublekit.apibox.client.parser.ApiModelParser;
 import com.doublekit.utils.BeanUtils;
-import com.doublekit.common.exception.ApplicationException;
+import com.doublekit.core.exception.ApplicationException;
 import com.doublekit.apibox.annotation.ApiProperty;
 import com.doublekit.apibox.client.mock.support.MockUtils;
 

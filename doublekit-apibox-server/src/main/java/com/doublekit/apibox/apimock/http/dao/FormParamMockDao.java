@@ -2,7 +2,7 @@ package com.doublekit.apibox.apimock.http.dao;
 
 import com.doublekit.apibox.apimock.http.entity.FormParamMockEntity;
 import com.doublekit.apibox.apimock.http.model.FormParamMockQuery;
-import com.doublekit.common.page.Pagination;
+import com.doublekit.core.page.Pagination;
 import com.doublekit.dal.jpa.JpaTemplate;
 import com.doublekit.dal.jpa.criterial.condition.QueryCondition;
 import com.doublekit.dal.jpa.criterial.conditionbuilder.QueryBuilders;

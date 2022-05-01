@@ -6,8 +6,8 @@ import com.doublekit.apibox.annotation.ApiParam;
 import com.doublekit.apibox.apidef.http.model.RequestBodyEx;
 import com.doublekit.apibox.apidef.http.model.RequestBodyExQuery;
 import com.doublekit.apibox.apidef.http.service.RequestBodyService;
-import com.doublekit.common.page.Pagination;
-import com.doublekit.common.Result;
+import com.doublekit.core.page.Pagination;
+import com.doublekit.core.Result;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

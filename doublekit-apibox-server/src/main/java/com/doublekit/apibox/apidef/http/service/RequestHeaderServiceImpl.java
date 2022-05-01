@@ -5,9 +5,9 @@ import com.doublekit.apibox.apidef.http.entity.RequestHeaderEntity;
 import com.doublekit.apibox.apidef.http.model.RequestHeader;
 import com.doublekit.apibox.apidef.http.model.RequestHeaderQuery;
 
-import com.doublekit.common.page.Pagination;
+import com.doublekit.core.page.Pagination;
 import com.doublekit.beans.BeanMapper;
-import com.doublekit.common.page.PaginationBuilder;
+import com.doublekit.core.page.PaginationBuilder;
 import com.doublekit.join.JoinTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

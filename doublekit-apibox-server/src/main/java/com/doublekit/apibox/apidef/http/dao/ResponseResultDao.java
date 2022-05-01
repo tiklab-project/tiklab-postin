@@ -2,7 +2,7 @@ package com.doublekit.apibox.apidef.http.dao;
 
 import com.doublekit.apibox.apidef.http.entity.ResponseResultEntity;
 import com.doublekit.apibox.apidef.http.model.ResponseResultQuery;
-import com.doublekit.common.page.Pagination;
+import com.doublekit.core.page.Pagination;
 import com.doublekit.dal.jpa.JpaTemplate;
 import com.doublekit.dal.jpa.criterial.condition.DeleteCondition;
 import com.doublekit.dal.jpa.criterial.condition.QueryCondition;

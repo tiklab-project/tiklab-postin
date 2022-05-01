@@ -3,7 +3,7 @@ package com.doublekit.apibox.apitest.http.httpcase.controller;
 
 import com.doublekit.apibox.apitest.http.httpcase.model.RequestBodyCase;
 import com.doublekit.apibox.client.mock.JMockit;
-import com.doublekit.common.Result;
+import com.doublekit.core.Result;
 import com.doublekit.apibox.config.TestConfig;
 import com.doublekit.utils.MapUtils;
 import org.junit.Before;

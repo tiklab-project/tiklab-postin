@@ -3,7 +3,7 @@ package com.doublekit.apibox.apimock.http.servlet;
 import com.doublekit.apibox.apimock.http.model.*;
 import com.doublekit.apibox.apimock.http.service.*;
 import com.doublekit.apibox.apimock.http.utils.MockProcess;
-import com.doublekit.common.exception.ApplicationException;
+import com.doublekit.core.exception.ApplicationException;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

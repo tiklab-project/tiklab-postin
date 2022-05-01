@@ -5,8 +5,8 @@ import com.doublekit.apibox.sysmgr.apistatus.entity.ApiStatusEntity;
 import com.doublekit.apibox.sysmgr.apistatus.model.ApiStatus;
 import com.doublekit.apibox.sysmgr.apistatus.model.ApiStatusQuery;
 
-import com.doublekit.common.page.Pagination;
-import com.doublekit.common.page.PaginationBuilder;
+import com.doublekit.core.page.Pagination;
+import com.doublekit.core.page.PaginationBuilder;
 import com.doublekit.beans.BeanMapper;
 import com.doublekit.join.JoinTemplate;
 import org.springframework.beans.factory.annotation.Autowired;

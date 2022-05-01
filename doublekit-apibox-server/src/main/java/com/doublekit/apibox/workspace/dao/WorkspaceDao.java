@@ -2,7 +2,7 @@ package com.doublekit.apibox.workspace.dao;
 
 import com.doublekit.apibox.workspace.entity.WorkspaceEntity;
 import com.doublekit.apibox.workspace.model.WorkspaceQuery;
-import com.doublekit.common.page.Pagination;
+import com.doublekit.core.page.Pagination;
 import com.doublekit.dal.jpa.JpaTemplate;
 import com.doublekit.dal.jpa.criterial.condition.QueryCondition;
 import com.doublekit.dal.jpa.criterial.conditionbuilder.QueryBuilders;

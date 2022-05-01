@@ -1,6 +1,6 @@
 package com.doublekit.apibox.apimock.http.dao;
 
-import com.doublekit.common.page.Pagination;
+import com.doublekit.core.page.Pagination;
 import com.doublekit.apibox.apimock.http.entity.QueryParamMockEntity;
 import com.doublekit.apibox.apimock.http.model.QueryParamMockQuery;
 import com.doublekit.dal.jpa.JpaTemplate;

@@ -15,7 +15,7 @@ import com.doublekit.apiboxpiugin.version.model.VersionMethodQuery;
 import com.doublekit.apiboxpiugin.version.model.VersionRequest;
 import com.doublekit.apiboxpiugin.version.model.VersionRespon;
 import com.doublekit.beans.BeanMapper;
-import com.doublekit.common.page.Pagination;
+import com.doublekit.core.page.Pagination;
 import com.doublekit.dss.client.DssClient;
 import com.doublekit.eam.common.Ticket;
 import com.doublekit.eam.common.TicketContext;

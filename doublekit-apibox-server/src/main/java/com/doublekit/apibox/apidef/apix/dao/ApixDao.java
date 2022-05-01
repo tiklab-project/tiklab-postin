@@ -2,7 +2,7 @@ package com.doublekit.apibox.apidef.apix.dao;
 
 import com.doublekit.apibox.apidef.apix.entity.ApixEntity;
 import com.doublekit.apibox.apidef.apix.model.ApixQuery;
-import com.doublekit.common.page.Pagination;
+import com.doublekit.core.page.Pagination;
 import com.doublekit.dal.jpa.JpaTemplate;
 import com.doublekit.dal.jpa.criterial.condition.DeleteCondition;
 import com.doublekit.dal.jpa.criterial.condition.QueryCondition;

@@ -2,7 +2,7 @@ package com.doublekit.apibox.apitest.http.httpcase.controller;
 
 import com.doublekit.apibox.apitest.http.httpinstance.model.AssertInstance;
 import com.doublekit.utils.MapUtils;
-import com.doublekit.common.Result;
+import com.doublekit.core.Result;
 import com.doublekit.apibox.client.mock.JMockit;
 import com.doublekit.apibox.config.TestConfig;
 import org.junit.Before;

@@ -7,7 +7,7 @@ import com.doublekit.apibox.workspace.model.Workspace;
 import com.doublekit.beans.annotation.Mapper;
 import com.doublekit.beans.annotation.Mapping;
 import com.doublekit.beans.annotation.Mappings;
-import com.doublekit.common.BaseModel;
+import com.doublekit.core.BaseModel;
 import com.doublekit.join.annotation.Join;
 import com.doublekit.join.annotation.JoinQuery;
 

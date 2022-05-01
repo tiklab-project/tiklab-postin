@@ -3,7 +3,7 @@ package com.doublekit.apibox.client.parser;
 import com.doublekit.apibox.annotation.Api;
 import com.doublekit.apibox.client.model.ApiMeta;
 import com.doublekit.apibox.client.model.ApiMethodMeta;
-import com.doublekit.common.exception.SystemException;
+import com.doublekit.core.exception.SystemException;
 import com.doublekit.utils.annotation.AnnotationResourceResolver;
 import org.springframework.web.bind.annotation.RequestMapping;
 

@@ -1,6 +1,6 @@
 package com.doublekit.apibox.sysmgr.environment.service;
 
-import com.doublekit.common.page.Pagination;
+import com.doublekit.core.page.Pagination;
 
 import com.doublekit.apibox.sysmgr.environment.model.Environment;
 import com.doublekit.apibox.sysmgr.environment.model.EnvironmentQuery;

@@ -2,7 +2,7 @@ package com.doublekit.apibox.client.parser;
 
 import com.doublekit.apibox.annotation.ApiProperty;
 import com.doublekit.apibox.client.model.ApiPropertyMeta;
-import com.doublekit.common.exception.SystemException;
+import com.doublekit.core.exception.SystemException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

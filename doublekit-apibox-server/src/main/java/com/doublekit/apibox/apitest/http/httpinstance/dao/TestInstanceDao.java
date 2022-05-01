@@ -1,7 +1,7 @@
 package com.doublekit.apibox.apitest.http.httpinstance.dao;
 
 import com.doublekit.apibox.apitest.http.httpinstance.model.TestInstanceQuery;
-import com.doublekit.common.page.Pagination;
+import com.doublekit.core.page.Pagination;
 import com.doublekit.apibox.apitest.http.httpinstance.entity.HttpTestInstanceEntity;
 import com.doublekit.dal.jpa.JpaTemplate;
 import com.doublekit.dal.jpa.criterial.condition.QueryCondition;
