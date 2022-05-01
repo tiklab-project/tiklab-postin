@@ -4,8 +4,8 @@ package com.doublekit.apiboxpiugin.version.model;
 import com.doublekit.apibox.annotation.ApiModel;
 import com.doublekit.apibox.annotation.ApiProperty;
 import com.doublekit.apibox.apidef.http.model.*;
-import com.doublekit.dss.annotation.IndexField;
-import com.doublekit.dss.annotation.IndexQueryField;
+import com.doublekit.dis.annotation.IndexField;
+import com.doublekit.dis.annotation.IndexQueryField;
 import com.doublekit.join.annotation.Join;
 
 import java.util.List;

@@ -80,12 +80,12 @@
             </dependency>
             <dependency>
                 <groupId>com.doublekit</groupId>
-                <artifactId>doublekit-dss-annotation</artifactId>
+                <artifactId>doublekit-dis-annotation</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.doublekit</groupId>
-                <artifactId>doublekit-dss-spring-boot-starter</artifactId>
+                <artifactId>doublekit-dis-spring-boot-starter</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

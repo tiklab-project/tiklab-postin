@@ -4,11 +4,11 @@ import com.doublekit.apibox.apidef.http.model.HttpApi;
 import com.doublekit.apibox.apidef.http.service.HttpApiService;
 import com.doublekit.apibox.workspace.model.Workspace;
 import com.doublekit.apibox.workspace.service.WorkspaceService;
-import com.doublekit.dss.client.DssClient;
-import com.doublekit.dss.common.model.CountResponse;
-import com.doublekit.dss.common.model.PageCondition;
-import com.doublekit.dss.common.model.PageResponse;
-import com.doublekit.dss.common.model.TopResponse;
+import com.doublekit.dis.client.DisClient;
+import com.doublekit.dis.common.model.CountResponse;
+import com.doublekit.dis.common.model.PageCondition;
+import com.doublekit.dis.common.model.PageResponse;
+import com.doublekit.dis.common.model.TopResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +22,7 @@ import java.util.Map;
 public class SearchServiceImpl implements SearchService {
 
     @Autowired
-    DssClient dssClient;
+    DisClient dssClient;
 
     @Autowired
     WorkspaceService workspaceService;

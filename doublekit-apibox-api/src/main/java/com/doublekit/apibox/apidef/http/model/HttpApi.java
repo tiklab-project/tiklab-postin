@@ -7,9 +7,9 @@ import com.doublekit.beans.annotation.Mapper;
 import com.doublekit.beans.annotation.Mapping;
 import com.doublekit.beans.annotation.Mappings;
 import com.doublekit.core.BaseModel;
-import com.doublekit.dss.annotation.Index;
-import com.doublekit.dss.annotation.IndexField;
-import com.doublekit.dss.annotation.IndexId;
+import com.doublekit.dis.annotation.Index;
+import com.doublekit.dis.annotation.IndexField;
+import com.doublekit.dis.annotation.IndexId;
 import com.doublekit.join.annotation.Join;
 import com.doublekit.join.annotation.JoinQuery;
 

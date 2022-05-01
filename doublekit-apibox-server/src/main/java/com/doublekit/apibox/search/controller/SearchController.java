@@ -8,7 +8,7 @@ import com.doublekit.apibox.search.service.SearchService;
 import com.doublekit.apibox.workspace.model.Workspace;
 import com.doublekit.core.Result;
 import com.doublekit.core.exception.ApplicationException;
-import com.doublekit.dss.common.model.*;
+import com.doublekit.dis.common.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

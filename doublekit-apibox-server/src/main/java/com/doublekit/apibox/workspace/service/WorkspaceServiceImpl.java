@@ -10,7 +10,7 @@ import com.doublekit.apibox.workspace.model.WorkspaceQuery;
 import com.doublekit.beans.BeanMapper;
 import com.doublekit.core.page.Pagination;
 import com.doublekit.core.page.PaginationBuilder;
-import com.doublekit.dss.client.DssClient;
+import com.doublekit.dis.client.DisClient;
 import com.doublekit.join.JoinTemplate;
 import com.doublekit.privilege.role.service.DmRoleService;
 import com.doublekit.user.user.model.DmUser;
@@ -46,7 +46,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
     JoinTemplate joinTemplate;
 
     @Autowired
-    DssClient dssClient;
+    DisClient dssClient;
 
     @Override
     public String createWorkspace(@NotNull @Valid Workspace workspace) {

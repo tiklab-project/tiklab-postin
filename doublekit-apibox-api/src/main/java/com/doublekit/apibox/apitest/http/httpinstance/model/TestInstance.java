@@ -7,7 +7,7 @@ import com.doublekit.beans.annotation.Mapper;
 import com.doublekit.beans.annotation.Mapping;
 import com.doublekit.beans.annotation.Mappings;
 import com.doublekit.core.BaseModel;
-import com.doublekit.dss.annotation.IndexField;
+import com.doublekit.dis.annotation.IndexField;
 import com.doublekit.join.annotation.Join;
 import com.doublekit.join.annotation.JoinQuery;
 import com.fasterxml.jackson.annotation.JsonFormat;

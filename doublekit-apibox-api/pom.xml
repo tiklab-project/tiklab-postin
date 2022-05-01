@@ -35,12 +35,12 @@
         </dependency>
         <dependency>
             <groupId>com.doublekit</groupId>
-            <artifactId>doublekit-dss-annotation</artifactId>
+            <artifactId>doublekit-dis-annotation</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.doublekit</groupId>
-            <artifactId>doublekit-dss-common</artifactId>
+            <artifactId>doublekit-dis-common</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
