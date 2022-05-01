@@ -3,7 +3,6 @@ package com.doublekit.apibox.category.model;
 import com.doublekit.apibox.annotation.ApiModel;
 import com.doublekit.apibox.annotation.ApiProperty;
 import com.doublekit.apibox.apidef.apix.model.Apix;
-import com.doublekit.apibox.apidef.http.model.HttpApi;
 import com.doublekit.apibox.workspace.model.Workspace;
 import com.doublekit.beans.annotation.Mapper;
 import com.doublekit.beans.annotation.Mapping;

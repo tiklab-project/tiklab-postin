@@ -13,7 +13,6 @@ import com.doublekit.dss.annotation.IndexId;
 import com.doublekit.join.annotation.Join;
 import com.doublekit.join.annotation.JoinQuery;
 
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @ApiModel
