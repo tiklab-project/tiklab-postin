@@ -19,24 +19,6 @@ jdbc:
 #storege config
 DATA_HOME: ${user.home}/doublekit/${app.name}
 
-#dfs config
-dfs:
-  server:
-    mode: standalone
-    port: 5000
-    datapath: ${DATA_HOME}/data/dfs
-  client:
-    url: standalone://127.0.0.1:5000/default
-
-#dcs config
-dcs:
-  server:
-    mode: standalone
-    port: 6000
-    datapath: ${DATA_HOME}/data/dcs
-  client:
-    url: standalone://127.0.0.1:6000/default
-
 #dss config
 dss:
   server:
