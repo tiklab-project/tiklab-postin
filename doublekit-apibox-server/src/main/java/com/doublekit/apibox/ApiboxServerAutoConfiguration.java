@@ -1,13 +1,13 @@
 package com.doublekit.apibox;
 
 
-import com.doublekit.datafly.annotation.DataFly;
+import com.doublekit.dsm.annotation.Dsm;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@DataFly(modules = {
+@Dsm(modules = {
         "apisql"
 })
 @ComponentScan({"com.doublekit.apibox"})
