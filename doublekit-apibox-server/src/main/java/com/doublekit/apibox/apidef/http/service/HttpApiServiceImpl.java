@@ -119,7 +119,7 @@ public class HttpApiServiceImpl implements HttpApiService {
 
 
     @Autowired
-    DisClient dssClient;
+    DisClient disClient;
 
     @Autowired
     MessageService messageService;
@@ -146,7 +146,7 @@ public class HttpApiServiceImpl implements HttpApiService {
 
         //添加索引
 //        HttpApi entity = findHttpApi(id);
-//        dssClient.save(entity);
+//        disClient.save(entity);
 
         //发送消息
 //        sendMessageForCreate(entity);
@@ -167,7 +167,7 @@ public class HttpApiServiceImpl implements HttpApiService {
 
         //更新索引
 //        HttpApi entity = findHttpApi(apix.getId());
-//        dssClient.update(entity);
+//        disClient.update(entity);
 
         //发送更新消息提醒
 //        sendMessageForCreate(entity);
@@ -285,7 +285,7 @@ public class HttpApiServiceImpl implements HttpApiService {
         responseResultDao.deleteResponseResultList(deleteCondition);
 
         //删除索引
-        dssClient.delete(HttpApi.class,id);
+        disClient.delete(HttpApi.class,id);
     }
 
     @Override

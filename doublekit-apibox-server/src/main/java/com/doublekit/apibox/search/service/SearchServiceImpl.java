@@ -22,7 +22,7 @@ import java.util.Map;
 public class SearchServiceImpl implements SearchService {
 
     @Autowired
-    DisClient dssClient;
+    DisClient disClient;
 
     @Autowired
     WorkspaceService workspaceService;
@@ -43,8 +43,8 @@ public class SearchServiceImpl implements SearchService {
      * 删除索引
      */
     void deleteIndex(){
-        dssClient.deleteAll(Workspace.class);
-        dssClient.deleteAll(HttpApi.class);
+        disClient.deleteAll(Workspace.class);
+        disClient.deleteAll(HttpApi.class);
     }
 
     /**
@@ -53,37 +53,37 @@ public class SearchServiceImpl implements SearchService {
     void buildIndex(){
         List<Workspace> workspaceList = workspaceService.findAllWorkspace();
         if(workspaceList != null){
-            dssClient.saveBatch(workspaceList);
+            disClient.saveBatch(workspaceList);
         }
 
         List<HttpApi> methodList = httpApiService.findAllHttpApi();
         if(methodList != null){
-            dssClient.saveBatch(methodList);
+            disClient.saveBatch(methodList);
         }
     }
 
     @Override
     public <T> void save(T entity) {
-        dssClient.save(entity);
+        disClient.save(entity);
     }
 
     @Override
     public <T> Map<String, Object> findOne(Class<T> entityClass, String id) {
-        return dssClient.findOne(entityClass, id);
+        return disClient.findOne(entityClass, id);
     }
 
     @Override
     public <T> TopResponse<T> searchForTop(Class<T> entityClass, String keyword) {
-        return dssClient.searchForTop(entityClass,keyword);
+        return disClient.searchForTop(entityClass,keyword);
     }
 
     @Override
     public <T> CountResponse<T> searchForCount(Class<T> entityClass, String keyword) {
-        return dssClient.searchForCount(entityClass, keyword);
+        return disClient.searchForCount(entityClass, keyword);
     }
 
     @Override
     public <T> PageResponse<T> searchForPage(Class<T> entityClass, String keyword, PageCondition pageCondition) {
-        return dssClient.searchForPage(entityClass, keyword, pageCondition);
+        return disClient.searchForPage(entityClass, keyword, pageCondition);
     }
 }
