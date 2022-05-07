@@ -33,8 +33,7 @@ public class RequestBodyServiceImpl implements RequestBodyService {
     @Override
     public String createRequestBody(@NotNull @Valid RequestBodyEx requestBody) {
         RequestBodyEntity requestBodyEntity = BeanMapper.map(requestBody, RequestBodyEntity.class);
-        Integer n=0;
-        logger.info("执行了{}",n+=1);
+
         return requestBodyDao.createRequestBody(requestBodyEntity);
     }
 

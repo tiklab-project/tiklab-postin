@@ -119,7 +119,7 @@ public class HttpApiServiceImpl implements HttpApiService {
 
 
     @Autowired
-    DisClient dssClient;
+    DisClient disClient;
 
     @Autowired
     MessageService messageService;
@@ -141,14 +141,22 @@ public class HttpApiServiceImpl implements HttpApiService {
         httpApiEntity.setId(id);
         httpApiDao.updateHttpApi(httpApiEntity);
 
+        //创建apix
         Apix apix = apix(httpApi, id);
         apixService.createApix(apix);
 
+        //初始化请求体类型
+        RequestBodyEx requestBodyEx = new RequestBodyEx();
+        requestBodyEx.setId(id);
+        requestBodyEx.setHttp(new HttpApi().setId(id));
+        requestBodyEx.setBodyType("formdata");
+        requestBodyService.createRequestBody(requestBodyEx);
+
         //添加索引
 //        HttpApi entity = findHttpApi(id);
-//        dssClient.save(entity);
-
-        //发送消息
+//        disClient.save(entity);
+//
+//        //发送消息
 //        sendMessageForCreate(entity);
 
         return  id;
@@ -167,9 +175,9 @@ public class HttpApiServiceImpl implements HttpApiService {
 
         //更新索引
 //        HttpApi entity = findHttpApi(apix.getId());
-//        dssClient.update(entity);
-
-        //发送更新消息提醒
+//        disClient.update(entity);
+//
+//        //发送更新消息提醒
 //        sendMessageForCreate(entity);
 
     }
@@ -285,7 +293,7 @@ public class HttpApiServiceImpl implements HttpApiService {
         responseResultDao.deleteResponseResultList(deleteCondition);
 
         //删除索引
-        dssClient.delete(HttpApi.class,id);
+        disClient.delete(HttpApi.class,id);
     }
 
     @Override

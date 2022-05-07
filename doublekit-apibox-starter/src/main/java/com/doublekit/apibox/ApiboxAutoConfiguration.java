@@ -11,7 +11,6 @@ import com.doublekit.join.starter.annotation.EnableJoin;
 import com.doublekit.licence.EnableLicenceServer;
 import com.doublekit.message.starter.EnableMessage;
 import com.doublekit.pluginx.EnablePluginServer;
-import com.doublekit.portal.EnablePortalClient;
 import com.doublekit.portal.EnablePortalServer;
 import com.doublekit.privilege.EnablePrivilegeServer;
 import com.doublekit.rpc.starter.annotation.EnableRpc;
@@ -32,7 +31,6 @@ import org.springframework.context.annotation.Configuration;
 @EnableGateway
 //pcs
 @EnablePortalServer
-@EnablePortalClient
 @EnablePrivilegeServer
 @EnablePluginServer
 @EnableToolkitServer

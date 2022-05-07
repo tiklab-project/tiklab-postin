@@ -47,6 +47,7 @@ public class GatewayFilterAutoConfiguration {
                         "/dingding/passport/logout",
                         "/ldap/passport/login",
                         "/ldap/passport/logout",
+                        "/portal.html/"
                 })
                 .ignorePreUrls(new String[]{
                         "/service",
