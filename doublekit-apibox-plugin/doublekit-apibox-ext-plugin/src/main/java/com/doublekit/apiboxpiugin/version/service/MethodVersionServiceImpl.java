@@ -47,7 +47,7 @@ public class MethodVersionServiceImpl implements MethodVersionService {
     JoinTemplate joinTemplate;
 
     @Autowired
-    DisClient dssClient;
+    DisClient disClient;
 
     @Autowired
     AfterScriptDao afterScriptDao;

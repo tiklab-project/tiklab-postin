@@ -46,7 +46,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
     JoinTemplate joinTemplate;
 
     @Autowired
-    DisClient dssClient;
+    DisClient disClient;
 
     @Override
     public String createWorkspace(@NotNull @Valid Workspace workspace) {
@@ -74,7 +74,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
 
         //添加索引
         Workspace entity = findWorkspace(projectId);
-        dssClient.save(entity);
+        disClient.save(entity);
         return projectId;
     }
 
@@ -87,7 +87,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
 
         //更新索引
         Workspace entity = findWorkspace(workspace.getId());
-        dssClient.update(entity);
+        disClient.update(entity);
     }
 
     @Override
@@ -101,7 +101,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
             }
         }
         //删除索引
-        dssClient.delete(Workspace.class,id);
+        disClient.delete(Workspace.class,id);
     }
 
     @Override
