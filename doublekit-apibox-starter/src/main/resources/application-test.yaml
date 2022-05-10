@@ -35,7 +35,7 @@ dss:
 
 #integration config
 homes:
-  address: http://192.168.0.18:8080
+  address: http://192.168.10.5:8080
 
 #plugin config
 plugin:

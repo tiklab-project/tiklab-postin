@@ -73,8 +73,9 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         categoryService.createCategory(category);
 
         //添加索引
-        Workspace entity = findWorkspace(projectId);
-        disClient.save(entity);
+//        Workspace entity = findWorkspace(projectId);
+//        disClient.save(entity);
+
         return projectId;
     }
 
@@ -86,8 +87,8 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         workspaceDao.updateWorkspace(workspaceEntity);
 
         //更新索引
-        Workspace entity = findWorkspace(workspace.getId());
-        disClient.update(entity);
+//        Workspace entity = findWorkspace(workspace.getId());
+//        disClient.update(entity);
     }
 
     @Override
