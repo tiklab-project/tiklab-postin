@@ -24,6 +24,8 @@ CREATE TABLE apibox_apix(
         category_id VARCHAR(40),
         name VARCHAR(64) NOT NULL,
         protocol_type VARCHAR(32) NOT NULL,
+        request_type VARCHAR(32) NOT NULL;
+        path VARCHAR(256) NOT NULL;
         create_user VARCHAR(30),
         update_user VARCHAR(30),
         create_time timestamp,
@@ -371,7 +373,7 @@ CREATE TABLE apibox_method_status(
         type VARCHAR(32)
 );
 INSERT INTO apibox_method_status values     ("publishid","publish","已发布","system"),
-                                            
+                                            ("designId","design","设计中","system"),
                                             ("developmentid","development","开发中","system"),
                                             ("testid","test","测试","system"),
                                             ("completeid","complete","完成","system"),
