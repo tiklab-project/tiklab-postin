@@ -439,16 +439,16 @@ public class MethodVersionServiceImpl implements MethodVersionService {
      * 分页查询
      * @param
      */
-    public Pagination<Apix> findMethodPage(Pagination pg, ApixQuery methodExQuery) {
-        Pagination<ApixEntity>  pagination = apixDao.findApixPage(methodExQuery);
-
-        BeanUtils.copyProperties(pagination,pg);
-
-        List<Apix> methodExList = BeanMapper.mapList(pagination.getDataList(), Apix.class);
-
-        joinTemplate.joinQuery(methodExList);
-
-        pg.setDataList(methodExList);
+    public Pagination<Apix> findMethodPage(Pagination pg, ApixQuery apixQuery) {
+//        Pagination<ApixEntity> pagination = apixDao.findApixPage(apixQuery);
+//
+//        BeanUtils.copyProperties(pagination,pg);
+//
+//        List<Apix> methodExList = BeanMapper.mapList(pagination.getDataList(), Apix.class);
+//
+//        joinTemplate.joinQuery(methodExList);
+//
+//        pg.setDataList(methodExList);
         return pg;
     }
     /**
