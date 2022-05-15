@@ -26,7 +26,8 @@ dss:
     port: 5000
     datapath: ${DATA_HOME}/data/dss
   client:
-    url: 127.0.0.1:5000/default
+    url: 127.0.0.1:5000
+    bucket: ${app.name}
 
 #auth config
 #auth:
