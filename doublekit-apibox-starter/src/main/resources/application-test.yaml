@@ -22,11 +22,11 @@ DATA_HOME: ${user.home}/doublekit/${app.name}
 #dss config
 dss:
   server:
-    mode: standalone
-    port: 7000
+    mode: server
+    port: 5000
     datapath: ${DATA_HOME}/data/dss
   client:
-    url: standalone://127.0.0.1:7000/default
+    url: 127.0.0.1:5000/default
 
 #auth config
 #auth:
