@@ -62,7 +62,9 @@ public class GatewayFilterAutoConfiguration {
                         "/csrf",
                         "/v2",
                         "/mockx",
-                        "/licence"
+                        "/licence",
+                        "/ws",
+                        "/socket"
                 })
                 .get();
     }

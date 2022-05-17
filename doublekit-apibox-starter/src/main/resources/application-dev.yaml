@@ -30,9 +30,9 @@ dss:
     bucket: ${app.name}
 
 #auth config
-auth:
-  type: acc
-  address: http://192.168.10.6:8080
+#auth:
+#  type: acc
+#  address: http://192.168.10.6:8080
 
 #integration config
 homes:
