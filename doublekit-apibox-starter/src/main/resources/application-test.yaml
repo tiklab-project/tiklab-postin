@@ -45,3 +45,5 @@ plugin:
 #licences config
 licences:
   path: ${APP_HOME}/licences
+
+application: apibox
