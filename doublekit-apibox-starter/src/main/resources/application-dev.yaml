@@ -30,9 +30,9 @@ dss:
     bucket: ${app.name}
 
 #auth config
-auth:
-  type: acc
-  address: http://portal-ce.dev.doublekit.net
+#auth:
+#  type: acc
+#  address: http://portal-ce.dev.doublekit.net
 
 #integration config
 homes:
