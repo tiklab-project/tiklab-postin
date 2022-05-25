@@ -19,7 +19,7 @@ import java.util.List;
 
 @ApiModel
 @Join
-@Mapper(targetAlias = "TestInstanceEntity")
+@Mapper(targetAlias = "HttpTestInstanceEntity")
 public class TestInstance extends BaseModel {
 
     @ApiProperty(name="id",desc="id")
