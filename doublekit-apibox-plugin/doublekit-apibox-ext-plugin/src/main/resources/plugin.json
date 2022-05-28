@@ -26,7 +26,7 @@
             "name": "apibox",
             "type": "language",
             "country": "en",
-            "path": "/language/language-en.json"
+            "path": "/language-en/language-en.json"
         }
     ]
 }
