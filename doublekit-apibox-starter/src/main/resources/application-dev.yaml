@@ -5,6 +5,8 @@ spring:
   profiles:
     active: dev
 
+PROJECT_HOME: ${user.home}/doublekit/${app.name}
+
 #web config
 server:
   port: 8080
@@ -16,15 +18,13 @@ jdbc:
   username: root
   password: darth2020
 
-#storege config
-DATA_HOME: ${user.home}/doublekit/${app.name}
 
 #dss config
 dss:
   server:
     mode: server
     port: 5000
-    datapath: ${DATA_HOME}/data/dss
+    datapath: ${PROJECT_HOME}
   client:
     url: 127.0.0.1:5000
     bucket: ${app.name}
@@ -43,7 +43,7 @@ homes:
 
 #plugin config
 plugin:
-  path: ${DATA_HOME}/plugin
+  path: ${PROJECT_HOME}/plugin
 
 #licences config
 licences:

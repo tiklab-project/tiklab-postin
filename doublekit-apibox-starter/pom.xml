@@ -84,7 +84,6 @@
                     <skip>true</skip>
                 </configuration>
             </plugin>
-            <!--
            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
@@ -99,14 +98,16 @@
                 </executions>
                 <configuration>
                     <artifactItems>
+                        <!--
                         <artifactItem>
                             <groupId>com.doublekit</groupId>
                             <artifactId>doublekit-user-plugin</artifactId>
                             <version>${project.version}</version>
                         </artifactItem>
+                        -->
                         <artifactItem>
                             <groupId>com.doublekit</groupId>
-                            <artifactId>doublekit-privilege-plugin</artifactId>
+                            <artifactId>doublekit-apibox-ext-plugin</artifactId>
                             <version>${project.version}</version>
                         </artifactItem>
                     </artifactItems>
@@ -114,7 +115,6 @@
                     <outputDirectory>${project.basedir}/plugin</outputDirectory>
                 </configuration>
             </plugin>
-            -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
