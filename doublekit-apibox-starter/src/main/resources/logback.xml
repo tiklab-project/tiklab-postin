@@ -2,8 +2,7 @@
 <configuration>
     <contextListener class="com.doublekit.web.context.LogHomeConfiguration" />
     <!--在没有定义${LOG_PATH}系统变量的时候，可以设置此本地变量。提交测试、上线时，要将其注释掉，使用系统变量。-->
-    <property name="app.name" value="doublekit-apibox" />
-    <property name="LOG_PATH" value="${LOG_HOME}/doublekit/${app.name}/logs" />
+    <property name="LOG_PATH" value="${LOG_HOME}" />
     <!--日志文件保留天数-->
     <property name="LOG_MAX_HISTORY" value="30"/>
 
