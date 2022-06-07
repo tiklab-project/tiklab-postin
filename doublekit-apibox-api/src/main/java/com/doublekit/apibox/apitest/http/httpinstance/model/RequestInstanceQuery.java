@@ -11,7 +11,7 @@ import java.util.List;
 @ApiModel
 public class RequestInstanceQuery {
 
-    @ApiProperty(name ="instanceId",desc = "测试实例ID，精确匹配")
+    @ApiProperty(name ="httpInstanceId",desc = "测试实例ID，精确匹配")
     private String httpInstanceId;
 
     @ApiProperty(name ="orderParams",desc = "排序参数")

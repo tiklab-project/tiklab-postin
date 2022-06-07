@@ -53,11 +53,11 @@ public class AssertInstance extends BaseModel {
         this.id = id;
     }
 
-    public HttpInstance getTestInstance() {
+    public HttpInstance getHttpInstance() {
         return httpInstance;
     }
 
-    public void setTestInstance(HttpInstance httpInstance) {
+    public void setHttpInstance(HttpInstance httpInstance) {
         this.httpInstance = httpInstance;
     }
 

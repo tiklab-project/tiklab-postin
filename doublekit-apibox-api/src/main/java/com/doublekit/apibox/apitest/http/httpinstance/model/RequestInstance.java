@@ -26,10 +26,10 @@ public class RequestInstance extends BaseModel {
     })
     private HttpInstance httpInstance;
 
-    @ApiProperty(name="URL",desc="URL")
-    private java.lang.String URL;
+    @ApiProperty(name="url",desc="url")
+    private java.lang.String url;
 
-    @ApiProperty(name = "method",desc = "请求类型")
+    @ApiProperty(name = "methodType",desc = "请求类型")
     private String methodType;
 
     @ApiProperty(name="headers",desc="请求头")
@@ -55,20 +55,20 @@ public class RequestInstance extends BaseModel {
         this.id = id;
     }
 
-    public HttpInstance getTestInstance() {
+    public HttpInstance getHttpInstance() {
         return httpInstance;
     }
 
-    public void setTestInstance(HttpInstance httpInstance) {
+    public void setHttpInstance(HttpInstance httpInstance) {
         this.httpInstance = httpInstance;
     }
 
-    public String getURL() {
-        return URL;
+    public String getUrl() {
+        return url;
     }
 
-    public void setURL(String URL) {
-        this.URL = URL;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public String getMethodType() {
@@ -79,13 +79,14 @@ public class RequestInstance extends BaseModel {
         this.methodType = methodType;
     }
 
-    public String getHeader() {
+    public String getHeaders() {
         return headers;
     }
 
-    public void setHeader(String header) {
-        this.headers = header;
+    public void setHeaders(String headers) {
+        this.headers = headers;
     }
+
 
     public String getMediaType() {
         return mediaType;

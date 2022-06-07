@@ -72,7 +72,7 @@ public class RequestInstanceDao{
 
     public List<RequestInstanceEntity> findRequestInstanceList(RequestInstanceQuery requestInstanceQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(RequestInstanceEntity.class)
-                .eq("instanceId", requestInstanceQuery.getHttpInstanceId())
+                .eq("httpInstanceId", requestInstanceQuery.getHttpInstanceId())
                 .orders(requestInstanceQuery.getOrderParams())
                 .get();
         return jpaTemplate.findList(queryCondition, RequestInstanceEntity.class);
@@ -80,7 +80,7 @@ public class RequestInstanceDao{
 
     public Pagination<RequestInstanceEntity> findRequestInstancePage(RequestInstanceQuery requestInstanceQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(RequestInstanceEntity.class)
-                .eq("instanceId", requestInstanceQuery.getHttpInstanceId())
+                .eq("httpInstanceId", requestInstanceQuery.getHttpInstanceId())
                 .pagination(requestInstanceQuery.getPageParam())
                 .orders(requestInstanceQuery.getOrderParams())
                 .get();

@@ -16,6 +16,7 @@ import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
 * 用户服务业务处理
@@ -54,7 +55,7 @@ public class HttpInstanceServiceImpl implements TestInstanceService {
         RequestInstance requestInstance = httpInstance.getRequestInstance();
         if(requestInstance != null){
             requestInstance.setId(id);
-            requestInstance.setTestInstance(new HttpInstance().setId(id));
+            requestInstance.setHttpInstance(new HttpInstance().setId(id));
             requestInstanceService.createRequestInstance(requestInstance);
         }
 
@@ -70,7 +71,7 @@ public class HttpInstanceServiceImpl implements TestInstanceService {
         List<AssertInstance> assertInstanceList = httpInstance.getAssertInstanceList();
         if(assertInstanceList != null && assertInstanceList.size() > 0){
             for(AssertInstance assertInstance:assertInstanceList){
-                assertInstance.setTestInstance(new HttpInstance().setId(id));
+                assertInstance.setHttpInstance(new HttpInstance().setId(id));
                 assertInstanceService.createAssertInstance(assertInstance);
             }
         }
@@ -161,7 +162,16 @@ public class HttpInstanceServiceImpl implements TestInstanceService {
 
         joinTemplate.joinQuery(httpInstanceList);
 
-        return httpInstanceList;
+        List<HttpInstance> httpInstances = httpInstanceList.stream().map(httpInstance -> {
+            RequestInstance requestInstance = requestInstanceService.findRequestInstance(httpInstance.getId());
+            httpInstance.setRequestInstance(requestInstance);
+
+//         ResponseInstance responseInstance = responseInstanceService.findResponseInstance(httpInstance.getId());
+//         httpInstance.setResponseInstance(responseInstance);
+            return httpInstance;
+        }).collect(Collectors.toList());
+
+        return httpInstances;
     }
 
     @Override

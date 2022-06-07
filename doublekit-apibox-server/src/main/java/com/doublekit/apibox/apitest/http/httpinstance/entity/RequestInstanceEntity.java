@@ -18,8 +18,8 @@ public class RequestInstanceEntity implements Serializable {
     @Column(name = "http_instance_id",length = 32,notNull = true)
     private String httpInstanceId;
 
-    @Column(name = "URL",length = 64)
-    private String URL;
+    @Column(name = "URL",length = 128)
+    private String url;
 
     @Column(name = "headers",length = 2048)
     private String headers;
@@ -52,12 +52,12 @@ public class RequestInstanceEntity implements Serializable {
         this.httpInstanceId = httpInstanceId;
     }
 
-    public String getURL() {
-        return URL;
+    public String getUrl() {
+        return url;
     }
 
-    public void setURL(String URL) {
-        this.URL = URL;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public String getHeaders() {
