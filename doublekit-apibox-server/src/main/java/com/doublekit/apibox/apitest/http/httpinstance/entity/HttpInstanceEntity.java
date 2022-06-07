@@ -4,13 +4,14 @@ package com.doublekit.apibox.apitest.http.httpinstance.entity;
 import com.doublekit.dal.jpa.annotation.Column;
 import com.doublekit.dal.jpa.annotation.GeneratorValue;
 import com.doublekit.dal.jpa.annotation.Id;
-import com.doublekit.dal.jpa.annotation.Table;import com.doublekit.dal.jpa.annotation.Entity;
+import com.doublekit.dal.jpa.annotation.Table;
+import com.doublekit.dal.jpa.annotation.Entity;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
 
 @Entity @Table(name="apibox_test_instance")
-public class HttpTestInstanceEntity implements Serializable {
+public class HttpInstanceEntity implements Serializable {
 
     @Id
     @GeneratorValue
@@ -20,20 +21,23 @@ public class HttpTestInstanceEntity implements Serializable {
     @Column(name = "http_case_id",length = 40)
     private String httpCaseId;
 
-    @Column(name = "testNo",notNull = true)
-    private Integer testNo;
+    @Column(name = "workspace_id",length = 32)
+    private String workspaceId;
 
-    @Column(name = "statusCode",notNull = true)
+    @Column(name = "status_code")
     private Integer statusCode;
 
-    @Column(name = "result",notNull = true)
+    @Column(name = "result")
     private Integer result;
+
+    @Column(name = "time")
+    private Integer time;
+
+    @Column(name = "size")
+    private Integer size;
 
     @Column(name = "create_time",length = 4)
     private Timestamp createTime;
-
-    @Column(name = "request_type",notNull = true)
-    private String requestType;
 
     public String getId() {
         return id;
@@ -51,12 +55,12 @@ public class HttpTestInstanceEntity implements Serializable {
         this.httpCaseId = httpCaseId;
     }
 
-    public Integer getTestNo() {
-        return testNo;
+    public String getWorkspaceId() {
+        return workspaceId;
     }
 
-    public void setTestNo(Integer testNo) {
-        this.testNo = testNo;
+    public void setWorkspaceId(String workspaceId) {
+        this.workspaceId = workspaceId;
     }
 
     public Integer getStatusCode() {
@@ -83,11 +87,19 @@ public class HttpTestInstanceEntity implements Serializable {
         this.createTime = createTime;
     }
 
-    public String getRequestType() {
-        return requestType;
+    public Integer getSize() {
+        return size;
     }
 
-    public void setRequestType(String requestType) {
-        this.requestType = requestType;
+    public void setSize(Integer size) {
+        this.size = size;
+    }
+
+    public Integer getTime() {
+        return time;
+    }
+
+    public void setTime(Integer time) {
+        this.time = time;
     }
 }

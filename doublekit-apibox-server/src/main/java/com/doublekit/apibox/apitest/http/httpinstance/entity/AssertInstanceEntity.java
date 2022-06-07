@@ -16,8 +16,8 @@ public class AssertInstanceEntity implements Serializable {
     @Column(name = "id",length = 32)
     private String id;
 
-    @Column(name = "instance_id",length = 32,notNull = true)
-    private String instanceId;
+    @Column(name = "http_instance_id",length = 32,notNull = true)
+    private String httpInstanceId;
 
     @Column(name = "source")
     private Integer source;
@@ -45,12 +45,12 @@ public class AssertInstanceEntity implements Serializable {
         this.id = id;
     }
 
-    public String getInstanceId() {
-        return instanceId;
+    public String getHttpInstanceId() {
+        return httpInstanceId;
     }
 
-    public void setInstanceId(String instanceId) {
-        this.instanceId = instanceId;
+    public void setHttpInstanceId(String httpInstanceId) {
+        this.httpInstanceId = httpInstanceId;
     }
 
     public Integer getSource() {

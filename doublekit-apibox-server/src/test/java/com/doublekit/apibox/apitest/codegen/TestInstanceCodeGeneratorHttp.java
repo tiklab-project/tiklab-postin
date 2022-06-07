@@ -1,6 +1,6 @@
 package com.doublekit.apibox.apitest.codegen;
 
-import com.doublekit.apibox.apitest.http.httpinstance.entity.HttpTestInstanceEntity;
+import com.doublekit.apibox.apitest.http.httpinstance.entity.HttpInstanceEntity;
 import com.doublekit.codegen.CodeGeneratorTemplate;
 import com.doublekit.codegen.config.CodeGeneratorConfig;
 import com.doublekit.codegen.config.ProjectGeneratorConfig;
@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = ProjectGeneratorConfig.class)
-public class TestInstanceCodeGeneratorTest extends CodeGeneratorTemplate {
+public class TestInstanceCodeGeneratorHttp extends CodeGeneratorTemplate {
 
     @Autowired
     ProjectGeneratorConfig projectGeneratorConfig;
@@ -21,7 +21,7 @@ public class TestInstanceCodeGeneratorTest extends CodeGeneratorTemplate {
     protected CodeGeneratorConfig getCodeGeneratorConfig() {
         CodeGeneratorConfig config = new CodeGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
-        config.setEntity(HttpTestInstanceEntity.class);
+        config.setEntity(HttpInstanceEntity.class);
         config.setPkg("com.doublekit.apibox.apitest");
         config.setModel("TestInstance");
         return config;

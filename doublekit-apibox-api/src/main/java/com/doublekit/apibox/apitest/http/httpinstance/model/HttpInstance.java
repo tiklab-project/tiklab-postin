@@ -3,6 +3,7 @@ package com.doublekit.apibox.apitest.http.httpinstance.model;
 import com.doublekit.apibox.annotation.ApiModel;
 import com.doublekit.apibox.annotation.ApiProperty;
 import com.doublekit.apibox.apitest.http.httpcase.model.HttpTestcase;
+import com.doublekit.apibox.workspace.model.Workspace;
 import com.doublekit.beans.annotation.Mapper;
 import com.doublekit.beans.annotation.Mapping;
 import com.doublekit.beans.annotation.Mappings;
@@ -19,8 +20,8 @@ import java.util.List;
 
 @ApiModel
 @Join
-@Mapper(targetAlias = "HttpTestInstanceEntity")
-public class TestInstance extends BaseModel {
+@Mapper(targetAlias = "HttpInstanceEntity")
+public class HttpInstance extends BaseModel {
 
     @ApiProperty(name="id",desc="id")
     private java.lang.String id;
@@ -33,24 +34,29 @@ public class TestInstance extends BaseModel {
     @JoinQuery(key = "id")
     private HttpTestcase httpCase;
 
+    @NotNull
+    @ApiProperty(name="workspace",desc="所属空间",required = true)
+    @Mappings({
+            @Mapping(source = "workspace.id",target = "workspaceId")
+    })
+    private Workspace workspace;
+
     @ApiProperty(name="createTime",desc="创建时间")
     @IndexField
     @JsonFormat(pattern = "yy-MM-dd HH:mm:ss")
     private Timestamp createTime;
 
-    @ApiProperty(name="testNo",desc="测试序号")
-    private Integer testNo;
-
-    @ApiProperty(name = "requestType",desc = "请求类型")
-    private String requestType;
-
-    @NotNull
-    @ApiProperty(name="statusCode",desc="状态码",required = true)
+    @ApiProperty(name="statusCode",desc="状态码")
     private java.lang.Integer statusCode;
 
-    @NotNull
-    @ApiProperty(name="result",desc="测试结果",required = true)
+    @ApiProperty(name="result",desc="测试结果")
     private java.lang.Integer result;
+
+    @ApiProperty(name="time",desc="时间")
+    private java.lang.Integer time;
+
+    @ApiProperty(name="size",desc="大小")
+    private java.lang.Integer size;
 
     @ApiProperty(name="requestInstance",desc="实例-请求部分")
     private RequestInstance requestInstance;
@@ -65,7 +71,7 @@ public class TestInstance extends BaseModel {
         return id;
     }
 
-    public TestInstance setId(String id) {
+    public HttpInstance setId(String id) {
         this.id = id;
         return this;
     }
@@ -78,12 +84,12 @@ public class TestInstance extends BaseModel {
         this.httpCase = httpCase;
     }
 
-    public Integer getTestNo() {
-        return testNo;
+    public Workspace getWorkspace() {
+        return workspace;
     }
 
-    public void setTestNo(Integer testNo) {
-        this.testNo = testNo;
+    public void setWorkspace(Workspace workspace) {
+        this.workspace = workspace;
     }
 
     public Integer getStatusCode() {
@@ -100,6 +106,22 @@ public class TestInstance extends BaseModel {
 
     public void setResult(Integer result) {
         this.result = result;
+    }
+
+    public Integer getTime() {
+        return time;
+    }
+
+    public void setTime(Integer time) {
+        this.time = time;
+    }
+
+    public Integer getSize() {
+        return size;
+    }
+
+    public void setSize(Integer size) {
+        this.size = size;
     }
 
     public RequestInstance getRequestInstance() {
@@ -134,11 +156,4 @@ public class TestInstance extends BaseModel {
         this.createTime = createTime;
     }
 
-    public String getRequestType() {
-        return requestType;
-    }
-
-    public void setRequestType(String requestType) {
-        this.requestType = requestType;
-    }
-}
+  }

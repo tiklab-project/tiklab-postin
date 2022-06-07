@@ -1,7 +1,7 @@
 package com.doublekit.apibox.apitest.http.httpcase.controller;
 
 
-import com.doublekit.apibox.apitest.http.httpinstance.model.TestInstance;
+import com.doublekit.apibox.apitest.http.httpinstance.model.HttpInstance;
 import com.doublekit.apibox.client.mock.JMockit;
 import com.doublekit.core.Result;
 import com.doublekit.apibox.config.TestConfig;
@@ -37,9 +37,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Transactional
 @Rollback(false)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class TestInstanceControllerTest {
+public class HttpInstanceControllerHttp {
 
-    private static Logger logger = LoggerFactory.getLogger(TestInstanceControllerTest.class);
+    private static Logger logger = LoggerFactory.getLogger(HttpInstanceControllerHttp.class);
 
     static String id;
 
@@ -55,9 +55,9 @@ public class TestInstanceControllerTest {
 
     @Test
     public void test01ForSaveTestInstance() {
-        TestInstance testInstance = JMockit.mock(TestInstance.class);
+        HttpInstance httpInstance = JMockit.mock(HttpInstance.class);
 
-        MultiValueMap<String, String> multiValueMap = MapUtils.toMultiMap(testInstance);
+        MultiValueMap<String, String> multiValueMap = MapUtils.toMultiMap(httpInstance);
 
         try {
             MvcResult mvcResult = mockMvc.perform(
@@ -81,10 +81,10 @@ public class TestInstanceControllerTest {
 
     @Test
     public void test02ForUpdateTestInstance(){
-        TestInstance testInstance = JMockit.mock(TestInstance.class);
-        testInstance.setId(id);
+        HttpInstance httpInstance = JMockit.mock(HttpInstance.class);
+        httpInstance.setId(id);
 
-        MultiValueMap<String, String> multiValueMap = MapUtils.toMultiMap(testInstance);
+        MultiValueMap<String, String> multiValueMap = MapUtils.toMultiMap(httpInstance);
 
         try {
             MvcResult mvcResult = mockMvc.perform(

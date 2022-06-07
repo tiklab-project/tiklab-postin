@@ -14,14 +14,14 @@ public class ResponseInstanceEntity implements Serializable {
     @Column(name = "id",length = 32)
     private String id;
 
-    @Column(name = "instance_id",length = 32,notNull = true)
-    private String instanceId;
+    @Column(name = "http_instance_id",length = 32,notNull = true)
+    private String httpInstanceId;
 
-    @Column(name = "response_header",length = 2048,notNull = true)
-    private String responseHeader;
+    @Column(name = "headers",length = 2048)
+    private String headers;
 
-    @Column(name = "response_body",length = 2048,notNull = true)
-    private String responseBody;
+    @Column(name = "body",length = 2048)
+    private String body;
 
     public String getId() {
         return id;
@@ -31,27 +31,27 @@ public class ResponseInstanceEntity implements Serializable {
         this.id = id;
     }
 
-    public String getInstanceId() {
-        return instanceId;
+    public String getHttpInstanceId() {
+        return httpInstanceId;
     }
 
-    public void setInstanceId(String instanceId) {
-        this.instanceId = instanceId;
+    public void setHttpInstanceId(String httpInstanceId) {
+        this.httpInstanceId = httpInstanceId;
     }
 
-    public String getResponseHeader() {
-        return responseHeader;
+    public String getHeaders() {
+        return headers;
     }
 
-    public void setResponseHeader(String responseHeader) {
-        this.responseHeader = responseHeader;
+    public void setHeaders(String headers) {
+        this.headers = headers;
     }
 
-    public String getResponseBody() {
-        return responseBody;
+    public String getBody() {
+        return body;
     }
 
-    public void setResponseBody(String responseBody) {
-        this.responseBody = responseBody;
+    public void setBody(String body) {
+        this.body = body;
     }
 }

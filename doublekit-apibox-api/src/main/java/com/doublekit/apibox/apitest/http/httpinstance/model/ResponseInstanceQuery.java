@@ -12,7 +12,7 @@ import java.util.List;
 public class ResponseInstanceQuery {
 
     @ApiProperty(name ="instanceId",desc = "测试实例ID，精确匹配")
-    private String instanceId;
+    private String httpInstanceId;
 
     @ApiProperty(name ="orderParams",desc = "排序参数")
     private List<Order> orderParams = OrderBuilders.instance().asc("id").get();
@@ -20,12 +20,12 @@ public class ResponseInstanceQuery {
     @ApiProperty(name ="pageParam",desc = "分页参数")
     private Page pageParam = new Page();
 
-    public String getInstanceId() {
-        return instanceId;
+    public String getHttpInstanceId() {
+        return httpInstanceId;
     }
 
-    public void setInstanceId(String instanceId) {
-        this.instanceId = instanceId;
+    public void setHttpInstanceId(String httpInstanceId) {
+        this.httpInstanceId = httpInstanceId;
     }
 
     public List<Order> getOrderParams() {

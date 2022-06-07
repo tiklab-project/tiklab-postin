@@ -1,7 +1,7 @@
 package com.doublekit.apibox.apitest.http.httpinstance.service;
 
-import com.doublekit.apibox.apitest.http.httpinstance.model.TestInstance;
-import com.doublekit.apibox.apitest.http.httpinstance.model.TestInstanceQuery;
+import com.doublekit.apibox.apitest.http.httpinstance.model.HttpInstance;
+import com.doublekit.apibox.apitest.http.httpinstance.model.HttpInstanceQuery;
 import com.doublekit.core.page.Pagination;
 
 import com.doublekit.join.annotation.FindList;
@@ -15,23 +15,23 @@ import java.util.List;
 /**
 * 用户服务接口
 */
-@JoinProvider(model = TestInstance.class)
+@JoinProvider(model = HttpInstance.class)
 public interface TestInstanceService {
 
     /**
     * 创建用户
-    * @param testInstance
+    * @param httpInstance
     * @return
     */
-    String createTestInstance(@NotNull @Valid TestInstance testInstance);
+    String createTestInstance(@NotNull @Valid HttpInstance httpInstance);
 
-    String createTestInstanceWithNest(@NotNull @Valid TestInstance testInstance);
+    String createTestInstanceWithNest(@NotNull @Valid HttpInstance httpInstance);
 
     /**
     * 更新用户
-    * @param testInstance
+    * @param httpInstance
     */
-    void updateTestInstance(@NotNull @Valid TestInstance testInstance);
+    void updateTestInstance(@NotNull @Valid HttpInstance httpInstance);
 
     /**
     * 删除用户
@@ -40,38 +40,38 @@ public interface TestInstanceService {
     void deleteTestInstance(@NotNull String id);
 
     @FindOne
-    TestInstance findOne(@NotNull String id);
+    HttpInstance findOne(@NotNull String id);
 
     @FindList
-    List<TestInstance> findList(List<String> idList);
+    List<HttpInstance> findList(List<String> idList);
 
     /**
     * 查找用户
     * @param id
     * @return
     */
-    TestInstance findTestInstance(@NotNull String id);
+    HttpInstance findTestInstance(@NotNull String id);
 
-    TestInstance findTestInstanceWithNest(@NotNull String id);
+    HttpInstance findTestInstanceWithNest(@NotNull String id);
 
     /**
     * 查找所有
     * @return
     */
-    List<TestInstance> findAllTestInstance();
+    List<HttpInstance> findAllTestInstance();
 
     /**
     * 查询列表
-    * @param testInstanceQuery
+    * @param httpInstanceQuery
     * @return
     */
-    List<TestInstance> findTestInstanceList(TestInstanceQuery testInstanceQuery);
+    List<HttpInstance> findTestInstanceList(HttpInstanceQuery httpInstanceQuery);
 
     /**
     * 按分页查询
-    * @param testInstanceQuery
+    * @param httpInstanceQuery
     * @return
     */
-    Pagination<TestInstance> findTestInstancePage(TestInstanceQuery testInstanceQuery);
+    Pagination<HttpInstance> findTestInstancePage(HttpInstanceQuery httpInstanceQuery);
 
 }

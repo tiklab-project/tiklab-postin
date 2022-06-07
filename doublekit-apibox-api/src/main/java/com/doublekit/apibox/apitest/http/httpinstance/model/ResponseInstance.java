@@ -20,20 +20,17 @@ public class ResponseInstance extends BaseModel {
     private java.lang.String id;
 
     @NotNull
-    @ApiProperty(name="testInstance",desc="所属测试实例",required = true)
+    @ApiProperty(name="httpInstance",desc="所属测试实例",required = true)
     @Mappings({
-            @Mapping(source = "testInstance.id",target = "instanceId")
+            @Mapping(source = "httpInstance.id",target = "httpInstanceId")
     })
-    @JoinQuery(key = "id")
-    private TestInstance testInstance;
+    private HttpInstance httpInstance;
 
-    @NotNull
-    @ApiProperty(name="responseHeader",desc="响应头",required = true)
-    private java.lang.String responseHeader;
+    @ApiProperty(name="headers",desc="请求头")
+    private java.lang.String headers;
 
-    @NotNull
-    @ApiProperty(name="responseBody",desc="响应体",required = true)
-    private java.lang.String responseBody;
+    @ApiProperty(name="body",desc="请求参数")
+    private java.lang.String body;
 
     public String getId() {
         return id;
@@ -43,27 +40,27 @@ public class ResponseInstance extends BaseModel {
         this.id = id;
     }
 
-    public TestInstance getTestInstance() {
-        return testInstance;
+    public HttpInstance getHttpInstance() {
+        return httpInstance;
     }
 
-    public void setTestInstance(TestInstance testInstance) {
-        this.testInstance = testInstance;
+    public void setHttpInstance(HttpInstance httpInstance) {
+        this.httpInstance = httpInstance;
     }
 
-    public String getResponseHeader() {
-        return responseHeader;
+    public String getHeaders() {
+        return headers;
     }
 
-    public void setResponseHeader(String responseHeader) {
-        this.responseHeader = responseHeader;
+    public void setHeaders(String headers) {
+        this.headers = headers;
     }
 
-    public String getResponseBody() {
-        return responseBody;
+    public String getBody() {
+        return body;
     }
 
-    public void setResponseBody(String responseBody) {
-        this.responseBody = responseBody;
+    public void setBody(String body) {
+        this.body = body;
     }
 }

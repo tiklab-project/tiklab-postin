@@ -9,7 +9,7 @@ import com.doublekit.core.order.OrderBuilders;
 import java.util.List;
 
 @ApiModel
-public class TestInstanceQuery {
+public class HttpInstanceQuery {
 
     @ApiProperty(name ="httpCaseId",desc = "接口用例ID，精确匹配")
     private String httpCaseId;

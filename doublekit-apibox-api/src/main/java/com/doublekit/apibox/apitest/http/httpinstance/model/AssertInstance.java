@@ -20,12 +20,11 @@ public class AssertInstance extends BaseModel {
     private java.lang.String id;
 
     @NotNull
-    @ApiProperty(name="testInstance",desc="所属测试实例",required = true)
+    @ApiProperty(name="httpInstance",desc="所属测试实例",required = true)
     @Mappings({
-            @Mapping(source = "testInstance.id",target = "instanceId")
+            @Mapping(source = "httpInstance.id",target = "httpInstanceId")
     })
-    @JoinQuery(key = "id")
-    private TestInstance testInstance;
+    private HttpInstance httpInstance;
 
     @ApiProperty(name="source",desc="断言来源类型")
     private java.lang.Integer source;
@@ -54,12 +53,12 @@ public class AssertInstance extends BaseModel {
         this.id = id;
     }
 
-    public TestInstance getTestInstance() {
-        return testInstance;
+    public HttpInstance getTestInstance() {
+        return httpInstance;
     }
 
-    public void setTestInstance(TestInstance testInstance) {
-        this.testInstance = testInstance;
+    public void setTestInstance(HttpInstance httpInstance) {
+        this.httpInstance = httpInstance;
     }
 
     public Integer getSource() {

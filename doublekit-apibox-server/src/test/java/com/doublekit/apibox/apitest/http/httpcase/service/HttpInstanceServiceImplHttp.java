@@ -1,6 +1,6 @@
 package com.doublekit.apibox.apitest.http.httpcase.service;
 
-import com.doublekit.apibox.apitest.http.httpinstance.model.TestInstance;
+import com.doublekit.apibox.apitest.http.httpinstance.model.HttpInstance;
 import com.doublekit.apibox.apitest.http.httpinstance.service.TestInstanceService;
 import com.doublekit.apibox.client.mock.JMockit;
 import com.doublekit.apibox.config.TestConfig;
@@ -25,9 +25,9 @@ import static org.junit.Assert.assertNotNull;
 @Transactional
 @Rollback(false)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class TestInstanceServiceImplTest {
+public class HttpInstanceServiceImplHttp {
 
-    private static Logger logger = LoggerFactory.getLogger(TestInstanceServiceImplTest.class);
+    private static Logger logger = LoggerFactory.getLogger(HttpInstanceServiceImplHttp.class);
 
     @Autowired
     TestInstanceService testInstanceService;
@@ -36,33 +36,33 @@ public class TestInstanceServiceImplTest {
 
     @Test
     public void test01ForSaveTestInstance() {
-        TestInstance testInstance = JMockit.mock(TestInstance.class);
+        HttpInstance httpInstance = JMockit.mock(HttpInstance.class);
 
-        id = testInstanceService.createTestInstance(testInstance);
+        id = testInstanceService.createTestInstance(httpInstance);
 
         assertNotNull(id);
     }
 
     @Test
     public void test02ForUpdateTestInstance(){
-        TestInstance testInstance = JMockit.mock(TestInstance.class);
-        testInstance.setId(id);
+        HttpInstance httpInstance = JMockit.mock(HttpInstance.class);
+        httpInstance.setId(id);
 
-        testInstanceService.updateTestInstance(testInstance);
+        testInstanceService.updateTestInstance(httpInstance);
     }
 
     @Test
     public void test03ForFindTestInstance() {
-        TestInstance testInstance = testInstanceService.findTestInstance(id);
+        HttpInstance httpInstance = testInstanceService.findTestInstance(id);
 
-        assertNotNull(testInstance);
+        assertNotNull(httpInstance);
     }
 
     @Test
     public void test04ForFindAllTestInstance() {
-        List<TestInstance> testInstanceList = testInstanceService.findAllTestInstance();
+        List<HttpInstance> httpInstanceList = testInstanceService.findAllTestInstance();
 
-        assertNotNull(testInstanceList);
+        assertNotNull(httpInstanceList);
     }
 
     @Test

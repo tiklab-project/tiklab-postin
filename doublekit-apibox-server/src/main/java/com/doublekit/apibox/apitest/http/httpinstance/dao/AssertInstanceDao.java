@@ -72,7 +72,7 @@ public class AssertInstanceDao{
 
     public List<AssertInstanceEntity> findAssertInstanceList(AssertInstanceQuery assertInstanceQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(AssertInstanceEntity.class)
-                .eq("instanceId", assertInstanceQuery.getInstanceId())
+                .eq("instanceId", assertInstanceQuery.getHttpInstanceId())
                 .orders(assertInstanceQuery.getOrderParams())
                 .get();
         return jpaTemplate.findList(queryCondition, AssertInstanceEntity.class);
@@ -80,7 +80,7 @@ public class AssertInstanceDao{
 
     public Pagination<AssertInstanceEntity> findAssertInstancePage(AssertInstanceQuery assertInstanceQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(AssertInstanceEntity.class)
-                .eq("instanceId", assertInstanceQuery.getInstanceId())
+                .eq("instanceId", assertInstanceQuery.getHttpInstanceId())
                 .pagination(assertInstanceQuery.getPageParam())
                 .orders(assertInstanceQuery.getOrderParams())
                 .get();

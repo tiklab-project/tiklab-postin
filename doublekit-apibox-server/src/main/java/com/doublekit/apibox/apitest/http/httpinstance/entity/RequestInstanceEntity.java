@@ -3,7 +3,8 @@ package com.doublekit.apibox.apitest.http.httpinstance.entity;
 
 import com.doublekit.dal.jpa.annotation.Column;
 import com.doublekit.dal.jpa.annotation.Id;
-import com.doublekit.dal.jpa.annotation.Table;import com.doublekit.dal.jpa.annotation.Entity;
+import com.doublekit.dal.jpa.annotation.Table;
+import com.doublekit.dal.jpa.annotation.Entity;
 
 import java.io.Serializable;
 
@@ -14,17 +15,26 @@ public class RequestInstanceEntity implements Serializable {
     @Column(name = "id",length = 32)
     private String id;
 
-    @Column(name = "instance_id",length = 32,notNull = true)
-    private String instanceId;
+    @Column(name = "http_instance_id",length = 32,notNull = true)
+    private String httpInstanceId;
 
-    @Column(name = "request_base",length = 2048,notNull = true)
-    private String requestBase;
+    @Column(name = "URL",length = 64)
+    private String URL;
 
-    @Column(name = "request_header",length = 2048,notNull = true)
-    private String requestHeader;
+    @Column(name = "headers",length = 2048)
+    private String headers;
 
-    @Column(name = "request_param",length = 2048,notNull = true)
-    private String requestParam;
+    @Column(name = "mediaType",length = 32)
+    private String mediaType;
+
+    @Column(name = "body",length = 2048)
+    private String body;
+
+    @Column(name = "preScript",length = 2048)
+    private String preScript;
+
+    @Column(name = "afterScript",length = 2048)
+    private String afterScript;
 
     public String getId() {
         return id;
@@ -34,35 +44,59 @@ public class RequestInstanceEntity implements Serializable {
         this.id = id;
     }
 
-    public String getInstanceId() {
-        return instanceId;
+    public String getHttpInstanceId() {
+        return httpInstanceId;
     }
 
-    public void setInstanceId(String instanceId) {
-        this.instanceId = instanceId;
+    public void setHttpInstanceId(String httpInstanceId) {
+        this.httpInstanceId = httpInstanceId;
     }
 
-    public String getRequestBase() {
-        return requestBase;
+    public String getURL() {
+        return URL;
     }
 
-    public void setRequestBase(String requestBase) {
-        this.requestBase = requestBase;
+    public void setURL(String URL) {
+        this.URL = URL;
     }
 
-    public String getRequestHeader() {
-        return requestHeader;
+    public String getHeaders() {
+        return headers;
     }
 
-    public void setRequestHeader(String requestHeader) {
-        this.requestHeader = requestHeader;
+    public void setHeaders(String headers) {
+        this.headers = headers;
     }
 
-    public String getRequestParam() {
-        return requestParam;
+    public String getMediaType() {
+        return mediaType;
     }
 
-    public void setRequestParam(String requestParam) {
-        this.requestParam = requestParam;
+    public void setMediaType(String mediaType) {
+        this.mediaType = mediaType;
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    public void setBody(String body) {
+        this.body = body;
+    }
+
+    public String getPreScript() {
+        return preScript;
+    }
+
+    public void setPreScript(String preScript) {
+        this.preScript = preScript;
+    }
+
+    public String getAfterScript() {
+        return afterScript;
+    }
+
+    public void setAfterScript(String afterScript) {
+        this.afterScript = afterScript;
     }
 }

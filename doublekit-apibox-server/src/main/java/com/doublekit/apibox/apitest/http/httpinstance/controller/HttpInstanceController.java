@@ -1,8 +1,8 @@
 package com.doublekit.apibox.apitest.http.httpinstance.controller;
 
 import com.doublekit.apibox.annotation.Api;
-import com.doublekit.apibox.apitest.http.httpinstance.model.TestInstance;
-import com.doublekit.apibox.apitest.http.httpinstance.model.TestInstanceQuery;
+import com.doublekit.apibox.apitest.http.httpinstance.model.HttpInstance;
+import com.doublekit.apibox.apitest.http.httpinstance.model.HttpInstanceQuery;
 import com.doublekit.apibox.apitest.http.httpinstance.service.TestInstanceService;
 import com.doublekit.core.page.Pagination;
 import com.doublekit.core.Result;
@@ -28,9 +28,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/testInstance")
 @Api(name = "TestInstanceController",desc = "测试实例管理")
-public class TestInstanceController {
+public class HttpInstanceController {
 
-    private static Logger logger = LoggerFactory.getLogger(TestInstanceController.class);
+    private static Logger logger = LoggerFactory.getLogger(HttpInstanceController.class);
 
     @Autowired
     private TestInstanceService testInstanceService;
@@ -38,8 +38,8 @@ public class TestInstanceController {
     @RequestMapping(path="/createTestInstance",method = RequestMethod.POST)
     @ApiMethod(name = "createTestInstance",desc = "createTestInstance")
     @ApiParam(name = "testInstance",desc = "testInstance",required = true)
-    public Result<String> createTestInstance(@RequestBody @NotNull @Valid TestInstance testInstance){
-        String id = testInstanceService.createTestInstanceWithNest(testInstance);
+    public Result<String> createTestInstance(@RequestBody @NotNull @Valid HttpInstance httpInstance){
+        String id = testInstanceService.createTestInstanceWithNest(httpInstance);
 
         return Result.ok(id);
     }
@@ -47,8 +47,8 @@ public class TestInstanceController {
     @RequestMapping(path="/updateTestInstance",method = RequestMethod.POST)
     @ApiMethod(name = "updateTestInstance",desc = "updateTestInstance")
     @ApiParam(name = "testInstance",desc = "testInstance",required = true)
-    public Result<Void> updateTestInstance(@RequestBody @NotNull @Valid TestInstance testInstance){
-        testInstanceService.updateTestInstance(testInstance);
+    public Result<Void> updateTestInstance(@RequestBody @NotNull @Valid HttpInstance httpInstance){
+        testInstanceService.updateTestInstance(httpInstance);
 
         return Result.ok();
     }
@@ -65,36 +65,36 @@ public class TestInstanceController {
     @RequestMapping(path="/findTestInstance",method = RequestMethod.POST)
     @ApiMethod(name = "findTestInstance",desc = "findTestInstance")
     @ApiParam(name = "id",desc = "id",required = true)
-    public Result<TestInstance> findTestInstance(@NotNull String id){
-        TestInstance testInstance = testInstanceService.findTestInstanceWithNest(id);
+    public Result<HttpInstance> findTestInstance(@NotNull String id){
+        HttpInstance httpInstance = testInstanceService.findTestInstanceWithNest(id);
 
-        return Result.ok(testInstance);
+        return Result.ok(httpInstance);
     }
 
     @RequestMapping(path="/findAllTestInstance",method = RequestMethod.POST)
     @ApiMethod(name = "findAllTestInstance",desc = "findAllTestInstance")
-    public Result<List<TestInstance>> findAllTestInstance(){
-        List<TestInstance> testInstanceList = testInstanceService.findAllTestInstance();
+    public Result<List<HttpInstance>> findAllTestInstance(){
+        List<HttpInstance> httpInstanceList = testInstanceService.findAllTestInstance();
 
-        return Result.ok(testInstanceList);
+        return Result.ok(httpInstanceList);
     }
 
 
     @RequestMapping(path = "/findTestInstanceList",method = RequestMethod.POST)
     @ApiMethod(name = "findTestInstanceList",desc = "findTestInstanceList")
     @ApiParam(name = "testInstanceQuery",desc = "testInstanceQuery",required = true)
-    public Result<List<TestInstance>> findTestInstanceList(@RequestBody @Valid @NotNull TestInstanceQuery testInstanceQuery){
-        List<TestInstance> testInstanceList = testInstanceService.findTestInstanceList(testInstanceQuery);
+    public Result<List<HttpInstance>> findTestInstanceList(@RequestBody @Valid @NotNull HttpInstanceQuery httpInstanceQuery){
+        List<HttpInstance> httpInstanceList = testInstanceService.findTestInstanceList(httpInstanceQuery);
 
-        return Result.ok(testInstanceList);
+        return Result.ok(httpInstanceList);
     }
 
 
     @RequestMapping(path = "/findTestInstancePage",method = RequestMethod.POST)
     @ApiMethod(name = "findTestInstancePage",desc = "findTestInstancePage")
     @ApiParam(name = "testInstanceQuery",desc = "testInstanceQuery",required = true)
-    public Result<Pagination<TestInstance>> findTestInstancePage(@RequestBody @Valid @NotNull TestInstanceQuery testInstanceQuery){
-        Pagination<TestInstance> pagination = testInstanceService.findTestInstancePage(testInstanceQuery);
+    public Result<Pagination<HttpInstance>> findTestInstancePage(@RequestBody @Valid @NotNull HttpInstanceQuery httpInstanceQuery){
+        Pagination<HttpInstance> pagination = testInstanceService.findTestInstancePage(httpInstanceQuery);
 
         return Result.ok(pagination);
     }
