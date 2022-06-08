@@ -10,37 +10,38 @@ import java.util.List;
 
 @ApiModel
 public class DataStructureQuery {
-        @ApiProperty(name ="orderParams",desc = "排序参数")
-        private List<Order> orderParams = OrderBuilders.instance().asc("id").get();
 
-        @ApiProperty(name ="pageParam",desc = "分页参数")
-        private Page pageParam = new Page();
+    @ApiProperty(name ="orderParams",desc = "排序参数")
+    private List<Order> orderParams = OrderBuilders.instance().asc("id").get();
 
-        @ApiProperty(name ="name",desc = "接口名称，模糊匹配")
-        private String name;
+    @ApiProperty(name ="pageParam",desc = "分页参数")
+    private Page pageParam = new Page();
 
-        public List<Order> getOrderParams() {
-            return orderParams;
-        }
+    @ApiProperty(name ="name",desc = "接口名称，模糊匹配")
+    private String name;
 
-        public void setOrderParams(List<Order> orderParams) {
-            this.orderParams = orderParams;
-        }
+    public List<Order> getOrderParams() {
+        return orderParams;
+    }
 
-        public Page getPageParam() {
-            return pageParam;
-        }
+    public void setOrderParams(List<Order> orderParams) {
+        this.orderParams = orderParams;
+    }
 
-        public void setPageParam(Page pageParam) {
-            this.pageParam = pageParam;
-        }
+    public Page getPageParam() {
+        return pageParam;
+    }
+
+    public void setPageParam(Page pageParam) {
+        this.pageParam = pageParam;
+    }
 
 
-        public String getName() {
-            return name;
-        }
+    public String getName() {
+        return name;
+    }
 
-        public void setName(String name) {
+    public void setName(String name) {
             this.name = name;
         }
 }

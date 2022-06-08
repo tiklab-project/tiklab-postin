@@ -11,9 +11,10 @@ alter table apibox_request_instance rename column instance_id to http_instance_i
 alter table apibox_request_instance rename column request_base to URL;
 alter table apibox_request_instance rename column request_header to headers;
 alter table apibox_request_instance rename column request_param to body;
-alter table apibox_request_instance add  mediaType VARCHAR(32);
-alter table apibox_request_instance add  preScript VARCHAR(2048);
-alter table apibox_request_instance add  afterScript VARCHAR(2048);
+alter table apibox_request_instance add  method_type VARCHAR(32);
+alter table apibox_request_instance add  media_type VARCHAR(32);
+alter table apibox_request_instance add  pre_script VARCHAR(2048);
+alter table apibox_request_instance add  after_script VARCHAR(2048);
 
 
 alter table apibox_response_instance rename column instance_id to http_instance_id;

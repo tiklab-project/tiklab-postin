@@ -18,22 +18,25 @@ public class RequestInstanceEntity implements Serializable {
     @Column(name = "http_instance_id",length = 32,notNull = true)
     private String httpInstanceId;
 
-    @Column(name = "URL",length = 128)
+    @Column(name = "method_type",length = 32)
+    private String methodType;
+
+    @Column(name = "url",length = 128)
     private String url;
 
     @Column(name = "headers",length = 2048)
     private String headers;
 
-    @Column(name = "mediaType",length = 32)
+    @Column(name = "media_type",length = 32)
     private String mediaType;
 
     @Column(name = "body",length = 2048)
     private String body;
 
-    @Column(name = "preScript",length = 2048)
+    @Column(name = "pre_script",length = 2048)
     private String preScript;
 
-    @Column(name = "afterScript",length = 2048)
+    @Column(name = "after_script",length = 2048)
     private String afterScript;
 
     public String getId() {
@@ -58,6 +61,14 @@ public class RequestInstanceEntity implements Serializable {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public String getMethodType() {
+        return methodType;
+    }
+
+    public void setMethodType(String methodType) {
+        this.methodType = methodType;
     }
 
     public String getHeaders() {
