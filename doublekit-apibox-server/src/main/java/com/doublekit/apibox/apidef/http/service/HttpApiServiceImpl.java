@@ -149,7 +149,7 @@ public class HttpApiServiceImpl implements HttpApiService {
         RequestBodyEx requestBodyEx = new RequestBodyEx();
         requestBodyEx.setId(id);
         requestBodyEx.setHttp(new HttpApi().setId(id));
-        requestBodyEx.setBodyType("formdata");
+        requestBodyEx.setBodyType("none");
         requestBodyService.createRequestBody(requestBodyEx);
 
         //添加索引

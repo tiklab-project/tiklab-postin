@@ -21,8 +21,8 @@ public class HttpInstanceEntity implements Serializable {
     @Column(name = "http_case_id",length = 40)
     private String httpCaseId;
 
-    @Column(name = "workspace_id",length = 32)
-    private String workspaceId;
+    @Column(name = "user_id",length = 32)
+    private String userId;
 
     @Column(name = "status_code")
     private Integer statusCode;
@@ -55,12 +55,12 @@ public class HttpInstanceEntity implements Serializable {
         this.httpCaseId = httpCaseId;
     }
 
-    public String getWorkspaceId() {
-        return workspaceId;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setWorkspaceId(String workspaceId) {
-        this.workspaceId = workspaceId;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public Integer getStatusCode() {

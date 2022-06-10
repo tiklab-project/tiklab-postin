@@ -4,6 +4,7 @@ import com.doublekit.apibox.apitest.http.httpinstance.model.HttpInstanceQuery;
 import com.doublekit.core.page.Pagination;
 import com.doublekit.apibox.apitest.http.httpinstance.entity.HttpInstanceEntity;
 import com.doublekit.dal.jpa.JpaTemplate;
+import com.doublekit.dal.jpa.criterial.condition.DeleteCondition;
 import com.doublekit.dal.jpa.criterial.condition.QueryCondition;
 import com.doublekit.dal.jpa.criterial.conditionbuilder.QueryBuilders;
 import org.slf4j.Logger;
@@ -49,6 +50,10 @@ public class HttpInstanceDao {
         jpaTemplate.delete(HttpInstanceEntity.class,id);
     }
 
+    public void deleteAllTestInstance(DeleteCondition deleteCondition){
+        jpaTemplate.delete(deleteCondition);
+    }
+
     /**
      * 查找用户
      * @param id
@@ -73,6 +78,7 @@ public class HttpInstanceDao {
     public List<HttpInstanceEntity> findTestInstanceList(HttpInstanceQuery httpInstanceQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(HttpInstanceEntity.class)
                 .eq("httpCaseId", httpInstanceQuery.getHttpCaseId())
+                .eq("userId",httpInstanceQuery.getUserId())
                 .orders(httpInstanceQuery.getOrderParams())
                 .get();
         return jpaTemplate.findList(queryCondition, HttpInstanceEntity.class);
@@ -81,6 +87,7 @@ public class HttpInstanceDao {
     public Pagination<HttpInstanceEntity> findTestInstancePage(HttpInstanceQuery httpInstanceQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(HttpInstanceEntity.class)
                 .eq("httpCaseId", httpInstanceQuery.getHttpCaseId())
+                .eq("userId",httpInstanceQuery.getUserId())
                 .pagination(httpInstanceQuery.getPageParam())
                 .orders(httpInstanceQuery.getOrderParams())
                 .get();

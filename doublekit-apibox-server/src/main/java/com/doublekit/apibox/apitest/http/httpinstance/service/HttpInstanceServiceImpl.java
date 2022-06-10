@@ -7,6 +7,8 @@ import com.doublekit.apibox.apitest.http.httpinstance.model.*;
 import com.doublekit.core.page.Pagination;
 import com.doublekit.beans.BeanMapper;
 import com.doublekit.core.page.PaginationBuilder;
+import com.doublekit.dal.jpa.criterial.condition.DeleteCondition;
+import com.doublekit.dal.jpa.criterial.conditionbuilder.DeleteBuilders;
 import com.doublekit.join.JoinTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -88,6 +90,14 @@ public class HttpInstanceServiceImpl implements TestInstanceService {
     @Override
     public void deleteTestInstance(@NotNull String id) {
         httpInstanceDao.deleteTestInstance(id);
+    }
+
+    @Override
+    public void deleteAllTestInstance(String userId) {
+        DeleteCondition deleteCondition = DeleteBuilders.createDelete(HttpInstanceEntity.class)
+                .eq("userId", userId)
+                .get();
+        httpInstanceDao.deleteAllTestInstance(deleteCondition);
     }
 
     @Override

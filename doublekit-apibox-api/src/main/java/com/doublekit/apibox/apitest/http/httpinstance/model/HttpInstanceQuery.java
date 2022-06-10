@@ -11,6 +11,9 @@ import java.util.List;
 @ApiModel
 public class HttpInstanceQuery {
 
+    @ApiProperty(name ="userId",desc = "接口用例ID，精确匹配")
+    private String userId;
+
     @ApiProperty(name ="httpCaseId",desc = "接口用例ID，精确匹配")
     private String httpCaseId;
 
@@ -19,6 +22,14 @@ public class HttpInstanceQuery {
 
     @ApiProperty(name ="pageParam",desc = "分页参数")
     private Page pageParam = new Page();
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
     public String getHttpCaseId() {
         return httpCaseId;

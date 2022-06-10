@@ -11,6 +11,7 @@ import com.doublekit.core.BaseModel;
 import com.doublekit.dis.annotation.IndexField;
 import com.doublekit.join.annotation.Join;
 import com.doublekit.join.annotation.JoinQuery;
+import com.doublekit.user.user.model.User;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.validation.constraints.NotNull;
@@ -35,11 +36,11 @@ public class HttpInstance extends BaseModel {
     private HttpTestcase httpCase;
 
     @NotNull
-    @ApiProperty(name="workspace",desc="所属空间",required = true)
+    @ApiProperty(name="user",desc="所属人",required = true)
     @Mappings({
-            @Mapping(source = "workspace.id",target = "workspaceId")
+            @Mapping(source = "user.id",target = "userId")
     })
-    private Workspace workspace;
+    private User user;
 
     @ApiProperty(name="createTime",desc="创建时间")
     @IndexField
@@ -84,12 +85,12 @@ public class HttpInstance extends BaseModel {
         this.httpCase = httpCase;
     }
 
-    public Workspace getWorkspace() {
-        return workspace;
+    public User getUser() {
+        return user;
     }
 
-    public void setWorkspace(Workspace workspace) {
-        this.workspace = workspace;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Integer getStatusCode() {

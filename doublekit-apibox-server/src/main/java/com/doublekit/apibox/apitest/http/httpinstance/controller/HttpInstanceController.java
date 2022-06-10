@@ -62,6 +62,15 @@ public class HttpInstanceController {
         return Result.ok();
     }
 
+    @RequestMapping(path="/deleteAllTestInstance",method = RequestMethod.POST)
+    @ApiMethod(name = "deleteAllTestInstance",desc = "deleteAllTestInstance")
+    @ApiParam(name = "userId",desc = "userId",required = true)
+    public Result<Void> deleteAllTestInstance(@NotNull String userId){
+        testInstanceService.deleteAllTestInstance(userId);
+
+        return Result.ok();
+    }
+
     @RequestMapping(path="/findTestInstance",method = RequestMethod.POST)
     @ApiMethod(name = "findTestInstance",desc = "findTestInstance")
     @ApiParam(name = "id",desc = "id",required = true)
