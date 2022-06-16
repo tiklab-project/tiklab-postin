@@ -103,4 +103,5 @@ public class HttpApiDao {
         Pagination<HttpApiEntity> page = jpaTemplate.findPage(queryCondition, HttpApiEntity.class);
         return page;
     }
+
 }

@@ -24,12 +24,12 @@ import static org.junit.Assert.assertNotNull;
 @Transactional
 @Rollback(false)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class HttpHttpTestcaseServiceImplTest {
+public class HttpHttpHttpTestcaseServiceImplTest {
 
-    private static Logger logger = LoggerFactory.getLogger(HttpHttpTestcaseServiceImplTest.class);
+    private static Logger logger = LoggerFactory.getLogger(HttpHttpHttpTestcaseServiceImplTest.class);
 
     @Autowired
-    TestcaseService testcaseService;
+    HttpTestcaseService httpTestcaseService;
 
     static String id;
 
@@ -37,7 +37,7 @@ public class HttpHttpTestcaseServiceImplTest {
     public void test01ForSaveTestcase() {
         HttpTestcase httpTestcase = JMockit.mock(HttpTestcase.class);
 
-        id = testcaseService.createTestcase(httpTestcase);
+        id = httpTestcaseService.createTestcase(httpTestcase);
 
         assertNotNull(id);
     }
@@ -47,25 +47,25 @@ public class HttpHttpTestcaseServiceImplTest {
         HttpTestcase httpTestcase = JMockit.mock(HttpTestcase.class);
         httpTestcase.setId(id);
 
-        testcaseService.updateTestcase(httpTestcase);
+        httpTestcaseService.updateTestcase(httpTestcase);
     }
 
     @Test
     public void test03ForFindTestcase() {
-        HttpTestcase httpTestcase = testcaseService.findTestcase(id);
+        HttpTestcase httpTestcase = httpTestcaseService.findTestcase(id);
 
         assertNotNull(httpTestcase);
     }
 
     @Test
     public void test04ForFindAllTestcase() {
-        List<HttpTestcase> httpTestcaseList = testcaseService.findAllTestcase();
+        List<HttpTestcase> httpTestcaseList = httpTestcaseService.findAllTestcase();
 
         assertNotNull(httpTestcaseList);
     }
 
     @Test
     public void test05ForDeleteTestcase(){
-        testcaseService.deleteTestcase(id);
+        httpTestcaseService.deleteTestcase(id);
     }
 }

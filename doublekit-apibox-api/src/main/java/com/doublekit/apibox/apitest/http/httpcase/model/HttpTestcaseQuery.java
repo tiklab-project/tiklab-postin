@@ -27,8 +27,9 @@ public class HttpTestcaseQuery {
         return httpId;
     }
 
-    public void setHttpId(String httpId) {
+    public HttpTestcaseQuery setHttpId(String httpId) {
         this.httpId = httpId;
+        return this;
     }
 
     public String getName() {

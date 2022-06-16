@@ -7,10 +7,14 @@ import com.doublekit.apibox.category.dao.CategoryDao;
 import com.doublekit.apibox.category.entity.CategoryEntity;
 import com.doublekit.apibox.category.model.Category;
 import com.doublekit.apibox.category.model.CategoryQuery;
+import com.doublekit.apibox.integration.dynamic.model.Dynamic;
+import com.doublekit.apibox.integration.dynamic.service.DynamicService;
 import com.doublekit.beans.BeanMapper;
 import com.doublekit.core.page.Pagination;
 import com.doublekit.core.page.PaginationBuilder;
 import com.doublekit.join.JoinTemplate;
+import com.doublekit.user.user.model.User;
+import com.doublekit.utils.context.LoginContext;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +22,7 @@ import org.springframework.util.StringUtils;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -36,17 +41,33 @@ public class CategoryServiceImpl implements CategoryService {
     ApixService apixService;
 
     @Autowired
+    DynamicService dynamicService;
+
+    @Autowired
     JoinTemplate joinTemplate;
 
     @Override
     public String createCategory(@NotNull @Valid Category category) {
         CategoryEntity categoryEntity = BeanMapper.map(category, CategoryEntity.class);
         if (StringUtils.isEmpty(category.getId())) {
-            UUID uniqueKey = UUID.randomUUID();
-            categoryEntity.setId(uniqueKey.toString());
+            String uid = UUID.randomUUID().toString();
+            String id = uid.trim().replaceAll("-", "");
+            categoryEntity.setId(id);
         }
 
         String id = categoryDao.createCategory(categoryEntity);
+
+
+        //动态
+        Dynamic dynamic = new Dynamic();
+        dynamic.setWorkspaceId(category.getWorkspace().getId());
+        dynamic.setUser(new User().setId(LoginContext.getLoginId()));
+        dynamic.setName(category.getName());
+        dynamic.setDynamicType("add");
+        dynamic.setModel("category");
+        dynamic.setModelId(id);
+        dynamic.setOperationTime(new Timestamp(System.currentTimeMillis()));
+        dynamicService.createDynamic(dynamic);
 
         return id;
     }
@@ -59,12 +80,40 @@ public class CategoryServiceImpl implements CategoryService {
         categoryDao.updateCategory(categoryEntity);
 
 
+        //动态
+        CategoryEntity category1 = categoryDao.findCategory(category.getId());
+        Dynamic dynamic = new Dynamic();
+        dynamic.setWorkspaceId(category1.getWorkspaceId());
+        dynamic.setUser(new User().setId(LoginContext.getLoginId()));
+        dynamic.setName(category.getName());
+        dynamic.setDynamicType("edit");
+        dynamic.setModel("category");
+        dynamic.setModelId(category.getId());
+        dynamic.setOperationTime(new Timestamp(System.currentTimeMillis()));
+        dynamicService.createDynamic(dynamic);
+
     }
 
     @Override
     public void deleteCategory(@NotNull String id) {
 
+        CategoryEntity category = categoryDao.findCategory(id);
+
+        //动态
+        Dynamic dynamic = new Dynamic();
+        dynamic.setWorkspaceId(category.getWorkspaceId());
+        dynamic.setUser(new User().setId(LoginContext.getLoginId()));
+        dynamic.setName(category.getName());
+        dynamic.setDynamicType("delete");
+        dynamic.setModel("category");
+        dynamic.setModelId(category.getId());
+        dynamic.setOperationTime(new Timestamp(System.currentTimeMillis()));
+        dynamicService.createDynamic(dynamic);
+
+        //删除目录
         categoryDao.deleteCategory(id);
+
+        //删除目录下的接口
         List<Apix> apixList = apixService.findApixList(new ApixQuery().setCategoryId(id));
         if (CollectionUtils.isNotEmpty(apixList)){
             for (Apix apix : apixList){

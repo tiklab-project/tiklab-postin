@@ -84,8 +84,8 @@ public class Apix extends BaseModel{
     @ApiProperty(name="desc",desc="desc")
     private java.lang.String desc;
 
-    @ApiProperty(name="sort",desc="sort")
-    private java.lang.Integer sort;
+    @ApiProperty(name="workspaceId",desc="workspaceId")
+    private String workspaceId;
 
     public java.lang.String getId() {
         return id;
@@ -156,12 +156,13 @@ public class Apix extends BaseModel{
     public void setDesc(java.lang.String desc) {
         this.desc = desc;
     }
-    public java.lang.Integer getSort() {
-        return sort;
+
+    public String getWorkspaceId() {
+        return workspaceId;
     }
 
-    public void setSort(java.lang.Integer sort) {
-        this.sort = sort;
+    public void setWorkspaceId(String workspaceId) {
+        this.workspaceId = workspaceId;
     }
 
     public ApiStatus getStatus() {

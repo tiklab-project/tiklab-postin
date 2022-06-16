@@ -95,4 +95,19 @@ public class ApixDao {
                 .get();
         return jpaTemplate.findPage(queryCondition, ApixEntity.class);
     }
+
+
+//    public Pagination<ApixEntity> findApiCount(ApixQuery apixQuery) {
+//        QueryCondition queryCondition = QueryBuilders.createQuery(ApixEntity.class)
+//                .eq("categoryId", apixQuery.getCategoryId())
+//                .eq("protocolType", apixQuery.getProtocolType())
+//                .like("name", apixQuery.getName())
+//                .pagination(apixQuery.getPageParam())
+//                .orders(apixQuery.getOrderParams())
+//                .get();
+//        return jpaTemplate.findPage(queryCondition, ApixEntity.class);
+//    }
+
+
+
 }

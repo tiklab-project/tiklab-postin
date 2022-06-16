@@ -3,6 +3,7 @@ package com.doublekit.apibox.workspace.controller;
 import com.doublekit.apibox.annotation.Api;
 import com.doublekit.apibox.workspace.model.Workspace;
 import com.doublekit.apibox.workspace.model.WorkspaceQuery;
+import com.doublekit.apibox.workspace.model.WorkspaceTotal;
 import com.doublekit.apibox.workspace.service.WorkspaceService;
 import com.doublekit.core.page.Pagination;
 import com.doublekit.core.Result;
@@ -106,6 +107,15 @@ public class WorkspaceController {
         List<Workspace> workspaceList = workspaceService.findWorkspaceJoinList(workspaceQuery);
 
         return Result.ok(workspaceList);
+    }
+
+    @RequestMapping(path="/findWorkspaceTotal",method = RequestMethod.POST)
+    @ApiMethod(name = "findWorkspaceTotal",desc = "根据空间ID查找空间概要")
+    @ApiParam(name = "id",desc = "空间ID",required = true)
+    public Result<WorkspaceTotal> findWorkspaceTotal(@NotNull String id){
+        WorkspaceTotal workspace = workspaceService.findWorkspaceTotal(id);
+
+        return Result.ok(workspace);
     }
 
 }

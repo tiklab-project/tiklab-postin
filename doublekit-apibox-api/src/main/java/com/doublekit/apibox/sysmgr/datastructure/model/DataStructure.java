@@ -2,8 +2,12 @@ package com.doublekit.apibox.sysmgr.datastructure.model;
 
 import com.doublekit.apibox.annotation.ApiModel;
 import com.doublekit.apibox.annotation.ApiProperty;
+import com.doublekit.apibox.workspace.model.Workspace;
 import com.doublekit.beans.annotation.Mapper;
+import com.doublekit.beans.annotation.Mapping;
+import com.doublekit.beans.annotation.Mappings;
 import com.doublekit.core.BaseModel;
+import com.doublekit.join.annotation.JoinQuery;
 
 import javax.validation.constraints.NotNull;
 
@@ -13,6 +17,13 @@ public class DataStructure extends BaseModel{
 
     @ApiProperty(name="id",desc="id")
     private java.lang.String id;
+
+    @ApiProperty(name="workspace",desc="所属空间",eg="@selectOne")
+    @Mappings({
+            @Mapping(source = "workspace.id",target = "workspaceId")
+    })
+    @JoinQuery(key = "id")
+    private Workspace workspace;
 
     @NotNull
     @ApiProperty(name="name",desc="名字",required = true)
@@ -42,6 +53,14 @@ public class DataStructure extends BaseModel{
     }
     public java.lang.String getName() {
         return name;
+    }
+
+    public Workspace getWorkspace() {
+        return workspace;
+    }
+
+    public void setWorkspace(Workspace workspace) {
+        this.workspace = workspace;
     }
 
     public void setName(java.lang.String name) {

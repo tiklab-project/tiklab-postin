@@ -17,6 +17,10 @@ public class DataStructureEntity implements Serializable {
     @Column(name = "id",length = 32)
     private String id;
 
+    @Column(name = "workspace_id",length = 32)
+    private String workspaceId;
+
+
     @Column(name = "name",length = 64,notNull = true)
     private String name;
 
@@ -41,6 +45,14 @@ public class DataStructureEntity implements Serializable {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getWorkspaceId() {
+        return workspaceId;
+    }
+
+    public void setWorkspaceId(String workspaceId) {
+        this.workspaceId = workspaceId;
     }
 
     public String getName() {

@@ -20,7 +20,7 @@ import java.util.List;
 * 用户服务业务处理
 */
 @Service
-public class HttpTestcaseServiceImpl implements TestcaseService {
+public class HttpTestcaseServiceImpl implements HttpTestcaseService {
 
     @Autowired
     HttpTestcaseDao httpTestcaseDao;

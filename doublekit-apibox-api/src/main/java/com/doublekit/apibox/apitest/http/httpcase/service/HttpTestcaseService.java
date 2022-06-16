@@ -16,7 +16,7 @@ import java.util.List;
 * 用户服务接口
 */
 @JoinProvider(model = HttpTestcase.class)
-public interface TestcaseService {
+public interface HttpTestcaseService {
 
     /**
     * 创建用户

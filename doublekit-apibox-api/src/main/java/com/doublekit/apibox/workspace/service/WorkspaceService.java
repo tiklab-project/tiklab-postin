@@ -1,6 +1,7 @@
 package com.doublekit.apibox.workspace.service;
 
 import com.doublekit.apibox.workspace.model.WorkspaceQuery;
+import com.doublekit.apibox.workspace.model.WorkspaceTotal;
 import com.doublekit.core.page.Pagination;
 
 import com.doublekit.apibox.workspace.model.Workspace;
@@ -80,5 +81,11 @@ public interface WorkspaceService {
      */
     List<Workspace> findWorkspaceJoinList(WorkspaceQuery workspaceQuery);
 
+    /**
+     * 查找空间概况
+     * @param id
+     * @return
+     */
+    WorkspaceTotal findWorkspaceTotal(@NotNull String id);
 
 }

@@ -42,8 +42,8 @@ public class ApixEntity implements Serializable {
     @Column(name = "description",length = 256)
     private String desc;
 
-    @Column(name = "sort",length = 4)
-    private Integer sort;
+    @Column(name = "workspace_id",length = 4)
+    private String workspaceId;
 
     public String getId() {
         return id;
@@ -109,12 +109,12 @@ public class ApixEntity implements Serializable {
         this.desc = desc;
     }
 
-    public Integer getSort() {
-        return sort;
+    public String getWorkspaceId() {
+        return workspaceId;
     }
 
-    public void setSort(Integer sort) {
-        this.sort = sort;
+    public void setWorkspaceId(String workspaceId) {
+        this.workspaceId = workspaceId;
     }
 
     public String getProtocolType() {

@@ -4,6 +4,25 @@ CREATE TABLE apibox_workspace(
         description VARCHAR(64),
         user_id VARCHAR(32)
 );
+
+CREATE TABLE apibox_workspace_recent (
+        id VARCHAR(32) PRIMARY KEY,
+        workspace_id VARCHAR(32),
+        user_id VARCHAR (32),
+        update_time timestamp
+);
+
+CREATE TABLE apibox_dynamic (
+        id VARCHAR(32) PRIMARY KEY,
+        workspace_id VARCHAR(32) NOT NULL,
+        user_id VARCHAR (32) NOT NULL,
+        name VARCHAR (64) NOT NULL,
+        model_id VARCHAR (32) NOT NULL,
+        model VARCHAR (32) NOT NULL,
+        dynamic_type VARCHAR (32) NOT NULL,
+        operation_time timestamp
+);
+
 CREATE TABLE apibox_category(
         id VARCHAR(48) PRIMARY KEY,
         name VARCHAR(64) NOT NULL,
@@ -33,7 +52,7 @@ CREATE TABLE apibox_apix(
         status_id VARCHAR(32),
         executor_id VARCHAR(32),
         description VARCHAR(256),
-        sort int
+        workspace_id VARCHAR(32)
 );
 
 CREATE TABLE apibox_api_http(
@@ -340,6 +359,7 @@ CREATE TABLE apibox_raw_response_mock(
 
 CREATE TABLE stru_subject(
         id VARCHAR(32) PRIMARY KEY,
+         workspace_id VARCHAR(32),
         coding VARCHAR (64),
         name VARCHAR(64) NOT NULL,
         data_type VARCHAR(32) NOT NULL,

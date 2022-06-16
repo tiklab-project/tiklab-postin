@@ -153,11 +153,11 @@ public class HttpApiServiceImpl implements HttpApiService {
         requestBodyService.createRequestBody(requestBodyEx);
 
         //添加索引
-//        HttpApi entity = findHttpApi(id);
-//        disClient.save(entity);
-//
-//        //发送消息
-//        sendMessageForCreate(entity);
+        HttpApi entity = findHttpApi(id);
+        disClient.save(entity);
+
+        //发送消息
+        sendMessageForCreate(entity);
 
         return  id;
     }
@@ -174,11 +174,11 @@ public class HttpApiServiceImpl implements HttpApiService {
         apixService.updateApix(apix);
 
         //更新索引
-//        HttpApi entity = findHttpApi(apix.getId());
-//        disClient.update(entity);
-//
-//        //发送更新消息提醒
-//        sendMessageForCreate(entity);
+        HttpApi entity = findHttpApi(apix.getId());
+        disClient.update(entity);
+
+        //发送更新消息提醒
+        sendMessageForCreate(entity);
 
     }
 
@@ -187,7 +187,7 @@ public class HttpApiServiceImpl implements HttpApiService {
 
         Category category = new Category();
         category.setId(httpApi.getApix().getCategory().getId());
-
+        apix.setWorkspaceId(httpApi.getApix().getWorkspaceId());
         apix.setCategory(category);
         apix.setId(id);
         apix.setName(httpApi.getApix().getName());
@@ -463,7 +463,7 @@ public class HttpApiServiceImpl implements HttpApiService {
         //设置接收人
         List<MessageReceiver> messageReceiverList = new ArrayList<>();
         MessageReceiver messageReceiver = new MessageReceiver();
-        messageReceiver.setReceiver(TicketHolder.get());//去除message->user依賴 zhangzh
+        messageReceiver.setReceiver(apix.getApix().getCreateUser().getId());//去除message->user依賴 zhangzh
         messageReceiverList.add(messageReceiver);
         message.setMessageReceiverList(messageReceiverList);
 

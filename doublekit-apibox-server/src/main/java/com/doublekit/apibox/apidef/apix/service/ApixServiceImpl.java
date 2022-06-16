@@ -4,11 +4,15 @@ import com.doublekit.apibox.apidef.apix.dao.ApixDao;
 import com.doublekit.apibox.apidef.apix.entity.ApixEntity;
 import com.doublekit.apibox.apidef.apix.model.Apix;
 import com.doublekit.apibox.apidef.apix.model.ApixQuery;
+import com.doublekit.apibox.category.entity.CategoryEntity;
+import com.doublekit.apibox.integration.dynamic.model.Dynamic;
+import com.doublekit.apibox.integration.dynamic.service.DynamicService;
 import com.doublekit.beans.BeanMapper;
 import com.doublekit.core.page.Pagination;
 import com.doublekit.core.page.PaginationBuilder;
 import com.doublekit.join.JoinTemplate;
 import com.doublekit.rpc.annotation.Exporter;
+import com.doublekit.user.user.model.User;
 import com.doublekit.utils.context.LoginContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,6 +33,9 @@ public class ApixServiceImpl implements ApixService {
     ApixDao apixDao;
 
     @Autowired
+    DynamicService dynamicService;
+
+    @Autowired
     JoinTemplate joinTemplate;
 
 
@@ -37,15 +44,24 @@ public class ApixServiceImpl implements ApixService {
         ApixEntity apixEntity = BeanMapper.map(apix, ApixEntity.class);
 
 
-
         //初始化项目成员
         String userId = LoginContext.getLoginId();
         apixEntity.setCreateUser(userId);
 
         apixEntity.setCreateTime(new Timestamp(System.currentTimeMillis()));
-        apixEntity.setUpdateTime(new Timestamp(System.currentTimeMillis()));
 
         String id = apixDao.createApix(apixEntity);
+
+//        //动态
+        Dynamic dynamic = new Dynamic();
+        dynamic.setWorkspaceId(apix.getWorkspaceId());
+        dynamic.setUser(new User().setId(LoginContext.getLoginId()));
+        dynamic.setName(apix.getName());
+        dynamic.setDynamicType("add");
+        dynamic.setModel("api");
+        dynamic.setModelId(id);
+        dynamic.setOperationTime(new Timestamp(System.currentTimeMillis()));
+        dynamicService.createDynamic(dynamic);
 
         return id;
     }
@@ -58,13 +74,38 @@ public class ApixServiceImpl implements ApixService {
 
         String userId = LoginContext.getLoginId();
         apixEntity.setUpdateUser(userId);
+
         apixDao.updateApix(apixEntity);
 
+
+        //动态
+        ApixEntity apix1 = apixDao.findApix(apix.getId());
+        Dynamic dynamic = new Dynamic();
+        dynamic.setWorkspaceId(apix1.getWorkspaceId());
+        dynamic.setUser(new User().setId(LoginContext.getLoginId()));
+        dynamic.setName(apix1.getName());
+        dynamic.setDynamicType("edit");
+        dynamic.setModel("api");
+        dynamic.setModelId(apix1.getId());
+        dynamic.setOperationTime(new Timestamp(System.currentTimeMillis()));
+        dynamicService.createDynamic(dynamic);
 
     }
 
     @Override
     public void deleteApix(@NotNull String id) {
+        ApixEntity apix = apixDao.findApix(id);
+
+        Dynamic dynamic = new Dynamic();
+        dynamic.setWorkspaceId(apix.getWorkspaceId());
+        dynamic.setUser(new User().setId(LoginContext.getLoginId()));
+        dynamic.setName(apix.getName());
+        dynamic.setDynamicType("delete");
+        dynamic.setModel("api");
+        dynamic.setModelId(apix.getId());
+        dynamic.setOperationTime(new Timestamp(System.currentTimeMillis()));
+        dynamicService.createDynamic(dynamic);
+
         apixDao.deleteApix(id);
     }
 

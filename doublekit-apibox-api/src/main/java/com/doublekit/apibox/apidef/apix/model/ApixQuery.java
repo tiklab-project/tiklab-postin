@@ -19,6 +19,9 @@ public class ApixQuery {
     @ApiProperty(name="protocolType",desc = "协议类型，精确匹配")
     private String protocolType;
 
+    @ApiProperty(name ="workspaceId",desc = "空间id，精确匹配")
+    private String workspaceId;
+
     @ApiProperty(name ="orderParams",desc = "排序参数")
     private List<Order> orderParams = OrderBuilders.instance().asc("id").get();
 
@@ -32,6 +35,14 @@ public class ApixQuery {
     public ApixQuery setCategoryId(String categoryId) {
         this.categoryId = categoryId;
         return this;
+    }
+
+    public String getWorkspaceId() {
+        return workspaceId;
+    }
+
+    public void setWorkspaceId(String workspaceId) {
+        this.workspaceId = workspaceId;
     }
 
     public String getProtocolType() {

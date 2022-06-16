@@ -1,12 +1,22 @@
 package com.doublekit.apibox.workspace.service;
 
+import com.doublekit.apibox.apidef.apix.model.Apix;
+import com.doublekit.apibox.apidef.apix.model.ApixQuery;
+import com.doublekit.apibox.apidef.apix.service.ApixService;
+import com.doublekit.apibox.apitest.http.httpcase.model.HttpTestcase;
+import com.doublekit.apibox.apitest.http.httpcase.model.HttpTestcaseQuery;
+import com.doublekit.apibox.apitest.http.httpcase.service.HttpTestcaseService;
 import com.doublekit.apibox.category.model.Category;
 import com.doublekit.apibox.category.model.CategoryQuery;
 import com.doublekit.apibox.category.service.CategoryService;
+import com.doublekit.apibox.sysmgr.datastructure.model.DataStructure;
+import com.doublekit.apibox.sysmgr.datastructure.model.DataStructureQuery;
+import com.doublekit.apibox.sysmgr.datastructure.service.DataStructureService;
 import com.doublekit.apibox.workspace.dao.WorkspaceDao;
 import com.doublekit.apibox.workspace.entity.WorkspaceEntity;
 import com.doublekit.apibox.workspace.model.Workspace;
 import com.doublekit.apibox.workspace.model.WorkspaceQuery;
+import com.doublekit.apibox.workspace.model.WorkspaceTotal;
 import com.doublekit.beans.BeanMapper;
 import com.doublekit.core.page.Pagination;
 import com.doublekit.core.page.PaginationBuilder;
@@ -14,6 +24,7 @@ import com.doublekit.dis.client.DisClient;
 import com.doublekit.join.JoinTemplate;
 import com.doublekit.privilege.role.service.DmRoleService;
 import com.doublekit.user.user.model.DmUser;
+import com.doublekit.user.user.model.DmUserQuery;
 import com.doublekit.user.user.model.User;
 import com.doublekit.user.user.service.DmUserService;
 import org.apache.commons.collections.CollectionUtils;
@@ -34,7 +45,19 @@ public class WorkspaceServiceImpl implements WorkspaceService {
     WorkspaceDao workspaceDao;
 
     @Autowired
+    WorkspaceRecentService workspaceRecentService;
+
+    @Autowired
     CategoryService categoryService;
+
+    @Autowired
+    ApixService apixService;
+
+    @Autowired
+    HttpTestcaseService httpTestcaseService;
+
+    @Autowired
+    DataStructureService dataStructureService;
 
     @Autowired
     DmUserService dmUserService;
@@ -73,8 +96,8 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         categoryService.createCategory(category);
 
         //添加索引
-//        Workspace entity = findWorkspace(projectId);
-//        disClient.save(entity);
+        Workspace entity = findWorkspace(projectId);
+        disClient.save(entity);
 
         return projectId;
     }
@@ -87,8 +110,8 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         workspaceDao.updateWorkspace(workspaceEntity);
 
         //更新索引
-//        Workspace entity = findWorkspace(workspace.getId());
-//        disClient.update(entity);
+        Workspace entity = findWorkspace(workspace.getId());
+        disClient.update(entity);
     }
 
     @Override
@@ -101,6 +124,11 @@ public class WorkspaceServiceImpl implements WorkspaceService {
                 categoryService.deleteCategory(category.getId());
             }
         }
+
+
+        //删除最近浏览里的表
+
+
         //删除索引
         disClient.delete(Workspace.class,id);
     }
@@ -121,6 +149,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
 
     @Override
     public Workspace findWorkspace(@NotNull String id) {
+
         return findOne(id);
     }
 
@@ -155,6 +184,46 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         List<WorkspaceEntity> workspaceEntityList = workspaceDao.findWorkspaceJoinList(workspaceQuery);
 
         return BeanMapper.mapList(workspaceEntityList,Workspace.class);
+    }
+
+    @Override
+    public WorkspaceTotal findWorkspaceTotal(String id) {
+        WorkspaceTotal workspaceTotal = new WorkspaceTotal();
+
+        //获取分组的总和
+        List<Category> categoryList = categoryService.findCategoryList(new CategoryQuery().setWorkspaceId(id));
+        workspaceTotal.setCategoryTotal(categoryList.size());
+
+        //获取接口总和，case总和
+        int apiCount=0;
+        int caseCount = 0;
+        for(Category category :categoryList){
+            List<Apix>  apixList = apixService.findApixList(new ApixQuery().setCategoryId(category.getId()));
+            apiCount+=apixList.size();
+
+            int apiCaseCount=0;
+            for (Apix apix: apixList){
+                List<HttpTestcase> testcaseList = httpTestcaseService.findTestcaseList(new HttpTestcaseQuery().setHttpId(apix.getId()));
+                apiCaseCount+=testcaseList.size();
+            }
+
+            caseCount+=apiCaseCount;
+        }
+
+        List<DataStructure> dataStructureList = dataStructureService.findDataStructureList(new DataStructureQuery().setWorkspaceId(id));
+
+        DmUserQuery dmUserQuery = new DmUserQuery();
+        dmUserQuery.setDomainId(id);
+        List<DmUser> dmUserList = dmUserService.findDmUserList(dmUserQuery);
+
+        workspaceTotal.setModelTotal(dataStructureList.size());
+        workspaceTotal.setApiTotal(apiCount);
+        workspaceTotal.setCaseTotal(caseCount);
+        workspaceTotal.setMemberTotal(dmUserList.size());
+
+
+
+        return workspaceTotal;
     }
 
 }
