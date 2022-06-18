@@ -45,17 +45,17 @@ public class ApixServiceImpl implements ApixService {
 
 
         //初始化项目成员
-        String userId = LoginContext.getLoginId();
-        apixEntity.setCreateUser(userId);
+//        String userId = LoginContext.getLoginId();
+        apixEntity.setCreateUser(apix.getUserId());
 
         apixEntity.setCreateTime(new Timestamp(System.currentTimeMillis()));
 
         String id = apixDao.createApix(apixEntity);
 
-//        //动态
+       //动态
         Dynamic dynamic = new Dynamic();
         dynamic.setWorkspaceId(apix.getWorkspaceId());
-        dynamic.setUser(new User().setId(LoginContext.getLoginId()));
+        dynamic.setUser(new User().setId(apix.getUserId()));
         dynamic.setName(apix.getName());
         dynamic.setDynamicType("add");
         dynamic.setModel("api");
@@ -72,8 +72,8 @@ public class ApixServiceImpl implements ApixService {
 
         apixEntity.setUpdateTime(new Timestamp(System.currentTimeMillis()));
 
-        String userId = LoginContext.getLoginId();
-        apixEntity.setUpdateUser(userId);
+//        String userId = LoginContext.getLoginId();
+        apixEntity.setUpdateUser(apix.getUserId());
 
         apixDao.updateApix(apixEntity);
 
@@ -82,7 +82,7 @@ public class ApixServiceImpl implements ApixService {
         ApixEntity apix1 = apixDao.findApix(apix.getId());
         Dynamic dynamic = new Dynamic();
         dynamic.setWorkspaceId(apix1.getWorkspaceId());
-        dynamic.setUser(new User().setId(LoginContext.getLoginId()));
+        dynamic.setUser(new User().setId(apix.getUserId()));
         dynamic.setName(apix1.getName());
         dynamic.setDynamicType("edit");
         dynamic.setModel("api");
@@ -98,7 +98,7 @@ public class ApixServiceImpl implements ApixService {
 
         Dynamic dynamic = new Dynamic();
         dynamic.setWorkspaceId(apix.getWorkspaceId());
-        dynamic.setUser(new User().setId(LoginContext.getLoginId()));
+        dynamic.setUser(new User().setId(apix.getCreateUser()));
         dynamic.setName(apix.getName());
         dynamic.setDynamicType("delete");
         dynamic.setModel("api");

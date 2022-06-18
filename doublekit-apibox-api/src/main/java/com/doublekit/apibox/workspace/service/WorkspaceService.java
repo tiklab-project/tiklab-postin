@@ -1,5 +1,6 @@
 package com.doublekit.apibox.workspace.service;
 
+import com.doublekit.apibox.workspace.model.WorkspaceHomeTotal;
 import com.doublekit.apibox.workspace.model.WorkspaceQuery;
 import com.doublekit.apibox.workspace.model.WorkspaceTotal;
 import com.doublekit.core.page.Pagination;
@@ -82,7 +83,15 @@ public interface WorkspaceService {
     List<Workspace> findWorkspaceJoinList(WorkspaceQuery workspaceQuery);
 
     /**
-     * 查找空间概况
+     * 查找home页的空间概况
+     * @param userId
+     * @return
+     */
+    WorkspaceHomeTotal findWorkspaceHomeTotal(@NotNull String userId);
+
+
+    /**
+     * 查找单个空间中概况
      * @param id
      * @return
      */

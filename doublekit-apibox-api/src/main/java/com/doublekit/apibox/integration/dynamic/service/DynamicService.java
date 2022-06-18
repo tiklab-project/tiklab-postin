@@ -63,4 +63,7 @@ public interface DynamicService {
     */
     Pagination<Dynamic> findDynamicPage(DynamicQuery dynamicQuery);
 
+
+
+
 }

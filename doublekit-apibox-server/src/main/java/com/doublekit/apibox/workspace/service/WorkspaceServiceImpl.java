@@ -14,9 +14,7 @@ import com.doublekit.apibox.sysmgr.datastructure.model.DataStructureQuery;
 import com.doublekit.apibox.sysmgr.datastructure.service.DataStructureService;
 import com.doublekit.apibox.workspace.dao.WorkspaceDao;
 import com.doublekit.apibox.workspace.entity.WorkspaceEntity;
-import com.doublekit.apibox.workspace.model.Workspace;
-import com.doublekit.apibox.workspace.model.WorkspaceQuery;
-import com.doublekit.apibox.workspace.model.WorkspaceTotal;
+import com.doublekit.apibox.workspace.model.*;
 import com.doublekit.beans.BeanMapper;
 import com.doublekit.core.page.Pagination;
 import com.doublekit.core.page.PaginationBuilder;
@@ -46,6 +44,9 @@ public class WorkspaceServiceImpl implements WorkspaceService {
 
     @Autowired
     WorkspaceRecentService workspaceRecentService;
+
+    @Autowired
+    WorkspaceFollowService workspaceFollowService;
 
     @Autowired
     CategoryService categoryService;
@@ -184,6 +185,48 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         List<WorkspaceEntity> workspaceEntityList = workspaceDao.findWorkspaceJoinList(workspaceQuery);
 
         return BeanMapper.mapList(workspaceEntityList,Workspace.class);
+    }
+
+    @Override
+    public WorkspaceHomeTotal findWorkspaceHomeTotal(String userId) {
+        WorkspaceHomeTotal workspaceHomeTotal = new WorkspaceHomeTotal();
+
+        //所有空间总和
+        int all = 0;
+        List<Workspace> allWorkspace = findAllWorkspace();
+        if(CollectionUtils.isNotEmpty(allWorkspace)){
+            all = allWorkspace.size();
+        }
+
+        //个人创建的空间 总和
+        int create = 0;
+        List<Workspace> workspaceList = findWorkspaceList(new WorkspaceQuery().setUserId(userId));
+        if(CollectionUtils.isNotEmpty(workspaceList)){
+            create=workspaceList.size();
+        }
+
+        //个人加入的空间 总和
+        int join = 0;
+        List<Workspace> workspaceJoinList = findWorkspaceJoinList(new WorkspaceQuery().setUserId(userId));
+        if(CollectionUtils.isNotEmpty(workspaceJoinList)){
+            join = workspaceJoinList.size();
+        }
+
+        //个人关注的空间 总和
+        int follow = 0;
+        List<WorkspaceFollow> workspaceFollowList = workspaceFollowService.findWorkspaceFollowList(new WorkspaceFollowQuery().setUserId(userId));
+        if(CollectionUtils.isNotEmpty(workspaceFollowList)){
+            follow = workspaceFollowList.size();
+        }
+
+
+        workspaceHomeTotal.setAllTotal(all);
+        workspaceHomeTotal.setCreateTotal(create);
+        workspaceHomeTotal.setJoinTotal(join);
+        workspaceHomeTotal.setFollowTotal(follow);
+
+
+        return workspaceHomeTotal;
     }
 
     @Override

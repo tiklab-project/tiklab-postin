@@ -32,7 +32,7 @@ dss:
 #auth config
 #auth:
 #  type: acc
-#  address: http://portal-ce.dev.doublekit.net
+#  address: http://192.168.10.6:8080
 
 #integration config
 homes:

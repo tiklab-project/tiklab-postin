@@ -2,6 +2,7 @@ package com.doublekit.apibox.workspace.controller;
 
 import com.doublekit.apibox.annotation.Api;
 import com.doublekit.apibox.workspace.model.Workspace;
+import com.doublekit.apibox.workspace.model.WorkspaceHomeTotal;
 import com.doublekit.apibox.workspace.model.WorkspaceQuery;
 import com.doublekit.apibox.workspace.model.WorkspaceTotal;
 import com.doublekit.apibox.workspace.service.WorkspaceService;
@@ -109,8 +110,17 @@ public class WorkspaceController {
         return Result.ok(workspaceList);
     }
 
+    @RequestMapping(path="/findWorkspaceHomeTotal",method = RequestMethod.POST)
+    @ApiMethod(name = "findWorkspaceHomeTotal",desc = "根据userID查找首页中的空间概要")
+    @ApiParam(name = "userId",desc = "userID",required = true)
+    public Result<WorkspaceHomeTotal> findWorkspaceHomeTotal(@NotNull String userId){
+        WorkspaceHomeTotal workspace = workspaceService.findWorkspaceHomeTotal(userId);
+
+        return Result.ok(workspace);
+    }
+
     @RequestMapping(path="/findWorkspaceTotal",method = RequestMethod.POST)
-    @ApiMethod(name = "findWorkspaceTotal",desc = "根据空间ID查找空间概要")
+    @ApiMethod(name = "findWorkspaceTotal",desc = "根据空间ID查找单个空间中概要")
     @ApiParam(name = "id",desc = "空间ID",required = true)
     public Result<WorkspaceTotal> findWorkspaceTotal(@NotNull String id){
         WorkspaceTotal workspace = workspaceService.findWorkspaceTotal(id);

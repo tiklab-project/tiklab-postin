@@ -12,6 +12,13 @@ CREATE TABLE apibox_workspace_recent (
         update_time timestamp
 );
 
+CREATE TABLE apibox_workspace_follow(
+        id VARCHAR(32) PRIMARY KEY,
+        workspace_id VARCHAR(32) NOT NULL,
+        user_id VARCHAR(32) NOT NULL,
+        create_time timestamp
+);
+
 CREATE TABLE apibox_dynamic (
         id VARCHAR(32) PRIMARY KEY,
         workspace_id VARCHAR(32) NOT NULL,

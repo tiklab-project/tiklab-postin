@@ -8,7 +8,7 @@ import com.doublekit.apibox.apidef.apix.service.ApixService;
 import com.doublekit.apibox.apidef.http.dao.*;
 import com.doublekit.apibox.apidef.http.entity.*;
 import com.doublekit.apibox.apidef.http.model.*;
-import com.doublekit.apibox.apidef.http.support.MessageTemplateConstant;
+import com.doublekit.apibox.sysmgr.support.MessageTemplateConstant;
 import com.doublekit.apibox.category.model.Category;
 import com.doublekit.beans.BeanMapper;
 import com.doublekit.core.page.Pagination;
@@ -16,7 +16,6 @@ import com.doublekit.core.page.PaginationBuilder;
 import com.doublekit.dal.jpa.criterial.conditionbuilder.DeleteBuilders;
 import com.doublekit.dal.jpa.criterial.condition.DeleteCondition;
 import com.doublekit.dis.client.DisClient;
-import com.doublekit.eam.common.TicketHolder;
 import com.doublekit.join.JoinTemplate;
 import com.doublekit.message.message.model.Message;
 import com.doublekit.message.message.model.MessageReceiver;
@@ -195,6 +194,7 @@ public class HttpApiServiceImpl implements HttpApiService {
         apix.setProtocolType(httpApi.getApix().getProtocolType());
         apix.setExecutor(httpApi.getApix().getExecutor());
         apix.setStatus(httpApi.getApix().getStatus());
+        apix.setUserId(httpApi.getApix().getUserId());
 
         return apix;
     }
@@ -460,6 +460,7 @@ public class HttpApiServiceImpl implements HttpApiService {
         //设置发送数据
         String data = JSON.toJSONString(apix, SerializerFeature.DisableCircularReferenceDetect,SerializerFeature.WriteDateUseDateFormat);
         message.setData(data);
+        message.setApplication("apibox");
         //设置接收人
         List<MessageReceiver> messageReceiverList = new ArrayList<>();
         MessageReceiver messageReceiver = new MessageReceiver();

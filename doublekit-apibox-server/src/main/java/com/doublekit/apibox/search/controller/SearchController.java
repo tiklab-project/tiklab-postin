@@ -70,10 +70,10 @@ public class SearchController {
         }
 
         //搜索事项
-        topResponse = searchService.searchForTop(HttpApi.class,keyword);
-        if(topResponse != null && topResponse.getTotalRecord() > 0){
-            allTopResponse.getResponseList().add(topResponse);
-        }
+//        topResponse = searchService.searchForTop(HttpApi.class,keyword);
+//        if(topResponse != null && topResponse.getTotalRecord() > 0){
+//            allTopResponse.getResponseList().add(topResponse);
+//        }
 
         return Result.ok(allTopResponse);
     }

@@ -87,6 +87,9 @@ public class Apix extends BaseModel{
     @ApiProperty(name="workspaceId",desc="workspaceId")
     private String workspaceId;
 
+    @ApiProperty(name="userId",desc="获取当前登录人的Id")
+    private java.lang.String userId;
+
     public java.lang.String getId() {
         return id;
     }
@@ -179,5 +182,13 @@ public class Apix extends BaseModel{
 
     public void setExecutor(User executor) {
         this.executor = executor;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }
