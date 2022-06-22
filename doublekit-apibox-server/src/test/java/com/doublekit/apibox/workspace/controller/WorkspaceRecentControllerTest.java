@@ -1,14 +1,14 @@
 package com.doublekit.apibox.workspace.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.doublekit.common.Result;
 import com.doublekit.apibox.client.mock.JMockit;
 import com.doublekit.apibox.config.TestConfig;
 import com.doublekit.apibox.workspace.model.WorkspaceRecent;
+import com.doublekit.core.Result;
 import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.FixMethodOrder;
 import org.junit.runners.MethodSorters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

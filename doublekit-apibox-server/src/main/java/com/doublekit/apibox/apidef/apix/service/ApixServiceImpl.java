@@ -15,7 +15,7 @@ import com.doublekit.apibox.sysmgr.support.MessageTemplateConstant;
 import com.doublekit.beans.BeanMapper;
 import com.doublekit.core.page.Pagination;
 import com.doublekit.core.page.PaginationBuilder;
-import com.doublekit.dis.client.DisClient;
+import com.doublekit.dss.client.DssClient;
 import com.doublekit.join.JoinTemplate;
 import com.doublekit.message.message.model.Message;
 import com.doublekit.message.message.model.MessageReceiver;
@@ -50,7 +50,7 @@ public class ApixServiceImpl implements ApixService {
     JoinTemplate joinTemplate;
 
     @Autowired
-    DisClient disClient;
+    DssClient disClient;
 
     @Autowired
     MessageService messageService;

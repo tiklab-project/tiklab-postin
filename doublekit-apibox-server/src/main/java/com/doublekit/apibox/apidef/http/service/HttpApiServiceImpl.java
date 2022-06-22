@@ -15,7 +15,7 @@ import com.doublekit.core.page.Pagination;
 import com.doublekit.core.page.PaginationBuilder;
 import com.doublekit.dal.jpa.criterial.conditionbuilder.DeleteBuilders;
 import com.doublekit.dal.jpa.criterial.condition.DeleteCondition;
-import com.doublekit.dis.client.DisClient;
+import com.doublekit.dss.client.DssClient;
 import com.doublekit.join.JoinTemplate;
 import com.doublekit.message.message.model.Message;
 import com.doublekit.message.message.model.MessageReceiver;
@@ -118,7 +118,7 @@ public class HttpApiServiceImpl implements HttpApiService {
 
 
     @Autowired
-    DisClient disClient;
+    DssClient disClient;
 
     @Autowired
     MessageService messageService;

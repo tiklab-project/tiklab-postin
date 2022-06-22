@@ -6,8 +6,8 @@ import com.doublekit.apibox.apidef.http.model.JsonResponse;
 import com.doublekit.apibox.apidef.http.model.RawResponse;
 import com.doublekit.apibox.apidef.http.model.ResponseHeader;
 import com.doublekit.apibox.apidef.http.model.ResponseResult;
-import com.doublekit.dis.annotation.IndexField;
-import com.doublekit.dis.annotation.IndexQueryField;
+import com.doublekit.dss.annotation.IndexField;
+import com.doublekit.dss.annotation.IndexQueryField;
 import com.doublekit.join.annotation.Join;
 
 import java.util.List;
