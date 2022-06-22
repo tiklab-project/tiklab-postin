@@ -31,7 +31,6 @@ public class HttpApi extends BaseModel {
             @Mapping(source = "apix.id",target = "apixId")
     })
     @JoinQuery(key = "id")
-    @IndexField
     private Apix apix;
 
     @ApiProperty(name="path",desc="路径",required = true)

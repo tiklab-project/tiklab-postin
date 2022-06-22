@@ -9,11 +9,13 @@ import com.doublekit.beans.BeanMapper;
 import com.doublekit.core.page.Pagination;
 import com.doublekit.core.page.PaginationBuilder;
 import com.doublekit.join.JoinTemplate;
+import com.doublekit.user.user.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.beans.BeanUtils;
@@ -36,6 +38,7 @@ public class DynamicServiceImpl implements DynamicService {
 
         return dynamicDao.createDynamic(dynamicEntity);
     }
+
 
     @Override
     public void updateDynamic(@NotNull @Valid Dynamic dynamic) {

@@ -152,11 +152,11 @@ public class HttpApiServiceImpl implements HttpApiService {
         requestBodyService.createRequestBody(requestBodyEx);
 
         //添加索引
-        HttpApi entity = findHttpApi(id);
-        disClient.save(entity);
-
-        //发送消息
-        sendMessageForCreate(entity);
+//        HttpApi entity = findHttpApi(id);
+//        disClient.save(entity);
+//
+//        //发送消息
+//        sendMessageForCreate(entity);
 
         return  id;
     }
@@ -172,12 +172,12 @@ public class HttpApiServiceImpl implements HttpApiService {
         Apix apix = apix(httpApi, httpApi.getId());
         apixService.updateApix(apix);
 
-        //更新索引
-        HttpApi entity = findHttpApi(apix.getId());
-        disClient.update(entity);
-
-        //发送更新消息提醒
-        sendMessageForCreate(entity);
+//        //更新索引
+//        HttpApi entity = findHttpApi(apix.getId());
+//        disClient.update(entity);
+//
+//        //发送更新消息提醒
+//        sendMessageForCreate(entity);
 
     }
 

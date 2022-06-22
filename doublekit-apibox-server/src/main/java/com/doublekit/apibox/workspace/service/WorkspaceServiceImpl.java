@@ -127,9 +127,6 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         }
 
 
-        //删除最近浏览里的表
-
-
         //删除索引
         disClient.delete(Workspace.class,id);
     }

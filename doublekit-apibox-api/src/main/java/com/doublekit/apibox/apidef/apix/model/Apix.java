@@ -10,6 +10,8 @@ import com.doublekit.beans.annotation.Mappings;
 import com.doublekit.core.BaseModel;
 import com.doublekit.dis.annotation.Index;
 import com.doublekit.dis.annotation.IndexField;
+import com.doublekit.dis.annotation.IndexId;
+import com.doublekit.dis.annotation.IndexQueryField;
 import com.doublekit.join.annotation.Join;
 import com.doublekit.join.annotation.JoinQuery;
 import com.doublekit.user.user.model.User;
@@ -25,6 +27,8 @@ import javax.validation.constraints.NotNull;
 public class Apix extends BaseModel{
 
     @ApiProperty(name="id",desc="id")
+    @IndexId
+    @IndexField
     private java.lang.String id;
 
     @NotNull
@@ -38,10 +42,13 @@ public class Apix extends BaseModel{
 
     @NotNull
     @ApiProperty(name="name",desc="name",required = true)
+    @IndexField
+    @IndexQueryField
     private java.lang.String name;
 
     @NotNull
     @ApiProperty(name="protocol_type",desc="protocol_type",required = true)
+    @IndexField
     private java.lang.String protocolType;
 
     @ApiProperty(name="createUser",desc="创建人")
