@@ -2,13 +2,10 @@ package com.doublekit.apibox.apidef.apix.service;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
-import com.doublekit.apibox.annotation.Api;
 import com.doublekit.apibox.apidef.apix.dao.ApixDao;
 import com.doublekit.apibox.apidef.apix.entity.ApixEntity;
 import com.doublekit.apibox.apidef.apix.model.Apix;
 import com.doublekit.apibox.apidef.apix.model.ApixQuery;
-import com.doublekit.apibox.apidef.http.model.HttpApi;
-import com.doublekit.apibox.category.entity.CategoryEntity;
 import com.doublekit.apibox.integration.dynamic.model.Dynamic;
 import com.doublekit.apibox.integration.dynamic.service.DynamicService;
 import com.doublekit.apibox.sysmgr.support.MessageTemplateConstant;
