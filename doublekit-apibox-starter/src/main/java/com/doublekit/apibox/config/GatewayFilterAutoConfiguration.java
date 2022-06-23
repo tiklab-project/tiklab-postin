@@ -4,7 +4,6 @@ import com.doublekit.gateway.author.config.IgnoreConfig;
 import com.doublekit.gateway.author.config.IgnoreConfigBuilder;
 import com.doublekit.gateway.router.config.RouterConfig;
 import com.doublekit.gateway.router.config.RouterConfigBuilder;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
