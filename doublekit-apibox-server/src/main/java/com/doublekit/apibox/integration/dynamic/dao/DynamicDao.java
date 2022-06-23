@@ -93,6 +93,6 @@ public class DynamicDao{
                 .orders(dynamicQuery.getOrderParams())
                 .pagination(dynamicQuery.getPageParam())
                 .get();
-        return jpaTemplate.findPage(dynamicQuery,DynamicEntity.class);
+        return jpaTemplate.findPage(queryCondition,DynamicEntity.class);
     }
 }
