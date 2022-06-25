@@ -2,6 +2,7 @@ package com.doublekit.apibox.apidef.http.service;
 
 import com.doublekit.apibox.apidef.http.dao.RequestBodyDao;
 import com.doublekit.apibox.apidef.http.entity.RequestBodyEntity;
+import com.doublekit.apibox.apidef.http.model.HttpApi;
 import com.doublekit.apibox.apidef.http.model.RequestBodyEx;
 import com.doublekit.apibox.apidef.http.model.RequestBodyExQuery;
 

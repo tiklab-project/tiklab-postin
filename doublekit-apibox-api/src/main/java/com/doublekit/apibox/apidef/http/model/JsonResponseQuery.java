@@ -24,8 +24,9 @@ public class JsonResponseQuery {
         return httpId;
     }
 
-    public void setHttpId(String httpId) {
+    public JsonResponseQuery setHttpId(String httpId) {
         this.httpId = httpId;
+        return this;
     }
 
     public List<Order> getOrderParams() {

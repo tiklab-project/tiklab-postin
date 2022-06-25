@@ -22,8 +22,14 @@ public class ApixQuery {
     @ApiProperty(name ="workspaceId",desc = "空间id，精确匹配")
     private String workspaceId;
 
+    @ApiProperty(name ="apiUid",desc = "apiUid，精确匹配")
+    private String apiUid;
+
+    @ApiProperty(name ="version",desc = "version，精确匹配")
+    private String version;
+
     @ApiProperty(name ="orderParams",desc = "排序参数")
-    private List<Order> orderParams = OrderBuilders.instance().asc("id").get();
+    private List<Order> orderParams = OrderBuilders.instance().desc("createTime").get();
 
     @ApiProperty(name ="pageParam",desc = "分页参数")
     private Page pageParam = new Page();
@@ -75,5 +81,22 @@ public class ApixQuery {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getApiUid() {
+        return apiUid;
+    }
+
+    public ApixQuery setApiUid(String apiUid) {
+        this.apiUid = apiUid;
+        return this;
+    }
+
+    public String getVersion() {
+        return version;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
     }
 }

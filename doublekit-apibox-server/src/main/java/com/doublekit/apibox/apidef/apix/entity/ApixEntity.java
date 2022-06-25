@@ -12,13 +12,13 @@ public class ApixEntity implements Serializable {
     @Column(name = "id",length = 40)
     private String id;
 
-    @Column(name = "name",length = 64,notNull = true)
+    @Column(name = "name",length = 64)
     private String name;
 
     @Column(name = "category_id",length = 40)
     private String categoryId;
 
-    @Column(name = "protocol_type",length = 32,notNull = true)
+    @Column(name = "protocol_type",length = 32)
     private String protocolType;
 
     @Column(name = "create_user",length = 30 )
@@ -44,6 +44,13 @@ public class ApixEntity implements Serializable {
 
     @Column(name = "workspace_id",length = 4)
     private String workspaceId;
+
+    @Column(name = "version",length = 32)
+    private String version;
+
+    @Column(name = "api_uid",length = 32)
+    private String apiUid;
+
 
     public String getId() {
         return id;
@@ -139,5 +146,21 @@ public class ApixEntity implements Serializable {
 
     public void setExecutor(String executor) {
         this.executor = executor;
+    }
+
+    public String getVersion() {
+        return version;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
+    }
+
+    public String getApiUid() {
+        return apiUid;
+    }
+
+    public void setApiUid(String apiUid) {
+        this.apiUid = apiUid;
     }
 }

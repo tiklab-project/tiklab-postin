@@ -24,8 +24,9 @@ public class ResponseHeaderQuery {
         return httpId;
     }
 
-    public void setHttpId(String httpId) {
+    public ResponseHeaderQuery setHttpId(String httpId) {
         this.httpId = httpId;
+        return this;
     }
 
     public List<Order> getOrderParams() {

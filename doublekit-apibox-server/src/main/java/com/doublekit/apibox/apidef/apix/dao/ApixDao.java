@@ -79,6 +79,8 @@ public class ApixDao {
         QueryCondition queryCondition = QueryBuilders.createQuery(ApixEntity.class)
                 .eq("categoryId", apixQuery.getCategoryId())
                 .eq("protocolType", apixQuery.getProtocolType())
+                .eq("version", apixQuery.getVersion())
+                .eq("apiUid", apixQuery.getApiUid())
                 .like("name", apixQuery.getName())
                 .orders(apixQuery.getOrderParams())
                 .get();
@@ -89,6 +91,8 @@ public class ApixDao {
         QueryCondition queryCondition = QueryBuilders.createQuery(ApixEntity.class)
                 .eq("categoryId", apixQuery.getCategoryId())
                 .eq("protocolType", apixQuery.getProtocolType())
+                .eq("version", apixQuery.getVersion())
+                .eq("apiUid", apixQuery.getApiUid())
                 .like("name", apixQuery.getName())
                 .pagination(apixQuery.getPageParam())
                 .orders(apixQuery.getOrderParams())

@@ -11,7 +11,6 @@ import java.io.Serializable;
 public class HttpApiEntity implements Serializable {
 
     @Id
-    @GeneratorValue
     @Column(name = "id",length = 40)
     private String id;
 

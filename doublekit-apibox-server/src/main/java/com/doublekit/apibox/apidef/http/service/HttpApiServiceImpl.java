@@ -151,13 +151,6 @@ public class HttpApiServiceImpl implements HttpApiService {
         requestBodyEx.setBodyType("none");
         requestBodyService.createRequestBody(requestBodyEx);
 
-        //添加索引
-//        HttpApi entity = findHttpApi(id);
-//        disClient.save(entity);
-//
-//        //发送消息
-//        sendMessageForCreate(entity);
-
         return  id;
     }
 
@@ -171,13 +164,6 @@ public class HttpApiServiceImpl implements HttpApiService {
 
         Apix apix = apix(httpApi, httpApi.getId());
         apixService.updateApix(apix);
-
-//        //更新索引
-//        HttpApi entity = findHttpApi(apix.getId());
-//        disClient.update(entity);
-//
-//        //发送更新消息提醒
-//        sendMessageForCreate(entity);
 
     }
 
@@ -194,7 +180,8 @@ public class HttpApiServiceImpl implements HttpApiService {
         apix.setProtocolType(httpApi.getApix().getProtocolType());
         apix.setExecutor(httpApi.getApix().getExecutor());
         apix.setStatus(httpApi.getApix().getStatus());
-        apix.setUserId(httpApi.getApix().getUserId());
+        apix.setApiUid(httpApi.getApix().getApiUid());
+        apix.setVersion(httpApi.getApix().getVersion());
 
         return apix;
     }
@@ -424,8 +411,24 @@ public class HttpApiServiceImpl implements HttpApiService {
 
         if(CollectionUtils.isNotEmpty(apixList)){
             for (Apix apix : apixList) {
-                List<HttpApi> httpApiList = findHttpApiList(new HttpApiQuery().setApixId(apix.getId()));
-                if (CollectionUtils.isNotEmpty(httpApiList)) {
+                //去除带版本的api，因为跟随初始的api，没有设置apiUid的就是初始api
+                if(!ObjectUtils.isEmpty(apix.getApiUid())){
+                    continue;
+                }
+
+                //通过初始api，查询下面所有版本，拿到最新版本的api
+                List<Apix> versionList = apixService.findApixList(new ApixQuery().setApiUid(apix.getId()));
+                if(CollectionUtils.isNotEmpty(versionList)){
+                    Apix recentApi = versionList.get(0);
+
+                    //通过最新版本api的id，获取httpApi的值
+                    List<HttpApi> httpApiList = findHttpApiList(new HttpApiQuery().setApixId(recentApi.getId()));
+                    if (CollectionUtils.isNotEmpty(httpApiList)) {
+                        arrayList.addAll(httpApiList);
+                    }
+                }else {
+                    //如果没有版本，获取初始api中的httpApi
+                    List<HttpApi> httpApiList = findHttpApiList(new HttpApiQuery().setApixId(apix.getId()));
                     arrayList.addAll(httpApiList);
                 }
             }
@@ -447,28 +450,6 @@ public class HttpApiServiceImpl implements HttpApiService {
         joinTemplate.joinQuery(httpApiList);
 
         return PaginationBuilder.build(pagination, httpApiList);
-    }
-
-    /**
-     * 发送消息提醒
-     * @param apix
-     */
-    private void sendMessageForCreate(HttpApi apix){
-        Message message = new Message();
-        //设置模板ID
-        message.setMessageTemplate(new MessageTemplate().setId(MessageTemplateConstant.TEMPLATE_ID_API_UPDATE));
-        //设置发送数据
-        String data = JSON.toJSONString(apix, SerializerFeature.DisableCircularReferenceDetect,SerializerFeature.WriteDateUseDateFormat);
-        message.setData(data);
-        message.setApplication("apibox");
-        //设置接收人
-        List<MessageReceiver> messageReceiverList = new ArrayList<>();
-        MessageReceiver messageReceiver = new MessageReceiver();
-        messageReceiver.setReceiver(apix.getApix().getCreateUser().getId());//去除message->user依賴 zhangzh
-        messageReceiverList.add(messageReceiver);
-        message.setMessageReceiverList(messageReceiverList);
-
-        messageService.sendMessage(message);
     }
 
 }

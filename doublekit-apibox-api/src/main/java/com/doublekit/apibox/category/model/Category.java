@@ -41,9 +41,6 @@ public class Category extends BaseModel {
     @JoinQuery(key = "id")
     private Category parentCategory;
 
-    @ApiProperty(name="sort",desc="排序")
-    private java.lang.Integer sort;
-
     @ApiProperty(name="children",desc="下级分类列表")
     private List<Category> children = new ArrayList<>();
 
@@ -80,14 +77,6 @@ public class Category extends BaseModel {
 
     public void setParentCategory(Category parentCategory) {
         this.parentCategory = parentCategory;
-    }
-
-    public Integer getSort() {
-        return sort;
-    }
-
-    public void setSort(Integer sort) {
-        this.sort = sort;
     }
 
     public List<Category> getChildren() {

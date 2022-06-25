@@ -3,6 +3,7 @@ package com.doublekit.apibox.category.service;
 import com.doublekit.apibox.apidef.apix.model.Apix;
 import com.doublekit.apibox.apidef.apix.model.ApixQuery;
 import com.doublekit.apibox.apidef.apix.service.ApixService;
+import com.doublekit.apibox.apidef.http.model.HttpApi;
 import com.doublekit.apibox.category.dao.CategoryDao;
 import com.doublekit.apibox.category.entity.CategoryEntity;
 import com.doublekit.apibox.category.model.Category;
@@ -18,6 +19,7 @@ import com.doublekit.utils.context.LoginContext;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
 import javax.validation.Valid;
@@ -197,7 +199,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public List<Category> likeFindCategoryListTree(CategoryQuery categoryQuery){
         List<Category> categories=null;
-        if (StringUtils.isEmpty(categoryQuery.getName())){
+        if (ObjectUtils.isEmpty(categoryQuery.getName())){
             categories =  findCategoryListTree(categoryQuery);
         } else {
             ApixQuery apixQuery = new ApixQuery();
@@ -300,10 +302,26 @@ public class CategoryServiceImpl implements CategoryService {
      * @return
      */
     private List<Category> findHttpApiInCategoryList(List<Category> categoryList, List<Apix> apixList) {
+        ArrayList<Apix> arrayList = new ArrayList<>();
+        for (Apix apix : apixList) {
+            //去除带版本的api，因为跟随初始的api，没有设置apiUid的就是初始api
+            if(!ObjectUtils.isEmpty(apix.getApiUid())){
+                continue;
+            }
+            //通过初始api，查询下面所有版本，拿到最新版本的api
+            List<Apix> versionList = apixService.findApixList(new ApixQuery().setApiUid(apix.getId()));
+            if(CollectionUtils.isNotEmpty(versionList)){
+                Apix recentApi = versionList.get(0);
+                arrayList.add(recentApi);
+            }else {
+                arrayList.add(apix);
+            }
+        }
 
         List<Category> collect = categoryList.stream().map(category -> {
 
-            List<Apix> apixes = apixList.stream().filter(item -> category.getId().equals(item.getCategory().getId())).collect(Collectors.toList());
+            List<Apix> apixes = arrayList.stream().filter(item -> category.getId().equals(item.getCategory().getId())).collect(Collectors.toList());
+
             category.setCategoryMethod(apixes);
 
             return category;
@@ -333,9 +351,26 @@ public class CategoryServiceImpl implements CategoryService {
 
         List<Category> categoryList = matchCategoryList.stream().map(category -> {
 
+            ArrayList<Apix> arrayList = new ArrayList<>();
             List<Apix> apixList = apixService.findApixList(new ApixQuery().setCategoryId(category.getId()));
+            for (Apix apix : apixList) {
+                //去除带版本的api，因为跟随初始的api，没有设置apiUid的就是初始api
+                if(!ObjectUtils.isEmpty(apix.getApiUid())){
+                    continue;
+                }
 
-            category.setCategoryMethod(apixList);
+                //通过初始api，查询下面所有版本，拿到最新版本的api
+                List<Apix> versionList = apixService.findApixList(new ApixQuery().setApiUid(apix.getId()));
+                if(CollectionUtils.isNotEmpty(versionList)){
+                    Apix recentApi = versionList.get(0);
+                    arrayList.add(recentApi);
+                }else {
+                    arrayList.add(apix);
+                }
+
+            }
+
+            category.setCategoryMethod(arrayList);
 
             return category;
         }).collect(Collectors.toList());

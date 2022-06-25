@@ -58,8 +58,8 @@ public class ApixServiceImpl implements ApixService {
 
 
         //初始化项目成员
-//        String userId = LoginContext.getLoginId();
-        apixEntity.setCreateUser(apix.getUserId());
+        String userId = LoginContext.getLoginId();
+        apixEntity.setCreateUser(userId);
 
         apixEntity.setCreateTime(new Timestamp(System.currentTimeMillis()));
 
@@ -75,7 +75,7 @@ public class ApixServiceImpl implements ApixService {
        //动态
         Dynamic dynamic = new Dynamic();
         dynamic.setWorkspaceId(apix.getWorkspaceId());
-        dynamic.setUser(new User().setId(apix.getUserId()));
+        dynamic.setUser(new User().setId(userId));
         dynamic.setName(apix.getName());
         dynamic.setDynamicType("add");
         dynamic.setModel("api");
@@ -92,8 +92,8 @@ public class ApixServiceImpl implements ApixService {
 
         apixEntity.setUpdateTime(new Timestamp(System.currentTimeMillis()));
 
-//        String userId = LoginContext.getLoginId();
-        apixEntity.setUpdateUser(apix.getUserId());
+        String userId = LoginContext.getLoginId();
+        apixEntity.setUpdateUser(userId);
 
         apixDao.updateApix(apixEntity);
 

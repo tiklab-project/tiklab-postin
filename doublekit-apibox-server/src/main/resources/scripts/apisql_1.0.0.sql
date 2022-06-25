@@ -48,10 +48,10 @@ CREATE TABLE apibox_environment(
 CREATE TABLE apibox_apix(
         id VARCHAR(40) PRIMARY KEY,
         category_id VARCHAR(40),
-        name VARCHAR(64) NOT NULL,
-        protocol_type VARCHAR(32) NOT NULL,
-        request_type VARCHAR(32) NOT NULL,
-        path VARCHAR(256) NOT NULL,
+        name VARCHAR(64),
+        protocol_type VARCHAR(32) ,
+        request_type VARCHAR(32),
+        path VARCHAR(256),
         create_user VARCHAR(30),
         update_user VARCHAR(30),
         create_time timestamp,
@@ -86,7 +86,7 @@ CREATE TABLE apibox_query_param(
         sort int
 );
 CREATE TABLE apibox_request_body(
-        id VARCHAR(40) PRIMARY KEY,
+        id VARCHAR(40),
         http_id VARCHAR(40) NOT NULL,
         body_type VARCHAR(32) NOT NULL
 );

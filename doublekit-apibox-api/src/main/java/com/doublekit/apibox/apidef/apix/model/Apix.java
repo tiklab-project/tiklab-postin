@@ -31,7 +31,7 @@ public class Apix extends BaseModel{
     @IndexField
     private java.lang.String id;
 
-    @NotNull
+
     @ApiProperty(name="category",desc="所属分类",eg="@selectOne",required = true)
     @Mappings({
             @Mapping(source = "category.id",target = "categoryId")
@@ -40,13 +40,13 @@ public class Apix extends BaseModel{
     @IndexField
     private Category category;
 
-    @NotNull
+
     @ApiProperty(name="name",desc="name",required = true)
     @IndexField
     @IndexQueryField
     private java.lang.String name;
 
-    @NotNull
+
     @ApiProperty(name="protocol_type",desc="protocol_type",required = true)
     @IndexField
     private java.lang.String protocolType;
@@ -94,8 +94,13 @@ public class Apix extends BaseModel{
     @ApiProperty(name="workspaceId",desc="workspaceId")
     private String workspaceId;
 
-    @ApiProperty(name="userId",desc="获取当前登录人的Id")
-    private java.lang.String userId;
+    @ApiProperty(name="version",desc="版本")
+    private java.lang.String version;
+
+    @ApiProperty(name="apiUid",desc="绑定api的id")
+    private java.lang.String apiUid;
+
+
 
     public java.lang.String getId() {
         return id;
@@ -191,11 +196,19 @@ public class Apix extends BaseModel{
         this.executor = executor;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getVersion() {
+        return version;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setVersion(String version) {
+        this.version = version;
+    }
+
+    public String getApiUid() {
+        return apiUid;
+    }
+
+    public void setApiUid(String apiUid) {
+        this.apiUid = apiUid;
     }
 }
