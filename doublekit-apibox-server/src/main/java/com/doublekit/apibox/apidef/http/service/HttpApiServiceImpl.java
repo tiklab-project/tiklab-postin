@@ -141,7 +141,8 @@ public class HttpApiServiceImpl implements HttpApiService {
         httpApiDao.updateHttpApi(httpApiEntity);
 
         //创建apix
-        Apix apix = apix(httpApi, id);
+        Apix apix = httpApi.getApix();
+        apix.setId(id);
         apixService.createApix(apix);
 
         //初始化请求体类型
@@ -159,34 +160,13 @@ public class HttpApiServiceImpl implements HttpApiService {
     public void updateHttpApi(@NotNull @Valid HttpApi httpApi) {
         HttpApiEntity httpApiEntity = BeanMapper.map(httpApi, HttpApiEntity.class);
 
+
         httpApiEntity.setApixId(httpApi.getId());
         httpApiDao.updateHttpApi(httpApiEntity);
 
-        Apix apix = apix(httpApi, httpApi.getId());
-        apixService.updateApix(apix);
+        apixService.updateApix(httpApi.getApix());
 
     }
-
-    public Apix apix(HttpApi httpApi,String id){
-        Apix apix = new Apix();
-
-        Category category = new Category();
-        category.setId(httpApi.getApix().getCategory().getId());
-        apix.setWorkspaceId(httpApi.getApix().getWorkspaceId());
-        apix.setCategory(category);
-        apix.setId(id);
-        apix.setName(httpApi.getApix().getName());
-        apix.setDesc(httpApi.getApix().getDesc());
-        apix.setProtocolType(httpApi.getApix().getProtocolType());
-        apix.setExecutor(httpApi.getApix().getExecutor());
-        apix.setStatus(httpApi.getApix().getStatus());
-        apix.setApiUid(httpApi.getApix().getApiUid());
-        apix.setVersion(httpApi.getApix().getVersion());
-
-        return apix;
-    }
-
-
 
     @Override
     public void deleteHttpApi(@NotNull String id) {
