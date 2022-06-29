@@ -35,7 +35,7 @@ public class RequestInstance extends BaseModel {
     @ApiProperty(name="headers",desc="请求头")
     private java.lang.String headers;
 
-    @ApiProperty(name="mediaType",desc="请求参数")
+    @ApiProperty(name="mediaType",desc="类型")
     private java.lang.String mediaType;
 
     @ApiProperty(name="body",desc="请求参数")

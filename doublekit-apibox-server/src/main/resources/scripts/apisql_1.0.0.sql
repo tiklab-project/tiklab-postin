@@ -123,18 +123,18 @@ CREATE TABLE apibox_json_param(
 
 );
 CREATE TABLE apibox_raw_param(
-        id VARCHAR(40) PRIMARY KEY,
+        id VARCHAR(40) ,
         http_id VARCHAR(40) NOT NULL,
         raw VARCHAR(2048) NOT NULL,
         type VARCHAR(32) NOT NULL
 );
 CREATE TABLE apibox_pre_script(
-        id VARCHAR(40) PRIMARY KEY,
+        id VARCHAR(40) ,
         http_id VARCHAR(40) NOT NULL,
         script VARCHAR(2048) NOT NULL
 );
 CREATE TABLE apibox_after_script(
-        id VARCHAR(40) PRIMARY KEY,
+        id VARCHAR(40) ,
         http_id VARCHAR(40) NOT NULL,
         script VARCHAR(2048) NOT NULL
 );
