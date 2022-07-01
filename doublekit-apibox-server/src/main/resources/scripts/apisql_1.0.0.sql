@@ -59,7 +59,9 @@ CREATE TABLE apibox_apix(
         status_id VARCHAR(32),
         executor_id VARCHAR(32),
         description VARCHAR(256),
-        workspace_id VARCHAR(32)
+        workspace_id VARCHAR(32),
+        version VARCHAR(32),
+        api_uid VARCHAR(32)
 );
 
 CREATE TABLE apibox_api_http(
