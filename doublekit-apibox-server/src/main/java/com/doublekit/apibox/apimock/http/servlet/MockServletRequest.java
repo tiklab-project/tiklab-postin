@@ -1,7 +1,10 @@
 package com.doublekit.apibox.apimock.http.servlet;
 
 import com.alibaba.fastjson.JSONPath;
+import com.doublekit.apibox.apidef.apix.model.Apix;
+import com.doublekit.apibox.apidef.apix.model.ApixQuery;
 import com.doublekit.apibox.apidef.apix.service.ApixService;
+import com.doublekit.apibox.apidef.http.model.HttpApi;
 import com.doublekit.apibox.apidef.http.service.HttpApiService;
 import com.doublekit.apibox.apimock.http.model.*;
 import com.doublekit.apibox.apimock.http.service.*;
@@ -25,6 +28,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 @Component
@@ -111,28 +115,28 @@ public class MockServletRequest {
         String httpApiId = null;
         for (Category category:categoryList){
 
-
-
-
             //查询所有定义
-//            List<Apix> apixList = apixService.findApixList(new ApixQuery().setCategoryId(category.getId()));
-//            if(CollectionUtils.isEmpty(apixList)){
-//                continue;
-//            }
-//
-//            //获取所有http定义
-//            List<Apix> httpList = apixList.stream().filter(a -> protocolType.equals(a.getProtocolType())).collect(Collectors.toList());
-//            if(CollectionUtils.isEmpty(httpList)){
-//                continue;
-//            }
-//
-//            //通过path找到相应的定义id
-//            for(Apix apix : httpList){
-//                if(path.equals(apix.getPath())){
-//                    //apix 与 定义的id相同
-//                    httpApiId=apix.getId();
-//                }
-//            }
+            List<Apix> apixList = apixService.findApixList(new ApixQuery().setCategoryId(category.getId()));
+            if(CollectionUtils.isEmpty(apixList)){
+                continue;
+            }
+
+            //获取所有http定义
+            List<Apix> httpList = apixList.stream().filter(a -> protocolType.equals(a.getProtocolType())).collect(Collectors.toList());
+            if(CollectionUtils.isEmpty(httpList)){
+                continue;
+            }
+
+            //通过path找到相应的定义id
+            for(Apix apix : httpList){
+                //通过apix 查询对应的httpApi，用于获取path
+                HttpApi httpApi = httpApiService.findHttpApi(apix.getId());
+
+                if(path.equals(httpApi.getPath())){
+                    //apix 与 定义的id相同
+                    httpApiId=apix.getId();
+                }
+            }
 
         }
         return httpApiId;
@@ -315,9 +319,11 @@ public class MockServletRequest {
 
                 Object jsonDataValue =  JSONPath.read(jsonData,"$."+jsonKey);
 
-                if(jsonValue.equals(jsonDataValue)){
-                    bodyStatus=true;
+                if(!jsonValue.equals(jsonDataValue)){
+                    break;
                 }
+
+                bodyStatus=true;
             }
         }else {
             bodyStatus=true;
