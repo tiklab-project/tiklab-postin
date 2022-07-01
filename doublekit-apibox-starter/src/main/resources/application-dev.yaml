@@ -67,7 +67,7 @@ plugin:
 
 #licences config
 licences:
-  path: ${APP_HOME}/licences
+  path: ${PROJECT_HOME}/licences
 
 
 application: apibox
