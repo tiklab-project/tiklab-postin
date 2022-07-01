@@ -13,10 +13,8 @@ import com.doublekit.core.page.Pagination;
 import com.doublekit.core.page.PaginationBuilder;
 import com.doublekit.dal.jpa.criterial.condition.DeleteCondition;
 import com.doublekit.dal.jpa.criterial.conditionbuilder.DeleteBuilders;
-import com.doublekit.eam.common.EamTicket;
-import com.doublekit.eam.common.EamTicketContext;
-import com.doublekit.eam.common.EamTicketHolder;
 import com.doublekit.join.JoinTemplate;
+import com.doublekit.utils.context.LoginContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -47,8 +45,7 @@ public class DataStructureServiceImpl implements DataStructureService {
     public String createDataStructure(@NotNull @Valid DataStructure dataStructure) {
         DataStructureEntity dataStructureEntity = BeanMapper.map(dataStructure, DataStructureEntity.class);
         //添加创建人
-        String creatUserId = findCreatUser();
-        dataStructureEntity.setCreateUser(creatUserId);
+        dataStructureEntity.setCreateUser(LoginContext.getLoginId());
         dataStructureEntity.setCreateTime( new Date());
 
         return dataStructureDao.createDataStructure(dataStructureEntity);
@@ -134,13 +131,4 @@ public class DataStructureServiceImpl implements DataStructureService {
         return PaginationBuilder.build(pagination,dataStructureList);
     }
 
-    /**
-     * 查询用户（创建人）id
-     * @param
-     */
-    public String findCreatUser(){
-        String ticketId = EamTicketHolder.get();
-        EamTicket ticket = EamTicketContext.get(ticketId);
-        return ticket.getUserId();
-    }
 }
