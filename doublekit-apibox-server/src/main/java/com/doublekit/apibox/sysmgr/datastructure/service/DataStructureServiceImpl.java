@@ -13,9 +13,9 @@ import com.doublekit.core.page.Pagination;
 import com.doublekit.core.page.PaginationBuilder;
 import com.doublekit.dal.jpa.criterial.condition.DeleteCondition;
 import com.doublekit.dal.jpa.criterial.conditionbuilder.DeleteBuilders;
-import com.doublekit.eam.common.Ticket;
-import com.doublekit.eam.common.TicketContext;
-import com.doublekit.eam.common.TicketHolder;
+import com.doublekit.eam.common.EamTicket;
+import com.doublekit.eam.common.EamTicketContext;
+import com.doublekit.eam.common.EamTicketHolder;
 import com.doublekit.join.JoinTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -139,8 +139,8 @@ public class DataStructureServiceImpl implements DataStructureService {
      * @param
      */
     public String findCreatUser(){
-        String ticketId = TicketHolder.get();
-        Ticket ticket = TicketContext.get(ticketId);
+        String ticketId = EamTicketHolder.get();
+        EamTicket ticket = EamTicketContext.get(ticketId);
         return ticket.getUserId();
     }
 }
