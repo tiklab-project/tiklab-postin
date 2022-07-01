@@ -10,6 +10,7 @@ import com.doublekit.core.page.PaginationBuilder;
 import com.doublekit.dal.jpa.criterial.condition.DeleteCondition;
 import com.doublekit.dal.jpa.criterial.conditionbuilder.DeleteBuilders;
 import com.doublekit.join.JoinTemplate;
+import com.doublekit.utils.context.LoginContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,6 +46,7 @@ public class HttpInstanceServiceImpl implements TestInstanceService {
     public String createTestInstance(@NotNull @Valid HttpInstance httpInstance) {
         HttpInstanceEntity httpInstanceEntity = BeanMapper.map(httpInstance, HttpInstanceEntity.class);
         httpInstanceEntity.setCreateTime(new Timestamp(System.currentTimeMillis()));
+        httpInstanceEntity.setUserId(LoginContext.getLoginId());
         return httpInstanceDao.createTestInstance(httpInstanceEntity);
     }
 
