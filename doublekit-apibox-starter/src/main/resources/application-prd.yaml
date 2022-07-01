@@ -3,7 +3,7 @@ app:
   name: doublekit-apibox
 spring:
   profiles:
-    active: prod
+    active: prd
 
 PROJECT_HOME: ${user.home}/doublekit/${app.name}
 
