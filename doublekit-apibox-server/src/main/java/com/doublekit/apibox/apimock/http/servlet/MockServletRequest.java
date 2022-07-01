@@ -320,6 +320,7 @@ public class MockServletRequest {
                 Object jsonDataValue =  JSONPath.read(jsonData,"$."+jsonKey);
 
                 if(!jsonValue.equals(jsonDataValue)){
+                    bodyStatus = false;
                     break;
                 }
 

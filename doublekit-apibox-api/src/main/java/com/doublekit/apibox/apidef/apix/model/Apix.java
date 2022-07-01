@@ -31,7 +31,6 @@ public class Apix extends BaseModel{
     @IndexField
     private java.lang.String id;
 
-
     @ApiProperty(name="category",desc="所属分类",eg="@selectOne",required = true)
     @Mappings({
             @Mapping(source = "category.id",target = "categoryId")
@@ -40,12 +39,10 @@ public class Apix extends BaseModel{
     @IndexField
     private Category category;
 
-
     @ApiProperty(name="name",desc="name",required = true)
     @IndexField
     @IndexQueryField
     private java.lang.String name;
-
 
     @ApiProperty(name="protocol_type",desc="protocol_type",required = true)
     @IndexField
