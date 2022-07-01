@@ -3,7 +3,7 @@ app:
   name: doublekit-apibox
 spring:
   profiles:
-    active: test
+    active: prod
 
 PROJECT_HOME: ${user.home}/doublekit/${app.name}
 
@@ -14,7 +14,7 @@ server:
 #dal config
 jdbc:
   driverClassName: com.mysql.jdbc.Driver
-  url: jdbc:mysql://172.11.1.10:3306/darth_apibox?characterEncoding=utf8&useSSL=false&serverTimezone=UTC
+  url: jdbc:mysql://172.12.1.16:3306/darth_apibox?characterEncoding=utf8&useSSL=false&serverTimezone=UTC
   username: root
   password: darth2020
 
@@ -55,7 +55,7 @@ dss:
 
 #integration config
 homes:
-  address: http://172.11.1.11:8080
+  address: http://172.19.6.134:8001
 
 #plugin config
 plugin:
