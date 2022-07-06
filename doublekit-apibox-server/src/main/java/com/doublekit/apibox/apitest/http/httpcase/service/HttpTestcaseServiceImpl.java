@@ -63,17 +63,27 @@ public class HttpTestcaseServiceImpl implements HttpTestcaseService {
     public String createTestcase(@NotNull @Valid HttpTestcase httpTestcase) {
         HttpTestcaseEntity httpTestcaseEntity = BeanMapper.map(httpTestcase, HttpTestcaseEntity.class);
 
-        return httpTestcaseDao.createTestcase(httpTestcaseEntity);
+        String id = httpTestcaseDao.createTestcase(httpTestcaseEntity);
+
+        //初始化body
+        RequestBodyCase requestBodyCase = httpTestcase.getRequestBodyCase();
+        if(requestBodyCase != null){
+            requestBodyCase.setId(id);
+            requestBodyCase.setHttpCase(new HttpTestcase().setId(id));
+            requestBodyCaseService.createRequestBodyCase(requestBodyCase);
+        }
+
+        return id;
     }
 
     @Override
     public String createTestcaseWithNest(HttpTestcase httpTestcase) {
         //创建主表
-        String id = createTestcase(httpTestcase);
+        HttpTestcaseEntity httpTestcaseEntity = BeanMapper.map(httpTestcase, HttpTestcaseEntity.class);
+        String id = httpTestcaseDao.createTestcase(httpTestcaseEntity);
         httpTestcase.setId(id);
 
         //级联创建从表、子表
-
         //创建请求头
         List<RequestHeaderCase> requestHeaderCaseList = httpTestcase.getRequestHeaderCaseList();
         if(requestHeaderCaseList != null){

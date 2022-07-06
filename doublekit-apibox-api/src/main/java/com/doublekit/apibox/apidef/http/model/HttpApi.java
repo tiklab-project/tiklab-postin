@@ -36,24 +36,8 @@ public class HttpApi extends BaseModel {
     @ApiProperty(name="path",desc="路径",required = true)
     private String path;
 
-    @ApiProperty(name="requestType",desc="路径",required = true)
-    private String requestType;
-
-    public String getPath() {
-        return path;
-    }
-
-    public void setPath(String path) {
-        this.path = path;
-    }
-
-    public String getRequestType() {
-        return requestType;
-    }
-
-    public void setRequestType(String requestType) {
-        this.requestType = requestType;
-    }
+    @ApiProperty(name="methodType",desc="路径",required = true)
+    private String methodType;
 
     @ApiProperty(name = "headerList")
     private List<RequestHeader> requestHeaderList;
@@ -82,6 +66,21 @@ public class HttpApi extends BaseModel {
     @ApiProperty(name = "afterScript")
     private AfterScript afterScript;
 
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    public String getMethodType() {
+        return methodType;
+    }
+
+    public void setMethodType(String methodType) {
+        this.methodType = methodType;
+    }
 
     public String getId() {
         return id;

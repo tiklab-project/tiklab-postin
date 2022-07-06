@@ -20,8 +20,8 @@ public class HttpApiEntity implements Serializable {
     @Column(name = "path",length = 256,notNull = true)
     private String path;
 
-    @Column(name = "request_type",length = 32,notNull = true)
-    private String requestType;
+    @Column(name = "method_type",length = 32,notNull = true)
+    private String methodType;
 
 
     public String getId() {
@@ -48,11 +48,11 @@ public class HttpApiEntity implements Serializable {
         this.path = path;
     }
 
-    public String getRequestType() {
-        return requestType;
+    public String getMethodType() {
+        return methodType;
     }
 
-    public void setRequestType(String requestType) {
-        this.requestType = requestType;
+    public void setMethodType(String methodType) {
+        this.methodType = methodType;
     }
 }
