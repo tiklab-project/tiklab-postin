@@ -21,7 +21,7 @@ public class MockEntity implements Serializable {
     @Column(name = "http_id",length = 32,notNull = true)
     private String httpId;
 
-    @Column(name = "name",length = 64,notNull = true)
+    @Column(name = "name",length = 64)
     private String name;
 
     @Column(name = "create_user",length = 32 )
@@ -30,7 +30,7 @@ public class MockEntity implements Serializable {
     @Column(name = "create_time",length = 4)
     private Date createTime;
 
-    @Column(name = "enable",length = 2,notNull = true)
+    @Column(name = "enable",length = 2)
     private Integer enable;
 
     @Column(name = "description",length = 128)

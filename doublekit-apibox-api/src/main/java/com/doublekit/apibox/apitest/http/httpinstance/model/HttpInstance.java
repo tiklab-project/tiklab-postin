@@ -35,8 +35,8 @@ public class HttpInstance extends BaseModel {
     @JoinQuery(key = "id")
     private HttpTestcase httpCase;
 
-    @NotNull
-    @ApiProperty(name="user",desc="所属人",required = true)
+
+    @ApiProperty(name="user",desc="所属人")
     @Mappings({
             @Mapping(source = "user.id",target = "userId")
     })
@@ -59,6 +59,9 @@ public class HttpInstance extends BaseModel {
     @ApiProperty(name="size",desc="大小")
     private java.lang.Integer size;
 
+    @ApiProperty(name="errorMessage",desc="错误信息")
+    private String errorMessage;
+
     @ApiProperty(name="requestInstance",desc="实例-请求部分")
     private RequestInstance requestInstance;
 
@@ -67,6 +70,8 @@ public class HttpInstance extends BaseModel {
 
     @ApiProperty(name="assertInstanceList",desc="实例-断言列表")
     private List<AssertInstance> assertInstanceList = new ArrayList<>();
+
+
 
     public String getId() {
         return id;
@@ -123,6 +128,14 @@ public class HttpInstance extends BaseModel {
 
     public void setSize(Integer size) {
         this.size = size;
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
     }
 
     public RequestInstance getRequestInstance() {

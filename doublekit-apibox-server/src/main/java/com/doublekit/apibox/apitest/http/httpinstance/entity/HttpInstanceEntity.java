@@ -36,6 +36,10 @@ public class HttpInstanceEntity implements Serializable {
     @Column(name = "size")
     private Integer size;
 
+    @Column(name = "error_message")
+    private String errorMessage;
+
+
     @Column(name = "create_time",length = 4)
     private Timestamp createTime;
 
@@ -77,6 +81,14 @@ public class HttpInstanceEntity implements Serializable {
 
     public void setResult(Integer result) {
         this.result = result;
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
     }
 
     public Timestamp getCreateTime() {

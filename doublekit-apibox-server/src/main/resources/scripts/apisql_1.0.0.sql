@@ -252,10 +252,11 @@ CREATE TABLE apibox_test_instance(
         id VARCHAR(40) PRIMARY KEY,
         testcase_id VARCHAR(40) ,
         testNo int NOT NULL,
-        statusCode int NOT NULL,
+        statusCode int ,
         result int NOT NULL,
         create_time timestamp,
-        request_type VARCHAR(32)
+        request_type VARCHAR(32),
+        error_message VARCHAR(2048)
 );
 CREATE TABLE apibox_request_instance(
         id VARCHAR(32) PRIMARY KEY,
@@ -298,11 +299,11 @@ CREATE TABLE apibox_binary_param_testcase(
 CREATE TABLE apibox_mock(
         id VARCHAR(40) PRIMARY KEY,
         http_id VARCHAR(40) NOT NULL,
-        name VARCHAR(64) NOT NULL,
+        name VARCHAR(64),
         description VARCHAR(128),
         create_user VARCHAR(32),
         create_time timestamp,
-        enable int NOT NULL
+        enable int
 );
 CREATE TABLE apibox_request_header_mock(
         id VARCHAR(32) PRIMARY KEY,

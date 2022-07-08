@@ -32,7 +32,7 @@ public class Mock extends BaseModel {
     private HttpApi http;
 
     @NotNull
-    @ApiProperty(name="name",desc="mock名称",required = true)
+    @ApiProperty(name="name",desc="mock名称")
     private java.lang.String name;
 
     @ApiProperty(name="desc",desc="描述")
