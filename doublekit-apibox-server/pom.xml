@@ -86,7 +86,6 @@
             <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
-
         <!--hutool 快速开发工具包-->
         <dependency>
             <groupId>cn.hutool</groupId>
