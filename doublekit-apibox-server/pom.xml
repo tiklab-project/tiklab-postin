@@ -51,18 +51,7 @@
             <groupId>com.doublekit</groupId>
             <artifactId>doublekit-dal-spring-boot-starter</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.doublekit</groupId>
-            <artifactId>doublekit-dfs-spring-boot-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.doublekit</groupId>
-            <artifactId>doublekit-dcs-spring-boot-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.doublekit</groupId>
-            <artifactId>doublekit-dss-spring-boot-starter</artifactId>
-        </dependency>
+
         <dependency>
             <groupId>com.doublekit</groupId>
             <artifactId>doublekit-join-spring-boot-starter</artifactId>
@@ -74,26 +63,13 @@
             <scope>test</scope>
         </dependency>
         <!--pcs-->
-        <dependency>
-            <groupId>com.doublekit</groupId>
-            <artifactId>doublekit-message-spring-boot-starter</artifactId>
-            <version>${project.version}</version>
-        </dependency>
+
         <dependency>
             <groupId>com.doublekit</groupId>
             <artifactId>doublekit-user-api</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
-        <dependency>
-            <groupId>com.doublekit</groupId>
-            <artifactId>doublekit-privilege-spring-boot-starter</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.doublekit</groupId>
-            <artifactId>doublekit-plugin-spring-boot-starter</artifactId>
-            <version>${project.version}</version>
-        </dependency>
+
         <dependency>
             <groupId>com.doublekit</groupId>
             <artifactId>doublekit-toolkit-spring-boot-starter</artifactId>
@@ -110,11 +86,7 @@
             <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>com.doublekit</groupId>
-            <artifactId>doublekit-licence-spring-boot-starter</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
-        </dependency>
+
         <!--hutool 快速开发工具包-->
         <dependency>
             <groupId>cn.hutool</groupId>
@@ -123,10 +95,17 @@
         </dependency>
         <dependency>
             <groupId>com.doublekit</groupId>
-            <artifactId>doublekit-user-spring-boot-starter</artifactId>
+            <artifactId>doublekit-message-api</artifactId>
             <version>1.0.0-SNAPSHOT</version>
-            <scope>test</scope>
+            <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>com.doublekit</groupId>
+            <artifactId>doublekit-privilege-api</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+
     </dependencies>
 
     <build>
