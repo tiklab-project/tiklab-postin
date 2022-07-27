@@ -367,7 +367,7 @@ CREATE TABLE apibox_raw_response_mock(
         type VARCHAR(32) NOT NULL
 );
 
-CREATE TABLE stru_subject(
+CREATE TABLE apibox_model(
         id VARCHAR(32) PRIMARY KEY,
          workspace_id VARCHAR(32),
         coding VARCHAR (64),
@@ -378,7 +378,7 @@ CREATE TABLE stru_subject(
         update_time timestamp
 
 );
-CREATE TABLE stru_json(
+CREATE TABLE apibox_model_json(
         id VARCHAR(32) PRIMARY KEY,
         subject_id VARCHAR(32) NOT NULL,
         param_name VARCHAR(64) NOT NULL,
@@ -387,7 +387,7 @@ CREATE TABLE stru_json(
         description VARCHAR(128),
         parent_id VARCHAR(32)
 );
-CREATE TABLE stru_enum(
+CREATE TABLE apibox_model_enum(
         id VARCHAR(32) PRIMARY KEY,
         subject_id VARCHAR(32) NOT NULL,
         param_name VARCHAR(64) NOT NULL,

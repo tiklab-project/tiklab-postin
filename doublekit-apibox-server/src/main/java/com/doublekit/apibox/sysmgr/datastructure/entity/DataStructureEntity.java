@@ -9,7 +9,7 @@ import com.doublekit.dal.jpa.annotation.Table;import com.doublekit.dal.jpa.annot
 import java.io.Serializable;
 import java.util.Date;
 
-@Entity @Table(name="stru_subject")
+@Entity @Table(name="apibox_model")
 public class DataStructureEntity implements Serializable {
 
     @Id
