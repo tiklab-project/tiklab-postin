@@ -4,6 +4,9 @@ import com.doublekit.core.page.Pagination;
 
 import com.doublekit.apibox.apidef.http.model.ResponseResult;
 import com.doublekit.apibox.apidef.http.model.ResponseResultQuery;
+import com.doublekit.join.annotation.FindAll;
+import com.doublekit.join.annotation.FindOne;
+import com.doublekit.join.annotation.JoinProvider;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -12,6 +15,7 @@ import java.util.List;
 /**
 * 用户服务接口
 */
+@JoinProvider
 public interface ResponseResultService {
 
     /**
@@ -38,12 +42,14 @@ public interface ResponseResultService {
     * @param id
     * @return
     */
+    @FindOne
     ResponseResult findResponseResult(@NotNull String id);
 
     /**
     * 查找所有
     * @return
     */
+    @FindAll
     List<ResponseResult> findAllResponseResult();
 
     /**

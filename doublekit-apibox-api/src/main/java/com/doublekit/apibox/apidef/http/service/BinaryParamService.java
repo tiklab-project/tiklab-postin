@@ -4,6 +4,10 @@ import com.doublekit.core.page.Pagination;
 
 import com.doublekit.apibox.apidef.http.model.BinaryParam;
 import com.doublekit.apibox.apidef.http.model.BinaryParamQuery;
+import com.doublekit.join.annotation.FindAll;
+import com.doublekit.join.annotation.FindList;
+import com.doublekit.join.annotation.FindOne;
+import com.doublekit.join.annotation.JoinProvider;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -12,6 +16,7 @@ import java.util.List;
 /**
 * BinaryParamService
 */
+@JoinProvider(model = BinaryParam.class)
 public interface BinaryParamService {
 
     /**
@@ -33,8 +38,10 @@ public interface BinaryParamService {
     */
     void deleteBinaryParam(@NotNull String id);
 
+    @FindOne
     BinaryParam findOne(@NotNull String id);
 
+    @FindList
     List<BinaryParam> findList(List<String> idList);
 
     /**
@@ -48,6 +55,7 @@ public interface BinaryParamService {
     * 查找所有
     * @return
     */
+    @FindAll
     List<BinaryParam> findAllBinaryParam();
 
     /**

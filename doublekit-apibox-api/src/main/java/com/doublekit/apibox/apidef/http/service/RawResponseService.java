@@ -4,6 +4,10 @@ import com.doublekit.core.page.Pagination;
 
 import com.doublekit.apibox.apidef.http.model.RawResponse;
 import com.doublekit.apibox.apidef.http.model.RawResponseQuery;
+import com.doublekit.join.annotation.FindAll;
+import com.doublekit.join.annotation.FindList;
+import com.doublekit.join.annotation.FindOne;
+import com.doublekit.join.annotation.JoinProvider;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -12,6 +16,7 @@ import java.util.List;
 /**
 * 用户服务接口
 */
+@JoinProvider(model = RawResponse.class)
 public interface RawResponseService {
 
     /**
@@ -38,12 +43,14 @@ public interface RawResponseService {
     * @param id
     * @return
     */
+    @FindOne
     RawResponse findRawResponse(@NotNull String id);
 
     /**
     * 查找所有
     * @return
     */
+    @FindAll
     List<RawResponse> findAllRawResponse();
 
     /**
