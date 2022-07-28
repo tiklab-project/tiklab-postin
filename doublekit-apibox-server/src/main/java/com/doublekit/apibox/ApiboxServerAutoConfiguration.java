@@ -8,7 +8,9 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @SQL(modules = {
-        "apisql"
+        "apisql",
+        "eg",
+        "enum"
 })
 @ComponentScan({"com.doublekit.apibox"})
 @ServletComponentScan({"com.doublekit.apibox"})
