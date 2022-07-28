@@ -19,3 +19,11 @@ INSERT INTO `apibox_testcase` VALUES ('b5a11dffac33b019e4fc3df942988e99', 'cb32e
 INSERT INTO `apibox_request_body_testcase` VALUES ('b5a11dffac33b019e4fc3df942988e99', 'b5a11dffac33b019e4fc3df942988e99', 'raw');
 
 INSERT INTO `apibox_raw_param_testcase` VALUES ('b5a11dffac33b019e4fc3df942988e99', 'b5a11dffac33b019e4fc3df942988e99', '{\n	\"account\": \"admin\",\n	\"password\": \"123456\",\n	\"userType\": \"1\"\n}', 'application/json');
+
+
+INSERT INTO `apibox_mock` VALUES ('4dbfdd774c9cd245baf2e1ead23a6a36', 'cb32ea06b30b43f8a7354c0caf6b10f4', '登录失败', NULL, '111111', '2022-7-28 00:00:00', 1);
+INSERT INTO `apibox_request_body_mock` VALUES ('4dbfdd774c9cd245baf2e1ead23a6a36', '4dbfdd774c9cd245baf2e1ead23a6a36', 'json');
+INSERT INTO `apibox_json_param_mock` VALUES ('9a24d52f1e82d5059c050bc7d418dea3', '4dbfdd774c9cd245baf2e1ead23a6a36', 'password', '123', 0);
+INSERT INTO `apibox_response_mock` VALUES ('4dbfdd774c9cd245baf2e1ead23a6a36', '4dbfdd774c9cd245baf2e1ead23a6a36', '400');
+INSERT INTO `apibox_response_result_mock` VALUES ('4dbfdd774c9cd245baf2e1ead23a6a36', '4dbfdd774c9cd245baf2e1ead23a6a36', 'json');
+INSERT INTO `apibox_json_response_mock` VALUES ('4dbfdd774c9cd245baf2e1ead23a6a36', '4dbfdd774c9cd245baf2e1ead23a6a36', '{\n \"status\":\"error”\n}');
