@@ -66,7 +66,9 @@ CREATE TABLE apibox_apix(
 
 CREATE TABLE apibox_api_http(
         id VARCHAR(40) PRIMARY KEY,
-        apix_id VARCHAR(40)
+        apix_id VARCHAR(40),
+        method_type VARCHAR(32),
+        path VARCHAR(256)
 );
 
 CREATE TABLE apibox_request_header(
@@ -181,33 +183,30 @@ CREATE TABLE apibox_binary_param(
 CREATE TABLE apibox_testcase(
         id VARCHAR(40) PRIMARY KEY,
         http_id VARCHAR(40) NOT NULL,
-        name VARCHAR(64) NOT NULL,
-        base_url VARCHAR(128),
-        request_type VARCHAR(64),
-        path VARCHAR(256)
+        name VARCHAR(64)
 );
 CREATE TABLE apibox_request_header_testcase(
         id VARCHAR(32) PRIMARY KEY,
-        testcase_id VARCHAR(32) NOT NULL,
+        http_case_id VARCHAR(32) NOT NULL,
         header_name VARCHAR(64) NOT NULL,
         value VARCHAR(256),
         sort int
 );
 CREATE TABLE apibox_query_param_testcase(
         id VARCHAR(32) PRIMARY KEY,
-        testcase_id VARCHAR(32) NOT NULL,
+        http_case_id VARCHAR(32) NOT NULL,
         param_name VARCHAR(64) NOT NULL,
         value VARCHAR(128),
         sort int
 );
 CREATE TABLE apibox_request_body_testcase(
         id VARCHAR(32) PRIMARY KEY,
-        testcase_id VARCHAR(32) NOT NULL,
+        http_case_id VARCHAR(32) NOT NULL,
         body_type VARCHAR(32) NOT NULL
 );
 CREATE TABLE apibox_form_param_testcase(
         id VARCHAR(32) PRIMARY KEY,
-        testcase_id VARCHAR(32) NOT NULL,
+        http_case_id VARCHAR(32) NOT NULL,
         param_name VARCHAR(64) NOT NULL,
         data_type VARCHAR(32) NOT NULL,
         value VARCHAR(128),
@@ -215,7 +214,7 @@ CREATE TABLE apibox_form_param_testcase(
 );
 CREATE TABLE apibox_json_param_testcase(
         id VARCHAR(32) PRIMARY KEY,
-        testcase_id VARCHAR(32) NOT NULL,
+        http_case_id VARCHAR(32) NOT NULL,
         parent_id VARCHAR(32),
         param_name VARCHAR(64) NOT NULL,
         data_type VARCHAR(32) NOT NULL,
@@ -224,23 +223,38 @@ CREATE TABLE apibox_json_param_testcase(
 );
 CREATE TABLE apibox_raw_param_testcase(
         id VARCHAR(32) PRIMARY KEY,
-        testcase_id VARCHAR(32) NOT NULL,
+        http_case_id VARCHAR(32) NOT NULL,
         raw VARCHAR(2048),
         type VARCHAR(32) NOT NULL
 );
 CREATE TABLE apibox_pre_script_testcase(
         id VARCHAR(32) PRIMARY KEY,
-        testcase_id VARCHAR(32) NOT NULL,
+        http_case_id VARCHAR(32) NOT NULL,
         script VARCHAR(2048) NOT NULL
 );
 CREATE TABLE apibox_after_script_testcase(
         id VARCHAR(32) PRIMARY KEY,
-        testcase_id VARCHAR(32) NOT NULL,
+        http_case_id VARCHAR(32) NOT NULL,
         script VARCHAR(2048) NOT NULL
 );
+CREATE TABLE apibox_form_urlencoded_testcase(
+        id VARCHAR(32) PRIMARY KEY,
+        http_case_id VARCHAR(32) NOT NULL,
+        param_name VARCHAR(64) NOT NULL,
+        data_type VARCHAR(32) NOT NULL,
+        value VARCHAR(128),
+        sort int
+);
+CREATE TABLE apibox_binary_param_testcase(
+        id VARCHAR(32) PRIMARY KEY,
+        http_case_id VARCHAR(32) NOT NULL,
+        filename VARCHAR(64) NOT NULL
+);
+
+
 CREATE TABLE apibox_assert_testcase(
         id VARCHAR(32) PRIMARY KEY,
-        testcase_id VARCHAR(32) NOT NULL,
+        http_case_id VARCHAR(32) NOT NULL,
         source int,
         property_name VARCHAR(64),
         data_type VARCHAR(32),
@@ -250,49 +264,41 @@ CREATE TABLE apibox_assert_testcase(
 );
 CREATE TABLE apibox_test_instance(
         id VARCHAR(40) PRIMARY KEY,
-        testcase_id VARCHAR(40) ,
-        testNo int NOT NULL,
-        statusCode int ,
-        result int NOT NULL,
+        http_case_id VARCHAR(40) ,
+         user_id VARCHAR(32),
+        status_code int,
+        result int,
         create_time timestamp,
-        request_type VARCHAR(32),
+        time int,
+        size int,
         error_message VARCHAR(2048)
 );
 CREATE TABLE apibox_request_instance(
         id VARCHAR(32) PRIMARY KEY,
-        instance_id VARCHAR(32) NOT NULL,
-        request_base VARCHAR(2048) NOT NULL,
-        request_header VARCHAR(2048),
-        request_param VARCHAR(2048)
+        http_instance_id VARCHAR(32) NOT NULL,
+        URL VARCHAR(2048),
+        headers VARCHAR(2048),
+        body VARCHAR(2048),
+        pre_script VARCHAR(2048),
+        after_script VARCHAR(2048),
+        method_type VARCHAR(32),
+        media_type VARCHAR(32)
 );
 CREATE TABLE apibox_response_instance(
         id VARCHAR(32) PRIMARY KEY,
-        instance_id VARCHAR(32) NOT NULL,
-        response_header VARCHAR(2048) NOT NULL,
-        response_body VARCHAR(2048) NOT NULL
+        http_instance_id VARCHAR(32),
+        headers VARCHAR(2048),
+        body VARCHAR(2048)
 );
 CREATE TABLE apibox_assert_instance(
         id VARCHAR(32) PRIMARY KEY,
-        instance_id VARCHAR(32) NOT NULL,
+        http_instance_id VARCHAR(32) NOT NULL,
         source int,
         property_name VARCHAR(64),
         data_type VARCHAR(32),
-        comparator VARCHAR(32) NOT NULL,
+        comparator VARCHAR(32),
         value VARCHAR(128),
         result int
-);
-CREATE TABLE apibox_form_urlencoded_testcase(
-        id VARCHAR(32) PRIMARY KEY,
-        testcase_id VARCHAR(32) NOT NULL,
-        param_name VARCHAR(64) NOT NULL,
-        data_type VARCHAR(32) NOT NULL,
-        value VARCHAR(128),
-        sort int
-);
-CREATE TABLE apibox_binary_param_testcase(
-        id VARCHAR(32) PRIMARY KEY,
-        testcase_id VARCHAR(32) NOT NULL,
-        filename VARCHAR(64) NOT NULL
 );
 
 
@@ -402,6 +408,7 @@ CREATE TABLE apibox_method_status(
         name VARCHAR(64),
         type VARCHAR(32)
 );
+
 INSERT INTO apibox_method_status values     ("publishid","publish","已发布","system"),
                                             ("designId","design","设计中","system"),
                                             ("developmentid","development","开发中","system"),
