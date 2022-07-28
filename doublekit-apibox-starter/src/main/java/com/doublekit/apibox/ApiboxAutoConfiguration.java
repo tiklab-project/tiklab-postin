@@ -13,7 +13,7 @@ import com.doublekit.gateway.starter.EnableGateway;
 import com.doublekit.join.starter.annotation.EnableJoin;
 import com.doublekit.licence.starter.EnableLicenceServer;
 import com.doublekit.message.starter.EnableMessage;
-import com.doublekit.plugin.starter.EnablePluginServer;
+import com.doublekit.pluginx.starter.EnablePluginServer;
 import com.doublekit.privilege.stater.EnablePrivilegeServer;
 import com.doublekit.rpc.starter.annotation.EnableRpc;
 import com.doublekit.toolkit.EnableToolkitServer;
