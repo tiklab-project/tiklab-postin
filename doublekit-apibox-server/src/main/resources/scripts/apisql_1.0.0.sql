@@ -409,9 +409,3 @@ CREATE TABLE apibox_method_status(
         type VARCHAR(32)
 );
 
-INSERT INTO apibox_method_status values     ("publishid","publish","已发布","system"),
-                                            ("designId","design","设计中","system"),
-                                            ("developmentid","development","开发中","system"),
-                                            ("testid","test","测试","system"),
-                                            ("completeid","complete","完成","system"),
-                                            ("maintainid","maintain","维护","system");
