@@ -1,0 +1,68 @@
+#application config
+app:
+  name: tiklab-postlink
+spring:
+  profiles:
+    active: prd
+
+PROJECT_HOME: ${user.home}/tiklab/${app.name}
+
+#web config
+server:
+  port: 8082
+
+#dal config
+jdbc:
+  driverClassName: com.mysql.jdbc.Driver
+  url: jdbc:mysql://172.12.1.16:3306/tiklab_postlink?characterEncoding=utf8&useSSL=false&serverTimezone=UTC
+  username: root
+  password: darth2020
+
+#dfs config
+dfs:
+  server:
+    mode: server
+    port: 4002
+    datapath: ${PROJECT_HOME}/files
+  client:
+    url: 127.0.0.1:4002
+    bucket: ${app.name}
+
+#dcs config
+dcs:
+  server:
+    mode: server
+    port: 5002
+    datapath: ${PROJECT_HOME}/caches
+  client:
+    url: 127.0.0.1:5002
+    bucket: ${app.name}
+
+#dss config
+dss:
+  server:
+    mode: server
+    port: 6002
+    datapath: ${PROJECT_HOME}/index
+  client:
+    url: 127.0.0.1:6002
+    bucket: ${app.name}
+
+#auth config
+#auth:
+#  type: acc
+#  address: http://portal-ce.test.tiklab.net
+
+#integration config
+homes:
+  address: http://172.19.6.134:8001
+
+#plugin config
+plugin:
+  path: ${PROJECT_HOME}/plugin
+
+#licences config
+licences:
+  path: ${PROJECT_HOME}/licences
+
+application: postlink
