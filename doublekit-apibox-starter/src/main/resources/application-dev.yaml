@@ -56,7 +56,7 @@ dss:
 
 #integration config
 homes:
-  address: http://192.168.10.5:8080
+  address: http://192.168.10.19:8080
 
 #project:
 #  address: http://127.0.0.1:8081
