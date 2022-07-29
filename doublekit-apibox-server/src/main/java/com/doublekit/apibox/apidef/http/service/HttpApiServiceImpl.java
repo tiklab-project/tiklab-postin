@@ -140,17 +140,18 @@ public class HttpApiServiceImpl implements HttpApiService {
         httpApiEntity.setId(id);
         httpApiDao.updateHttpApi(httpApiEntity);
 
-        //创建apix
-        Apix apix = httpApi.getApix();
-        apix.setId(id);
-        apixService.createApix(apix);
-
         //初始化请求体类型
         RequestBodyEx requestBodyEx = new RequestBodyEx();
         requestBodyEx.setId(id);
         requestBodyEx.setHttp(new HttpApi().setId(id));
         requestBodyEx.setBodyType("none");
         requestBodyService.createRequestBody(requestBodyEx);
+
+        //创建apix
+        Apix apix = httpApi.getApix();
+        apix.setId(id);
+        apixService.createApix(apix);
+
 
         return  id;
     }
@@ -302,35 +303,37 @@ public class HttpApiServiceImpl implements HttpApiService {
         httpApi.setRequestBody(requestBody);
         String bodyType = requestBody.getBodyType();
 
-        if(bodyType.equals("formdata")){
-            //获取formdata数据
-            List<FormParam> formParamList = formParamService.findFormParamList(new FormParamQuery().setHttpId(httpId));
-            if(CollectionUtils.isNotEmpty(formParamList)){
-                httpApi.setFormParamList(formParamList);
-            }
+        if(!ObjectUtils.isEmpty(bodyType)){
+            if(bodyType.equals("formdata")){
+                //获取formdata数据
+                List<FormParam> formParamList = formParamService.findFormParamList(new FormParamQuery().setHttpId(httpId));
+                if(CollectionUtils.isNotEmpty(formParamList)){
+                    httpApi.setFormParamList(formParamList);
+                }
 
-        }else if(bodyType.equals("formUrlencoded")){
-            //获取formurlencoded数据
-            List<FormUrlencoded> formUrlencodedList = formUrlencodedService.findFormUrlencodedList(new FormUrlencodedQuery().setHttpId(httpId));
-            if(CollectionUtils.isNotEmpty(formUrlencodedList)){
-                httpApi.setFormUrlencodedList(formUrlencodedList);
-            }
+            }else if(bodyType.equals("formUrlencoded")){
+                //获取formurlencoded数据
+                List<FormUrlencoded> formUrlencodedList = formUrlencodedService.findFormUrlencodedList(new FormUrlencodedQuery().setHttpId(httpId));
+                if(CollectionUtils.isNotEmpty(formUrlencodedList)){
+                    httpApi.setFormUrlencodedList(formUrlencodedList);
+                }
 
-        }else if(bodyType.equals("json")){
-            //获取json数据
-            List<JsonParam> jsonParamList = jsonParamService.findJsonParamListTree(new JsonParamQuery().setHttpId(httpId));
-            if(CollectionUtils.isNotEmpty(jsonParamList)){
-                httpApi.setJsonParamList(jsonParamList);
-            }
+            }else if(bodyType.equals("json")){
+                //获取json数据
+                List<JsonParam> jsonParamList = jsonParamService.findJsonParamListTree(new JsonParamQuery().setHttpId(httpId));
+                if(CollectionUtils.isNotEmpty(jsonParamList)){
+                    httpApi.setJsonParamList(jsonParamList);
+                }
 
-        }else if(bodyType.equals("raw")){
-            //获取raw数据
-            RawParam rawParam = rawParamService.findRawParam(httpId);
-            if(!ObjectUtils.isEmpty(rawParam)){
-                httpApi.setRawParam(rawParam);
+            }else if(bodyType.equals("raw")){
+                //获取raw数据
+                RawParam rawParam = rawParamService.findRawParam(httpId);
+                if(!ObjectUtils.isEmpty(rawParam)){
+                    httpApi.setRawParam(rawParam);
+                }
             }
-
         }
+
 
         //获取前置脚本数据
         PreScript preScript = preScriptService.findPreScript(httpId);
