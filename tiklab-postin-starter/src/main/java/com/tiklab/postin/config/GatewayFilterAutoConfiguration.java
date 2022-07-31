@@ -1,14 +1,26 @@
 package com.tiklab.postin.config;
 
-import com.tiklab.gateway.author.config.IgnoreConfig;
-import com.tiklab.gateway.author.config.IgnoreConfigBuilder;
+import com.tiklab.eam.server.author.config.IgnoreConfig;
+import com.tiklab.eam.server.author.config.IgnoreConfigBuilder;
+import com.tiklab.eam.server.handler.AuthorHandler;
+import com.tiklab.gateway.config.GatewayConfig;
+import com.tiklab.gateway.config.GatewayConfigBuilder;
 import com.tiklab.gateway.router.config.RouterConfig;
 import com.tiklab.gateway.router.config.RouterConfigBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class GatewayFilterAutoConfiguration {
+
+    @Autowired
+    AuthorHandler authorHandler;
+
+    @Bean
+    GatewayConfig gatewayConfig(){
+        return GatewayConfigBuilder.addHandler(authorHandler);
+    }
 
     @Bean
     public IgnoreConfig ignoreConfig(){
