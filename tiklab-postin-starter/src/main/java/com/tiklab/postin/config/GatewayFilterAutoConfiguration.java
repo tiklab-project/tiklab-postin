@@ -8,6 +8,7 @@ import com.tiklab.gateway.GatewayFilter;
 import com.tiklab.gateway.router.RouterHandler;
 import com.tiklab.gateway.router.config.RouterConfig;
 import com.tiklab.gateway.router.config.RouterConfigBuilder;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -96,15 +97,16 @@ public class GatewayFilterAutoConfiguration {
 
     //路由handler
     @Bean
-    RouterHandler routerHandler(){
-        return new RouterHandler();
+    RouterHandler routerHandler(RouterConfig routerConfig){
+        return new RouterHandler()
+                .setRouterConfig(routerConfig);
     }
 
     //路由转发配置
-    //@Value("${project.address:null}")
+    @Value("${project.address:null}")
     String projectUrl;
 
-    //@Bean
+    @Bean
     RouterConfig routerConfig(){
         return RouterConfigBuilder.instance()
                 .route(new String[]{
