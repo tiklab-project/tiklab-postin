@@ -14,7 +14,7 @@ public class WorkspaceRecentQuery {
     @ApiProperty(name ="userId",desc = "用户ID，精确匹配")
     private String userId;
 
-    @ApiProperty(name ="workspaceId",desc = "用户ID，精确匹配")
+    @ApiProperty(name ="workspaceId",desc = "空间ID，精确匹配")
     private String workspaceId;
 
     @ApiProperty(name ="orderParams",desc = "排序参数")

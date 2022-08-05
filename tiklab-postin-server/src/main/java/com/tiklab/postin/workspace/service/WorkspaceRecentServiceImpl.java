@@ -117,9 +117,9 @@ public class WorkspaceRecentServiceImpl implements WorkspaceRecentService {
         List<WorkspaceRecent> workspaceRecentList = findWorkspaceRecentList(workspaceRecentQuery);
 
         if(!workspaceRecentList.isEmpty()&&workspaceRecentList.size()>0){
-            WorkspaceRecent Recent = workspaceRecentList.get(0);
+            WorkspaceRecent recent = workspaceRecentList.get(0);
 
-            workspaceRecent.setId(Recent.getId());
+            workspaceRecent.setId(recent.getId());
             workspaceRecent.setUpdateTime(new Timestamp(System.currentTimeMillis()));
             updateWorkspaceRecent(workspaceRecent);
         }else {

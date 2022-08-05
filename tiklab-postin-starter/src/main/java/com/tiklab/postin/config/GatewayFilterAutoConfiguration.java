@@ -1,7 +1,7 @@
 package com.tiklab.postin.config;
 
-import com.tiklab.gateway.author.config.IgnoreConfig;
-import com.tiklab.gateway.author.config.IgnoreConfigBuilder;
+import com.tiklab.eam.server.author.config.IgnoreConfig;
+import com.tiklab.eam.server.author.config.IgnoreConfigBuilder;
 import com.tiklab.gateway.router.config.RouterConfig;
 import com.tiklab.gateway.router.config.RouterConfigBuilder;
 import org.springframework.context.annotation.Bean;
