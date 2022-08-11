@@ -66,3 +66,6 @@ licences:
   path: ${PROJECT_HOME}/licences
 
 application: postin
+
+file:
+  path: http://file.test.tiklab.net

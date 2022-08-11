@@ -69,5 +69,7 @@ plugin:
 licences:
   path: ${PROJECT_HOME}/licences
 
-
 application: postin
+
+file:
+  path: http://file.dev.tiklab.net

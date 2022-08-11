@@ -29,7 +29,6 @@ public class GatewayFilterAutoConfiguration {
         return new AuthorHandler()
                 .setAuthenticator(authenticator)
                 .setIgnoreConfig(ignoreConfig);
-
     }
 
     @Bean
