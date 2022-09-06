@@ -5,7 +5,7 @@ spring:
   profiles:
     active: dev
   config:
-    import: optional:/usr/local/apps/conf/application.yaml
+    import: optional:/usr/local/apps/conf/postin/application.yaml
 
 PROJECT_HOME: ${user.home}/tiklab/${app.name}
 
