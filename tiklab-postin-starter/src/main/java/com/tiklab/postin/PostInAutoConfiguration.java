@@ -1,7 +1,7 @@
 package com.tiklab.postin;
 
 
-import com.tiklab.liunx.mysql.EnableMysql;
+import com.tiklab.mysql.starter.EnableMysql;
 import com.tiklab.postin.client.EnablePostInClient;
 import com.tiklab.beans.starter.annotation.EnableBeans;
 import com.tiklab.dal.starter.annotation.EnableDal;
