@@ -9,7 +9,7 @@ PROJECT_HOME: ${user.home}/tiklab/${app.name}
 
 #web com.tiklab.testondriver.config
 server:
-  port: 8080
+  port: 8116
 
 #dal com.tiklab.testondriver.config
 jdbc:

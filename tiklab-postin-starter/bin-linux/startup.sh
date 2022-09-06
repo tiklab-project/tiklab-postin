@@ -2,18 +2,14 @@
 #-------------------------------------------------------------------------------------------------------------
 DIRS=$(dirname "$PWD")
 
-APP_MAIN="com.tiklab.postin.PostInApplication"
+mv "${DIRS}"/temp/* ${DIRS}
 
-if [ -e "${DIRS}/temp" ]; then
-      mv "${DIRS}"/temp/* ${DIRS}
-      rm -rf "${DIRS}"/temp
-fi
-
-JDK_VERSION=jdk-16.0.2
 #判断是否自定义jdk
-JAVA_HOME="/usr/local/${JDK_VERSION}"
-if [ -e "${DIRS}/${JDK_VERSION}" ]; then
-      JAVA_HOME="${DIRS}/${JDK_VERSION}"
+if [ -n "$1" ];then
+    JDK_HOME=$1
+    else
+    JDK_HOME=$(dirname "$PWD")
+    JAVA_HOME=${JDK_HOME}/jdk-16.0.2
 fi
 
 find ${DIRS}/ -name '*.sh' | xargs dos2unix;
@@ -21,6 +17,7 @@ find ${DIRS}/ -name '*.sh' | xargs dos2unix;
 #-------------------------------------------------------------------------------------------------------------
 #       系统运行参数
 #-------------------------------------------------------------------------------------------------------------
+APP_MAIN="com.tiklab.postin.PostInApplication"
 
 DIR=$(cd "$(dirname "$0")"; pwd)
 APP_HOME=${DIR}/..

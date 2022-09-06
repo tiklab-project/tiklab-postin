@@ -1,11 +1,6 @@
 #!/bin/sh
-
-DIRS=$(dirname "$PWD")
-JDK_VERSION=jdk-16.0.2
-#判断是否自定义jdk
-JAVA_HOME="/usr/local/${JDK_VERSION}"
-if [ -e "${DIRS}/${JDK_VERSION}" ]; then
-      JAVA_HOME="${DIRS}/${JDK_VERSION}"
+if [ ! -n "$JAVA_HOME" ]; then
+    export JAVA_HOME="/export/server/jdk1.8.0_141"
 fi
 
 APP_MAIN="com.tiklab.postin.PostInApplication"
