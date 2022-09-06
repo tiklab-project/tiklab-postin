@@ -14,13 +14,14 @@ server:
 #dal com.tiklab.testondriver.config
 jdbc:
   driverClassName: com.mysql.jdbc.Driver
-  url: jdbc:mysql://172.12.1.16:3306/tiklab_postin?characterEncoding=utf8&useSSL=false&serverTimezone=UTC
+  url: jdbc:mysql://localhost:3306/tiklab_postin?characterEncoding=utf8&useSSL=false&serverTimezone=UTC
   username: root
   password: darth2020
 
 #dfs com.tiklab.testondriver.config
 dfs:
   server:
+    enable: false
     mode: server
     port: 4005
     datapath: ${PROJECT_HOME}/files
@@ -31,6 +32,7 @@ dfs:
 #dcs com.tiklab.testondriver.config
 dcs:
   server:
+    enable: false
     mode: server
     port: 5005
     datapath: ${PROJECT_HOME}/caches
@@ -41,6 +43,7 @@ dcs:
 #dss com.tiklab.testondriver.config
 dss:
   server:
+    enable: false
     mode: server
     port: 6005
     datapath: ${PROJECT_HOME}/index
@@ -69,3 +72,20 @@ application: postin
 
 file:
   path: http://file.tiklab.net
+
+
+#enable mysql
+mysql:
+  embbed:
+    enable: true
+  server:
+    port: 3306
+  name: tiklab_postin
+
+eas:
+  embbed:
+    enable: true
+  server:
+    port: 8086
+  address: http://localhost:8086
+  web.address: http://localhost:8086

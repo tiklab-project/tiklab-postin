@@ -37,11 +37,11 @@ INSERT INTO `prc_role_function` VALUES ('b339dca335842c625d62dabc9b95c964', '3b4
 INSERT INTO `prc_role_function` VALUES ('b6f258ea5853c4947bf16acd0556a75c', '3b4eee0e8752fe8299e4f1df080c01a8', '12b085bb37913b5f7feb32da5ed260bb');
 INSERT INTO `prc_role_function` VALUES ('ca2d83007900f0d9dde9b2a22131ddfd', '3b4eee0e8752fe8299e4f1df080c01a8', '6d584487ba058a0bf02713635a84807d');
 
-
-INSERT INTO `mec_message_send_type` VALUES ('942591eeee4a3100f2ea2cb871539c65', '站内信', 'site', NULL);
-
-INSERT INTO `mec_message_template` VALUES ('5ea6acf0883ead208d8e75f031ca94df', '接口空间创建通知模板', '2ba9b35136183577a6973fbf900d5b4b', '942591eeee4a3100f2ea2cb871539c65', '空间创建通知', 1, '你创建了一个空间！', NULL, '/workspacepage/apis/detail/interface/detail');
-INSERT INTO `mec_message_template` VALUES ('60ea6c910b092a0e68bd5a55fddcdc46', '角色添加成员站内消息模板', '2ba9b35136183577a6973fbf900d5b3b', '942591eeee4a3100f2ea2cb871539c65', '角色通知', 1, '用户${userName} ,邀请${users}用户到\"${roleName}\"角色中。', NULL, '/system/role');
-
-INSERT INTO `mec_message_type` VALUES ('2ba9b35136183577a6973fbf900d5b3b', '角色通知', NULL);
-INSERT INTO `mec_message_type` VALUES ('2ba9b35136183577a6973fbf900d5b4b', '创建空间通知', NULL);
+--
+-- INSERT INTO `mec_message_send_type` VALUES ('942591eeee4a3100f2ea2cb871539c65', '站内信', 'site', NULL);
+--
+-- INSERT INTO `mec_message_template` VALUES ('5ea6acf0883ead208d8e75f031ca94df', '接口空间创建通知模板', '2ba9b35136183577a6973fbf900d5b4b', '942591eeee4a3100f2ea2cb871539c65', '空间创建通知', 1, '你创建了一个空间！', NULL, '/workspacepage/apis/detail/interface/detail');
+-- INSERT INTO `mec_message_template` VALUES ('60ea6c910b092a0e68bd5a55fddcdc46', '角色添加成员站内消息模板', '2ba9b35136183577a6973fbf900d5b3b', '942591eeee4a3100f2ea2cb871539c65', '角色通知', 1, '用户${userName} ,邀请${users}用户到\"${roleName}\"角色中。', NULL, '/system/role');
+--
+-- INSERT INTO `mec_message_type` VALUES ('2ba9b35136183577a6973fbf900d5b3b', '角色通知', NULL);
+-- INSERT INTO `mec_message_type` VALUES ('2ba9b35136183577a6973fbf900d5b4b', '创建空间通知', NULL);

@@ -1,9 +1,9 @@
 package com.tiklab.postin.config;
 
 import com.tiklab.eam.author.Authenticator;
-import com.tiklab.eam.server.author.config.IgnoreConfig;
-import com.tiklab.eam.server.author.config.IgnoreConfigBuilder;
-import com.tiklab.eam.server.handler.AuthorHandler;
+import com.tiklab.eam.client.author.AuthorHandler;
+import com.tiklab.eam.client.author.config.IgnoreConfig;
+import com.tiklab.eam.client.author.config.IgnoreConfigBuilder;
 import com.tiklab.gateway.GatewayFilter;
 import com.tiklab.gateway.router.RouterHandler;
 import com.tiklab.gateway.router.config.RouterConfig;
@@ -71,6 +71,7 @@ public class GatewayFilterAutoConfiguration {
                         "/portal.html/",
                         "/testInstance/findTestInstanceList",
                         "/appLink/findAppLinkList",
+                        "/eam/auth/login"
 
                 })
                 .ignorePreUrls(new String[]{

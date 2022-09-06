@@ -7,7 +7,17 @@
 	<formats>
 		<format>zip</format>
 	</formats>
+
 	<fileSets>
+		<fileSet>
+			<directory>${basedir}/src/main/resources</directory>
+			<includes>
+				<include>*.properties</include>
+				<include>*.yaml</include>
+				<include>*.xml</include>
+			</includes>
+			<outputDirectory>/conf</outputDirectory>
+		</fileSet>
 		<fileSet>
 			<directory>${basedir}/target</directory>
 			<includes>

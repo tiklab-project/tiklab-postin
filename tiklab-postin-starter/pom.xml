@@ -45,7 +45,7 @@
             <groupId>com.tiklab</groupId>
             <artifactId>tiklab-user-spring-boot-starter</artifactId>
             <version>1.0.0-SNAPSHOT</version>
-            <scope>test</scope>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.tiklab</groupId>
@@ -60,6 +60,12 @@
         <dependency>
             <groupId>com.tiklab</groupId>
             <artifactId>tiklab-message-spring-boot-starter</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.aliyun</groupId>
+                    <artifactId>dysmsapi20170525</artifactId>
+                </exclusion>
+            </exclusions>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
@@ -92,13 +98,103 @@
             <artifactId>springfox-swagger-ui</artifactId>
             <version>2.9.2</version>
         </dependency>
+
         <dependency>
             <groupId>com.tiklab</groupId>
-            <artifactId>tiklab-user-spring-boot-starter</artifactId>
+            <artifactId>tiklab-mysql-starter</artifactId>
             <version>1.0.0-SNAPSHOT</version>
-            <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>com.tiklab</groupId>
+            <artifactId>tiklab-eas-spring-boot-stater</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+
     </dependencies>
+
+    <profiles>
+        <profile>
+            <id>linux</id>
+            <dependencies>
+                <dependency>
+                    <groupId>com.tiklab</groupId>
+                    <artifactId>tiklab-linux-mysql</artifactId>
+                    <version>1.0.0-SNAPSHOT</version>
+                </dependency>
+                <dependency>
+                    <groupId>com.tiklab</groupId>
+                    <artifactId>tiklab-eas-starter-linux</artifactId>
+                    <version>1.0.0-SNAPSHOT</version>
+                    <type>zip</type>
+                    <scope>provided</scope>
+                </dependency>
+                <dependency>
+                    <groupId>com.tiklab</groupId>
+                    <artifactId>tiklab-linux-mysql</artifactId>
+                    <version>1.0.0-SNAPSHOT</version>
+                    <type>zip</type>
+                    <scope>provided</scope>
+                </dependency>
+                <dependency>
+                    <groupId>com.tiklab</groupId>
+                    <artifactId>tiklab-linux-jdk</artifactId>
+                    <version>1.0.0-SNAPSHOT</version>
+                    <type>zip</type>
+                    <scope>provided</scope>
+                </dependency>
+            </dependencies>
+            <properties>
+                <profile.assembly.package.suffix>linux</profile.assembly.package.suffix>
+                <systemType>linux</systemType>
+            </properties>
+        </profile>
+        <profile>
+            <id>windows</id>
+            <dependencies>
+                <dependency>
+                    <groupId>com.tiklab</groupId>
+                    <artifactId>tiklab-windows-mysql</artifactId>
+                    <version>1.0.0-SNAPSHOT</version>
+                </dependency>
+                <dependency>
+                    <groupId>com.tiklab</groupId>
+                    <artifactId>tiklab-eas-starter-windows</artifactId>
+                    <version>1.0.0-SNAPSHOT</version>
+                    <type>zip</type>
+                    <scope>provided</scope>
+                </dependency>
+                <dependency>
+                    <groupId>com.tiklab</groupId>
+                    <artifactId>tiklab-windows-mysql</artifactId>
+                    <version>1.0.0-SNAPSHOT</version>
+                    <type>zip</type>
+                    <scope>provided</scope>
+                </dependency>
+                <dependency>
+                    <groupId>com.tiklab</groupId>
+                    <artifactId>tiklab-windows-jdk</artifactId>
+                    <version>1.0.0-SNAPSHOT</version>
+                    <type>zip</type>
+                    <scope>provided</scope>
+                </dependency>
+            </dependencies>
+            <properties>
+                <profile.assembly.package.suffix>windows</profile.assembly.package.suffix>
+                <systemType>windows</systemType>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <profile.assembly.package.suffix>local</profile.assembly.package.suffix>
+                <systemType>windows</systemType>
+            </properties>
+        </profile>
+    </profiles>
 
     <build>
         <plugins>
@@ -112,44 +208,45 @@
                     </excludes>
                 </configuration>
             </plugin>
-           <plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-deploy-plugin</artifactId>
                 <configuration>
                     <skip>true</skip>
                 </configuration>
             </plugin>
-           <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <version>2.8</version>
-                <executions>
-                    <execution>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>copy</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <artifactItems>
-                        <!--
-                        <artifactItem>
-                            <groupId>com.tiklab</groupId>
-                            <artifactId>tiklab-user-plugin</artifactId>
-                            <version>${project.version}</version>
-                        </artifactItem>
-                        -->
-                        <artifactItem>
-                            <groupId>com.tiklab</groupId>
-                            <artifactId>tiklab-postin-ext-plugin</artifactId>
-                            <version>${project.version}</version>
-                        </artifactItem>
-                    </artifactItems>
-                    <includeTypes>jar</includeTypes>
-                    <outputDirectory>${project.basedir}/plugin</outputDirectory>
-                </configuration>
-            </plugin>
+
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-dependency-plugin</artifactId>-->
+<!--                <version>2.8</version>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <phase>prepare-package</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>copy</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--                <configuration>-->
+<!--                    <artifactItems>-->
+<!--                        &lt;!&ndash;-->
+<!--                        <artifactItem>-->
+<!--                            <groupId>com.tiklab</groupId>-->
+<!--                            <artifactId>tiklab-user-plugin</artifactId>-->
+<!--                            <version>${project.version}</version>-->
+<!--                        </artifactItem>-->
+<!--                        &ndash;&gt;-->
+<!--                        <artifactItem>-->
+<!--                            <groupId>com.tiklab</groupId>-->
+<!--                            <artifactId>tiklab-postin-ext-plugin</artifactId>-->
+<!--                            <version>${project.version}</version>-->
+<!--                        </artifactItem>-->
+<!--                    </artifactItems>-->
+<!--                    <includeTypes>jar</includeTypes>-->
+<!--                    <outputDirectory>${project.basedir}/plugin</outputDirectory>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
@@ -158,9 +255,9 @@
                         <id>make-assembly</id>
                         <configuration>
                             <descriptors>
-                                <descriptor>assembly/distribution.xml</descriptor>
+                                <descriptor>assembly/distribution-${profile.assembly.package.suffix}.xml</descriptor>
                             </descriptors>
-                            <finalName>tiklab-postin-${project.version}</finalName>
+                            <finalName>tiklab-postin</finalName>
                         </configuration>
                         <phase>package</phase>
                         <goals>
@@ -169,7 +266,46 @@
                     </execution>
                 </executions>
             </plugin>
-
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.8</version>
+                <executions>
+                    <execution>
+                        <id>unpack</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>com.tiklab</groupId>
+                                    <artifactId>tiklab-eas-starter-${systemType}</artifactId>
+                                    <version>1.0.0-SNAPSHOT</version>
+                                    <!-- <classifier>distribution</classifier>-->
+                                    <type>zip</type>
+                                    <outputDirectory>temp</outputDirectory>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>com.tiklab</groupId>
+                                    <artifactId>tiklab-${systemType}-jdk</artifactId>
+                                    <version>1.0.0-SNAPSHOT</version>
+                                    <type>zip</type>
+                                    <outputDirectory>temp</outputDirectory>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>com.tiklab</groupId>
+                                    <artifactId>tiklab-${systemType}-mysql</artifactId>
+                                    <version>1.0.0-SNAPSHOT</version>
+                                    <type>zip</type>
+                                    <outputDirectory>temp</outputDirectory>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 

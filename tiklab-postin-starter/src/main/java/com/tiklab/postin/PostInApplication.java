@@ -12,7 +12,7 @@ import org.springframework.context.annotation.PropertySource;
  */
 @SpringBootApplication
 @EnablePostIn
-@PropertySource(value = "classpath:application-${env:dev}.yaml",factory = PropertyAndYamlSourceFactory.class)
+@PropertySource(value = {"classpath:application.yaml"},factory = PropertyAndYamlSourceFactory.class)
 public class PostInApplication {
 
     public static final Logger logger = LoggerFactory.getLogger(PostInApplication.class);

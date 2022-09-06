@@ -1,6 +1,7 @@
 package com.tiklab.postin.apimock.http.servlet;
 
 import com.alibaba.fastjson.JSONPath;
+import com.tiklab.core.exception.ApplicationException;
 import com.tiklab.postin.apidef.apix.model.Apix;
 import com.tiklab.postin.apidef.apix.model.ApixQuery;
 import com.tiklab.postin.apidef.apix.service.ApixService;
@@ -13,10 +14,11 @@ import com.tiklab.postin.category.model.CategoryQuery;
 import com.tiklab.postin.category.service.CategoryService;
 import com.tiklab.core.exception.SystemException;
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileUploadException;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.tomcat.util.http.fileupload.FileItem;
+import org.apache.tomcat.util.http.fileupload.FileUploadException;
+import org.apache.tomcat.util.http.fileupload.RequestContext;
+import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
+import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
@@ -161,7 +163,7 @@ public class MockServletRequest {
             DiskFileItemFactory factory = new DiskFileItemFactory();
             ServletFileUpload servletFileUpload = new ServletFileUpload(factory);
             servletFileUpload.setHeaderEncoding("UTF-8");
-            List<FileItem> fileItems = servletFileUpload.parseRequest(request);
+            List<FileItem> fileItems = servletFileUpload.parseRequest((RequestContext) request);
 
             if(CollectionUtils.isNotEmpty(fileItems)){
                 for(FileItem item :fileItems){
@@ -176,6 +178,8 @@ public class MockServletRequest {
             }
         } catch (FileUploadException | UnsupportedEncodingException e) {
             throw new SystemException(e);
+        } catch (IOException e) {
+            throw new ApplicationException(e);
         }
         return formdataList;
     }

@@ -3,7 +3,7 @@ app:
   name: tiklab-postin
 spring:
   profiles:
-    active: dev
+    active: test
 
 PROJECT_HOME: ${user.home}/tiklab/${app.name}
 
@@ -13,15 +13,15 @@ server:
 
 #dal com.tiklab.testondriver.config
 jdbc:
-  driverClassName: com.mysql.cj.jdbc.Driver
-  url: jdbc:mysql://172.10.1.10:3306/tiklab_postin?characterEncoding=utf8&useSSL=false&serverTimezone=UTC
+  driverClassName: com.mysql.jdbc.Driver
+  url: jdbc:mysql://172.11.1.10:3306/tiklab_postin?characterEncoding=utf8&useSSL=false&serverTimezone=UTC
   username: root
   password: darth2020
-
 
 #dfs com.tiklab.testondriver.config
 dfs:
   server:
+    enable: false
     mode: server
     port: 4000
     datapath: ${PROJECT_HOME}/files
@@ -32,6 +32,7 @@ dfs:
 #dcs com.tiklab.testondriver.config
 dcs:
   server:
+    enable: false
     mode: server
     port: 5000
     datapath: ${PROJECT_HOME}/caches
@@ -42,6 +43,7 @@ dcs:
 #dss com.tiklab.testondriver.config
 dss:
   server:
+    enable: false
     mode: server
     port: 6000
     datapath: ${PROJECT_HOME}/index
@@ -49,17 +51,9 @@ dss:
     url: 127.0.0.1:6000
     bucket: ${app.name}
 
-#auth com.tiklab.testondriver.config
-#auth:
-#  type: acc
-#  address: http://192.168.10.6:8080
-
 #integration com.tiklab.testondriver.config
 homes:
-  address: http://192.168.10.19:8080
-
-#project:
-#  address: http://127.0.0.1:8081
+  address: http://172.11.1.11:8080
 
 #plugin com.tiklab.testondriver.config
 plugin:
@@ -72,4 +66,29 @@ licences:
 application: postin
 
 file:
-  path: http://file.dev.tiklab.net
+  path: http://file.test.tiklab.net
+
+
+eas:
+  embbed:
+    enable: false
+  server:
+    port: 8080
+  address: http://192.168.10.14:8080
+  #address: http://localhost:8080
+  web:
+    address: http://192.168.10.14:3001
+    #address: http://localhost:8080
+  jdbc:
+    driverClassName: ${jdbc.driverClassName}
+    url: ${jdbc.url}
+    username: ${jdbc.username}
+    password: ${jdbc.password}
+
+mysql:
+  embbed:
+    enable: false
+  server:
+    port: 3306
+  version: mysql-8.0.28
+  name: tiklab_postin
