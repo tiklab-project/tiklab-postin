@@ -185,7 +185,7 @@
             </activation>
             <properties>
                 <profile.assembly.package.suffix>local</profile.assembly.package.suffix>
-                <systemType>local</systemType>
+                <systemType>windows</systemType>
             </properties>
         </profile>
     </profiles>
