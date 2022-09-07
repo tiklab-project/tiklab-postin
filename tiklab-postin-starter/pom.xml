@@ -252,6 +252,7 @@
                                 <descriptor>assembly/distribution-${profile.assembly.package.suffix}.xml</descriptor>
                             </descriptors>
                             <finalName>tiklab-postin</finalName>
+                            <appendAssemblyId>false</appendAssemblyId>
                         </configuration>
                         <phase>package</phase>
                         <goals>
