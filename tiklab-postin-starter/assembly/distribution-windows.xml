@@ -9,15 +9,6 @@
     </formats>
     <fileSets>
         <fileSet>
-            <directory>${basedir}/src/main/resources</directory>
-            <includes>
-                <include>*.properties</include>
-                <include>*.yaml</include>
-                <include>*.xml</include>
-            </includes>
-            <outputDirectory>/conf</outputDirectory>
-        </fileSet>
-        <fileSet>
             <directory>${basedir}/target</directory>
             <includes>
                 <include>${artifactId}-${version}.jar</include>
@@ -27,6 +18,7 @@
         <fileSet>
             <directory>${basedir}/src/main/resources</directory>
             <includes>
+                <include>*.yaml</include>
                 <include>*.properties</include>
                 <include>*.xml</include>
             </includes>
@@ -40,12 +32,12 @@
             <outputDirectory>/</outputDirectory>
         </fileSet>
         <fileSet>
-            <directory>${basedir}/bin-windows</directory>
+            <directory>${basedir}/bin</directory>
             <fileMode>755</fileMode>
             <excludes>
                 <exclude>*.classpath</exclude>
             </excludes>
-            <outputDirectory>/bin-windows</outputDirectory>
+            <outputDirectory>/bin</outputDirectory>
         </fileSet>
         <fileSet>
             <directory>${basedir}/plugin</directory>

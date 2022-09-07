@@ -51,10 +51,6 @@ dss:
     url: 127.0.0.1:6005
     bucket: ${app.name}
 
-#auth com.tiklab.testondriver.config
-#auth:
-#  type: acc
-#  address: http://portal-ce.test.tiklab.net
 
 #integration com.tiklab.testondriver.config
 homes:
@@ -82,10 +78,27 @@ mysql:
     port: 3306
   name: tiklab_postin
 
+
+
+
+#eas config
 eas:
   embbed:
     enable: true
   server:
-    port: 8086
-  address: http://localhost:8086
-  web.address: http://localhost:8086
+    port: 8089
+  address: http://172.12.1.15:8089
+  web:
+    address: http://172.12.1.15:8089
+  jdbc:
+    driverClassName: ${jdbc.driverClassName}
+    url: ${jdbc.url}
+    username: ${jdbc.username}
+    password: ${jdbc.password}
+  mysql:
+    embbed:
+      enable: false
+    server:
+      port: 3306
+    version: mysql-8.0.28
+    name: tiklab_postin

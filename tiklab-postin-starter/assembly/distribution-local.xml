@@ -5,7 +5,7 @@
 
 	<id>distribution</id>
 	<formats>
-		<format>zip</format>
+		<format>tar.gz</format>
 	</formats>
 
 	<fileSets>
@@ -25,15 +25,7 @@
 			</includes>
 			<outputDirectory>/lib</outputDirectory>
 		</fileSet>
-		<fileSet>
-			<directory>${basedir}/src/main/resources</directory>
-			<includes>
-				<include>*.properties</include>
-				<include>*.xml</include>
-				<include>*.yaml</include>
-			</includes>
-			<outputDirectory>/conf</outputDirectory>
-		</fileSet>
+
 		<fileSet>
 			<directory>${basedir}/bin</directory>
 			<fileMode>755</fileMode>
@@ -47,22 +39,7 @@
 			<fileMode>755</fileMode>
 			<outputDirectory>/plugin</outputDirectory>
 		</fileSet>
-		<fileSet>
-			<directory>${basedir}/data</directory>
-			<fileMode>755</fileMode>
-			<excludes>
-				<exclude>*.*</exclude>
-			</excludes>
-			<outputDirectory>/data</outputDirectory>
-		</fileSet>
-		<fileSet>
-			<directory>${basedir}/logs</directory>
-			<fileMode>755</fileMode>
-			<excludes>
-				<exclude>*.*</exclude>
-			</excludes>
-			<outputDirectory>/logs</outputDirectory>
-		</fileSet>
+
 	</fileSets>
 	<dependencySets>
 		<dependencySet>

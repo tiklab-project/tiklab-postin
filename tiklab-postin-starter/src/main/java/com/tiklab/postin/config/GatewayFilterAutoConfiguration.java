@@ -5,7 +5,6 @@ import com.tiklab.eam.client.author.AuthorHandler;
 import com.tiklab.eam.client.author.config.IgnoreConfig;
 import com.tiklab.eam.client.author.config.IgnoreConfigBuilder;
 import com.tiklab.gateway.GatewayFilter;
-import com.tiklab.gateway.router.RouterHandler;
 import com.tiklab.gateway.router.config.RouterConfig;
 import com.tiklab.gateway.router.config.RouterConfigBuilder;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,13 +12,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class GatewayFilterAutoConfiguration {
+public class GatewayFilterAutoConfiguration{
 
     //网关filter
     @Bean
-    GatewayFilter gatewayFilter(RouterHandler routerHandler,AuthorHandler authorHandler){
+    GatewayFilter gatewayFilter(AuthorHandler authorHandler){
         return new GatewayFilter()
-                .setRouterHandler(routerHandler)
                 .addHandler(authorHandler);
     }
 
@@ -29,6 +27,7 @@ public class GatewayFilterAutoConfiguration {
         return new AuthorHandler()
                 .setAuthenticator(authenticator)
                 .setIgnoreConfig(ignoreConfig);
+
     }
 
     @Bean
@@ -95,23 +94,23 @@ public class GatewayFilterAutoConfiguration {
     }
 
 
-    //路由handler
-    @Bean
-    RouterHandler routerHandler(RouterConfig routerConfig){
-        return new RouterHandler()
-                .setRouterConfig(routerConfig);
-    }
 
     //路由转发配置
-    @Value("${project.address:null}")
-    String projectUrl;
+    @Value("${eas.address:null}")
+    String authAddress;
 
+
+    //gateway路由配置
     @Bean
     RouterConfig routerConfig(){
         return RouterConfigBuilder.instance()
-                .route(new String[]{
-                        "/project/findAllProject"
-                }, projectUrl)
+                .preRoute(new String[]{
+                        "/user",
+                        "/eam",
+                        "/message",
+
+                }, authAddress)
                 .get();
     }
+
 }

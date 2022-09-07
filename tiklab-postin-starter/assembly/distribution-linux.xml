@@ -27,25 +27,17 @@
         <fileSet>
             <directory>${basedir}/src/main/resources</directory>
             <includes>
-                <include>*.properties</include>
-                <include>*.xml</include>
-            </includes>
-            <outputDirectory>/conf</outputDirectory>
-        </fileSet>
-        <fileSet>
-            <directory>${basedir}/src/main/resources</directory>
-            <includes>
                 <include>Dockerfile</include>
             </includes>
             <outputDirectory>/</outputDirectory>
         </fileSet>
         <fileSet>
-            <directory>${basedir}/bin-linux</directory>
+            <directory>${basedir}/bin</directory>
             <fileMode>755</fileMode>
             <excludes>
                 <exclude>*.classpath</exclude>
             </excludes>
-            <outputDirectory>/bin-linux</outputDirectory>
+            <outputDirectory>/bin</outputDirectory>
         </fileSet>
         <fileSet>
             <directory>${basedir}/plugin</directory>
