@@ -3,7 +3,7 @@ package com.tiklab.postin;
 
 import com.tiklab.eas.eanble.EnableEasInlineUtil;
 import com.tiklab.licence.starter.EnableLicenceServer;
-import com.tiklab.mysql.starter.EnableMysql;
+//import com.tiklab.mysql.starter.EnableMysql;
 import com.tiklab.postin.client.EnablePostInClient;
 import com.tiklab.beans.starter.annotation.EnableBeans;
 import com.tiklab.dal.starter.annotation.EnableDal;
@@ -28,7 +28,7 @@ import org.springframework.context.annotation.Configuration;
 @EnableBeans
 @EnableJoin
 @EnableWeb
-@EnableMysql
+//@EnableMysql
 @EnableEasInlineUtil
 @EnableDal
 @EnableDsm
