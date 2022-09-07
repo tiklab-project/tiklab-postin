@@ -90,6 +90,13 @@ eas:
     url: ${jdbc.url}
     username: ${jdbc.username}
     password: ${jdbc.password}
+  mysql:
+    embbed:
+      enable: false
+    server:
+      port: 3306
+    version: mysql-8.0.28
+    name: tiklab_teston
 
 mysql:
   embbed:
