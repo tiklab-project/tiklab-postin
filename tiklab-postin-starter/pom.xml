@@ -12,8 +12,6 @@
     <name>${project.artifactId}</name>
 
     <dependencies>
-        <!--tiklab-->
-
         <dependency>
             <groupId>com.tiklab</groupId>
             <artifactId>tiklab-dfs-spring-boot-starter</artifactId>
@@ -197,6 +195,7 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <configuration>
                     <excludes>
+                        <exclude>*.yaml</exclude>
                         <exclude>*.properties</exclude>
                         <exclude>*.xml</exclude>
                     </excludes>
