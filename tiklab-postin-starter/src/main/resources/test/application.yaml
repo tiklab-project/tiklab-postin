@@ -14,7 +14,8 @@ server:
 #dal com.tiklab.testondriver.config
 jdbc:
   driverClassName: com.mysql.jdbc.Driver
-  url: jdbc:mysql://172.11.1.10:3306/tiklab_postin?characterEncoding=utf8&useSSL=false&serverTimezone=UTC
+
+  url: jdbc:mysql://172.11.1.10:3306/tiklab_postin?characterEncoding=utf8&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
   username: root
   password: darth2020
 
