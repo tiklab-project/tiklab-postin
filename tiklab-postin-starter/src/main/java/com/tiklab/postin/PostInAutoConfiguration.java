@@ -1,7 +1,7 @@
 package com.tiklab.postin;
 
 
-import com.tiklab.eas.eanble.EnableEasInlineUtil;
+import com.tiklab.eas.enable.EnableEasInlineUtil;
 import com.tiklab.licence.starter.EnableLicenceServer;
 import com.tiklab.mysql.starter.EnableMysql;
 import com.tiklab.postin.client.EnablePostInClient;
