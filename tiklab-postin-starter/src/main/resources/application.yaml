@@ -16,7 +16,8 @@ server:
 #dal com.tiklab.postin.config
 jdbc:
   driverClassName: com.mysql.cj.jdbc.Driver
-  url: jdbc:mysql://172.10.1.10:3306/tiklab_postin?characterEncoding=utf8&useSSL=false&serverTimezone=UTC
+#  172.10.1.10
+  url: jdbc:mysql://172.10.1.10:3306/tiklab_postin?characterEncoding=utf8&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
   username: root
   password: darth2020
 
@@ -98,8 +99,8 @@ eas:
 mysql:
   embbed:
     enable: false
+  local: true
   server:
     port: 3307
   version: mysql-8.0.28
   name: tiklab_postin
-  local: false
