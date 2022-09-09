@@ -1,4 +1,4 @@
-#application com.tiklab.testondriver.config
+#application com.tiklab.postin.config
 app:
   name: tiklab-postin
 spring:
@@ -9,11 +9,11 @@ spring:
 
 PROJECT_HOME: ${user.home}/tiklab/${app.name}
 
-#web com.tiklab.testondriver.config
+#web com.tiklab.postin.config
 server:
   port: 8080
 
-#dal com.tiklab.testondriver.config
+#dal com.tiklab.postin.config
 jdbc:
   driverClassName: com.mysql.cj.jdbc.Driver
   url: jdbc:mysql://172.10.1.10:3306/tiklab_postin?characterEncoding=utf8&useSSL=false&serverTimezone=UTC
@@ -21,7 +21,7 @@ jdbc:
   password: darth2020
 
 
-#dfs com.tiklab.testondriver.config
+#dfs com.tiklab.postin.config
 dfs:
   server:
     enable: false
@@ -32,7 +32,7 @@ dfs:
     url: 127.0.0.1:4000
     bucket: ${app.name}
 
-#dcs com.tiklab.testondriver.config
+#dcs com.tiklab.postin.config
 dcs:
   server:
     enable: false
@@ -43,7 +43,7 @@ dcs:
     url: 127.0.0.1:5000
     bucket: ${app.name}
 
-#dss com.tiklab.testondriver.config
+#dss com.tiklab.postin.config
 dss:
   server:
     enable: false
@@ -55,18 +55,18 @@ dss:
     bucket: ${app.name}
 
 
-#integration com.tiklab.testondriver.config
+#integration com.tiklab.postin.config
 homes:
   address: http://192.168.10.19:8080
 
 #project:
 #  address: http://127.0.0.1:8081
 
-#plugin com.tiklab.testondriver.config
+#plugin com.tiklab.postin.config
 plugin:
   path: ${PROJECT_HOME}/plugin
 
-#licences com.tiklab.testondriver.config
+#licences com.tiklab.postin.config
 licences:
   path: ${PROJECT_HOME}/licences
 
@@ -76,6 +76,8 @@ file:
   path: http://file.dev.tiklab.net
 
 eas:
+  env:
+    local: false
   embbed:
     enable: false
   server:
@@ -91,17 +93,13 @@ eas:
     username: ${jdbc.username}
     password: ${jdbc.password}
   mysql:
-    embbed:
-      enable: false
-    server:
-      port: 3306
-    version: mysql-8.0.28
     name: tiklab_teston
 
 mysql:
   embbed:
     enable: false
   server:
-    port: 3306
+    port: 3307
   version: mysql-8.0.28
   name: tiklab_postin
+  local: false
