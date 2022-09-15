@@ -76,9 +76,31 @@ application: postin
 file:
   path: http://file.dev.tiklab.net
 
-auth:
-  type: local
-
 eas:
+  env:
+    local: false
   embbed:
-    enable: true
+    enable: false
+  server:
+    port: 8080
+  address: http://192.168.10.14:8080
+  #address: http://localhost:8080
+  web:
+    address: http://192.168.10.14:3001
+    #address: http://localhost:8080
+  jdbc:
+    driverClassName: ${jdbc.driverClassName}
+    url: ${jdbc.url}
+    username: ${jdbc.username}
+    password: ${jdbc.password}
+  mysql:
+    name: tiklab_teston
+
+mysql:
+  embbed:
+    enable: false
+  local: true
+  server:
+    port: 3307
+  version: mysql-8.0.28
+  name: tiklab_postin

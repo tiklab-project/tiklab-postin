@@ -5,7 +5,6 @@ import com.tiklab.eam.client.author.AuthorHandler;
 import com.tiklab.eam.client.author.config.IgnoreConfig;
 import com.tiklab.eam.client.author.config.IgnoreConfigBuilder;
 import com.tiklab.gateway.GatewayFilter;
-import com.tiklab.gateway.router.RouterHandler;
 import com.tiklab.gateway.router.config.RouterConfig;
 import com.tiklab.gateway.router.config.RouterConfigBuilder;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,20 +14,13 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class GatewayFilterAutoConfiguration{
 
-    //路由handler
-    @Bean
-    RouterHandler routerHandler(RouterConfig routerConfig){
-        return new RouterHandler()
-                .setRouterConfig(routerConfig);
-    }
-
     //网关filter
     @Bean
-    GatewayFilter gatewayFilter(RouterHandler routerHandler, AuthorHandler authorHandler){
+    GatewayFilter gatewayFilter(AuthorHandler authorHandler){
         return new GatewayFilter()
-                .setRouterHandler(routerHandler)
                 .addHandler(authorHandler);
     }
+
     //认证handler
     @Bean
     AuthorHandler authorHandler(Authenticator authenticator, IgnoreConfig ignoreConfig){
@@ -65,8 +57,8 @@ public class GatewayFilterAutoConfiguration{
                         "/share/judgeAuthCode",
                         "/port/reportImport",
                         "/user/dingdingcfg/findId",
-                        "/version/getVersion",
                         "/user/wechatcfg/findWechatById",
+                        "/version/getVersion",
                         "/dingding/passport/login",
                         "/passport/login",
                         "/wechat/passport/login",
@@ -96,7 +88,7 @@ public class GatewayFilterAutoConfiguration{
                         "/mockx",
                         "/licence",
                         "/ws",
-                        "/socket",
+                        "/socket"
                 })
                 .get();
     }
@@ -113,9 +105,9 @@ public class GatewayFilterAutoConfiguration{
     RouterConfig routerConfig(){
         return RouterConfigBuilder.instance()
                 .preRoute(new String[]{
-//                        "/user",
-//                        "/eam",
-//                        "/message",
+                        "/user",
+                        "/eam",
+                        "/message",
 
                 }, authAddress)
                 .get();

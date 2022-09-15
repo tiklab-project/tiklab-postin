@@ -75,7 +75,9 @@ public class ApixServiceImpl implements ApixService {
        //动态
         Dynamic dynamic = new Dynamic();
         dynamic.setWorkspaceId(apix.getWorkspaceId());
-        dynamic.setUser(new User().setId(userId));
+        User user = new User();
+        user.setId(userId);
+        dynamic.setUser(user);
         dynamic.setName(apix.getName());
         dynamic.setDynamicType("add");
         dynamic.setModel("api");
@@ -108,7 +110,9 @@ public class ApixServiceImpl implements ApixService {
         ApixEntity apix1 = apixDao.findApix(apix.getId());
         Dynamic dynamic = new Dynamic();
         dynamic.setWorkspaceId(apix1.getWorkspaceId());
-        dynamic.setUser(new User().setId(LoginContext.getLoginId()));
+        User user = new User();
+        user.setId(LoginContext.getLoginId());
+        dynamic.setUser(user);
         dynamic.setName(apix1.getName());
         dynamic.setDynamicType("edit");
         dynamic.setModel("api");
@@ -124,7 +128,9 @@ public class ApixServiceImpl implements ApixService {
 
         Dynamic dynamic = new Dynamic();
         dynamic.setWorkspaceId(apix.getWorkspaceId());
-        dynamic.setUser(new User().setId(LoginContext.getLoginId()));
+        User user = new User();
+        user.setId(LoginContext.getLoginId());
+        dynamic.setUser(user);
         dynamic.setName(apix.getName());
         dynamic.setDynamicType("delete");
         dynamic.setModel("api");
@@ -203,7 +209,9 @@ public class ApixServiceImpl implements ApixService {
     private void sendMessageForCreate(Apix apix){
         Message message = new Message();
         //设置模板ID
-        message.setMessageTemplate(new MessageTemplate().setId(MessageTemplateConstant.TEMPLATE_ID_API_UPDATE));
+        MessageTemplate messageTemplate = new MessageTemplate();
+        messageTemplate.setId(MessageTemplateConstant.TEMPLATE_ID_API_UPDATE);
+        message.setMessageTemplate(messageTemplate);
         //设置发送数据
         String data = JSON.toJSONString(apix, SerializerFeature.DisableCircularReferenceDetect,SerializerFeature.WriteDateUseDateFormat);
         message.setData(data);

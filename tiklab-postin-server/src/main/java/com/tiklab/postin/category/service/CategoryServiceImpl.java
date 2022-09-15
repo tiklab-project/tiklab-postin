@@ -62,7 +62,9 @@ public class CategoryServiceImpl implements CategoryService {
         //动态
         Dynamic dynamic = new Dynamic();
         dynamic.setWorkspaceId(category.getWorkspace().getId());
-        dynamic.setUser(new User().setId(LoginContext.getLoginId()));
+        User user = new User();
+        user.setId(LoginContext.getLoginId());
+        dynamic.setUser(user);
         dynamic.setName(category.getName());
         dynamic.setDynamicType("add");
         dynamic.setModel("category");
@@ -85,7 +87,9 @@ public class CategoryServiceImpl implements CategoryService {
         CategoryEntity category1 = categoryDao.findCategory(category.getId());
         Dynamic dynamic = new Dynamic();
         dynamic.setWorkspaceId(category1.getWorkspaceId());
-        dynamic.setUser(new User().setId(LoginContext.getLoginId()));
+        User user = new User();
+        user.setId(LoginContext.getLoginId());
+        dynamic.setUser(user);
         dynamic.setName(category.getName());
         dynamic.setDynamicType("edit");
         dynamic.setModel("category");
@@ -103,7 +107,9 @@ public class CategoryServiceImpl implements CategoryService {
         //动态
         Dynamic dynamic = new Dynamic();
         dynamic.setWorkspaceId(category.getWorkspaceId());
-        dynamic.setUser(new User().setId(LoginContext.getLoginId()));
+        User user = new User();
+        user.setId(LoginContext.getLoginId());
+        dynamic.setUser(user);
         dynamic.setName(category.getName());
         dynamic.setDynamicType("delete");
         dynamic.setModel("category");

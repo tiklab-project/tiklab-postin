@@ -25,6 +25,7 @@ import com.tiklab.user.user.model.DmUser;
 import com.tiklab.user.user.model.DmUserQuery;
 import com.tiklab.user.user.model.User;
 import com.tiklab.user.user.service.DmUserService;
+import com.tiklab.utils.context.LoginContext;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -82,7 +83,9 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         String userId =workspace.getUser().getId();
         DmUser dmUser = new DmUser();
         dmUser.setDomainId(projectId);
-        dmUser.setUser(new User().setId(userId));
+        User user = new User();
+        user.setId(userId);
+        dmUser.setUser(user);
         dmUserService.createDmUser(dmUser);
 
         //初始化项目权限
