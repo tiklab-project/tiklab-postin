@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.tiklab</groupId>
+        <groupId>net.tiklab</groupId>
         <artifactId>tiklab-postin</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
@@ -13,49 +13,49 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.tiklab</groupId>
+            <groupId>net.tiklab</groupId>
             <artifactId>tiklab-dfs-spring-boot-starter</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.tiklab</groupId>
+            <groupId>net.tiklab</groupId>
             <artifactId>tiklab-dcs-spring-boot-starter</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.tiklab</groupId>
+            <groupId>net.tiklab</groupId>
             <artifactId>tiklab-dss-spring-boot-starter</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.tiklab</groupId>
+            <groupId>net.tiklab</groupId>
             <artifactId>tiklab-rpc-spring-boot-starter</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.tiklab</groupId>
+            <groupId>net.tiklab</groupId>
             <artifactId>tiklab-privilege-spring-boot-starter</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>com.tiklab</groupId>
+            <groupId>net.tiklab</groupId>
             <artifactId>tiklab-plugin-spring-boot-starter</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.tiklab</groupId>
+            <groupId>net.tiklab</groupId>
             <artifactId>tiklab-user-spring-boot-starter</artifactId>
             <version>1.0.0-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>com.tiklab</groupId>
+            <groupId>net.tiklab</groupId>
             <artifactId>tiklab-beans-spring-boot-starter</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>com.tiklab</groupId>
+            <groupId>net.tiklab</groupId>
             <artifactId>tiklab-join-spring-boot-starter</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>com.tiklab</groupId>
+            <groupId>net.tiklab</groupId>
             <artifactId>tiklab-message-spring-boot-starter</artifactId>
             <exclusions>
                 <exclusion>
@@ -66,27 +66,27 @@
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>com.tiklab</groupId>
+            <groupId>net.tiklab</groupId>
             <artifactId>tiklab-licence-spring-boot-starter</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>com.tiklab</groupId>
+            <groupId>net.tiklab</groupId>
             <artifactId>tiklab-gateway-spring-boot-starter</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>com.tiklab</groupId>
+            <groupId>net.tiklab</groupId>
             <artifactId>tiklab-eam-spring-boot-starter</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>com.tiklab</groupId>
+            <groupId>net.tiklab</groupId>
             <artifactId>tiklab-postin-client</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.tiklab</groupId>
+            <groupId>net.tiklab</groupId>
             <artifactId>tiklab-postin-server</artifactId>
             <version>${project.version}</version>
         </dependency>
@@ -102,15 +102,15 @@
         </dependency>
 
         <dependency>
-            <groupId>com.tiklab</groupId>
+            <groupId>net.tiklab</groupId>
             <artifactId>tiklab-mysql-starter</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
-        <dependency>
-            <groupId>com.tiklab</groupId>
-            <artifactId>tiklab-eas-embbed-spring-boot-starter</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>net.tiklab</groupId>-->
+<!--            <artifactId>tiklab-eas-embbed-spring-boot-starter</artifactId>-->
+<!--            <version>1.0.0-SNAPSHOT</version>-->
+<!--        </dependency>-->
 
     </dependencies>
 
@@ -122,14 +122,14 @@
             </activation>
             <dependencies>
                 <dependency>
-                    <groupId>com.tiklab</groupId>
+                    <groupId>net.tiklab</groupId>
                     <artifactId>tiklab-mysql-linux</artifactId>
                     <version>1.0.0-SNAPSHOT</version>
                     <type>zip</type>
                     <scope>provided</scope>
                 </dependency>
                 <dependency>
-                    <groupId>com.tiklab</groupId>
+                    <groupId>net.tiklab</groupId>
                     <artifactId>tiklab-jdk-linux</artifactId>
                     <version>1.0.0-SNAPSHOT</version>
                     <type>zip</type>
@@ -145,14 +145,14 @@
             <id>windows</id>
             <dependencies>
                 <dependency>
-                    <groupId>com.tiklab</groupId>
+                    <groupId>net.tiklab</groupId>
                     <artifactId>tiklab-mysql-windows</artifactId>
                     <version>1.0.0-SNAPSHOT</version>
                     <type>zip</type>
                     <scope>provided</scope>
                 </dependency>
                 <dependency>
-                    <groupId>com.tiklab</groupId>
+                    <groupId>net.tiklab</groupId>
                     <artifactId>tiklab-jdk-windows</artifactId>
                     <version>1.0.0-SNAPSHOT</version>
                     <type>zip</type>
@@ -203,13 +203,13 @@
             <!--                    <artifactItems>-->
             <!--                        &lt;!&ndash;-->
             <!--                        <artifactItem>-->
-            <!--                            <groupId>com.tiklab</groupId>-->
+            <!--                            <groupId>net.tiklab</groupId>-->
             <!--                            <artifactId>tiklab-user-plugin</artifactId>-->
             <!--                            <version>${project.version}</version>-->
             <!--                        </artifactItem>-->
             <!--                        &ndash;&gt;-->
             <!--                        <artifactItem>-->
-            <!--                            <groupId>com.tiklab</groupId>-->
+            <!--                            <groupId>net.tiklab</groupId>-->
             <!--                            <artifactId>tiklab-postin-ext-plugin</artifactId>-->
             <!--                            <version>${project.version}</version>-->
             <!--                        </artifactItem>-->
@@ -252,14 +252,14 @@
                         <configuration>
                             <artifactItems>
                                 <artifactItem>
-                                    <groupId>com.tiklab</groupId>
+                                    <groupId>net.tiklab</groupId>
                                     <artifactId>tiklab-jdk-${systemType}</artifactId>
                                     <version>1.0.0-SNAPSHOT</version>
                                     <type>zip</type>
                                     <outputDirectory>temp</outputDirectory>
                                 </artifactItem>
                                 <artifactItem>
-                                    <groupId>com.tiklab</groupId>
+                                    <groupId>net.tiklab</groupId>
                                     <artifactId>tiklab-mysql-${systemType}</artifactId>
                                     <version>1.0.0-SNAPSHOT</version>
                                     <type>zip</type>

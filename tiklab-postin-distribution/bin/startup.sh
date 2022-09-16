@@ -2,7 +2,7 @@
 #-------------------------------------------------------------------------------------------------------------
 DIRS=$(dirname "$PWD")
 
-APP_MAIN="com.tiklab.postin.PostInDistributionApplication"
+APP_MAIN="net.tiklab.postin.PostInDistributionApplication"
 
 if [ -e "${DIRS}/temp" ]; then
       mv "${DIRS}"/temp/* ${DIRS}

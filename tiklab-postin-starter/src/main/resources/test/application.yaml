@@ -1,4 +1,4 @@
-#application com.tiklab.testondriver.config
+#application net.tiklab.testondriver.config
 app:
   name: tiklab-postin
 spring:
@@ -7,11 +7,11 @@ spring:
 
 PROJECT_HOME: ${user.home}/tiklab/${app.name}
 
-#web com.tiklab.testondriver.config
+#web net.tiklab.testondriver.config
 server:
   port: 8080
 
-#dal com.tiklab.testondriver.config
+#dal net.tiklab.testondriver.config
 jdbc:
   driverClassName: com.mysql.jdbc.Driver
 
@@ -19,7 +19,7 @@ jdbc:
   username: root
   password: darth2020
 
-#dfs com.tiklab.testondriver.config
+#dfs net.tiklab.testondriver.config
 dfs:
   server:
     enable: false
@@ -30,7 +30,7 @@ dfs:
     url: 127.0.0.1:4000
     bucket: ${app.name}
 
-#dcs com.tiklab.testondriver.config
+#dcs net.tiklab.testondriver.config
 dcs:
   server:
     enable: false
@@ -41,7 +41,7 @@ dcs:
     url: 127.0.0.1:5000
     bucket: ${app.name}
 
-#dss com.tiklab.testondriver.config
+#dss net.tiklab.testondriver.config
 dss:
   server:
     enable: false
@@ -52,15 +52,15 @@ dss:
     url: 127.0.0.1:6000
     bucket: ${app.name}
 
-#integration com.tiklab.testondriver.config
+#integration net.tiklab.testondriver.config
 homes:
   address: http://172.11.1.11:8080
 
-#plugin com.tiklab.testondriver.config
+#plugin net.tiklab.testondriver.config
 plugin:
   path: ${PROJECT_HOME}/plugin
 
-#licences com.tiklab.testondriver.config
+#licences net.tiklab.testondriver.config
 licences:
   path: ${PROJECT_HOME}/licences
 

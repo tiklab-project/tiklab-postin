@@ -1,7 +1,7 @@
 #!/bin/sh
 #-------------------------------------------------------------------------------------------------------------
 
-APP_MAIN="com.tiklab.postin.PostInApplication"
+APP_MAIN="net.tiklab.postin.PostInApplication"
 
 JAVA_HOME="/usr/local/jdk-16.0.2"
 

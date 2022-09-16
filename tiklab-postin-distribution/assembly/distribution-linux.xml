@@ -124,49 +124,49 @@
                 <exclude>org.apache.tomcat.embed:tomcat-embed-el</exclude>
                 <exclude>org.apache.tomcat.embed:tomcat-embed-core</exclude>
                 <exclude>org.apache.tomcat:tomcat-annotations-api</exclude>
-                <exclude>com.tiklab:tiklab-web-spring-boot-starter</exclude>
-                <exclude>com.tiklab:tiklab-web-core</exclude>
-                <exclude>com.tiklab:tiklab-utils</exclude>
-                <exclude>com.tiklab:tiklab-user-spring-boot-starter</exclude>
-                <exclude>com.tiklab:tiklab-toolkit-server</exclude>
-                <exclude>com.tiklab:tiklab-toolkit-api</exclude>
-                <exclude>com.tiklab:tiklab-rpc-spring-boot-starter</exclude>
-                <exclude>com.tiklab:tiklab-rpc-server</exclude>
-                <exclude>com.tiklab:tiklab-rpc-remoting</exclude>
-                <exclude>com.tiklab:tiklab-rpc-common</exclude>
-                <exclude>com.tiklab:tiklab-rpc-codec</exclude>
-                <exclude>com.tiklab:tiklab-rpc-client</exclude>
-                <exclude>com.tiklab:tiklab-rpc-annotation</exclude>
-                <exclude>com.tiklab:tiklab-privilege-spring-boot-starter</exclude>
-                <exclude>com.tiklab:tiklab-postin-annotation</exclude>
-                <exclude>com.tiklab:tiklab-plugin-spring-boot-starter</exclude>
-                <exclude>com.tiklab:tiklab-message-spring-boot-starter</exclude>
-                <exclude>com.tiklab:tiklab-licence-spring-boot-starter</exclude>
-                <exclude>com.tiklab:tiklab-join-core</exclude>
-                <exclude>com.tiklab:tiklab-join-annotation</exclude>
-                <exclude>com.tiklab:tiklab-eas-spring-boot-stater</exclude>
-                <exclude>com.tiklab:tiklab-eam-spring-boot-starter</exclude>
-                <exclude>com.tiklab:tiklab-dss-server</exclude>
-                <exclude>com.tiklab:tiklab-dss-common</exclude>
-                <exclude>com.tiklab:tiklab-dss-client</exclude>
-                <exclude>com.tiklab:tiklab-dss-annotation</exclude>
-                <exclude>com.tiklab:tiklab-dsm-spring-boot-starter</exclude>
-                <exclude>com.tiklab:tiklab-dsm-core</exclude>
-                <exclude>com.tiklab:tiklab-dsm-annotation</exclude>
-                <exclude>com.tiklab:tiklab-dfs-web</exclude>
-                <exclude>com.tiklab:tiklab-dfs-server</exclude>
-                <exclude>com.tiklab:tiklab-dfs-common</exclude>
-                <exclude>com.tiklab:tiklab-dfs-client</exclude>
-                <exclude>com.tiklab:tiklab-dcs-server</exclude>
-                <exclude>com.tiklab:tiklab-dcs-common</exclude>
-                <exclude>com.tiklab:tiklab-dcs-client</exclude>
-                <exclude>com.tiklab:tiklab-dal-spring-boot-starter</exclude>
-                <exclude>com.tiklab:tiklab-dal-jpa</exclude>
-                <exclude>com.tiklab:tiklab-dal-jdbc</exclude>
-                <exclude>com.tiklab:tiklab-dal-datasource</exclude>
-                <exclude>com.tiklab:tiklab-core</exclude>
-                <exclude>com.tiklab:tiklab-beans-core</exclude>
-                <exclude>com.tiklab:tiklab-beans-annotation</exclude>
+                <exclude>net.tiklab:tiklab-web-spring-boot-starter</exclude>
+                <exclude>net.tiklab:tiklab-web-core</exclude>
+                <exclude>net.tiklab:tiklab-utils</exclude>
+                <exclude>net.tiklab:tiklab-user-spring-boot-starter</exclude>
+                <exclude>net.tiklab:tiklab-toolkit-server</exclude>
+                <exclude>net.tiklab:tiklab-toolkit-api</exclude>
+                <exclude>net.tiklab:tiklab-rpc-spring-boot-starter</exclude>
+                <exclude>net.tiklab:tiklab-rpc-server</exclude>
+                <exclude>net.tiklab:tiklab-rpc-remoting</exclude>
+                <exclude>net.tiklab:tiklab-rpc-common</exclude>
+                <exclude>net.tiklab:tiklab-rpc-codec</exclude>
+                <exclude>net.tiklab:tiklab-rpc-client</exclude>
+                <exclude>net.tiklab:tiklab-rpc-annotation</exclude>
+                <exclude>net.tiklab:tiklab-privilege-spring-boot-starter</exclude>
+                <exclude>net.tiklab:tiklab-postin-annotation</exclude>
+                <exclude>net.tiklab:tiklab-plugin-spring-boot-starter</exclude>
+                <exclude>net.tiklab:tiklab-message-spring-boot-starter</exclude>
+                <exclude>net.tiklab:tiklab-licence-spring-boot-starter</exclude>
+                <exclude>net.tiklab:tiklab-join-core</exclude>
+                <exclude>net.tiklab:tiklab-join-annotation</exclude>
+                <exclude>net.tiklab:tiklab-eas-spring-boot-stater</exclude>
+                <exclude>net.tiklab:tiklab-eam-spring-boot-starter</exclude>
+                <exclude>net.tiklab:tiklab-dss-server</exclude>
+                <exclude>net.tiklab:tiklab-dss-common</exclude>
+                <exclude>net.tiklab:tiklab-dss-client</exclude>
+                <exclude>net.tiklab:tiklab-dss-annotation</exclude>
+                <exclude>net.tiklab:tiklab-dsm-spring-boot-starter</exclude>
+                <exclude>net.tiklab:tiklab-dsm-core</exclude>
+                <exclude>net.tiklab:tiklab-dsm-annotation</exclude>
+                <exclude>net.tiklab:tiklab-dfs-web</exclude>
+                <exclude>net.tiklab:tiklab-dfs-server</exclude>
+                <exclude>net.tiklab:tiklab-dfs-common</exclude>
+                <exclude>net.tiklab:tiklab-dfs-client</exclude>
+                <exclude>net.tiklab:tiklab-dcs-server</exclude>
+                <exclude>net.tiklab:tiklab-dcs-common</exclude>
+                <exclude>net.tiklab:tiklab-dcs-client</exclude>
+                <exclude>net.tiklab:tiklab-dal-spring-boot-starter</exclude>
+                <exclude>net.tiklab:tiklab-dal-jpa</exclude>
+                <exclude>net.tiklab:tiklab-dal-jdbc</exclude>
+                <exclude>net.tiklab:tiklab-dal-datasource</exclude>
+                <exclude>net.tiklab:tiklab-core</exclude>
+                <exclude>net.tiklab:tiklab-beans-core</exclude>
+                <exclude>net.tiklab:tiklab-beans-annotation</exclude>
                 <exclude>org.springframework:spring-websocket</exclude>
                 <exclude>org.springframework:spring-webmvc</exclude>
                 <exclude>org.springframework:spring-web</exclude>
@@ -186,7 +186,7 @@
                 <exclude>org.springframework:spring-beans</exclude>
                 <exclude>org.springframework:spring-aop</exclude>
                 <exclude>org.yaml:snakeyaml</exclude>
-                <exclude>com.tiklab:tiklab-mysql</exclude>
+                <exclude>net.tiklab:tiklab-mysql</exclude>
             </excludes>
         </dependencySet>
     </dependencySets>

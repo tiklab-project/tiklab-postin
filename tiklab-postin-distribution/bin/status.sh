@@ -8,7 +8,7 @@ if [ -e "${DIRS}/${JDK_VERSION}" ]; then
       JAVA_HOME="${DIRS}/${JDK_VERSION}"
 fi
 
-APP_MAIN="com.tiklab.postin.PostInDistributionApplication"
+APP_MAIN="net.tiklab.postin.PostInDistributionApplication"
 
 PID=0
 getPID(){

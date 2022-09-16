@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.tiklab</groupId>
+        <groupId>net.tiklab</groupId>
         <artifactId>tiklab-postin</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
@@ -48,26 +48,26 @@
         </dependency>
         <!--tiklab-->
         <dependency>
-            <groupId>com.tiklab</groupId>
+            <groupId>net.tiklab</groupId>
             <artifactId>tiklab-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.tiklab</groupId>
+            <groupId>net.tiklab</groupId>
             <artifactId>tiklab-utils</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.tiklab</groupId>
+            <groupId>net.tiklab</groupId>
             <artifactId>tiklab-postin-annotation</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
 <!--        <dependency>-->
-<!--            <groupId>com.tiklab</groupId>-->
+<!--            <groupId>net.tiklab</groupId>-->
 <!--            <artifactId>tiklab-postlink-annotation</artifactId>-->
 <!--            <version>1.0.0-SNAPSHOT</version>-->
 <!--            <scope>compile</scope>-->
 <!--        </dependency>-->
         <!--        <dependency>-->
-<!--            <groupId>com.tiklab</groupId>-->
+<!--            <groupId>net.tiklab</groupId>-->
 <!--            <artifactId>tiklab-postin-mock</artifactId>-->
 <!--            <version>${project.version}</version>-->
 <!--        </dependency>-->

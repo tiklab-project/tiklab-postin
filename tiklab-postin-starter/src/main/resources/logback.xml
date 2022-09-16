@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <contextListener class="com.tiklab.web.context.LogHomeConfiguration" />
+    <contextListener class="net.tiklab.web.context.LogHomeConfiguration" />
     <!--在没有定义${LOG_PATH}系统变量的时候，可以设置此本地变量。提交测试、上线时，要将其注释掉，使用系统变量。-->
     <property name="LOG_PATH" value="${LOG_HOME}" />
     <!--日志文件保留天数-->
