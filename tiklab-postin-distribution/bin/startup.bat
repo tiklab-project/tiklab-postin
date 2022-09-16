@@ -23,7 +23,7 @@ echo %DIRS%
 
 xcopy /E %DIRS%temp\*.* %DIRS%
 
-set APP_MAIN=com.tiklab.teamwire.TeamWireApplication
+set APP_MAIN=com.tiklab.postin.PostInDistributionApplication
 
 set APP_HOME=%DIRS%
 

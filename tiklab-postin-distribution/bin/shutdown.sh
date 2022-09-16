@@ -9,7 +9,7 @@ if [ -e "${DIRS}/${JDK_VERSION}" ]; then
 fi
 
 #APP_MAIN=${application.main.class}
-APP_MAIN="com.tiklab.postin.PostInApplication"
+APP_MAIN="com.tiklab.postin.PostInDistributionApplication"
 
 PID=0
 getPID(){

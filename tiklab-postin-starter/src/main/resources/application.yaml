@@ -76,8 +76,6 @@ application: postin
 file:
   path: http://file.dev.tiklab.net
 
-auth:
-  type: local
 
 eas:
   embbed:

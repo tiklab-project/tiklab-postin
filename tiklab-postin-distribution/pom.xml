@@ -123,13 +123,6 @@
             <dependencies>
                 <dependency>
                     <groupId>com.tiklab</groupId>
-                    <artifactId>tiklab-eas-enable-starter</artifactId>
-                    <version>1.0.0-SNAPSHOT</version>
-                    <type>zip</type>
-                    <scope>provided</scope>
-                </dependency>
-                <dependency>
-                    <groupId>com.tiklab</groupId>
                     <artifactId>tiklab-mysql-linux</artifactId>
                     <version>1.0.0-SNAPSHOT</version>
                     <type>zip</type>
@@ -151,13 +144,6 @@
         <profile>
             <id>windows</id>
             <dependencies>
-                <dependency>
-                    <groupId>com.tiklab</groupId>
-                    <artifactId>tiklab-eas-enable-starter</artifactId>
-                    <version>1.0.0-SNAPSHOT</version>
-                    <type>zip</type>
-                    <scope>provided</scope>
-                </dependency>
                 <dependency>
                     <groupId>com.tiklab</groupId>
                     <artifactId>tiklab-mysql-windows</artifactId>
@@ -265,13 +251,6 @@
                         </goals>
                         <configuration>
                             <artifactItems>
-                                <artifactItem>
-                                    <groupId>com.tiklab</groupId>
-                                    <artifactId>tiklab-eas-enable-starter</artifactId>
-                                    <version>1.0.0-SNAPSHOT</version>
-                                    <type>zip</type>
-                                    <outputDirectory>temp</outputDirectory>
-                                </artifactItem>
                                 <artifactItem>
                                     <groupId>com.tiklab</groupId>
                                     <artifactId>tiklab-jdk-${systemType}</artifactId>
