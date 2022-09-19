@@ -10,7 +10,7 @@ import net.tiklab.dal.jpa.annotation.Entity;
 import java.io.Serializable;
 
 @Entity
-@Table(name="postin_json_param_testcase")
+@Table(name="postin_http_case_request_json")
 public class JsonParamCaseEntity implements Serializable {
 
     @Id

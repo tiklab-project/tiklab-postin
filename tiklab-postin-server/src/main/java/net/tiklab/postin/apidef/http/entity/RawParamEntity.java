@@ -8,7 +8,7 @@ import net.tiklab.dal.jpa.annotation.Table;import net.tiklab.dal.jpa.annotation.
 import java.io.Serializable;
 
 @Entity
-@Table(name="postin_raw_param")
+@Table(name="postin_http_request_raw")
 public class RawParamEntity implements Serializable {
 
     @Id

@@ -5,7 +5,7 @@ import net.tiklab.dal.jpa.annotation.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name="postin_form_urlencoded")
+@Table(name="postin_http_request_urlencoded")
 public class FormUrlencodedEntity implements Serializable {
 
     @Id

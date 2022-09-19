@@ -9,7 +9,7 @@ import net.tiklab.dal.jpa.annotation.Table;import net.tiklab.dal.jpa.annotation.
 import java.io.Serializable;
 
 @Entity
-@Table(name="postin_form_param_mock")
+@Table(name="postin_http_mock_request_form")
 public class FormParamMockEntity implements Serializable {
 
     @Id

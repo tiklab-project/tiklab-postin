@@ -33,35 +33,29 @@ public class HttpTestcase extends BaseModel {
     @ApiProperty(name="name",desc="用例名称",required = true)
     private java.lang.String name;
 
-    @ApiProperty(name="requestHeaderCaseList",desc="用例-请求头列表")
-    private List<RequestHeaderCase> requestHeaderCaseList;
+    @ApiProperty(name="headerList",desc="用例-请求头列表")
+    private List<RequestHeaderCase> headerList;
 
-    @ApiProperty(name="queryParamCaseList",desc="用例-查询参数列表")
-    private List<QueryParamCase> queryParamCaseList;
+    @ApiProperty(name="queryList",desc="用例-查询参数列表")
+    private List<QueryParamCase> queryList;
 
-    @ApiProperty(name="requestBodyCase",desc="用例-请求体")
-    private RequestBodyCase requestBodyCase;
+    @ApiProperty(name="request",desc="用例-请求参数")
+    private RequestCase request;
 
-    @ApiProperty(name="formParamCaseList",desc="用例-请求体form参数")
-    private List<FormParamCase> formParamCaseList;
+    @ApiProperty(name="formList",desc="用例-请求体form参数")
+    private List<FormParamCase> formList;
 
-    @ApiProperty(name = "form")
-    private List<FormUrlencodedCase> formUrlencodedCaseList;
+    @ApiProperty(name = "urlencodedList")
+    private List<FormUrlencodedCase> urlencodedList;
 
-    @ApiProperty(name="jsonParamCaseList",desc="用例-请求体json参数")
-    private List<JsonParamCase> jsonParamCaseList;
+    @ApiProperty(name="jsonList",desc="用例-请求体json参数")
+    private List<JsonParamCase> jsonList;
 
     @ApiProperty(name="rawParamCase",desc="用例-请求体raw参数")
     private RawParamCase rawParamCase;
 
-    @ApiProperty(name="preScriptCase",desc="用例-前置脚本参数")
-    private PreScriptCase preScriptCase;
-
-    @ApiProperty(name="afterScriptCase",desc="用例-后置脚本参数")
-    private AfterScriptCase afterScriptCase;
-
-    @ApiProperty(name="assertCaseList",desc="用例-断言列表")
-    private List<AssertCase> assertCaseList;
+    @ApiProperty(name="assertList",desc="用例-断言列表")
+    private List<AssertCase> assertList;
 
     public String getId() {
         return id;
@@ -88,52 +82,52 @@ public class HttpTestcase extends BaseModel {
         this.name = name;
     }
 
-    public List<RequestHeaderCase> getRequestHeaderCaseList() {
-        return requestHeaderCaseList;
+    public List<RequestHeaderCase> getHeaderList() {
+        return headerList;
     }
 
-    public void setRequestHeaderCaseList(List<RequestHeaderCase> requestHeaderCaseList) {
-        this.requestHeaderCaseList = requestHeaderCaseList;
+    public void setHeaderList(List<RequestHeaderCase> headerList) {
+        this.headerList = headerList;
     }
 
-    public List<QueryParamCase> getQueryParamCaseList() {
-        return queryParamCaseList;
+    public List<QueryParamCase> getQueryList() {
+        return queryList;
     }
 
-    public void setQueryParamCaseList(List<QueryParamCase> queryParamCaseList) {
-        this.queryParamCaseList = queryParamCaseList;
+    public void setQueryList(List<QueryParamCase> queryList) {
+        this.queryList = queryList;
     }
 
-    public RequestBodyCase getRequestBodyCase() {
-        return requestBodyCase;
+    public RequestCase getRequest() {
+        return request;
     }
 
-    public void setRequestBodyCase(RequestBodyCase requestBodyCase) {
-        this.requestBodyCase = requestBodyCase;
+    public void setRequest(RequestCase request) {
+        this.request = request;
     }
 
-    public List<FormParamCase> getFormParamCaseList() {
-        return formParamCaseList;
+    public List<FormParamCase> getFormList() {
+        return formList;
     }
 
-    public void setFormParamCaseList(List<FormParamCase> formParamCaseList) {
-        this.formParamCaseList = formParamCaseList;
+    public void setFormList(List<FormParamCase> formList) {
+        this.formList = formList;
     }
 
-    public List<FormUrlencodedCase> getFormUrlencodedCaseList() {
-        return formUrlencodedCaseList;
+    public List<FormUrlencodedCase> getUrlencodedList() {
+        return urlencodedList;
     }
 
-    public void setFormUrlencodedCaseList(List<FormUrlencodedCase> formUrlencodedCaseList) {
-        this.formUrlencodedCaseList = formUrlencodedCaseList;
+    public void setUrlencodedList(List<FormUrlencodedCase> urlencodedList) {
+        this.urlencodedList = urlencodedList;
     }
 
-    public List<JsonParamCase> getJsonParamCaseList() {
-        return jsonParamCaseList;
+    public List<JsonParamCase> getJsonList() {
+        return jsonList;
     }
 
-    public void setJsonParamCaseList(List<JsonParamCase> jsonParamCaseList) {
-        this.jsonParamCaseList = jsonParamCaseList;
+    public void setJsonList(List<JsonParamCase> jsonList) {
+        this.jsonList = jsonList;
     }
 
     public RawParamCase getRawParamCase() {
@@ -144,27 +138,11 @@ public class HttpTestcase extends BaseModel {
         this.rawParamCase = rawParamCase;
     }
 
-    public PreScriptCase getPreScriptCase() {
-        return preScriptCase;
+    public List<AssertCase> getAssertList() {
+        return assertList;
     }
 
-    public void setPreScriptCase(PreScriptCase preScriptCase) {
-        this.preScriptCase = preScriptCase;
-    }
-
-    public AfterScriptCase getAfterScriptCase() {
-        return afterScriptCase;
-    }
-
-    public void setAfterScriptCase(AfterScriptCase afterScriptCase) {
-        this.afterScriptCase = afterScriptCase;
-    }
-
-    public List<AssertCase> getAssertCaseList() {
-        return assertCaseList;
-    }
-
-    public void setAssertCaseList(List<AssertCase> assertCaseList) {
-        this.assertCaseList = assertCaseList;
+    public void setAssertList(List<AssertCase> assertList) {
+        this.assertList = assertList;
     }
 }

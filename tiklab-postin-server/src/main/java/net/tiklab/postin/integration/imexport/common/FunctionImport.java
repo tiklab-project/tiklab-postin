@@ -5,12 +5,9 @@ import net.tiklab.postin.apidef.apix.model.Apix;
 import net.tiklab.postin.apidef.apix.service.ApixService;
 import net.tiklab.postin.apidef.http.model.*;
 import net.tiklab.postin.apidef.http.service.*;
-import net.tiklab.postin.apidef.http.model.*;
-import net.tiklab.postin.apidef.http.service.*;
 import net.tiklab.postin.category.model.Category;
 import net.tiklab.postin.category.model.CategoryQuery;
 import net.tiklab.postin.category.service.CategoryService;
-import net.tiklab.postin.integration.imexport.model.*;
 import net.tiklab.postin.integration.imexport.model.*;
 import net.tiklab.postin.workspace.model.Workspace;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +38,7 @@ public class FunctionImport {
     QueryParamService queryParamService;
 
     @Autowired
-    RequestBodyService requestBodyService;
+    ApiRequestService apiRequestService;
 
     @Autowired
     FormParamService formParamService;
@@ -56,7 +53,7 @@ public class FunctionImport {
     RawParamService rawParamService;
 
     @Autowired
-    ResponseResultService responseResultService;
+    ApiResponseService apiResponseService;
 
     @Autowired
     JsonResponseService jsonResponseService;
@@ -161,16 +158,13 @@ public class FunctionImport {
     }
 
     public void addBody(String requestBody,String methodId){
-        HttpApi requestBodyMethod = new HttpApi();
-        requestBodyMethod.setId(methodId);
+        ApiRequest apiRequest = new ApiRequest();
 
-        RequestBodyEx requestBodyEx = new RequestBodyEx();
+        apiRequest.setId(methodId);
+        apiRequest.setBodyType(requestBody);
+        apiRequest.setHttpId(methodId);
 
-        requestBodyEx.setId(methodId);
-        requestBodyEx.setBodyType(requestBody);
-        requestBodyEx.setHttp(requestBodyMethod);
-
-        requestBodyService.createRequestBody(requestBodyEx);
+        apiRequestService.createApiRequest(apiRequest);
     }
 
     public void addFormData(FormDataImportVo fvo){
@@ -239,16 +233,13 @@ public class FunctionImport {
     }
 
     public void addResponseBody(String methodId){
-        HttpApi httpApi = new HttpApi();
-        httpApi.setId(methodId);
+        ApiResponse apiResponse = new ApiResponse();
 
-        ResponseResult responseResult = new ResponseResult();
+        apiResponse.setId(methodId);
+        apiResponse.setBodyType("json");
+        apiResponse.setHttpId(methodId);
 
-        responseResult.setId(methodId);
-        responseResult.setResultType("json");
-        responseResult.setHttp(httpApi);
-
-        responseResultService.createResponseResult(responseResult);
+        apiResponseService.createApiResponse(apiResponse);
     }
 
     public String addResponseJson(JsonResponseImportVo jRVo){

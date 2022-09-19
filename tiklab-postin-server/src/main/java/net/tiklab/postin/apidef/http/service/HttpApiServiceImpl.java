@@ -9,14 +9,8 @@ import net.tiklab.postin.apidef.http.model.*;
 import net.tiklab.beans.BeanMapper;
 import net.tiklab.core.page.Pagination;
 import net.tiklab.core.page.PaginationBuilder;
-import net.tiklab.dal.jpa.criterial.conditionbuilder.DeleteBuilders;
-import net.tiklab.dal.jpa.criterial.condition.DeleteCondition;
 import net.tiklab.dss.client.DssClient;
 import net.tiklab.join.JoinTemplate;
-import net.tiklab.message.message.service.MessageService;
-import net.tiklab.postin.apidef.http.dao.*;
-import net.tiklab.postin.apidef.http.entity.*;
-import net.tiklab.postin.apidef.http.model.*;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,56 +38,13 @@ public class HttpApiServiceImpl implements HttpApiService {
     JoinTemplate joinTemplate;
 
     @Autowired
-    AfterScriptDao afterScriptDao;
-
-    @Autowired
-    RequestHeaderDao requestHeaderDao;
-
-    @Autowired
-    QueryParamDao queryParamDao;
-
-    @Autowired
-    RequestBodyDao requestBodyDao;
-
-    @Autowired
-    FormParamDao formParamDao;
-
-    @Autowired
-    JsonParamDao jsonParamDao;
-
-    @Autowired
-    FormUrlencodedDao formUrlencodedDao;
-
-    @Autowired
-    RawParamDao rawParamDao;
-
-    @Autowired
-    BinaryParamDao binaryParamDao;
-
-    @Autowired
-    PreScriptDao preScriptDao;
-
-    @Autowired
-    JsonResponseDao jsonResponseDao;
-
-    @Autowired
-    RawResponseDao rawResponseDao;
-
-    @Autowired
-    ResponseHeaderDao responseHeaderDao;
-
-    @Autowired
-    ResponseResultDao responseResultDao;
-
-    @Autowired
     RequestHeaderService requestHeaderService;
 
     @Autowired
     QueryParamService queryParamService;
 
     @Autowired
-    RequestBodyService requestBodyService;
-
+    ApiRequestService apiRequestService;
     @Autowired
     FormParamService formParamService;
 
@@ -107,17 +58,12 @@ public class HttpApiServiceImpl implements HttpApiService {
     RawParamService rawParamService;
 
     @Autowired
-    PreScriptService preScriptService;
-
-    @Autowired
-    AfterScriptService afterScriptService;
-
+    ApiResponseService apiResponseService;
 
     @Autowired
     DssClient disClient;
 
-    @Autowired
-    MessageService messageService;
+
 
     @Override
     public String createHttpApi(@NotNull @Valid HttpApi httpApi) {
@@ -136,12 +82,18 @@ public class HttpApiServiceImpl implements HttpApiService {
         httpApiEntity.setId(id);
         httpApiDao.updateHttpApi(httpApiEntity);
 
-        //初始化请求体类型
-        RequestBodyEx requestBodyEx = new RequestBodyEx();
-        requestBodyEx.setId(id);
-        requestBodyEx.setHttp(new HttpApi().setId(id));
-        requestBodyEx.setBodyType("none");
-        requestBodyService.createRequestBody(requestBodyEx);
+        //初始化请求响应中的类型
+        ApiRequest apiRequest = new ApiRequest();
+        apiRequest.setId(id);
+        apiRequest.setHttpId(id);
+        apiRequest.setBodyType("none");
+        apiRequestService.createApiRequest(apiRequest);
+
+        ApiResponse apiResponse = new ApiResponse();
+        apiResponse.setId(id);
+        apiResponse.setHttpId(id);
+        apiResponse.setBodyType("json");
+        apiResponseService.createApiResponse(apiResponse);
 
         //创建apix
         Apix apix = httpApi.getApix();
@@ -172,89 +124,6 @@ public class HttpApiServiceImpl implements HttpApiService {
         //删除apix
         apixService.deleteApix(id);
 
-        //删除后置脚本数据
-        DeleteCondition deleteCondition = DeleteBuilders.createDelete(AfterScriptEntity.class)
-                .eq("httpId", id)
-                .get();
-        afterScriptDao.deleteAfterScriptList(deleteCondition);
-
-        //删除requestHeader
-        deleteCondition = DeleteBuilders.createDelete(RequestHeaderEntity.class)
-                .eq("httpId", id)
-                .get();
-        requestHeaderDao.deleteRequestHeaderList(deleteCondition);
-
-        //删除query类型请求体
-        deleteCondition = DeleteBuilders.createDelete(QueryParamEntity.class)
-                .eq("httpId", id)
-                .get();
-        queryParamDao.deleteQueryParamList(deleteCondition);
-
-        //删除requestBoy
-        deleteCondition = DeleteBuilders.createDelete(RequestBodyEntity.class)
-                .eq("httpId", id)
-                .get();
-        requestBodyDao.deleteRequestBodyList(deleteCondition);
-
-        //删除form类型请求体
-        deleteCondition = DeleteBuilders.createDelete(FormParamEntity.class)
-                .eq("httpId", id)
-                .get();
-        formParamDao.deleteFormParamLsit(deleteCondition);
-
-        //删除formUrlencodedDao
-        deleteCondition = DeleteBuilders.createDelete(FormParamEntity.class)
-                .eq("httpId", id)
-                .get();
-        formUrlencodedDao.deleteFormUrlencoded(deleteCondition);
-
-        //删除json类型请求体
-        deleteCondition = DeleteBuilders.createDelete(JsonParamEntity.class)
-                .eq("httpId", id)
-                .get();
-        jsonParamDao.deleteJsonParamList(deleteCondition);
-
-        //删除json类型响应结果
-        deleteCondition = DeleteBuilders.createDelete(JsonResponseEntity.class)
-                .eq("httpId", id)
-                .get();
-        jsonResponseDao.deleteJsonResponseList(deleteCondition);
-
-        //删除rawParam 类型请求体
-        deleteCondition = DeleteBuilders.createDelete(RawParamEntity.class)
-                .eq("httpId", id)
-                .get();
-        rawParamDao.deleteRawParamlist(deleteCondition);
-
-        //删除binaryParam
-        deleteCondition = DeleteBuilders.createDelete(RawParamEntity.class)
-                .eq("httpId", id)
-                .get();
-        binaryParamDao.deleteBinaryParam(deleteCondition);
-
-        //删除preScrit 前置脚本
-        deleteCondition = DeleteBuilders.createDelete(PreScriptEntity.class)
-                .eq("httpId", id)
-                .get();
-        preScriptDao.deletePreScriptList(deleteCondition);
-
-        //删除rawResponse返回类型
-        deleteCondition = DeleteBuilders.createDelete(RawResponseEntity.class)
-                .eq("httpId", id)
-                .get();
-        rawResponseDao.deleteRawResponseList(deleteCondition);
-
-        //删除responseHeader
-        deleteCondition = DeleteBuilders.createDelete(ResponseHeaderEntity.class)
-                .eq("httpId", id)
-                .get();
-        responseHeaderDao.deleteResponseHeaderList(deleteCondition);
-
-        //删除responseResult
-        deleteCondition = DeleteBuilders.createDelete(ResponseResultEntity.class)
-                .eq("httpId", id)
-                .get();
-        responseResultDao.deleteResponseResultList(deleteCondition);
 
         //删除索引
         disClient.delete(HttpApi.class,id);
@@ -285,40 +154,40 @@ public class HttpApiServiceImpl implements HttpApiService {
         //获取请求头中的数据
         List<RequestHeader> requestHeaderList = requestHeaderService.findRequestHeaderList(new RequestHeaderQuery().setHttpId(httpId));
         if(CollectionUtils.isNotEmpty(requestHeaderList)){
-            httpApi.setRequestHeaderList(requestHeaderList);
+            httpApi.setHeaderList(requestHeaderList);
         }
 
         //获取查询参数的数据
         List<QueryParam> queryParamList = queryParamService.findQueryParamList(new QueryParamQuery().setHttpId(httpId));
         if(CollectionUtils.isNotEmpty(queryParamList)){
-            httpApi.setQueryParamList(queryParamList);
+            httpApi.setQueryList(queryParamList);
         }
 
         //获取请求体的类型
-        RequestBodyEx requestBody = requestBodyService.findRequestBody(httpId);
-        httpApi.setRequestBody(requestBody);
-        String bodyType = requestBody.getBodyType();
+        ApiRequest apiRequest = apiRequestService.findApiRequest(httpId);
+        httpApi.setRequest(apiRequest);
+        String bodyType = apiRequest.getBodyType();
 
         if(!ObjectUtils.isEmpty(bodyType)){
             if(bodyType.equals("formdata")){
                 //获取formdata数据
                 List<FormParam> formParamList = formParamService.findFormParamList(new FormParamQuery().setHttpId(httpId));
                 if(CollectionUtils.isNotEmpty(formParamList)){
-                    httpApi.setFormParamList(formParamList);
+                    httpApi.setFormList(formParamList);
                 }
 
             }else if(bodyType.equals("formUrlencoded")){
                 //获取formurlencoded数据
                 List<FormUrlencoded> formUrlencodedList = formUrlencodedService.findFormUrlencodedList(new FormUrlencodedQuery().setHttpId(httpId));
                 if(CollectionUtils.isNotEmpty(formUrlencodedList)){
-                    httpApi.setFormUrlencodedList(formUrlencodedList);
+                    httpApi.setUrlencodedList(formUrlencodedList);
                 }
 
             }else if(bodyType.equals("json")){
                 //获取json数据
                 List<JsonParam> jsonParamList = jsonParamService.findJsonParamListTree(new JsonParamQuery().setHttpId(httpId));
                 if(CollectionUtils.isNotEmpty(jsonParamList)){
-                    httpApi.setJsonParamList(jsonParamList);
+                    httpApi.setJsonList(jsonParamList);
                 }
 
             }else if(bodyType.equals("raw")){
@@ -328,19 +197,6 @@ public class HttpApiServiceImpl implements HttpApiService {
                     httpApi.setRawParam(rawParam);
                 }
             }
-        }
-
-
-        //获取前置脚本数据
-        PreScript preScript = preScriptService.findPreScript(httpId);
-        if(!ObjectUtils.isEmpty(preScript)){
-            httpApi.setPreScript(preScript);
-        }
-
-        //获取后置脚本数据
-        AfterScript afterScript = afterScriptService.findAfterScript(httpId);
-        if(!ObjectUtils.isEmpty(afterScript)){
-            httpApi.setAfterScript(afterScript);
         }
 
 

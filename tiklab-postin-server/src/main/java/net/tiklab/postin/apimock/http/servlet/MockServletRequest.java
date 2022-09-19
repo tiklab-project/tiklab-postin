@@ -9,8 +9,6 @@ import net.tiklab.postin.apidef.http.model.HttpApi;
 import net.tiklab.postin.apidef.http.service.HttpApiService;
 import net.tiklab.postin.apimock.http.model.*;
 import net.tiklab.postin.apimock.http.service.*;
-import net.tiklab.postin.apimock.http.model.*;
-import net.tiklab.postin.apimock.http.service.*;
 import net.tiklab.postin.category.model.Category;
 import net.tiklab.postin.category.model.CategoryQuery;
 import net.tiklab.postin.category.service.CategoryService;
@@ -57,7 +55,7 @@ public class MockServletRequest {
     QueryParamMockService queryParamMockService;
 
     @Autowired
-    RequestBodyMockService requestBodyMockService;
+    RequestMockService requestMockService;
 
     @Autowired
     FormParamMockService formParamMockService;
@@ -259,8 +257,8 @@ public class MockServletRequest {
     }
 
     public  boolean getRequestTypeStatus(String mockId, HttpServletRequest request) throws IOException {
-        RequestBodyMock requestBodyMock = requestBodyMockService.findRequestBodyMock(mockId);
-        String bodyType = requestBodyMock.getBodyType();
+        RequestMock requestMock = requestMockService.findRequestMock(mockId);
+        String bodyType = requestMock.getBodyType();
 
         boolean bodyStatus = false;
 

@@ -8,7 +8,7 @@ import net.tiklab.dal.jpa.annotation.Table;import net.tiklab.dal.jpa.annotation.
 import java.io.Serializable;
 
 @Entity
-@Table(name="postin_response_mock")
+@Table(name="postin_http_mock_response")
 public class ResponseMockEntity implements Serializable {
 
     @Id
@@ -18,7 +18,10 @@ public class ResponseMockEntity implements Serializable {
     @Column(name = "mock_id",length = 32,notNull = true)
     private String mockId;
 
-    @Column(name = "http_code",length = 32,notNull = true)
+    @Column(name = "body_type",length = 2048)
+    private String bodyType;
+
+    @Column(name = "http_code",length = 2048)
     private String httpCode;
 
     public String getId() {
@@ -43,5 +46,13 @@ public class ResponseMockEntity implements Serializable {
 
     public void setHttpCode(String httpCode) {
         this.httpCode = httpCode;
+    }
+
+    public String getBodyType() {
+        return bodyType;
+    }
+
+    public void setBodyType(String bodyType) {
+        this.bodyType = bodyType;
     }
 }

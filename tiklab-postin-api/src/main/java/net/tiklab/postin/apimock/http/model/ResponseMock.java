@@ -3,11 +3,8 @@ package net.tiklab.postin.apimock.http.model;
 import net.tiklab.postin.annotation.ApiModel;
 import net.tiklab.postin.annotation.ApiProperty;
 import net.tiklab.beans.annotation.Mapper;
-import net.tiklab.beans.annotation.Mapping;
-import net.tiklab.beans.annotation.Mappings;
 import net.tiklab.core.BaseModel;
 import net.tiklab.join.annotation.Join;
-import net.tiklab.join.annotation.JoinQuery;
 
 import javax.validation.constraints.NotNull;
 
@@ -20,15 +17,13 @@ public class ResponseMock extends BaseModel {
     private java.lang.String id;
 
     @NotNull
-    @ApiProperty(name="mock",desc="所属mock",required = true)
-    @Mappings({
-            @Mapping(source = "mock.id",target = "mockId")
-    })
-    @JoinQuery(key = "id")
-    private Mock mock;
+    @ApiProperty(name="mockId",desc="所属mock",required = true)
+    private String mockId;
 
-    @NotNull
-    @ApiProperty(name="httpCode",desc="返回http状态码，默认200为正常",required = true)
+    @ApiProperty(name="bodyType",desc="选项类型")
+    private java.lang.String bodyType;
+
+    @ApiProperty(name="httpCode",desc="返回http状态码，默认200为正常")
     private java.lang.String httpCode;
 
     public java.lang.String getId() {
@@ -39,12 +34,12 @@ public class ResponseMock extends BaseModel {
         this.id = id;
     }
 
-    public Mock getMock() {
-        return mock;
+    public String getMockId() {
+        return mockId;
     }
 
-    public void setMock(Mock mock) {
-        this.mock = mock;
+    public void setMockId(String mockId) {
+        this.mockId = mockId;
     }
 
     public java.lang.String getHttpCode() {
@@ -53,5 +48,13 @@ public class ResponseMock extends BaseModel {
 
     public void setHttpCode(java.lang.String httpCode) {
         this.httpCode = httpCode;
+    }
+
+    public String getBodyType() {
+        return bodyType;
+    }
+
+    public void setBodyType(String bodyType) {
+        this.bodyType = bodyType;
     }
 }

@@ -6,7 +6,7 @@ import net.tiklab.dal.jpa.annotation.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name="postin_response_header_mock")
+@Table(name="postin_http_mock_response_header")
 public class ResponseHeaderMockEntity implements Serializable {
 
     @Id

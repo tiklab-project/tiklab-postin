@@ -23,9 +23,6 @@ public class MockServletResponse {
     ResponseMockService responseMockService;
 
     @Autowired
-    ResponseResultMockService responseResultMockService;
-
-    @Autowired
     ResponseHeaderMockService responseHeaderMockService;
 
     @Autowired
@@ -78,8 +75,9 @@ public class MockServletResponse {
 
     //从数据库获取body类型，设置对应的body类型
     public void setBody(String mockId,  HttpServletResponse response) throws IOException {
-        ResponseResultMock responseResultMock = responseResultMockService.findResponseResultMock(mockId);
-        String responseType = responseResultMock.getResultType();
+        ResponseMock responseMock = responseMockService.findResponseMock(mockId);
+
+        String responseType = responseMock.getBodyType();
         if(responseType.equals("json")){
             setJson(mockId,response);
         }else {

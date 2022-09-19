@@ -1,5 +1,6 @@
 package net.tiklab.postin.apimock.http.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import net.tiklab.postin.annotation.ApiModel;
 import net.tiklab.postin.annotation.ApiProperty;
 import net.tiklab.postin.apidef.http.model.HttpApi;
@@ -7,13 +8,11 @@ import net.tiklab.beans.annotation.Mapper;
 import net.tiklab.beans.annotation.Mapping;
 import net.tiklab.beans.annotation.Mappings;
 import net.tiklab.core.BaseModel;
-import net.tiklab.dss.annotation.IndexField;
 import net.tiklab.join.annotation.Join;
-import net.tiklab.join.annotation.JoinQuery;
 import net.tiklab.user.user.model.User;
 
 import javax.validation.constraints.NotNull;
-import java.sql.Date;
+import java.sql.Timestamp;
 
 @ApiModel
 @Join
@@ -28,7 +27,6 @@ public class Mock extends BaseModel {
     @Mappings({
             @Mapping(source = "http.id",target = "httpId")
     })
-    @JoinQuery(key = "id")
     private HttpApi http;
 
     @NotNull
@@ -42,12 +40,11 @@ public class Mock extends BaseModel {
     @Mappings({
             @Mapping(source = "createUser.id",target = "createUser")
     })
-    @JoinQuery(key = "id")
     private User createUser;
 
-    @ApiProperty(name="createTime",desc="创建时间")
-    @IndexField
-    private  Date createTime;
+    @ApiProperty(name="createTime",desc="createTime")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
+    private java.sql.Timestamp createTime;
 
     @NotNull
     @ApiProperty(name="enable",desc="是否启用,0:未启用;1:启用",eg="@int16")
@@ -93,11 +90,11 @@ public class Mock extends BaseModel {
         this.createUser = createUser;
     }
 
-    public Date getCreateTime() {
+    public Timestamp getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(Timestamp createTime) {
         this.createTime = createTime;
     }
 

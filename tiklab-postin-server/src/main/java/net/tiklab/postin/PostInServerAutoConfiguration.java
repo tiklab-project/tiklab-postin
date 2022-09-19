@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @SQL(modules = {
         "apisql",
-        "eg",
+//        "eg",
         "enum"
 })
 @ComponentScan({"net.tiklab.postin"})

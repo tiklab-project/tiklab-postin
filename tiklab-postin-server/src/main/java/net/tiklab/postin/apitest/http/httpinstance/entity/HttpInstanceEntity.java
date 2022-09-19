@@ -10,7 +10,7 @@ import net.tiklab.dal.jpa.annotation.Entity;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
-@Entity @Table(name="postin_test_instance")
+@Entity @Table(name="postin_http_case_instance")
 public class HttpInstanceEntity implements Serializable {
 
     @Id

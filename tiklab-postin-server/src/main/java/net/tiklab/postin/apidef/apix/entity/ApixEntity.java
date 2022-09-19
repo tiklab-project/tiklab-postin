@@ -51,7 +51,6 @@ public class ApixEntity implements Serializable {
     @Column(name = "api_uid",length = 32)
     private String apiUid;
 
-
     public String getId() {
         return id;
     }
@@ -163,4 +162,5 @@ public class ApixEntity implements Serializable {
     public void setApiUid(String apiUid) {
         this.apiUid = apiUid;
     }
+
 }

@@ -3,7 +3,7 @@ package net.tiklab.postin.apidef.codegen;
 import net.tiklab.codegen.CodeGeneratorTemplate;
 import net.tiklab.codegen.config.CodeGeneratorConfig;
 import net.tiklab.codegen.config.ProjectGeneratorConfig;
-import net.tiklab.postin.apidef.http.entity.RequestBodyEntity;
+import net.tiklab.postin.apidef.http.entity.ApiRequestEntity;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +21,9 @@ public class RequestCodeGeneratorTest extends CodeGeneratorTemplate {
     protected CodeGeneratorConfig getCodeGeneratorConfig() {
         CodeGeneratorConfig config = new CodeGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
-        config.setEntity(RequestBodyEntity.class);
+        config.setEntity(ApiRequestEntity.class);
         config.setPkg("net.tiklab.postin.apidef.http");
-        config.setModel("Request");
+        config.setModel("ApiRequest");
         return config;
     }
 

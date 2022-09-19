@@ -5,7 +5,7 @@ import net.tiklab.dal.jpa.annotation.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "postin_binary_param_testcase")
+@Table(name = "postin_http_case_request_binary")
 public class BinaryParamCaseEntity implements Serializable {
 
     @Id
