@@ -4,7 +4,7 @@ import net.tiklab.core.exception.SystemException;
 import net.tiklab.postin.annotation.Api;
 import net.tiklab.postin.client.model.ApiMeta;
 import net.tiklab.postin.client.model.ApiMethodMeta;
-import net.tiklab.utils.annotation.AnnotationResourceResolver;
+import net.tiklab.utils.resolver.AnnotationResourceResolver;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.ArrayList;

@@ -40,7 +40,7 @@
         <!--platform-->
         <dependency>
             <groupId>net.tiklab</groupId>
-            <artifactId>tiklab-beans-spring-boot-starter</artifactId>
+            <artifactId>tiklab-tks-spring-boot-starter</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
@@ -50,12 +50,6 @@
         <dependency>
             <groupId>net.tiklab</groupId>
             <artifactId>tiklab-dal-spring-boot-starter</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>net.tiklab</groupId>
-            <artifactId>tiklab-join-spring-boot-starter</artifactId>
-            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>net.tiklab</groupId>

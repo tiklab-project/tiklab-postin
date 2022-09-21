@@ -142,8 +142,8 @@
                 <exclude>net.tiklab:tiklab-plugin-spring-boot-starter</exclude>
                 <exclude>net.tiklab:tiklab-message-spring-boot-starter</exclude>
                 <exclude>net.tiklab:tiklab-licence-spring-boot-starter</exclude>
-                <exclude>net.tiklab:tiklab-join-core</exclude>
-                <exclude>net.tiklab:tiklab-join-annotation</exclude>
+                <exclude>net.tiklab:tiklab-tks-core</exclude>
+                <exclude>net.tiklab:tiklab-tks-annotation</exclude>
                 <exclude>net.tiklab:tiklab-eas-spring-boot-stater</exclude>
                 <exclude>net.tiklab:tiklab-eam-spring-boot-starter</exclude>
                 <exclude>net.tiklab:tiklab-dss-server</exclude>
@@ -165,8 +165,8 @@
                 <exclude>net.tiklab:tiklab-dal-jdbc</exclude>
                 <exclude>net.tiklab:tiklab-dal-datasource</exclude>
                 <exclude>net.tiklab:tiklab-core</exclude>
-                <exclude>net.tiklab:tiklab-beans-core</exclude>
-                <exclude>net.tiklab:tiklab-beans-annotation</exclude>
+                <exclude>net.tiklab:tiklab-tks-core</exclude>
+                <exclude>net.tiklab:tiklab-tks-annotation</exclude>
                 <exclude>org.springframework:spring-websocket</exclude>
                 <exclude>org.springframework:spring-webmvc</exclude>
                 <exclude>org.springframework:spring-web</exclude>
