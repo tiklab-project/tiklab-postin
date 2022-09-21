@@ -7,10 +7,11 @@ import net.tiklab.dal.jpa.annotation.Id;
 import net.tiklab.dal.jpa.annotation.Table;import net.tiklab.dal.jpa.annotation.Entity;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.Date;
 
 @Entity
-@Table(name="postin_mock")
+@Table(name="postin_http_mock")
 public class MockEntity implements Serializable {
 
     @Id
@@ -28,7 +29,7 @@ public class MockEntity implements Serializable {
     private String createUser;
 
     @Column(name = "create_time",length = 4)
-    private Date createTime;
+    private Timestamp createTime;
 
     @Column(name = "enable",length = 2)
     private Integer enable;
@@ -76,11 +77,11 @@ public class MockEntity implements Serializable {
         this.createUser = createUser;
     }
 
-    public Date getCreateTime() {
+    public Timestamp getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(Timestamp createTime) {
         this.createTime = createTime;
     }
 

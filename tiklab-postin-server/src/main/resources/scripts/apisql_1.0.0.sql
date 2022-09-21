@@ -34,24 +34,22 @@ CREATE TABLE postin_category(
         id VARCHAR(48) PRIMARY KEY,
         name VARCHAR(64) NOT NULL,
         workspace_id VARCHAR(32),
-        parent_category_id VARCHAR(48),
-        sort int
+        parent_category_id VARCHAR(48)
 );
+
 CREATE TABLE postin_environment(
         id VARCHAR(32) PRIMARY KEY,
         name VARCHAR(64) NOT NULL,
         url VARCHAR(256) NOT NULL,
-        sort int,
         create_time timestamp,
         update_time timestamp
 );
+
 CREATE TABLE postin_apix(
         id VARCHAR(40) PRIMARY KEY,
         category_id VARCHAR(40),
         name VARCHAR(64),
-        protocol_type VARCHAR(32) ,
-        request_type VARCHAR(32),
-        path VARCHAR(256),
+        protocol_type VARCHAR(32),
         create_user VARCHAR(30),
         update_user VARCHAR(30),
         create_time timestamp,
@@ -71,7 +69,7 @@ CREATE TABLE postin_api_http(
         path VARCHAR(256)
 );
 
-CREATE TABLE postin_request_header(
+CREATE TABLE postin_http_request_header(
         id VARCHAR(40) PRIMARY KEY,
         http_id VARCHAR(40) NOT NULL,
         header_name VARCHAR(64) NOT NULL,
@@ -80,7 +78,7 @@ CREATE TABLE postin_request_header(
         value VARCHAR(128),
         sort int
 );
-CREATE TABLE postin_query_param(
+CREATE TABLE postin_http_request_query(
         id VARCHAR(40) PRIMARY KEY,
         http_id VARCHAR(40) NOT NULL,
         param_name VARCHAR(64) NOT NULL,
@@ -89,12 +87,16 @@ CREATE TABLE postin_query_param(
         value VARCHAR(128),
         sort int
 );
-CREATE TABLE postin_request_body(
-        id VARCHAR(40),
-        http_id VARCHAR(40) NOT NULL,
-        body_type VARCHAR(32) NOT NULL
+
+CREATE TABLE postin_http_request(
+        id VARCHAR(40) PRIMARY KEY,
+        http_id VARCHAR(40),
+        body_type VARCHAR(32),
+        pre_script VARCHAR(2048),
+        after_script VARCHAR(2048)
 );
-CREATE TABLE postin_form_param(
+
+CREATE TABLE postin_http_request_form(
         id VARCHAR(40) PRIMARY KEY,
         http_id VARCHAR(40) NOT NULL,
         param_name VARCHAR(64) NOT NULL,
@@ -104,7 +106,7 @@ CREATE TABLE postin_form_param(
         value VARCHAR(256),
         sort int
 );
-CREATE TABLE postin_form_urlencoded(
+CREATE TABLE postin_http_request_urlencoded(
         id VARCHAR(40) PRIMARY KEY,
         http_id VARCHAR(40) NOT NULL,
         param_name VARCHAR(64) NOT NULL,
@@ -114,7 +116,7 @@ CREATE TABLE postin_form_urlencoded(
         value VARCHAR(128),
         sort int
 );
-CREATE TABLE postin_json_param(
+CREATE TABLE postin_http_request_json(
         id VARCHAR(40) PRIMARY KEY,
         http_id VARCHAR(40) NOT NULL,
         parent_id VARCHAR(40),
@@ -126,23 +128,22 @@ CREATE TABLE postin_json_param(
         sort int
 
 );
-CREATE TABLE postin_raw_param(
+
+CREATE TABLE postin_http_request_raw(
         id VARCHAR(40) ,
         http_id VARCHAR(40) NOT NULL,
         raw VARCHAR(2048) NOT NULL,
         type VARCHAR(32) NOT NULL
 );
-CREATE TABLE postin_pre_script(
-        id VARCHAR(40) ,
+
+CREATE TABLE postin_http_request_binary(
+        id VARCHAR(40) PRIMARY KEY,
         http_id VARCHAR(40) NOT NULL,
-        script VARCHAR(2048) NOT NULL
+        filename VARCHAR(64) NOT NULL
 );
-CREATE TABLE postin_after_script(
-        id VARCHAR(40) ,
-        http_id VARCHAR(40) NOT NULL,
-        script VARCHAR(2048) NOT NULL
-);
-CREATE TABLE postin_response_header(
+
+
+CREATE TABLE postin_http_response_header(
         id VARCHAR(40) PRIMARY KEY,
         http_id VARCHAR(40) NOT NULL,
         header_name VARCHAR(64) NOT NULL,
@@ -151,12 +152,14 @@ CREATE TABLE postin_response_header(
         value VARCHAR(128),
         sort int
 );
-CREATE TABLE postin_response_result(
+
+CREATE TABLE postin_http_response(
         id VARCHAR(40) PRIMARY KEY,
         http_id VARCHAR(40) NOT NULL,
-        result_type VARCHAR(32) NOT NULL
+        body_type VARCHAR(32)
 );
-CREATE TABLE postin_json_response(
+
+CREATE TABLE postin_http_response_json(
         id VARCHAR(40) PRIMARY KEY,
         http_id VARCHAR(40) NOT NULL,
         parent_id VARCHAR(40),
@@ -168,43 +171,43 @@ CREATE TABLE postin_json_response(
         sort int
 
 );
-CREATE TABLE postin_raw_response(
+
+CREATE TABLE postin_http_response_raw(
         id VARCHAR(40) PRIMARY KEY,
         http_id VARCHAR(40) NOT NULL,
         raw VARCHAR(2048) NOT NULL,
         type VARCHAR(32) NOT NULL
 );
-CREATE TABLE postin_binary_param(
-        id VARCHAR(40) PRIMARY KEY,
-        http_id VARCHAR(40) NOT NULL,
-        filename VARCHAR(64) NOT NULL
-);
 
-CREATE TABLE postin_testcase(
+CREATE TABLE postin_http_case(
         id VARCHAR(40) PRIMARY KEY,
         http_id VARCHAR(40) NOT NULL,
         name VARCHAR(64)
 );
-CREATE TABLE postin_request_header_testcase(
+CREATE TABLE postin_http_case_request_header(
         id VARCHAR(32) PRIMARY KEY,
         http_case_id VARCHAR(32) NOT NULL,
         header_name VARCHAR(64) NOT NULL,
         value VARCHAR(256),
         sort int
 );
-CREATE TABLE postin_query_param_testcase(
+CREATE TABLE postin_http_case_request_query(
         id VARCHAR(32) PRIMARY KEY,
         http_case_id VARCHAR(32) NOT NULL,
         param_name VARCHAR(64) NOT NULL,
         value VARCHAR(128),
         sort int
 );
-CREATE TABLE postin_request_body_testcase(
+
+CREATE TABLE postin_http_case_request(
         id VARCHAR(32) PRIMARY KEY,
-        http_case_id VARCHAR(32) NOT NULL,
-        body_type VARCHAR(32) NOT NULL
+        http_case_id VARCHAR(32),
+        body_type VARCHAR(32),
+        pre_script VARCHAR(2048),
+        after_script VARCHAR(2048)
 );
-CREATE TABLE postin_form_param_testcase(
+
+CREATE TABLE postin_http_case_request_form(
         id VARCHAR(32) PRIMARY KEY,
         http_case_id VARCHAR(32) NOT NULL,
         param_name VARCHAR(64) NOT NULL,
@@ -212,7 +215,17 @@ CREATE TABLE postin_form_param_testcase(
         value VARCHAR(128),
         sort int
 );
-CREATE TABLE postin_json_param_testcase(
+
+CREATE TABLE postin_http_case_request_urlencoded(
+        id VARCHAR(32) PRIMARY KEY,
+        http_case_id VARCHAR(32) NOT NULL,
+        param_name VARCHAR(64) NOT NULL,
+        data_type VARCHAR(32) NOT NULL,
+        value VARCHAR(128),
+        sort int
+);
+
+CREATE TABLE postin_http_case_request_json(
         id VARCHAR(32) PRIMARY KEY,
         http_case_id VARCHAR(32) NOT NULL,
         parent_id VARCHAR(32),
@@ -221,38 +234,21 @@ CREATE TABLE postin_json_param_testcase(
         value VARCHAR(128),
         sort int
 );
-CREATE TABLE postin_raw_param_testcase(
+
+CREATE TABLE postin_http_case_request_raw(
         id VARCHAR(32) PRIMARY KEY,
         http_case_id VARCHAR(32) NOT NULL,
         raw VARCHAR(2048),
         type VARCHAR(32) NOT NULL
 );
-CREATE TABLE postin_pre_script_testcase(
-        id VARCHAR(32) PRIMARY KEY,
-        http_case_id VARCHAR(32) NOT NULL,
-        script VARCHAR(2048) NOT NULL
-);
-CREATE TABLE postin_after_script_testcase(
-        id VARCHAR(32) PRIMARY KEY,
-        http_case_id VARCHAR(32) NOT NULL,
-        script VARCHAR(2048) NOT NULL
-);
-CREATE TABLE postin_form_urlencoded_testcase(
-        id VARCHAR(32) PRIMARY KEY,
-        http_case_id VARCHAR(32) NOT NULL,
-        param_name VARCHAR(64) NOT NULL,
-        data_type VARCHAR(32) NOT NULL,
-        value VARCHAR(128),
-        sort int
-);
-CREATE TABLE postin_binary_param_testcase(
+
+CREATE TABLE postin_http_case_request_binary(
         id VARCHAR(32) PRIMARY KEY,
         http_case_id VARCHAR(32) NOT NULL,
         filename VARCHAR(64) NOT NULL
 );
 
-
-CREATE TABLE postin_assert_testcase(
+CREATE TABLE postin_http_case_request_assert(
         id VARCHAR(32) PRIMARY KEY,
         http_case_id VARCHAR(32) NOT NULL,
         source int,
@@ -262,10 +258,10 @@ CREATE TABLE postin_assert_testcase(
         value VARCHAR(128) NOT NULL,
         sort int
 );
-CREATE TABLE postin_test_instance(
+CREATE TABLE postin_http_case_instance(
         id VARCHAR(40) PRIMARY KEY,
         http_case_id VARCHAR(40) ,
-         user_id VARCHAR(32),
+        user_id VARCHAR(32),
         status_code int,
         result int,
         create_time timestamp,
@@ -273,7 +269,8 @@ CREATE TABLE postin_test_instance(
         size int,
         error_message VARCHAR(2048)
 );
-CREATE TABLE postin_request_instance(
+
+CREATE TABLE postin_http_case_instance_request(
         id VARCHAR(32) PRIMARY KEY,
         http_instance_id VARCHAR(32) NOT NULL,
         URL VARCHAR(2048),
@@ -284,13 +281,15 @@ CREATE TABLE postin_request_instance(
         method_type VARCHAR(32),
         media_type VARCHAR(32)
 );
-CREATE TABLE postin_response_instance(
+
+CREATE TABLE postin_http_case_instance_response(
         id VARCHAR(32) PRIMARY KEY,
         http_instance_id VARCHAR(32),
         headers VARCHAR(2048),
         body VARCHAR(2048)
 );
-CREATE TABLE postin_assert_instance(
+
+CREATE TABLE postin_http_case_instance_assert(
         id VARCHAR(32) PRIMARY KEY,
         http_instance_id VARCHAR(32) NOT NULL,
         source int,
@@ -301,8 +300,7 @@ CREATE TABLE postin_assert_instance(
         result int
 );
 
-
-CREATE TABLE postin_mock(
+CREATE TABLE postin_http_mock(
         id VARCHAR(40) PRIMARY KEY,
         http_id VARCHAR(40) NOT NULL,
         name VARCHAR(64),
@@ -311,62 +309,61 @@ CREATE TABLE postin_mock(
         create_time timestamp,
         enable int
 );
-CREATE TABLE postin_request_header_mock(
+CREATE TABLE postin_http_mock_request_header(
         id VARCHAR(32) PRIMARY KEY,
         mock_id VARCHAR(32) NOT NULL,
         header_name VARCHAR(64) NOT NULL,
         value VARCHAR(256),
         sort int
 );
-CREATE TABLE postin_query_param_mock(
+CREATE TABLE postin_http_mock_request_query(
         id VARCHAR(32) PRIMARY KEY,
         mock_id VARCHAR(32) NOT NULL,
         param_name VARCHAR(64) NOT NULL,
         value VARCHAR(256),
         sort int
 );
-CREATE TABLE postin_request_body_mock(
+CREATE TABLE postin_http_mock_request(
         id VARCHAR(32) PRIMARY KEY,
         mock_id VARCHAR(32) NOT NULL,
-        body_type VARCHAR(32) NOT NULL
+        body_type VARCHAR(32)
 );
-CREATE TABLE postin_form_param_mock(
+CREATE TABLE postin_http_mock_request_form(
         id VARCHAR(32) PRIMARY KEY,
         mock_id VARCHAR(32) NOT NULL,
         param_name VARCHAR(64) NOT NULL,
         value VARCHAR(256),
         sort int
 );
-CREATE TABLE postin_json_param_mock(
+CREATE TABLE postin_http_mock_request_json(
         id VARCHAR(32) PRIMARY KEY,
         mock_id VARCHAR(32) NOT NULL,
         exp VARCHAR(64) NOT NULL,
         value VARCHAR(256),
         sort int
 );
-CREATE TABLE postin_response_header_mock(
+CREATE TABLE postin_http_mock_response_header(
         id VARCHAR(32) PRIMARY KEY,
         mock_id VARCHAR(32) NOT NULL,
         header_name VARCHAR(64),
         value VARCHAR(64),
         sort int
 );
-CREATE TABLE postin_response_mock(
+
+CREATE TABLE postin_http_mock_response(
         id VARCHAR(32) PRIMARY KEY,
         mock_id VARCHAR(32) NOT NULL,
-        http_code VARCHAR(32) NOT NULL
+        http_code VARCHAR(32),
+        body_type VARCHAR(32)
 );
-CREATE TABLE postin_response_result_mock(
-        id VARCHAR(32) PRIMARY KEY,
-        mock_id VARCHAR(32) NOT NULL,
-        result_type VARCHAR(32) NOT NULL
-);
-CREATE TABLE postin_json_response_mock(
+
+CREATE TABLE postin_http_mock_response_json(
         id VARCHAR(32) PRIMARY KEY,
         mock_id VARCHAR(32) NOT NULL,
         result VARCHAR(2048)
 );
-CREATE TABLE postin_raw_response_mock(
+
+CREATE TABLE postin_http_mock_response_raw(
         id VARCHAR(32) PRIMARY KEY,
         mock_id VARCHAR(32) NOT NULL,
         result VARCHAR(2048),
@@ -375,7 +372,7 @@ CREATE TABLE postin_raw_response_mock(
 
 CREATE TABLE postin_model(
         id VARCHAR(32) PRIMARY KEY,
-         workspace_id VARCHAR(32),
+        workspace_id VARCHAR(32),
         coding VARCHAR (64),
         name VARCHAR(64) NOT NULL,
         data_type VARCHAR(32) NOT NULL,

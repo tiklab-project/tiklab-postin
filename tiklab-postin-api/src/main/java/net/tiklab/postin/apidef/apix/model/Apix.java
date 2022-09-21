@@ -96,7 +96,6 @@ public class Apix extends BaseModel{
     private java.lang.String apiUid;
 
 
-
     public java.lang.String getId() {
         return id;
     }
@@ -206,4 +205,7 @@ public class Apix extends BaseModel{
     public void setApiUid(String apiUid) {
         this.apiUid = apiUid;
     }
+
+
+
 }

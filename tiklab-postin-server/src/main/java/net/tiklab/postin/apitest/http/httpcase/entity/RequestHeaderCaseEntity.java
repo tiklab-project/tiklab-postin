@@ -10,7 +10,7 @@ import net.tiklab.dal.jpa.annotation.Entity;
 import java.io.Serializable;
 
 @Entity
-@Table(name="postin_request_header_testcase")
+@Table(name="postin_http_case_request_header")
 public class RequestHeaderCaseEntity implements Serializable {
 
     @Id

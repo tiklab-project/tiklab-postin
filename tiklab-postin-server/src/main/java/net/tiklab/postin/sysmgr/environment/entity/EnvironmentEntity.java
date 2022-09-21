@@ -25,9 +25,6 @@ public class EnvironmentEntity implements Serializable {
     @Column(name = "url",length = 256,notNull = true)
     private String url;
 
-    @Column(name = "sort",length = 4)
-    private Integer sort;
-
     @Column(name = "create_time")
     private Date createTime;
 
@@ -74,11 +71,4 @@ public class EnvironmentEntity implements Serializable {
         this.updateTime = updateTime;
     }
 
-    public Integer getSort() {
-        return sort;
-    }
-
-    public void setSort(Integer sort) {
-        this.sort = sort;
-    }
 }

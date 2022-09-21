@@ -8,7 +8,7 @@ import net.tiklab.dal.jpa.annotation.Table;import net.tiklab.dal.jpa.annotation.
 
 import java.io.Serializable;
 
-@Entity @Table(name="postin_assert_instance")
+@Entity @Table(name="postin_http_case_instance_assert")
 public class AssertInstanceEntity implements Serializable {
 
     @Id

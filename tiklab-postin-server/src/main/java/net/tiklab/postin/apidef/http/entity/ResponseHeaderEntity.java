@@ -9,7 +9,7 @@ import net.tiklab.dal.jpa.annotation.Table;import net.tiklab.dal.jpa.annotation.
 import java.io.Serializable;
 
 @Entity
-@Table(name="postin_response_header")
+@Table(name="postin_http_response_header")
 public class ResponseHeaderEntity implements Serializable {
 
     @Id

@@ -8,7 +8,7 @@ import net.tiklab.dal.jpa.annotation.Table;import net.tiklab.dal.jpa.annotation.
 
 import java.io.Serializable;
 
-@Entity @Table(name="postin_request_header_mock")
+@Entity @Table(name="postin_http_mock_request_header")
 public class RequestHeaderMockEntity implements Serializable {
 
     @Id

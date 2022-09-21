@@ -5,7 +5,7 @@ import net.tiklab.dal.jpa.annotation.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name="postin_form_urlencoded_testcase")
+@Table(name="postin_http_case_request_urlencoded")
 public class FormUrlencodedCaseEntity implements Serializable {
 
     @Id

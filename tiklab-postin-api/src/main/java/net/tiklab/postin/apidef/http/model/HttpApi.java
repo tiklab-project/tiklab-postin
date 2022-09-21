@@ -36,35 +36,30 @@ public class HttpApi extends BaseModel {
     @ApiProperty(name="path",desc="路径",required = true)
     private String path;
 
-    @ApiProperty(name="methodType",desc="路径",required = true)
+    @ApiProperty(name="methodType",desc="请求类型",required = true)
     private String methodType;
 
     @ApiProperty(name = "headerList")
-    private List<RequestHeader> requestHeaderList;
+    private List<RequestHeader> headerList;
 
     @ApiProperty(name = "queryList")
-    private List<QueryParam> queryParamList;
+    private List<QueryParam> queryList;
 
     @ApiProperty(name = "requestBody")
-    private RequestBodyEx requestBody;
+    private ApiRequest request;
 
     @ApiProperty(name = "formParamList")
-    private List<FormParam> formParamList;
+    private List<FormParam> formList;
 
     @ApiProperty(name = "formUrlencodedList")
-    private List<FormUrlencoded> formUrlencodedList;
+    private List<FormUrlencoded> urlencodedList;
 
     @ApiProperty(name = "jsonParamList")
-    private List<JsonParam> jsonParamList;
+    private List<JsonParam> jsonList;
 
     @ApiProperty(name = "raw")
     private RawParam rawParam;
 
-    @ApiProperty(name = "preScript")
-    private PreScript preScript;
-
-    @ApiProperty(name = "afterScript")
-    private AfterScript afterScript;
 
     public String getPath() {
         return path;
@@ -99,52 +94,52 @@ public class HttpApi extends BaseModel {
         this.apix = apix;
     }
 
-    public List<RequestHeader> getRequestHeaderList() {
-        return requestHeaderList;
+    public List<RequestHeader> getHeaderList() {
+        return headerList;
     }
 
-    public void setRequestHeaderList(List<RequestHeader> requestHeaderList) {
-        this.requestHeaderList = requestHeaderList;
+    public void setHeaderList(List<RequestHeader> headerList) {
+        this.headerList = headerList;
     }
 
-    public List<QueryParam> getQueryParamList() {
-        return queryParamList;
+    public List<QueryParam> getQueryList() {
+        return queryList;
     }
 
-    public void setQueryParamList(List<QueryParam> queryParamList) {
-        this.queryParamList = queryParamList;
+    public void setQueryList(List<QueryParam> queryList) {
+        this.queryList = queryList;
     }
 
-    public RequestBodyEx getRequestBody() {
-        return requestBody;
+    public ApiRequest getRequest() {
+        return request;
     }
 
-    public void setRequestBody(RequestBodyEx requestBody) {
-        this.requestBody = requestBody;
+    public void setRequest(ApiRequest request) {
+        this.request = request;
     }
 
-    public List<FormParam> getFormParamList() {
-        return formParamList;
+    public List<FormParam> getFormList() {
+        return formList;
     }
 
-    public void setFormParamList(List<FormParam> formParamList) {
-        this.formParamList = formParamList;
+    public void setFormList(List<FormParam> formList) {
+        this.formList = formList;
     }
 
-    public List<FormUrlencoded> getFormUrlencodedList() {
-        return formUrlencodedList;
+    public List<FormUrlencoded> getUrlencodedList() {
+        return urlencodedList;
     }
 
-    public void setFormUrlencodedList(List<FormUrlencoded> formUrlencodedList) {
-        this.formUrlencodedList = formUrlencodedList;
+    public void setUrlencodedList(List<FormUrlencoded> urlencodedList) {
+        this.urlencodedList = urlencodedList;
     }
 
-    public List<JsonParam> getJsonParamList() {
-        return jsonParamList;
+    public List<JsonParam> getJsonList() {
+        return jsonList;
     }
 
-    public void setJsonParamList(List<JsonParam> jsonParamList) {
-        this.jsonParamList = jsonParamList;
+    public void setJsonList(List<JsonParam> jsonList) {
+        this.jsonList = jsonList;
     }
 
     public RawParam getRawParam() {
@@ -153,21 +148,5 @@ public class HttpApi extends BaseModel {
 
     public void setRawParam(RawParam rawParam) {
         this.rawParam = rawParam;
-    }
-
-    public PreScript getPreScript() {
-        return preScript;
-    }
-
-    public void setPreScript(PreScript preScript) {
-        this.preScript = preScript;
-    }
-
-    public AfterScript getAfterScript() {
-        return afterScript;
-    }
-
-    public void setAfterScript(AfterScript afterScript) {
-        this.afterScript = afterScript;
     }
 }

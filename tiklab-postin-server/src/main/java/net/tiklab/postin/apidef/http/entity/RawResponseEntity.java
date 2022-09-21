@@ -8,7 +8,7 @@ import net.tiklab.dal.jpa.annotation.Table;import net.tiklab.dal.jpa.annotation.
 import java.io.Serializable;
 
 @Entity
-@Table(name="postin_raw_response")
+@Table(name="postin_http_response_raw")
 public class RawResponseEntity implements Serializable {
 
     @Id

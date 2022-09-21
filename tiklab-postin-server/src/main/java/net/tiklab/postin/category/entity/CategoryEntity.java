@@ -25,9 +25,6 @@ public class CategoryEntity implements Serializable {
     @Column(name = "parent_category_id",length = 32)
     private String parentCategoryId;
 
-    @Column(name = "sort",length = 4)
-    private Integer sort;
-
     public String getId() {
         return id;
     }
@@ -60,11 +57,4 @@ public class CategoryEntity implements Serializable {
         this.parentCategoryId = parentCategoryId;
     }
 
-    public Integer getSort() {
-        return sort;
-    }
-
-    public void setSort(Integer sort) {
-        this.sort = sort;
-    }
 }

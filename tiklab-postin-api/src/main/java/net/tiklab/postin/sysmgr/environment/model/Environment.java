@@ -25,9 +25,6 @@ public class Environment extends BaseModel {
     @ApiProperty(name="url",desc="环境地址",required = true)
     private java.lang.String url;
 
-    @ApiProperty(name="sort",desc="排序")
-    private java.lang.Integer sort;
-
     @ApiProperty(name="createTime",desc="创建时间，服务端生成")
     private java.util.Date createTime;
 
@@ -54,13 +51,6 @@ public class Environment extends BaseModel {
 
     public void setUrl(java.lang.String url) {
         this.url = url;
-    }
-    public java.lang.Integer getSort() {
-        return sort;
-    }
-
-    public void setSort(java.lang.Integer sort) {
-        this.sort = sort;
     }
 
     public Date getCreateTime() {

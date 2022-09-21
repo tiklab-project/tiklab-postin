@@ -100,8 +100,8 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         categoryService.createCategory(category);
 
         //添加索引
-        Workspace entity = findWorkspace(projectId);
-        disClient.save(entity);
+//        Workspace entity = findWorkspace(projectId);
+//        disClient.save(entity);
 
         return projectId;
     }

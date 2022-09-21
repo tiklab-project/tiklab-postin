@@ -8,12 +8,15 @@ import net.tiklab.beans.BeanMapper;
 import net.tiklab.core.page.Pagination;
 import net.tiklab.core.page.PaginationBuilder;
 import net.tiklab.join.JoinTemplate;
+import net.tiklab.postin.apimock.http.model.RequestMock;
+import net.tiklab.postin.apimock.http.model.ResponseMock;
 import net.tiklab.utils.context.LoginContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -27,20 +30,35 @@ public class MockServiceImpl implements MockService {
     MockDao mockDao;
 
     @Autowired
+    RequestMockService requestMockService;
+
+    @Autowired
+    ResponseMockService responseMockService;
+
+    @Autowired
     JoinTemplate joinTemplate;
 
     @Override
     public String createMock(@NotNull @Valid Mock mock) {
         MockEntity mockEntity = BeanMapper.map(mock, MockEntity.class);
+        mockEntity.setCreateUser(LoginContext.getLoginId());
+        mockEntity.setCreateTime(new Timestamp(System.currentTimeMillis()));
+        String id = mockDao.createMock(mockEntity);
 
-        //创建人
-        String createUserId = LoginContext.getLoginId();
-        mockEntity.setCreateUser(createUserId);
+        //初始化，请求响应中的bodyType
+        RequestMock requestMock = new RequestMock();
+        requestMock.setId(id);
+        requestMock.setMockId(id);
+        requestMock.setBodyType("form");
+        requestMockService.createRequestMock(requestMock);
 
-        //创建时间
-        mockEntity.setCreateTime(new Date());
+        ResponseMock responseMock = new ResponseMock();
+        responseMock.setId(id);
+        responseMock.setMockId(id);
+        responseMock.setBodyType("json");
+        responseMockService.createResponseMock(responseMock);
 
-        return mockDao.createMock(mockEntity);
+        return id;
     }
 
     @Override

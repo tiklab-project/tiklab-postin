@@ -66,11 +66,11 @@ public class ApixServiceImpl implements ApixService {
         String id = apixDao.createApix(apixEntity);
 
         //添加索引
-        Apix entity = findApix(id);
-        disClient.save(entity);
+//        Apix entity = findApix(id);
+//        disClient.save(entity);
 
         //发送消息
-        sendMessageForCreate(entity);
+//        sendMessageForCreate(entity);
 
        //动态
         Dynamic dynamic = new Dynamic();
