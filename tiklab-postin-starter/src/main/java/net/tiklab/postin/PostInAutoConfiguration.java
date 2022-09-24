@@ -3,6 +3,7 @@ package net.tiklab.postin;
 
 import net.tiklab.eas.boot.EnableEas;
 import net.tiklab.licence.starter.EnableLicenceServer;
+import net.tiklab.oplog.stater.EnableLog;
 import net.tiklab.postin.client.EnablePostInClient;
 import net.tiklab.dal.starter.annotation.EnableDal;
 import net.tiklab.dcs.starter.EnableDcs;
@@ -16,6 +17,7 @@ import net.tiklab.pluginx.starter.EnablePluginServer;
 import net.tiklab.privilege.stater.EnablePrivilegeServer;
 import net.tiklab.rpc.starter.annotation.EnableRpc;
 import net.tiklab.tks.annotation.EnableTks;
+import net.tiklab.todotask.stater.EnableTodoTask;
 import net.tiklab.toolkit.EnableToolkitServer;
 import net.tiklab.user.starter.EnableUser;
 import net.tiklab.web.starter.annotation.EnableWeb;
@@ -33,6 +35,8 @@ import org.springframework.context.annotation.Configuration;
 @EnableRpc
 @EnableMessage
 @EnableGateway
+@EnableLog
+@EnableTodoTask
 //pcs
 @EnableUser
 @EnableEam

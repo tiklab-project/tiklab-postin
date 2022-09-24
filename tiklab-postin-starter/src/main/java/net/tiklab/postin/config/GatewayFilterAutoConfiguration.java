@@ -116,6 +116,8 @@ public class GatewayFilterAutoConfiguration{
 //                        "/user",
 //                        "/eam",
 //                        "/message",
+//                        "/oplog",
+//                        "/todo",
 
                 }, authAddress)
                 .get();

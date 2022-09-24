@@ -100,11 +100,11 @@ public class ApixServiceImpl implements ApixService {
         apixDao.updateApix(apixEntity);
 
         //更新索引
-        Apix entity = findApix(apix.getId());
-        disClient.update(entity);
+//        Apix entity = findApix(apix.getId());
+//        disClient.update(entity);
 
         //发送消息
-        sendMessageForCreate(entity);
+//        sendMessageForCreate(entity);
 
         //动态
         ApixEntity apix1 = apixDao.findApix(apix.getId());

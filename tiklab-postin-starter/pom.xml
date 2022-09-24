@@ -77,6 +77,16 @@
         </dependency>
         <dependency>
             <groupId>net.tiklab</groupId>
+            <artifactId>tiklab-oplog-spring-boot-starter</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.tiklab</groupId>
+            <artifactId>tiklab-todotask-spring-boot-stater</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.tiklab</groupId>
             <artifactId>tiklab-postin-client</artifactId>
             <version>${project.version}</version>
         </dependency>

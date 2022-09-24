@@ -13,6 +13,7 @@ import net.tiklab.beans.BeanMapper;
 import net.tiklab.core.page.Pagination;
 import net.tiklab.core.page.PaginationBuilder;
 import net.tiklab.join.JoinTemplate;
+import net.tiklab.postin.utils.LogUnit;
 import net.tiklab.user.user.model.User;
 import net.tiklab.utils.context.LoginContext;
 import org.apache.commons.collections.CollectionUtils;
@@ -47,6 +48,9 @@ public class CategoryServiceImpl implements CategoryService {
     @Autowired
     JoinTemplate joinTemplate;
 
+    @Autowired
+    LogUnit logUnit;
+
     @Override
     public String createCategory(@NotNull @Valid Category category) {
         CategoryEntity categoryEntity = BeanMapper.map(category, CategoryEntity.class);
@@ -71,6 +75,8 @@ public class CategoryServiceImpl implements CategoryService {
         dynamic.setModelId(id);
         dynamic.setOperationTime(new Timestamp(System.currentTimeMillis()));
         dynamicService.createDynamic(dynamic);
+
+//        logUnit.log("add","category",);
 
         return id;
     }
