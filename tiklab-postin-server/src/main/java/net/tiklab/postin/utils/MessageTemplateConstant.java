@@ -1,4 +1,4 @@
-package net.tiklab.postin.sysmgr.support;
+package net.tiklab.postin.utils;
 
 public class MessageTemplateConstant {
 

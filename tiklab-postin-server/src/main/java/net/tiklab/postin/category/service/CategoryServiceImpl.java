@@ -25,9 +25,7 @@ import org.springframework.util.StringUtils;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -64,19 +62,23 @@ public class CategoryServiceImpl implements CategoryService {
 
 
         //动态
-        Dynamic dynamic = new Dynamic();
-        dynamic.setWorkspaceId(category.getWorkspace().getId());
-        User user = new User();
-        user.setId(LoginContext.getLoginId());
-        dynamic.setUser(user);
-        dynamic.setName(category.getName());
-        dynamic.setDynamicType("add");
-        dynamic.setModel("category");
-        dynamic.setModelId(id);
-        dynamic.setOperationTime(new Timestamp(System.currentTimeMillis()));
-        dynamicService.createDynamic(dynamic);
+//        Dynamic dynamic = new Dynamic();
+//        dynamic.setWorkspaceId(category.getWorkspace().getId());
+//        User user = new User();
+//        user.setId(LoginContext.getLoginId());
+//        dynamic.setUser(user);
+//        dynamic.setName(category.getName());
+//        dynamic.setDynamicType("add");
+//        dynamic.setModel("category");
+//        dynamic.setModelId(id);
+//        dynamic.setOperationTime(new Timestamp(System.currentTimeMillis()));
+//        dynamicService.createDynamic(dynamic);
 
-//        logUnit.log("add","category",);
+        Map<String,String> map = new HashMap<>();
+        map.put("add","新增");
+        map.put("category","目录");
+        map.put("name",category.getName());
+        logUnit.log("add","category",map);
 
         return id;
     }

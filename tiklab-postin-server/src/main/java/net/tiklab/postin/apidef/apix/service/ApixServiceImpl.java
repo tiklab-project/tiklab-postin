@@ -8,7 +8,7 @@ import net.tiklab.postin.apidef.apix.model.Apix;
 import net.tiklab.postin.apidef.apix.model.ApixQuery;
 import net.tiklab.postin.integration.dynamic.model.Dynamic;
 import net.tiklab.postin.integration.dynamic.service.DynamicService;
-import net.tiklab.postin.sysmgr.support.MessageTemplateConstant;
+import net.tiklab.postin.utils.MessageTemplateConstant;
 import net.tiklab.beans.BeanMapper;
 import net.tiklab.core.page.Pagination;
 import net.tiklab.core.page.PaginationBuilder;

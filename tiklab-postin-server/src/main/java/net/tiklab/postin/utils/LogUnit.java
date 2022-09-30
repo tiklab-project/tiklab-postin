@@ -1,8 +1,9 @@
 package net.tiklab.postin.utils;
 
 import com.alibaba.fastjson.JSONObject;
-import net.tiklab.oplog.log.modal.Log;
-import net.tiklab.oplog.log.service.LogService;
+import net.tiklab.oplog.log.modal.OpLog;
+import net.tiklab.oplog.log.modal.OpLogTemplate;
+import net.tiklab.oplog.log.service.OpLogService;
 import net.tiklab.user.user.model.User;
 import net.tiklab.utils.context.LoginContext;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,21 +19,26 @@ import java.util.Map;
 public class LogUnit {
 
     @Autowired
-    LogService logService;
+    OpLogService opLogService;
 
     public void log(String type, String module, Map<String,String> map){
-        Log log = new Log();
+        OpLogTemplate opLogTemplate = new OpLogTemplate();
+        opLogTemplate.setId("2ff28753cd201048a31af4da117a2563");
+        User user = new User();
+        user.setId( LoginContext.getLoginId());
+
+        OpLog log = new OpLog();
+
         log.setActionType(type);
         log.setModule(module);
+        log.setOpLogTemplate(opLogTemplate);
         log.setTimestamp(new Timestamp(System.currentTimeMillis()));
-        String loginId = LoginContext.getLoginId();
-        User user = new User();
-        user.setId(loginId);
         log.setUser(user);
         log.setBgroup("postin");
         HashMap<String, String> stringStringHashMap = new HashMap<>();
+
         log.setContent(JSONObject.toJSONString(map));
 
-        logService.createLog(log);
+        opLogService.createLog(log);
     }
 }

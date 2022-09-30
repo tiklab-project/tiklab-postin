@@ -26,6 +26,7 @@ import net.tiklab.user.user.model.DmUserQuery;
 import net.tiklab.user.user.model.User;
 import net.tiklab.user.user.service.DmUserService;
 import net.tiklab.postin.workspace.model.*;
+import net.tiklab.utils.context.LoginContext;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -80,16 +81,16 @@ public class WorkspaceServiceImpl implements WorkspaceService {
 
         String projectId = workspaceDao.createWorkspace(workspaceEntity);
 
-        String userId =workspace.getUser().getId();
+        String userId = LoginContext.getLoginId();
         DmUser dmUser = new DmUser();
         dmUser.setDomainId(projectId);
         User user = new User();
-        user.setId(userId);
+        user.setId( userId);
         dmUser.setUser(user);
         dmUserService.createDmUser(dmUser);
 
         //初始化项目权限
-        dmRoleService.initDmRoles(projectId,userId);
+        dmRoleService.initDmRoles(projectId,userId );
 
         //初始化默认分组
         Category category = new Category();
@@ -158,6 +159,8 @@ public class WorkspaceServiceImpl implements WorkspaceService {
     public List<Workspace> findAllWorkspace() {
         List<WorkspaceEntity> workspaceEntityList =  workspaceDao.findAllWorkspace();
 
+        joinTemplate.joinQuery(workspaceEntityList);
+
         return BeanMapper.mapList(workspaceEntityList,Workspace.class);
     }
 
@@ -183,6 +186,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
     @Override
     public List<Workspace> findWorkspaceJoinList(WorkspaceQuery workspaceQuery) {
         List<WorkspaceEntity> workspaceEntityList = workspaceDao.findWorkspaceJoinList(workspaceQuery);
+        joinTemplate.joinQuery(workspaceEntityList);
 
         return BeanMapper.mapList(workspaceEntityList,Workspace.class);
     }
