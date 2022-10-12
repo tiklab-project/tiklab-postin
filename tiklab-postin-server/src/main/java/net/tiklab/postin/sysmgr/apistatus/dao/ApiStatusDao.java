@@ -77,6 +77,8 @@ public class ApiStatusDao{
 
     public List<ApiStatusEntity> findApiStatusList(ApiStatusQuery apiStatusQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(ApiStatusEntity.class)
+                .eq("workspaceId",apiStatusQuery.getWorkspaceId())
+                .eq("type",apiStatusQuery.getType())
                 .orders(apiStatusQuery.getOrderParams())
                 .get();
         return jpaTemplate.findList(queryCondition,ApiStatusEntity.class);
@@ -84,6 +86,8 @@ public class ApiStatusDao{
 
     public Pagination<ApiStatusEntity> findApiStatusPage(ApiStatusQuery apiStatusQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(ApiStatusEntity.class)
+                .eq("workspaceId",apiStatusQuery.getWorkspaceId())
+                .eq("type",apiStatusQuery.getType())
                 .orders(apiStatusQuery.getOrderParams())
                 .pagination(apiStatusQuery.getPageParam())
                 .get();

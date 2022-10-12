@@ -21,6 +21,17 @@ public class ApiStatus extends BaseModel{
     @ApiProperty(name="type",desc="类型")
     private java.lang.String type;
 
+    @ApiProperty(name="workspaceId",desc="空间Id")
+    private String workspaceId;
+
+    public String getWorkspaceId() {
+        return workspaceId;
+    }
+
+    public void setWorkspaceId(String workspaceId) {
+        this.workspaceId = workspaceId;
+    }
+
     public java.lang.String getId() {
         return id;
     }

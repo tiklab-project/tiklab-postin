@@ -392,10 +392,11 @@ CREATE TABLE postin_model_enum(
         description VARCHAR(128)
 );
 
-CREATE TABLE postin_method_status(
+CREATE TABLE postin_api_status(
         id VARCHAR(32) PRIMARY KEY,
         code VARCHAR(32),
         name VARCHAR(64),
-        type VARCHAR(32)
+        type VARCHAR(32),
+        workspace_id VARCHAR(32)
 );
 

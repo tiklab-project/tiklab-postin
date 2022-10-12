@@ -6,7 +6,7 @@ import net.tiklab.dal.jpa.annotation.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name="postin_method_status")
+@Table(name="postin_api_status")
 public class ApiStatusEntity implements Serializable {
 
     @Id
@@ -22,6 +22,9 @@ public class ApiStatusEntity implements Serializable {
 
     @Column(name = "type",length = 32)
     private String type;
+
+    @Column(name = "workspace_id",length = 32)
+    private String workspaceId;
 
     public String getId() {
         return id;
@@ -53,6 +56,14 @@ public class ApiStatusEntity implements Serializable {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getWorkspaceId() {
+        return workspaceId;
+    }
+
+    public void setWorkspaceId(String workspaceId) {
+        this.workspaceId = workspaceId;
     }
 }
 
