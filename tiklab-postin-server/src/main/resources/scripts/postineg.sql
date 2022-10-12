@@ -30,7 +30,7 @@ INSERT INTO `postin_http_mock` VALUES ('4dbfdd774c9cd245baf2e1ead23a6a36', '2195
 INSERT INTO `postin_http_mock_request` (`id`, `mock_id`, `body_type`) VALUES ('4dbfdd774c9cd245baf2e1ead23a6a36', '4dbfdd774c9cd245baf2e1ead23a6a36', 'json');
 INSERT INTO `postin_http_mock_request_json` VALUES ('9a24d52f1e82d5059c050bc7d418dea3', '4dbfdd774c9cd245baf2e1ead23a6a36', 'password', '123', 0);
 INSERT INTO `postin_http_mock_response` (`id`, `mock_id`, `http_code`, `body_type`) VALUES ('4dbfdd774c9cd245baf2e1ead23a6a36', '4dbfdd774c9cd245baf2e1ead23a6a36', '400','json');
-INSERT INTO `postin_http_mock_response_json` VALUES ('4dbfdd774c9cd245baf2e1ead23a6a36', '4dbfdd774c9cd245baf2e1ead23a6a36', '{\n \"status\":\"error”\n}');
+INSERT INTO `postin_http_mock_response_result` VALUES ('4dbfdd774c9cd245baf2e1ead23a6a36', '4dbfdd774c9cd245baf2e1ead23a6a36', '{\n \"status\":\"error”\n}');
 
 
 INSERT INTO `postin_method_status` values     ("publishid","publish","已发布","system"),
