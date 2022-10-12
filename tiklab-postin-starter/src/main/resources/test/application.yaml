@@ -73,30 +73,3 @@ file:
 eas:
   embbed:
     enable: false
-  server:
-    port: 8080
-  address: http://eas.test.tiklab.net
-  #address: http://localhost:8080
-  web:
-    address: http://eas.test.tiklab.net
-    #address: http://localhost:8080
-  jdbc:
-    driverClassName: ${jdbc.driverClassName}
-    url: ${jdbc.url}
-    username: ${jdbc.username}
-    password: ${jdbc.password}
-  mysql:
-    embbed:
-      enable: false
-    server:
-      port: 3306
-    version: mysql-8.0.28
-    name: tiklab_teston
-
-mysql:
-  embbed:
-    enable: false
-  server:
-    port: 3306
-  version: mysql-8.0.28
-  name: tiklab_postin

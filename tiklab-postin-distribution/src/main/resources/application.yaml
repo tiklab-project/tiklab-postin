@@ -11,7 +11,7 @@ PROJECT_HOME: ${user.home}/tiklab/${app.name}
 
 #web net.tiklab.postin.config
 server:
-  port: 8080
+  port: 8081
 
 #dal net.tiklab.postin.config
 jdbc:
@@ -79,11 +79,12 @@ file:
 eas:
   embbed:
     enable: true
+  address: http://192.168.10.16:8080
 
 mysql:
   local: true
   embbed:
-    enable: true
+    enable: false
   server:
     port: 3307
   database: tiklab_postin

@@ -357,17 +357,10 @@ CREATE TABLE postin_http_mock_response(
         body_type VARCHAR(32)
 );
 
-CREATE TABLE postin_http_mock_response_json(
+CREATE TABLE postin_http_mock_response_result(
         id VARCHAR(32) PRIMARY KEY,
         mock_id VARCHAR(32) NOT NULL,
         result VARCHAR(2048)
-);
-
-CREATE TABLE postin_http_mock_response_raw(
-        id VARCHAR(32) PRIMARY KEY,
-        mock_id VARCHAR(32) NOT NULL,
-        result VARCHAR(2048),
-        type VARCHAR(32) NOT NULL
 );
 
 CREATE TABLE postin_model(

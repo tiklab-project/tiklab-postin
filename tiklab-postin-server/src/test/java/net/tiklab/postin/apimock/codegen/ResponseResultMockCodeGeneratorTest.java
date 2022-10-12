@@ -1,6 +1,6 @@
 package net.tiklab.postin.apimock.codegen;
 
-import net.tiklab.postin.apimock.http.entity.JsonResponseMockEntity;
+import net.tiklab.postin.apimock.http.entity.ResponseResultMockEntity;
 import net.tiklab.codegen.CodeGeneratorTemplate;
 import net.tiklab.codegen.config.ProjectGeneratorConfig;
 import net.tiklab.codegen.config.CodeGeneratorConfig;
@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = ProjectGeneratorConfig.class)
-public class JsonResponseMockCodeGeneratorTest extends CodeGeneratorTemplate {
+public class ResponseResultMockCodeGeneratorTest extends CodeGeneratorTemplate {
 
     @Autowired
     ProjectGeneratorConfig projectGeneratorConfig;
@@ -21,7 +21,7 @@ public class JsonResponseMockCodeGeneratorTest extends CodeGeneratorTemplate {
     protected CodeGeneratorConfig getCodeGeneratorConfig() {
         CodeGeneratorConfig config = new CodeGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
-        config.setEntity(JsonResponseMockEntity.class);
+        config.setEntity(ResponseResultMockEntity.class);
         config.setPkg("net.tiklab.postin.apimock");
         config.setModel("JsonResponseMock");
         return config;

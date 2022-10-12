@@ -1,6 +1,6 @@
 package net.tiklab.postin.apimock.http.controller;
 
-import net.tiklab.postin.apimock.http.model.RawResponseMock;
+import net.tiklab.postin.apimock.http.model.ResponseResultMock;
 import net.tiklab.postin.client.mock.JMockit;
 import net.tiklab.postin.config.TestConfig;
 import net.tiklab.core.Result;
@@ -36,9 +36,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Transactional
 @Rollback(false)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class RawResponseMockControllerTest {
+public class ResponseResultMockControllerTest {
 
-    private static Logger logger = LoggerFactory.getLogger(RawResponseMockControllerTest.class);
+    private static Logger logger = LoggerFactory.getLogger(ResponseResultMockControllerTest.class);
 
     static String id;
 
@@ -53,14 +53,13 @@ public class RawResponseMockControllerTest {
     }
 
     @Test
-    public void test01ForSaveRawResponseMock() {
-        RawResponseMock rawResponseMock = JMockit.mock(RawResponseMock.class);
+    public void test01ForSaveJsonResponseMock() {
+        ResponseResultMock responseResultMock = JMockit.mock(ResponseResultMock.class);
 
-        MultiValueMap<String, String> multiValueMap = MapUtils.toMultiMap(rawResponseMock);
-
+        MultiValueMap<String, String> multiValueMap = MapUtils.toMultiMap(responseResultMock);
         try {
             MvcResult mvcResult = mockMvc.perform(
-                                post("/rawResponseMock/createRawResponseMock")
+                                post("/jsonResponseMock/createJsonResponseMock")
                                 .params(multiValueMap)
                                 .accept(MediaType.APPLICATION_JSON)
                                 .contentType(MediaType.APPLICATION_JSON)
@@ -79,15 +78,14 @@ public class RawResponseMockControllerTest {
     }
 
     @Test
-    public void test02ForUpdateRawResponseMock(){
-        RawResponseMock rawResponseMock = JMockit.mock(RawResponseMock.class);
-        rawResponseMock.setId(id);
+    public void test02ForUpdateJsonResponseMock(){
+        ResponseResultMock responseResultMock = JMockit.mock(ResponseResultMock.class);
+        responseResultMock.setId(id);
 
-        MultiValueMap<String, String> multiValueMap = MapUtils.toMultiMap(rawResponseMock);
-
+        MultiValueMap<String, String> multiValueMap = MapUtils.toMultiMap(responseResultMock);
         try {
             MvcResult mvcResult = mockMvc.perform(
-                                post("/rawResponseMock/updateRawResponseMock")
+                                post("/jsonResponseMock/updateJsonResponseMock")
                                 .params(multiValueMap)
                                 .accept(MediaType.APPLICATION_JSON)
                                 .contentType(MediaType.APPLICATION_JSON)
@@ -105,10 +103,10 @@ public class RawResponseMockControllerTest {
     }
 
     @Test
-    public void test03ForFindRawResponseMock() {
+    public void test03ForFindJsonResponseMock() {
         try {
             MvcResult mvcResult = mockMvc.perform(
-                    post("/rawResponseMock/findRawResponseMock")
+                    post("/jsonResponseMock/findJsonResponseMock")
                             .param("id",id)
                             .accept(MediaType.APPLICATION_JSON)
                             .contentType(MediaType.APPLICATION_JSON)
@@ -126,10 +124,10 @@ public class RawResponseMockControllerTest {
     }
 
     @Test
-    public void test04ForFindAllRawResponseMock() {
+    public void test04ForFindAllJsonResponseMock() {
         try {
             MvcResult mvcResult = mockMvc.perform(
-                    post("/rawResponseMock/findAllRawResponseMock")
+                    post("/jsonResponseMock/findAllJsonResponseMock")
                             .accept(MediaType.APPLICATION_JSON)
                             .contentType(MediaType.APPLICATION_JSON)
             )
@@ -146,10 +144,10 @@ public class RawResponseMockControllerTest {
     }
 
     @Test
-    public void test05ForDeleteRawResponseMock(){
+    public void test05ForDeleteJsonResponseMock(){
         try {
             MvcResult mvcResult = mockMvc.perform(
-                    post("/rawResponseMock/deleteRawResponseMock")
+                    post("/jsonResponseMock/deleteJsonResponseMock")
                             .param("id",id)
                             .accept(MediaType.APPLICATION_JSON)
                             .contentType(MediaType.APPLICATION_JSON)

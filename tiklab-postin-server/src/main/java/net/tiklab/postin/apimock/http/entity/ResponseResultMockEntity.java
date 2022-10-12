@@ -8,8 +8,8 @@ import net.tiklab.dal.jpa.annotation.Table;import net.tiklab.dal.jpa.annotation.
 import java.io.Serializable;
 
 @Entity
-@Table(name="postin_http_mock_response_json")
-public class JsonResponseMockEntity implements Serializable {
+@Table(name="postin_http_mock_response_result")
+public class ResponseResultMockEntity implements Serializable {
 
     @Id
     @Column(name = "id",length = 32)

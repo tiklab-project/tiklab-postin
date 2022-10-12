@@ -13,8 +13,8 @@ import javax.validation.constraints.NotNull;
 
 @ApiModel
 @Join
-@Mapper(targetAlias = "RawResponseMockEntity")
-public class RawResponseMock extends BaseModel {
+@Mapper(targetAlias = "ResponseResultMockEntity")
+public class ResponseResultMock extends BaseModel {
 
     @ApiProperty(name="id",desc="唯一标识")
     private java.lang.String id;
@@ -30,15 +30,11 @@ public class RawResponseMock extends BaseModel {
     @ApiProperty(name="result",desc="预期返回结果")
     private java.lang.String result;
 
-    @NotNull
-    @ApiProperty(name = "type",desc = "raw中类型",required = true)
-    private java.lang.String type;
-
-    public java.lang.String getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(java.lang.String id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -50,19 +46,11 @@ public class RawResponseMock extends BaseModel {
         this.mock = mock;
     }
 
-    public java.lang.String getResult() {
+    public String getResult() {
         return result;
     }
 
-    public void setResult(java.lang.String result) {
+    public void setResult(String result) {
         this.result = result;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 }

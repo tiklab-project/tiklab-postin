@@ -2,8 +2,6 @@ package net.tiklab.postin.apimock.http.servlet;
 
 import net.tiklab.postin.apimock.http.model.*;
 import net.tiklab.postin.apimock.http.service.*;
-import net.tiklab.postin.apimock.http.model.*;
-import net.tiklab.postin.apimock.http.service.*;
 import net.tiklab.postin.apimock.http.utils.MockProcess;
 import net.tiklab.core.exception.ApplicationException;
 import org.apache.commons.collections.CollectionUtils;
@@ -26,10 +24,7 @@ public class MockServletResponse {
     ResponseHeaderMockService responseHeaderMockService;
 
     @Autowired
-    JsonResponseMockService jsonResponseMockService;
-
-    @Autowired
-    RawResponseMockService rawResponseMockService;
+    ResponseResultMockService responseResultMockService;
 
     public void actResponse(String mockId, HttpServletResponse response) throws IOException {
         setHttpCode(mockId,response);
@@ -69,36 +64,21 @@ public class MockServletResponse {
                 }
             }
         }
-        response.setHeader("Content-Type", "text/html;charset=UTF-8");
-        response.setHeader("Access-Control-Expose-Headers ",headers);
+
+
+        ResponseMock responseMock = responseMockService.findResponseMock(mockId);
+        String responseType = responseMock.getBodyType();
+
+        response.setHeader("content-type", responseType);
     }
 
     //从数据库获取body类型，设置对应的body类型
     public void setBody(String mockId,  HttpServletResponse response) throws IOException {
-        ResponseMock responseMock = responseMockService.findResponseMock(mockId);
-
-        String responseType = responseMock.getBodyType();
-        if(responseType.equals("json")){
-            setJson(mockId,response);
-        }else {
-            setRaw(mockId,response);
-        }
-    }
-
-    //从数据库获取json，设置到servlet json中
-    public void setJson(String mockId, HttpServletResponse response) throws IOException {
-        JsonResponseMock jsonResponseMock = jsonResponseMockService.findJsonResponseMock(mockId);
-        String jsonMockData = jsonResponseMock.getResult();
+        ResponseResultMock responseResultMock = responseResultMockService.findResponseResultMock(mockId);
+        String jsonMockData = responseResultMock.getResult();
         ServletOutputStream servletOutputStream = response.getOutputStream();
         servletOutputStream.write(jsonMockData.getBytes("UTF-8"));
     }
 
-    //从数据库获取raw，设置到servlet raw中
-    public void setRaw( String mockId, HttpServletResponse response) throws IOException {
-        RawResponseMock rawResponseMock = rawResponseMockService.findRawResponseMock(mockId);
-        String rawMockData = rawResponseMock.getResult();
-        ServletOutputStream servletOutputStream = response.getOutputStream();
-        servletOutputStream.write(rawMockData.getBytes("UTF-8"));
-    }
 
 }

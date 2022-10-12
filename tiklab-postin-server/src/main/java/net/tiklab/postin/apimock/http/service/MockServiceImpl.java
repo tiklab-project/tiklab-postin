@@ -55,7 +55,7 @@ public class MockServiceImpl implements MockService {
         ResponseMock responseMock = new ResponseMock();
         responseMock.setId(id);
         responseMock.setMockId(id);
-        responseMock.setBodyType("json");
+        responseMock.setBodyType("application/json");
         responseMockService.createResponseMock(responseMock);
 
         return id;

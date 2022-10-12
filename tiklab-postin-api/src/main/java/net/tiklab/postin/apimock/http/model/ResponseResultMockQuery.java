@@ -9,7 +9,7 @@ import net.tiklab.core.order.OrderBuilders;
 import java.util.List;
 
 @ApiModel
-public class JsonResponseMockQuery {
+public class ResponseResultMockQuery {
 
     @ApiProperty(name ="mockId",desc = "所属mockId，精确匹配")
     private String mockId;
@@ -24,7 +24,7 @@ public class JsonResponseMockQuery {
         return mockId;
     }
 
-    public JsonResponseMockQuery setMockId(String mockId) {
+    public ResponseResultMockQuery setMockId(String mockId) {
         this.mockId = mockId;
         return this;
     }

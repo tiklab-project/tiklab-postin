@@ -1,7 +1,6 @@
 package net.tiklab.postin;
 
 
-import net.tiklab.eas.boot.EnableEas;
 import net.tiklab.licence.starter.EnableLicenceServer;
 import net.tiklab.oplog.stater.EnableLog;
 import net.tiklab.postin.client.EnablePostInClient;
@@ -40,7 +39,6 @@ import org.springframework.context.annotation.Configuration;
 //pcs
 @EnableUser
 @EnableEam
-@EnableEas
 @EnablePrivilegeServer
 @EnablePluginServer
 @EnableToolkitServer

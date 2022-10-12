@@ -101,7 +101,25 @@
             <artifactId>tiklab-mysql-starter</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
-<!--        <dependency>-->
+        <dependency>
+            <groupId>net.tiklab</groupId>
+            <artifactId>tiklab-oplog-spring-boot-starter</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.tiklab</groupId>
+            <artifactId>tiklab-todotask-spring-boot-stater</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.tiklab</groupId>
+            <artifactId>tiklab-eas-embbed-spring-boot-starter</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <!--        <dependency>-->
 <!--            <groupId>net.tiklab</groupId>-->
 <!--            <artifactId>tiklab-eas-embbed-spring-boot-starter</artifactId>-->
 <!--            <version>1.0.0-SNAPSHOT</version>-->

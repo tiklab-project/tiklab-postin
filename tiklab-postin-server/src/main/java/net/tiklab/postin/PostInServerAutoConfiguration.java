@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @SQL(modules = {
         "postin",
-//        "postineg",
+        "postineg",
         "postininit"
 })
 @ComponentScan({"net.tiklab.postin"})

@@ -79,4 +79,5 @@ file:
 
 eas:
   embbed:
-    enable: true
+    enable: false
+#  address: http://192.168.10.16:8080

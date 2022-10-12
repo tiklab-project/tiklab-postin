@@ -108,19 +108,28 @@ public class GatewayFilterAutoConfiguration{
     String authAddress;
 
 
+    @Value("${eas.embbed.enable:false}")
+    private String easEnable;
+
     //gateway路由配置
     @Bean
     RouterConfig routerConfig(){
-        return RouterConfigBuilder.instance()
-                .preRoute(new String[]{
-//                        "/user",
-//                        "/eam",
-//                        "/message",
-//                        "/oplog",
-//                        "/todo",
+        Boolean isEasEnable = Boolean.parseBoolean(easEnable);
+        if (isEasEnable) {
+            return RouterConfigBuilder.instance()
+                    .preRoute(new String[]{
+                        "/user",
+                        "/eam",
+                        "/message",
+                        "/oplog",
+                        "/todo",
 
-                }, authAddress)
-                .get();
+                    }, authAddress)
+                    .get();
+        }else {
+            return RouterConfigBuilder.instance().preRoute(new String[]{ }, authAddress).get();
+        }
+
     }
 
 }
