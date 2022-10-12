@@ -78,7 +78,9 @@ public class GatewayFilterAutoConfiguration{
                         "/portal.html/",
                         "/testInstance/findTestInstanceList",
                         "/appLink/findAppLinkList",
-                        "/eam/auth/login"
+                        "/eam/auth/login",
+                        "/local-proxy",
+                        "/cloud-proxy"
 
                 })
                 .ignorePreUrls(new String[]{
