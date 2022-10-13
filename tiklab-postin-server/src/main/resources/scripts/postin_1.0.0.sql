@@ -394,7 +394,7 @@ CREATE TABLE postin_model_enum(
 
 CREATE TABLE postin_api_status(
         id VARCHAR(32) PRIMARY KEY,
-        code VARCHAR(32),
+        color VARCHAR(32),
         name VARCHAR(64),
         type VARCHAR(32),
         workspace_id VARCHAR(32)

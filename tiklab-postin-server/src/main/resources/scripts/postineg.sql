@@ -35,9 +35,9 @@ INSERT INTO `postin_http_mock_response` (`id`, `mock_id`, `http_code`, `body_typ
 INSERT INTO `postin_http_mock_response_result` VALUES ('4dbfdd774c9cd245baf2e1ead23a6a36', '4dbfdd774c9cd245baf2e1ead23a6a36', '{\n \"status\":\"error”\n}');
 
 
-INSERT INTO `postin_api_status` values     ("publishid","publish","已发布","system",null),
-                                            ("designId","design","设计中","system",null),
-                                            ("developmentid","development","开发中","system",null),
-                                            ("testid","test","测试","system",null),
-                                            ("completeid","complete","完成","system",null),
-                                            ("maintainid","maintain","维护","system",null);
+INSERT INTO `postin_api_status` values     ("publishid","green","已发布","system",null),
+                                            ("designId","volcano","设计中","system",null),
+                                            ("developmentid","orange","开发中","system",null),
+                                            ("testid","cyan","测试","system",null),
+                                            ("completeid","lime","完成","system",null),
+                                            ("maintainid","red","维护","system",null);

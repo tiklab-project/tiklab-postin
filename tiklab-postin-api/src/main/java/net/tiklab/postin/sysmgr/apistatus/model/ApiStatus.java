@@ -12,8 +12,8 @@ public class ApiStatus extends BaseModel{
     @ApiProperty(name="id",desc="id")
     private java.lang.String id;
 
-    @ApiProperty(name="code",desc="code")
-    private java.lang.String code;
+    @ApiProperty(name="color",desc="code")
+    private java.lang.String color;
 
     @ApiProperty(name="name",desc="name")
     private java.lang.String name;
@@ -40,12 +40,12 @@ public class ApiStatus extends BaseModel{
         this.id = id;
     }
 
-    public java.lang.String getCode() {
-        return code;
+    public String getColor() {
+        return color;
     }
 
-    public void setCode(java.lang.String code) {
-        this.code = code;
+    public void setColor(String color) {
+        this.color = color;
     }
 
     public String getName() {
