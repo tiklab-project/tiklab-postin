@@ -2,6 +2,7 @@ package net.tiklab.postin;
 
 
 import net.tiklab.licence.starter.EnableLicenceServer;
+import net.tiklab.mysql.starter.EnableMysql;
 import net.tiklab.oplog.stater.EnableLog;
 import net.tiklab.postin.client.EnablePostInClient;
 import net.tiklab.dal.starter.annotation.EnableDal;
@@ -27,6 +28,7 @@ import org.springframework.context.annotation.Configuration;
 //platform
 @EnableTks
 @EnableWeb
+@EnableMysql
 @EnableDal
 @EnableDsm
 @EnableDfs
