@@ -74,6 +74,6 @@ eas:
     enable: false
 
 mysql:
-  datebase: tiklab_postin
+  database: tiklab_postin
   embbed:
     enable: true
