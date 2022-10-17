@@ -21,7 +21,6 @@
         <module>tiklab-postin-client</module>
         <module>tiklab-postin-server</module>
         <module>tiklab-postin-starter</module>
-        <module>tiklab-postin-distribution</module>
     </modules>
 
     <properties>

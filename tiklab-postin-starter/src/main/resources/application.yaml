@@ -1,11 +1,10 @@
 #application net.tiklab.postin.config
 app:
   name: tiklab-postin
+
 spring:
-  profiles:
-    active: dev
   config:
-    import: optional:/usr/local/apps/conf/postin/application.yaml
+    import: optional:classpath:/config/${env:dev}/application.yaml
 
 PROJECT_HOME: ${user.home}/tiklab/${app.name}
 

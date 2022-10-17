@@ -3,17 +3,17 @@ INSERT INTO `pcs_prc_role` VALUES ('3b4eee0e8752fe8299e4f1df080c01a8', '默认�
 
 INSERT INTO `pcs_prc_role_user` VALUES ('4e1fe7b1dc57e35acf27bb223abd08ac', '3b4eee0e8752fe8299e4f1df080c01a8', '111111', 'postin');
 
-INSERT INTO `pcs_prc_function` (`id`, `name`, `code`, `parent_function_id`, `sort`, `type`,`bgroup`) VALUES ('12b085bb37913b5f7feb32da5ed260bb', '角色管理', 'SysRoleSystem', '6d584487ba058a0bf02713635a84807d', 1, '1', 'postin');
+INSERT INTO `pcs_prc_function` (`id`, `name`, `code`, `parent_function_id`, `sort`, `type`,`bgroup`) VALUES ('12b085bb37913b5f7feb32da5ed260bb', '角色管理', 'systemRole', '6d584487ba058a0bf02713635a84807d', 1, '1', 'postin');
 INSERT INTO `pcs_prc_function` (`id`, `name`, `code`, `parent_function_id`, `sort`, `type`,`bgroup`) VALUES ('136c10de265146b40621babdb88fdcca', '消息模板管理', 'MessageTemplate', '305864b7559f0a81b500dc93521cab07', 2, '1', 'postin');
 INSERT INTO `pcs_prc_function` (`id`, `name`, `code`, `parent_function_id`, `sort`, `type`,`bgroup`) VALUES ('2eca8165ccd6a0c33d1bd411662617ef', '消息类型管理', 'SysMessageType', '305864b7559f0a81b500dc93521cab07', 3, '1', 'postin');
 INSERT INTO `pcs_prc_function` (`id`, `name`, `code`, `parent_function_id`, `sort`, `type`,`bgroup`) VALUES ('305864b7559f0a81b500dc93521cab07', '消息中心', 'MessageCenter', NULL, 4, '1', 'postin');
-INSERT INTO `pcs_prc_function` (`id`, `name`, `code`, `parent_function_id`, `sort`, `type`,`bgroup`) VALUES ('45cc48e39fb855de5923cf5d735247c8', '功能管理', 'SysFeatruestem', '6d584487ba058a0bf02713635a84807d', 5, '1', 'postin');
-INSERT INTO `pcs_prc_function` (`id`, `name`, `code`, `parent_function_id`, `sort`, `type`,`bgroup`) VALUES ('4ab56fedc91484eb91d71a894b16349d', '功能管理', 'SysFeatrueProject', '957cb2bb99c30b504cefcc4dbaa0824d', 6, '1', 'postin');
-INSERT INTO `pcs_prc_function` (`id`, `name`, `code`, `parent_function_id`, `sort`, `type`,`bgroup`) VALUES ('5d46c6e4f019a45edef7b427db5a732a', '角色管理', 'SysRoleProject', '957cb2bb99c30b504cefcc4dbaa0824d', 7, '1', 'postin');
+INSERT INTO `pcs_prc_function` (`id`, `name`, `code`, `parent_function_id`, `sort`, `type`,`bgroup`) VALUES ('45cc48e39fb855de5923cf5d735247c8', '功能管理', 'systemFeature', '6d584487ba058a0bf02713635a84807d', 5, '1', 'postin');
+INSERT INTO `pcs_prc_function` (`id`, `name`, `code`, `parent_function_id`, `sort`, `type`,`bgroup`) VALUES ('4ab56fedc91484eb91d71a894b16349d', '功能管理', 'projectPrivilege', '957cb2bb99c30b504cefcc4dbaa0824d', 6, '1', 'postin');
+INSERT INTO `pcs_prc_function` (`id`, `name`, `code`, `parent_function_id`, `sort`, `type`,`bgroup`) VALUES ('5d46c6e4f019a45edef7b427db5a732a', '角色管理', 'projectRole', '957cb2bb99c30b504cefcc4dbaa0824d', 7, '1', 'postin');
 INSERT INTO `pcs_prc_function` (`id`, `name`, `code`, `parent_function_id`, `sort`, `type`,`bgroup`) VALUES ('613e2055f04c59f9161d5b23abc39b0b', '插件管理', 'plugin', NULL, 8, '1', 'postin');
-INSERT INTO `pcs_prc_function` (`id`, `name`, `code`, `parent_function_id`, `sort`, `type`,`bgroup`) VALUES ('6d584487ba058a0bf02713635a84807d', '系统权限中心', 'SysPrisystem', NULL, 9, '1', 'postin');
+INSERT INTO `pcs_prc_function` (`id`, `name`, `code`, `parent_function_id`, `sort`, `type`,`bgroup`) VALUES ('6d584487ba058a0bf02713635a84807d', '系统权限中心', 'systemPrivilege', NULL, 9, '1', 'postin');
 INSERT INTO `pcs_prc_function` (`id`, `name`, `code`, `parent_function_id`, `sort`, `type`,`bgroup`) VALUES ('76608490874eed4ef820d84d114ec780', '发送方式管理', 'SysMessageSendType', '305864b7559f0a81b500dc93521cab07', 10, '1', 'postin');
-INSERT INTO `pcs_prc_function` (`id`, `name`, `code`, `parent_function_id`, `sort`, `type`,`bgroup`) VALUES ('957cb2bb99c30b504cefcc4dbaa0824d', '项目权限中心', 'SysPriProject', NULL, 11, '1', 'postin');
+INSERT INTO `pcs_prc_function` (`id`, `name`, `code`, `parent_function_id`, `sort`, `type`,`bgroup`) VALUES ('957cb2bb99c30b504cefcc4dbaa0824d', '项目权限中心', 'projectPrivilege', NULL, 11, '1', 'postin');
 INSERT INTO `pcs_prc_function` (`id`, `name`, `code`, `parent_function_id`, `sort`, `type`,`bgroup`) VALUES ('9bab146ee19fd1ce65d769966ebed231', 'licence管理', 'licence', NULL, 12, '1', 'postin');
 INSERT INTO `pcs_prc_function` (`id`, `name`, `code`, `parent_function_id`, `sort`, `type`,`bgroup`) VALUES ('cdfc6bae3a807ec26c1ef0b934abcd49', '消息管理', 'MessageManagement', '305864b7559f0a81b500dc93521cab07', 13, '1', 'postin');
 

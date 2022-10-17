@@ -9,15 +9,6 @@
     </formats>
     <fileSets>
         <fileSet>
-            <directory>${basedir}/src/main/resources</directory>
-            <includes>
-                <include>*.properties</include>
-                <include>*.yaml</include>
-                <include>*.xml</include>
-            </includes>
-            <outputDirectory>/conf</outputDirectory>
-        </fileSet>
-        <fileSet>
             <directory>${basedir}/target</directory>
             <includes>
                 <include>${artifactId}-${version}.jar</include>
@@ -25,9 +16,30 @@
             <outputDirectory>/lib</outputDirectory>
         </fileSet>
         <fileSet>
+            <directory>${basedir}/src/main/resources/${yaml-type}</directory>
+            <includes>
+                <include>application.yaml</include>
+            </includes>
+            <outputDirectory>/conf</outputDirectory>
+        </fileSet>
+        <fileSet>
             <directory>${basedir}/src/main/resources</directory>
             <includes>
+                <include>*.xml</include>
+            </includes>
+            <outputDirectory>/conf</outputDirectory>
+        </fileSet>
+        <fileSet>
+            <directory>${basedir}</directory>
+            <includes>
                 <include>Dockerfile</include>
+            </includes>
+            <outputDirectory>/</outputDirectory>
+        </fileSet>
+        <fileSet>
+            <directory>${basedir}</directory>
+            <includes>
+                <include>version</include>
             </includes>
             <outputDirectory>/</outputDirectory>
         </fileSet>
@@ -36,6 +48,7 @@
             <fileMode>755</fileMode>
             <excludes>
                 <exclude>*.classpath</exclude>
+                <exclude>*.bat</exclude>
             </excludes>
             <outputDirectory>/bin</outputDirectory>
         </fileSet>
@@ -45,14 +58,9 @@
             <outputDirectory>/plugin</outputDirectory>
         </fileSet>
         <fileSet>
-            <directory>${basedir}/etc</directory>
+            <directory>${basedir}/embbed</directory>
             <fileMode>755</fileMode>
-            <outputDirectory>/etc</outputDirectory>
-        </fileSet>
-        <fileSet>
-            <directory>${basedir}/temp</directory>
-            <fileMode>755</fileMode>
-            <outputDirectory>/temp</outputDirectory>
+            <outputDirectory>/embbed</outputDirectory>
         </fileSet>
     </fileSets>
 
