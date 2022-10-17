@@ -14,8 +14,7 @@ server:
 #dal net.tiklab.testondriver.config
 jdbc:
   driverClassName: com.mysql.jdbc.Driver
-
-  url: jdbc:mysql://172.11.1.10:3306/tiklab_postin?characterEncoding=utf8&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+  url: jdbc:mysql://localhost:3306/tiklab_postin?characterEncoding=utf8&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
   username: root
   password: darth2020
 
@@ -73,3 +72,8 @@ file:
 eas:
   embbed:
     enable: false
+
+mysql:
+  datebase: tiklab_postin
+  embbed:
+    enable: true
