@@ -72,6 +72,7 @@ file:
 eas:
   embbed:
     enable: false
+  address: http://172.11.1.12:8080
 
 mysql:
   database: tiklab_postin
