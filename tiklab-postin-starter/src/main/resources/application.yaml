@@ -8,20 +8,18 @@ spring:
 
 PROJECT_HOME: ${user.home}/tiklab/${app.name}
 
-#web net.tiklab.postin.config
+#web net.tiklab.testondriver.config
 server:
   port: 8080
 
-#dal net.tiklab.postin.config
+#dal net.tiklab.testondriver.config
 jdbc:
-  driverClassName: com.mysql.cj.jdbc.Driver
-#  172.10.1.10
-  url: jdbc:mysql://172.10.1.10:3306/tiklab_postin?characterEncoding=utf8&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+  driverClassName: com.mysql.jdbc.Driver
+  url: jdbc:mysql://localhost:3306/tiklab_postin?characterEncoding=utf8&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
   username: root
   password: darth2020
 
-
-#dfs net.tiklab.postin.config
+#dfs net.tiklab.testondriver.config
 dfs:
   server:
     enable: false
@@ -32,7 +30,7 @@ dfs:
     url: 127.0.0.1:4000
     bucket: ${app.name}
 
-#dcs net.tiklab.postin.config
+#dcs net.tiklab.testondriver.config
 dcs:
   server:
     enable: false
@@ -43,7 +41,7 @@ dcs:
     url: 127.0.0.1:5000
     bucket: ${app.name}
 
-#dss net.tiklab.postin.config
+#dss net.tiklab.testondriver.config
 dss:
   server:
     enable: false
@@ -54,29 +52,29 @@ dss:
     url: 127.0.0.1:6000
     bucket: ${app.name}
 
-
-#integration net.tiklab.postin.config
+#integration net.tiklab.testondriver.config
 homes:
-  address: http://192.168.10.19:8080
+  address: http://172.11.1.11:8080
 
-#project:
-#  address: http://127.0.0.1:8081
-
-#plugin net.tiklab.postin.config
+#plugin net.tiklab.testondriver.config
 plugin:
   path: ${PROJECT_HOME}/plugin
 
-#licences net.tiklab.postin.config
+#licences net.tiklab.testondriver.config
 licences:
   path: ${PROJECT_HOME}/licences
 
 application: postin
 
 file:
-  path: http://file.dev.tiklab.net
-
+  path: http://file.test.tiklab.net
 
 eas:
   embbed:
     enable: false
-#  address: http://192.168.10.16:8080
+  address: http://172.11.1.12:8080
+
+mysql:
+  database: tiklab_postin
+  embbed:
+    enable: true
