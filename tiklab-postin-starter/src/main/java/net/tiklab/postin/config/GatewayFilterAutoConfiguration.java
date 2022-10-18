@@ -117,7 +117,7 @@ public class GatewayFilterAutoConfiguration{
     @Bean
     RouterConfig routerConfig(){
         Boolean isEasEnable = Boolean.parseBoolean(easEnable);
-        if (isEasEnable) {
+        if (!isEasEnable) {
             return RouterConfigBuilder.instance()
                     .preRoute(new String[]{
                         "/user",
