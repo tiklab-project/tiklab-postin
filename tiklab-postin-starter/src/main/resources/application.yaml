@@ -67,7 +67,7 @@ licences:
 application: postin
 
 file:
-  path: http://file.test.tiklab.net
+  path: http://file.tiklab.net
 
 eas:
   embbed:
