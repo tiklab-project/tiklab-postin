@@ -37,9 +37,10 @@ import org.springframework.context.annotation.Configuration;
 @EnableRpc
 @EnableMessage
 @EnableGateway
+
+//pcs
 @EnableLog
 @EnableTodoTask
-//pcs
 @EnableWidget
 @EnableUser
 @EnableEam

@@ -7,6 +7,7 @@ import net.tiklab.core.exception.ApplicationException;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import javax.script.ScriptException;
 import javax.servlet.ServletOutputStream;
@@ -14,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@Component
+@Service
 public class MockServletResponse {
 
     @Autowired

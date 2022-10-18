@@ -21,6 +21,7 @@ import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -33,7 +34,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 
-@Component
+@Service
 public class MockServletRequest {
 
     @Autowired

@@ -3,16 +3,11 @@ package net.tiklab.postin.apidef.http.model;
 import net.tiklab.postin.annotation.ApiModel;
 import net.tiklab.postin.annotation.ApiProperty;
 import net.tiklab.beans.annotation.Mapper;
-import net.tiklab.beans.annotation.Mapping;
-import net.tiklab.beans.annotation.Mappings;
 import net.tiklab.core.BaseModel;
-import net.tiklab.join.annotation.Join;
-import net.tiklab.join.annotation.JoinQuery;
 
 import javax.validation.constraints.NotNull;
 
 @ApiModel
-@Join
 @Mapper(targetAlias = "ApiResponseEntity")
 public class ApiResponse extends BaseModel {
 

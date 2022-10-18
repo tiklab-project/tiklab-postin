@@ -23,7 +23,7 @@ public class ApiResponseCodeGeneratorTest extends CodeGeneratorTemplate {
         config.setProjectGeneratorConfig(projectGeneratorConfig);
         config.setEntity(ApiResponseEntity.class);
         config.setPkg("net.tiklab.postin.apidef");
-        config.setModel("ResponseResult");
+        config.setModel("ApiResponse");
         return config;
     }
 

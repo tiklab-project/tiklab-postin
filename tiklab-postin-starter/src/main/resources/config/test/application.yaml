@@ -68,7 +68,6 @@ application: postin
 file:
   path: http://file.test.tiklab.net
 
-
 eas:
   embbed:
     enable: false

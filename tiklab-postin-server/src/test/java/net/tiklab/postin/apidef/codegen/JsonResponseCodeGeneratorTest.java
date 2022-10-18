@@ -22,7 +22,7 @@ public class JsonResponseCodeGeneratorTest extends CodeGeneratorTemplate {
         CodeGeneratorConfig config = new CodeGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
         config.setEntity(JsonResponseEntity.class);
-        config.setPkg("net.tiklab.postin.responseresult");
+        config.setPkg("net.tiklab.postin.apidef.http");
         config.setModel("JsonResponse");
         return config;
     }
