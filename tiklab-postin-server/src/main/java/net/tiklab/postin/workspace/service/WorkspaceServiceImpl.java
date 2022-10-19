@@ -33,6 +33,7 @@ import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -185,10 +186,26 @@ public class WorkspaceServiceImpl implements WorkspaceService {
 
     @Override
     public List<Workspace> findWorkspaceJoinList(WorkspaceQuery workspaceQuery) {
-        List<WorkspaceEntity> workspaceEntityList = workspaceDao.findWorkspaceJoinList(workspaceQuery);
-        joinTemplate.joinQuery(workspaceEntityList);
+        DmUserQuery dmUserQuery = new DmUserQuery();
+        dmUserQuery.setUserId(workspaceQuery.getUserId());
+        List<DmUser> dmUserList = dmUserService.findDmUserList(dmUserQuery);
+        WorkspaceQuery workspaceQuery1 = new WorkspaceQuery();
+        List<Workspace> workspaceList = findWorkspaceList(workspaceQuery1);
 
-        return BeanMapper.mapList(workspaceEntityList,Workspace.class);
+        ArrayList<Workspace> arrayList = new ArrayList<>();
+
+        for(DmUser dmUser : dmUserList){
+            for(Workspace workspace : workspaceList){
+                if(dmUser.getDomainId()==workspace.getId()){
+                    arrayList.add(workspace);
+                }
+            }
+
+        }
+
+        joinTemplate.joinQuery(arrayList);
+
+        return BeanMapper.mapList(arrayList,Workspace.class);
     }
 
     @Override

@@ -90,16 +90,6 @@ public class WorkspaceDao{
         return jpaTemplate.findPage(queryCondition, WorkspaceEntity.class);
     }
 
-    public List<WorkspaceEntity> findWorkspaceJoinList(WorkspaceQuery workspaceQuery) {
-        String userId = workspaceQuery.getUserId();
-        String sql = "select postin_workspace.workspace_name,postin_workspace.id,postin_workspace.description,postin_workspace.user_id,pcs_ucc_dm_user.user_id  " +
-                "from postin_workspace,pcs_ucc_dm_user " +
-                "where  postin_workspace.id = pcs_ucc_dm_user.domain_id and pcs_ucc_dm_user.user_id= ? ";
 
-        List<WorkspaceEntity> workspaceList = jpaTemplate.getJdbcTemplate().query(sql, new Object[]{userId}, new BeanPropertyRowMapper<>(WorkspaceEntity.class));
-        return workspaceList;
-    }
-
-    
 
 }
