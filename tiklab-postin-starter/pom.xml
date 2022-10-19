@@ -323,6 +323,15 @@
             </properties>
         </profile>
 
+        <!--prd-->
+        <profile>
+            <id>env-prd</id>
+            <properties>
+                <yaml-type>/config/prd</yaml-type>
+            </properties>
+        </profile>
+
+
         <!--release-->
         <profile>
             <id>env-release</id>
@@ -346,6 +355,7 @@
                         <exclude>*.xml</exclude>
                         <exclude>**/config/dev/**</exclude>
                         <exclude>**/config/test/**</exclude>
+                        <exclude>**/config/prd/**</exclude>
                     </excludes>
                 </configuration>
             </plugin>
