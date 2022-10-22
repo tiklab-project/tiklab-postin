@@ -124,24 +124,24 @@ public class ApixServiceImpl implements ApixService {
 
     @Override
     public void deleteApix(@NotNull String id) {
-        ApixEntity apix = apixDao.findApix(id);
+//        ApixEntity apix = apixDao.findApix(id);
 
-        Dynamic dynamic = new Dynamic();
-        dynamic.setWorkspaceId(apix.getWorkspaceId());
-        User user = new User();
-        user.setId(LoginContext.getLoginId());
-        dynamic.setUser(user);
-        dynamic.setName(apix.getName());
-        dynamic.setDynamicType("delete");
-        dynamic.setModel("api");
-        dynamic.setModelId(apix.getId());
-        dynamic.setOperationTime(new Timestamp(System.currentTimeMillis()));
-        dynamicService.createDynamic(dynamic);
+//        Dynamic dynamic = new Dynamic();
+//        dynamic.setWorkspaceId(apix.getWorkspaceId());
+//        User user = new User();
+//        user.setId(LoginContext.getLoginId());
+//        dynamic.setUser(user);
+//        dynamic.setName(apix.getName());
+//        dynamic.setDynamicType("delete");
+//        dynamic.setModel("api");
+//        dynamic.setModelId(apix.getId());
+//        dynamic.setOperationTime(new Timestamp(System.currentTimeMillis()));
+//        dynamicService.createDynamic(dynamic);
 
         apixDao.deleteApix(id);
 
         //删除索引
-        disClient.delete(Apix.class,id);
+//        disClient.delete(Apix.class,id);
     }
 
     @Override

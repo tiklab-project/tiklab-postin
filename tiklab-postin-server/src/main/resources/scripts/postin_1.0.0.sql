@@ -50,6 +50,7 @@ CREATE TABLE postin_apix(
         category_id VARCHAR(40),
         name VARCHAR(64),
         protocol_type VARCHAR(32),
+        method_type VARCHAR(32),
         create_user VARCHAR(30),
         update_user VARCHAR(30),
         create_time timestamp,

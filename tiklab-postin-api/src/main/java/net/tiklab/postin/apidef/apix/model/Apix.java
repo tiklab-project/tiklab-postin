@@ -42,9 +42,13 @@ public class Apix extends BaseModel{
     @IndexQueryField
     private java.lang.String name;
 
-    @ApiProperty(name="protocol_type",desc="protocol_type",required = true)
+    @ApiProperty(name="protocolType",desc="protocolType",required = true)
     @IndexField
     private java.lang.String protocolType;
+
+    @ApiProperty(name="methodType",desc="methodType",required = true)
+    @IndexField
+    private java.lang.String methodType;
 
     @ApiProperty(name="createUser",desc="创建人")
     @Mappings({
@@ -126,6 +130,14 @@ public class Apix extends BaseModel{
 
     public void setProtocolType(String protocolType) {
         this.protocolType = protocolType;
+    }
+
+    public String getMethodType() {
+        return methodType;
+    }
+
+    public void setMethodType(String methodType) {
+        this.methodType = methodType;
     }
 
     public User getUpdateUser() {

@@ -21,6 +21,9 @@ public class ApixEntity implements Serializable {
     @Column(name = "protocol_type",length = 32)
     private String protocolType;
 
+    @Column(name = "method_type",length = 32)
+    private String methodType;
+
     @Column(name = "create_user",length = 30 )
     private String createUser;
 
@@ -129,6 +132,14 @@ public class ApixEntity implements Serializable {
 
     public void setProtocolType(String protocolType) {
         this.protocolType = protocolType;
+    }
+
+    public String getMethodType() {
+        return methodType;
+    }
+
+    public void setMethodType(String methodType) {
+        this.methodType = methodType;
     }
 
     public String getStatusId() {

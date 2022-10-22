@@ -98,6 +98,7 @@ public class HttpApiServiceImpl implements HttpApiService {
         //创建apix
         Apix apix = httpApi.getApix();
         apix.setId(id);
+        apix.setMethodType(httpApi.getMethodType());
         apixService.createApix(apix);
 
 
@@ -113,7 +114,9 @@ public class HttpApiServiceImpl implements HttpApiService {
         httpApiEntity.setApixId(httpApi.getId());
         httpApiDao.updateHttpApi(httpApiEntity);
 
-        apixService.updateApix(httpApi.getApix());
+        Apix apix = httpApi.getApix();
+        apix.setMethodType(httpApi.getMethodType());
+        apixService.updateApix(apix);
 
     }
 
@@ -126,7 +129,7 @@ public class HttpApiServiceImpl implements HttpApiService {
 
 
         //删除索引
-        disClient.delete(HttpApi.class,id);
+//        disClient.delete(HttpApi.class,id);
     }
 
     @Override
