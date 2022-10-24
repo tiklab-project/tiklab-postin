@@ -77,12 +77,13 @@ public class WorkspaceServiceImpl implements WorkspaceService {
 
     @Override
     public String createWorkspace(@NotNull @Valid Workspace workspace) {
+        String userId = LoginContext.getLoginId();
+
         //创建项目
         WorkspaceEntity workspaceEntity = BeanMapper.map(workspace, WorkspaceEntity.class);
-
+        workspaceEntity.setUserId(userId);
         String projectId = workspaceDao.createWorkspace(workspaceEntity);
 
-        String userId = LoginContext.getLoginId();
         DmUser dmUser = new DmUser();
         dmUser.setDomainId(projectId);
         User user = new User();
