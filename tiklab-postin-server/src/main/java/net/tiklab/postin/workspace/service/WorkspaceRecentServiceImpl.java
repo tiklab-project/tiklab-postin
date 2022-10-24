@@ -2,13 +2,13 @@ package net.tiklab.postin.workspace.service;
 
 import net.tiklab.postin.workspace.dao.WorkspaceRecentDao;
 import net.tiklab.postin.workspace.entity.WorkspaceRecentEntity;
-import net.tiklab.postin.workspace.model.WorkspaceRecent;
-import net.tiklab.postin.workspace.model.WorkspaceRecentQuery;
+import net.tiklab.postin.workspace.model.*;
 
 import net.tiklab.beans.BeanMapper;
 import net.tiklab.core.page.Pagination;
 import net.tiklab.core.page.PaginationBuilder;
 import net.tiklab.join.JoinTemplate;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +16,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Objects;
 
 
 /**
@@ -29,6 +30,9 @@ public class WorkspaceRecentServiceImpl implements WorkspaceRecentService {
 
     @Autowired
     JoinTemplate joinTemplate;
+
+    @Autowired
+    WorkspaceFollowService workspaceFollowService;
 
     @Override
     public String createWorkspaceRecent(@NotNull @Valid WorkspaceRecent workspaceRecent) {
@@ -77,7 +81,6 @@ public class WorkspaceRecentServiceImpl implements WorkspaceRecentService {
     @Override
     public List<WorkspaceRecent> findAllWorkspaceRecent() {
         List<WorkspaceRecentEntity> workspaceRecentEntityList =  workspaceRecentDao.findAllWorkspaceRecent();
-
         List<WorkspaceRecent> workspaceRecentList =  BeanMapper.mapList(workspaceRecentEntityList,WorkspaceRecent.class);
 
         joinTemplate.joinQuery(workspaceRecentList);
@@ -88,10 +91,33 @@ public class WorkspaceRecentServiceImpl implements WorkspaceRecentService {
     @Override
     public List<WorkspaceRecent> findWorkspaceRecentList(WorkspaceRecentQuery workspaceRecentQuery) {
         List<WorkspaceRecentEntity> workspaceRecentEntityList = workspaceRecentDao.findWorkspaceRecentList(workspaceRecentQuery);
-
         List<WorkspaceRecent> workspaceRecentList = BeanMapper.mapList(workspaceRecentEntityList,WorkspaceRecent.class);
-
         joinTemplate.joinQuery(workspaceRecentList);
+
+        //关注
+        WorkspaceFollowQuery workspaceFollowQuery = new WorkspaceFollowQuery();
+        List<WorkspaceFollow> workspaceFollowList = workspaceFollowService.findWorkspaceFollowList(workspaceFollowQuery);
+
+        //设置是否关注
+        if(CollectionUtils.isNotEmpty(workspaceRecentList)&&CollectionUtils.isNotEmpty(workspaceFollowList)){
+            for(WorkspaceRecent workspaceRecent : workspaceRecentList){
+                for(WorkspaceFollow workspaceFollow: workspaceFollowList){
+                    if(Objects.equals(workspaceRecent.getWorkspace().getId(), workspaceFollow.getWorkspace().getId())){
+                        workspaceRecent.getWorkspace().setIsFollow(1);
+                    }else {
+                        workspaceRecent.getWorkspace().setIsFollow(0);
+                    }
+                }
+            }
+        }else {
+            for(WorkspaceRecent workspaceRecent : workspaceRecentList){
+                workspaceRecent.getWorkspace().setIsFollow(0);
+            }
+        }
+
+
+
+
 
         return workspaceRecentList;
     }

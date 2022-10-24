@@ -1,5 +1,9 @@
 package net.tiklab.postin.workspace.model;
 
+import net.tiklab.beans.annotation.Mapping;
+import net.tiklab.beans.annotation.Mappings;
+import net.tiklab.join.annotation.Join;
+import net.tiklab.join.annotation.JoinQuery;
 import net.tiklab.postin.annotation.ApiModel;
 import net.tiklab.postin.annotation.ApiProperty;
 import net.tiklab.beans.annotation.Mapper;
@@ -9,15 +13,19 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import javax.validation.constraints.NotNull;
 
 @ApiModel
+@Join
 @Mapper(targetAlias = "WorkspaceFollowEntity")
 public class WorkspaceFollow extends BaseModel {
 
     @ApiProperty(name="id",desc="id")
     private java.lang.String id;
 
-    @NotNull
-    @ApiProperty(name="workspaceId",desc="workspaceId",required = true)
-    private java.lang.String workspaceId;
+    @ApiProperty(name="workspace",desc="所属空间",eg="@selectOne")
+    @Mappings({
+            @Mapping(source = "workspace.id",target = "workspaceId")
+    })
+    @JoinQuery(key = "id")
+    private Workspace workspace;
 
     @NotNull
     @ApiProperty(name="userId",desc="userId")
@@ -34,13 +42,15 @@ public class WorkspaceFollow extends BaseModel {
     public void setId(java.lang.String id) {
         this.id = id;
     }
-    public java.lang.String getWorkspaceId() {
-        return workspaceId;
+
+    public Workspace getWorkspace() {
+        return workspace;
     }
 
-    public void setWorkspaceId(java.lang.String workspaceId) {
-        this.workspaceId = workspaceId;
+    public void setWorkspace(Workspace workspace) {
+        this.workspace = workspace;
     }
+
     public java.lang.String getUserId() {
         return userId;
     }

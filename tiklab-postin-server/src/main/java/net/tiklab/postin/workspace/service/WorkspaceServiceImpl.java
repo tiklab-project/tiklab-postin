@@ -1,5 +1,6 @@
 package net.tiklab.postin.workspace.service;
 
+import net.tiklab.oplog.log.service.OpLogService;
 import net.tiklab.postin.apidef.apix.model.Apix;
 import net.tiklab.postin.apidef.apix.model.ApixQuery;
 import net.tiklab.postin.apidef.apix.service.ApixService;
@@ -12,6 +13,7 @@ import net.tiklab.postin.category.service.CategoryService;
 import net.tiklab.postin.sysmgr.datastructure.model.DataStructure;
 import net.tiklab.postin.sysmgr.datastructure.model.DataStructureQuery;
 import net.tiklab.postin.sysmgr.datastructure.service.DataStructureService;
+import net.tiklab.postin.utils.LogUnit;
 import net.tiklab.postin.workspace.dao.WorkspaceDao;
 import net.tiklab.postin.workspace.entity.WorkspaceEntity;
 import net.tiklab.postin.workspace.model.*;
@@ -25,7 +27,6 @@ import net.tiklab.user.user.model.DmUser;
 import net.tiklab.user.user.model.DmUserQuery;
 import net.tiklab.user.user.model.User;
 import net.tiklab.user.user.service.DmUserService;
-import net.tiklab.postin.workspace.model.*;
 import net.tiklab.utils.context.LoginContext;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,8 +34,7 @@ import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
 * 用户服务业务处理
@@ -72,6 +72,10 @@ public class WorkspaceServiceImpl implements WorkspaceService {
     @Autowired
     JoinTemplate joinTemplate;
 
+
+    @Autowired
+    LogUnit logUnit;
+
     @Autowired
     DssClient disClient;
 
@@ -102,6 +106,12 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         category.setName("默认分组");
         categoryService.createCategory(category);
 
+        Map<String,String> map = new HashMap<>();
+        map.put("add","新增");
+        map.put("workspace","空间");
+        map.put("name",workspace.getWorkspaceName());
+        logUnit.log("add","workspace",map);
+
         //添加索引
 //        Workspace entity = findWorkspace(projectId);
 //        disClient.save(entity);
@@ -117,8 +127,8 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         workspaceDao.updateWorkspace(workspaceEntity);
 
         //更新索引
-        Workspace entity = findWorkspace(workspace.getId());
-        disClient.update(entity);
+//        Workspace entity = findWorkspace(workspace.getId());
+//        disClient.update(entity);
     }
 
     @Override
@@ -131,10 +141,33 @@ public class WorkspaceServiceImpl implements WorkspaceService {
                 categoryService.deleteCategory(category.getId());
             }
         }
+        String loginId = LoginContext.getLoginId();
+        //删除关注的
+        WorkspaceFollowQuery workspaceFollowQuery = new WorkspaceFollowQuery();
+        workspaceFollowQuery.setUserId(loginId);
+        List<WorkspaceFollow> workspaceFollowList = workspaceFollowService.findWorkspaceFollowList(workspaceFollowQuery);
+        if(CollectionUtils.isNotEmpty(workspaceFollowList)){
+            for(WorkspaceFollow workspaceFollow: workspaceFollowList){
+                if(Objects.equals(workspaceFollow.getWorkspace().getId(), id)){
+                    workspaceFollowService.deleteWorkspaceFollow(workspaceFollow.getWorkspace().getId());
+                }
+            }
+        }
 
+        //删除最近
+        WorkspaceRecentQuery workspaceRecentQuery = new WorkspaceRecentQuery();
+        workspaceRecentQuery.setUserId(loginId);
+        List<WorkspaceRecent> workspaceRecentList = workspaceRecentService.findWorkspaceRecentList(workspaceRecentQuery);
+        if(CollectionUtils.isNotEmpty(workspaceRecentList)){
+            for(WorkspaceRecent workspaceRecent : workspaceRecentList){
+                if(Objects.equals(workspaceRecent.getWorkspace().getId(),id)){
+                    workspaceRecentService.deleteWorkspaceRecent(workspaceRecent.getId());
+                }
+            }
+        }
 
         //删除索引
-        disClient.delete(Workspace.class,id);
+//        disClient.delete(Workspace.class,id);
     }
 
     @Override
@@ -169,8 +202,31 @@ public class WorkspaceServiceImpl implements WorkspaceService {
     @Override
     public List<Workspace> findWorkspaceList(WorkspaceQuery workspaceQuery) {
         List<WorkspaceEntity> workspaceEntityList = workspaceDao.findWorkspaceList(workspaceQuery);
+        List<Workspace> workspaceList = BeanMapper.mapList(workspaceEntityList, Workspace.class);
 
-        return BeanMapper.mapList(workspaceEntityList,Workspace.class);
+        //关注
+        WorkspaceFollowQuery workspaceFollowQuery = new WorkspaceFollowQuery();
+        List<WorkspaceFollow> workspaceFollowList = workspaceFollowService.findWorkspaceFollowList(workspaceFollowQuery);
+
+        //设置是否关注
+        if(CollectionUtils.isNotEmpty(workspaceList)&&CollectionUtils.isNotEmpty(workspaceFollowList)){
+            for(Workspace workspace : workspaceList){
+                for(WorkspaceFollow workspaceFollow: workspaceFollowList){
+                    if(Objects.equals(workspace.getId(), workspaceFollow.getWorkspace().getId())){
+                        workspace.setIsFollow(1);
+                    }else {
+                        workspace.setIsFollow(0);
+                    }
+                }
+            }
+        }else {
+            for(Workspace workspace : workspaceList){
+                workspace.setIsFollow(0);
+            }
+        }
+
+
+        return workspaceList;
     }
 
     @Override

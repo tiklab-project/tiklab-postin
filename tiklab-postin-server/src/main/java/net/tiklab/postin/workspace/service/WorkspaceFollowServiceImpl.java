@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.Objects;
 
 /**
 * WorkspaceFollowServiceImpl
@@ -44,7 +45,17 @@ public class WorkspaceFollowServiceImpl implements WorkspaceFollowService {
 
     @Override
     public void deleteWorkspaceFollow(@NotNull String id) {
-        workspaceFollowDao.deleteWorkspaceFollow(id);
+        WorkspaceFollowQuery workspaceFollowQuery = new WorkspaceFollowQuery();
+        List<WorkspaceFollow> workspaceFollowList = findWorkspaceFollowList(workspaceFollowQuery);
+
+        String followId = null;
+        for(WorkspaceFollow workspaceFollow: workspaceFollowList){
+            if(Objects.equals(workspaceFollow.getWorkspace().getId(),id)){
+                followId=workspaceFollow.getId();
+            }
+        }
+
+        workspaceFollowDao.deleteWorkspaceFollow(followId);
     }
 
     @Override

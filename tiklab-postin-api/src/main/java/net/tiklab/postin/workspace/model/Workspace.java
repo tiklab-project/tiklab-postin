@@ -44,6 +44,9 @@ public class Workspace extends BaseModel {
     @JoinQuery(key = "id")
     private User user;
 
+    @ApiProperty(name="id",desc="空间ID")
+    private Integer isFollow;
+
     public java.lang.String getId() {
         return id;
     }
@@ -72,5 +75,13 @@ public class Workspace extends BaseModel {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Integer getIsFollow() {
+        return isFollow;
+    }
+
+    public void setIsFollow(Integer isFollow) {
+        this.isFollow = isFollow;
     }
 }

@@ -23,7 +23,7 @@ public class LogUnit {
 
     public void log(String type, String module, Map<String,String> map){
         OpLogTemplate opLogTemplate = new OpLogTemplate();
-        opLogTemplate.setId("2ff28753cd201048a31af4da117a2563");
+        opLogTemplate.setId("ca4173bf481fd434f0a38ceccaaa30e8");
         User user = new User();
         user.setId( LoginContext.getLoginId());
 
