@@ -202,29 +202,5 @@ public class ApixServiceImpl implements ApixService {
         return PaginationBuilder.build(pagination, apixList);
     }
 
-    /**
-     * 发送消息提醒
-     * @param apix
-     */
-    private void sendMessageForCreate(Apix apix){
-        Message message = new Message();
-        //设置模板ID
-        MessageTemplate messageTemplate = new MessageTemplate();
-        messageTemplate.setId(MessageTemplateConstant.TEMPLATE_ID_API_UPDATE);
-        message.setMessageTemplate(messageTemplate);
-        //设置发送数据
-        String data = JSON.toJSONString(apix, SerializerFeature.DisableCircularReferenceDetect,SerializerFeature.WriteDateUseDateFormat);
-        message.setData(data);
-        message.setApplication("postin");
-        //设置接收人
-        List<MessageReceiver> messageReceiverList = new ArrayList<>();
-        MessageReceiver messageReceiver = new MessageReceiver();
-        messageReceiver.setReceiver(LoginContext.getLoginId());//去除message->user依賴 zhangzh
-        messageReceiverList.add(messageReceiver);
-        message.setMessageReceiverList(messageReceiverList);
-
-        messageService.sendMessage(message);
-    }
-
 
 }

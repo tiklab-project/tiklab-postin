@@ -1,5 +1,7 @@
 package net.tiklab.postin.workspace.service;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import net.tiklab.oplog.log.service.OpLogService;
 import net.tiklab.postin.apidef.apix.model.Apix;
 import net.tiklab.postin.apidef.apix.model.ApixQuery;
@@ -14,6 +16,7 @@ import net.tiklab.postin.sysmgr.datastructure.model.DataStructure;
 import net.tiklab.postin.sysmgr.datastructure.model.DataStructureQuery;
 import net.tiklab.postin.sysmgr.datastructure.service.DataStructureService;
 import net.tiklab.postin.utils.LogUnit;
+import net.tiklab.postin.utils.MessageUnit;
 import net.tiklab.postin.workspace.dao.WorkspaceDao;
 import net.tiklab.postin.workspace.entity.WorkspaceEntity;
 import net.tiklab.postin.workspace.model.*;
@@ -77,6 +80,9 @@ public class WorkspaceServiceImpl implements WorkspaceService {
     LogUnit logUnit;
 
     @Autowired
+    MessageUnit messageUnit;
+
+    @Autowired
     DssClient disClient;
 
     @Override
@@ -95,9 +101,6 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         dmUser.setUser(user);
         dmUserService.createDmUser(dmUser);
 
-        //初始化项目权限
-        dmRoleService.initDmRoles(projectId,userId );
-
         //初始化默认分组
         Category category = new Category();
         Workspace ws = new Workspace();
@@ -106,11 +109,19 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         category.setName("默认分组");
         categoryService.createCategory(category);
 
+        //日志
         Map<String,String> map = new HashMap<>();
         map.put("add","新增");
         map.put("workspace","空间");
         map.put("name",workspace.getWorkspaceName());
         logUnit.log("add","workspace",map);
+
+        //消息
+        String data = JSON.toJSONString(workspace, SerializerFeature.DisableCircularReferenceDetect,SerializerFeature.WriteDateUseDateFormat);
+        messageUnit.sendMessageForCreate(data);
+
+        //初始化项目权限
+        dmRoleService.initDmRoles(projectId,userId );
 
         //添加索引
 //        Workspace entity = findWorkspace(projectId);
@@ -125,6 +136,13 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         WorkspaceEntity workspaceEntity = BeanMapper.map(workspace, WorkspaceEntity.class);
 
         workspaceDao.updateWorkspace(workspaceEntity);
+
+        //日志
+        Map<String,String> map = new HashMap<>();
+        map.put("update","更新");
+        map.put("workspace","空间");
+        map.put("name",workspace.getWorkspaceName());
+        logUnit.log("update","workspace",map);
 
         //更新索引
 //        Workspace entity = findWorkspace(workspace.getId());
