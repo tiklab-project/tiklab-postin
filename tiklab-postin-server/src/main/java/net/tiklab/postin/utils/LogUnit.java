@@ -23,7 +23,7 @@ public class LogUnit {
 
     public void log(String type, String module, Map<String,String> map){
         OpLogTemplate opLogTemplate = new OpLogTemplate();
-        opLogTemplate.setId("ca4173bf481fd434f0a38ceccaaa30e8");
+        opLogTemplate.setId("c072fe18d74bc3893ac323cf8319d8b3");
         User user = new User();
         user.setId( LoginContext.getLoginId());
 
@@ -35,8 +35,6 @@ public class LogUnit {
         log.setTimestamp(new Timestamp(System.currentTimeMillis()));
         log.setUser(user);
         log.setBgroup("postin");
-        HashMap<String, String> stringStringHashMap = new HashMap<>();
-
         log.setContent(JSONObject.toJSONString(map));
 
         opLogService.createLog(log);

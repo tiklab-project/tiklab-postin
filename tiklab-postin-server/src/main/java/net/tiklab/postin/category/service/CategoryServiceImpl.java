@@ -41,9 +41,6 @@ public class CategoryServiceImpl implements CategoryService {
     ApixService apixService;
 
     @Autowired
-    DynamicService dynamicService;
-
-    @Autowired
     JoinTemplate joinTemplate;
 
     @Autowired
@@ -58,29 +55,7 @@ public class CategoryServiceImpl implements CategoryService {
             categoryEntity.setId(id);
         }
 
-        String id = categoryDao.createCategory(categoryEntity);
-
-
-        //动态
-//        Dynamic dynamic = new Dynamic();
-//        dynamic.setWorkspaceId(category.getWorkspace().getId());
-//        User user = new User();
-//        user.setId(LoginContext.getLoginId());
-//        dynamic.setUser(user);
-//        dynamic.setName(category.getName());
-//        dynamic.setDynamicType("add");
-//        dynamic.setModel("category");
-//        dynamic.setModelId(id);
-//        dynamic.setOperationTime(new Timestamp(System.currentTimeMillis()));
-//        dynamicService.createDynamic(dynamic);
-
-        Map<String,String> map = new HashMap<>();
-        map.put("add","新增");
-        map.put("category","目录");
-        map.put("name",category.getName());
-        logUnit.log("add","category",map);
-
-        return id;
+        return categoryDao.createCategory(categoryEntity);
     }
 
     @Override
@@ -89,41 +64,10 @@ public class CategoryServiceImpl implements CategoryService {
         CategoryEntity categoryEntity = BeanMapper.map(category, CategoryEntity.class);
 
         categoryDao.updateCategory(categoryEntity);
-
-
-        //动态
-        CategoryEntity category1 = categoryDao.findCategory(category.getId());
-        Dynamic dynamic = new Dynamic();
-        dynamic.setWorkspaceId(category1.getWorkspaceId());
-        User user = new User();
-        user.setId(LoginContext.getLoginId());
-        dynamic.setUser(user);
-        dynamic.setName(category.getName());
-        dynamic.setDynamicType("edit");
-        dynamic.setModel("category");
-        dynamic.setModelId(category.getId());
-        dynamic.setOperationTime(new Timestamp(System.currentTimeMillis()));
-        dynamicService.createDynamic(dynamic);
-
     }
 
     @Override
     public void deleteCategory(@NotNull String id) {
-
-        CategoryEntity category = categoryDao.findCategory(id);
-
-        //动态
-        Dynamic dynamic = new Dynamic();
-        dynamic.setWorkspaceId(category.getWorkspaceId());
-        User user = new User();
-        user.setId(LoginContext.getLoginId());
-        dynamic.setUser(user);
-        dynamic.setName(category.getName());
-        dynamic.setDynamicType("delete");
-        dynamic.setModel("category");
-        dynamic.setModelId(category.getId());
-        dynamic.setOperationTime(new Timestamp(System.currentTimeMillis()));
-        dynamicService.createDynamic(dynamic);
 
         //删除目录
         categoryDao.deleteCategory(id);

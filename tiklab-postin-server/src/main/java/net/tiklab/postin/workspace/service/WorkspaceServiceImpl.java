@@ -75,7 +75,6 @@ public class WorkspaceServiceImpl implements WorkspaceService {
     @Autowired
     JoinTemplate joinTemplate;
 
-
     @Autowired
     LogUnit logUnit;
 
@@ -85,17 +84,19 @@ public class WorkspaceServiceImpl implements WorkspaceService {
     @Autowired
     DssClient disClient;
 
+
+
     @Override
     public String createWorkspace(@NotNull @Valid Workspace workspace) {
-        String userId = LoginContext.getLoginId();
+        String userId =LoginContext.getLoginId();
 
         //创建项目
         WorkspaceEntity workspaceEntity = BeanMapper.map(workspace, WorkspaceEntity.class);
         workspaceEntity.setUserId(userId);
-        String projectId = workspaceDao.createWorkspace(workspaceEntity);
+        String workspaceId = workspaceDao.createWorkspace(workspaceEntity);
 
         DmUser dmUser = new DmUser();
-        dmUser.setDomainId(projectId);
+        dmUser.setDomainId(workspaceId);
         User user = new User();
         user.setId( userId);
         dmUser.setUser(user);
@@ -104,34 +105,37 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         //初始化默认分组
         Category category = new Category();
         Workspace ws = new Workspace();
-        ws.setId(projectId);
+        ws.setId(workspaceId);
         category.setWorkspace(ws);
         category.setName("默认分组");
         categoryService.createCategory(category);
 
         //日志
         Map<String,String> map = new HashMap<>();
-        map.put("add","新增");
-        map.put("workspace","空间");
         map.put("name",workspace.getWorkspaceName());
-        logUnit.log("add","workspace",map);
+//        map.put("type","新增");
+        map.put("id",workspaceId);
+        map.put("user",userId);
+        map.put("module","空间");
+        logUnit.log("新增","workspace",map);
 
         //消息
         String data = JSON.toJSONString(workspace, SerializerFeature.DisableCircularReferenceDetect,SerializerFeature.WriteDateUseDateFormat);
         messageUnit.sendMessageForCreate(data);
 
         //初始化项目权限
-        dmRoleService.initDmRoles(projectId,userId );
+        dmRoleService.initDmRoles(workspaceId,userId );
 
         //添加索引
-//        Workspace entity = findWorkspace(projectId);
+//        Workspace entity = findWorkspace(workspaceId);
 //        disClient.save(entity);
 
-        return projectId;
+        return workspaceId;
     }
 
     @Override
     public void updateWorkspace(@NotNull @Valid Workspace workspace) {
+        String userId =LoginContext.getLoginId();
         //更新数据
         WorkspaceEntity workspaceEntity = BeanMapper.map(workspace, WorkspaceEntity.class);
 
@@ -139,10 +143,12 @@ public class WorkspaceServiceImpl implements WorkspaceService {
 
         //日志
         Map<String,String> map = new HashMap<>();
-        map.put("update","更新");
-        map.put("workspace","空间");
         map.put("name",workspace.getWorkspaceName());
-        logUnit.log("update","workspace",map);
+        map.put("id",workspace.getId());
+//        map.put("type","更新");
+        map.put("user",userId);
+        map.put("module","空间");
+        logUnit.log("更新","workspace",map);
 
         //更新索引
 //        Workspace entity = findWorkspace(workspace.getId());
@@ -151,6 +157,18 @@ public class WorkspaceServiceImpl implements WorkspaceService {
 
     @Override
     public void deleteWorkspace(@NotNull String id) {
+        String userId =LoginContext.getLoginId();
+        Workspace workspace = findWorkspace(id);
+
+        //日志
+        Map<String,String> map = new HashMap<>();
+        map.put("name",workspace.getWorkspaceName());
+        map.put("id",workspace.getId());
+//        map.put("type","删除");
+        map.put("user",userId);
+        map.put("module","空间");
+        logUnit.log("删除","workspace",map);
+
         //删除数据
         workspaceDao.deleteWorkspace(id);
         List<Category> categoryList = categoryService.findCategoryList(new CategoryQuery().setWorkspaceId(id));
