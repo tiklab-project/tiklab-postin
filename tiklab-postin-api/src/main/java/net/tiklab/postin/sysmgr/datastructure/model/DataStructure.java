@@ -1,5 +1,6 @@
 package net.tiklab.postin.sysmgr.datastructure.model;
 
+import net.tiklab.join.annotation.Join;
 import net.tiklab.postin.annotation.ApiModel;
 import net.tiklab.postin.annotation.ApiProperty;
 import net.tiklab.postin.workspace.model.Workspace;
@@ -8,10 +9,12 @@ import net.tiklab.beans.annotation.Mapping;
 import net.tiklab.beans.annotation.Mappings;
 import net.tiklab.core.BaseModel;
 import net.tiklab.join.annotation.JoinQuery;
+import net.tiklab.user.user.model.User;
 
 import javax.validation.constraints.NotNull;
 
 @ApiModel
+@Join
 @Mapper(targetAlias = "DataStructureEntity")
 public class DataStructure extends BaseModel{
 
@@ -36,7 +39,11 @@ public class DataStructure extends BaseModel{
     private java.lang.String dataType;
 
     @ApiProperty(name="createUser",desc="创建人")
-    private java.lang.String createUser;
+    @Mappings({
+            @Mapping(source = "createUser.id",target = "createUser")
+    })
+    @JoinQuery(key = "id")
+    private User createUser;
 
     @ApiProperty(name="createTime",desc="创建时间")
     private java.util.Date createTime;
@@ -73,13 +80,15 @@ public class DataStructure extends BaseModel{
     public void setCoding(java.lang.String coding) {
         this.coding = coding;
     }
-    public java.lang.String getCreateUser() {
+
+    public User getCreateUser() {
         return createUser;
     }
 
-    public void setCreateUser(java.lang.String createUser) {
+    public void setCreateUser(User createUser) {
         this.createUser = createUser;
     }
+
     public java.util.Date getCreateTime() {
         return createTime;
     }
