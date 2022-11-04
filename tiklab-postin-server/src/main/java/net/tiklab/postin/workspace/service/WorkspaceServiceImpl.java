@@ -287,18 +287,25 @@ public class WorkspaceServiceImpl implements WorkspaceService {
 
         ArrayList<Workspace> arrayList = new ArrayList<>();
 
-        for(DmUser dmUser : dmUserList){
-            for(Workspace workspace : workspaceList){
-                if(dmUser.getDomainId()==workspace.getId()){
-                    arrayList.add(workspace);
+        List<Workspace> workspaceLists = findWorkspaceList(workspaceQuery);
+        if(CollectionUtils.isNotEmpty(workspaceLists)){
+            arrayList.addAll(workspaceLists);
+        }
+
+        if(CollectionUtils.isNotEmpty(dmUserList)){
+            for(DmUser dmUser : dmUserList){
+                for(Workspace workspace : workspaceList){
+                    if(Objects.equals(dmUser.getDomainId(), workspace.getId())){
+                        arrayList.add(workspace);
+                    }
                 }
             }
-
         }
+
 
         joinTemplate.joinQuery(arrayList);
 
-        return BeanMapper.mapList(arrayList,Workspace.class);
+        return arrayList;
     }
 
     @Override
