@@ -9,6 +9,7 @@ import net.tiklab.core.BaseModel;
 import net.tiklab.join.annotation.Join;
 import net.tiklab.join.annotation.JoinQuery;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import net.tiklab.user.user.model.User;
 
 
 @ApiModel
@@ -26,8 +27,12 @@ public class WorkspaceRecent extends BaseModel {
     @JoinQuery(key = "id")
     private Workspace workspace;
 
-    @ApiProperty(name="userId",desc="userId")
-    private java.lang.String userId;
+    @ApiProperty(name="user",desc="所属用户",eg="@selectOne")
+    @Mappings({
+            @Mapping(source = "user.id",target = "userId")
+    })
+    @JoinQuery(key = "id")
+    private User user;
 
     @ApiProperty(name="updateTime",desc="updateTime")
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
@@ -49,13 +54,14 @@ public class WorkspaceRecent extends BaseModel {
         this.workspace = workspace;
     }
 
-    public java.lang.String getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(java.lang.String userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
+
     public java.sql.Timestamp getUpdateTime() {
         return updateTime;
     }

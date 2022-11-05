@@ -164,7 +164,6 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         Map<String,String> map = new HashMap<>();
         map.put("name",workspace.getWorkspaceName());
         map.put("id",workspace.getId());
-//        map.put("type","删除");
         map.put("user",userId);
         map.put("module","空间");
         logUnit.log("删除","workspace",map);
@@ -279,19 +278,19 @@ public class WorkspaceServiceImpl implements WorkspaceService {
 
     @Override
     public List<Workspace> findWorkspaceJoinList(WorkspaceQuery workspaceQuery) {
+        //查询dmuser list
         DmUserQuery dmUserQuery = new DmUserQuery();
         dmUserQuery.setUserId(workspaceQuery.getUserId());
         List<DmUser> dmUserList = dmUserService.findDmUserList(dmUserQuery);
+
+        //查询空间列表
         WorkspaceQuery workspaceQuery1 = new WorkspaceQuery();
         List<Workspace> workspaceList = findWorkspaceList(workspaceQuery1);
 
+        //存储list
         ArrayList<Workspace> arrayList = new ArrayList<>();
 
-        List<Workspace> workspaceLists = findWorkspaceList(workspaceQuery);
-        if(CollectionUtils.isNotEmpty(workspaceLists)){
-            arrayList.addAll(workspaceLists);
-        }
-
+        //把我参与的空间 存储到list中
         if(CollectionUtils.isNotEmpty(dmUserList)){
             for(DmUser dmUser : dmUserList){
                 for(Workspace workspace : workspaceList){

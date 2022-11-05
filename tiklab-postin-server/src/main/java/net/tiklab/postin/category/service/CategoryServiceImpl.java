@@ -54,23 +54,54 @@ public class CategoryServiceImpl implements CategoryService {
             String id = uid.trim().replaceAll("-", "");
             categoryEntity.setId(id);
         }
+        String categoryId = categoryDao.createCategory(categoryEntity);
 
-        return categoryDao.createCategory(categoryEntity);
+        //日志
+        String userId =LoginContext.getLoginId();
+        Map<String,String> map = new HashMap<>();
+        map.put("name",category.getName());
+//        map.put("type","新增");
+        map.put("id",categoryId);
+        map.put("user",userId);
+        map.put("module","目录");
+        logUnit.log("新增","category",map);
+
+        return categoryId;
     }
 
     @Override
     public void updateCategory(@NotNull @Valid Category category) {
-
         CategoryEntity categoryEntity = BeanMapper.map(category, CategoryEntity.class);
 
         categoryDao.updateCategory(categoryEntity);
+
+        //日志
+        String userId =LoginContext.getLoginId();
+        Map<String,String> map = new HashMap<>();
+        map.put("name",category.getName());
+//        map.put("type","新增");
+        map.put("id",category.getId());
+        map.put("user",userId);
+        map.put("module","目录");
+        logUnit.log("更新","category",map);
     }
 
     @Override
     public void deleteCategory(@NotNull String id) {
-
         //删除目录
         categoryDao.deleteCategory(id);
+
+        Category category = findCategory(id);
+
+        //日志
+        String userId =LoginContext.getLoginId();
+        Map<String,String> map = new HashMap<>();
+        map.put("name",category.getName());
+//        map.put("type","新增");
+        map.put("id",category.getId());
+        map.put("user",userId);
+        map.put("module","目录");
+        logUnit.log("删除","category",map);
 
         //删除目录下的接口
         List<Apix> apixList = apixService.findApixList(new ApixQuery().setCategoryId(id));

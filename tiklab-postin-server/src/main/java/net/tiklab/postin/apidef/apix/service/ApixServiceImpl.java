@@ -1,23 +1,18 @@
 package net.tiklab.postin.apidef.apix.service;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.serializer.SerializerFeature;
 import net.tiklab.postin.apidef.apix.dao.ApixDao;
 import net.tiklab.postin.apidef.apix.entity.ApixEntity;
 import net.tiklab.postin.apidef.apix.model.Apix;
 import net.tiklab.postin.apidef.apix.model.ApixQuery;
 import net.tiklab.postin.integration.dynamic.model.Dynamic;
 import net.tiklab.postin.integration.dynamic.service.DynamicService;
-import net.tiklab.postin.utils.MessageTemplateConstant;
 import net.tiklab.beans.BeanMapper;
 import net.tiklab.core.page.Pagination;
 import net.tiklab.core.page.PaginationBuilder;
 import net.tiklab.dss.client.DssClient;
 import net.tiklab.join.JoinTemplate;
-import net.tiklab.message.message.model.Message;
-import net.tiklab.message.message.model.MessageReceiver;
-import net.tiklab.message.message.model.MessageTemplate;
 import net.tiklab.message.message.service.MessageService;
+import net.tiklab.postin.utils.LogUnit;
 import net.tiklab.rpc.annotation.Exporter;
 import net.tiklab.user.user.model.User;
 import net.tiklab.utils.context.LoginContext;
@@ -27,8 +22,9 @@ import org.springframework.stereotype.Service;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
 * BasedefServiceImpl
@@ -50,7 +46,7 @@ public class ApixServiceImpl implements ApixService {
     DssClient disClient;
 
     @Autowired
-    MessageService messageService;
+    LogUnit logUnit;
 
     @Override
     public String createApix(@NotNull @Valid Apix apix) {
@@ -65,6 +61,15 @@ public class ApixServiceImpl implements ApixService {
 
         String id = apixDao.createApix(apixEntity);
 
+
+        //日志
+        Map<String,String> map = new HashMap<>();
+        map.put("name",apix.getName());
+        map.put("id",apix.getId());
+        map.put("user",userId);
+        map.put("module","接口");
+        logUnit.log("创建","category",map);
+
         //添加索引
 //        Apix entity = findApix(id);
 //        disClient.save(entity);
@@ -73,17 +78,7 @@ public class ApixServiceImpl implements ApixService {
 //        sendMessageForCreate(entity);
 
        //动态
-        Dynamic dynamic = new Dynamic();
-        dynamic.setWorkspaceId(apix.getWorkspaceId());
-        User user = new User();
-        user.setId(userId);
-        dynamic.setUser(user);
-        dynamic.setName(apix.getName());
-        dynamic.setDynamicType("add");
-        dynamic.setModel("api");
-        dynamic.setModelId(id);
-        dynamic.setOperationTime(new Timestamp(System.currentTimeMillis()));
-        dynamicService.createDynamic(dynamic);
+
 
         return id;
     }
@@ -106,37 +101,28 @@ public class ApixServiceImpl implements ApixService {
         //发送消息
 //        sendMessageForCreate(entity);
 
-        //动态
-        ApixEntity apix1 = apixDao.findApix(apix.getId());
-        Dynamic dynamic = new Dynamic();
-        dynamic.setWorkspaceId(apix1.getWorkspaceId());
-        User user = new User();
-        user.setId(LoginContext.getLoginId());
-        dynamic.setUser(user);
-        dynamic.setName(apix1.getName());
-        dynamic.setDynamicType("edit");
-        dynamic.setModel("api");
-        dynamic.setModelId(apix1.getId());
-        dynamic.setOperationTime(new Timestamp(System.currentTimeMillis()));
-        dynamicService.createDynamic(dynamic);
+        //日志
+        Map<String,String> map = new HashMap<>();
+        map.put("name",apix.getName());
+        map.put("id",apix.getId());
+        map.put("user",userId);
+        map.put("module","接口");
+        logUnit.log("创建","category",map);
 
     }
 
     @Override
     public void deleteApix(@NotNull String id) {
-//        ApixEntity apix = apixDao.findApix(id);
+        ApixEntity apix = apixDao.findApix(id);
 
-//        Dynamic dynamic = new Dynamic();
-//        dynamic.setWorkspaceId(apix.getWorkspaceId());
-//        User user = new User();
-//        user.setId(LoginContext.getLoginId());
-//        dynamic.setUser(user);
-//        dynamic.setName(apix.getName());
-//        dynamic.setDynamicType("delete");
-//        dynamic.setModel("api");
-//        dynamic.setModelId(apix.getId());
-//        dynamic.setOperationTime(new Timestamp(System.currentTimeMillis()));
-//        dynamicService.createDynamic(dynamic);
+        //日志
+        String userId = LoginContext.getLoginId();
+        Map<String,String> map = new HashMap<>();
+        map.put("name",apix.getName());
+        map.put("id",apix.getId());
+        map.put("user",userId);
+        map.put("module","接口");
+        logUnit.log("删除","category",map);
 
         apixDao.deleteApix(id);
 

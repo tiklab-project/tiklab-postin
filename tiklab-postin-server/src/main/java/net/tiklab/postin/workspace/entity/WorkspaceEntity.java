@@ -25,6 +25,9 @@ public class WorkspaceEntity implements Serializable {
     @Column(name = "user_id",length = 32)
     private String userId;
 
+    @Column(name = "visibility")
+    private Integer visibility;
+
     public String getId() {
         return id;
     }
@@ -55,5 +58,13 @@ public class WorkspaceEntity implements Serializable {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public Integer getVisibility() {
+        return visibility;
+    }
+
+    public void setVisibility(Integer visibility) {
+        this.visibility = visibility;
     }
 }

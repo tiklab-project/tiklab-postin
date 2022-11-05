@@ -47,6 +47,9 @@ public class Workspace extends BaseModel {
     @ApiProperty(name="id",desc="空间ID")
     private Integer isFollow;
 
+    @ApiProperty(name="visibility",desc="可见范围",eg = "0: 公共， 1：私密")
+    private Integer visibility;
+
     public java.lang.String getId() {
         return id;
     }
@@ -83,5 +86,13 @@ public class Workspace extends BaseModel {
 
     public void setIsFollow(Integer isFollow) {
         this.isFollow = isFollow;
+    }
+
+    public Integer getVisibility() {
+        return visibility;
+    }
+
+    public void setVisibility(Integer visibility) {
+        this.visibility = visibility;
     }
 }

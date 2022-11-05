@@ -137,7 +137,7 @@ public class WorkspaceRecentServiceImpl implements WorkspaceRecentService {
     public void workspaceRecent(WorkspaceRecent workspaceRecent) {
 
         WorkspaceRecentQuery workspaceRecentQuery = new WorkspaceRecentQuery();
-        workspaceRecentQuery.setUserId(workspaceRecent.getUserId());
+        workspaceRecentQuery.setUserId(workspaceRecent.getUser().getId());
         workspaceRecentQuery.setWorkspaceId(workspaceRecent.getWorkspace().getId());
 
         List<WorkspaceRecent> workspaceRecentList = findWorkspaceRecentList(workspaceRecentQuery);
