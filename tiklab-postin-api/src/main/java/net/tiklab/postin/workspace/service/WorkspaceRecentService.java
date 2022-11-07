@@ -65,7 +65,7 @@ public interface WorkspaceRecentService {
     Pagination<WorkspaceRecent> findWorkspaceRecentPage(WorkspaceRecentQuery workspaceRecentQuery);
 
     /**
-     * 删除
+     * 设置最近浏览的空间
      * @param workspaceRecent
      */
     void workspaceRecent(@NotNull @Valid WorkspaceRecent workspaceRecent);
