@@ -78,6 +78,7 @@ public class DataStructureDao{
     public List<DataStructureEntity> findDataStructureList(DataStructureQuery dataStructureQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(DataStructureEntity.class)
                 .eq("workspaceId",dataStructureQuery.getWorkspaceId())
+                .eq("dataType",dataStructureQuery.getDataType())
                 .like("name", dataStructureQuery.getName())
                 .orders(dataStructureQuery.getOrderParams())
                 .get();
@@ -87,6 +88,7 @@ public class DataStructureDao{
     public Pagination<DataStructureEntity> findDataStructurePage(DataStructureQuery dataStructureQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(DataStructureEntity.class)
                 .eq("workspaceId",dataStructureQuery.getWorkspaceId())
+                .eq("dataType",dataStructureQuery.getDataType())
                 .like("name", dataStructureQuery.getName())
                 .pagination(dataStructureQuery.getPageParam())
                 .orders(dataStructureQuery.getOrderParams())

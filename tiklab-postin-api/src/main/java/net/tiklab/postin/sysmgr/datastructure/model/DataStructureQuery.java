@@ -23,6 +23,10 @@ public class DataStructureQuery {
     @ApiProperty(name ="name",desc = "接口名称，模糊匹配")
     private String name;
 
+    @ApiProperty(name ="dataType",desc = "数据类型")
+    private String dataType;
+
+
     public String getWorkspaceId() {
         return workspaceId;
     }
@@ -56,4 +60,12 @@ public class DataStructureQuery {
     public void setName(String name) {
             this.name = name;
         }
+
+    public String getDataType() {
+        return dataType;
+    }
+
+    public void setDataType(String dataType) {
+        this.dataType = dataType;
+    }
 }
