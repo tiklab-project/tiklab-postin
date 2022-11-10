@@ -60,8 +60,8 @@ public class CategoryServiceImpl implements CategoryService {
         String userId =LoginContext.getLoginId();
         Map<String,String> map = new HashMap<>();
         map.put("name",category.getName());
-//        map.put("type","新增");
         map.put("id",categoryId);
+        map.put("workspaceId",category.getWorkspace().getId());
         map.put("user",userId);
         map.put("module","目录");
         logUnit.log("新增","category",map);
@@ -79,8 +79,8 @@ public class CategoryServiceImpl implements CategoryService {
         String userId =LoginContext.getLoginId();
         Map<String,String> map = new HashMap<>();
         map.put("name",category.getName());
-//        map.put("type","新增");
         map.put("id",category.getId());
+        map.put("workspaceId",category.getWorkspace().getId());
         map.put("user",userId);
         map.put("module","目录");
         logUnit.log("更新","category",map);
@@ -97,7 +97,7 @@ public class CategoryServiceImpl implements CategoryService {
         String userId =LoginContext.getLoginId();
         Map<String,String> map = new HashMap<>();
         map.put("name",category.getName());
-//        map.put("type","新增");
+        map.put("workspaceId",category.getWorkspace().getId());
         map.put("id",category.getId());
         map.put("user",userId);
         map.put("module","目录");

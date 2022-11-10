@@ -45,7 +45,7 @@ public class ApixEntity implements Serializable {
     @Column(name = "description",length = 256)
     private String desc;
 
-    @Column(name = "workspace_id",length = 4)
+    @Column(name = "workspace_id",length = 32)
     private String workspaceId;
 
     @Column(name = "version",length = 32)

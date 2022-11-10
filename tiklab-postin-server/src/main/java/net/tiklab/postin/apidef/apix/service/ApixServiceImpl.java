@@ -66,9 +66,10 @@ public class ApixServiceImpl implements ApixService {
         Map<String,String> map = new HashMap<>();
         map.put("name",apix.getName());
         map.put("id",apix.getId());
+        map.put("workspaceId",apix.getWorkspaceId());
         map.put("user",userId);
         map.put("module","接口");
-        logUnit.log("创建","category",map);
+        logUnit.log("创建","api",map);
 
         //添加索引
 //        Apix entity = findApix(id);
@@ -105,9 +106,10 @@ public class ApixServiceImpl implements ApixService {
         Map<String,String> map = new HashMap<>();
         map.put("name",apix.getName());
         map.put("id",apix.getId());
+        map.put("workspaceId",apix.getWorkspaceId());
         map.put("user",userId);
         map.put("module","接口");
-        logUnit.log("创建","category",map);
+        logUnit.log("创建","api",map);
 
     }
 
@@ -121,8 +123,9 @@ public class ApixServiceImpl implements ApixService {
         map.put("name",apix.getName());
         map.put("id",apix.getId());
         map.put("user",userId);
+        map.put("workspaceId",apix.getWorkspaceId());
         map.put("module","接口");
-        logUnit.log("删除","category",map);
+        logUnit.log("删除","api",map);
 
         apixDao.deleteApix(id);
 
