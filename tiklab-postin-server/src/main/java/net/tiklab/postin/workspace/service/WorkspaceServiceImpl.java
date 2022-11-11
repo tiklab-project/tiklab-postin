@@ -95,13 +95,6 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         workspaceEntity.setUserId(userId);
         String workspaceId = workspaceDao.createWorkspace(workspaceEntity);
 
-        DmUser dmUser = new DmUser();
-        dmUser.setDomainId(workspaceId);
-        User user = new User();
-        user.setId( userId);
-        dmUser.setUser(user);
-        dmUserService.createDmUser(dmUser);
-
         //初始化默认分组
         Category category = new Category();
         Workspace ws = new Workspace();
@@ -113,18 +106,28 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         //日志
         Map<String,String> map = new HashMap<>();
         map.put("name",workspace.getWorkspaceName());
-//        map.put("type","新增");
         map.put("id",workspaceId);
         map.put("user",userId);
         map.put("module","空间");
         logUnit.log("新增","workspace",map);
 
         //消息
-        String data = JSON.toJSONString(workspace, SerializerFeature.DisableCircularReferenceDetect,SerializerFeature.WriteDateUseDateFormat);
-        messageUnit.sendMessageForCreate(data);
+        Map<String,String> msg = new HashMap<>();
+        msg.put("name",workspace.getWorkspaceName());
+        msg.put("id",workspaceId);
+        msg.put("user",userId);
+        msg.put("images","/images/log.png");
+        messageUnit.sendMessageForCreate(msg);
 
         //初始化项目权限
-        dmRoleService.initDmRoles(workspaceId,userId );
+        dmRoleService.initDmRoles(workspaceId,userId,"postin" );
+        //拉入创建人
+        DmUser dmUser = new DmUser();
+        dmUser.setDomainId(workspaceId);
+        User user = new User();
+        user.setId( userId);
+        dmUser.setUser(user);
+        dmUserService.createDmUser(dmUser);
 
         //添加索引
 //        Workspace entity = findWorkspace(workspaceId);
@@ -145,7 +148,6 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         Map<String,String> map = new HashMap<>();
         map.put("name",workspace.getWorkspaceName());
         map.put("id",workspace.getId());
-//        map.put("type","更新");
         map.put("user",userId);
         map.put("module","空间");
         logUnit.log("更新","workspace",map);
