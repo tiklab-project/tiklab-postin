@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
         "postin",
         "postineg",
         "postininit"
-})
+}, order = 100)
 @ComponentScan({"net.tiklab.postin"})
 @ServletComponentScan({"net.tiklab.postin"})
 public class PostInServerAutoConfiguration {

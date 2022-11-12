@@ -30,6 +30,7 @@ import net.tiklab.user.user.model.DmUser;
 import net.tiklab.user.user.model.DmUserQuery;
 import net.tiklab.user.user.model.User;
 import net.tiklab.user.user.service.DmUserService;
+import net.tiklab.user.user.service.UserService;
 import net.tiklab.utils.context.LoginContext;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,11 +85,15 @@ public class WorkspaceServiceImpl implements WorkspaceService {
     @Autowired
     DssClient disClient;
 
+    @Autowired
+    UserService userService;
+
 
 
     @Override
     public String createWorkspace(@NotNull @Valid Workspace workspace) {
         String userId =LoginContext.getLoginId();
+        User userInfo = userService.findUser(userId);
 
         //创建项目
         WorkspaceEntity workspaceEntity = BeanMapper.map(workspace, WorkspaceEntity.class);
@@ -115,7 +120,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         Map<String,String> msg = new HashMap<>();
         msg.put("name",workspace.getWorkspaceName());
         msg.put("id",workspaceId);
-        msg.put("user",userId);
+        msg.put("userName",userInfo.getNickname());
         msg.put("images","/images/log.png");
         messageUnit.sendMessageForCreate(msg);
 

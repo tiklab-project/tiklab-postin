@@ -24,10 +24,10 @@ public class ApixEntity implements Serializable {
     @Column(name = "method_type",length = 32)
     private String methodType;
 
-    @Column(name = "create_user",length = 30 )
+    @Column(name = "create_user",length = 32 )
     private String createUser;
 
-    @Column(name = "update_user",length = 30 )
+    @Column(name = "update_user",length = 32 )
     private String updateUser;
 
     @Column(name = "create_time",length = 4)
