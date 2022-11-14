@@ -69,7 +69,7 @@ public class ApixServiceImpl implements ApixService {
         map.put("workspaceId",apix.getWorkspaceId());
         map.put("user",userId);
         map.put("module","接口");
-        logUnit.log("创建","api",map);
+        logUnit.log("新增","api",map);
 
         //添加索引
 //        Apix entity = findApix(id);
@@ -109,7 +109,7 @@ public class ApixServiceImpl implements ApixService {
         map.put("workspaceId",apix.getWorkspaceId());
         map.put("user",userId);
         map.put("module","接口");
-        logUnit.log("创建","api",map);
+        logUnit.log("更新","api",map);
 
     }
 
