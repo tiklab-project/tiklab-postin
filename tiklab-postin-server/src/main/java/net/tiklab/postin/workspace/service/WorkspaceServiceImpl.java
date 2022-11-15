@@ -111,9 +111,10 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         //日志
         Map<String,String> map = new HashMap<>();
         map.put("name",workspace.getWorkspaceName());
-        map.put("id",workspaceId);
+        map.put("workspaceId",workspaceId);
         map.put("user",userId);
-        map.put("module","空间");
+        map.put("mode","空间");
+        map.put("images","/images/log.png");
         logUnit.log("新增","workspace",map);
 
         //消息
@@ -152,9 +153,10 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         //日志
         Map<String,String> map = new HashMap<>();
         map.put("name",workspace.getWorkspaceName());
-        map.put("id",workspace.getId());
+        map.put("workspaceId",workspace.getId());
         map.put("user",userId);
-        map.put("module","空间");
+        map.put("mode","空间");
+        map.put("images","/images/log.png");
         logUnit.log("更新","workspace",map);
 
         //更新索引
@@ -170,9 +172,10 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         //日志
         Map<String,String> map = new HashMap<>();
         map.put("name",workspace.getWorkspaceName());
-        map.put("id",workspace.getId());
+        map.put("workspaceId",workspace.getId());
         map.put("user",userId);
-        map.put("module","空间");
+        map.put("mode","空间");
+        map.put("images","/images/log.png");
         logUnit.log("删除","workspace",map);
 
         //删除数据

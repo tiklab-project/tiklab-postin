@@ -4,8 +4,6 @@ import net.tiklab.postin.apidef.apix.dao.ApixDao;
 import net.tiklab.postin.apidef.apix.entity.ApixEntity;
 import net.tiklab.postin.apidef.apix.model.Apix;
 import net.tiklab.postin.apidef.apix.model.ApixQuery;
-import net.tiklab.postin.integration.dynamic.model.Dynamic;
-import net.tiklab.postin.integration.dynamic.service.DynamicService;
 import net.tiklab.beans.BeanMapper;
 import net.tiklab.core.page.Pagination;
 import net.tiklab.core.page.PaginationBuilder;
@@ -37,9 +35,6 @@ public class ApixServiceImpl implements ApixService {
     ApixDao apixDao;
 
     @Autowired
-    DynamicService dynamicService;
-
-    @Autowired
     JoinTemplate joinTemplate;
 
     @Autowired
@@ -68,7 +63,8 @@ public class ApixServiceImpl implements ApixService {
         map.put("id",apix.getId());
         map.put("workspaceId",apix.getWorkspaceId());
         map.put("user",userId);
-        map.put("module","接口");
+        map.put("mode","接口");
+        map.put("images","/images/log.png");
         logUnit.log("新增","api",map);
 
         //添加索引
@@ -108,7 +104,8 @@ public class ApixServiceImpl implements ApixService {
         map.put("id",apix.getId());
         map.put("workspaceId",apix.getWorkspaceId());
         map.put("user",userId);
-        map.put("module","接口");
+        map.put("mode","接口");
+        map.put("images","/images/log.png");
         logUnit.log("更新","api",map);
 
     }
@@ -124,7 +121,8 @@ public class ApixServiceImpl implements ApixService {
         map.put("id",apix.getId());
         map.put("user",userId);
         map.put("workspaceId",apix.getWorkspaceId());
-        map.put("module","接口");
+        map.put("mode","接口");
+        map.put("images","/images/log.png");
         logUnit.log("删除","api",map);
 
         apixDao.deleteApix(id);

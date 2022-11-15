@@ -7,8 +7,6 @@ import net.tiklab.postin.category.dao.CategoryDao;
 import net.tiklab.postin.category.entity.CategoryEntity;
 import net.tiklab.postin.category.model.Category;
 import net.tiklab.postin.category.model.CategoryQuery;
-import net.tiklab.postin.integration.dynamic.model.Dynamic;
-import net.tiklab.postin.integration.dynamic.service.DynamicService;
 import net.tiklab.beans.BeanMapper;
 import net.tiklab.core.page.Pagination;
 import net.tiklab.core.page.PaginationBuilder;
@@ -63,7 +61,8 @@ public class CategoryServiceImpl implements CategoryService {
         map.put("id",categoryId);
         map.put("workspaceId",category.getWorkspace().getId());
         map.put("user",userId);
-        map.put("module","目录");
+        map.put("mode","目录");
+        map.put("images","/images/log.png");
         logUnit.log("新增","category",map);
 
         return categoryId;
@@ -82,7 +81,8 @@ public class CategoryServiceImpl implements CategoryService {
         map.put("id",category.getId());
         map.put("workspaceId",category.getWorkspace().getId());
         map.put("user",userId);
-        map.put("module","目录");
+        map.put("mode","目录");
+        map.put("images","/images/log.png");
         logUnit.log("更新","category",map);
     }
 
@@ -96,7 +96,8 @@ public class CategoryServiceImpl implements CategoryService {
         map.put("workspaceId",category.getWorkspace().getId());
         map.put("id",category.getId());
         map.put("user",userId);
-        map.put("module","目录");
+        map.put("mode","目录");
+        map.put("images","/images/log.png");
         logUnit.log("删除","category",map);
 
         //删除目录
@@ -116,16 +117,14 @@ public class CategoryServiceImpl implements CategoryService {
     public Category findOne(String id) {
         CategoryEntity categoryEntity = categoryDao.findCategory(id);
 
-        Category category = BeanMapper.map(categoryEntity, Category.class);
-        return category;
+        return BeanMapper.map(categoryEntity, Category.class);
     }
 
     @Override
     public List<Category> findList(List<String> idList) {
         List<CategoryEntity> categoryEntityList =  categoryDao.findCategoryList(idList);
 
-        List<Category> categoryList = BeanMapper.mapList(categoryEntityList,Category.class);
-        return categoryList;
+        return BeanMapper.mapList(categoryEntityList,Category.class);
     }
 
     @Override
