@@ -53,7 +53,8 @@ public class GatewayFilterAutoConfiguration{
                         ".json",
                         ".xml",
                         ".ftl",
-                        ".map"
+                        ".map",
+                        ".svg"
                 })
                 .ignoreUrls(new String[]{
                         "/",
