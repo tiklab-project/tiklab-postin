@@ -1,14 +1,14 @@
 package net.tiklab.postin.utils;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.serializer.SerializerFeature;
 import net.tiklab.message.message.model.Message;
 import net.tiklab.message.message.model.MessageReceiver;
 import net.tiklab.message.message.model.MessageTemplate;
+import net.tiklab.message.message.model.MessageTemplateQuery;
 import net.tiklab.message.message.service.MessageService;
-import net.tiklab.postin.apidef.apix.model.Apix;
+import net.tiklab.message.message.service.MessageTemplateService;
 import net.tiklab.utils.context.LoginContext;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,15 +22,31 @@ public class MessageUnit {
     @Autowired
     MessageService messageService;
 
+    @Autowired
+    MessageTemplateService messageTemplateService;
+
 
     public void sendMessageForCreate(Map<String, String> msg){
         Message message = new Message();
         message.setApplication("postin");
 
+
+
+        //通过编码找模板ID
+        MessageTemplateQuery messageTemplateQuery = new MessageTemplateQuery();
+        messageTemplateQuery.setCode("WORKSPACE_CREATE");
+        List<MessageTemplate> messageTemplateList = messageTemplateService.findMessageTemplateList(messageTemplateQuery);
+        if(CollectionUtils.isEmpty(messageTemplateList)){
+            try{
+                throw new Exception("No Template！！！");
+            }catch(Exception e) {
+                e.printStackTrace();
+            }
+        }
+
         //设置模板ID
         MessageTemplate messageTemplate = new MessageTemplate();
-        messageTemplate.setId(MessageTemplateConstant.TEMPLATE_ID_API_UPDATE);
-
+        messageTemplate.setId(messageTemplateList.get(0).getId());
         message.setMessageTemplate(messageTemplate);
 
         //设置发送数据
