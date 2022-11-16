@@ -15,6 +15,7 @@ import net.tiklab.join.annotation.JoinQuery;
 import net.tiklab.user.user.model.User;
 
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @ApiModel
 @Index
@@ -49,6 +50,13 @@ public class Workspace extends BaseModel {
 
     @ApiProperty(name="visibility",desc="可见范围",eg = "0: 公共， 1：私密")
     private Integer visibility;
+
+    @ApiProperty(name="iconUrl",desc="图标地址",eg = "a.png")
+    private String iconUrl;
+
+    @ApiProperty(name="memberList",desc="拉取的成员",eg = "[]")
+    private List<String> memberList;
+
 
     public java.lang.String getId() {
         return id;
@@ -94,5 +102,21 @@ public class Workspace extends BaseModel {
 
     public void setVisibility(Integer visibility) {
         this.visibility = visibility;
+    }
+
+    public String getIconUrl() {
+        return iconUrl;
+    }
+
+    public void setIconUrl(String iconUrl) {
+        this.iconUrl = iconUrl;
+    }
+
+    public List<String> getMemberList() {
+        return memberList;
+    }
+
+    public void setMemberList(List<String> memberList) {
+        this.memberList = memberList;
     }
 }

@@ -63,7 +63,7 @@ public class CategoryServiceImpl implements CategoryService {
         map.put("user",userId);
         map.put("mode","目录");
         map.put("images","/images/log.png");
-        logUnit.log("新增","category",map);
+        logUnit.log("CREATE_TYPE","category",map);
 
         return categoryId;
     }
@@ -83,7 +83,7 @@ public class CategoryServiceImpl implements CategoryService {
         map.put("user",userId);
         map.put("mode","目录");
         map.put("images","/images/log.png");
-        logUnit.log("更新","category",map);
+        logUnit.log("UPDATE_TYPE","category",map);
     }
 
     @Override
@@ -98,7 +98,7 @@ public class CategoryServiceImpl implements CategoryService {
         map.put("user",userId);
         map.put("mode","目录");
         map.put("images","/images/log.png");
-        logUnit.log("删除","category",map);
+        logUnit.log("DELETE_TYPE","category",map);
 
         //删除目录
         categoryDao.deleteCategory(id);

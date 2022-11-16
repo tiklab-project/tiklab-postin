@@ -108,6 +108,22 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         category.setName("默认分组");
         categoryService.createCategory(category);
 
+        //初始化项目权限
+        dmRoleService.initDmRoles(workspaceId,userId,"postin" );
+
+        //拉入创建人
+        List<String> memberList = workspace.getMemberList();
+        memberList.add(userId);
+
+        for(String memberId : memberList){
+            DmUser dmUser = new DmUser();
+            dmUser.setDomainId(workspaceId);
+            User user = new User();
+            user.setId( memberId);
+            dmUser.setUser(user);
+            dmUserService.createDmUser(dmUser);
+        }
+
         //日志
         Map<String,String> map = new HashMap<>();
         map.put("name",workspace.getWorkspaceName());
@@ -115,7 +131,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         map.put("user",userId);
         map.put("mode","空间");
         map.put("images","/images/log.png");
-        logUnit.log("新增","workspace",map);
+        logUnit.log("CREATE_TYPE","workspace",map);
 
         //消息
         Map<String,String> msg = new HashMap<>();
@@ -125,15 +141,6 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         msg.put("images","/images/log.png");
         messageUnit.sendMessageForCreate(msg);
 
-        //初始化项目权限
-        dmRoleService.initDmRoles(workspaceId,userId,"postin" );
-        //拉入创建人
-        DmUser dmUser = new DmUser();
-        dmUser.setDomainId(workspaceId);
-        User user = new User();
-        user.setId( userId);
-        dmUser.setUser(user);
-        dmUserService.createDmUser(dmUser);
 
         //添加索引
 //        Workspace entity = findWorkspace(workspaceId);
@@ -157,7 +164,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         map.put("user",userId);
         map.put("mode","空间");
         map.put("images","/images/log.png");
-        logUnit.log("更新","workspace",map);
+        logUnit.log("UPDATE_TYPE","workspace",map);
 
         //更新索引
 //        Workspace entity = findWorkspace(workspace.getId());
@@ -176,7 +183,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         map.put("user",userId);
         map.put("mode","空间");
         map.put("images","/images/log.png");
-        logUnit.log("删除","workspace",map);
+        logUnit.log("DELETE_TYPE","workspace",map);
 
         //删除数据
         workspaceDao.deleteWorkspace(id);

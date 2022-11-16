@@ -31,22 +31,9 @@ public class MessageUnit {
         message.setApplication("postin");
 
 
-
-        //通过编码找模板ID
-        MessageTemplateQuery messageTemplateQuery = new MessageTemplateQuery();
-        messageTemplateQuery.setCode("WORKSPACE_CREATE");
-        List<MessageTemplate> messageTemplateList = messageTemplateService.findMessageTemplateList(messageTemplateQuery);
-        if(CollectionUtils.isEmpty(messageTemplateList)){
-            try{
-                throw new Exception("No Template！！！");
-            }catch(Exception e) {
-                e.printStackTrace();
-            }
-        }
-
         //设置模板ID
         MessageTemplate messageTemplate = new MessageTemplate();
-        messageTemplate.setId(messageTemplateList.get(0).getId());
+        messageTemplate.setId("WORKSPACE_CREATE");
         message.setMessageTemplate(messageTemplate);
 
         //设置发送数据

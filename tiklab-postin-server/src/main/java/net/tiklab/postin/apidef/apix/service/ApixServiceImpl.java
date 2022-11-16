@@ -65,7 +65,7 @@ public class ApixServiceImpl implements ApixService {
         map.put("user",userId);
         map.put("mode","接口");
         map.put("images","/images/log.png");
-        logUnit.log("新增","api",map);
+        logUnit.log("CREATE_TYPE","api",map);
 
         //添加索引
 //        Apix entity = findApix(id);
@@ -106,7 +106,7 @@ public class ApixServiceImpl implements ApixService {
         map.put("user",userId);
         map.put("mode","接口");
         map.put("images","/images/log.png");
-        logUnit.log("更新","api",map);
+        logUnit.log("UPDATE_TYPE","api",map);
 
     }
 
@@ -123,7 +123,7 @@ public class ApixServiceImpl implements ApixService {
         map.put("workspaceId",apix.getWorkspaceId());
         map.put("mode","接口");
         map.put("images","/images/log.png");
-        logUnit.log("删除","api",map);
+        logUnit.log("DELETE_TYPE","api",map);
 
         apixDao.deleteApix(id);
 

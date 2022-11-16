@@ -28,6 +28,9 @@ public class WorkspaceEntity implements Serializable {
     @Column(name = "visibility")
     private Integer visibility;
 
+    @Column(name = "icon_url",length = 256)
+    private String iconUrl;
+
     public String getId() {
         return id;
     }
@@ -66,5 +69,13 @@ public class WorkspaceEntity implements Serializable {
 
     public void setVisibility(Integer visibility) {
         this.visibility = visibility;
+    }
+
+    public String getIconUrl() {
+        return iconUrl;
+    }
+
+    public void setIconUrl(String iconUrl) {
+        this.iconUrl = iconUrl;
     }
 }

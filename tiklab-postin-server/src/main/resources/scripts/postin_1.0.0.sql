@@ -3,6 +3,7 @@ CREATE TABLE postin_workspace(
         workspace_name VARCHAR(64) NOT NULL,
         description VARCHAR(64),
         visibility int,
+        icon_url VARCHAR(256),
         user_id VARCHAR(32)
 );
 
