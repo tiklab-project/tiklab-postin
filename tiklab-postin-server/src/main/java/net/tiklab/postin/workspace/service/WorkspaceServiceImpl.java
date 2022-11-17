@@ -113,8 +113,6 @@ public class WorkspaceServiceImpl implements WorkspaceService {
 
         //拉入创建人
         List<String> memberList = workspace.getMemberList();
-        memberList.add(userId);
-
         for(String memberId : memberList){
             DmUser dmUser = new DmUser();
             dmUser.setDomainId(workspaceId);
@@ -139,7 +137,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         msg.put("id",workspaceId);
         msg.put("userName",userInfo.getNickname());
         msg.put("images","/images/log.png");
-        messageUnit.sendMessageForCreate(msg);
+        messageUnit.sendMessageForCreate("WORKSPACE_CREATE_TYPE",msg);
 
 
         //添加索引

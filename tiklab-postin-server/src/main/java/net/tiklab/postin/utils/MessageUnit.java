@@ -4,11 +4,9 @@ import com.alibaba.fastjson.JSONObject;
 import net.tiklab.message.message.model.Message;
 import net.tiklab.message.message.model.MessageReceiver;
 import net.tiklab.message.message.model.MessageTemplate;
-import net.tiklab.message.message.model.MessageTemplateQuery;
 import net.tiklab.message.message.service.MessageService;
-import net.tiklab.message.message.service.MessageTemplateService;
+import net.tiklab.message.setting.model.MessageType;
 import net.tiklab.utils.context.LoginContext;
-import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,18 +20,20 @@ public class MessageUnit {
     @Autowired
     MessageService messageService;
 
-    @Autowired
-    MessageTemplateService messageTemplateService;
 
-
-    public void sendMessageForCreate(Map<String, String> msg){
+    public void sendMessageForCreate(String msgType, Map<String, String> msg){
         Message message = new Message();
         message.setApplication("postin");
-
 
         //设置模板ID
         MessageTemplate messageTemplate = new MessageTemplate();
         messageTemplate.setId("WORKSPACE_CREATE");
+
+        //设置类型
+        MessageType messageType = new MessageType();
+        messageType.setId(msgType);
+        messageTemplate.setMsgType(messageType);
+
         message.setMessageTemplate(messageTemplate);
 
         //设置发送数据
