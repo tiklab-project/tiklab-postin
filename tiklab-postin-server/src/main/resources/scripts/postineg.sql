@@ -1,4 +1,4 @@
-INSERT INTO `postin_workspace` (`id`, `workspace_name`, `description`, `user_id`, `visibility`) VALUES ('bd26c6ec5c6e12fd1082772362e096a8', '默认空间', NULL, '111111', 1);
+INSERT INTO `postin_workspace` (`id`, `workspace_name`, `description`, `user_id`, `visibility`, `icon_url`) VALUES ('bd26c6ec5c6e12fd1082772362e096a8', '默认空间', NULL, '111111', 1, Null);
 
 INSERT INTO `postin_environment` VALUES ('f25d692b439b0d714a7c9d26182eb0fb', 'test', 'http://postin-ce.tiklab.net', '2022-7-28 06:07:28', NULL);
 
