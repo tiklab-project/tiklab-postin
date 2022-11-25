@@ -1,6 +1,7 @@
 package net.tiklab.postin.workspace.controller;
 
 import net.tiklab.postin.annotation.Api;
+import net.tiklab.postin.workspace.model.Workspace;
 import net.tiklab.postin.workspace.model.WorkspaceRecent;
 import net.tiklab.postin.workspace.model.WorkspaceRecentQuery;
 import net.tiklab.postin.workspace.service.WorkspaceRecentService;
@@ -81,7 +82,7 @@ public class WorkspaceRecentController {
     @ApiMethod(name = "findWorkspaceRecentList",desc = "findWorkspaceRecentList")
     @ApiParam(name = "workspaceRecentQuery",desc = "workspaceRecentQuery",required = true)
     public Result<List<WorkspaceRecent>> findWorkspaceRecentList(@RequestBody @Valid @NotNull WorkspaceRecentQuery workspaceRecentQuery){
-        List<WorkspaceRecent> workspaceRecentList = workspaceRecentService.findWorkspaceRecentList(workspaceRecentQuery);
+        List<Workspace> workspaceRecentList = workspaceRecentService.findWorkspaceRecentList(workspaceRecentQuery);
 
         return Result.ok(workspaceRecentList);
     }

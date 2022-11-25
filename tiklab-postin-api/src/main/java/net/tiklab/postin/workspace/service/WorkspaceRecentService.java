@@ -1,6 +1,7 @@
 package net.tiklab.postin.workspace.service;
 
 
+import net.tiklab.postin.workspace.model.Workspace;
 import net.tiklab.postin.workspace.model.WorkspaceRecent;
 import net.tiklab.postin.workspace.model.WorkspaceRecentQuery;
 import net.tiklab.core.page.Pagination;
@@ -51,11 +52,19 @@ public interface WorkspaceRecentService {
     List<WorkspaceRecent> findAllWorkspaceRecent();
 
     /**
-    * 查询列表
+    * 查询最近访问的列表，返回的是空间list
     * @param workspaceRecentQuery
     * @return
     */
-    List<WorkspaceRecent> findWorkspaceRecentList(WorkspaceRecentQuery workspaceRecentQuery);
+    List<Workspace> findWorkspaceRecentList(WorkspaceRecentQuery workspaceRecentQuery);
+
+    /**
+     * 查询最近访问的列表，返回的是最近访问的list
+     * @param workspaceRecentQuery
+     * @return
+     */
+    List<WorkspaceRecent> findRecentList(WorkspaceRecentQuery workspaceRecentQuery);
+
 
     /**
     * 按分页查询

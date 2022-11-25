@@ -45,17 +45,17 @@ public class Workspace extends BaseModel {
     @JoinQuery(key = "id")
     private User user;
 
-    @ApiProperty(name="id",desc="空间ID")
-    private Integer isFollow;
-
     @ApiProperty(name="visibility",desc="可见范围",eg = "0: 公共， 1：私密")
     private Integer visibility;
 
     @ApiProperty(name="iconUrl",desc="图标地址",eg = "a.png")
     private String iconUrl;
 
-    @ApiProperty(name="memberList",desc="拉取的成员",eg = "[]")
+
+    private Integer isFollow;
     private List<String> memberList;
+    private Integer categoryNum;
+    private Integer apiNum;
 
 
     public java.lang.String getId() {
@@ -118,5 +118,21 @@ public class Workspace extends BaseModel {
 
     public void setMemberList(List<String> memberList) {
         this.memberList = memberList;
+    }
+
+    public Integer getCategoryNum() {
+        return categoryNum;
+    }
+
+    public void setCategoryNum(Integer categoryNum) {
+        this.categoryNum = categoryNum;
+    }
+
+    public Integer getApiNum() {
+        return apiNum;
+    }
+
+    public void setApiNum(Integer apiNum) {
+        this.apiNum = apiNum;
     }
 }

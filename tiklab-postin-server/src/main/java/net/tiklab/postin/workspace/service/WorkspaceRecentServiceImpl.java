@@ -1,5 +1,13 @@
 package net.tiklab.postin.workspace.service;
 
+import net.tiklab.postin.apidef.apix.model.Apix;
+import net.tiklab.postin.apidef.apix.model.ApixQuery;
+import net.tiklab.postin.apidef.apix.service.ApixService;
+import net.tiklab.postin.apitest.http.httpcase.model.HttpTestcase;
+import net.tiklab.postin.apitest.http.httpcase.model.HttpTestcaseQuery;
+import net.tiklab.postin.category.model.Category;
+import net.tiklab.postin.category.model.CategoryQuery;
+import net.tiklab.postin.category.service.CategoryService;
 import net.tiklab.postin.workspace.dao.WorkspaceRecentDao;
 import net.tiklab.postin.workspace.entity.WorkspaceRecentEntity;
 import net.tiklab.postin.workspace.model.*;
@@ -15,6 +23,7 @@ import org.springframework.stereotype.Service;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -33,6 +42,15 @@ public class WorkspaceRecentServiceImpl implements WorkspaceRecentService {
 
     @Autowired
     WorkspaceFollowService workspaceFollowService;
+
+    @Autowired
+    WorkspaceService workspaceService;
+
+    @Autowired
+    CategoryService categoryService;
+
+    @Autowired
+    ApixService apixService;
 
     @Override
     public String createWorkspaceRecent(@NotNull @Valid WorkspaceRecent workspaceRecent) {
@@ -57,16 +75,14 @@ public class WorkspaceRecentServiceImpl implements WorkspaceRecentService {
     public WorkspaceRecent findOne(String id) {
         WorkspaceRecentEntity workspaceRecentEntity = workspaceRecentDao.findWorkspaceRecent(id);
 
-        WorkspaceRecent workspaceRecent = BeanMapper.map(workspaceRecentEntity, WorkspaceRecent.class);
-        return workspaceRecent;
+        return BeanMapper.map(workspaceRecentEntity, WorkspaceRecent.class);
     }
 
     @Override
     public List<WorkspaceRecent> findList(List<String> idList) {
         List<WorkspaceRecentEntity> workspaceRecentEntityList =  workspaceRecentDao.findWorkspaceRecentList(idList);
 
-        List<WorkspaceRecent> workspaceRecentList =  BeanMapper.mapList(workspaceRecentEntityList,WorkspaceRecent.class);
-        return workspaceRecentList;
+        return BeanMapper.mapList(workspaceRecentEntityList,WorkspaceRecent.class);
     }
 
     @Override
@@ -89,35 +105,64 @@ public class WorkspaceRecentServiceImpl implements WorkspaceRecentService {
     }
 
     @Override
-    public List<WorkspaceRecent> findWorkspaceRecentList(WorkspaceRecentQuery workspaceRecentQuery) {
+    public List<Workspace> findWorkspaceRecentList(WorkspaceRecentQuery workspaceRecentQuery) {
         List<WorkspaceRecentEntity> workspaceRecentEntityList = workspaceRecentDao.findWorkspaceRecentList(workspaceRecentQuery);
         List<WorkspaceRecent> workspaceRecentList = BeanMapper.mapList(workspaceRecentEntityList,WorkspaceRecent.class);
-        joinTemplate.joinQuery(workspaceRecentList);
+
+        //通过最近访问里面的空间id，查询到空间，添加到list里
+        ArrayList<Workspace> workspaceList = new ArrayList<>();
+        for(WorkspaceRecent workspaceRecent:workspaceRecentList){
+            String workspaceId = workspaceRecent.getWorkspace().getId();
+            Workspace workspace = workspaceService.findWorkspace(workspaceId);
+
+            //获取分组的总数
+            int categoryCount=0;
+            List<Category> categoryList = categoryService.findCategoryList(new CategoryQuery().setWorkspaceId(workspaceId));
+            categoryCount=categoryList.size();
+            workspace.setCategoryNum(categoryCount);
+
+            //获取接口总数
+            int apiCount=0;
+            for(Category category :categoryList){
+                List<Apix>  apixList = apixService.findApixList(new ApixQuery().setCategoryId(category.getId()));
+                apiCount+=apixList.size();
+            }
+            workspace.setApiNum(apiCount);
+
+            workspaceList.add(workspace);
+        }
+
+        joinTemplate.joinQuery(workspaceList);
 
         //关注
         WorkspaceFollowQuery workspaceFollowQuery = new WorkspaceFollowQuery();
         List<WorkspaceFollow> workspaceFollowList = workspaceFollowService.findWorkspaceFollowList(workspaceFollowQuery);
 
         //设置是否关注
-        if(CollectionUtils.isNotEmpty(workspaceRecentList)&&CollectionUtils.isNotEmpty(workspaceFollowList)){
-            for(WorkspaceRecent workspaceRecent : workspaceRecentList){
+        if(CollectionUtils.isNotEmpty(workspaceList)&&CollectionUtils.isNotEmpty(workspaceFollowList)){
+            for(Workspace workspace : workspaceList){
                 for(WorkspaceFollow workspaceFollow: workspaceFollowList){
-                    if(Objects.equals(workspaceRecent.getWorkspace().getId(), workspaceFollow.getWorkspace().getId())){
-                        workspaceRecent.getWorkspace().setIsFollow(1);
+                    if(Objects.equals(workspace.getId(), workspaceFollow.getWorkspace().getId())){
+                        workspace.setIsFollow(1);
                     }else {
-                        workspaceRecent.getWorkspace().setIsFollow(0);
+                        workspace.setIsFollow(0);
                     }
                 }
             }
         }else {
-            for(WorkspaceRecent workspaceRecent : workspaceRecentList){
-                workspaceRecent.getWorkspace().setIsFollow(0);
+            for(Workspace workspace : workspaceList){
+                workspace.setIsFollow(0);
             }
         }
 
+        return workspaceList;
+    }
 
-
-
+    @Override
+    public List<WorkspaceRecent> findRecentList(WorkspaceRecentQuery workspaceRecentQuery) {
+        List<WorkspaceRecentEntity> workspaceRecentEntityList = workspaceRecentDao.findWorkspaceRecentList(workspaceRecentQuery);
+        List<WorkspaceRecent> workspaceRecentList = BeanMapper.mapList(workspaceRecentEntityList,WorkspaceRecent.class);
+        joinTemplate.joinQuery(workspaceRecentList);
 
         return workspaceRecentList;
     }
@@ -140,9 +185,11 @@ public class WorkspaceRecentServiceImpl implements WorkspaceRecentService {
         workspaceRecentQuery.setUserId(workspaceRecent.getUser().getId());
         workspaceRecentQuery.setWorkspaceId(workspaceRecent.getWorkspace().getId());
 
-        List<WorkspaceRecent> workspaceRecentList = findWorkspaceRecentList(workspaceRecentQuery);
+        //查询相应的最近访问
+        List<WorkspaceRecentEntity> workspaceRecentEntityList = workspaceRecentDao.findWorkspaceRecentList(workspaceRecentQuery);
+        List<WorkspaceRecent> workspaceRecentList = BeanMapper.mapList(workspaceRecentEntityList,WorkspaceRecent.class);
 
-        //
+        //更新最近一条
         if(!workspaceRecentList.isEmpty()){
             WorkspaceRecent recent = workspaceRecentList.get(0);
 

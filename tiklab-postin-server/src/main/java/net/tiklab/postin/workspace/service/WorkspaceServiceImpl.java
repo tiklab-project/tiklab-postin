@@ -136,7 +136,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         msg.put("name",workspace.getWorkspaceName());
         msg.put("id",workspaceId);
         msg.put("userName",userInfo.getNickname());
-        msg.put("images","/images/log.png");
+        msg.put("images",workspace.getIconUrl());
         messageUnit.sendMessageForCreate("WORKSPACE_CREATE_TYPE",msg);
 
 
@@ -161,7 +161,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         map.put("workspaceId",workspace.getId());
         map.put("user",userId);
         map.put("mode","空间");
-        map.put("images","/images/log.png");
+        map.put("images",workspace.getIconUrl());
         logUnit.log("UPDATE_TYPE","workspace",map);
 
         //更新索引
@@ -180,7 +180,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         map.put("workspaceId",workspace.getId());
         map.put("user",userId);
         map.put("mode","空间");
-        map.put("images","/images/log.png");
+        map.put("images",workspace.getIconUrl());
         logUnit.log("DELETE_TYPE","workspace",map);
 
         //删除数据
@@ -207,9 +207,9 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         //删除最近
         WorkspaceRecentQuery workspaceRecentQuery = new WorkspaceRecentQuery();
         workspaceRecentQuery.setUserId(loginId);
-        List<WorkspaceRecent> workspaceRecentList = workspaceRecentService.findWorkspaceRecentList(workspaceRecentQuery);
-        if(CollectionUtils.isNotEmpty(workspaceRecentList)){
-            for(WorkspaceRecent workspaceRecent : workspaceRecentList){
+        List<WorkspaceRecent> recentList = workspaceRecentService.findRecentList(workspaceRecentQuery);
+        if(CollectionUtils.isNotEmpty(recentList)){
+            for(WorkspaceRecent workspaceRecent : recentList){
                 if(Objects.equals(workspaceRecent.getWorkspace().getId(),id)){
                     workspaceRecentService.deleteWorkspaceRecent(workspaceRecent.getId());
                 }
