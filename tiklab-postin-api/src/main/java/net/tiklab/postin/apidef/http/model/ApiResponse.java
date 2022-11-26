@@ -20,7 +20,7 @@ public class ApiResponse extends BaseModel {
 
     @NotNull
     @ApiProperty(name="bodyType",desc="返回结果类型,json/raw",required = true)
-    private java.lang.String bodyType;
+    private java.lang.String jsonText;
 
     public java.lang.String getId() {
         return id;
@@ -38,11 +38,11 @@ public class ApiResponse extends BaseModel {
         this.httpId = httpId;
     }
 
-    public String getBodyType() {
-        return bodyType;
+    public String getJsonText() {
+        return jsonText;
     }
 
-    public void setBodyType(String bodyType) {
-        this.bodyType = bodyType;
+    public void setJsonText(String jsonText) {
+        this.jsonText = jsonText;
     }
 }

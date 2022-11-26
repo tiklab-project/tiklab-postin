@@ -24,6 +24,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static net.tiklab.postin.utils.MessageTemplateConstant.*;
+
 /**
 * BasedefServiceImpl
 */
@@ -65,7 +67,7 @@ public class ApixServiceImpl implements ApixService {
         map.put("user",userId);
         map.put("mode","接口");
         map.put("images","/images/log.png");
-        logUnit.log("CREATE_TYPE","api",map);
+        logUnit.log(LOG_TYPE_CREATE_ID,"api",map);
 
         //添加索引
 //        Apix entity = findApix(id);
@@ -106,7 +108,7 @@ public class ApixServiceImpl implements ApixService {
         map.put("user",userId);
         map.put("mode","接口");
         map.put("images","/images/log.png");
-        logUnit.log("UPDATE_TYPE","api",map);
+        logUnit.log(LOG_TYPE_UPDATE_ID,"api",map);
 
     }
 
@@ -123,7 +125,7 @@ public class ApixServiceImpl implements ApixService {
         map.put("workspaceId",apix.getWorkspaceId());
         map.put("mode","接口");
         map.put("images","/images/log.png");
-        logUnit.log("DELETE_TYPE","api",map);
+        logUnit.log(LOG_TYPE_DELETE_ID,"api",map);
 
         apixDao.deleteApix(id);
 

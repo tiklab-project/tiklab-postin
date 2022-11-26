@@ -18,8 +18,8 @@ public class ApiResponseEntity implements Serializable {
     @Column(name = "http_id",length = 40,notNull = true)
     private String httpId;
 
-    @Column(name = "body_type",length = 32,notNull = true)
-    private String bodyType;
+    @Column(name = "json_text",notNull = true)
+    private String jsonText;
 
     public String getId() {
         return id;
@@ -37,11 +37,11 @@ public class ApiResponseEntity implements Serializable {
         this.httpId = httpId;
     }
 
-    public String getBodyType() {
-        return bodyType;
+    public String getJsonText() {
+        return jsonText;
     }
 
-    public void setBodyType(String bodyType) {
-        this.bodyType = bodyType;
+    public void setJsonText(String jsonText) {
+        this.jsonText = jsonText;
     }
 }

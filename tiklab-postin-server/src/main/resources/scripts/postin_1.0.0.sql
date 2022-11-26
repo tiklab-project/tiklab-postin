@@ -159,7 +159,7 @@ CREATE TABLE postin_http_response_header(
 CREATE TABLE postin_http_response(
         id VARCHAR(40) PRIMARY KEY,
         http_id VARCHAR(40) NOT NULL,
-        body_type VARCHAR(32)
+        json_text text
 );
 
 CREATE TABLE postin_http_response_json(

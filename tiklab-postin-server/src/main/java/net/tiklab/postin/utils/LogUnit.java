@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 import java.sql.Timestamp;
 import java.util.Map;
 
+import static net.tiklab.postin.utils.MessageTemplateConstant.LOG_TEMPLATE_ID;
+
 
 @Service
 public class LogUnit {
@@ -23,7 +25,7 @@ public class LogUnit {
     public void log(String type, String module, Map<String,String> map){
 
         OpLogTemplate opLogTemplate = new OpLogTemplate();
-        opLogTemplate.setId("LOG_CODE");
+        opLogTemplate.setId(LOG_TEMPLATE_ID);
 
         User user = new User();
         user.setId( LoginContext.getLoginId());

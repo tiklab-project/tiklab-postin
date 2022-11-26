@@ -40,6 +40,8 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.*;
 
+import static net.tiklab.postin.utils.MessageTemplateConstant.*;
+
 /**
 * 用户服务业务处理
 */
@@ -129,7 +131,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         map.put("user",userId);
         map.put("mode","空间");
         map.put("images","/images/log.png");
-        logUnit.log("CREATE_TYPE","workspace",map);
+        logUnit.log(LOG_TYPE_CREATE_ID,"workspace",map);
 
         //消息
         Map<String,String> msg = new HashMap<>();
@@ -137,7 +139,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         msg.put("id",workspaceId);
         msg.put("userName",userInfo.getNickname());
         msg.put("images",workspace.getIconUrl());
-        messageUnit.sendMessageForCreate("WORKSPACE_CREATE_TYPE",msg);
+        messageUnit.sendMessageForCreate(MESSAGE_TEMPLATE_ID,msg);
 
 
         //添加索引
@@ -162,7 +164,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         map.put("user",userId);
         map.put("mode","空间");
         map.put("images",workspace.getIconUrl());
-        logUnit.log("UPDATE_TYPE","workspace",map);
+        logUnit.log(LOG_TYPE_UPDATE_ID,"workspace",map);
 
         //更新索引
 //        Workspace entity = findWorkspace(workspace.getId());
@@ -181,7 +183,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         map.put("user",userId);
         map.put("mode","空间");
         map.put("images",workspace.getIconUrl());
-        logUnit.log("DELETE_TYPE","workspace",map);
+        logUnit.log(LOG_TYPE_DELETE_ID,"workspace",map);
 
         //删除数据
         workspaceDao.deleteWorkspace(id);

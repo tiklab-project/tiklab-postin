@@ -67,7 +67,7 @@ INSERT INTO `pcs_prc_role_function` (`id`, `role_id`, `function_id`, `bgroup`) V
 INSERT INTO `pcs_prc_role_function` (`id`, `role_id`, `function_id`, `bgroup`) VALUES ('eebeab2837593efbaff611420e815f13', '1', '613e2055f04c59f9161d5b23abc39b0b', 'postin');
 INSERT INTO `pcs_prc_role_function` (`id`, `role_id`, `function_id`, `bgroup`) VALUES ('f02e44d95ad2c5bc61ebd12a08870f51', '1', 'f18adf67da9a3da02173673f7ffbbc30', 'postin');
 
-INSERT INTO `pcs_op_log_template` (`id`, `title`, `content`, `link`, `bgroup`) VALUES ('LOG_CODE', '空间', '<div>\n<span style=\"\n    color: #4581b7;\n\">${user}</span> <span>${actionType} </span><span>${mode}： </span><img src=\"${images}\" alt=\"\" width=\"16px\" height=\"16px\"/><span style=\"\nmargin: 0 5px;\n    font-weight: 600;\n    color: #4b768a;\n\">${name}</span></div>', '/workspacePage', 'postin');
+INSERT INTO `pcs_op_log_template` (`id`, `title`, `content`, `link`, `bgroup`) VALUES ('LOG_CODE', '日志通用模板', '<div>\n<span style=\"\n    color: #4581b7;\n\">${user}</span> <span>${actionType} </span><span>${mode}： </span><img src=\"${images}\" alt=\"\" width=\"16px\" height=\"16px\"/><span style=\"\nmargin: 0 5px;\n    font-weight: 600;\n    color: #4b768a;\n\">${name}</span></div>', '/workspacePage', 'postin');
 INSERT INTO `pcs_op_log_type` (`id`, `name`, `bgroup`) VALUES ('CREATE_TYPE', '新增', 'postin');
 INSERT INTO `pcs_op_log_type` (`id`, `name`, `bgroup`) VALUES ('DELETE_TYPE', '删除', 'postin');
 INSERT INTO `pcs_op_log_type` (`id`, `name`, `bgroup`) VALUES ('UPDATE_TYPE', '更新', 'postin');

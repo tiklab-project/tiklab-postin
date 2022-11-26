@@ -236,7 +236,6 @@ public class FunctionImport {
         ApiResponse apiResponse = new ApiResponse();
 
         apiResponse.setId(methodId);
-        apiResponse.setBodyType("json");
         apiResponse.setHttpId(methodId);
 
         apiResponseService.createApiResponse(apiResponse);

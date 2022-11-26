@@ -26,6 +26,8 @@ import java.sql.Timestamp;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static net.tiklab.postin.utils.MessageTemplateConstant.*;
+
 /**
 * 用户服务业务处理
 */
@@ -63,7 +65,7 @@ public class CategoryServiceImpl implements CategoryService {
         map.put("user",userId);
         map.put("mode","目录");
         map.put("images","/images/log.png");
-        logUnit.log("CREATE_TYPE","category",map);
+        logUnit.log(LOG_TYPE_CREATE_ID,"category",map);
 
         return categoryId;
     }
@@ -83,7 +85,7 @@ public class CategoryServiceImpl implements CategoryService {
         map.put("user",userId);
         map.put("mode","目录");
         map.put("images","/images/log.png");
-        logUnit.log("UPDATE_TYPE","category",map);
+        logUnit.log(LOG_TYPE_UPDATE_ID,"category",map);
     }
 
     @Override
@@ -98,7 +100,7 @@ public class CategoryServiceImpl implements CategoryService {
         map.put("user",userId);
         map.put("mode","目录");
         map.put("images","/images/log.png");
-        logUnit.log("DELETE_TYPE","category",map);
+        logUnit.log(LOG_TYPE_DELETE_ID,"category",map);
 
         //删除目录
         categoryDao.deleteCategory(id);

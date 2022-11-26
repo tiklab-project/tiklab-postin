@@ -2,9 +2,18 @@ package net.tiklab.postin.utils;
 
 public class MessageTemplateConstant {
 
-    //消息模板ID-接口创建
-    public static final String TEMPLATE_ID_API_CREATE = "5ea6acf0883ead208d8e75f031ca94df";
+    //消息模板ID
+    public static final String MESSAGE_TEMPLATE_ID = "WORKSPACE_CREATE";
 
-    //消息模板ID-接口变更
-    public static final String TEMPLATE_ID_API_UPDATE = "5ea6acf0883ead208d8e75f031ca94df";
+    //消息类型ID
+    public static final String MSG_WS_CREATE_TYPE = "WORKSPACE_CREATE_TYPE";
+
+    //日志模板ID
+    public static final String LOG_TEMPLATE_ID = "LOG_CODE";
+
+    //日志类型ID
+    public static final String LOG_TYPE_CREATE_ID = "CREATE_TYPE";
+    public static final String LOG_TYPE_UPDATE_ID = "UPDATE_TYPE";
+    public static final String LOG_TYPE_DELETE_ID = "DELETE_TYPE";
+
 }
