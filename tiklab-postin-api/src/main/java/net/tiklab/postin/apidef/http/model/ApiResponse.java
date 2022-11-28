@@ -19,7 +19,7 @@ public class ApiResponse extends BaseModel {
     private String httpId;
 
     @NotNull
-    @ApiProperty(name="bodyType",desc="返回结果类型,json/raw",required = true)
+    @ApiProperty(name="jsonText",desc="返回结果类型,json/raw",required = true)
     private java.lang.String jsonText;
 
     public java.lang.String getId() {

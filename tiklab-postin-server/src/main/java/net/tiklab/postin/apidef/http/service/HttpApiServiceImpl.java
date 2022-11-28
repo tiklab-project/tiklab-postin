@@ -57,6 +57,8 @@ public class HttpApiServiceImpl implements HttpApiService {
     @Autowired
     RawParamService rawParamService;
 
+    @Autowired
+    ApiResponseService apiResponseService;
 
     @Autowired
     DssClient disClient;
@@ -86,6 +88,12 @@ public class HttpApiServiceImpl implements HttpApiService {
         apiRequest.setHttpId(id);
         apiRequest.setBodyType("none");
         apiRequestService.createApiRequest(apiRequest);
+
+        ApiResponse apiResponse = new ApiResponse();
+        apiResponse.setId(id);
+        apiResponse.setHttpId(id);
+        apiResponse.setJsonText("");
+        apiResponseService.createApiResponse(apiResponse);
 
         //创建apix
         Apix apix = httpApi.getApix();
