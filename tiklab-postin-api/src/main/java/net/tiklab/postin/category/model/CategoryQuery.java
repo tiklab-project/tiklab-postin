@@ -17,6 +17,9 @@ public class CategoryQuery {
     @ApiProperty(name ="type",desc = "type:quick，api ,精确匹配")
     private String type;
 
+    @ApiProperty(name ="parentId",desc = "parentId ,精确匹配")
+    private String parentId;
+
     @ApiProperty(name ="name",desc = "分类名称，模糊匹配")
     private String name;
 
@@ -41,6 +44,14 @@ public class CategoryQuery {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(String parentId) {
+        this.parentId = parentId;
     }
 
     public List<Order> getOrderParams() {

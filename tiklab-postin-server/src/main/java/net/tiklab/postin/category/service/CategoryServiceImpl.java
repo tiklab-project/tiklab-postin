@@ -245,9 +245,9 @@ public class CategoryServiceImpl implements CategoryService {
         List<String> categoryIdList = new ArrayList<>();
 
         //
-        List<Category> collect = methodInCategoryList.stream().filter(a -> CollectionUtils.isNotEmpty(a.getCategoryMethod())).collect(Collectors.toList());
+        List<Category> collect = methodInCategoryList.stream().filter(a -> CollectionUtils.isNotEmpty(a.getNodeList())).collect(Collectors.toList());
         for (Category category:collect){
-            Category parentCategory = category.getParentCategory();
+            Category parentCategory = category.getParent();
             addParentCategoryId(categoryIdList,parentCategory);
             categoryIdList.add(category.getId());
         }
@@ -259,8 +259,8 @@ public class CategoryServiceImpl implements CategoryService {
         if (parentCategory != null){
             categoryIdList.add(parentCategory.getId());
 
-            if (parentCategory.getParentCategory() != null){
-                addParentCategoryId( categoryIdList,parentCategory.getParentCategory());
+            if (parentCategory.getParent() != null){
+                addParentCategoryId( categoryIdList,parentCategory.getParent());
             }
         }
     }
@@ -310,7 +310,7 @@ public class CategoryServiceImpl implements CategoryService {
 
             List<Apix> apixes = arrayList.stream().filter(item -> category.getId().equals(item.getCategory().getId())).collect(Collectors.toList());
 
-            category.setCategoryMethod(apixes);
+            category.setNodeList(apixes);
 
             return category;
         }).collect(Collectors.toList());
@@ -326,7 +326,7 @@ public class CategoryServiceImpl implements CategoryService {
      */
     List<Category> findTopCategoryList(List<Category> matchCategoryList){
         return matchCategoryList.stream()
-                .filter(category -> (category.getParentCategory() == null || category.getParentCategory().getId() == null))
+                .filter(category -> (category.getParent() == null || category.getParent().getId() == null))
                 .collect(Collectors.toList());
     }
 
@@ -358,7 +358,7 @@ public class CategoryServiceImpl implements CategoryService {
 
             }
 
-            category.setCategoryMethod(arrayList);
+            category.setNodeList(arrayList);
 
             return category;
         }).collect(Collectors.toList());
@@ -373,7 +373,7 @@ public class CategoryServiceImpl implements CategoryService {
      */
     void setChildren(List<Category> matchCategoryList,Category parentCaegory){
         List<Category> childCategoryList = matchCategoryList.stream()
-                .filter(category -> (category.getParentCategory() != null && category.getParentCategory().getId() != null && category.getParentCategory().getId().equals(parentCaegory.getId())))
+                .filter(category -> (category.getParent() != null && category.getParent().getId() != null && category.getParent().getId().equals(parentCaegory.getId())))
                 .collect(Collectors.toList());
 
         if(childCategoryList != null && childCategoryList.size() > 0){

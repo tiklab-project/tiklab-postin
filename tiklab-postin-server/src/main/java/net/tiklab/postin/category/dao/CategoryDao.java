@@ -75,6 +75,7 @@ public class CategoryDao{
         QueryCondition queryCondition = QueryBuilders.createQuery(CategoryEntity.class)
                 .eq("workspaceId", categoryQuery.getWorkspaceId())
                 .eq("type",categoryQuery.getType())
+                .eq("parentId",categoryQuery.getParentId())
                 .like("name", categoryQuery.getName())
                 .orders(categoryQuery.getOrderParams())
                 .get();
@@ -85,6 +86,7 @@ public class CategoryDao{
         QueryCondition queryCondition = QueryBuilders.createQuery(CategoryEntity.class)
                 .eq("workspaceId", categoryQuery.getWorkspaceId())
                 .eq("type",categoryQuery.getType())
+                .eq("parentId",categoryQuery.getParentId())
                 .like("name", categoryQuery.getName())
                 .pagination(categoryQuery.getPageParam())
                 .orders(categoryQuery.getOrderParams())

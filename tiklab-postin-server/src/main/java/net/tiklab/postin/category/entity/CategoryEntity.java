@@ -23,7 +23,7 @@ public class CategoryEntity implements Serializable {
     private String workspaceId;
 
     @Column(name = "parent_category_id",length = 32)
-    private String parentCategoryId;
+    private String parentId;
 
     public String getId() {
         return id;
@@ -49,12 +49,11 @@ public class CategoryEntity implements Serializable {
         this.workspaceId = workspaceId;
     }
 
-    public String getParentCategoryId() {
-        return parentCategoryId;
+    public String getParentId() {
+        return parentId;
     }
 
-    public void setParentCategoryId(String parentCategoryId) {
-        this.parentCategoryId = parentCategoryId;
+    public void setParentId(String parentId) {
+        this.parentId = parentId;
     }
-
 }

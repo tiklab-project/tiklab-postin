@@ -34,18 +34,18 @@ public class Category extends BaseModel {
     @JoinQuery(key = "id")
     private Workspace workspace;
 
-    @ApiProperty(name="parentCategory",desc="上级分类",eg="@selectOne")
+    @ApiProperty(name="parent",desc="上级分类",eg="@selectOne")
     @Mappings({
-            @Mapping(source = "parentCategory.id",target = "parentCategoryId")
+            @Mapping(source = "parent.id",target = "parentId")
     })
     @JoinQuery(key = "id")
-    private Category parentCategory;
+    private Category parent;
 
     @ApiProperty(name="children",desc="下级分类列表")
     private List<Category> children = new ArrayList<>();
 
-    @ApiProperty(name="categoryMethod",desc="分类下的接口")
-    private List<Apix> categoryMethod=new ArrayList<>();
+    @ApiProperty(name="nodeList",desc="分类下的接口")
+    private List<Apix> nodeList=new ArrayList<>();
 
     public String getId() {
         return id;
@@ -71,12 +71,12 @@ public class Category extends BaseModel {
         this.workspace = workspace;
     }
 
-    public Category getParentCategory() {
-        return parentCategory;
+    public Category getParent() {
+        return parent;
     }
 
-    public void setParentCategory(Category parentCategory) {
-        this.parentCategory = parentCategory;
+    public void setParent(Category parent) {
+        this.parent = parent;
     }
 
     public List<Category> getChildren() {
@@ -87,11 +87,11 @@ public class Category extends BaseModel {
         this.children = children;
     }
 
-    public List<Apix> getCategoryMethod() {
-        return categoryMethod;
+    public List<Apix> getNodeList() {
+        return nodeList;
     }
 
-    public void setCategoryMethod(List<Apix> categoryMethod) {
-        this.categoryMethod = categoryMethod;
+    public void setNodeList(List<Apix> nodeList) {
+        this.nodeList = nodeList;
     }
 }

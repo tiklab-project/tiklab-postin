@@ -2,6 +2,7 @@ package net.tiklab.postin.apidef.apix.model;
 
 import net.tiklab.postin.annotation.ApiModel;
 import net.tiklab.postin.annotation.ApiProperty;
+import net.tiklab.postin.apidef.http.model.HttpApi;
 import net.tiklab.postin.category.model.Category;
 import net.tiklab.postin.sysmgr.apistatus.model.ApiStatus;
 import net.tiklab.beans.annotation.Mapper;
@@ -99,6 +100,8 @@ public class Apix extends BaseModel{
     @ApiProperty(name="apiUid",desc="绑定api的id")
     private java.lang.String apiUid;
 
+    @ApiProperty(name="httpApi",desc="httpApi")
+    private HttpApi httpApi;
 
     public java.lang.String getId() {
         return id;
@@ -219,5 +222,11 @@ public class Apix extends BaseModel{
     }
 
 
+    public HttpApi getHttpApi() {
+        return httpApi;
+    }
 
+    public void setHttpApi(HttpApi httpApi) {
+        this.httpApi = httpApi;
+    }
 }

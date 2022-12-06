@@ -403,3 +403,13 @@ CREATE TABLE postin_api_status(
         workspace_id VARCHAR(32)
 );
 
+CREATE TABLE postin_share(
+        id VARCHAR(32) PRIMARY KEY,
+        target_Id VARCHAR(32) NOT NULL,
+        target_type VARCHAR(32) NOT NULL,
+        visibility int NOT NULL,
+        password VARCHAR(32),
+        create_time timestamp ,
+        update_time timestamp
+);
+
