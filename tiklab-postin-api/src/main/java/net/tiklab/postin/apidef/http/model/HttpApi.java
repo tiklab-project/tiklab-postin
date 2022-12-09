@@ -60,6 +60,12 @@ public class HttpApi extends BaseModel {
     @ApiProperty(name = "raw")
     private RawParam rawParam;
 
+    @ApiProperty(name = "responseHeaderList")
+    private List<ResponseHeader> responseHeaderList;
+
+    @ApiProperty(name = "responseResultList")
+    private List<ApiResponse> responseResultList;
+
 
     public String getPath() {
         return path;
@@ -148,5 +154,21 @@ public class HttpApi extends BaseModel {
 
     public void setRawParam(RawParam rawParam) {
         this.rawParam = rawParam;
+    }
+
+    public List<ResponseHeader> getResponseHeaderList() {
+        return responseHeaderList;
+    }
+
+    public void setResponseHeaderList(List<ResponseHeader> responseHeaderList) {
+        this.responseHeaderList = responseHeaderList;
+    }
+
+    public List<ApiResponse> getResponseResultList() {
+        return responseResultList;
+    }
+
+    public void setResponseResultList(List<ApiResponse> responseResultList) {
+        this.responseResultList = responseResultList;
     }
 }

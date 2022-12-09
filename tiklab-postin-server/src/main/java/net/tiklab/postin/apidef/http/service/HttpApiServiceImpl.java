@@ -58,6 +58,9 @@ public class HttpApiServiceImpl implements HttpApiService {
     RawParamService rawParamService;
 
     @Autowired
+    ResponseHeaderService responseHeaderService;
+
+    @Autowired
     ApiResponseService apiResponseService;
 
     @Autowired
@@ -89,10 +92,20 @@ public class HttpApiServiceImpl implements HttpApiService {
         apiRequest.setBodyType("none");
         apiRequestService.createApiRequest(apiRequest);
 
+        //初始化一个返回结果 数据类型为json， 所以设置值为jsonSchema结构的值
         ApiResponse apiResponse = new ApiResponse();
         apiResponse.setId(id);
         apiResponse.setHttpId(id);
-        apiResponse.setJsonText("");
+        apiResponse.setHttpCode(200);
+        apiResponse.setName("成功");
+        apiResponse.setDataType("json");
+        apiResponse.setJsonText(
+                "{\n" +
+                "    \"type\": \"object\",\n" +
+                "    \"title\": \"title\",\n" +
+                "    \"properties\": {}\n" +
+                "}"
+        );
         apiResponseService.createApiResponse(apiResponse);
 
         //创建apix
@@ -154,6 +167,8 @@ public class HttpApiServiceImpl implements HttpApiService {
         HttpApi httpApi = findOne(id);
         String httpId = httpApi.getId();
 
+
+
         //获取请求头中的数据
         List<RequestHeader> requestHeaderList = requestHeaderService.findRequestHeaderList(new RequestHeaderQuery().setHttpId(httpId));
         if(CollectionUtils.isNotEmpty(requestHeaderList)){
@@ -202,8 +217,24 @@ public class HttpApiServiceImpl implements HttpApiService {
             }
         }
 
+        //获取响应里的参数
+        //响应头
+        List<ResponseHeader> responseHeaderList = responseHeaderService.findResponseHeaderList(new ResponseHeaderQuery().setHttpId(httpId));
+        if(CollectionUtils.isNotEmpty(responseHeaderList)){
+            httpApi.setResponseHeaderList(responseHeaderList);
+        }
+
+        //响应示例
+        List<ApiResponse> apiResponseList = apiResponseService.findApiResponseList(new ApiResponseQuery().setHttpId(httpId));
+        if(CollectionUtils.isNotEmpty(apiResponseList)){
+            httpApi.setResponseResultList(apiResponseList);
+        }
 
         joinTemplate.joinQuery(httpApi);
+
+        Apix apix = apixService.findApix(id);
+        httpApi.setApix(apix);
+
         return httpApi;
     }
 
@@ -289,5 +320,8 @@ public class HttpApiServiceImpl implements HttpApiService {
 
         return PaginationBuilder.build(pagination, httpApiList);
     }
+
+
+
 
 }

@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -31,6 +32,7 @@ public class ApiResponseServiceImpl implements ApiResponseService {
     @Override
     public String createApiResponse(@NotNull @Valid ApiResponse apiResponse) {
         ApiResponseEntity apiResponseEntity = BeanMapper.map(apiResponse, ApiResponseEntity.class);
+        apiResponseEntity.setCreateTime(new Timestamp(System.currentTimeMillis()));
 
         return apiResponseDao.createApiResponse(apiResponseEntity);
     }

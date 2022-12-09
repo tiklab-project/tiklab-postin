@@ -159,7 +159,12 @@ CREATE TABLE postin_http_response_header(
 CREATE TABLE postin_http_response(
         id VARCHAR(40) PRIMARY KEY,
         http_id VARCHAR(40) NOT NULL,
-        json_text text
+        create_time timestamp,
+        http_code int,
+        name VARCHAR(64),
+        data_type VARCHAR(32),
+        json_text text,
+        raw_text text
 );
 
 CREATE TABLE postin_http_response_json(

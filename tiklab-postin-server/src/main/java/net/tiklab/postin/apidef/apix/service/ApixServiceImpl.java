@@ -54,7 +54,9 @@ public class ApixServiceImpl implements ApixService {
         String userId = LoginContext.getLoginId();
         apixEntity.setCreateUser(userId);
 
-        apixEntity.setCreateTime(new Timestamp(System.currentTimeMillis()));
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        apixEntity.setCreateTime(timestamp);
+        apixEntity.setUpdateTime(timestamp);
 
         String id = apixDao.createApix(apixEntity);
 

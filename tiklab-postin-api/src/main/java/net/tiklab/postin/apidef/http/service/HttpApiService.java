@@ -73,6 +73,15 @@ public interface HttpApiService {
     */
     Pagination<HttpApi> findHttpApiPage(HttpApiQuery httpApiQuery);
 
+    /**
+     * 通过apix 查询接口
+     * @param apixQuery
+     * @return
+     */
     List<HttpApi> findHttpApiListByApix(ApixQuery apixQuery);
+
+
+
+
 
 }

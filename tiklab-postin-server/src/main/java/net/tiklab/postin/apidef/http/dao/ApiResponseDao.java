@@ -79,6 +79,7 @@ public class ApiResponseDao {
     public List<ApiResponseEntity> findApiResponseList(ApiResponseQuery apiResponseQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(ApiResponseEntity.class)
                 .eq("httpId", apiResponseQuery.getHttpId())
+                .orders(apiResponseQuery.getOrderParams())
                 .get();
         return jpaTemplate.findList(queryCondition, ApiResponseEntity.class);
     }
@@ -86,6 +87,7 @@ public class ApiResponseDao {
     public Pagination<ApiResponseEntity> findApiResponsePage(ApiResponseQuery apiResponseQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(ApiResponseEntity.class)
                 .eq("httpId", apiResponseQuery.getHttpId())
+                .orders(apiResponseQuery.getOrderParams())
                 .get();
 
         return jpaTemplate.findPage(queryCondition, ApiResponseEntity.class);

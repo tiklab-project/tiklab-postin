@@ -9,6 +9,7 @@ import net.tiklab.core.page.Pagination;
 import net.tiklab.beans.BeanMapper;
 import net.tiklab.core.page.PaginationBuilder;
 import net.tiklab.join.JoinTemplate;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -134,7 +135,7 @@ public class JsonParamServiceImpl implements JsonParamService {
                 .filter(jsonParam -> (jsonParam.getParent() != null && jsonParam.getParent().getId() != null && jsonParam.getParent().getId().equals(parentJsonParam.getId())))
                 .collect(Collectors.toList());
 
-        if(childList != null && childList.size() > 0){
+        if(CollectionUtils.isNotEmpty(childList) && childList.size() > 0){
             parentJsonParam.setChildren(childList);
 
             //设置下级节点列表

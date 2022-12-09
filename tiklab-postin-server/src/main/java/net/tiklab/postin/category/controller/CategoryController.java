@@ -119,4 +119,14 @@ public class CategoryController {
         return Result.ok(categoryList);
     }
 
+    @RequestMapping(path="/findCategoryAddSon",method = RequestMethod.POST)
+    @ApiMethod(name = "findCategoryAddSon",desc = "根据分类ID查找分类")
+    @ApiParam(name = "id",desc = "分类ID",required = true)
+    public Result<List<Category>> findCategoryAddSon(@NotNull String id){
+        List<Category> category = categoryService.findCategoryAddSon(id);
+
+        return Result.ok(category);
+    }
+
+
 }

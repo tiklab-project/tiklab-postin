@@ -86,4 +86,11 @@ public interface CategoryService {
      */
     List<Category> likeFindCategoryListTree(CategoryQuery categoryQuery);
 
+
+    /**
+     * 查找当前目录，并查询当前目录下的子目录，接口
+     * @param id
+     * @return
+     */
+    List<Category> findCategoryAddSon(@NotNull String id);
 }

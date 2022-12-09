@@ -134,8 +134,52 @@ public class CategoryServiceImpl implements CategoryService {
         Category category = findOne(id);
 
         joinTemplate.joinQuery(category);
+
         return category;
     }
+
+
+    @Override
+    public List<Category>  findCategoryAddSon(String id) {
+
+        Category category = findCategory(id);
+
+        //通过当前目录查询子目录
+        CategoryQuery categoryQuery = new CategoryQuery();
+        categoryQuery.setParentId(category.getId());
+        List<Category> categoryList = findCategoryList(categoryQuery);
+
+        //通过当前目录查询下面接口
+        ApixQuery apixQuery = new ApixQuery();
+        apixQuery.setCategoryId(category.getId());
+        List<Apix> apixList = apixService.findApixList(apixQuery);
+
+        //如果接口不为空，把详情set到公共apix里
+        if(CollectionUtils.isNotEmpty(apixList)){
+            category.setNodeList(apixList);
+        }
+
+        //如果有子目录递归
+        if(CollectionUtils.isNotEmpty(categoryList)){
+
+            ArrayList<Category> newCategoryList = new ArrayList<>();
+            for(Category children : categoryList){
+                List<Category> categoryByCategory = findCategoryAddSon(children.getId());
+
+                newCategoryList.addAll(categoryByCategory);
+            }
+
+            category.setChildren(newCategoryList);
+        }
+
+
+        ArrayList<Category> arrayList = new ArrayList<>();
+        arrayList.add(category);
+
+        return arrayList;
+    }
+
+
 
     @Override
     public List<Category> findAllCategory() {
