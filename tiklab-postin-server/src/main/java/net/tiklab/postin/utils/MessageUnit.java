@@ -21,6 +21,7 @@ public class MessageUnit {
     MessageService messageService;
 
 
+
     public void sendMessageForCreate(String msgType, Map<String, String> msg){
         Message message = new Message();
         message.setApplication("postin");

@@ -26,7 +26,7 @@ public interface WorkspaceService {
     * @param workspace
     * @return
     */
-    String createWorkspace(@NotNull @Valid Workspace workspace);
+    String createWorkspace(@NotNull @Valid Workspace workspace) throws Exception;
 
     /**
     * 更新用户

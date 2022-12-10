@@ -17,8 +17,10 @@ INSERT INTO `postin_http_request` (`id`, `http_id`, `body_type`, `pre_script`, `
 INSERT INTO `postin_http_request_raw` VALUES ('f483d630bafa46e781c14491fad1881f', 'f483d630bafa46e781c14491fad1881f', '{\n	\"account\": \"admin\",\n	\"password\": \"12345\",\n	\"userType\": \"1\"\n}', 'application/json');
 INSERT INTO `postin_http_request_raw` VALUES ('219512b6cb7446d0adf661607561e9a5', '219512b6cb7446d0adf661607561e9a5', '{\"account\":\"18783894551\",\"password\":\"123456\"}', 'application/json');
 
-INSERT INTO `postin_http_response` VALUES ('219512b6cb7446d0adf661607561e9a5', '219512b6cb7446d0adf661607561e9a5', 'json');
-INSERT INTO `postin_http_response` VALUES ('f483d630bafa46e781c14491fad1881f', 'f483d630bafa46e781c14491fad1881f', 'json');
+
+INSERT INTO `postin_http_response` (`id`, `http_id`, `json_text`, `http_code`, `name`, `data_type`, `raw_text`, `create_time`) VALUES ('219512b6cb7446d0adf661607561e9a5', '219512b6cb7446d0adf661607561e9a5', '{\"type\":\"object\",\"title\":\"title\",\"properties\":{\"field_0_277\":{\"type\":\"boolean\",\"properties\":{}}}}', 200, '成功', 'json', NULL, '2022-12-08 13:41:04');
+INSERT INTO `postin_http_response` (`id`, `http_id`, `json_text`, `http_code`, `name`, `data_type`, `raw_text`, `create_time`) VALUES ('219512b6cb76d0adf661607561e9a5', 'f483d630bafa46e781c14491fad1881f', '{\"type\":\"object\",\"title\":\"title\",\"properties\":{\"field_0_277\":{\"type\":\"boolean\",\"properties\":{}}}}', 200, '成功', 'json', NULL, '2022-12-08 13:41:04');
+
 
 INSERT INTO `postin_http_case` VALUES ('05d69a6cf4a90ff3060d871c190445fd', 'f483d630bafa46e781c14491fad1881f', '成功');
 INSERT INTO `postin_http_case` VALUES ('3423f288df5dbf271c8f8533af51df86', '219512b6cb7446d0adf661607561e9a5', '成功');

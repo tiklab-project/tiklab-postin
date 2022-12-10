@@ -1,9 +1,9 @@
 package net.tiklab.postin.sysmgr.datastructure.codegen;
 
-import net.tiklab.postin.sysmgr.datastructure.entity.DataStructureEntity;
 import net.tiklab.codegen.CodeGeneratorTemplate;
 import net.tiklab.codegen.config.CodeGeneratorConfig;
 import net.tiklab.codegen.config.ProjectGeneratorConfig;
+//import net.tiklab.postin.sysmgr.datastructure.entity.DataStructureEntity;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ public class SubjectCodeGeneratorTest extends CodeGeneratorTemplate {
     protected CodeGeneratorConfig getCodeGeneratorConfig() {
         CodeGeneratorConfig config = new CodeGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
-        config.setEntity(DataStructureEntity.class);
+//        config.setEntity(DataStructureEntity.class);
         config.setPkg("net.tiklab.postin.datastructure");
         config.setModel("DataStructure");
         return config;

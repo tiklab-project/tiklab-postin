@@ -5,6 +5,7 @@ import net.tiklab.core.page.Pagination;
 import net.tiklab.postin.annotation.Api;
 import net.tiklab.postin.annotation.ApiMethod;
 import net.tiklab.postin.annotation.ApiParam;
+import net.tiklab.postin.apidef.http.model.HttpApi;
 import net.tiklab.postin.category.model.Category;
 import net.tiklab.postin.integration.share.model.Share;
 import net.tiklab.postin.integration.share.model.ShareQuery;
@@ -114,6 +115,15 @@ public class ShareController {
         HashMap verify = shareService.verify(share);
 
         return Result.ok(verify);
+    }
+
+    @RequestMapping(path="/findHttpApi",method = RequestMethod.POST)
+    @ApiMethod(name = "findHttpApi",desc = "findHttpApi")
+    @ApiParam(name = "id",desc = "id",required = true)
+    public Result<HttpApi> findHttpApi(@NotNull String id){
+        HttpApi httpApi = shareService.findHttpApi(id);
+
+        return Result.ok(httpApi);
     }
 
 

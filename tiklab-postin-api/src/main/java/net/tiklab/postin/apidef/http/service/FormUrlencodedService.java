@@ -2,6 +2,10 @@ package net.tiklab.postin.apidef.http.service;
 
 import net.tiklab.core.page.Pagination;
 
+import net.tiklab.join.annotation.FindAll;
+import net.tiklab.join.annotation.FindList;
+import net.tiklab.join.annotation.FindOne;
+import net.tiklab.join.annotation.JoinProvider;
 import net.tiklab.postin.apidef.http.model.FormUrlencoded;
 import net.tiklab.postin.apidef.http.model.FormUrlencodedQuery;
 
@@ -12,6 +16,7 @@ import java.util.List;
 /**
 * FormUrlencodedService
 */
+@JoinProvider(model = FormUrlencoded.class)
 public interface FormUrlencodedService {
 
     /**
@@ -33,8 +38,10 @@ public interface FormUrlencodedService {
     */
     void deleteFormUrlencoded(@NotNull String id);
 
+    @FindOne
     FormUrlencoded findOne(@NotNull String id);
 
+    @FindList
     List<FormUrlencoded> findList(List<String> idList);
 
     /**
@@ -48,6 +55,7 @@ public interface FormUrlencodedService {
     * 查找所有
     * @return
     */
+    @FindAll
     List<FormUrlencoded> findAllFormUrlencoded();
 
     /**

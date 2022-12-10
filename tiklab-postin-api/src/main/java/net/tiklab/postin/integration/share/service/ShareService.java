@@ -6,6 +6,7 @@ import net.tiklab.join.annotation.FindAll;
 import net.tiklab.join.annotation.FindList;
 import net.tiklab.join.annotation.FindOne;
 import net.tiklab.join.annotation.JoinProvider;
+import net.tiklab.postin.apidef.http.model.HttpApi;
 import net.tiklab.postin.category.model.Category;
 import net.tiklab.postin.integration.share.model.Share;
 import net.tiklab.postin.integration.share.model.ShareQuery;
@@ -90,5 +91,12 @@ public interface ShareService {
      * @return
      */
     HashMap verify(Share share);
+
+    /**
+     * id
+     * @param id
+     * @return
+     */
+    HttpApi findHttpApi(String id);
 
 }

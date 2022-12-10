@@ -2,6 +2,8 @@ package net.tiklab.postin.apidef.http.service;
 
 import net.tiklab.core.page.Pagination;
 
+import net.tiklab.join.annotation.FindAll;
+import net.tiklab.join.annotation.JoinProvider;
 import net.tiklab.postin.apidef.http.model.FormParam;
 import net.tiklab.postin.apidef.http.model.FormParamQuery;
 
@@ -12,6 +14,7 @@ import java.util.List;
 /**
 * 用户服务接口
 */
+@JoinProvider(model = FormParam.class)
 public interface FormParamService {
 
     /**
@@ -44,6 +47,7 @@ public interface FormParamService {
     * 查找所有
     * @return
     */
+    @FindAll
     List<FormParam> findAllFormParam();
 
     /**

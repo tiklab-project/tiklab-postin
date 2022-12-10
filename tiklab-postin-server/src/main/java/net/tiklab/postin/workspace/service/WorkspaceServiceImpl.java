@@ -1,7 +1,10 @@
 package net.tiklab.postin.workspace.service;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import net.tiklab.message.message.model.MessageDispatchNotice;
+import net.tiklab.message.message.service.MessageDispatchNoticeService;
 import net.tiklab.oplog.log.service.OpLogService;
 import net.tiklab.postin.apidef.apix.model.Apix;
 import net.tiklab.postin.apidef.apix.model.ApixQuery;
@@ -82,7 +85,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
     LogUnit logUnit;
 
     @Autowired
-    MessageUnit messageUnit;
+    MessageDispatchNoticeService messageDispatchNoticeService;
 
     @Autowired
     DssClient disClient;
@@ -93,7 +96,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
 
 
     @Override
-    public String createWorkspace(@NotNull @Valid Workspace workspace) {
+    public String createWorkspace(@NotNull @Valid Workspace workspace) throws Exception {
         String userId =LoginContext.getLoginId();
         User userInfo = userService.findUser(userId);
 
@@ -134,12 +137,33 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         logUnit.log(LOG_TYPE_CREATE_ID,"workspace",map);
 
         //消息
-        Map<String,String> msg = new HashMap<>();
-        msg.put("name",workspace.getWorkspaceName());
-        msg.put("id",workspaceId);
-        msg.put("userName",userInfo.getNickname());
-        msg.put("images",workspace.getIconUrl());
-        messageUnit.sendMessageForCreate(MESSAGE_TEMPLATE_ID,msg);
+        //站内信
+        MessageDispatchNotice messageDispatchNotice = new MessageDispatchNotice();
+        Map<String,String> msgMap = new HashMap<>();
+        msgMap.put("name",workspace.getWorkspaceName());
+        msgMap.put("id",workspaceId);
+        msgMap.put("userName",userInfo.getNickname());
+        msgMap.put("images",workspace.getIconUrl());
+        String msg = JSONObject.toJSONString(msgMap);
+        messageDispatchNotice.setSiteData(msg);
+
+        //钉钉
+        Map<String,String> DD_MSGMap = new HashMap<>();
+        DD_MSGMap.put("name",workspace.getWorkspaceName());
+        DD_MSGMap.put("userName",userInfo.getNickname());
+        DD_MSGMap.put("images",workspace.getIconUrl());
+        messageDispatchNotice.setDingdingData(JSONObject.toJSONString(DD_MSGMap));
+
+        //企业微信
+        Map<String,String> WX_MSGMap = new HashMap<>();
+        WX_MSGMap.put("name",workspace.getWorkspaceName());
+        WX_MSGMap.put("userName",userInfo.getNickname());
+        messageDispatchNotice.setQywechatData(JSONObject.toJSONString(WX_MSGMap));
+
+        messageDispatchNotice.setId("MESSAGE_NOTICE_ID");
+        messageDispatchNoticeService.createMessageDispatchItem(messageDispatchNotice);
+
+
 
 
         //添加索引

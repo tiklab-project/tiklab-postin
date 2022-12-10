@@ -160,6 +160,7 @@ public class ShareServiceImpl implements ShareService {
     }
 
 
+
     @Override
     public List<Category> findShareTree(String id) {
         //通过分享id 查询 targetId
@@ -180,6 +181,12 @@ public class ShareServiceImpl implements ShareService {
         return null;
     }
 
+
+    /**
+     * 通过Workspace 查询的树形列表
+     * @param workspaceId
+     * @return
+     */
     private List<Category> findCategoryByWorkspace(String workspaceId){
         CategoryQuery categoryQuery = new CategoryQuery();
         categoryQuery.setWorkspaceId(workspaceId);
@@ -220,17 +227,9 @@ public class ShareServiceImpl implements ShareService {
         apixQuery.setCategoryId(category.getId());
         List<Apix> apixList = apixService.findApixList(apixQuery);
 
-        //如果接口不为空，把详情set到公共apix里
+        //如果接口不为空
         if(CollectionUtils.isNotEmpty(apixList)){
-            ArrayList<Apix> apixArrayList = new ArrayList<>();
-            for(Apix apix : apixList){
-                //根据不同类型set到不同类型的模型里
-                Apix api = findApi(apix);
-
-                apixArrayList.add(api);
-            }
-
-            category.setNodeList(apixArrayList);
+            category.setNodeList(apixList);
         }
 
         //如果有子目录递归
@@ -313,21 +312,14 @@ public class ShareServiceImpl implements ShareService {
 
     /**
      * 接口 根据类型匹配
-     * @param apix
+     * @param id
      * @return
      */
-    private Apix findApi(Apix apix){
-        switch (apix.getProtocolType()){
-            case "http":
-                HttpApi httpApi = httpApiService.findHttpApi(apix.getId());
-                apix.setHttpApi(httpApi);
-            case "webSocket":
-//                return httpApiService.findHttpApi(id);
-            default:
-                break;
-        }
+    @Override
+    public HttpApi findHttpApi(String id) {
+        HttpApi httpApi = httpApiService.findHttpApi(id);
 
-        return apix;
+        return  httpApi;
     }
 
 

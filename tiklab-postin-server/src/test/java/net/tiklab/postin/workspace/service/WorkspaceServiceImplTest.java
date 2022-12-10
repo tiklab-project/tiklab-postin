@@ -34,7 +34,7 @@ public class WorkspaceServiceImplTest {
     static String id;
 
     @Test
-    public void test01ForSaveWorkspace() {
+    public void test01ForSaveWorkspace() throws Exception {
         Workspace workspace = JMockit.mock(Workspace.class);
 
         id = workspaceService.createWorkspace(workspace);

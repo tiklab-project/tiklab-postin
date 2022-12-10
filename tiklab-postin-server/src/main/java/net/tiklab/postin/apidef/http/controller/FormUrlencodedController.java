@@ -31,7 +31,7 @@ public class FormUrlencodedController {
     private static Logger logger = LoggerFactory.getLogger(FormUrlencodedController.class);
 
     @Autowired
-    private FormUrlencodedService formUrlencodedService;
+    FormUrlencodedService formUrlencodedService;
 
     @RequestMapping(path="/createFormUrlencoded",method = RequestMethod.POST)
     @ApiMethod(name = "createFormUrlencoded",desc = "createFormUrlencoded")
