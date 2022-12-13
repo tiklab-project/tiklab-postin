@@ -247,6 +247,9 @@ public class WorkspaceServiceImpl implements WorkspaceService {
             }
         }
 
+        //删除角色以及相关的关联表
+        dmRoleService.deleteDmRoleByDomainId(id);
+
         //删除索引
 //        disClient.delete(Workspace.class,id);
     }
