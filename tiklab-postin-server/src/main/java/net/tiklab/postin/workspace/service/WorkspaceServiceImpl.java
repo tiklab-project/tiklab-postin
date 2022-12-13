@@ -137,15 +137,20 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         logUnit.log(LOG_TYPE_CREATE_ID,"workspace",map);
 
         //消息
+
         //站内信
         MessageDispatchNotice messageDispatchNotice = new MessageDispatchNotice();
-        Map<String,String> msgMap = new HashMap<>();
-        msgMap.put("name",workspace.getWorkspaceName());
-        msgMap.put("id",workspaceId);
-        msgMap.put("userName",userInfo.getNickname());
-        msgMap.put("images",workspace.getIconUrl());
-        String msg = JSONObject.toJSONString(msgMap);
-        messageDispatchNotice.setSiteData(msg);
+        Map<String,String> site_mail_Map = new HashMap<>();
+        site_mail_Map.put("name",workspace.getWorkspaceName());
+        site_mail_Map.put("id",workspaceId);
+        site_mail_Map.put("userName",userInfo.getNickname());
+        site_mail_Map.put("images",workspace.getIconUrl());
+        String site_mail_msg = JSONObject.toJSONString(site_mail_Map);
+
+        messageDispatchNotice.setSiteData(site_mail_msg);
+
+        //邮箱
+        messageDispatchNotice.setEmailData(site_mail_msg);
 
         //钉钉
         Map<String,String> DD_MSGMap = new HashMap<>();
