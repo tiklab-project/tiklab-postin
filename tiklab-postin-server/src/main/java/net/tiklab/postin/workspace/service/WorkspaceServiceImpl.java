@@ -5,7 +5,9 @@ import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import net.tiklab.message.message.model.MessageDispatchNotice;
 import net.tiklab.message.message.service.MessageDispatchNoticeService;
+import net.tiklab.oplog.log.modal.OpLogType;
 import net.tiklab.oplog.log.service.OpLogService;
+import net.tiklab.oplog.log.service.OpLogTypeService;
 import net.tiklab.postin.apidef.apix.model.Apix;
 import net.tiklab.postin.apidef.apix.model.ApixQuery;
 import net.tiklab.postin.apidef.apix.service.ApixService;
@@ -19,7 +21,7 @@ import net.tiklab.postin.sysmgr.datastructure.model.DataStructure;
 import net.tiklab.postin.sysmgr.datastructure.model.DataStructureQuery;
 import net.tiklab.postin.sysmgr.datastructure.service.DataStructureService;
 import net.tiklab.postin.utils.LogUnit;
-import net.tiklab.postin.utils.MessageUnit;
+import net.tiklab.postin.utils.PostInUnit;
 import net.tiklab.postin.workspace.dao.WorkspaceDao;
 import net.tiklab.postin.workspace.entity.WorkspaceEntity;
 import net.tiklab.postin.workspace.model.*;
@@ -85,6 +87,9 @@ public class WorkspaceServiceImpl implements WorkspaceService {
     LogUnit logUnit;
 
     @Autowired
+    OpLogTypeService opLogTypeService;
+
+    @Autowired
     MessageDispatchNoticeService messageDispatchNoticeService;
 
     @Autowired
@@ -93,6 +98,8 @@ public class WorkspaceServiceImpl implements WorkspaceService {
     @Autowired
     UserService userService;
 
+    @Autowired
+    PostInUnit postInUnit;
 
 
     @Override
@@ -131,13 +138,15 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         Map<String,String> map = new HashMap<>();
         map.put("name",workspace.getWorkspaceName());
         map.put("workspaceId",workspaceId);
-        map.put("user",userId);
+        map.put("user",postInUnit.getUser().getNickname());
         map.put("mode","空间");
         map.put("images","/images/log.png");
+        OpLogType oplogTypeOne = opLogTypeService.findOplogTypeOne(LOG_TYPE_CREATE_ID);
+        map.put("actionType",oplogTypeOne.getName());
+
         logUnit.log(LOG_TYPE_CREATE_ID,"workspace",map);
 
         //消息
-
         //站内信
         MessageDispatchNotice messageDispatchNotice = new MessageDispatchNotice();
         Map<String,String> site_mail_Map = new HashMap<>();
@@ -145,12 +154,12 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         site_mail_Map.put("id",workspaceId);
         site_mail_Map.put("userName",userInfo.getNickname());
         site_mail_Map.put("images",workspace.getIconUrl());
-        String site_mail_msg = JSONObject.toJSONString(site_mail_Map);
+        String siteMailMsg = JSONObject.toJSONString(site_mail_Map);
 
-        messageDispatchNotice.setSiteData(site_mail_msg);
+        messageDispatchNotice.setSiteData(siteMailMsg);
 
         //邮箱
-        messageDispatchNotice.setEmailData(site_mail_msg);
+        messageDispatchNotice.setEmailData(siteMailMsg);
 
         //钉钉
         Map<String,String> DD_MSGMap = new HashMap<>();
@@ -180,7 +189,6 @@ public class WorkspaceServiceImpl implements WorkspaceService {
 
     @Override
     public void updateWorkspace(@NotNull @Valid Workspace workspace) {
-        String userId =LoginContext.getLoginId();
         //更新数据
         WorkspaceEntity workspaceEntity = BeanMapper.map(workspace, WorkspaceEntity.class);
 
@@ -190,9 +198,11 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         Map<String,String> map = new HashMap<>();
         map.put("name",workspace.getWorkspaceName());
         map.put("workspaceId",workspace.getId());
-        map.put("user",userId);
+        map.put("user",postInUnit.getUser().getNickname());
         map.put("mode","空间");
         map.put("images",workspace.getIconUrl());
+        OpLogType oplogTypeOne = opLogTypeService.findOplogTypeOne(LOG_TYPE_UPDATE_ID);
+        map.put("actionType",oplogTypeOne.getName());
         logUnit.log(LOG_TYPE_UPDATE_ID,"workspace",map);
 
         //更新索引
@@ -202,16 +212,17 @@ public class WorkspaceServiceImpl implements WorkspaceService {
 
     @Override
     public void deleteWorkspace(@NotNull String id) {
-        String userId =LoginContext.getLoginId();
         Workspace workspace = findWorkspace(id);
 
         //日志
         Map<String,String> map = new HashMap<>();
         map.put("name",workspace.getWorkspaceName());
         map.put("workspaceId",workspace.getId());
-        map.put("user",userId);
+        map.put("user",postInUnit.getUser().getNickname());
         map.put("mode","空间");
         map.put("images",workspace.getIconUrl());
+        OpLogType oplogTypeOne = opLogTypeService.findOplogTypeOne(LOG_TYPE_DELETE_ID);
+        map.put("actionType",oplogTypeOne.getName());
         logUnit.log(LOG_TYPE_DELETE_ID,"workspace",map);
 
         //删除数据

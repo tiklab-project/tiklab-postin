@@ -1,5 +1,7 @@
 package net.tiklab.postin.apidef.apix.service;
 
+import net.tiklab.oplog.log.modal.OpLogType;
+import net.tiklab.oplog.log.service.OpLogTypeService;
 import net.tiklab.postin.apidef.apix.dao.ApixDao;
 import net.tiklab.postin.apidef.apix.entity.ApixEntity;
 import net.tiklab.postin.apidef.apix.model.Apix;
@@ -9,10 +11,9 @@ import net.tiklab.core.page.Pagination;
 import net.tiklab.core.page.PaginationBuilder;
 import net.tiklab.dss.client.DssClient;
 import net.tiklab.join.JoinTemplate;
-import net.tiklab.message.message.service.MessageService;
 import net.tiklab.postin.utils.LogUnit;
+import net.tiklab.postin.utils.PostInUnit;
 import net.tiklab.rpc.annotation.Exporter;
-import net.tiklab.user.user.model.User;
 import net.tiklab.utils.context.LoginContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,6 +46,12 @@ public class ApixServiceImpl implements ApixService {
     @Autowired
     LogUnit logUnit;
 
+    @Autowired
+    PostInUnit postInUnit;
+
+    @Autowired
+    OpLogTypeService opLogTypeService;
+
     @Override
     public String createApix(@NotNull @Valid Apix apix) {
         ApixEntity apixEntity = BeanMapper.map(apix, ApixEntity.class);
@@ -66,9 +73,11 @@ public class ApixServiceImpl implements ApixService {
         map.put("name",apix.getName());
         map.put("id",apix.getId());
         map.put("workspaceId",apix.getWorkspaceId());
-        map.put("user",userId);
+        map.put("user",postInUnit.getUser().getNickname());
         map.put("mode","接口");
         map.put("images","/images/log.png");
+        OpLogType oplogTypeOne = opLogTypeService.findOplogTypeOne(LOG_TYPE_CREATE_ID);
+        map.put("actionType",oplogTypeOne.getName());
         logUnit.log(LOG_TYPE_CREATE_ID,"api",map);
 
         //添加索引
@@ -107,9 +116,11 @@ public class ApixServiceImpl implements ApixService {
         map.put("name",apix.getName());
         map.put("id",apix.getId());
         map.put("workspaceId",apix.getWorkspaceId());
-        map.put("user",userId);
+        map.put("user",postInUnit.getUser().getNickname());
         map.put("mode","接口");
         map.put("images","/images/log.png");
+        OpLogType oplogTypeOne = opLogTypeService.findOplogTypeOne(LOG_TYPE_UPDATE_ID);
+        map.put("actionType",oplogTypeOne.getName());
         logUnit.log(LOG_TYPE_UPDATE_ID,"api",map);
 
     }
@@ -123,10 +134,12 @@ public class ApixServiceImpl implements ApixService {
         Map<String,String> map = new HashMap<>();
         map.put("name",apix.getName());
         map.put("id",apix.getId());
-        map.put("user",userId);
+        map.put("user",postInUnit.getUser().getNickname());
         map.put("workspaceId",apix.getWorkspaceId());
         map.put("mode","接口");
         map.put("images","/images/log.png");
+        OpLogType oplogTypeOne = opLogTypeService.findOplogTypeOne(LOG_TYPE_DELETE_ID);
+        map.put("actionType",oplogTypeOne.getName());
         logUnit.log(LOG_TYPE_DELETE_ID,"api",map);
 
         apixDao.deleteApix(id);

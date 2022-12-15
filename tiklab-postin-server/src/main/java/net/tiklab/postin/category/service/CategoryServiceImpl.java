@@ -1,5 +1,7 @@
 package net.tiklab.postin.category.service;
 
+import net.tiklab.oplog.log.modal.OpLogType;
+import net.tiklab.oplog.log.service.OpLogTypeService;
 import net.tiklab.postin.apidef.apix.model.Apix;
 import net.tiklab.postin.apidef.apix.model.ApixQuery;
 import net.tiklab.postin.apidef.apix.service.ApixService;
@@ -12,6 +14,7 @@ import net.tiklab.core.page.Pagination;
 import net.tiklab.core.page.PaginationBuilder;
 import net.tiklab.join.JoinTemplate;
 import net.tiklab.postin.utils.LogUnit;
+import net.tiklab.postin.utils.PostInUnit;
 import net.tiklab.user.user.model.User;
 import net.tiklab.utils.context.LoginContext;
 import org.apache.commons.collections.CollectionUtils;
@@ -41,10 +44,16 @@ public class CategoryServiceImpl implements CategoryService {
     ApixService apixService;
 
     @Autowired
+    OpLogTypeService opLogTypeService;
+
+    @Autowired
     JoinTemplate joinTemplate;
 
     @Autowired
     LogUnit logUnit;
+
+    @Autowired
+    PostInUnit postInUnit;
 
     @Override
     public String createCategory(@NotNull @Valid Category category) {
@@ -62,9 +71,11 @@ public class CategoryServiceImpl implements CategoryService {
         map.put("name",category.getName());
         map.put("id",categoryId);
         map.put("workspaceId",category.getWorkspace().getId());
-        map.put("user",userId);
+        map.put("user",postInUnit.getUser().getNickname());
         map.put("mode","目录");
         map.put("images","/images/log.png");
+        OpLogType oplogTypeOne = opLogTypeService.findOplogTypeOne(LOG_TYPE_CREATE_ID);
+        map.put("actionType",oplogTypeOne.getName());
         logUnit.log(LOG_TYPE_CREATE_ID,"category",map);
 
         return categoryId;
@@ -82,9 +93,11 @@ public class CategoryServiceImpl implements CategoryService {
         map.put("name",category.getName());
         map.put("id",category.getId());
         map.put("workspaceId",category.getWorkspace().getId());
-        map.put("user",userId);
+        map.put("user",postInUnit.getUser().getNickname());
         map.put("mode","目录");
         map.put("images","/images/log.png");
+        OpLogType oplogTypeOne = opLogTypeService.findOplogTypeOne(LOG_TYPE_UPDATE_ID);
+        map.put("actionType",oplogTypeOne.getName());
         logUnit.log(LOG_TYPE_UPDATE_ID,"category",map);
     }
 
@@ -97,9 +110,11 @@ public class CategoryServiceImpl implements CategoryService {
         map.put("name",category.getName());
         map.put("workspaceId",category.getWorkspace().getId());
         map.put("id",category.getId());
-        map.put("user",userId);
+        map.put("user",postInUnit.getUser().getNickname());
         map.put("mode","目录");
         map.put("images","/images/log.png");
+        OpLogType oplogTypeOne = opLogTypeService.findOplogTypeOne(LOG_TYPE_DELETE_ID);
+        map.put("actionType",oplogTypeOne.getName());
         logUnit.log(LOG_TYPE_DELETE_ID,"category",map);
 
         //删除目录

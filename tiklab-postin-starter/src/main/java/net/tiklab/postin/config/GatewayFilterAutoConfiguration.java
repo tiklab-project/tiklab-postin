@@ -122,12 +122,22 @@ public class GatewayFilterAutoConfiguration{
         if (!isEasEnable) {
             return RouterConfigBuilder.instance()
                     .preRoute(new String[]{
-                        "/user",
-                        "/eam",
-                        "/message",
-                        "/oplog",
-                        "/todo",
+                            "/user",
+                            "/eam",
+                            "/appLink",
+                            "/todo/deletetodo",
+                            "/todo/updatetodo",
+                            "/todo/detailtodo",
+                            "/todo/findtodopage",
 
+                            "/message/message",
+                            "/message/messageDispatchItem",
+                            "/message/messageReceiver",
+
+                            "/oplog/deletelog",
+                            "/oplog/updatelog",
+                            "/oplog/detaillog",
+                            "/oplog/findlogpage",
                     }, authAddress)
                     .get();
         }else {

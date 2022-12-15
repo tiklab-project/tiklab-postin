@@ -18,7 +18,7 @@ import net.tiklab.privilege.stater.EnablePrivilegeServer;
 import net.tiklab.rpc.starter.annotation.EnableRpc;
 import net.tiklab.tks.annotation.EnableTks;
 import net.tiklab.todotask.stater.EnableTodoTask;
-import net.tiklab.toolkit.EnableToolkitServer;
+import net.tiklab.toolkit.starter.EnableToolkit;
 import net.tiklab.user.starter.EnableUser;
 import net.tiklab.web.starter.annotation.EnableWeb;
 import net.tiklab.widget.starter.EnableWidget;
@@ -46,7 +46,7 @@ import org.springframework.context.annotation.Configuration;
 @EnableEam
 @EnablePrivilegeServer
 @EnablePluginServer
-@EnableToolkitServer
+@EnableToolkit
 @EnableLicenceServer
 //other
 @EnablePostInServer

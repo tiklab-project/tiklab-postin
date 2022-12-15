@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import net.tiklab.oplog.log.modal.OpLog;
 import net.tiklab.oplog.log.modal.OpLogTemplate;
 import net.tiklab.oplog.log.modal.OpLogType;
+import net.tiklab.oplog.log.service.OpLogByTemplService;
 import net.tiklab.oplog.log.service.OpLogService;
 import net.tiklab.user.user.model.User;
 import net.tiklab.utils.context.LoginContext;
@@ -20,12 +21,9 @@ import static net.tiklab.postin.utils.MessageTemplateConstant.LOG_TEMPLATE_ID;
 public class LogUnit {
 
     @Autowired
-    OpLogService opLogService;
+    OpLogByTemplService opLogByTemplService;
 
     public void log(String type, String module, Map<String,String> map){
-
-        OpLogTemplate opLogTemplate = new OpLogTemplate();
-        opLogTemplate.setId(LOG_TEMPLATE_ID);
 
         User user = new User();
         user.setId( LoginContext.getLoginId());
@@ -37,12 +35,12 @@ public class LogUnit {
 
         log.setActionType(opLogType);
         log.setModule(module);
-        log.setOpLogTemplate(opLogTemplate);
+        log.setOpLogTemplateId(LOG_TEMPLATE_ID);
         log.setTimestamp(new Timestamp(System.currentTimeMillis()));
         log.setUser(user);
         log.setBgroup("postin");
         log.setContent(JSONObject.toJSONString(map));
 
-        opLogService.createLog(log);
+        opLogByTemplService.createLog(log);
     }
 }
