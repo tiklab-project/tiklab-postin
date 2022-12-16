@@ -1,9 +1,10 @@
 package net.tiklab.postin;
 
 
+import net.tiklab.integration.starter.EnableIntegration;
 import net.tiklab.licence.starter.EnableLicenceServer;
+import net.tiklab.logging.stater.EnableLog;
 import net.tiklab.mysql.starter.EnableMysql;
-import net.tiklab.oplog.stater.EnableLog;
 import net.tiklab.postin.client.EnablePostInClient;
 import net.tiklab.dal.starter.annotation.EnableDal;
 import net.tiklab.dcs.starter.EnableDcs;
@@ -18,10 +19,8 @@ import net.tiklab.privilege.stater.EnablePrivilegeServer;
 import net.tiklab.rpc.starter.annotation.EnableRpc;
 import net.tiklab.tks.annotation.EnableTks;
 import net.tiklab.todotask.stater.EnableTodoTask;
-import net.tiklab.toolkit.starter.EnableToolkit;
 import net.tiklab.user.starter.EnableUser;
 import net.tiklab.web.starter.annotation.EnableWeb;
-import net.tiklab.widget.starter.EnableWidget;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
@@ -40,13 +39,12 @@ import org.springframework.context.annotation.Configuration;
 
 //pcs
 @EnableLog
+@EnableIntegration
 @EnableTodoTask
-@EnableWidget
 @EnableUser
 @EnableEam
 @EnablePrivilegeServer
 @EnablePluginServer
-@EnableToolkit
 @EnableLicenceServer
 //other
 @EnablePostInServer

@@ -283,9 +283,9 @@ CREATE TABLE postin_http_case_instance_request(
         http_instance_id VARCHAR(32) NOT NULL,
         URL VARCHAR(2048),
         headers VARCHAR(2048),
-        body VARCHAR(2048),
-        pre_script VARCHAR(2048),
-        after_script VARCHAR(2048),
+        body text,
+        pre_script text,
+        after_script text,
         method_type VARCHAR(32),
         media_type VARCHAR(32)
 );
@@ -293,8 +293,8 @@ CREATE TABLE postin_http_case_instance_request(
 CREATE TABLE postin_http_case_instance_response(
         id VARCHAR(32) PRIMARY KEY,
         http_instance_id VARCHAR(32),
-        headers VARCHAR(2048),
-        body VARCHAR(2048)
+        headers text,
+        body text
 );
 
 CREATE TABLE postin_http_case_instance_assert(

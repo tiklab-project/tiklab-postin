@@ -1,13 +1,10 @@
 package net.tiklab.postin.workspace.service;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.serializer.SerializerFeature;
-import net.tiklab.message.message.model.MessageDispatchNotice;
-import net.tiklab.message.message.service.MessageDispatchNoticeService;
-import net.tiklab.oplog.log.modal.OpLogType;
-import net.tiklab.oplog.log.service.OpLogService;
-import net.tiklab.oplog.log.service.OpLogTypeService;
+import net.tiklab.logging.modal.LoggingType;
+import net.tiklab.logging.service.LoggingTypeService;
+import net.tiklab.message.message.model.SendMessageNotice;
+import net.tiklab.message.message.service.SendMessageNoticeService;
 import net.tiklab.postin.apidef.apix.model.Apix;
 import net.tiklab.postin.apidef.apix.model.ApixQuery;
 import net.tiklab.postin.apidef.apix.service.ApixService;
@@ -87,10 +84,10 @@ public class WorkspaceServiceImpl implements WorkspaceService {
     LogUnit logUnit;
 
     @Autowired
-    OpLogTypeService opLogTypeService;
+    LoggingTypeService loggingTypeService;
 
     @Autowired
-    MessageDispatchNoticeService messageDispatchNoticeService;
+    SendMessageNoticeService sendMessageNoticeService;
 
     @Autowired
     DssClient disClient;
@@ -141,14 +138,14 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         map.put("user",postInUnit.getUser().getNickname());
         map.put("mode","空间");
         map.put("images","/images/log.png");
-        OpLogType oplogTypeOne = opLogTypeService.findOplogTypeOne(LOG_TYPE_CREATE_ID);
+        LoggingType oplogTypeOne = loggingTypeService.findOplogTypeOne(LOG_TYPE_CREATE_ID);
         map.put("actionType",oplogTypeOne.getName());
 
         logUnit.log(LOG_TYPE_CREATE_ID,"workspace",map);
 
         //消息
         //站内信
-        MessageDispatchNotice messageDispatchNotice = new MessageDispatchNotice();
+        SendMessageNotice messageDispatchNotice = new SendMessageNotice();
         Map<String,String> site_mail_Map = new HashMap<>();
         site_mail_Map.put("name",workspace.getWorkspaceName());
         site_mail_Map.put("id",workspaceId);
@@ -175,7 +172,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         messageDispatchNotice.setQywechatData(JSONObject.toJSONString(WX_MSGMap));
 
         messageDispatchNotice.setId("MESSAGE_NOTICE_ID");
-        messageDispatchNoticeService.createMessageDispatchItem(messageDispatchNotice);
+        sendMessageNoticeService.createMessageItem(messageDispatchNotice);
 
 
 
@@ -201,7 +198,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         map.put("user",postInUnit.getUser().getNickname());
         map.put("mode","空间");
         map.put("images",workspace.getIconUrl());
-        OpLogType oplogTypeOne = opLogTypeService.findOplogTypeOne(LOG_TYPE_UPDATE_ID);
+        LoggingType oplogTypeOne = loggingTypeService.findOplogTypeOne(LOG_TYPE_UPDATE_ID);
         map.put("actionType",oplogTypeOne.getName());
         logUnit.log(LOG_TYPE_UPDATE_ID,"workspace",map);
 
@@ -221,7 +218,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         map.put("user",postInUnit.getUser().getNickname());
         map.put("mode","空间");
         map.put("images",workspace.getIconUrl());
-        OpLogType oplogTypeOne = opLogTypeService.findOplogTypeOne(LOG_TYPE_DELETE_ID);
+        LoggingType oplogTypeOne = loggingTypeService.findOplogTypeOne(LOG_TYPE_DELETE_ID);
         map.put("actionType",oplogTypeOne.getName());
         logUnit.log(LOG_TYPE_DELETE_ID,"workspace",map);
 

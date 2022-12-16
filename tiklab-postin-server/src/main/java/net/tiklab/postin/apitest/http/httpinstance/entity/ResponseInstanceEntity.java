@@ -17,10 +17,10 @@ public class ResponseInstanceEntity implements Serializable {
     @Column(name = "http_instance_id",length = 32,notNull = true)
     private String httpInstanceId;
 
-    @Column(name = "headers",length = 2048)
+    @Column(name = "headers")
     private String headers;
 
-    @Column(name = "body",length = 2048)
+    @Column(name = "body")
     private String body;
 
     public String getId() {

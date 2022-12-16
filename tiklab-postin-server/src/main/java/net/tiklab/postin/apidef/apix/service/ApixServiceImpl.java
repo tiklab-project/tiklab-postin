@@ -1,7 +1,7 @@
 package net.tiklab.postin.apidef.apix.service;
 
-import net.tiklab.oplog.log.modal.OpLogType;
-import net.tiklab.oplog.log.service.OpLogTypeService;
+import net.tiklab.logging.modal.LoggingType;
+import net.tiklab.logging.service.LoggingTypeService;
 import net.tiklab.postin.apidef.apix.dao.ApixDao;
 import net.tiklab.postin.apidef.apix.entity.ApixEntity;
 import net.tiklab.postin.apidef.apix.model.Apix;
@@ -50,7 +50,7 @@ public class ApixServiceImpl implements ApixService {
     PostInUnit postInUnit;
 
     @Autowired
-    OpLogTypeService opLogTypeService;
+    LoggingTypeService loggingTypeService;
 
     @Override
     public String createApix(@NotNull @Valid Apix apix) {
@@ -76,7 +76,7 @@ public class ApixServiceImpl implements ApixService {
         map.put("user",postInUnit.getUser().getNickname());
         map.put("mode","接口");
         map.put("images","/images/log.png");
-        OpLogType oplogTypeOne = opLogTypeService.findOplogTypeOne(LOG_TYPE_CREATE_ID);
+        LoggingType oplogTypeOne = loggingTypeService.findOplogTypeOne(LOG_TYPE_CREATE_ID);
         map.put("actionType",oplogTypeOne.getName());
         logUnit.log(LOG_TYPE_CREATE_ID,"api",map);
 
@@ -119,7 +119,7 @@ public class ApixServiceImpl implements ApixService {
         map.put("user",postInUnit.getUser().getNickname());
         map.put("mode","接口");
         map.put("images","/images/log.png");
-        OpLogType oplogTypeOne = opLogTypeService.findOplogTypeOne(LOG_TYPE_UPDATE_ID);
+        LoggingType oplogTypeOne = loggingTypeService.findOplogTypeOne(LOG_TYPE_UPDATE_ID);
         map.put("actionType",oplogTypeOne.getName());
         logUnit.log(LOG_TYPE_UPDATE_ID,"api",map);
 
@@ -130,7 +130,6 @@ public class ApixServiceImpl implements ApixService {
         ApixEntity apix = apixDao.findApix(id);
 
         //日志
-        String userId = LoginContext.getLoginId();
         Map<String,String> map = new HashMap<>();
         map.put("name",apix.getName());
         map.put("id",apix.getId());
@@ -138,7 +137,7 @@ public class ApixServiceImpl implements ApixService {
         map.put("workspaceId",apix.getWorkspaceId());
         map.put("mode","接口");
         map.put("images","/images/log.png");
-        OpLogType oplogTypeOne = opLogTypeService.findOplogTypeOne(LOG_TYPE_DELETE_ID);
+        LoggingType oplogTypeOne = loggingTypeService.findOplogTypeOne(LOG_TYPE_DELETE_ID);
         map.put("actionType",oplogTypeOne.getName());
         logUnit.log(LOG_TYPE_DELETE_ID,"api",map);
 

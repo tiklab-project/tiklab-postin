@@ -24,19 +24,19 @@ public class RequestInstanceEntity implements Serializable {
     @Column(name = "url",length = 128)
     private String url;
 
-    @Column(name = "headers",length = 2048)
+    @Column(name = "headers")
     private String headers;
 
     @Column(name = "media_type",length = 32)
     private String mediaType;
 
-    @Column(name = "body",length = 2048)
+    @Column(name = "body")
     private String body;
 
-    @Column(name = "pre_script",length = 2048)
+    @Column(name = "pre_script")
     private String preScript;
 
-    @Column(name = "after_script",length = 2048)
+    @Column(name = "after_script")
     private String afterScript;
 
     public String getId() {

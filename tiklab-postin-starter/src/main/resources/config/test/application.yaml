@@ -68,6 +68,9 @@ application: postin
 file:
   path: http://file.test.tiklab.net
 
+base:
+  url: http://192.168.10.16:3000
+
 eas:
   embbed:
     enable: true

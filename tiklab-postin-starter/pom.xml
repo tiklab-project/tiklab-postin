@@ -77,7 +77,7 @@
         </dependency>
         <dependency>
             <groupId>net.tiklab</groupId>
-            <artifactId>tiklab-oplog-spring-boot-starter</artifactId>
+            <artifactId>tiklab-logging-spring-boot-starter</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
@@ -105,11 +105,6 @@
 <!--            <artifactId>springfox-swagger-ui</artifactId>-->
 <!--            <version>2.9.2</version>-->
 <!--        </dependency>-->
-        <dependency>
-            <groupId>net.tiklab</groupId>
-            <artifactId>tiklab-widget-spring-boot-starter</artifactId>
-            <version>${project.version}</version>
-        </dependency>
 
         <dependency>
             <groupId>net.tiklab</groupId>

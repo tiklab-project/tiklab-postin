@@ -125,13 +125,14 @@ public class GatewayFilterAutoConfiguration{
                             "/user",
                             "/eam",
                             "/appLink",
+
                             "/todo/deletetodo",
                             "/todo/updatetodo",
                             "/todo/detailtodo",
                             "/todo/findtodopage",
 
                             "/message/message",
-                            "/message/messageDispatchItem",
+                            "/message/messageItem",
                             "/message/messageReceiver",
 
                             "/oplog/deletelog",

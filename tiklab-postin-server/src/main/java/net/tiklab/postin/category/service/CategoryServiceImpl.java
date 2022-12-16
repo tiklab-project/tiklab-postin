@@ -1,7 +1,7 @@
 package net.tiklab.postin.category.service;
 
-import net.tiklab.oplog.log.modal.OpLogType;
-import net.tiklab.oplog.log.service.OpLogTypeService;
+import net.tiklab.logging.modal.LoggingType;
+import net.tiklab.logging.service.LoggingTypeService;
 import net.tiklab.postin.apidef.apix.model.Apix;
 import net.tiklab.postin.apidef.apix.model.ApixQuery;
 import net.tiklab.postin.apidef.apix.service.ApixService;
@@ -44,7 +44,7 @@ public class CategoryServiceImpl implements CategoryService {
     ApixService apixService;
 
     @Autowired
-    OpLogTypeService opLogTypeService;
+    LoggingTypeService loggingTypeService;
 
     @Autowired
     JoinTemplate joinTemplate;
@@ -74,7 +74,7 @@ public class CategoryServiceImpl implements CategoryService {
         map.put("user",postInUnit.getUser().getNickname());
         map.put("mode","目录");
         map.put("images","/images/log.png");
-        OpLogType oplogTypeOne = opLogTypeService.findOplogTypeOne(LOG_TYPE_CREATE_ID);
+        LoggingType oplogTypeOne = loggingTypeService.findOplogTypeOne(LOG_TYPE_CREATE_ID);
         map.put("actionType",oplogTypeOne.getName());
         logUnit.log(LOG_TYPE_CREATE_ID,"category",map);
 
@@ -96,7 +96,7 @@ public class CategoryServiceImpl implements CategoryService {
         map.put("user",postInUnit.getUser().getNickname());
         map.put("mode","目录");
         map.put("images","/images/log.png");
-        OpLogType oplogTypeOne = opLogTypeService.findOplogTypeOne(LOG_TYPE_UPDATE_ID);
+        LoggingType oplogTypeOne = loggingTypeService.findOplogTypeOne(LOG_TYPE_UPDATE_ID);
         map.put("actionType",oplogTypeOne.getName());
         logUnit.log(LOG_TYPE_UPDATE_ID,"category",map);
     }
@@ -113,7 +113,7 @@ public class CategoryServiceImpl implements CategoryService {
         map.put("user",postInUnit.getUser().getNickname());
         map.put("mode","目录");
         map.put("images","/images/log.png");
-        OpLogType oplogTypeOne = opLogTypeService.findOplogTypeOne(LOG_TYPE_DELETE_ID);
+        LoggingType oplogTypeOne = loggingTypeService.findOplogTypeOne(LOG_TYPE_DELETE_ID);
         map.put("actionType",oplogTypeOne.getName());
         logUnit.log(LOG_TYPE_DELETE_ID,"category",map);
 
