@@ -137,7 +137,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         map.put("workspaceId",workspaceId);
         map.put("user",postInUnit.getUser().getNickname());
         map.put("mode","空间");
-        map.put("images","/images/log.png");
+        map.put("images",workspace.getIconUrl());
         LoggingType oplogTypeOne = loggingTypeService.findOplogTypeOne(LOG_TYPE_CREATE_ID);
         map.put("actionType",oplogTypeOne.getName());
 
