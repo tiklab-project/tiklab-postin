@@ -74,7 +74,7 @@ base:
 eas:
   embbed:
     enable: true
-  address: http://172.11.1.12:8080
+  address: http://eas-ce.test.tiklab.net
 
 mysql:
   database: tiklab_postin
