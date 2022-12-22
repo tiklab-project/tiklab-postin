@@ -17,6 +17,9 @@ public class HttpInstanceQuery {
     @ApiProperty(name ="httpCaseId",desc = "接口用例ID，精确匹配")
     private String httpCaseId;
 
+    @ApiProperty(name="workspaceId",desc="空间ID")
+    private String workspaceId;
+
     @ApiProperty(name ="orderParams",desc = "排序参数")
     private List<Order> orderParams = OrderBuilders.instance().asc("id").get();
 
@@ -29,6 +32,14 @@ public class HttpInstanceQuery {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getWorkspaceId() {
+        return workspaceId;
+    }
+
+    public void setWorkspaceId(String workspaceId) {
+        this.workspaceId = workspaceId;
     }
 
     public String getHttpCaseId() {

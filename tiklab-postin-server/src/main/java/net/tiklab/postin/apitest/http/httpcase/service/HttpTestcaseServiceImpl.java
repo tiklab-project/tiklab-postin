@@ -1,7 +1,9 @@
 package net.tiklab.postin.apitest.http.httpcase.service;
 
 import net.tiklab.postin.apidef.http.model.ApiRequest;
+import net.tiklab.postin.apidef.http.model.RawParam;
 import net.tiklab.postin.apidef.http.service.ApiRequestService;
+import net.tiklab.postin.apidef.http.service.RawParamService;
 import net.tiklab.postin.apitest.http.httpcase.dao.HttpTestcaseDao;
 import net.tiklab.postin.apitest.http.httpcase.entity.HttpTestcaseEntity;
 import net.tiklab.postin.apitest.http.httpcase.model.*;
@@ -18,6 +20,7 @@ import org.springframework.util.ObjectUtils;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.Objects;
 
 /**
 * 用户服务业务处理
@@ -55,9 +58,12 @@ public class HttpTestcaseServiceImpl implements HttpTestcaseService {
     @Autowired
     RawParamCaseService rawParamCaseService;
 
-
     @Autowired
     AssertCaseService assertCaseService;
+
+
+    @Autowired
+    RawParamService rawParamService;
 
 
     @Override
@@ -66,13 +72,28 @@ public class HttpTestcaseServiceImpl implements HttpTestcaseService {
 
         String id = httpTestcaseDao.createTestcase(httpTestcaseEntity);
 
-        //初始化body
+        //初始化
         RequestCase requestCase = new RequestCase();
         requestCase.setId(id);
         requestCase.setHttpCaseId(id);
         //用例请求体跟随接口定义
         ApiRequest apiRequest = apiRequestService.findApiRequest(httpTestcase.getHttp().getId());
         requestCase.setBodyType(apiRequest.getBodyType());
+
+        //如果是bodyType 是raw 类型，需要创建rawParam
+        if(Objects.equals(apiRequest.getBodyType(),"raw")){
+            RawParamCase rawParamCase = new RawParamCase();
+            rawParamCase.setId(id);
+            httpTestcase.setId(id);
+            rawParamCase.setHttpCase(httpTestcase);
+
+            //用例请求体中的raw里的类型根据接口定义里的设置
+            RawParam rawParam = rawParamService.findRawParam(httpTestcase.getHttp().getId());
+            rawParamCase.setType(rawParam.getType());
+
+            rawParamCaseService.createRawParamCase(rawParamCase);
+        }
+
         requestCaseService.createRequestCase(requestCase);
 
         return id;

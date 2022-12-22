@@ -34,6 +34,8 @@ public class HttpInstance extends BaseModel {
     @JoinQuery(key = "id")
     private HttpTestcase httpCase;
 
+    @ApiProperty(name="workspaceId",desc="空间ID")
+    private String workspaceId;
 
     @ApiProperty(name="user",desc="所属人")
     @Mappings({
@@ -87,6 +89,14 @@ public class HttpInstance extends BaseModel {
 
     public void setHttpCase(HttpTestcase httpCase) {
         this.httpCase = httpCase;
+    }
+
+    public String getWorkspaceId() {
+        return workspaceId;
+    }
+
+    public void setWorkspaceId(String workspaceId) {
+        this.workspaceId = workspaceId;
     }
 
     public User getUser() {

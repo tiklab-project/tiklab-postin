@@ -60,14 +60,15 @@ public class DataStructureServiceImpl implements DataStructureService {
 
     @Override
     public void deleteDataStructure(@NotNull String id) {
+
         //删除相关联的子表
         DeleteCondition deleteCondition = DeleteBuilders.createDelete(JsonParamDSEntity.class)
-                .eq("subjectId", id)
+                .eq("dataStructureId", id)
                 .get();
         jsonParamDSDao.deleteJsonParamDS(deleteCondition);
 
         deleteCondition = DeleteBuilders.createDelete(EnumParamEntity.class)
-                .eq("subjectId", id)
+                .eq("dataStructureId", id)
                 .get();
         enumParamDao.deleteEnumParam(deleteCondition);
 

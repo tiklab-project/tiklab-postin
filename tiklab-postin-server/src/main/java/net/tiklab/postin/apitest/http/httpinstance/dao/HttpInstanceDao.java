@@ -77,6 +77,7 @@ public class HttpInstanceDao {
 
     public List<HttpInstanceEntity> findTestInstanceList(HttpInstanceQuery httpInstanceQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(HttpInstanceEntity.class)
+                .eq("workspaceId",httpInstanceQuery.getWorkspaceId())
                 .eq("httpCaseId", httpInstanceQuery.getHttpCaseId())
                 .eq("userId",httpInstanceQuery.getUserId())
                 .orders(httpInstanceQuery.getOrderParams())
@@ -86,6 +87,7 @@ public class HttpInstanceDao {
 
     public Pagination<HttpInstanceEntity> findTestInstancePage(HttpInstanceQuery httpInstanceQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(HttpInstanceEntity.class)
+                .eq("workspaceId",httpInstanceQuery.getWorkspaceId())
                 .eq("httpCaseId", httpInstanceQuery.getHttpCaseId())
                 .eq("userId",httpInstanceQuery.getUserId())
                 .pagination(httpInstanceQuery.getPageParam())

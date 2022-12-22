@@ -268,7 +268,8 @@ CREATE TABLE postin_http_case_request_assert(
 );
 CREATE TABLE postin_http_case_instance(
         id VARCHAR(40) PRIMARY KEY,
-        http_case_id VARCHAR(40) ,
+        http_case_id VARCHAR(40),
+        workspace_id VARCHAR(32),
         user_id VARCHAR(32),
         status_code int,
         result int,
