@@ -12,6 +12,9 @@ import net.tiklab.beans.BeanMapper;
 import net.tiklab.core.page.PaginationBuilder;
 import net.tiklab.join.JoinTemplate;
 import net.tiklab.postin.apitest.http.httpcase.model.*;
+import net.tiklab.postin.apitest.http.httpinstance.model.HttpInstance;
+import net.tiklab.postin.apitest.http.httpinstance.model.HttpInstanceQuery;
+import net.tiklab.postin.apitest.http.httpinstance.service.TestInstanceService;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +22,7 @@ import org.springframework.util.ObjectUtils;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -64,6 +68,9 @@ public class HttpTestcaseServiceImpl implements HttpTestcaseService {
 
     @Autowired
     RawParamService rawParamService;
+
+    @Autowired
+    TestInstanceService testInstanceService;
 
 
     @Override
@@ -284,7 +291,30 @@ public class HttpTestcaseServiceImpl implements HttpTestcaseService {
 
         joinTemplate.joinQuery(httpTestcaseList);
 
-        return httpTestcaseList;
+        //用于存处理后的list
+        ArrayList<HttpTestcase> newArray = new ArrayList<>();
+
+        if(CollectionUtils.isNotEmpty(httpTestcaseList)){
+            for(HttpTestcase httpTestcase: httpTestcaseList){
+
+                HttpInstanceQuery httpInstanceQuery = new HttpInstanceQuery();
+                httpInstanceQuery.setHttpCaseId(httpTestcase.getId());
+                List<HttpInstance> testInstanceList = testInstanceService.findTestInstanceList(httpInstanceQuery);
+                if(CollectionUtils.isNotEmpty(testInstanceList)){
+                    //如果有历史记录，获取最近一条历史记录的结果
+                    HttpInstance httpInstance = testInstanceList.get(0);
+
+                    httpTestcase.setResult(httpInstance.getResult());
+                }else {
+                    httpTestcase.setResult(-1);
+                }
+
+                newArray.add(httpTestcase);
+            }
+        }
+
+
+        return newArray;
     }
 
     @Override

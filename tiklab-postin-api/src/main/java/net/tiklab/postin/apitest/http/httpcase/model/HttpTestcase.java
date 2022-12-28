@@ -33,6 +33,9 @@ public class HttpTestcase extends BaseModel {
     @ApiProperty(name="name",desc="用例名称",required = true)
     private java.lang.String name;
 
+    @ApiProperty(name="result",desc="最近一次测试的结果")
+    private Integer result;
+
     @ApiProperty(name="headerList",desc="用例-请求头列表")
     private List<RequestHeaderCase> headerList;
 
@@ -80,6 +83,14 @@ public class HttpTestcase extends BaseModel {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Integer getResult() {
+        return result;
+    }
+
+    public void setResult(Integer result) {
+        this.result = result;
     }
 
     public List<RequestHeaderCase> getHeaderList() {

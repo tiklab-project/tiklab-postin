@@ -2,18 +2,18 @@
 -- 之前在pcs中
 -- 系统级
 -- 初始话管理员角色表
-INSERT INTO `pcs_prc_role` (`id`, `name`, `description`, `grouper`, `type`,  `scope`, `tag`,`default_role`,`business_type`) VALUES ('1', '管理员角色', NULL, 'system', '1',  1, 1, 1);
+INSERT INTO `pcs_prc_role` (`id`, `name`, `description`, `grouper`, `type`,  `scope`, `default_role`,`business_type`) VALUES ('1', '管理员角色', NULL, 'system', '1',  1, 1);
 -- 初始话普通色表
-INSERT INTO `pcs_prc_role` (`id`, `name`, `description`, `grouper`, `type`,  `scope`,`tag`,`default_role`,`business_type`) VALUES ('2', '普通角色', NULL, 'system', '1',  1, 0, 0);
+INSERT INTO `pcs_prc_role` (`id`, `name`, `description`, `grouper`, `type`,  `scope`,`default_role`,`business_type`) VALUES ('2', '普通角色', NULL, 'system', '1',   0, 0);
 -- 管理员角色金和admin用户绑定 表
 INSERT INTO `pcs_prc_role_user` (`id`, `role_id`, `tag`,`tag_value`) VALUES ('1', '1', 1, '111111');
 
 
 -- 项目级
 -- 初始话管理员角色表
-INSERT INTO `pcs_prc_role` (`id`, `name`, `description`, `grouper`, `type`,  `scope`, `tag`,`default_role`,`business_type`) VALUES ('3', '项目管理员', NULL, 'system', '2',  1, 1, 1);
+INSERT INTO `pcs_prc_role` (`id`, `name`, `description`, `grouper`, `type`,  `scope`, `default_role`,`business_type`) VALUES ('3', '项目管理员', NULL, 'system', '2',  1, 1);
 -- 初始话普通色表
-INSERT INTO `pcs_prc_role` (`id`, `name`, `description`, `grouper`, `type`,  `scope`, `tag`,`default_role`,`business_type`) VALUES ('4', '项目普通角色', NULL, 'system', '2',  1, 0, 0);
+INSERT INTO `pcs_prc_role` (`id`, `name`, `description`, `grouper`, `type`,  `scope`, `default_role`,`business_type`) VALUES ('4', '项目普通角色', NULL, 'system', '2',  0, 0);
 
 -- 项目管理员角色金和admin用户绑定 表
 INSERT INTO `pcs_prc_role_user` (`id`, `role_id`, `tag`,`tag_value`) VALUES ('2', '3', 1, '111111');
