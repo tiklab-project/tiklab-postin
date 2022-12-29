@@ -95,8 +95,8 @@ CREATE TABLE postin_http_request(
         id VARCHAR(40) PRIMARY KEY,
         http_id VARCHAR(40),
         body_type VARCHAR(32),
-        pre_script VARCHAR(2048),
-        after_script VARCHAR(2048)
+        pre_script longtext,
+        after_script longtext
 );
 
 CREATE TABLE postin_http_request_form(
@@ -135,7 +135,7 @@ CREATE TABLE postin_http_request_json(
 CREATE TABLE postin_http_request_raw(
         id VARCHAR(40) ,
         http_id VARCHAR(40) NOT NULL,
-        raw VARCHAR(2048) NOT NULL,
+        raw longtext NOT NULL,
         type VARCHAR(32) NOT NULL
 );
 
@@ -163,8 +163,8 @@ CREATE TABLE postin_http_response(
         http_code int,
         name VARCHAR(64),
         data_type VARCHAR(32),
-        json_text text,
-        raw_text text
+        json_text longtext,
+        raw_text longtext
 );
 
 CREATE TABLE postin_http_response_json(
@@ -283,10 +283,10 @@ CREATE TABLE postin_http_case_instance_request(
         id VARCHAR(32) PRIMARY KEY,
         http_instance_id VARCHAR(32) NOT NULL,
         URL VARCHAR(2048),
-        headers VARCHAR(2048),
-        body text,
-        pre_script text,
-        after_script text,
+        headers text,
+        body longtext,
+        pre_script longtext,
+        after_script longtext,
         method_type VARCHAR(32),
         media_type VARCHAR(32)
 );
@@ -295,7 +295,7 @@ CREATE TABLE postin_http_case_instance_response(
         id VARCHAR(32) PRIMARY KEY,
         http_instance_id VARCHAR(32),
         headers text,
-        body text
+        body longtext
 );
 
 CREATE TABLE postin_http_case_instance_assert(

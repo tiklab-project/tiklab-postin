@@ -69,9 +69,12 @@ application: postin
 file:
   path: http://file.tiklab.net
 
+base:
+  url: http://postin-ce.tiklab.net
+
 eas:
   embbed:
-    enable: false
+    enable: true
   address: http://eas-ce.tiklab.net
 
 mysql:

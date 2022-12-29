@@ -125,6 +125,10 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         for(String memberId : memberList){
             DmUser dmUser = new DmUser();
             dmUser.setDomainId(workspaceId);
+
+            User user1 = userService.findUser(memberId);
+            dmUser.setType(user1.getType());
+
             User user = new User();
             user.setId( memberId);
             dmUser.setUser(user);
