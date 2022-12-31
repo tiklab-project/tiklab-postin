@@ -121,17 +121,20 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         dmRoleService.initDmRoles(workspaceId,userId,"postin" );
 
         //拉入创建人
+        DmUser dmUser = new DmUser();
+        dmUser.setDomainId(workspaceId);
+
         List<String> memberList = workspace.getMemberList();
         for(String memberId : memberList){
-            DmUser dmUser = new DmUser();
-            dmUser.setDomainId(workspaceId);
+            dmUser.setType(0);
+            dmUser.setTagValue(memberId);
 
-            User user1 = userService.findUser(memberId);
-            dmUser.setType(user1.getType());
+            if(Objects.equals(memberId,userId)){
+                dmUser.setType(1);
+            }
 
-            User user = new User();
-            user.setId( memberId);
-            dmUser.setUser(user);
+            dmUser.setTag(0);
+
             dmUserService.createDmUser(dmUser);
         }
 
@@ -341,7 +344,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
     public List<Workspace> findWorkspaceJoinList(WorkspaceQuery workspaceQuery) {
         //查询dmuser list
         DmUserQuery dmUserQuery = new DmUserQuery();
-        dmUserQuery.setUserId(workspaceQuery.getUserId());
+        dmUserQuery.setTagValue(workspaceQuery.getUserId());
         List<DmUser> dmUserList = dmUserService.findDmUserList(dmUserQuery);
 
         //查询空间列表

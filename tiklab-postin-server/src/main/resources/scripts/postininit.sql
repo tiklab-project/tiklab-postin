@@ -1,22 +1,15 @@
 
--- 之前在pcs中
 -- 系统级
 -- 初始话管理员角色表
 INSERT INTO `pcs_prc_role` (`id`, `name`, `description`, `grouper`, `type`,  `scope`, `default_role`,`business_type`) VALUES ('1', '管理员角色', NULL, 'system', '1', 1, 1, 1);
 -- 初始话普通色表
 INSERT INTO `pcs_prc_role` (`id`, `name`, `description`, `grouper`, `type`,  `scope`, `default_role`,`business_type`) VALUES ('2', '普通角色', NULL, 'system', '1', 1,  0, 0);
--- 管理员角色金和admin用户绑定 表
-INSERT INTO `pcs_prc_role_user` (`id`, `role_id`, `tag`,`tag_value`) VALUES ('1', '1', 1, '111111');
-
 
 -- 项目级
 -- 初始话管理员角色表
 INSERT INTO `pcs_prc_role` (`id`, `name`, `description`, `grouper`, `type`,  `scope`, `default_role`,`business_type`) VALUES ('3', '项目管理员', NULL, 'system', '2', 1, 1, 1);
 -- 初始话普通色表
 INSERT INTO `pcs_prc_role` (`id`, `name`, `description`, `grouper`, `type`,  `scope`, `default_role`,`business_type`) VALUES ('4', '项目普通角色', NULL, 'system', '2', 1, 0, 0);
-
--- 项目管理员角色金和admin用户绑定 表
-INSERT INTO `pcs_prc_role_user` (`id`, `role_id`, `tag`,`tag_value`) VALUES ('2', '3', 1, '111111');
 
 -- 初始化admin角色平台的功能点关联数据
 -- 用户模块 和 admin用户
@@ -43,7 +36,7 @@ INSERT INTO `pcs_prc_role_function` (`id`, `role_id`, `function_id`) VALUES ('70
 -- pcs ---end
 
 --初始化的空间的角色
-INSERT INTO `pcs_ucc_dm_user` (`id`, `domain_id`, `user_id`, `type`) VALUES ('5c56ca9a24afaba76ceef3173348f2b8', 'bd26c6ec5c6e12fd1082772362e096a8', '111111', 0);
+INSERT INTO `pcs_ucc_dm_user`  (`id`, `domain_id`, `tag_value`, `type`, `tag`)  VALUES ('5c56ca9a24afaba76ceef3173348f2b8', 'bd26c6ec5c6e12fd1082772362e096a8', "1111111", 0, 0);
 
 INSERT INTO `pcs_prc_dm_role` (`id`, `domain_id`, `role_id`, `business_type`) VALUES ('1bd0aa5c5f07932e2a23bb198e0efe7a', 'bd26c6ec5c6e12fd1082772362e096a8', '3', 1);
 INSERT INTO `pcs_prc_dm_role` (`id`, `domain_id`, `role_id`, `business_type`) VALUES ('adf4c4ca696d1bdea7b67a5666becc5e', 'bd26c6ec5c6e12fd1082772362e096a8', '4', 0);

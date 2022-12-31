@@ -18,8 +18,8 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @ApiModel
-@Index
 @Join
+@Index
 @Mapper(targetAlias = "WorkspaceEntity")
 public class Workspace extends BaseModel {
 
