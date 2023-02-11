@@ -55,18 +55,17 @@ dss:
     bucket: ${app.name}
 
 
-#integration net.tiklab.postin.config
 homes:
   address: http://192.168.10.19:8080
 
 #project:
 #  address: http://127.0.0.1:8081
 
-#plugin net.tiklab.postin.config
+#plugin
 plugin:
   path: ${PROJECT_HOME}/plugin
 
-#licences net.tiklab.postin.config
+#licences
 licences:
   path: ${PROJECT_HOME}/licences
 

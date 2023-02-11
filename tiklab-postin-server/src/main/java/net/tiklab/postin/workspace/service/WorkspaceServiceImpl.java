@@ -36,6 +36,7 @@ import net.tiklab.user.user.service.UserService;
 import net.tiklab.utils.context.LoginContext;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;
@@ -98,6 +99,8 @@ public class WorkspaceServiceImpl implements WorkspaceService {
     @Autowired
     PostInUnit postInUnit;
 
+    @Value("${base.url:null}")
+    String baseUrl;
 
     @Override
     public String createWorkspace(@NotNull @Valid Workspace workspace) throws Exception {
@@ -179,6 +182,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         messageDispatchNotice.setQywechatData(JSONObject.toJSONString(WX_MSGMap));
 
         messageDispatchNotice.setId("MESSAGE_NOTICE_ID");
+        messageDispatchNotice.setBaseUrl(baseUrl);
         sendMessageNoticeService.createMessageItem(messageDispatchNotice);
 
 
@@ -265,6 +269,9 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         //删除角色以及相关的关联表
         dmRoleService.deleteDmRoleByDomainId(id);
 
+
+
+
         //删除索引
 //        disClient.delete(Workspace.class,id);
     }
@@ -324,6 +331,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
             }
         }
 
+        joinTemplate.joinQuery(workspaceList);
 
         return workspaceList;
     }

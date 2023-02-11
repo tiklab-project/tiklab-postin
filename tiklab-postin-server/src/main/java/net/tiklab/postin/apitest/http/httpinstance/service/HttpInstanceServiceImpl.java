@@ -179,8 +179,6 @@ public class HttpInstanceServiceImpl implements TestInstanceService {
             RequestInstance requestInstance = requestInstanceService.findRequestInstance(httpInstance.getId());
             httpInstance.setRequestInstance(requestInstance);
 
-//         ResponseInstance responseInstance = responseInstanceService.findResponseInstance(httpInstance.getId());
-//         httpInstance.setResponseInstance(responseInstance);
             return httpInstance;
         }).collect(Collectors.toList());
 

@@ -7,6 +7,7 @@ import net.tiklab.logging.service.LoggingByTemplService;
 import net.tiklab.user.user.model.User;
 import net.tiklab.utils.context.LoginContext;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -17,6 +18,9 @@ import static net.tiklab.postin.utils.MessageTemplateConstant.LOG_TEMPLATE_ID;
 
 @Service
 public class LogUnit {
+
+    @Value("${base.url:null}")
+    String baseUrl;
 
     @Autowired
     LoggingByTemplService opLogByTemplService;
@@ -38,7 +42,7 @@ public class LogUnit {
         log.setUser(user);
         log.setBgroup("postin");
         log.setContent(JSONObject.toJSONString(map));
-
+        log.setBaseUrl(baseUrl);
         opLogByTemplService.createLog(log);
     }
 }
