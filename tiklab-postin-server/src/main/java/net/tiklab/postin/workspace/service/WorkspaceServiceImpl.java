@@ -27,11 +27,11 @@ import net.tiklab.core.page.Pagination;
 import net.tiklab.core.page.PaginationBuilder;
 import net.tiklab.dss.client.DssClient;
 import net.tiklab.join.JoinTemplate;
-import net.tiklab.privilege.role.service.DmRoleService;
-import net.tiklab.user.user.model.DmUser;
-import net.tiklab.user.user.model.DmUserQuery;
+import net.tiklab.privilege.roleDmRole.service.DmRoleService;
+import net.tiklab.user.dmUser.model.DmUser;
+import net.tiklab.user.dmUser.model.DmUserQuery;
+import net.tiklab.user.dmUser.service.DmUserService;
 import net.tiklab.user.user.model.User;
-import net.tiklab.user.user.service.DmUserService;
 import net.tiklab.user.user.service.UserService;
 import net.tiklab.utils.context.LoginContext;
 import org.apache.commons.collections.CollectionUtils;
@@ -130,13 +130,14 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         List<String> memberList = workspace.getMemberList();
         for(String memberId : memberList){
             dmUser.setType(0);
-            dmUser.setTagValue(memberId);
+
+            User user = new User();
+            user.setId(memberId);
+            dmUser.setUser(user);
 
             if(Objects.equals(memberId,userId)){
                 dmUser.setType(1);
             }
-
-            dmUser.setTag(0);
 
             dmUserService.createDmUser(dmUser);
         }
@@ -150,7 +151,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         map.put("images",workspace.getIconUrl());
         LoggingType oplogTypeOne = loggingTypeService.findOplogTypeOne(LOG_TYPE_CREATE_ID);
         map.put("actionType",oplogTypeOne.getName());
-
+        map.put("abstractTitle","创建空间");
         logUnit.log(LOG_TYPE_CREATE_ID,"workspace",map);
 
         //消息
@@ -211,6 +212,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         map.put("images",workspace.getIconUrl());
         LoggingType oplogTypeOne = loggingTypeService.findOplogTypeOne(LOG_TYPE_UPDATE_ID);
         map.put("actionType",oplogTypeOne.getName());
+        map.put("abstractTitle","更新空间");
         logUnit.log(LOG_TYPE_UPDATE_ID,"workspace",map);
 
         //更新索引
@@ -231,6 +233,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         map.put("images",workspace.getIconUrl());
         LoggingType oplogTypeOne = loggingTypeService.findOplogTypeOne(LOG_TYPE_DELETE_ID);
         map.put("actionType",oplogTypeOne.getName());
+        map.put("abstractTitle","删除空间");
         logUnit.log(LOG_TYPE_DELETE_ID,"workspace",map);
 
         //删除数据
@@ -352,7 +355,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
     public List<Workspace> findWorkspaceJoinList(WorkspaceQuery workspaceQuery) {
         //查询dmuser list
         DmUserQuery dmUserQuery = new DmUserQuery();
-        dmUserQuery.setTagValue(workspaceQuery.getUserId());
+        dmUserQuery.setUserId(workspaceQuery.getUserId());
         List<DmUser> dmUserList = dmUserService.findDmUserList(dmUserQuery);
 
         //查询空间列表

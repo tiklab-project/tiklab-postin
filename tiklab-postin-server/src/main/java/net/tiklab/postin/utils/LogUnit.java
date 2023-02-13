@@ -43,6 +43,15 @@ public class LogUnit {
         log.setBgroup("postin");
         log.setContent(JSONObject.toJSONString(map));
         log.setBaseUrl(baseUrl);
+        log.setAbstractTitle(map.get("abstractTitle"));
+        log.setAbstractPic(map.get("images"));
+
+        String contentStr = map.get("user")+map.get("actionType")+map.get("name");
+        log.setAbstractContent(contentStr);
+
+
+//        log.setAbstractTitle();
+
         opLogByTemplService.createLog(log);
     }
 }

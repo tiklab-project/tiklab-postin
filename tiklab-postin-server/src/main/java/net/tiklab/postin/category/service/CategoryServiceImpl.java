@@ -76,6 +76,7 @@ public class CategoryServiceImpl implements CategoryService {
         map.put("images","/images/log.png");
         LoggingType oplogTypeOne = loggingTypeService.findOplogTypeOne(LOG_TYPE_CREATE_ID);
         map.put("actionType",oplogTypeOne.getName());
+        map.put("abstractTitle","创建目录");
         logUnit.log(LOG_TYPE_CREATE_ID,"category",map);
 
         return categoryId;
@@ -98,6 +99,7 @@ public class CategoryServiceImpl implements CategoryService {
         map.put("images","/images/log.png");
         LoggingType oplogTypeOne = loggingTypeService.findOplogTypeOne(LOG_TYPE_UPDATE_ID);
         map.put("actionType",oplogTypeOne.getName());
+        map.put("abstractTitle","更新目录");
         logUnit.log(LOG_TYPE_UPDATE_ID,"category",map);
     }
 
@@ -115,6 +117,7 @@ public class CategoryServiceImpl implements CategoryService {
         map.put("images","/images/log.png");
         LoggingType oplogTypeOne = loggingTypeService.findOplogTypeOne(LOG_TYPE_DELETE_ID);
         map.put("actionType",oplogTypeOne.getName());
+        map.put("abstractTitle","删除目录");
         logUnit.log(LOG_TYPE_DELETE_ID,"category",map);
 
         //删除目录
