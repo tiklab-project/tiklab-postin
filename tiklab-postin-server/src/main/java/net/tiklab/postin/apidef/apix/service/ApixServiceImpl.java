@@ -78,7 +78,6 @@ public class ApixServiceImpl implements ApixService {
         map.put("images","/images/log.png");
         LoggingType oplogTypeOne = loggingTypeService.findOplogTypeOne(LOG_TYPE_CREATE_ID);
         map.put("actionType",oplogTypeOne.getName());
-        map.put("abstractTitle","创建接口");
         logUnit.log(LOG_TYPE_CREATE_ID,"api",map);
 
         //添加索引
@@ -122,7 +121,7 @@ public class ApixServiceImpl implements ApixService {
         map.put("images","/images/log.png");
         LoggingType oplogTypeOne = loggingTypeService.findOplogTypeOne(LOG_TYPE_UPDATE_ID);
         map.put("actionType",oplogTypeOne.getName());
-        map.put("abstractTitle","更新接口");
+
         logUnit.log(LOG_TYPE_UPDATE_ID,"api",map);
 
     }
@@ -141,7 +140,7 @@ public class ApixServiceImpl implements ApixService {
         map.put("images","/images/log.png");
         LoggingType oplogTypeOne = loggingTypeService.findOplogTypeOne(LOG_TYPE_DELETE_ID);
         map.put("actionType",oplogTypeOne.getName());
-        map.put("abstractTitle","删除接口");
+
         logUnit.log(LOG_TYPE_DELETE_ID,"api",map);
 
         apixDao.deleteApix(id);

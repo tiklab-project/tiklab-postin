@@ -150,8 +150,6 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         map.put("mode","空间");
         map.put("images",workspace.getIconUrl());
         LoggingType oplogTypeOne = loggingTypeService.findOplogTypeOne(LOG_TYPE_CREATE_ID);
-        map.put("actionType",oplogTypeOne.getName());
-        map.put("abstractTitle","创建空间");
         logUnit.log(LOG_TYPE_CREATE_ID,"workspace",map);
 
         //消息
@@ -212,7 +210,6 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         map.put("images",workspace.getIconUrl());
         LoggingType oplogTypeOne = loggingTypeService.findOplogTypeOne(LOG_TYPE_UPDATE_ID);
         map.put("actionType",oplogTypeOne.getName());
-        map.put("abstractTitle","更新空间");
         logUnit.log(LOG_TYPE_UPDATE_ID,"workspace",map);
 
         //更新索引
@@ -233,7 +230,6 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         map.put("images",workspace.getIconUrl());
         LoggingType oplogTypeOne = loggingTypeService.findOplogTypeOne(LOG_TYPE_DELETE_ID);
         map.put("actionType",oplogTypeOne.getName());
-        map.put("abstractTitle","删除空间");
         logUnit.log(LOG_TYPE_DELETE_ID,"workspace",map);
 
         //删除数据
