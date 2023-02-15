@@ -123,24 +123,6 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         //初始化项目权限
         dmRoleService.initDmRoles(workspaceId,userId,"postin" );
 
-        //拉入创建人
-        DmUser dmUser = new DmUser();
-        dmUser.setDomainId(workspaceId);
-
-        List<String> memberList = workspace.getMemberList();
-        for(String memberId : memberList){
-            dmUser.setType(0);
-
-            User user = new User();
-            user.setId(memberId);
-            dmUser.setUser(user);
-
-            if(Objects.equals(memberId,userId)){
-                dmUser.setType(1);
-            }
-
-            dmUserService.createDmUser(dmUser);
-        }
 
         //日志
         Map<String,String> map = new HashMap<>();
@@ -150,6 +132,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         map.put("mode","空间");
         map.put("images",workspace.getIconUrl());
         LoggingType oplogTypeOne = loggingTypeService.findOplogTypeOne(LOG_TYPE_CREATE_ID);
+        map.put("actionType",oplogTypeOne.getName());
         logUnit.log(LOG_TYPE_CREATE_ID,"workspace",map);
 
         //消息

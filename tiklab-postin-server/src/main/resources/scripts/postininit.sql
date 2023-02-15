@@ -76,7 +76,7 @@ INSERT INTO `pcs_prc_role_function` (`id`, `role_id`, `function_id`) VALUES ('ee
 
 
 --日志--
-INSERT INTO `pcs_op_log_template` (`id`, `title`, `content`, `link`, `bgroup`, `abstract_title`,`abstract_pic`,`abstract_content`) VALUES ('LOG_CODE', '日志通用模板', '<div>\n<span style=\"\n    color: #4581b7;\n\">${user}</span> <span>${actionType} </span><span>${mode}： </span><img src=\"${images}\" alt=\"\" width=\"16px\" height=\"16px\"/><span style=\"\nmargin: 0 5px;\n    font-weight: 600;\n    color: #4b768a;\n\">${name}</span></div>', '/workspacePage', 'postin','创建空间','${images}','管理员创建了默认空间');
+INSERT INTO `pcs_op_log_template` (`id`, `title`, `content`, `link`, `bgroup`, `abstract_content`) VALUES ('LOG_CODE', '日志通用模板', '<div>\n<span style=\"\n    color: #4581b7;\n\">${user}</span> <span>${actionType} </span><span>${mode}： </span><img src=\"${images}\" alt=\"\" width=\"16px\" height=\"16px\"/><span style=\"\nmargin: 0 5px;\n    font-weight: 600;\n    color: #4b768a;\n\">${name}</span></div>', '/workspacePage', 'postin','管理员创建了默认空间');
 
 INSERT INTO `pcs_op_log_type` (`id`, `name`, `bgroup`) VALUES ('CREATE_TYPE', '新增', 'postin');
 INSERT INTO `pcs_op_log_type` (`id`, `name`, `bgroup`) VALUES ('DELETE_TYPE', '删除', 'postin');
