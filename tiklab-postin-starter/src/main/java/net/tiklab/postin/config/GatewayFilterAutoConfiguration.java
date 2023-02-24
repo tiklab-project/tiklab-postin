@@ -101,7 +101,8 @@ public class GatewayFilterAutoConfiguration{
                         "/licence",
                         "/ws",
                         "/socket",
-                        "/images"
+                        "/images",
+                        "/request"
                 })
                 .get();
     }
