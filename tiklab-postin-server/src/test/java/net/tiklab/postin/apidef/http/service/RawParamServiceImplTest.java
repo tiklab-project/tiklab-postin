@@ -1,6 +1,7 @@
 package net.tiklab.postin.apidef.http.service;
 
-import net.tiklab.postin.apidef.http.model.RawParam;
+import net.tiklab.postin.apidef.http.definition.model.RawParam;
+import net.tiklab.postin.apidef.http.definition.service.RawParamService;
 import net.tiklab.postin.client.mock.JMockit;
 import net.tiklab.postin.config.TestConfig;
 import org.junit.FixMethodOrder;

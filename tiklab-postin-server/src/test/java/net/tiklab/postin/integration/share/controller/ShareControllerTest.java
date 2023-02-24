@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import net.tiklab.core.Result;
 import net.tiklab.postin.client.mock.JMockit;
 import net.tiklab.postin.config.TestConfig;
-import net.tiklab.postin.integration.share.model.Share;
+import net.tiklab.postin.apidef.http.share.model.Share;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

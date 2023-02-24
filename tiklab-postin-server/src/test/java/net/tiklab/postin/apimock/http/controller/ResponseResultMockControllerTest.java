@@ -1,6 +1,6 @@
 package net.tiklab.postin.apimock.http.controller;
 
-import net.tiklab.postin.apimock.http.model.ResponseResultMock;
+import net.tiklab.postin.apidef.http.mock.model.ResponseResultMock;
 import net.tiklab.postin.client.mock.JMockit;
 import net.tiklab.postin.config.TestConfig;
 import net.tiklab.core.Result;

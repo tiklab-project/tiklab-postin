@@ -1,8 +1,9 @@
 package net.tiklab.postin.integration.share.service;
 
+import net.tiklab.postin.apidef.http.share.service.ShareService;
 import net.tiklab.postin.client.mock.JMockit;
 import net.tiklab.postin.config.TestConfig;
-import net.tiklab.postin.integration.share.model.Share;
+import net.tiklab.postin.apidef.http.share.model.Share;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;

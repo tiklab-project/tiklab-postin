@@ -1,6 +1,6 @@
 package net.tiklab.postin.apimock.codegen;
 
-import net.tiklab.postin.apimock.http.entity.MockEntity;
+import net.tiklab.postin.apidef.http.mock.entity.MockEntity;
 import net.tiklab.codegen.CodeGeneratorTemplate;
 import net.tiklab.codegen.config.ProjectGeneratorConfig;
 import net.tiklab.codegen.config.CodeGeneratorConfig;

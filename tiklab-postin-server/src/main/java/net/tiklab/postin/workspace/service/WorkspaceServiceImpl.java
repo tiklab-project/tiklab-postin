@@ -8,17 +8,17 @@ import net.tiklab.message.message.service.SendMessageNoticeService;
 import net.tiklab.postin.apidef.apix.model.Apix;
 import net.tiklab.postin.apidef.apix.model.ApixQuery;
 import net.tiklab.postin.apidef.apix.service.ApixService;
-import net.tiklab.postin.apitest.http.httpcase.model.HttpTestcase;
-import net.tiklab.postin.apitest.http.httpcase.model.HttpTestcaseQuery;
-import net.tiklab.postin.apitest.http.httpcase.service.HttpTestcaseService;
+import net.tiklab.postin.apidef.http.test.httpcase.model.HttpTestcase;
+import net.tiklab.postin.apidef.http.test.httpcase.model.HttpTestcaseQuery;
+import net.tiklab.postin.apidef.http.test.httpcase.service.HttpTestcaseService;
 import net.tiklab.postin.category.model.Category;
 import net.tiklab.postin.category.model.CategoryQuery;
 import net.tiklab.postin.category.service.CategoryService;
-import net.tiklab.postin.sysmgr.datastructure.model.DataStructure;
-import net.tiklab.postin.sysmgr.datastructure.model.DataStructureQuery;
-import net.tiklab.postin.sysmgr.datastructure.service.DataStructureService;
-import net.tiklab.postin.utils.LogUnit;
-import net.tiklab.postin.utils.PostInUnit;
+import net.tiklab.postin.support.datastructure.model.DataStructure;
+import net.tiklab.postin.support.datastructure.model.DataStructureQuery;
+import net.tiklab.postin.support.datastructure.service.DataStructureService;
+import net.tiklab.postin.common.LogUnit;
+import net.tiklab.postin.common.PostInUnit;
 import net.tiklab.postin.workspace.dao.WorkspaceDao;
 import net.tiklab.postin.workspace.entity.WorkspaceEntity;
 import net.tiklab.postin.workspace.model.*;
@@ -43,7 +43,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.*;
 
-import static net.tiklab.postin.utils.MessageTemplateConstant.*;
+import static net.tiklab.postin.common.MessageTemplateConstant.*;
 
 /**
 * 用户服务业务处理

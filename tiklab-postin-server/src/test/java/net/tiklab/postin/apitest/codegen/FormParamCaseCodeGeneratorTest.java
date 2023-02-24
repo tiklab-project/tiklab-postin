@@ -1,6 +1,6 @@
 package net.tiklab.postin.apitest.codegen;
 
-import net.tiklab.postin.apitest.http.httpcase.entity.FormParamCaseEntity;
+import net.tiklab.postin.apidef.http.test.httpcase.entity.FormParamCaseEntity;
 import net.tiklab.codegen.CodeGeneratorTemplate;
 import net.tiklab.codegen.config.CodeGeneratorConfig;
 import net.tiklab.codegen.config.ProjectGeneratorConfig;

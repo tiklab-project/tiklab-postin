@@ -1,6 +1,6 @@
 package net.tiklab.postin.apidef.http.controller;
 
-import net.tiklab.postin.apidef.http.model.HttpApi;
+import net.tiklab.postin.apidef.http.definition.model.HttpApi;
 import net.tiklab.postin.client.mock.JMockit;
 import net.tiklab.postin.config.TestConfig;
 import net.tiklab.core.Result;

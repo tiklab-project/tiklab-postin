@@ -1,6 +1,6 @@
 package net.tiklab.postin.apitest.http.httpcase.controller;
 
-import net.tiklab.postin.apitest.http.httpcase.model.HttpTestcase;
+import net.tiklab.postin.apidef.http.test.httpcase.model.HttpTestcase;
 import net.tiklab.utils.MapUtils;
 import net.tiklab.core.Result;
 import net.tiklab.postin.client.mock.JMockit;

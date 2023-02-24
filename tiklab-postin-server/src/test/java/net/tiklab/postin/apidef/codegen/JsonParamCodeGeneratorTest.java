@@ -1,6 +1,6 @@
 package net.tiklab.postin.apidef.codegen;
 
-import net.tiklab.postin.apidef.http.entity.JsonParamEntity;
+import net.tiklab.postin.apidef.http.definition.entity.JsonParamEntity;
 import net.tiklab.codegen.CodeGeneratorTemplate;
 import net.tiklab.codegen.config.ProjectGeneratorConfig;
 import net.tiklab.codegen.config.CodeGeneratorConfig;

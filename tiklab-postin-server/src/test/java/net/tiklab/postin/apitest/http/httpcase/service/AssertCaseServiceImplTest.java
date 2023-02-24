@@ -1,6 +1,7 @@
 package net.tiklab.postin.apitest.http.httpcase.service;
 
-import net.tiklab.postin.apitest.http.httpcase.model.AssertCase;
+import net.tiklab.postin.apidef.http.test.httpcase.model.AssertCase;
+import net.tiklab.postin.apidef.http.test.httpcase.service.AssertCaseService;
 import net.tiklab.postin.client.mock.JMockit;
 import net.tiklab.postin.config.TestConfig;
 import org.junit.FixMethodOrder;

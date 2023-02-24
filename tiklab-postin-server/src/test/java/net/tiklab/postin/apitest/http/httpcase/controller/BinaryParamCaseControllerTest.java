@@ -1,6 +1,6 @@
 package net.tiklab.postin.apitest.http.httpcase.controller;
 
-import net.tiklab.postin.apitest.http.httpcase.model.BinaryParamCase;
+import net.tiklab.postin.apidef.http.test.httpcase.model.BinaryParamCase;
 import net.tiklab.postin.client.mock.JMockit;
 import net.tiklab.postin.config.TestConfig;
 import net.tiklab.core.Result;

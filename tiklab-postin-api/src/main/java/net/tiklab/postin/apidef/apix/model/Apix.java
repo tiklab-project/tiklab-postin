@@ -2,9 +2,9 @@ package net.tiklab.postin.apidef.apix.model;
 
 import net.tiklab.postin.annotation.ApiModel;
 import net.tiklab.postin.annotation.ApiProperty;
-import net.tiklab.postin.apidef.http.model.HttpApi;
+import net.tiklab.postin.apidef.http.definition.model.HttpApi;
 import net.tiklab.postin.category.model.Category;
-import net.tiklab.postin.sysmgr.apistatus.model.ApiStatus;
+import net.tiklab.postin.support.apistatus.model.ApiStatus;
 import net.tiklab.beans.annotation.Mapper;
 import net.tiklab.beans.annotation.Mapping;
 import net.tiklab.beans.annotation.Mappings;

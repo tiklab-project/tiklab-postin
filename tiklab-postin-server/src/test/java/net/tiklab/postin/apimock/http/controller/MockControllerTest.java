@@ -4,7 +4,7 @@ import net.tiklab.utils.MapUtils;
 import net.tiklab.core.Result;
 import net.tiklab.postin.client.mock.JMockit;
 import net.tiklab.postin.config.TestConfig;
-import net.tiklab.postin.apimock.http.model.Mock;
+import net.tiklab.postin.apidef.http.mock.model.Mock;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

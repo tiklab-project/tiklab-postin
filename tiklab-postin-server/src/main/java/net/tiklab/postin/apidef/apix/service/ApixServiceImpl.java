@@ -11,8 +11,8 @@ import net.tiklab.core.page.Pagination;
 import net.tiklab.core.page.PaginationBuilder;
 import net.tiklab.dss.client.DssClient;
 import net.tiklab.join.JoinTemplate;
-import net.tiklab.postin.utils.LogUnit;
-import net.tiklab.postin.utils.PostInUnit;
+import net.tiklab.postin.common.LogUnit;
+import net.tiklab.postin.common.PostInUnit;
 import net.tiklab.rpc.annotation.Exporter;
 import net.tiklab.utils.context.LoginContext;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static net.tiklab.postin.utils.MessageTemplateConstant.*;
+import static net.tiklab.postin.common.MessageTemplateConstant.*;
 
 /**
 * BasedefServiceImpl

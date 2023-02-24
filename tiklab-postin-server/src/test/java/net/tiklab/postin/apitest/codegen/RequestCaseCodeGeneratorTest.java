@@ -3,7 +3,7 @@ package net.tiklab.postin.apitest.codegen;
 import net.tiklab.codegen.CodeGeneratorTemplate;
 import net.tiklab.codegen.config.CodeGeneratorConfig;
 import net.tiklab.codegen.config.ProjectGeneratorConfig;
-import net.tiklab.postin.apitest.http.httpcase.entity.RequestCaseEntity;
+import net.tiklab.postin.apidef.http.test.httpcase.entity.RequestCaseEntity;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

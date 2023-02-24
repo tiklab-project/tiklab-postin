@@ -1,6 +1,6 @@
 package net.tiklab.postin.apidef.codegen;
 
-import net.tiklab.postin.apidef.http.entity.ResponseHeaderEntity;
+import net.tiklab.postin.apidef.http.definition.entity.ResponseHeaderEntity;
 import net.tiklab.codegen.CodeGeneratorTemplate;
 import net.tiklab.codegen.config.ProjectGeneratorConfig;
 import net.tiklab.codegen.config.CodeGeneratorConfig;

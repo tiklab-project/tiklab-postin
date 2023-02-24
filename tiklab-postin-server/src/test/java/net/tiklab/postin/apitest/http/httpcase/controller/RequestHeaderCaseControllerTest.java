@@ -1,7 +1,7 @@
 package net.tiklab.postin.apitest.http.httpcase.controller;
 
 
-import net.tiklab.postin.apitest.http.httpcase.model.RequestHeaderCase;
+import net.tiklab.postin.apidef.http.test.httpcase.model.RequestHeaderCase;
 import net.tiklab.postin.client.mock.JMockit;
 import net.tiklab.postin.config.TestConfig;
 import net.tiklab.core.Result;

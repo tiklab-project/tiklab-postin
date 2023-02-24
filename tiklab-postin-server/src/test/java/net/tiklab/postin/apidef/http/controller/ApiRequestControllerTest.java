@@ -2,7 +2,7 @@ package net.tiklab.postin.apidef.http.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import net.tiklab.core.Result;
-import net.tiklab.postin.apidef.http.model.ApiRequest;
+import net.tiklab.postin.apidef.http.definition.model.ApiRequest;
 import net.tiklab.postin.client.mock.JMockit;
 import net.tiklab.postin.config.TestConfig;
 import org.junit.Before;

@@ -13,9 +13,8 @@ import net.tiklab.beans.BeanMapper;
 import net.tiklab.core.page.Pagination;
 import net.tiklab.core.page.PaginationBuilder;
 import net.tiklab.join.JoinTemplate;
-import net.tiklab.postin.utils.LogUnit;
-import net.tiklab.postin.utils.PostInUnit;
-import net.tiklab.user.user.model.User;
+import net.tiklab.postin.common.LogUnit;
+import net.tiklab.postin.common.PostInUnit;
 import net.tiklab.utils.context.LoginContext;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,11 +24,10 @@ import org.springframework.util.StringUtils;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.sql.Timestamp;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static net.tiklab.postin.utils.MessageTemplateConstant.*;
+import static net.tiklab.postin.common.MessageTemplateConstant.*;
 
 /**
 * 用户服务业务处理

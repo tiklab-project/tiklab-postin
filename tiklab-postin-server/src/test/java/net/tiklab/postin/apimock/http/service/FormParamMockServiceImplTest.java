@@ -1,6 +1,7 @@
 package net.tiklab.postin.apimock.http.service;
 
-import net.tiklab.postin.apimock.http.model.FormParamMock;
+import net.tiklab.postin.apidef.http.mock.model.FormParamMock;
+import net.tiklab.postin.apidef.http.mock.service.FormParamMockService;
 import net.tiklab.postin.client.mock.JMockit;
 import net.tiklab.postin.config.TestConfig;
 import org.junit.FixMethodOrder;

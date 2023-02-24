@@ -1,6 +1,7 @@
 package net.tiklab.postin.apitest.http.httpcase.service;
 
-import net.tiklab.postin.apitest.http.httpcase.model.JsonParamCase;
+import net.tiklab.postin.apidef.http.test.httpcase.model.JsonParamCase;
+import net.tiklab.postin.apidef.http.test.httpcase.service.JsonParamCaseService;
 import net.tiklab.postin.client.mock.JMockit;
 import net.tiklab.postin.config.TestConfig;
 import org.junit.FixMethodOrder;

@@ -1,6 +1,6 @@
 package net.tiklab.postin.apidef.codegen;
 
-import net.tiklab.postin.apidef.http.entity.RawParamEntity;
+import net.tiklab.postin.apidef.http.definition.entity.RawParamEntity;
 import net.tiklab.codegen.CodeGeneratorTemplate;
 import net.tiklab.codegen.config.CodeGeneratorConfig;
 import net.tiklab.codegen.config.ProjectGeneratorConfig;
