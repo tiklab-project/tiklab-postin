@@ -3,7 +3,7 @@ package net.tiklab.postin.home.search.controller;
 import net.tiklab.postin.annotation.Api;
 import net.tiklab.postin.annotation.ApiMethod;
 import net.tiklab.postin.annotation.ApiParam;
-import net.tiklab.postin.apidef.apix.model.Apix;
+import net.tiklab.postin.api.apix.model.Apix;
 import net.tiklab.postin.home.search.SearchService;
 import net.tiklab.postin.workspace.model.Workspace;
 import net.tiklab.core.Result;

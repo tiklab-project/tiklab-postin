@@ -2,7 +2,7 @@ package net.tiklab.postin.category.model;
 
 import net.tiklab.postin.annotation.ApiModel;
 import net.tiklab.postin.annotation.ApiProperty;
-import net.tiklab.postin.apidef.apix.model.Apix;
+import net.tiklab.postin.api.apix.model.Apix;
 import net.tiklab.postin.workspace.model.Workspace;
 import net.tiklab.beans.annotation.Mapper;
 import net.tiklab.beans.annotation.Mapping;

@@ -1,7 +1,7 @@
 package net.tiklab.postin.home.search.service;
 
-import net.tiklab.postin.apidef.http.definition.model.HttpApi;
-import net.tiklab.postin.apidef.http.definition.service.HttpApiService;
+import net.tiklab.postin.api.http.definition.model.HttpApi;
+import net.tiklab.postin.api.http.definition.service.HttpApiService;
 import net.tiklab.postin.home.search.SearchService;
 import net.tiklab.postin.workspace.model.Workspace;
 import net.tiklab.postin.workspace.service.WorkspaceService;

@@ -1,7 +1,7 @@
 package net.tiklab.postin.apimock.http.service;
 
-import net.tiklab.postin.apidef.http.mock.model.Mock;
-import net.tiklab.postin.apidef.http.mock.service.MockService;
+import net.tiklab.postin.api.http.mock.model.Mock;
+import net.tiklab.postin.api.http.mock.service.MockService;
 import net.tiklab.postin.client.mock.JMockit;
 import net.tiklab.postin.config.TestConfig;
 import org.junit.FixMethodOrder;

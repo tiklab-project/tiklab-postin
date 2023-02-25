@@ -1,6 +1,6 @@
 package net.tiklab.postin.support.imexport.model;
 
-import net.tiklab.postin.apidef.http.definition.model.JsonParam;
+import net.tiklab.postin.api.http.definition.model.JsonParam;
 
 public class JsonParamImportVo {
 

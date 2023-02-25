@@ -1,6 +1,6 @@
 package net.tiklab.postin.apitest.codegen;
 
-import net.tiklab.postin.apidef.http.test.httpinstance.entity.ResponseInstanceEntity;
+import net.tiklab.postin.api.http.test.httpinstance.entity.ResponseInstanceEntity;
 import net.tiklab.codegen.CodeGeneratorTemplate;
 import net.tiklab.codegen.config.CodeGeneratorConfig;
 import net.tiklab.codegen.config.ProjectGeneratorConfig;

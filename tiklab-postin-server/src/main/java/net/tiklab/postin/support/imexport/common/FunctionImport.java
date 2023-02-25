@@ -1,10 +1,10 @@
 package net.tiklab.postin.support.imexport.common;
 
 import com.alibaba.fastjson.JSONObject;
-import net.tiklab.postin.apidef.apix.model.Apix;
-import net.tiklab.postin.apidef.apix.service.ApixService;
-import net.tiklab.postin.apidef.http.definition.model.*;
-import net.tiklab.postin.apidef.http.definition.service.*;
+import net.tiklab.postin.api.apix.model.Apix;
+import net.tiklab.postin.api.apix.service.ApixService;
+import net.tiklab.postin.api.http.definition.model.*;
+import net.tiklab.postin.api.http.definition.service.*;
 import net.tiklab.postin.category.model.Category;
 import net.tiklab.postin.category.model.CategoryQuery;
 import net.tiklab.postin.category.service.CategoryService;

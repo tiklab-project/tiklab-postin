@@ -1,12 +1,12 @@
 package net.tiklab.postin.workspace.service;
 
 
-import net.tiklab.postin.apidef.apix.model.Apix;
-import net.tiklab.postin.apidef.apix.model.ApixQuery;
-import net.tiklab.postin.apidef.apix.service.ApixService;
-import net.tiklab.postin.apidef.http.test.httpcase.model.HttpTestcase;
-import net.tiklab.postin.apidef.http.test.httpcase.model.HttpTestcaseQuery;
-import net.tiklab.postin.apidef.http.test.httpcase.service.HttpTestcaseService;
+import net.tiklab.postin.api.apix.model.Apix;
+import net.tiklab.postin.api.apix.model.ApixQuery;
+import net.tiklab.postin.api.apix.service.ApixService;
+import net.tiklab.postin.api.http.test.httpcase.model.HttpTestcase;
+import net.tiklab.postin.api.http.test.httpcase.model.HttpTestcaseQuery;
+import net.tiklab.postin.api.http.test.httpcase.service.HttpTestcaseService;
 import net.tiklab.postin.category.model.Category;
 import net.tiklab.postin.category.model.CategoryQuery;
 import net.tiklab.postin.category.service.CategoryService;

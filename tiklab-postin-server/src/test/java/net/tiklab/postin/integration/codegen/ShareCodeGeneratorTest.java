@@ -3,7 +3,7 @@ package net.tiklab.postin.integration.codegen;
 import net.tiklab.codegen.CodeGeneratorTemplate;
 import net.tiklab.codegen.config.CodeGeneratorConfig;
 import net.tiklab.codegen.config.ProjectGeneratorConfig;
-import net.tiklab.postin.apidef.http.share.entity.ShareEntity;
+import net.tiklab.postin.api.http.document.entity.ShareEntity;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

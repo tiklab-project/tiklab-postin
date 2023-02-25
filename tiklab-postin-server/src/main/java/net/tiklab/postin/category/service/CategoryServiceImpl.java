@@ -2,9 +2,9 @@ package net.tiklab.postin.category.service;
 
 import net.tiklab.logging.modal.LoggingType;
 import net.tiklab.logging.service.LoggingTypeService;
-import net.tiklab.postin.apidef.apix.model.Apix;
-import net.tiklab.postin.apidef.apix.model.ApixQuery;
-import net.tiklab.postin.apidef.apix.service.ApixService;
+import net.tiklab.postin.api.apix.model.Apix;
+import net.tiklab.postin.api.apix.model.ApixQuery;
+import net.tiklab.postin.api.apix.service.ApixService;
 import net.tiklab.postin.category.dao.CategoryDao;
 import net.tiklab.postin.category.entity.CategoryEntity;
 import net.tiklab.postin.category.model.Category;

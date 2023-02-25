@@ -1,7 +1,7 @@
 package net.tiklab.postin.support.imexport.model;
 
 
-import net.tiklab.postin.apidef.http.definition.model.JsonResponse;
+import net.tiklab.postin.api.http.definition.model.JsonResponse;
 
 public class JsonResponseImportVo {
 
