@@ -29,7 +29,6 @@ import java.util.*;
 public class WorkspaceOverviewServiceImpl implements WorkspaceOverviewService {
 
 
-
     @Autowired
     CategoryService categoryService;
 

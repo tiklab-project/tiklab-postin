@@ -5,17 +5,11 @@ import net.tiklab.logging.modal.LoggingType;
 import net.tiklab.logging.service.LoggingTypeService;
 import net.tiklab.message.message.model.SendMessageNotice;
 import net.tiklab.message.message.service.SendMessageNoticeService;
-import net.tiklab.postin.api.apix.model.Apix;
-import net.tiklab.postin.api.apix.model.ApixQuery;
 import net.tiklab.postin.api.apix.service.ApixService;
-import net.tiklab.postin.api.http.test.httpcase.model.HttpTestcase;
-import net.tiklab.postin.api.http.test.httpcase.model.HttpTestcaseQuery;
 import net.tiklab.postin.api.http.test.httpcase.service.HttpTestcaseService;
 import net.tiklab.postin.category.model.Category;
 import net.tiklab.postin.category.model.CategoryQuery;
 import net.tiklab.postin.category.service.CategoryService;
-import net.tiklab.postin.support.datastructure.model.DataStructure;
-import net.tiklab.postin.support.datastructure.model.DataStructureQuery;
 import net.tiklab.postin.support.datastructure.service.DataStructureService;
 import net.tiklab.postin.common.LogUnit;
 import net.tiklab.postin.common.PostInUnit;
@@ -361,86 +355,6 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         return arrayList;
     }
 
-    @Override
-    public WorkspaceHomeTotal findWorkspaceHomeTotal(String userId) {
-        WorkspaceHomeTotal workspaceHomeTotal = new WorkspaceHomeTotal();
 
-        //所有空间总和
-        int all = 0;
-        List<Workspace> allWorkspace = findAllWorkspace();
-        if(CollectionUtils.isNotEmpty(allWorkspace)){
-            all = allWorkspace.size();
-        }
-
-        //个人创建的空间 总和
-        int create = 0;
-        List<Workspace> workspaceList = findWorkspaceList(new WorkspaceQuery().setUserId(userId));
-        if(CollectionUtils.isNotEmpty(workspaceList)){
-            create=workspaceList.size();
-        }
-
-        //个人加入的空间 总和
-        int join = 0;
-        List<Workspace> workspaceJoinList = findWorkspaceJoinList(new WorkspaceQuery().setUserId(userId));
-        if(CollectionUtils.isNotEmpty(workspaceJoinList)){
-            join = workspaceJoinList.size();
-        }
-
-        //个人关注的空间 总和
-        int follow = 0;
-        List<WorkspaceFollow> workspaceFollowList = workspaceFollowService.findWorkspaceFollowList(new WorkspaceFollowQuery().setUserId(userId));
-        if(CollectionUtils.isNotEmpty(workspaceFollowList)){
-            follow = workspaceFollowList.size();
-        }
-
-
-        workspaceHomeTotal.setAllTotal(all);
-        workspaceHomeTotal.setCreateTotal(create);
-        workspaceHomeTotal.setJoinTotal(join);
-        workspaceHomeTotal.setFollowTotal(follow);
-
-
-        return workspaceHomeTotal;
-    }
-
-    @Override
-    public WorkspaceTotal findWorkspaceTotal(String id) {
-        WorkspaceTotal workspaceTotal = new WorkspaceTotal();
-
-        //获取分组的总和
-        List<Category> categoryList = categoryService.findCategoryList(new CategoryQuery().setWorkspaceId(id));
-        workspaceTotal.setCategoryTotal(categoryList.size());
-
-        //获取接口总和，case总和
-        int apiCount=0;
-        int caseCount = 0;
-        for(Category category :categoryList){
-            List<Apix>  apixList = apixService.findApixList(new ApixQuery().setCategoryId(category.getId()));
-            apiCount+=apixList.size();
-
-            int apiCaseCount=0;
-            for (Apix apix: apixList){
-                List<HttpTestcase> testcaseList = httpTestcaseService.findTestcaseList(new HttpTestcaseQuery().setHttpId(apix.getId()));
-                apiCaseCount+=testcaseList.size();
-            }
-
-            caseCount+=apiCaseCount;
-        }
-
-        List<DataStructure> dataStructureList = dataStructureService.findDataStructureList(new DataStructureQuery().setWorkspaceId(id));
-
-        DmUserQuery dmUserQuery = new DmUserQuery();
-        dmUserQuery.setDomainId(id);
-        List<DmUser> dmUserList = dmUserService.findDmUserList(dmUserQuery);
-
-        workspaceTotal.setModelTotal(dataStructureList.size());
-        workspaceTotal.setApiTotal(apiCount);
-        workspaceTotal.setCaseTotal(caseCount);
-        workspaceTotal.setMemberTotal(dmUserList.size());
-
-
-
-        return workspaceTotal;
-    }
 
 }

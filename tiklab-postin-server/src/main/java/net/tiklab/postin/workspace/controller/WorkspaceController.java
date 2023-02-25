@@ -2,9 +2,7 @@ package net.tiklab.postin.workspace.controller;
 
 import net.tiklab.postin.annotation.Api;
 import net.tiklab.postin.workspace.model.Workspace;
-import net.tiklab.postin.workspace.model.WorkspaceHomeTotal;
 import net.tiklab.postin.workspace.model.WorkspaceQuery;
-import net.tiklab.postin.workspace.model.WorkspaceTotal;
 import net.tiklab.postin.workspace.service.WorkspaceService;
 import net.tiklab.core.page.Pagination;
 import net.tiklab.core.Result;
@@ -110,22 +108,5 @@ public class WorkspaceController {
         return Result.ok(workspaceList);
     }
 
-    @RequestMapping(path="/findWorkspaceHomeTotal",method = RequestMethod.POST)
-    @ApiMethod(name = "findWorkspaceHomeTotal",desc = "根据userID查找首页中的空间概要")
-    @ApiParam(name = "userId",desc = "userID",required = true)
-    public Result<WorkspaceHomeTotal> findWorkspaceHomeTotal(@NotNull String userId){
-        WorkspaceHomeTotal workspace = workspaceService.findWorkspaceHomeTotal(userId);
-
-        return Result.ok(workspace);
-    }
-
-    @RequestMapping(path="/findWorkspaceTotal",method = RequestMethod.POST)
-    @ApiMethod(name = "findWorkspaceTotal",desc = "根据空间ID查找单个空间中概要")
-    @ApiParam(name = "id",desc = "空间ID",required = true)
-    public Result<WorkspaceTotal> findWorkspaceTotal(@NotNull String id){
-        WorkspaceTotal workspace = workspaceService.findWorkspaceTotal(id);
-
-        return Result.ok(workspace);
-    }
 
 }

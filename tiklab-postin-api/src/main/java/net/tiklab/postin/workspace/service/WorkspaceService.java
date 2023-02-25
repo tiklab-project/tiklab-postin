@@ -1,8 +1,6 @@
 package net.tiklab.postin.workspace.service;
 
-import net.tiklab.postin.workspace.model.WorkspaceHomeTotal;
 import net.tiklab.postin.workspace.model.WorkspaceQuery;
-import net.tiklab.postin.workspace.model.WorkspaceTotal;
 import net.tiklab.core.page.Pagination;
 
 import net.tiklab.postin.workspace.model.Workspace;
@@ -82,19 +80,6 @@ public interface WorkspaceService {
      */
     List<Workspace> findWorkspaceJoinList(WorkspaceQuery workspaceQuery);
 
-    /**
-     * 查找home页的空间概况
-     * @param userId
-     * @return
-     */
-    WorkspaceHomeTotal findWorkspaceHomeTotal(@NotNull String userId);
 
-
-    /**
-     * 查找单个空间中概况
-     * @param id
-     * @return
-     */
-    WorkspaceTotal findWorkspaceTotal(@NotNull String id);
 
 }
