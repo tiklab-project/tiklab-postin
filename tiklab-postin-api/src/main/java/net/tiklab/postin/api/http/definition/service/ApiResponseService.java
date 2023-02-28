@@ -13,32 +13,32 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
-* 用户服务接口
+* 接口定义中响应区服务接口
 */
 @JoinProvider(model = ApiResponse.class)
 public interface ApiResponseService {
 
     /**
-    * 创建用户
+    * 创建接口定义中响应区
     * @param apiResponse
     * @return
     */
     String createApiResponse(@NotNull @Valid ApiResponse apiResponse);
 
     /**
-    * 更新用户
+    * 更新接口定义中响应区
     * @param apiResponse
     */
     void updateApiResponse(@NotNull @Valid ApiResponse apiResponse);
 
     /**
-    * 删除用户
+    * 删除接口定义中响应区
     * @param id
     */
     void deleteApiResponse(@NotNull String id);
 
     /**
-    * 查找用户
+    * 查找接口定义中响应区
     * @param id
     * @return
     */
@@ -46,21 +46,21 @@ public interface ApiResponseService {
     ApiResponse findApiResponse(@NotNull String id);
 
     /**
-    * 查找所有
+    * 查找接口定义中响应区
     * @return
     */
     @FindAll
     List<ApiResponse> findAllApiResponse();
 
     /**
-    * 查询列表
+    * 查询接口定义中响应区
     * @param apiResponseQuery
     * @return
     */
     List<ApiResponse> findApiResponseList(ApiResponseQuery apiResponseQuery);
 
     /**
-    * 按分页查询
+    * 按分页接口定义中响应区
     * @param apiResponseQuery
     * @return
     */

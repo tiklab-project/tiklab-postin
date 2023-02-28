@@ -8,6 +8,11 @@ import net.tiklab.dal.jpa.annotation.Table;
 
 import java.io.Serializable;
 
+/**
+ * 定义
+ * http协议
+ * 请求区 实体
+ */
 @Entity
 @Table(name="postin_http_request")
 public class ApiRequestEntity implements Serializable {
@@ -16,15 +21,19 @@ public class ApiRequestEntity implements Serializable {
     @Column(name = "id",length = 40)
     private String id;
 
+    //所属接口
     @Column(name = "http_id",length = 40)
     private String httpId;
 
+    //请求体类型
     @Column(name = "body_type",length = 32)
     private String bodyType;
 
+    //前置脚本
     @Column(name = "pre_script",length = 2048)
     private String preScript;
 
+    //后置脚本
     @Column(name = "after_script",length = 2048)
     private String afterScript;
 

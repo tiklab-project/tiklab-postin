@@ -27,9 +27,6 @@ import java.util.Map;
 
 import static net.tiklab.postin.common.MessageTemplateConstant.*;
 
-/**
-* BasedefServiceImpl
-*/
 @Service
 @Exporter
 public class ApixServiceImpl implements ApixService {

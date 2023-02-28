@@ -30,7 +30,7 @@ import java.util.stream.Collectors;
 import static net.tiklab.postin.common.MessageTemplateConstant.*;
 
 /**
-* 用户服务业务处理
+* 分类 服务
 */
 @Service
 public class CategoryServiceImpl implements CategoryService {

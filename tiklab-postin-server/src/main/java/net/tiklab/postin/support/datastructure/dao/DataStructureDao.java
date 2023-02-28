@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * DataStructureDao
+ * 数据结构 数据访问
  */
 @Repository
 public class DataStructureDao{
@@ -26,7 +26,7 @@ public class DataStructureDao{
     JpaTemplate jpaTemplate;
 
     /**
-     * 创建
+     * 创建数据结构
      * @param dataStructureEntity
      * @return
      */
@@ -35,7 +35,7 @@ public class DataStructureDao{
     }
 
     /**
-     * 更新
+     * 更新数据结构
      * @param dataStructureEntity
      */
     public void updateDataStructure(DataStructureEntity dataStructureEntity){
@@ -43,7 +43,7 @@ public class DataStructureDao{
     }
 
     /**
-     * 删除
+     * 删除数据结构
      * @param id
      */
     public void deleteDataStructure(String id){
@@ -55,7 +55,7 @@ public class DataStructureDao{
     }
 
     /**
-     * 查找
+     * 查找数据结构
      * @param id
      * @return
      */
@@ -64,7 +64,7 @@ public class DataStructureDao{
     }
 
     /**
-    * findAllDataStructure
+    * 查询所有数据结构
     * @return
     */
     public List<DataStructureEntity> findAllDataStructure() {
@@ -75,6 +75,11 @@ public class DataStructureDao{
         return jpaTemplate.findList(DataStructureEntity.class,idList);
     }
 
+    /**
+     * 根据查询对象查询数据结构
+     * @param dataStructureQuery
+     * @return
+     */
     public List<DataStructureEntity> findDataStructureList(DataStructureQuery dataStructureQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(DataStructureEntity.class)
                 .eq("workspaceId",dataStructureQuery.getWorkspaceId())
@@ -85,6 +90,11 @@ public class DataStructureDao{
         return jpaTemplate.findList(queryCondition, DataStructureEntity.class);
     }
 
+    /**
+     * 根据查询对象分页查询数据结构
+     * @param dataStructureQuery
+     * @return
+     */
     public Pagination<DataStructureEntity> findDataStructurePage(DataStructureQuery dataStructureQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(DataStructureEntity.class)
                 .eq("workspaceId",dataStructureQuery.getWorkspaceId())

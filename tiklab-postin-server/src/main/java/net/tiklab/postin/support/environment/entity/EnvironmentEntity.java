@@ -10,6 +10,9 @@ import net.tiklab.dal.jpa.annotation.Entity;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * 接口环境 实体
+ */
 @Entity
 @Table(name="postin_environment")
 public class EnvironmentEntity implements Serializable {
@@ -19,15 +22,19 @@ public class EnvironmentEntity implements Serializable {
     @Column(name = "id",length = 32)
     private String id;
 
+    // 名称
     @Column(name = "name",length = 64,notNull = true)
     private String name;
 
+    // 环境url
     @Column(name = "url",length = 256,notNull = true)
     private String url;
 
+    // 创建时间
     @Column(name = "create_time")
     private Date createTime;
 
+    // 更新时间
     @Column(name = "update_time")
     private Date updateTime;
 

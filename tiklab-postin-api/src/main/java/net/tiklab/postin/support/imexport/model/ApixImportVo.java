@@ -1,17 +1,28 @@
 package net.tiklab.postin.support.imexport.model;
 
+import net.tiklab.postin.annotation.ApiProperty;
+
+/**
+ * 接口导入 模型
+ */
 public class ApixImportVo {
 
+    @ApiProperty(name="methodId",desc="接口id")
     private String methodId;
 
+    @ApiProperty(name="categoryId",desc="目录ID")
     private String categoryId;
 
+    @ApiProperty(name="name",desc="名称")
     private String name;
 
+    @ApiProperty(name="requestType",desc="请求类型")
     private String requestType;
 
+    @ApiProperty(name="path",desc="路径")
     private String path;
 
+    @ApiProperty(name="desc",desc="描述")
     private String desc;
 
     public String getMethodId() {

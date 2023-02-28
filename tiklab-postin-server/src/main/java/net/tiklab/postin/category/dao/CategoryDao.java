@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * 用户数据操作
+ * 分类管理 数据访问
  */
 @Repository
 public class CategoryDao{
@@ -25,7 +25,7 @@ public class CategoryDao{
     JpaTemplate jpaTemplate;
 
     /**
-     * 创建用户
+     * 创建分类管理
      * @param categoryEntity
      * @return
      */
@@ -35,7 +35,7 @@ public class CategoryDao{
     }
 
     /**
-     * 更新用户
+     * 更新分类管理
      * @param categoryEntity
      */
     public void updateCategory(CategoryEntity categoryEntity){
@@ -43,7 +43,7 @@ public class CategoryDao{
     }
 
     /**
-     * 删除用户
+     * 删除分类管理
      * @param id
      */
     public void deleteCategory(String id){
@@ -51,7 +51,7 @@ public class CategoryDao{
     }
 
     /**
-     * 查找用户
+     * 查找分类管理
      * @param id
      * @return
      */
@@ -64,13 +64,18 @@ public class CategoryDao{
     }
 
     /**
-    * findAllCategory
+    * 查找所有分类
     * @return
     */
     public List<CategoryEntity> findAllCategory() {
         return jpaTemplate.findAll(CategoryEntity.class);
     }
 
+    /**
+     * 根据查询对象查找分类列表
+     * @param categoryQuery
+     * @return
+     */
     public List<CategoryEntity> findCategoryList(CategoryQuery categoryQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(CategoryEntity.class)
                 .eq("workspaceId", categoryQuery.getWorkspaceId())
@@ -82,6 +87,11 @@ public class CategoryDao{
         return jpaTemplate.findList(queryCondition, CategoryEntity.class);
     }
 
+    /**
+     * 根据查询对象查找分类列表树
+     * @param categoryQuery
+     * @return
+     */
     public Pagination<CategoryEntity> findCategoryPage(CategoryQuery categoryQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(CategoryEntity.class)
                 .eq("workspaceId", categoryQuery.getWorkspaceId())

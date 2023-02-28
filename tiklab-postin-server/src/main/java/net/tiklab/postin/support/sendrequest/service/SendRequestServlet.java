@@ -14,7 +14,7 @@ import java.io.IOException;
 
 
 /**
-* 用户服务业务处理
+* 拦截request接口，发送请求
 */
 @WebServlet(name = "request",urlPatterns = "/request")
 public class SendRequestServlet extends HttpServlet {
@@ -38,6 +38,12 @@ public class SendRequestServlet extends HttpServlet {
     RouteDispatchForText routeDispatchForText;
 
 
+    /**
+     * 获取post请求 根据不同的media类型进行转发
+     * @param request
+     * @param response
+     * @throws IOException
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 

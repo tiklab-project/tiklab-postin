@@ -15,7 +15,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * 用户数据操作
+ * 定义
+ * http协议
+ * 请求中raw 数据访问
  */
 @Repository
 public class RawParamDao{
@@ -26,7 +28,7 @@ public class RawParamDao{
     JpaTemplate jpaTemplate;
 
     /**
-     * 创建用户
+     * 创建请求中raw
      * @param rawParamEntity
      * @return
      */
@@ -35,7 +37,7 @@ public class RawParamDao{
     }
 
     /**
-     * 更新用户
+     * 更新请求中raw
      * @param rawParamEntity
      */
     public void updateRawParam(RawParamEntity rawParamEntity){
@@ -43,7 +45,7 @@ public class RawParamDao{
     }
 
     /**
-     * 删除用户
+     * 删除请求中raw
      * @param id
      */
     public void deleteRawParam(String id){
@@ -51,7 +53,7 @@ public class RawParamDao{
     }
 
     /**
-     * 通过条件删除
+     * 通过条件删除请求中raw
      * @param deleteCondition
      */
     public void deleteRawParamlist(DeleteCondition deleteCondition){
@@ -59,7 +61,7 @@ public class RawParamDao{
     }
 
     /**
-     * 查找用户
+     * 查找请求中raw
      * @param id
      * @return
      */
@@ -68,13 +70,18 @@ public class RawParamDao{
     }
 
     /**
-    * findAllRawParam
+    * 查找所有请求中raw
     * @return
     */
     public List<RawParamEntity> findAllRawParam() {
         return jpaTemplate.findAll(RawParamEntity.class);
     }
 
+    /**
+     * 根据查询参数查找请求中raw列表
+     * @param rawParamQuery
+     * @return
+     */
     public List<RawParamEntity> findRawParamList(RawParamQuery rawParamQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(RawParamEntity.class)
                 .eq("httpId", rawParamQuery.getHttpId())
@@ -83,6 +90,11 @@ public class RawParamDao{
         return jpaTemplate.findList(queryCondition, RawParamEntity.class);
     }
 
+    /**
+     * 根据查询参数按分页查找请求中raw列表
+     * @param rawParamQuery
+     * @return
+     */
     public Pagination<RawParamEntity> findRawParamPage(RawParamQuery rawParamQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(RawParamEntity.class)
                 .eq("httpId", rawParamQuery.getHttpId())

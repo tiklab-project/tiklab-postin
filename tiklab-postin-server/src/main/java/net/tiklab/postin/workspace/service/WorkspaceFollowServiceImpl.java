@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
-* WorkspaceFollowServiceImpl
+* 空间关注 服务
 */
 @Service
 public class WorkspaceFollowServiceImpl implements WorkspaceFollowService {

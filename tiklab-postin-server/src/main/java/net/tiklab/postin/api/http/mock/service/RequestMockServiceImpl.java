@@ -16,8 +16,9 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
-* 用户服务业务处理
-*/
+ * mock
+ * 请求体 服务
+ */
 @Service
 public class RequestMockServiceImpl implements RequestMockService {
 

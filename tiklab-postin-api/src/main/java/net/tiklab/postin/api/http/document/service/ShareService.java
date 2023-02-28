@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
-* ShareService
+* 分享 服务模型
 */
 @JoinProvider(model = Share.class)
 public interface ShareService {

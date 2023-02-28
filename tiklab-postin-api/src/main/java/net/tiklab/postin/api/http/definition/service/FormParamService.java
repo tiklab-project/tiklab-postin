@@ -12,53 +12,53 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
-* 用户服务接口
+* formdata服务接口
 */
 @JoinProvider(model = FormParam.class)
 public interface FormParamService {
 
     /**
-    * 创建用户
+    * 创建formdata
     * @param formParam
     * @return
     */
     String createFormParam(@NotNull @Valid FormParam formParam);
 
     /**
-    * 更新用户
+    * 更新formdata
     * @param formParam
     */
     void updateFormParam(@NotNull @Valid FormParam formParam);
 
     /**
-    * 删除用户
+    * 删除formdata
     * @param id
     */
     void deleteFormParam(@NotNull String id);
 
     /**
-    * 查找用户
+    * 查找formdata
     * @param id
     * @return
     */
     FormParam findFormParam(@NotNull String id);
 
     /**
-    * 查找所有
+    * 查找所有formdata
     * @return
     */
     @FindAll
     List<FormParam> findAllFormParam();
 
     /**
-    * 查询列表
+    * 查询列表formdata
     * @param formParamQuery
     * @return
     */
     List<FormParam> findFormParamList(FormParamQuery formParamQuery);
 
     /**
-    * 按分页查询
+    * 按分页formdata
     * @param formParamQuery
     * @return
     */

@@ -18,7 +18,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
-* 用户服务业务处理
+* 接口环境 服务
 */
 @Service
 public class EnvironmentServiceImpl implements EnvironmentService {

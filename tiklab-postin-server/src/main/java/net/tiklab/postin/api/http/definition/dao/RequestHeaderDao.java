@@ -15,7 +15,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * 用户数据操作
+ * 定义
+ * http协议
+ * 请求头 数据访问
  */
 @Repository
 public class RequestHeaderDao{
@@ -26,7 +28,7 @@ public class RequestHeaderDao{
     JpaTemplate jpaTemplate;
 
     /**
-     * 创建用户
+     * 创建请求头
      * @param requestHeaderEntity
      * @return
      */
@@ -35,7 +37,7 @@ public class RequestHeaderDao{
     }
 
     /**
-     * 更新用户
+     * 更新请求头
      * @param requestHeaderEntity
      */
     public void updateRequestHeader(RequestHeaderEntity requestHeaderEntity){
@@ -43,7 +45,7 @@ public class RequestHeaderDao{
     }
 
     /**
-     * 删除用户
+     * 删除请求头
      * @param id
      */
     public void deleteRequestHeader(String id){
@@ -51,7 +53,7 @@ public class RequestHeaderDao{
     }
 
     /**
-     * 通过条件删除
+     * 通过条件删除请求头
      * @param deleteCondition
      */
     public void deleteRequestHeaderList(DeleteCondition deleteCondition){
@@ -59,7 +61,7 @@ public class RequestHeaderDao{
     }
 
     /**
-     * 查找用户
+     * 查找请求头
      * @param id
      * @return
      */
@@ -68,13 +70,18 @@ public class RequestHeaderDao{
     }
 
     /**
-    * findAllRequestHeader
+    * 查找所有请求头
     * @return
     */
     public List<RequestHeaderEntity> findAllRequestHeader() {
         return jpaTemplate.findAll(RequestHeaderEntity.class);
     }
 
+    /**
+     * 根据查询参数查找请求头列表
+     * @param requestHeaderQuery
+     * @return
+     */
     public List<RequestHeaderEntity> findRequestHeaderList(RequestHeaderQuery requestHeaderQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(RequestHeaderEntity.class)
                 .eq("httpId", requestHeaderQuery.getHttpId())
@@ -84,6 +91,11 @@ public class RequestHeaderDao{
         return jpaTemplate.findList(queryCondition, RequestHeaderEntity.class);
     }
 
+    /**
+     * 根据查询参数按分页查找请求头列表
+     * @param requestHeaderQuery
+     * @return
+     */
     public Pagination<RequestHeaderEntity> findRequestHeaderPage(RequestHeaderQuery requestHeaderQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(RequestHeaderEntity.class)
                 .eq("httpId", requestHeaderQuery.getHttpId())

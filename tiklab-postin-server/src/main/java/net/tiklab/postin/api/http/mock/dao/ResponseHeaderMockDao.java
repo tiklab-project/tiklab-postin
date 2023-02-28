@@ -14,7 +14,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * 用户数据操作
+ * mock
+ * 响应头 数据访问
  */
 @Repository
 public class ResponseHeaderMockDao{
@@ -25,7 +26,7 @@ public class ResponseHeaderMockDao{
     JpaTemplate jpaTemplate;
 
     /**
-     * 创建用户
+     * 创建响应头
      * @param responseHeaderMockEntity
      * @return
      */
@@ -34,7 +35,7 @@ public class ResponseHeaderMockDao{
     }
 
     /**
-     * 更新用户
+     * 更新响应头
      * @param responseHeaderMockEntity
      */
     public void updateResponseHeaderMock(ResponseHeaderMockEntity responseHeaderMockEntity){
@@ -42,7 +43,7 @@ public class ResponseHeaderMockDao{
     }
 
     /**
-     * 删除用户
+     * 删除响应头
      * @param id
      */
     public void deleteResponseHeaderMock(String id){
@@ -50,7 +51,7 @@ public class ResponseHeaderMockDao{
     }
 
     /**
-     * 查找用户
+     * 根据id查询响应头
      * @param id
      * @return
      */
@@ -59,13 +60,18 @@ public class ResponseHeaderMockDao{
     }
 
     /**
-    * findAllResponseHeaderMock
+    * 查询所有响应头
     * @return
     */
     public List<ResponseHeaderMockEntity> findAllResponseHeaderMock() {
         return jpaTemplate.findAll(ResponseHeaderMockEntity.class);
     }
 
+    /**
+     * 根据查询参数查找响应头
+     * @param responseHeaderMockQuery
+     * @return
+     */
     public List<ResponseHeaderMockEntity> findResponseHeaderMockList(ResponseHeaderMockQuery responseHeaderMockQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(ResponseHeaderMockEntity.class)
                 .eq("mockId", responseHeaderMockQuery.getMockId())
@@ -74,6 +80,11 @@ public class ResponseHeaderMockDao{
         return jpaTemplate.findList(queryCondition, ResponseHeaderMockEntity.class);
     }
 
+    /**
+     * 根据查询参数按分页查找响应头
+     * @param responseHeaderMockQuery
+     * @return
+     */
     public Pagination<ResponseHeaderMockEntity> findResponseHeaderMockPage(ResponseHeaderMockQuery responseHeaderMockQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(ResponseHeaderMockEntity.class)
                 .eq("mockId", responseHeaderMockQuery.getMockId())

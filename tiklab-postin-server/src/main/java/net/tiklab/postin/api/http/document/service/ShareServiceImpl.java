@@ -32,7 +32,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
-* ShareServiceImpl
+* 分享 服务
 */
 @Service
 public class ShareServiceImpl implements ShareService {

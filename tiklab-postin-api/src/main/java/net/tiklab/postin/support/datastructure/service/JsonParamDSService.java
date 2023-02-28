@@ -14,26 +14,26 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
-* JsonParamDSService
+* json结构 服务接口
 */
 @JoinProvider(model = JsonParamDS.class)
 public interface JsonParamDSService {
 
     /**
-    * 创建
+    * 创建json结构
     * @param jsonParamDS
     * @return
     */
     String createJsonParamDS(@NotNull @Valid JsonParamDS jsonParamDS);
 
     /**
-    * 更新
+    * 更新json结构
     * @param jsonParamDS
     */
     void updateJsonParamDS(@NotNull @Valid JsonParamDS jsonParamDS);
 
     /**
-    * 删除
+    * 删除json结构
     * @param id
     */
     void deleteJsonParamDS(@NotNull String id);
@@ -43,32 +43,33 @@ public interface JsonParamDSService {
     List<JsonParamDS> findList(List<String> idList);
 
     /**
-    * 查找
+    * 查找json结构
     * @param id
     * @return
     */
     JsonParamDS findJsonParamDS(@NotNull String id);
 
     /**
-    * 查找所有
+    * 查找所有json结构
     * @return
     */
     @FindAll
     List<JsonParamDS> findAllJsonParamDS();
 
     /**
-    * 查询列表
+    * 查询列表json结构
     * @param jsonParamDSQuery
     * @return
     */
     List<JsonParamDS> findJsonParamDSList(JsonParamDSQuery jsonParamDSQuery);
 
     /**
-    * 按分页查询
+    * 按分页查询json结构
     * @param jsonParamDSQuery
     * @return
     */
     Pagination<JsonParamDS> findJsonParamDSPage(JsonParamDSQuery jsonParamDSQuery);
+
     /**
      * 查询json数据结构树
      * @param jsonParamDSQuery

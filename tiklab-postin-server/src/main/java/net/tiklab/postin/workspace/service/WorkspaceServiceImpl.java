@@ -40,7 +40,7 @@ import java.util.*;
 import static net.tiklab.postin.common.MessageTemplateConstant.*;
 
 /**
-* 用户服务业务处理
+* 空间服务
 */
 @Service
 public class WorkspaceServiceImpl implements WorkspaceService {

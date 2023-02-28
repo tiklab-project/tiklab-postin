@@ -1,16 +1,28 @@
 package net.tiklab.postin.support.imexport.model;
 
+import net.tiklab.postin.annotation.ApiProperty;
+
+/**
+ * 导入
+ * form-url 模型
+ */
 public class FormUrlencodedImportVo {
+    @ApiProperty(name="methodId",desc="接口Id")
     private String methodId;
 
+    @ApiProperty(name="name",desc="参数名")
     private String name;
 
+    @ApiProperty(name="value",desc="示例值")
     private String value;
 
+    @ApiProperty(name="type",desc="数据类型")
     private String dataType;
 
+    @ApiProperty(name="desc",desc="描述")
     private int required;
 
+    @ApiProperty(name="required",desc="必选")
     private String desc;
 
     public String getMethodId() {

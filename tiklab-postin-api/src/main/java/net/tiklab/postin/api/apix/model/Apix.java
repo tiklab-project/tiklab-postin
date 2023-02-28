@@ -38,16 +38,16 @@ public class Apix extends BaseModel{
     @IndexField
     private Category category;
 
-    @ApiProperty(name="name",desc="name",required = true)
+    @ApiProperty(name="name",desc="接口名称",required = true)
     @IndexField
     @IndexQueryField
     private java.lang.String name;
 
-    @ApiProperty(name="protocolType",desc="protocolType",required = true)
+    @ApiProperty(name="protocolType",desc="协议类型",required = true)
     @IndexField
     private java.lang.String protocolType;
 
-    @ApiProperty(name="methodType",desc="methodType",required = true)
+    @ApiProperty(name="methodType",desc="请求类型",required = true)
     @IndexField
     private java.lang.String methodType;
 
@@ -65,11 +65,11 @@ public class Apix extends BaseModel{
     @JoinQuery(key = "id")
     private User updateUser;
 
-    @ApiProperty(name="createTime",desc="createTime")
+    @ApiProperty(name="createTime",desc="创建时间")
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private java.sql.Timestamp createTime;
 
-    @ApiProperty(name="updateTime",desc="updateTime")
+    @ApiProperty(name="updateTime",desc="更新时间")
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private java.sql.Timestamp updateTime;
 
@@ -88,10 +88,10 @@ public class Apix extends BaseModel{
     @JoinQuery(key = "id")
     private User executor;
 
-    @ApiProperty(name="desc",desc="desc")
+    @ApiProperty(name="desc",desc="描述")
     private java.lang.String desc;
 
-    @ApiProperty(name="workspaceId",desc="workspaceId")
+    @ApiProperty(name="workspaceId",desc="所属空间")
     private String workspaceId;
 
     @ApiProperty(name="version",desc="版本")

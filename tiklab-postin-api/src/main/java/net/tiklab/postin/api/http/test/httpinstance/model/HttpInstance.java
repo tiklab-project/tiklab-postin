@@ -18,6 +18,9 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * http实例 模型
+ */
 @ApiModel
 @Join
 @Mapper(targetAlias = "HttpInstanceEntity")

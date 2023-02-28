@@ -11,7 +11,9 @@ import net.tiklab.join.annotation.JoinQuery;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import net.tiklab.user.user.model.User;
 
-
+/**
+ * 最近访问空间 模型
+ */
 @ApiModel
 @Join
 @Mapper(targetAlias = "WorkspaceRecentEntity")

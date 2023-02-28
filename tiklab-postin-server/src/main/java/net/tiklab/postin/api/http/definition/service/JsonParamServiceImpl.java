@@ -19,7 +19,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
-* 用户服务业务处理
+ * 定义
+ * http协议
+ * 请求中json服务
 */
 @Service
 public class JsonParamServiceImpl implements JsonParamService {

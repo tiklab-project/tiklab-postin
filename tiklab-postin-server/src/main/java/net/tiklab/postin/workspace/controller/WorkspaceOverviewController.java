@@ -16,8 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.constraints.NotNull;
 
 /**
- * ManagerController
- * Created by Zhangzhihua on 2017/9/25.
+ * 空间里概况 控制器
  */
 @RestController
 @RequestMapping("/workspace")

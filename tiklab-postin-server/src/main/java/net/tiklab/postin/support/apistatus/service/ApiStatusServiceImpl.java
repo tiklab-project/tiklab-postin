@@ -17,7 +17,7 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
-* ApiStatusServiceImpl
+* 接口状态 服务
 */
 @Service
 public class ApiStatusServiceImpl implements ApiStatusService {

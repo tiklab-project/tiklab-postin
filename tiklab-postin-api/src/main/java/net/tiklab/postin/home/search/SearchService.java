@@ -8,7 +8,7 @@ import net.tiklab.dss.common.model.TopResponse;
 import java.util.Map;
 
 /**
-* 用户服务接口
+* 头部搜索服务接口
 */
 public interface SearchService {
 

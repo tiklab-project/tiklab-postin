@@ -14,7 +14,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * 用户数据操作
+ * mock
+ * 响应 数据访问
  */
 @Repository
 public class ResponseMockDao{
@@ -25,7 +26,7 @@ public class ResponseMockDao{
     JpaTemplate jpaTemplate;
 
     /**
-     * 创建用户
+     * 创建响应管理
      * @param responseMockEntity
      * @return
      */
@@ -34,7 +35,7 @@ public class ResponseMockDao{
     }
 
     /**
-     * 更新用户
+     * 更新响应管理
      * @param responseMockEntity
      */
     public void updateResponseMock(ResponseMockEntity responseMockEntity){
@@ -42,7 +43,7 @@ public class ResponseMockDao{
     }
 
     /**
-     * 删除用户
+     * 删除响应管理
      * @param id
      */
     public void deleteResponseMock(String id){
@@ -50,7 +51,7 @@ public class ResponseMockDao{
     }
 
     /**
-     * 查找用户
+     * 查找响应管理
      * @param id
      * @return
      */
@@ -59,13 +60,18 @@ public class ResponseMockDao{
     }
 
     /**
-    * findAllResponseMock
+    * 查找所有响应管理
     * @return
     */
     public List<ResponseMockEntity> findAllResponseMock() {
         return jpaTemplate.findAll(ResponseMockEntity.class);
     }
 
+    /**
+     * 根据查询参数查找响应管理
+     * @param responseMockQuery
+     * @return
+     */
     public List<ResponseMockEntity> findResponseMockList(ResponseMockQuery responseMockQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(ResponseMockEntity.class)
                 .eq("mockId", responseMockQuery.getMockId())
@@ -74,6 +80,11 @@ public class ResponseMockDao{
         return jpaTemplate.findList(queryCondition, ResponseMockEntity.class);
     }
 
+    /**
+     * 根据查询参数按分页查找响应管理
+     * @param responseMockQuery
+     * @return
+     */
     public Pagination<ResponseMockEntity> findResponseMockPage(ResponseMockQuery responseMockQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(ResponseMockEntity.class)
                 .eq("mockId", responseMockQuery.getMockId())

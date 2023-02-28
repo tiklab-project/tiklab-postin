@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * ApiStatusDao
+ * 接口状态 数据访问
  */
 @Repository
 public class ApiStatusDao{
@@ -26,7 +26,7 @@ public class ApiStatusDao{
     JpaTemplate jpaTemplate;
 
     /**
-     * 创建
+     * 创建接口状态
      * @param apiStatusEntity
      * @return
      */
@@ -35,7 +35,7 @@ public class ApiStatusDao{
     }
 
     /**
-     * 更新
+     * 更新接口状态
      * @param apiStatusEntity
      */
     public void updateApiStatus(ApiStatusEntity apiStatusEntity){
@@ -43,7 +43,7 @@ public class ApiStatusDao{
     }
 
     /**
-     * 删除
+     * 删除接口状态
      * @param id
      */
     public void deleteApiStatus(String id){
@@ -55,7 +55,7 @@ public class ApiStatusDao{
     }
 
     /**
-     * 查找
+     * 查找接口状态
      * @param id
      * @return
      */
@@ -64,7 +64,7 @@ public class ApiStatusDao{
     }
 
     /**
-    * findAllApiStatus
+    * 查找所有接口状态
     * @return
     */
     public List<ApiStatusEntity> findAllApiStatus() {
@@ -75,6 +75,11 @@ public class ApiStatusDao{
         return jpaTemplate.findList(ApiStatusEntity.class,idList);
     }
 
+    /**
+     * 根据查询参数查找接口状态
+     * @param apiStatusQuery
+     * @return
+     */
     public List<ApiStatusEntity> findApiStatusList(ApiStatusQuery apiStatusQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(ApiStatusEntity.class)
                 .eq("workspaceId",apiStatusQuery.getWorkspaceId())
@@ -84,6 +89,11 @@ public class ApiStatusDao{
         return jpaTemplate.findList(queryCondition,ApiStatusEntity.class);
     }
 
+    /**
+     * 根据查询参数按分页查找接口状态
+     * @param apiStatusQuery
+     * @return
+     */
     public Pagination<ApiStatusEntity> findApiStatusPage(ApiStatusQuery apiStatusQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(ApiStatusEntity.class)
                 .eq("workspaceId",apiStatusQuery.getWorkspaceId())

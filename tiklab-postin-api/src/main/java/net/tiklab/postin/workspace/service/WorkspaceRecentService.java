@@ -11,25 +11,25 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
-* WorkspaceRecentService
+* 最近访问空间 服务接口
 */
 public interface WorkspaceRecentService {
 
     /**
-    * 创建
+    * 创建最近访问空间
     * @param workspaceRecent
     * @return
     */
     String createWorkspaceRecent(@NotNull @Valid WorkspaceRecent workspaceRecent);
 
     /**
-    * 更新
+    * 更新最近访问空间
     * @param workspaceRecent
     */
     void updateWorkspaceRecent(@NotNull @Valid WorkspaceRecent workspaceRecent);
 
     /**
-    * 删除
+    * 删除最近访问空间
     * @param id
     */
     void deleteWorkspaceRecent(@NotNull String id);
@@ -39,14 +39,14 @@ public interface WorkspaceRecentService {
     List<WorkspaceRecent> findList(List<String> idList);
 
     /**
-    * 查找
+    * 查找最近访问空间
     * @param id
     * @return
     */
     WorkspaceRecent findWorkspaceRecent(@NotNull String id);
 
     /**
-    * 查找所有
+    * 查找所有最近访问空间
     * @return
     */
     List<WorkspaceRecent> findAllWorkspaceRecent();
@@ -67,7 +67,7 @@ public interface WorkspaceRecentService {
 
 
     /**
-    * 按分页查询
+    * 按分页查询最近访问空间
     * @param workspaceRecentQuery
     * @return
     */

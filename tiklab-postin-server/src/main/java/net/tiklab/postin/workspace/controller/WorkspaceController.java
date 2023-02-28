@@ -22,8 +22,7 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
- * ManagerController
- * Created by Zhangzhihua on 2017/9/25.
+ * 空间 控制器
  */
 @RestController
 @RequestMapping("/workspace")

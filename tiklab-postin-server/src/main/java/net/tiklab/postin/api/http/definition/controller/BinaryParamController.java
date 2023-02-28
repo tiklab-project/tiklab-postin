@@ -22,7 +22,7 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
- * BinaryParamController
+ * binary参数控制器
  */
 @RestController
 @RequestMapping("/binaryParam")

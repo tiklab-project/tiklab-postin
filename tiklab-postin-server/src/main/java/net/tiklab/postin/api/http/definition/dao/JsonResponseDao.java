@@ -16,7 +16,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * 用户数据操作
+ * 定义
+ * http协议
+ * 响应json 数据访问
  */
 @Repository
 public class JsonResponseDao {
@@ -27,7 +29,7 @@ public class JsonResponseDao {
     JpaTemplate jpaTemplate;
 
     /**
-     * 创建用户
+     * 创建响应json
      * @param jsonResponseEntity
      * @return
      */
@@ -40,7 +42,7 @@ public class JsonResponseDao {
     }
 
     /**
-     * 更新用户
+     * 更新响应json
      * @param jsonResponseEntity
      */
     public void updateJsonResponse(JsonResponseEntity jsonResponseEntity){
@@ -48,7 +50,7 @@ public class JsonResponseDao {
     }
 
     /**
-     * 删除用户
+     * 删除响应json
      * @param id
      */
     public void deleteJsonResponse(String id){
@@ -56,7 +58,7 @@ public class JsonResponseDao {
     }
 
     /**
-     * 通过条件删除
+     * 通过条件删除响应json
      * @param deleteCondition
      */
     public void deleteJsonResponseList(DeleteCondition deleteCondition){
@@ -64,7 +66,7 @@ public class JsonResponseDao {
     }
 
     /**
-     * 查找用户
+     * 查找响应json
      * @param id
      * @return
      */
@@ -73,13 +75,18 @@ public class JsonResponseDao {
     }
 
     /**
-    * findAllJsonResponse
+    * 查找所有响应json
     * @return
     */
     public List<JsonResponseEntity> findAllJsonResponse() {
         return jpaTemplate.findAll(JsonResponseEntity.class);
     }
 
+    /**
+     * 根据查询参数查找响应json列表
+     * @param jsonResponseQuery
+     * @return
+     */
     public List<JsonResponseEntity> findJsonResponseList(JsonResponseQuery jsonResponseQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(JsonResponseEntity.class)
                 .eq("httpId", jsonResponseQuery.getHttpId())
@@ -88,6 +95,11 @@ public class JsonResponseDao {
         return jpaTemplate.findList(queryCondition, JsonResponseEntity.class);
     }
 
+    /**
+     * 根据查询参数按分页查找响应json列表
+     * @param jsonResponseQuery
+     * @return
+     */
     public Pagination<JsonResponseEntity> findJsonResponsePage(JsonResponseQuery jsonResponseQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(JsonResponseEntity.class)
                 .eq("httpId", jsonResponseQuery.getHttpId())

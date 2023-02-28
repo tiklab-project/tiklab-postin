@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * EnumParamDao
+ * enum类型的数据结构 数据访问
  */
 @Repository
 public class EnumParamDao{
@@ -26,7 +26,7 @@ public class EnumParamDao{
     JpaTemplate jpaTemplate;
 
     /**
-     * 创建
+     * 创建enum类型的数据结构
      * @param enumParamEntity
      * @return
      */
@@ -35,7 +35,7 @@ public class EnumParamDao{
     }
 
     /**
-     * 更新
+     * 更新enum类型的数据结构
      * @param enumParamEntity
      */
     public void updateEnumParam(EnumParamEntity enumParamEntity){
@@ -43,7 +43,7 @@ public class EnumParamDao{
     }
 
     /**
-     * 删除
+     * 删除enum类型的数据结构
      * @param id
      */
     public void deleteEnumParam(String id){
@@ -55,7 +55,7 @@ public class EnumParamDao{
     }
 
     /**
-     * 查找
+     * 查找enum类型的数据结构
      * @param id
      * @return
      */
@@ -64,7 +64,7 @@ public class EnumParamDao{
     }
 
     /**
-    * findAllEnumParam
+    * 查询所有枚举类型内容
     * @return
     */
     public List<EnumParamEntity> findAllEnumParam() {
@@ -75,6 +75,11 @@ public class EnumParamDao{
         return jpaTemplate.findList(EnumParamEntity.class,idList);
     }
 
+    /**
+     * 根据查询对象 查询枚举类型内容
+     * @param enumParamQuery
+     * @return
+     */
     public List<EnumParamEntity> findEnumParamList(EnumParamQuery enumParamQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(EnumParamEntity.class)
                 .eq("dataStructureId", enumParamQuery.getDataStructureId())
@@ -83,6 +88,11 @@ public class EnumParamDao{
         return jpaTemplate.findList(queryCondition, EnumParamEntity.class);
     }
 
+    /**
+     * 根据查询对象查询枚举类型数据结构内容
+     * @param enumParamQuery
+     * @return
+     */
     public Pagination<EnumParamEntity> findEnumParamPage(EnumParamQuery enumParamQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(EnumParamEntity.class)
                 .eq("dataStructureId", enumParamQuery.getDataStructureId())

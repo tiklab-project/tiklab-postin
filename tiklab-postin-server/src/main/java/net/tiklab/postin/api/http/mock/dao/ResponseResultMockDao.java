@@ -14,7 +14,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * 用户数据操作
+ * mock
+ * 响应结果 数据访问
  */
 @Repository
 public class ResponseResultMockDao {
@@ -25,7 +26,7 @@ public class ResponseResultMockDao {
     JpaTemplate jpaTemplate;
 
     /**
-     * 创建用户
+     * 创建响应结果
      * @param responseResultMockEntity
      * @return
      */
@@ -34,7 +35,7 @@ public class ResponseResultMockDao {
     }
 
     /**
-     * 更新用户
+     * 更新响应结果
      * @param responseResultMockEntity
      */
     public void updateResponseResultMock(ResponseResultMockEntity responseResultMockEntity){
@@ -42,7 +43,7 @@ public class ResponseResultMockDao {
     }
 
     /**
-     * 删除用户
+     * 删除响应结果
      * @param id
      */
     public void deleteResponseResultMock(String id){
@@ -50,7 +51,7 @@ public class ResponseResultMockDao {
     }
 
     /**
-     * 查找用户
+     * 查找响应结果
      * @param id
      * @return
      */
@@ -59,13 +60,18 @@ public class ResponseResultMockDao {
     }
 
     /**
-    * findAllResponseResultMock
+    * 查找所有响应结果
     * @return
     */
     public List<ResponseResultMockEntity> findAllResponseResultMock() {
         return jpaTemplate.findAll(ResponseResultMockEntity.class);
     }
 
+    /**
+     * 根据查询参数查找响应结果
+     * @param responseResultMockQuery
+     * @return
+     */
     public List<ResponseResultMockEntity> findResponseResultMockList(ResponseResultMockQuery responseResultMockQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(ResponseResultMockEntity.class)
                 .eq("mockId", responseResultMockQuery.getMockId())
@@ -74,6 +80,11 @@ public class ResponseResultMockDao {
         return jpaTemplate.findList(queryCondition, ResponseResultMockEntity.class);
     }
 
+    /**
+     * 根据查询参数按分页查找响应结果
+     * @param responseResultMockQuery
+     * @return
+     */
     public Pagination<ResponseResultMockEntity> findResponseResultMockPage(ResponseResultMockQuery responseResultMockQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(ResponseResultMockEntity.class)
                 .eq("mockId", responseResultMockQuery.getMockId())

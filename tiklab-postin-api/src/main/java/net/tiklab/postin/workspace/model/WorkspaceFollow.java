@@ -13,6 +13,9 @@ import net.tiklab.user.user.model.User;
 
 import javax.validation.constraints.NotNull;
 
+/**
+ * 空间关注 模型
+ */
 @ApiModel
 @Join
 @Mapper(targetAlias = "WorkspaceFollowEntity")

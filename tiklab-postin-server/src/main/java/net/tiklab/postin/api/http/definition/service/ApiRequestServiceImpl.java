@@ -18,8 +18,10 @@ import java.util.List;
 
 
 /**
-* ApiRequestServiceImpl
-*/
+ * 定义
+ * http协议
+ * 请求区服务
+ */
 @Service
 public class ApiRequestServiceImpl implements ApiRequestService {
 

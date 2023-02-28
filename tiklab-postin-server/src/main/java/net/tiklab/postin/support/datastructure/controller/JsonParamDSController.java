@@ -21,7 +21,7 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
- * JsonParamDSController
+ * json 类型的数据结构  控制器
  */
 @RestController
 @RequestMapping("/jsonParamDS")

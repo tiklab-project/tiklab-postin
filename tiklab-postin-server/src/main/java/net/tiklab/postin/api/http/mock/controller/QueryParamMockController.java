@@ -22,8 +22,8 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
- * ManagerController
- * Created by Zhangzhihua on 2017/9/25.
+ * mock
+ * query查询参数 控制器
  */
 @RestController
 @RequestMapping("/queryParamMock")
@@ -36,7 +36,7 @@ public class QueryParamMockController {
     private QueryParamMockService queryParamMockService;
 
     @RequestMapping(path="/createQueryParamMock",method = RequestMethod.POST)
-    @ApiMethod(name = "createQueryParamMock",desc = "createQueryParamMock")
+    @ApiMethod(name = "createQueryParamMock",desc = "创建query参数")
     @ApiParam(name = "queryParamMock",desc = "queryParamMock",required = true)
     public Result<String> createQueryParamMock(@RequestBody @NotNull @Valid QueryParamMock queryParamMock){
         String id = queryParamMockService.createQueryParamMock(queryParamMock);
@@ -45,7 +45,7 @@ public class QueryParamMockController {
     }
 
     @RequestMapping(path="/updateQueryParamMock",method = RequestMethod.POST)
-    @ApiMethod(name = "updateQueryParamMock",desc = "updateQueryParamMock")
+    @ApiMethod(name = "updateQueryParamMock",desc = "更新query参数")
     @ApiParam(name = "queryParamMock",desc = "queryParamMock",required = true)
     public Result<Void> updateQueryParamMock(@RequestBody @NotNull @Valid QueryParamMock queryParamMock){
         queryParamMockService.updateQueryParamMock(queryParamMock);
@@ -54,7 +54,7 @@ public class QueryParamMockController {
     }
 
     @RequestMapping(path="/deleteQueryParamMock",method = RequestMethod.POST)
-    @ApiMethod(name = "deleteQueryParamMock",desc = "deleteQueryParamMock")
+    @ApiMethod(name = "deleteQueryParamMock",desc = "删除query参数")
     @ApiParam(name = "id",desc = "id",required = true)
     public Result<Void> deleteQueryParamMock(@NotNull String id){
         queryParamMockService.deleteQueryParamMock(id);
@@ -63,7 +63,7 @@ public class QueryParamMockController {
     }
 
     @RequestMapping(path="/findQueryParamMock",method = RequestMethod.POST)
-    @ApiMethod(name = "findQueryParamMock",desc = "findQueryParamMock")
+    @ApiMethod(name = "findQueryParamMock",desc = "通过Id查询query参数")
     @ApiParam(name = "id",desc = "id",required = true)
     public Result<QueryParamMock> findQueryParamMock(@NotNull String id){
         QueryParamMock queryParamMock = queryParamMockService.findQueryParamMock(id);
@@ -72,7 +72,7 @@ public class QueryParamMockController {
     }
 
     @RequestMapping(path="/findAllQueryParamMock",method = RequestMethod.POST)
-    @ApiMethod(name = "findAllQueryParamMock",desc = "findAllQueryParamMock")
+    @ApiMethod(name = "findAllQueryParamMock",desc = "查找所有query参数")
     public Result<List<QueryParamMock>> findAllQueryParamMock(){
         List<QueryParamMock> queryParamMockList = queryParamMockService.findAllQueryParamMock();
 
@@ -81,7 +81,7 @@ public class QueryParamMockController {
 
 
     @RequestMapping(path = "/findQueryParamMockList",method = RequestMethod.POST)
-    @ApiMethod(name = "findQueryParamMockList",desc = "findQueryParamMockList")
+    @ApiMethod(name = "findQueryParamMockList",desc = "通过查询参数查找query列表")
     @ApiParam(name = "queryParamMockQuery",desc = "queryParamMockQuery",required = true)
     public Result<List<QueryParamMock>> findQueryParamMockList(@RequestBody @Valid @NotNull QueryParamMockQuery queryParamMockQuery){
         List<QueryParamMock> queryParamMockList = queryParamMockService.findQueryParamMockList(queryParamMockQuery);
@@ -91,7 +91,7 @@ public class QueryParamMockController {
 
 
     @RequestMapping(path = "/findQueryParamMockPage",method = RequestMethod.POST)
-    @ApiMethod(name = "findQueryParamMockPage",desc = "findQueryParamMockPage")
+    @ApiMethod(name = "findQueryParamMockPage",desc = "根据查询参数按分页查找query列表")
     @ApiParam(name = "queryParamMockQuery",desc = "queryParamMockQuery",required = true)
     public Result<Pagination<QueryParamMock>> findQueryParamMockPage(@RequestBody @Valid @NotNull QueryParamMockQuery queryParamMockQuery){
         Pagination<QueryParamMock> pagination = queryParamMockService.findQueryParamMockPage(queryParamMockQuery);

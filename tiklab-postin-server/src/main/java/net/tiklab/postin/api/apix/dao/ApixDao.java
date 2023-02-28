@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * BasedefDao
+ * 接口公共数据访问
  */
 @Repository
 public class ApixDao {
@@ -64,17 +64,28 @@ public class ApixDao {
     }
 
     /**
-    * findAllApix
+    * 查找所有
     * @return
     */
     public List<ApixEntity> findAllApix() {
         return jpaTemplate.findAll(ApixEntity.class);
     }
 
+
+    /**
+     * 通过list查询
+     * @param idList
+     * @return
+     */
     public List<ApixEntity> findApixList(List<String> idList) {
         return jpaTemplate.findList(ApixEntity.class,idList);
     }
 
+    /**
+     * 通过查询参数查询List
+     * @param apixQuery
+     * @return
+     */
     public List<ApixEntity> findApixList(ApixQuery apixQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(ApixEntity.class)
                 .eq("categoryId", apixQuery.getCategoryId())
@@ -87,6 +98,11 @@ public class ApixDao {
         return jpaTemplate.findList(queryCondition, ApixEntity.class);
     }
 
+    /**
+     * 带分页的List
+     * @param apixQuery
+     * @return
+     */
     public Pagination<ApixEntity> findApixPage(ApixQuery apixQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(ApixEntity.class)
                 .eq("categoryId", apixQuery.getCategoryId())
@@ -99,19 +115,6 @@ public class ApixDao {
                 .get();
         return jpaTemplate.findPage(queryCondition, ApixEntity.class);
     }
-
-
-//    public Pagination<ApixEntity> findApiCount(ApixQuery apixQuery) {
-//        QueryCondition queryCondition = QueryBuilders.createQuery(ApixEntity.class)
-//                .eq("categoryId", apixQuery.getCategoryId())
-//                .eq("protocolType", apixQuery.getProtocolType())
-//                .like("name", apixQuery.getName())
-//                .pagination(apixQuery.getPageParam())
-//                .orders(apixQuery.getOrderParams())
-//                .get();
-//        return jpaTemplate.findPage(queryCondition, ApixEntity.class);
-//    }
-
 
 
 }

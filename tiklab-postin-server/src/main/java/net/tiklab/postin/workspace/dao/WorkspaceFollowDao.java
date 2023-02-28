@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * WorkspaceFollowDao
+ * 空间关注 数据访问
  */
 @Repository
 public class WorkspaceFollowDao{
@@ -26,7 +26,7 @@ public class WorkspaceFollowDao{
     JpaTemplate jpaTemplate;
 
     /**
-     * 创建
+     * 创建空间关注
      * @param workspaceFollowEntity
      * @return
      */
@@ -35,7 +35,7 @@ public class WorkspaceFollowDao{
     }
 
     /**
-     * 更新
+     * 更新空间关注
      * @param workspaceFollowEntity
      */
     public void updateWorkspaceFollow(WorkspaceFollowEntity workspaceFollowEntity){
@@ -43,7 +43,7 @@ public class WorkspaceFollowDao{
     }
 
     /**
-     * 删除
+     * 删除空间关注
      * @param id
      */
     public void deleteWorkspaceFollow(String id){
@@ -55,7 +55,7 @@ public class WorkspaceFollowDao{
     }
 
     /**
-     * 查找
+     * 查找空间关注
      * @param id
      * @return
      */
@@ -64,7 +64,7 @@ public class WorkspaceFollowDao{
     }
 
     /**
-    * findAllWorkspaceFollow
+    * 查询所有空间关注
     * @return
     */
     public List<WorkspaceFollowEntity> findAllWorkspaceFollow() {
@@ -75,6 +75,11 @@ public class WorkspaceFollowDao{
         return jpaTemplate.findList(WorkspaceFollowEntity.class,idList);
     }
 
+    /**
+     * 根据查询参数查找空间关注
+     * @param workspaceFollowQuery
+     * @return
+     */
     public List<WorkspaceFollowEntity> findWorkspaceFollowList(WorkspaceFollowQuery workspaceFollowQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(WorkspaceFollowEntity.class)
                 .eq("userId", workspaceFollowQuery.getUserId())
@@ -83,6 +88,11 @@ public class WorkspaceFollowDao{
         return jpaTemplate.findList(queryCondition,WorkspaceFollowEntity.class);
     }
 
+    /**
+     * 根据查询参数按分页查找空间关注
+     * @param workspaceFollowQuery
+     * @return
+     */
     public Pagination<WorkspaceFollowEntity> findWorkspaceFollowPage(WorkspaceFollowQuery workspaceFollowQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(WorkspaceFollowEntity.class)
                 .eq("userId", workspaceFollowQuery.getUserId())

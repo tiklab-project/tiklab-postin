@@ -22,7 +22,7 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
- * WorkspaceRecentController
+ * 最近访问空间 控制器
  */
 @RestController
 @RequestMapping("/workspaceRecent")
@@ -35,7 +35,7 @@ public class WorkspaceRecentController {
     private WorkspaceRecentService workspaceRecentService;
 
     @RequestMapping(path="/createWorkspaceRecent",method = RequestMethod.POST)
-    @ApiMethod(name = "createWorkspaceRecent",desc = "createWorkspaceRecent")
+    @ApiMethod(name = "createWorkspaceRecent",desc = "创建最近访问空间")
     @ApiParam(name = "workspaceRecent",desc = "workspaceRecent",required = true)
     public Result<String> createWorkspaceRecent(@RequestBody @NotNull @Valid WorkspaceRecent workspaceRecent){
         String id = workspaceRecentService.createWorkspaceRecent(workspaceRecent);
@@ -44,7 +44,7 @@ public class WorkspaceRecentController {
     }
 
     @RequestMapping(path="/updateWorkspaceRecent",method = RequestMethod.POST)
-    @ApiMethod(name = "updateWorkspaceRecent",desc = "updateWorkspaceRecent")
+    @ApiMethod(name = "updateWorkspaceRecent",desc = "更新最近访问空间")
     @ApiParam(name = "workspaceRecent",desc = "workspaceRecent",required = true)
     public Result<Void> updateWorkspaceRecent(@RequestBody @NotNull @Valid WorkspaceRecent workspaceRecent){
         workspaceRecentService.updateWorkspaceRecent(workspaceRecent);
@@ -53,7 +53,7 @@ public class WorkspaceRecentController {
     }
 
     @RequestMapping(path="/deleteWorkspaceRecent",method = RequestMethod.POST)
-    @ApiMethod(name = "deleteWorkspaceRecent",desc = "deleteWorkspaceRecent")
+    @ApiMethod(name = "deleteWorkspaceRecent",desc = "删除最近访问空间")
     @ApiParam(name = "id",desc = "id",required = true)
     public Result<Void> deleteWorkspaceRecent(@NotNull String id){
         workspaceRecentService.deleteWorkspaceRecent(id);
@@ -62,7 +62,7 @@ public class WorkspaceRecentController {
     }
 
     @RequestMapping(path="/findWorkspaceRecent",method = RequestMethod.POST)
-    @ApiMethod(name = "findWorkspaceRecent",desc = "findWorkspaceRecent")
+    @ApiMethod(name = "findWorkspaceRecent",desc = "通过id查找最近访问空间")
     @ApiParam(name = "id",desc = "id",required = true)
     public Result<WorkspaceRecent> findWorkspaceRecent(@NotNull String id){
         WorkspaceRecent workspaceRecent = workspaceRecentService.findWorkspaceRecent(id);
@@ -71,7 +71,7 @@ public class WorkspaceRecentController {
     }
 
     @RequestMapping(path="/findAllWorkspaceRecent",method = RequestMethod.POST)
-    @ApiMethod(name = "findAllWorkspaceRecent",desc = "findAllWorkspaceRecent")
+    @ApiMethod(name = "findAllWorkspaceRecent",desc = "查找所有最近访问空间")
     public Result<List<WorkspaceRecent>> findAllWorkspaceRecent(){
         List<WorkspaceRecent> workspaceRecentList = workspaceRecentService.findAllWorkspaceRecent();
 
@@ -79,7 +79,7 @@ public class WorkspaceRecentController {
     }
 
     @RequestMapping(path = "/findWorkspaceRecentList",method = RequestMethod.POST)
-    @ApiMethod(name = "findWorkspaceRecentList",desc = "findWorkspaceRecentList")
+    @ApiMethod(name = "findWorkspaceRecentList",desc = "根据查询参数查找最近访问空间")
     @ApiParam(name = "workspaceRecentQuery",desc = "workspaceRecentQuery",required = true)
     public Result<List<WorkspaceRecent>> findWorkspaceRecentList(@RequestBody @Valid @NotNull WorkspaceRecentQuery workspaceRecentQuery){
         List<Workspace> workspaceRecentList = workspaceRecentService.findWorkspaceRecentList(workspaceRecentQuery);
@@ -88,7 +88,7 @@ public class WorkspaceRecentController {
     }
 
     @RequestMapping(path = "/findWorkspaceRecentPage",method = RequestMethod.POST)
-    @ApiMethod(name = "findWorkspaceRecentPage",desc = "findWorkspaceRecentPage")
+    @ApiMethod(name = "findWorkspaceRecentPage",desc = "根据查询参数按分页查找最近访问空间")
     @ApiParam(name = "workspaceRecentQuery",desc = "workspaceRecentQuery",required = true)
     public Result<Pagination<WorkspaceRecent>> findWorkspaceRecentPage(@RequestBody @Valid @NotNull WorkspaceRecentQuery workspaceRecentQuery){
         Pagination<WorkspaceRecent> pagination = workspaceRecentService.findWorkspaceRecentPage(workspaceRecentQuery);
@@ -97,7 +97,7 @@ public class WorkspaceRecentController {
     }
 
     @RequestMapping(path="/workspaceRecent",method = RequestMethod.POST)
-    @ApiMethod(name = "workspaceRecent",desc = "workspaceRecent")
+    @ApiMethod(name = "workspaceRecent",desc = "设置最近访问空间")
     @ApiParam(name = "workspaceRecent",desc = "workspaceRecent",required = true)
     public Result<Void> workspaceRecent(@RequestBody @NotNull @Valid WorkspaceRecent workspaceRecent){
         workspaceRecentService.workspaceRecent(workspaceRecent);

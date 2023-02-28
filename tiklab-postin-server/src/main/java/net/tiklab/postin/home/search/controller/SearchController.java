@@ -23,8 +23,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * ManagerController
- * Created by Zhangzhihua on 2017/9/25.
+ * 搜索 控制器
  */
 @RestController
 @RequestMapping("/search")

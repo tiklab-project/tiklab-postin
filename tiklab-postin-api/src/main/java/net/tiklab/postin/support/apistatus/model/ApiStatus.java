@@ -5,6 +5,9 @@ import net.tiklab.postin.annotation.ApiProperty;
 import net.tiklab.beans.annotation.Mapper;
 import net.tiklab.core.BaseModel;
 
+/**
+ * 接口状态 模型
+ */
 @ApiModel
 @Mapper(targetAlias = "ApiStatusEntity")
 public class ApiStatus extends BaseModel{
@@ -12,10 +15,10 @@ public class ApiStatus extends BaseModel{
     @ApiProperty(name="id",desc="id")
     private java.lang.String id;
 
-    @ApiProperty(name="color",desc="code")
+    @ApiProperty(name="color",desc="颜色")
     private java.lang.String color;
 
-    @ApiProperty(name="name",desc="name")
+    @ApiProperty(name="name",desc="名字")
     private java.lang.String name;
 
     @ApiProperty(name="type",desc="类型")

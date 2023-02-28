@@ -15,7 +15,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * FormUrlencodedDao
+ * 定义
+ * http协议
+ * form-urlencoded 数据访问
  */
 @Repository
 public class FormUrlencodedDao{
@@ -26,7 +28,7 @@ public class FormUrlencodedDao{
     JpaTemplate jpaTemplate;
 
     /**
-     * 创建
+     * 创建form-urlencoded
      * @param formUrlencodedEntity
      * @return
      */
@@ -35,7 +37,7 @@ public class FormUrlencodedDao{
     }
 
     /**
-     * 更新
+     * 更新form-urlencoded
      * @param formUrlencodedEntity
      */
     public void updateFormUrlencoded(FormUrlencodedEntity formUrlencodedEntity){
@@ -43,19 +45,23 @@ public class FormUrlencodedDao{
     }
 
     /**
-     * 删除
+     * 删除form-urlencoded
      * @param id
      */
     public void deleteFormUrlencoded(String id){
         jpaTemplate.delete(FormUrlencodedEntity.class,id);
     }
 
+    /**
+     * 根据条件删除form-urlencoded
+     * @param deleteCondition
+     */
     public void deleteFormUrlencoded(DeleteCondition deleteCondition){
         jpaTemplate.delete(deleteCondition);
     }
 
     /**
-     * 查找
+     * 查找form-urlencoded
      * @param id
      * @return
      */
@@ -64,17 +70,27 @@ public class FormUrlencodedDao{
     }
 
     /**
-    * findAllFormUrlencoded
+    * 查找所有form-urlencoded
     * @return
     */
     public List<FormUrlencodedEntity> findAllFormUrlencoded() {
         return jpaTemplate.findAll(FormUrlencodedEntity.class);
     }
 
+    /**
+     * 根据list 查找form-urlencoded
+     * @param idList
+     * @return
+     */
     public List<FormUrlencodedEntity> findFormUrlencodedList(List<String> idList) {
         return jpaTemplate.findList(FormUrlencodedEntity.class,idList);
     }
 
+    /**
+     * 根据查询参数查找form-urlencoded列表
+     * @param formUrlencodedQuery
+     * @return
+     */
     public List<FormUrlencodedEntity> findFormUrlencodedList(FormUrlencodedQuery formUrlencodedQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(FormUrlencodedEntity.class)
                 .eq("httpId", formUrlencodedQuery.getHttpId())
@@ -83,6 +99,11 @@ public class FormUrlencodedDao{
         return jpaTemplate.findList(queryCondition,FormUrlencodedEntity.class);
     }
 
+    /**
+     * 根据查询参数按分页查找form-urlencoded参数
+     * @param formUrlencodedQuery
+     * @return
+     */
     public Pagination<FormUrlencodedEntity> findFormUrlencodedPage(FormUrlencodedQuery formUrlencodedQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(FormUrlencodedEntity.class)
                 .eq("httpId", formUrlencodedQuery.getHttpId())

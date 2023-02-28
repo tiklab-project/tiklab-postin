@@ -8,6 +8,9 @@ import net.tiklab.postin.annotation.ApiProperty;
 
 import javax.validation.constraints.NotNull;
 
+/**
+ * 接口文档分享模型
+ */
 @ApiModel
 @Mapper(targetAlias = "ShareEntity")
 public class Share extends BaseModel {
@@ -19,25 +22,25 @@ public class Share extends BaseModel {
     private java.lang.String code;
 
     @NotNull
-    @ApiProperty(name="targetId",desc="targetId",required = true)
+    @ApiProperty(name="targetId",desc="接口或目录 ID",required = true)
     private java.lang.String targetId;
 
     @NotNull
-    @ApiProperty(name="targetType",desc="targetType",required = true)
+    @ApiProperty(name="targetType",desc="接口，目录",required = true)
     private java.lang.String targetType;
 
     @NotNull
-    @ApiProperty(name="visibility",desc="visibility",required = true)
+    @ApiProperty(name="visibility",desc="可见",required = true)
     private java.lang.Integer visibility;
 
-    @ApiProperty(name="password",desc="password")
+    @ApiProperty(name="password",desc="密码")
     private java.lang.String password;
 
-    @ApiProperty(name="createTime",desc="createTime")
+    @ApiProperty(name="createTime",desc="创建时间")
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private java.sql.Timestamp createTime;
 
-    @ApiProperty(name="updateTime",desc="updateTime")
+    @ApiProperty(name="updateTime",desc="更新时间")
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private java.sql.Timestamp updateTime;
 

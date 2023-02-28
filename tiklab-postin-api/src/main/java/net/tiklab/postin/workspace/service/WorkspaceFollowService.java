@@ -10,25 +10,25 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
-* WorkspaceFollowService
+* 空间关注 服务接口
 */
 public interface WorkspaceFollowService {
 
     /**
-    * 创建
+    * 创建空间关注
     * @param workspaceFollow
     * @return
     */
     String createWorkspaceFollow(@NotNull @Valid WorkspaceFollow workspaceFollow);
 
     /**
-    * 更新
+    * 更新空间关注
     * @param workspaceFollow
     */
     void updateWorkspaceFollow(@NotNull @Valid WorkspaceFollow workspaceFollow);
 
     /**
-    * 删除
+    * 删除空间关注
     * @param id
     */
     void deleteWorkspaceFollow(@NotNull String id);
@@ -38,27 +38,27 @@ public interface WorkspaceFollowService {
     List<WorkspaceFollow> findList(List<String> idList);
 
     /**
-    * 查找
+    * 查找空间关注
     * @param id
     * @return
     */
     WorkspaceFollow findWorkspaceFollow(@NotNull String id);
 
     /**
-    * 查找所有
+    * 查找所有空间关注
     * @return
     */
     List<WorkspaceFollow> findAllWorkspaceFollow();
 
     /**
-    * 查询列表
+    * 查询列表空间关注
     * @param workspaceFollowQuery
     * @return
     */
     List<WorkspaceFollow> findWorkspaceFollowList(WorkspaceFollowQuery workspaceFollowQuery);
 
     /**
-    * 按分页查询
+    * 按分页查询空间关注
     * @param workspaceFollowQuery
     * @return
     */

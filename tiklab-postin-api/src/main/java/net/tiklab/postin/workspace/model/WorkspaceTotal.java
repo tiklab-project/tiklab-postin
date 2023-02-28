@@ -4,6 +4,9 @@ import net.tiklab.postin.annotation.ApiModel;
 import net.tiklab.postin.annotation.ApiProperty;
 import net.tiklab.core.BaseModel;
 
+/**
+ * 空间概况 模型
+ */
 @ApiModel
 public class WorkspaceTotal extends BaseModel {
 

@@ -10,10 +10,10 @@ import java.util.List;
 @ApiModel
 public class ApiResponseQuery {
 
-    @ApiProperty(name ="id",desc = "ID，精确匹配")
+    @ApiProperty(name ="id",desc = "ID")
     private String id;
 
-    @ApiProperty(name ="methodId",desc = "接口ID，精确匹配")
+    @ApiProperty(name ="httpId",desc = "接口ID")
     private String httpId;
 
     @ApiProperty(name ="orderParams",desc = "排序参数")

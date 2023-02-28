@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * 用户数据操作
+ * 空间 数据访问
  */
 @Repository
 public class WorkspaceDao{
@@ -26,7 +26,7 @@ public class WorkspaceDao{
     JpaTemplate jpaTemplate;
 
     /**
-     * 创建用户
+     * 创建空间
      * @param workspaceEntity
      * @return
      */
@@ -35,7 +35,7 @@ public class WorkspaceDao{
     }
 
     /**
-     * 更新用户
+     * 更新空间
      * @param workspaceEntity
      */
     public void updateWorkspace(WorkspaceEntity workspaceEntity){
@@ -43,7 +43,7 @@ public class WorkspaceDao{
     }
 
     /**
-     * 删除用户
+     * 删除空间
      * @param id
      */
     public void deleteWorkspace(String id){
@@ -51,7 +51,7 @@ public class WorkspaceDao{
     }
 
     /**
-     * 查找用户
+     * 查找空间
      * @param id
      * @return
      */
@@ -60,7 +60,7 @@ public class WorkspaceDao{
     }
 
     /**
-    * findAllWorkspace
+    * 查找所有空间
     * @return
     */
     public List<WorkspaceEntity> findAllWorkspace() {
@@ -71,6 +71,11 @@ public class WorkspaceDao{
         return jpaTemplate.findList(WorkspaceEntity.class,idList);
     }
 
+    /**
+     * 根据查询对象查询空间列表
+     * @param workspaceQuery
+     * @return
+     */
     public List<WorkspaceEntity> findWorkspaceList(WorkspaceQuery workspaceQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(WorkspaceEntity.class)
                 .eq("userId", workspaceQuery.getUserId())
@@ -80,6 +85,11 @@ public class WorkspaceDao{
         return jpaTemplate.findList(queryCondition, WorkspaceEntity.class);
     }
 
+    /**
+     * 根据查询对象按分页查询空间
+     * @param workspaceQuery
+     * @return
+     */
     public Pagination<WorkspaceEntity> findWorkspacePage(WorkspaceQuery workspaceQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(WorkspaceEntity.class)
                 .eq("userId", workspaceQuery.getUserId())

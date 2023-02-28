@@ -14,26 +14,26 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
-* ApiStatusService
+* 接口状态 服务接口
 */
 @JoinProvider(model = ApiStatus.class)
 public interface ApiStatusService {
 
     /**
-    * 创建
+    * 创建接口状态
     * @param apiStatus
     * @return
     */
     String createApiStatus(@NotNull @Valid ApiStatus apiStatus);
 
     /**
-    * 更新
+    * 更新接口状态
     * @param apiStatus
     */
     void updateApiStatus(@NotNull @Valid ApiStatus apiStatus);
 
     /**
-    * 删除
+    * 删除接口状态
     * @param id
     */
     void deleteApiStatus(@NotNull String id);
@@ -45,28 +45,28 @@ public interface ApiStatusService {
     List<ApiStatus> findList(List<String> idList);
 
     /**
-    * 查找
+    * 查找接口状态
     * @param id
     * @return
     */
     ApiStatus findApiStatus(@NotNull String id);
 
     /**
-    * 查找所有
+    * 查找所有接口状态
     * @return
     */
     @FindAll
     List<ApiStatus> findAllApiStatus();
 
     /**
-    * 查询列表
+    * 查询列表接口状态
     * @param apiStatusQuery
     * @return
     */
     List<ApiStatus> findApiStatusList(ApiStatusQuery apiStatusQuery);
 
     /**
-    * 按分页查询
+    * 按分页查询接口状态
     * @param apiStatusQuery
     * @return
     */

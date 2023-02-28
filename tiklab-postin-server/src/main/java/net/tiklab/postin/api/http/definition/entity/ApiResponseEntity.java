@@ -6,6 +6,11 @@ import net.tiklab.dal.jpa.annotation.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
+/**
+ * 定义
+ * http协议
+ * 响应区 实体
+ */
 @Entity
 @Table(name="postin_http_response")
 public class ApiResponseEntity implements Serializable {
@@ -15,24 +20,31 @@ public class ApiResponseEntity implements Serializable {
     @Column(name = "id",length = 40)
     private String id;
 
+    //所属接口
     @Column(name = "http_id",length = 40,notNull = true)
     private String httpId;
 
+    //状态码
     @Column(name = "http_code",length = 32)
     private Integer httpCode;
 
+    //创建时间
     @Column(name = "create_time",length = 4)
     private Timestamp createTime;
 
+    //名称
     @Column(name = "name",length = 64)
     private String name;
 
+    //数据类型
     @Column(name = "data_type",length = 32)
     private String dataType;
 
+    //json串
     @Column(name = "json_text")
     private String jsonText;
 
+    //raw类型
     @Column(name = "raw_text")
     private String rawText;
 

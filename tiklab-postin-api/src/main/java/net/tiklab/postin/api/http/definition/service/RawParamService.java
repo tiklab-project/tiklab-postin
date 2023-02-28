@@ -13,32 +13,32 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
-* 用户服务接口
+* raw服务接口
 */
 @JoinProvider(model = RawParam.class)
 public interface RawParamService {
 
     /**
-    * 创建用户
+    * 创建raw
     * @param rawParam
     * @return
     */
     String createRawParam(@NotNull @Valid RawParam rawParam);
 
     /**
-    * 更新用户
+    * 更新raw
     * @param rawParam
     */
     void updateRawParam(@NotNull @Valid RawParam rawParam);
 
     /**
-    * 删除用户
+    * 删除raw
     * @param id
     */
     void deleteRawParam(@NotNull String id);
 
     /**
-    * 查找用户
+    * 查找raw
     * @param id
     * @return
     */
@@ -46,21 +46,21 @@ public interface RawParamService {
     RawParam findRawParam(@NotNull String id);
 
     /**
-    * 查找所有
+    * 查找所有raw
     * @return
     */
     @FindAll
     List<RawParam> findAllRawParam();
 
     /**
-    * 查询列表
+    * 查询列表raw
     * @param rawParamQuery
     * @return
     */
     List<RawParam> findRawParamList(RawParamQuery rawParamQuery);
 
     /**
-    * 按分页查询
+    * 按分页查询raw
     * @param rawParamQuery
     * @return
     */

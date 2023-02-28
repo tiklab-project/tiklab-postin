@@ -32,7 +32,10 @@ import java.io.UnsupportedEncodingException;
 import java.util.*;
 import java.util.stream.Collectors;
 
-
+/**
+ * mock
+ * servlet 请求处理
+ */
 @Service
 public class MockServletRequest {
 
@@ -67,7 +70,12 @@ public class MockServletRequest {
     MockServletResponse mockServletResponse;
 
 
-
+    /**
+     * 请求处理
+     * @param request
+     * @param response
+     * @throws IOException
+     */
     public void actRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
         //获取路径
         String mockPath = request.getRequestURI().replaceAll("/mockx","");
@@ -76,6 +84,13 @@ public class MockServletRequest {
 
     }
 
+    /**
+     *
+     * @param request
+     * @param response
+     * @param mockPath
+     * @throws IOException
+     */
     private void mockOperate(HttpServletRequest request, HttpServletResponse response, String mockPath) throws IOException {
         //workspaceId
         String workspaceId = mockPath.substring(1,33);
@@ -184,7 +199,9 @@ public class MockServletRequest {
         return formdataList;
     }
 
-    //获取json
+    /**
+     * 获取json
+     */
     public  String getJson(HttpServletRequest request) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream(),"utf-8"));
         String line = null;
@@ -197,6 +214,12 @@ public class MockServletRequest {
     }
 
 
+    /**
+     * 头部是否匹配成功
+     * @param mockId
+     * @param request
+     * @return
+     */
     public  boolean getHeaderStatus( String mockId, HttpServletRequest request){
         Enumeration headerNames =getHeader(request);
 
@@ -226,6 +249,12 @@ public class MockServletRequest {
         return headerStatus;
     }
 
+    /**
+     * 查询参数是否匹配成功
+     * @param mockId
+     * @param request
+     * @return
+     */
     public  boolean getQueryStatus(String mockId,  HttpServletRequest request){
         Enumeration<String> urlParam = getUrlParam(request);
 
@@ -256,6 +285,13 @@ public class MockServletRequest {
         return queryStatus;
     }
 
+    /**
+     * 判断请求体类型
+     * @param mockId
+     * @param request
+     * @return
+     * @throws IOException
+     */
     public  boolean getRequestTypeStatus(String mockId, HttpServletRequest request) throws IOException {
         RequestMock requestMock = requestMockService.findRequestMock(mockId);
         String bodyType = requestMock.getBodyType();
@@ -271,6 +307,12 @@ public class MockServletRequest {
         return bodyStatus;
     }
 
+    /**
+     * formdata 是否匹配成功
+     * @param mockId
+     * @param request
+     * @return
+     */
     public  boolean getFormStatus(String mockId, HttpServletRequest request){
         //请求参数中获取的formlist
         List<Map> formdataList = getForm(request);
@@ -306,6 +348,13 @@ public class MockServletRequest {
         return bodyStatus;
     }
 
+    /**
+     * json是否匹配成功
+     * @param mockId
+     * @param request
+     * @return
+     * @throws IOException
+     */
     public  boolean getJsonStatus(String mockId, HttpServletRequest request) throws IOException {
         //请求参数中获取的json
         String jsonData = getJson(request);

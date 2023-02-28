@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
-* BasedefService
+* 接口公共字段的接口
 */
 @JoinProvider(model = Apix.class)
 public interface ApixService {

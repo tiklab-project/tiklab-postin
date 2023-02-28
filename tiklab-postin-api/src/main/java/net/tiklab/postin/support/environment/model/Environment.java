@@ -1,5 +1,6 @@
 package net.tiklab.postin.support.environment.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import net.tiklab.postin.annotation.ApiModel;
 import net.tiklab.postin.annotation.ApiProperty;
 import net.tiklab.beans.annotation.Mapper;
@@ -9,6 +10,9 @@ import net.tiklab.join.annotation.Join;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
+/**
+ * 接口环境 模型
+ */
 @ApiModel
 @Join
 @Mapper(targetAlias = "EnvironmentEntity")
@@ -25,10 +29,12 @@ public class Environment extends BaseModel {
     @ApiProperty(name="url",desc="环境地址",required = true)
     private java.lang.String url;
 
-    @ApiProperty(name="createTime",desc="创建时间，服务端生成")
+    @ApiProperty(name="createTime",desc="创建时间")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private java.util.Date createTime;
 
-    @ApiProperty(name="updateTime",desc="更新时间，服务端生成")
+    @ApiProperty(name="updateTime",desc="更新时间")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private java.util.Date updateTime;
 
     public java.lang.String getId() {

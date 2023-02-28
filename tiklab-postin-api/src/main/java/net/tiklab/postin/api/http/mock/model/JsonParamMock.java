@@ -11,6 +11,9 @@ import net.tiklab.join.annotation.JoinQuery;
 
 import javax.validation.constraints.NotNull;
 
+/**
+ * mock 请求json模型
+ */
 @ApiModel
 @Join
 @Mapper(targetAlias = "JsonParamMockEntity")

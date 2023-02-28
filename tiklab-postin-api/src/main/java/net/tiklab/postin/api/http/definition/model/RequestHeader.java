@@ -11,6 +11,9 @@ import net.tiklab.join.annotation.JoinQuery;
 
 import javax.validation.constraints.NotNull;
 
+/**
+ * 请求头模型
+ */
 @ApiModel
 @Join
 @Mapper(targetAlias = "RequestHeaderEntity")

@@ -11,6 +11,9 @@ import net.tiklab.join.annotation.JoinQuery;
 
 import javax.validation.constraints.NotNull;
 
+/**
+ * form-urlencoded 模型
+ */
 @ApiModel
 @Join
 @Mapper(targetAlias = "FormUrlencodedEntity")
@@ -28,24 +31,24 @@ public class FormUrlencoded extends BaseModel{
     private HttpApi http;
 
     @NotNull
-    @ApiProperty(name="paramName",desc="paramName",required = true)
+    @ApiProperty(name="paramName",desc="参数名称",required = true)
     private java.lang.String paramName;
 
     @NotNull
-    @ApiProperty(name="dataType",desc="dataType",required = true)
+    @ApiProperty(name="dataType",desc="数据类型",required = true)
     private java.lang.String dataType;
 
     @NotNull
-    @ApiProperty(name="required",desc="required",required = true)
+    @ApiProperty(name="required",desc="是否必选",required = true)
     private java.lang.Integer required;
 
-    @ApiProperty(name="desc",desc="desc")
+    @ApiProperty(name="desc",desc="描述")
     private java.lang.String desc;
 
-    @ApiProperty(name="value",desc="value")
+    @ApiProperty(name="value",desc="示例值")
     private java.lang.String value;
 
-    @ApiProperty(name="sort",desc="sort")
+    @ApiProperty(name="sort",desc="排序")
     private java.lang.Integer sort;
 
     public java.lang.String getId() {

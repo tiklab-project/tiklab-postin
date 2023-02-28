@@ -11,6 +11,10 @@ import net.tiklab.join.annotation.JoinQuery;
 
 import javax.validation.constraints.NotNull;
 
+/**
+ * mock
+ * 响应头模型
+ */
 @ApiModel
 @Join
 @Mapper(targetAlias = "ResponseHeaderMockEntity")

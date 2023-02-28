@@ -24,7 +24,9 @@ import java.net.URL;
 import java.util.List;
 
 /**
-* BinaryParamServiceImpl
+ * 定义
+ * http协议
+ * binary服务
 */
 @Service
 public class BinaryParamServiceImpl implements BinaryParamService {

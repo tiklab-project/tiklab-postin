@@ -12,6 +12,9 @@ import net.tiklab.join.annotation.JoinQuery;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
+/**
+ * 响应中json 模型
+ */
 @ApiModel
 @Join
 @Mapper(targetAlias = "JsonResponseEntity")

@@ -14,7 +14,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * 用户数据操作
+ * mock
+ * formdata 数据访问
  */
 @Repository
 public class FormParamMockDao{
@@ -25,7 +26,7 @@ public class FormParamMockDao{
     JpaTemplate jpaTemplate;
 
     /**
-     * 创建用户
+     * 创建form-data
      * @param formParamMockEntity
      * @return
      */
@@ -34,7 +35,7 @@ public class FormParamMockDao{
     }
 
     /**
-     * 更新用户
+     * 更新form-data
      * @param formParamMockEntity
      */
     public void updateFormParamMock(FormParamMockEntity formParamMockEntity){
@@ -42,7 +43,7 @@ public class FormParamMockDao{
     }
 
     /**
-     * 删除用户
+     * 删除form-data
      * @param id
      */
     public void deleteFormParamMock(String id){
@@ -50,7 +51,7 @@ public class FormParamMockDao{
     }
 
     /**
-     * 查找用户
+     * 查找form-data
      * @param id
      * @return
      */
@@ -59,13 +60,18 @@ public class FormParamMockDao{
     }
 
     /**
-    * findAllFormParamMock
+    * 查找所有form-data
     * @return
     */
     public List<FormParamMockEntity> findAllFormParamMock() {
         return jpaTemplate.findAll(FormParamMockEntity.class);
     }
 
+    /**
+     * 根据查询参数查找form-data
+     * @param formParamMockQuery
+     * @return
+     */
     public List<FormParamMockEntity> findFormParamMockList(FormParamMockQuery formParamMockQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(FormParamMockEntity.class)
                 .eq("mockId", formParamMockQuery.getMockId())
@@ -74,6 +80,11 @@ public class FormParamMockDao{
         return jpaTemplate.findList(queryCondition, FormParamMockEntity.class);
     }
 
+    /**
+     * 根据查询参数按分页查找form-data
+     * @param formParamMockQuery
+     * @return
+     */
     public Pagination<FormParamMockEntity> findFormParamMockPage(FormParamMockQuery formParamMockQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(FormParamMockEntity.class)
                 .eq("mockId", formParamMockQuery.getMockId())

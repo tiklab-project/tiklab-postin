@@ -15,7 +15,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * BinaryParamDao
+ * 定义
+ * http协议
+ * binary 数据访问
  */
 @Repository
 public class BinaryParamDao{
@@ -26,7 +28,7 @@ public class BinaryParamDao{
     JpaTemplate jpaTemplate;
 
     /**
-     * 创建
+     * 创建binary参数
      * @param binaryParamEntity
      * @return
      */
@@ -35,7 +37,7 @@ public class BinaryParamDao{
     }
 
     /**
-     * 更新
+     * 更新binary参数
      * @param binaryParamEntity
      */
     public void updateBinaryParam(BinaryParamEntity binaryParamEntity){
@@ -43,19 +45,23 @@ public class BinaryParamDao{
     }
 
     /**
-     * 删除
+     * 删除binary参数
      * @param id
      */
     public void deleteBinaryParam(String id){
         jpaTemplate.delete(BinaryParamEntity.class,id);
     }
 
+    /**
+     * 更加条件删除binary
+     * @param deleteCondition
+     */
     public void deleteBinaryParam(DeleteCondition deleteCondition){
         jpaTemplate.delete(deleteCondition);
     }
 
     /**
-     * 查找
+     * 通过id查找binary参数
      * @param id
      * @return
      */
@@ -64,17 +70,27 @@ public class BinaryParamDao{
     }
 
     /**
-    * findAllBinaryParam
+    * 查找所有binary
     * @return
     */
     public List<BinaryParamEntity> findAllBinaryParam() {
         return jpaTemplate.findAll(BinaryParamEntity.class);
     }
 
+    /**
+     * 通过list查找binary列表
+     * @param idList
+     * @return
+     */
     public List<BinaryParamEntity> findBinaryParamList(List<String> idList) {
         return jpaTemplate.findList(BinaryParamEntity.class,idList);
     }
 
+    /**
+     * 根据查询参数查找binary列表
+     * @param binaryParamQuery
+     * @return
+     */
     public List<BinaryParamEntity> findBinaryParamList(BinaryParamQuery binaryParamQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(BinaryParamEntity.class)
                 .eq("httpId",binaryParamQuery.getHttpId())
@@ -83,6 +99,11 @@ public class BinaryParamDao{
         return jpaTemplate.findList(queryCondition,BinaryParamEntity.class);
     }
 
+    /**
+     * 根据查询参数按分页查找binary列表
+     * @param binaryParamQuery
+     * @return
+     */
     public Pagination<BinaryParamEntity> findBinaryParamPage(BinaryParamQuery binaryParamQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(BinaryParamEntity.class)
                 .eq("httpId",binaryParamQuery.getHttpId())

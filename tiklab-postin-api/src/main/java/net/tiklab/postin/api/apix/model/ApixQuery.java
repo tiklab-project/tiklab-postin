@@ -13,19 +13,19 @@ public class ApixQuery {
     @ApiProperty(name = "name",desc = "模糊查询")
     private String name;
 
-    @ApiProperty(name ="categoryId",desc = "分类id，精确匹配")
+    @ApiProperty(name ="categoryId",desc = "分类id")
     private String categoryId;
 
-    @ApiProperty(name="protocolType",desc = "协议类型，精确匹配")
+    @ApiProperty(name="protocolType",desc = "协议类型")
     private String protocolType;
 
-    @ApiProperty(name ="workspaceId",desc = "空间id，精确匹配")
+    @ApiProperty(name ="workspaceId",desc = "空间id")
     private String workspaceId;
 
-    @ApiProperty(name ="apiUid",desc = "apiUid，精确匹配")
+    @ApiProperty(name ="apiUid",desc = "apiUid")
     private String apiUid;
 
-    @ApiProperty(name ="version",desc = "version，精确匹配")
+    @ApiProperty(name ="version",desc = "version")
     private String version;
 
     @ApiProperty(name ="orderParams",desc = "排序参数")

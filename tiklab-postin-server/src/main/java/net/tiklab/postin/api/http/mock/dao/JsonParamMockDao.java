@@ -14,7 +14,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * 用户数据操作
+ * mock
+ * 请求中json 数据访问
  */
 @Repository
 public class JsonParamMockDao{
@@ -25,7 +26,7 @@ public class JsonParamMockDao{
     JpaTemplate jpaTemplate;
 
     /**
-     * 创建用户
+     * 创建json
      * @param jsonParamMockEntity
      * @return
      */
@@ -34,7 +35,7 @@ public class JsonParamMockDao{
     }
 
     /**
-     * 更新用户
+     * 更新json
      * @param jsonParamMockEntity
      */
     public void updateJsonParamMock(JsonParamMockEntity jsonParamMockEntity){
@@ -42,7 +43,7 @@ public class JsonParamMockDao{
     }
 
     /**
-     * 删除用户
+     * 删除json
      * @param id
      */
     public void deleteJsonParamMock(String id){
@@ -50,7 +51,7 @@ public class JsonParamMockDao{
     }
 
     /**
-     * 查找用户
+     * 查找json
      * @param id
      * @return
      */
@@ -59,7 +60,7 @@ public class JsonParamMockDao{
     }
 
     /**
-    * findAllJsonParamMock
+    * 查找所有json
     * @return
     */
     public List<JsonParamMockEntity> findAllJsonParamMock() {
@@ -70,6 +71,11 @@ public class JsonParamMockDao{
         return jpaTemplate.findList(JsonParamMockEntity.class,idList);
     }
 
+    /**
+     * 根据查询参数查找json列表
+     * @param jsonParamMockQuery
+     * @return
+     */
     public List<JsonParamMockEntity> findJsonParamMockList(JsonParamMockQuery jsonParamMockQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(JsonParamMockEntity.class)
                 .eq("mockId", jsonParamMockQuery.getMockId())
@@ -78,6 +84,11 @@ public class JsonParamMockDao{
         return jpaTemplate.findList(queryCondition, JsonParamMockEntity.class);
     }
 
+    /**
+     * 根据查询参数按分页查找json列表
+     * @param jsonParamMockQuery
+     * @return
+     */
     public Pagination<JsonParamMockEntity> findJsonParamMockPage(JsonParamMockQuery jsonParamMockQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(JsonParamMockEntity.class)
                 .eq("mockId", jsonParamMockQuery.getMockId())

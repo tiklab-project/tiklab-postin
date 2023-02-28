@@ -21,7 +21,7 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
- * WorkspaceFollowController
+ * 空间关注 控制器
  */
 @RestController
 @RequestMapping("/workspaceFollow")
@@ -34,7 +34,7 @@ public class WorkspaceFollowController {
     private WorkspaceFollowService workspaceFollowService;
 
     @RequestMapping(path="/createWorkspaceFollow",method = RequestMethod.POST)
-    @ApiMethod(name = "createWorkspaceFollow",desc = "createWorkspaceFollow")
+    @ApiMethod(name = "createWorkspaceFollow",desc = "创建空间关注")
     @ApiParam(name = "workspaceFollow",desc = "workspaceFollow",required = true)
     public Result<String> createWorkspaceFollow(@RequestBody @NotNull @Valid WorkspaceFollow workspaceFollow){
         String id = workspaceFollowService.createWorkspaceFollow(workspaceFollow);
@@ -43,7 +43,7 @@ public class WorkspaceFollowController {
     }
 
     @RequestMapping(path="/updateWorkspaceFollow",method = RequestMethod.POST)
-    @ApiMethod(name = "updateWorkspaceFollow",desc = "updateWorkspaceFollow")
+    @ApiMethod(name = "updateWorkspaceFollow",desc = "更新空间关注")
     @ApiParam(name = "workspaceFollow",desc = "workspaceFollow",required = true)
     public Result<Void> updateWorkspaceFollow(@RequestBody @NotNull @Valid WorkspaceFollow workspaceFollow){
         workspaceFollowService.updateWorkspaceFollow(workspaceFollow);
@@ -52,7 +52,7 @@ public class WorkspaceFollowController {
     }
 
     @RequestMapping(path="/deleteWorkspaceFollow",method = RequestMethod.POST)
-    @ApiMethod(name = "deleteWorkspaceFollow",desc = "deleteWorkspaceFollow")
+    @ApiMethod(name = "deleteWorkspaceFollow",desc = "删除空间关注")
     @ApiParam(name = "id",desc = "id",required = true)
     public Result<Void> deleteWorkspaceFollow(@NotNull String id){
         workspaceFollowService.deleteWorkspaceFollow(id);
@@ -61,7 +61,7 @@ public class WorkspaceFollowController {
     }
 
     @RequestMapping(path="/findWorkspaceFollow",method = RequestMethod.POST)
-    @ApiMethod(name = "findWorkspaceFollow",desc = "findWorkspaceFollow")
+    @ApiMethod(name = "findWorkspaceFollow",desc = "根据id查询空间关注")
     @ApiParam(name = "id",desc = "id",required = true)
     public Result<WorkspaceFollow> findWorkspaceFollow(@NotNull String id){
         WorkspaceFollow workspaceFollow = workspaceFollowService.findWorkspaceFollow(id);
@@ -70,7 +70,7 @@ public class WorkspaceFollowController {
     }
 
     @RequestMapping(path="/findAllWorkspaceFollow",method = RequestMethod.POST)
-    @ApiMethod(name = "findAllWorkspaceFollow",desc = "findAllWorkspaceFollow")
+    @ApiMethod(name = "findAllWorkspaceFollow",desc = "查询所有空间关注")
     public Result<List<WorkspaceFollow>> findAllWorkspaceFollow(){
         List<WorkspaceFollow> workspaceFollowList = workspaceFollowService.findAllWorkspaceFollow();
 
@@ -78,7 +78,7 @@ public class WorkspaceFollowController {
     }
 
     @RequestMapping(path = "/findWorkspaceFollowList",method = RequestMethod.POST)
-    @ApiMethod(name = "findWorkspaceFollowList",desc = "findWorkspaceFollowList")
+    @ApiMethod(name = "findWorkspaceFollowList",desc = "根据查询参数查找空间关注")
     @ApiParam(name = "workspaceFollowQuery",desc = "workspaceFollowQuery",required = true)
     public Result<List<WorkspaceFollow>> findWorkspaceFollowList(@RequestBody @Valid @NotNull WorkspaceFollowQuery workspaceFollowQuery){
         List<WorkspaceFollow> workspaceFollowList = workspaceFollowService.findWorkspaceFollowList(workspaceFollowQuery);
@@ -87,7 +87,7 @@ public class WorkspaceFollowController {
     }
 
     @RequestMapping(path = "/findWorkspaceFollowPage",method = RequestMethod.POST)
-    @ApiMethod(name = "findWorkspaceFollowPage",desc = "findWorkspaceFollowPage")
+    @ApiMethod(name = "findWorkspaceFollowPage",desc = "根据查询参数按分页查找空间关注")
     @ApiParam(name = "workspaceFollowQuery",desc = "workspaceFollowQuery",required = true)
     public Result<Pagination<WorkspaceFollow>> findWorkspaceFollowPage(@RequestBody @Valid @NotNull WorkspaceFollowQuery workspaceFollowQuery){
         Pagination<WorkspaceFollow> pagination = workspaceFollowService.findWorkspaceFollowPage(workspaceFollowQuery);

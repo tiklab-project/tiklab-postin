@@ -14,26 +14,26 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
-* 用户服务接口
+* 请求json 服务接口
 */
 @JoinProvider(model = JsonParam.class)
 public interface JsonParamService {
 
     /**
-    * 创建用户
+    * 创建json
     * @param jsonParam
     * @return
     */
     String createJsonParam(@NotNull @Valid JsonParam jsonParam);
 
     /**
-    * 更新用户
+    * 更新json
     * @param jsonParam
     */
     void updateJsonParam(@NotNull @Valid JsonParam jsonParam);
 
     /**
-    * 删除用户
+    * 删除json
     * @param id
     */
     void deleteJsonParam(@NotNull String id);
@@ -45,35 +45,35 @@ public interface JsonParamService {
     List<JsonParam> findList(List<String> idList);
 
     /**
-    * 查找用户
+    * 查找json
     * @param id
     * @return
     */
     JsonParam findJsonParam(@NotNull String id);
 
     /**
-    * 查找所有
+    * 查找所有json
     * @return
     */
     @FindAll
     List<JsonParam> findAllJsonParam();
 
     /**
-    * 查询列表
+    * 查询列表json
     * @param jsonParamQuery
     * @return
     */
     List<JsonParam> findJsonParamList(JsonParamQuery jsonParamQuery);
 
     /**
-    * 按分页查询
+    * 按分页查询json
     * @param jsonParamQuery
     * @return
     */
     Pagination<JsonParam> findJsonParamPage(JsonParamQuery jsonParamQuery);
 
     /**
-     * 查询列表树
+     * 查询json列表树
      * @param jsonParamQuery
      * @return
      */

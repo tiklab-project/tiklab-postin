@@ -8,7 +8,7 @@ import net.tiklab.postin.workspace.model.WorkspaceTotal;
 import javax.validation.constraints.NotNull;
 
 /**
-* 用户服务接口
+* 空间概况 服务接口
 */
 @JoinProvider(model = Workspace.class)
 public interface WorkspaceOverviewService {

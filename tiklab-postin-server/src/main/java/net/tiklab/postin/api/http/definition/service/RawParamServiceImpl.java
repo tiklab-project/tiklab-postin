@@ -17,8 +17,10 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
-* 用户服务业务处理
-*/
+ * 定义
+ * http协议
+ * raw服务
+ */
 @Service
 public class RawParamServiceImpl implements RawParamService {
 

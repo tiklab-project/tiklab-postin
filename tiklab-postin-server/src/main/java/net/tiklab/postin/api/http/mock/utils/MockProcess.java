@@ -4,6 +4,9 @@ import javax.script.ScriptException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * mock处理
+ */
 public class MockProcess {
 
     //express例： @id  @natural(1,10)

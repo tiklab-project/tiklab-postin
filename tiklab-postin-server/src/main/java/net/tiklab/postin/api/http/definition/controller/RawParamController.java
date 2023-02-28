@@ -22,8 +22,8 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
- * ManagerController
- * Created by Zhangzhihua on 2017/9/25.
+ * http协议 定义
+ * raw 控制器
  */
 @RestController
 @RequestMapping("/rawParam")
@@ -36,7 +36,7 @@ public class RawParamController {
     private RawParamService rawParamService;
 
     @RequestMapping(path="/createRawParam",method = RequestMethod.POST)
-    @ApiMethod(name = "createRawParam",desc = "createRawParam")
+    @ApiMethod(name = "createRawParam",desc = "创建raw参数")
     @ApiParam(name = "rawParam",desc = "rawParam",required = true)
     public Result<String> createRawParam(@RequestBody @NotNull @Valid RawParam rawParam){
         String id = rawParamService.createRawParam(rawParam);
@@ -45,7 +45,7 @@ public class RawParamController {
     }
 
     @RequestMapping(path="/updateRawParam",method = RequestMethod.POST)
-    @ApiMethod(name = "updateRawParam",desc = "updateRawParam")
+    @ApiMethod(name = "updateRawParam",desc = "更新raw 参数")
     @ApiParam(name = "rawParam",desc = "rawParam",required = true)
     public Result<Void> updateRawParam(@RequestBody @NotNull @Valid RawParam rawParam){
         rawParamService.updateRawParam(rawParam);
@@ -54,7 +54,7 @@ public class RawParamController {
     }
 
     @RequestMapping(path="/deleteRawParam",method = RequestMethod.POST)
-    @ApiMethod(name = "deleteRawParam",desc = "deleteRawParam")
+    @ApiMethod(name = "deleteRawParam",desc = "删除raw参数")
     @ApiParam(name = "id",desc = "id",required = true)
     public Result<Void> deleteRawParam(@NotNull String id){
         rawParamService.deleteRawParam(id);
@@ -63,7 +63,7 @@ public class RawParamController {
     }
 
     @RequestMapping(path="/findRawParam",method = RequestMethod.POST)
-    @ApiMethod(name = "findRawParam",desc = "findRawParam")
+    @ApiMethod(name = "findRawParam",desc = "根据id查找raw")
     @ApiParam(name = "id",desc = "id",required = true)
     public Result<RawParam> findRawParam(@NotNull String id){
         RawParam rawParam = rawParamService.findRawParam(id);
@@ -72,7 +72,7 @@ public class RawParamController {
     }
 
     @RequestMapping(path="/findAllRawParam",method = RequestMethod.POST)
-    @ApiMethod(name = "findAllRawParam",desc = "findAllRawParam")
+    @ApiMethod(name = "findAllRawParam",desc = "查找所有raw")
     public Result<List<RawParam>> findAllRawParam(){
         List<RawParam> rawParamList = rawParamService.findAllRawParam();
 
@@ -81,7 +81,7 @@ public class RawParamController {
 
 
     @RequestMapping(path = "/findRawParamList",method = RequestMethod.POST)
-    @ApiMethod(name = "findRawParamList",desc = "findRawParamList")
+    @ApiMethod(name = "findRawParamList",desc = "根据查询参数查找raw列表")
     @ApiParam(name = "rawParamQuery",desc = "rawParamQuery",required = true)
     public Result<List<RawParam>> findRawParamList(@RequestBody @Valid @NotNull RawParamQuery rawParamQuery){
         List<RawParam> rawParamList = rawParamService.findRawParamList(rawParamQuery);
@@ -91,7 +91,7 @@ public class RawParamController {
 
 
     @RequestMapping(path = "/findRawParamPage",method = RequestMethod.POST)
-    @ApiMethod(name = "findRawParamPage",desc = "findRawParamPage")
+    @ApiMethod(name = "findRawParamPage",desc = "根据查询参数按分页查找raw列表")
     @ApiParam(name = "rawParamQuery",desc = "rawParamQuery",required = true)
     public Result<Pagination<RawParam>> findRawParamPage(@RequestBody @Valid @NotNull RawParamQuery rawParamQuery){
         Pagination<RawParam> pagination = rawParamService.findRawParamPage(rawParamQuery);

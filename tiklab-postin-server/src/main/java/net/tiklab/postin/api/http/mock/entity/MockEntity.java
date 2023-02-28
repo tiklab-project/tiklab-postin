@@ -9,6 +9,9 @@ import net.tiklab.dal.jpa.annotation.Table;import net.tiklab.dal.jpa.annotation.
 import java.io.Serializable;
 import java.sql.Timestamp;
 
+/**
+ * mock 实体
+ */
 @Entity
 @Table(name="postin_http_mock")
 public class MockEntity implements Serializable {
@@ -18,21 +21,27 @@ public class MockEntity implements Serializable {
     @Column(name = "id",length = 32)
     private String id;
 
+    //所属接口
     @Column(name = "http_id",length = 32,notNull = true)
     private String httpId;
 
+    //名称
     @Column(name = "name",length = 64)
     private String name;
 
+    //创建人
     @Column(name = "create_user",length = 32 )
     private String createUser;
 
+    //创建时间
     @Column(name = "create_time",length = 4)
     private Timestamp createTime;
 
+    //是否可用
     @Column(name = "enable",length = 2)
     private Integer enable;
 
+    //描述
     @Column(name = "description",length = 128)
     private String desc;
 

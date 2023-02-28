@@ -7,6 +7,11 @@ import net.tiklab.dal.jpa.annotation.Table;import net.tiklab.dal.jpa.annotation.
 
 import java.io.Serializable;
 
+/**
+ * mock
+ * http协议
+ * 请求体 实体
+ */
 @Entity
 @Table(name="postin_http_mock_request")
 public class RequestMockEntity implements Serializable {
@@ -15,9 +20,11 @@ public class RequestMockEntity implements Serializable {
     @Column(name = "id",length = 32)
     private String id;
 
+    //所属mock
     @Column(name = "mock_id",length = 32,notNull = true)
     private String mockId;
 
+    //请求体类型
     @Column(name = "body_type",length = 32,notNull = true)
     private String bodyType;
 

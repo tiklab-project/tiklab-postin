@@ -13,32 +13,32 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
-* 用户服务接口
+* 请求头服务接口
 */
 @JoinProvider(model = RequestHeader.class)
 public interface RequestHeaderService {
 
     /**
-    * 创建用户
+    * 创建请求头
     * @param requestHeader
     * @return
     */
     String createRequestHeader(@NotNull @Valid RequestHeader requestHeader);
 
     /**
-    * 更新用户
+    * 更新请求头
     * @param requestHeader
     */
     void updateRequestHeader(@NotNull @Valid RequestHeader requestHeader);
 
     /**
-    * 删除用户
+    * 删除请求头
     * @param id
     */
     void deleteRequestHeader(@NotNull String id);
 
     /**
-    * 查找用户
+    * 查找请求头
     * @param id
     * @return
     */
@@ -46,21 +46,21 @@ public interface RequestHeaderService {
     RequestHeader findRequestHeader(@NotNull String id);
 
     /**
-    * 查找所有
+    * 查找请求头
     * @return
     */
     @FindAll
     List<RequestHeader> findAllRequestHeader();
 
     /**
-    * 查询列表
+    * 查询列表请求头
     * @param requestHeaderQuery
     * @return
     */
     List<RequestHeader> findRequestHeaderList(RequestHeaderQuery requestHeaderQuery);
 
     /**
-    * 按分页查询
+    * 按分页查询请求头
     * @param requestHeaderQuery
     * @return
     */

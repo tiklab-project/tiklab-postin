@@ -12,6 +12,9 @@ import net.tiklab.join.annotation.JoinQuery;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
+/**
+ * json结构 模型
+ */
 @ApiModel
 @Join
 @Mapper(targetAlias = "JsonParamDSEntity")

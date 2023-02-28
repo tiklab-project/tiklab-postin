@@ -7,6 +7,9 @@ import net.tiklab.dal.jpa.annotation.Table;import net.tiklab.dal.jpa.annotation.
 
 import java.io.Serializable;
 
+/**
+ * 分类 实体
+ */
 @Entity
 @Table(name="postin_category")
 public class CategoryEntity implements Serializable {
@@ -16,12 +19,15 @@ public class CategoryEntity implements Serializable {
     @Column(name = "id",length = 40)
     private String id;
 
+    //分类名称
     @Column(name = "name",length = 64,notNull = true)
     private String name;
 
+    //空间id
     @Column(name = "workspace_id",length = 32)
     private String workspaceId;
 
+    //所属上级
     @Column(name = "parent_category_id",length = 32)
     private String parentId;
 

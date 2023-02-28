@@ -19,6 +19,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
 
+/**
+ * 公共的导入
+ */
 @Component
 public class FunctionImport {
 
@@ -58,7 +61,9 @@ public class FunctionImport {
     @Autowired
     JsonResponseService jsonResponseService;
 
-    //获取导入文件数据
+    /**
+     * 获取导入文件数据
+     */
     public JSONObject getJsonData(InputStream stream) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(stream, "UTF-8"));
         StringBuffer sb = new StringBuffer("");
@@ -71,7 +76,9 @@ public class FunctionImport {
         return jsonObject;
     }
 
-    //覆盖
+    /**
+     * 覆盖
+     */
     public void coverCategory(String workspaceId, String categoryId, String categoryName){
         //把之前的删除
         delCategory(workspaceId,categoryId);
@@ -81,7 +88,12 @@ public class FunctionImport {
 
     }
 
-    //遍历是否有相同的categoryId，有就删除
+
+    /**
+     * 遍历是否有相同的categoryId，有就删除
+     * @param workspaceId
+     * @param categoryId
+     */
     private void delCategory(String workspaceId,String categoryId){
         CategoryQuery categoryQuery = new CategoryQuery().setWorkspaceId(workspaceId);
         List<Category> categoryListTree = categoryService.findCategoryListTree(categoryQuery);
@@ -94,6 +106,12 @@ public class FunctionImport {
         }
     }
 
+    /**
+     * 导入分组
+     * @param workspaceId
+     * @param categoryId
+     * @param categoryName
+     */
     private void addCategroy(String workspaceId, String categoryId, String categoryName){
         Workspace workspace = new Workspace();
         workspace.setId(workspaceId);
@@ -107,6 +125,10 @@ public class FunctionImport {
         categoryService.createCategory(category);
     }
 
+    /**
+     * 导入 接口
+     * @param ApixVo
+     */
     public void addMethod(ApixImportVo ApixVo){
         Category categoryID = new Category();
         categoryID.setId(ApixVo.getCategoryId());
@@ -129,6 +151,10 @@ public class FunctionImport {
 //        httpApiService.createHttpApi(httpApi);
     }
 
+    /**
+     * 导入请求头
+     * @param hVo
+     */
     public void addHeader(HeaderParamImportVo hVo){
         HttpApi httpApi = new HttpApi();
         httpApi.setId(hVo.getMethodId());
@@ -143,6 +169,10 @@ public class FunctionImport {
         requestHeaderService.createRequestHeader(requestHeader);
     }
 
+    /**
+     * 导入查询参数
+     * @param qVo
+     */
     public void addQuery(QueryParamImportVo qVo){
         HttpApi httpApi = new HttpApi();
         httpApi.setId(qVo.getMethodId());
@@ -157,6 +187,11 @@ public class FunctionImport {
         queryParamService.createQueryParam(queryParam);
     }
 
+    /**
+     * 导入请求体
+     * @param requestBody
+     * @param methodId
+     */
     public void addBody(String requestBody,String methodId){
         ApiRequest apiRequest = new ApiRequest();
 
@@ -167,6 +202,10 @@ public class FunctionImport {
         apiRequestService.createApiRequest(apiRequest);
     }
 
+    /**
+     * 导入formdata
+     * @param fvo
+     */
     public void addFormData(FormDataImportVo fvo){
         HttpApi httpApi = new HttpApi();
         httpApi.setId(fvo.getMethodId());
@@ -183,6 +222,10 @@ public class FunctionImport {
         formParamService.createFormParam(formParams);
     }
 
+    /**
+     * 导入formurl
+     * @param fUVo
+     */
     public void addFormUrlencoded(FormUrlencodedImportVo fUVo){
         HttpApi httpApi = new HttpApi();
         httpApi.setId(fUVo.getMethodId());
@@ -199,6 +242,11 @@ public class FunctionImport {
         formUrlencodedService.createFormUrlencoded(formUrlencoded);
     }
 
+    /**
+     * 导入json
+     * @param jVo
+     * @return
+     */
     public String addJsonParam(JsonParamImportVo jVo){
         HttpApi httpApi = new HttpApi();
         httpApi.setId(jVo.getMethodId());
@@ -218,6 +266,12 @@ public class FunctionImport {
         return parentid;
     }
 
+    /**
+     * 导入raw
+     * @param methodId
+     * @param rawType
+     * @param rawData
+     */
     public void addRaw(String methodId, String rawType, String rawData){
         HttpApi rawMethod = new HttpApi();
         rawMethod.setId(methodId);
@@ -232,6 +286,10 @@ public class FunctionImport {
         rawParamService.createRawParam(rawParam);
     }
 
+    /**
+     * 导入响应体
+     * @param methodId
+     */
     public void addResponseBody(String methodId){
         ApiResponse apiResponse = new ApiResponse();
 
@@ -241,6 +299,11 @@ public class FunctionImport {
         apiResponseService.createApiResponse(apiResponse);
     }
 
+    /**
+     * 导入响应体json
+     * @param jRVo
+     * @return
+     */
     public String addResponseJson(JsonResponseImportVo jRVo){
         HttpApi httpApi = new HttpApi();
         httpApi.setId(jRVo.getMethodId());

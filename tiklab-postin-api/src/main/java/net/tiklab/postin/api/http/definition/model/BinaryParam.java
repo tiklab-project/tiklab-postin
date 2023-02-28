@@ -11,6 +11,9 @@ import net.tiklab.join.annotation.JoinQuery;
 
 import javax.validation.constraints.NotNull;
 
+/**
+ * binary模型
+ */
 @ApiModel
 @Join
 @Mapper(targetAlias = "BinaryParamEntity")
@@ -28,7 +31,7 @@ public class BinaryParam extends BaseModel{
     private HttpApi http;
 
     @NotNull
-    @ApiProperty(name="fileName",desc="fileName",required = true)
+    @ApiProperty(name="fileName",desc="文件名",required = true)
     private java.lang.String fileName;
 
     public java.lang.String getId() {

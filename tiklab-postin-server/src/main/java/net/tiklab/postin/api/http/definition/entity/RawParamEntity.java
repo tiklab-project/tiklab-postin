@@ -7,6 +7,11 @@ import net.tiklab.dal.jpa.annotation.Table;import net.tiklab.dal.jpa.annotation.
 
 import java.io.Serializable;
 
+/**
+ * 定义
+ * http协议
+ * 请求中raw 实体
+ */
 @Entity
 @Table(name="postin_http_request_raw")
 public class RawParamEntity implements Serializable {
@@ -15,12 +20,15 @@ public class RawParamEntity implements Serializable {
     @Column(name = "id",length = 40)
     private String id;
 
+    //所属接口
     @Column(name = "http_id",length = 40,notNull = true)
     private String httpId;
 
+    //raw文本
     @Column(name = "raw",length = 2048,notNull = true)
     private String raw;
 
+    //媒体类型 如: application/json
     @Column(name = "type",length = 32,notNull = true)
     private String type;
 

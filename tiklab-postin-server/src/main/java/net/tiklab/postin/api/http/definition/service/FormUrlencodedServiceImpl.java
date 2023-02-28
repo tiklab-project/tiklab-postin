@@ -17,7 +17,9 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
-* FormUrlencodedServiceImpl
+ * 定义
+ * http协议
+ * form-urlencoded服务
 */
 @Service
 public class FormUrlencodedServiceImpl implements FormUrlencodedService {

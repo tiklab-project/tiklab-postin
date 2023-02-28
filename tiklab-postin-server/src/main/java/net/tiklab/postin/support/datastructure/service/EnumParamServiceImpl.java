@@ -17,7 +17,7 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
-* EnumParamServiceImpl
+* Enum类型 服务
 */
 
 @Service

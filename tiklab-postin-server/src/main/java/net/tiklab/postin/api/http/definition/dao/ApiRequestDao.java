@@ -15,7 +15,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * ApiRequestDao
+ * 定义
+ * http协议
+ * 请求区 数据访问
  */
 @Repository
 public class ApiRequestDao{
@@ -64,7 +66,7 @@ public class ApiRequestDao{
     }
 
     /**
-    * findAllApiRequest
+    * 查找所有
     * @return
     */
     public List<ApiRequestEntity> findAllApiRequest() {
@@ -75,6 +77,11 @@ public class ApiRequestDao{
         return jpaTemplate.findList(ApiRequestEntity.class,idList);
     }
 
+    /**
+     * 查找列表
+     * @param apiRequestQuery
+     * @return
+     */
     public List<ApiRequestEntity> findApiRequestList(ApiRequestQuery apiRequestQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(ApiRequestEntity.class)
                 .eq("httpId", apiRequestQuery.getHttpId())
@@ -83,6 +90,11 @@ public class ApiRequestDao{
         return jpaTemplate.findList(queryCondition,ApiRequestEntity.class);
     }
 
+    /**
+     * 按分页查找列表
+     * @param apiRequestQuery
+     * @return
+     */
     public Pagination<ApiRequestEntity> findApiRequestPage(ApiRequestQuery apiRequestQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(ApiRequestEntity.class)
                 .eq("httpId", apiRequestQuery.getHttpId())

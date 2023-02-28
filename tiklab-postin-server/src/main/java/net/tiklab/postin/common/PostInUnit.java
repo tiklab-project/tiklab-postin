@@ -6,6 +6,9 @@ import net.tiklab.utils.context.LoginContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * postin 工具类
+ */
 @Service
 public class PostInUnit {
 

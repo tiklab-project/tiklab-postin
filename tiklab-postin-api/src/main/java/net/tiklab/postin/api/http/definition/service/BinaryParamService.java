@@ -14,26 +14,26 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
-* BinaryParamService
+* binary 服务接口
 */
 @JoinProvider(model = BinaryParam.class)
 public interface BinaryParamService {
 
     /**
-    * 创建
+    * 创建binary
     * @param binaryParam
     * @return
     */
     String createBinaryParam(@NotNull @Valid BinaryParam binaryParam);
 
     /**
-    * 更新
+    * 更新binary
     * @param binaryParam
     */
     void updateBinaryParam(@NotNull @Valid BinaryParam binaryParam);
 
     /**
-    * 删除
+    * 删除binary
     * @param id
     */
     void deleteBinaryParam(@NotNull String id);
@@ -45,28 +45,28 @@ public interface BinaryParamService {
     List<BinaryParam> findList(List<String> idList);
 
     /**
-    * 查找
+    * 查找binary
     * @param id
     * @return
     */
     BinaryParam findBinaryParam(@NotNull String id);
 
     /**
-    * 查找所有
+    * 查找所有binary
     * @return
     */
     @FindAll
     List<BinaryParam> findAllBinaryParam();
 
     /**
-    * 查询列表
+    * 查询列表binary
     * @param binaryParamQuery
     * @return
     */
     List<BinaryParam> findBinaryParamList(BinaryParamQuery binaryParamQuery);
 
     /**
-    * 按分页查询
+    * 按分页查询binary
     * @param binaryParamQuery
     * @return
     */

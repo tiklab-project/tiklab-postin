@@ -5,7 +5,10 @@ import net.tiklab.dal.jpa.annotation.*;
 
 import java.io.Serializable;
 
-
+/**
+ * 定义
+ * http协议 实体
+ */
 @Entity
 @Table(name="postin_api_http")
 public class HttpApiEntity implements Serializable {
@@ -14,12 +17,15 @@ public class HttpApiEntity implements Serializable {
     @Column(name = "id",length = 40)
     private String id;
 
+    //所属接口
     @Column(name = "apix_id",length = 40)
     private String apixId;
 
+    //路径
     @Column(name = "path",length = 256,notNull = true)
     private String path;
 
+    //请求类型
     @Column(name = "method_type",length = 32,notNull = true)
     private String methodType;
 

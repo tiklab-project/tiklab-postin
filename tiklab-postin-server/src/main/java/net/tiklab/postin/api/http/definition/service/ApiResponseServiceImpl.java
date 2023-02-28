@@ -18,7 +18,9 @@ import java.sql.Timestamp;
 import java.util.List;
 
 /**
-* 用户服务业务处理
+ * 定义
+ * http协议
+ * 响应区服务
 */
 @Service
 public class ApiResponseServiceImpl implements ApiResponseService {

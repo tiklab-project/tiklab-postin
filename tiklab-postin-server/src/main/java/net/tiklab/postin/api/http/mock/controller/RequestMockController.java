@@ -21,6 +21,10 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
+/**
+ * mock
+ * 请求体 控制器
+ */
 @RestController
 @RequestMapping("/requestMock")
 @Api(name = "RequestMockController",desc = "接口mock-请求体管理")
@@ -32,7 +36,7 @@ public class RequestMockController {
     private RequestMockService requestMockService;
 
     @RequestMapping(path="/createRequestMock",method = RequestMethod.POST)
-    @ApiMethod(name = "createRequestMock",desc = "createRequestMock")
+    @ApiMethod(name = "createRequestMock",desc = "创建请求体")
     @ApiParam(name = "RequestMock",desc = "RequestMock",required = true)
     public Result<String> createRequestMock(@RequestBody @NotNull @Valid RequestMock requestMock){
         String id = requestMockService.createRequestMock(requestMock);
@@ -41,7 +45,7 @@ public class RequestMockController {
     }
 
     @RequestMapping(path="/updateRequestMock",method = RequestMethod.POST)
-    @ApiMethod(name = "updateRequestMock",desc = "updateRequestMock")
+    @ApiMethod(name = "updateRequestMock",desc = "更新请求体")
     @ApiParam(name = "RequestMock",desc = "RequestMock",required = true)
     public Result<Void> updateRequestMock(@RequestBody @NotNull @Valid RequestMock requestMock){
         requestMockService.updateRequestMock(requestMock);
@@ -50,7 +54,7 @@ public class RequestMockController {
     }
 
     @RequestMapping(path="/deleteRequestMock",method = RequestMethod.POST)
-    @ApiMethod(name = "deleteRequestMock",desc = "deleteRequestMock")
+    @ApiMethod(name = "deleteRequestMock",desc = "删除请求体")
     @ApiParam(name = "id",desc = "id",required = true)
     public Result<Void> deleteRequestMock(@NotNull String id){
         requestMockService.deleteRequestMock(id);
@@ -59,7 +63,7 @@ public class RequestMockController {
     }
 
     @RequestMapping(path="/findRequestMock",method = RequestMethod.POST)
-    @ApiMethod(name = "findRequestMock",desc = "findRequestMock")
+    @ApiMethod(name = "findRequestMock",desc = "通过id查询请求体")
     @ApiParam(name = "id",desc = "id",required = true)
     public Result<RequestMock> findRequestMock(@NotNull String id){
         RequestMock requestMock = requestMockService.findRequestMock(id);
@@ -68,7 +72,7 @@ public class RequestMockController {
     }
 
     @RequestMapping(path="/findAllRequestMock",method = RequestMethod.POST)
-    @ApiMethod(name = "findAllRequestMock",desc = "findAllRequestMock")
+    @ApiMethod(name = "findAllRequestMock",desc = "查询所有请求体")
     public Result<List<RequestMock>> findAllRequestMock(){
         List<RequestMock> requestMockList = requestMockService.findAllRequestMock();
 
@@ -77,7 +81,7 @@ public class RequestMockController {
 
 
     @RequestMapping(path = "/findRequestMockList",method = RequestMethod.POST)
-    @ApiMethod(name = "findRequestMockList",desc = "findRequestMockList")
+    @ApiMethod(name = "findRequestMockList",desc = "根据查询参数查找请求体")
     @ApiParam(name = "RequestMockQuery",desc = "RequestMockQuery",required = true)
     public Result<List<RequestMock>> findRequestMockList(@RequestBody @Valid @NotNull RequestMockQuery requestMockQuery){
         List<RequestMock> requestMockList = requestMockService.findRequestMockList(requestMockQuery);
@@ -87,7 +91,7 @@ public class RequestMockController {
 
 
     @RequestMapping(path = "/findRequestMockPage",method = RequestMethod.POST)
-    @ApiMethod(name = "findRequestMockPage",desc = "findRequestMockPage")
+    @ApiMethod(name = "findRequestMockPage",desc = "根据查询参数按分页查找请求体")
     @ApiParam(name = "RequestMockQuery",desc = "RequestMockQuery",required = true)
     public Result<Pagination<RequestMock>> findRequestMockPage(@RequestBody @Valid @NotNull RequestMockQuery requestMockQuery){
         Pagination<RequestMock> pagination = requestMockService.findRequestMockPage(requestMockQuery);

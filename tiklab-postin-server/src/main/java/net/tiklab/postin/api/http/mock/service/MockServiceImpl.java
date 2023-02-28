@@ -20,7 +20,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 /**
-* 用户服务业务处理
+* mock 服务
 */
 @Service
 public class MockServiceImpl implements MockService {

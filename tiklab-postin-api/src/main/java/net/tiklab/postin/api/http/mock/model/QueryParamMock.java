@@ -11,6 +11,9 @@ import net.tiklab.join.annotation.JoinQuery;
 
 import javax.validation.constraints.NotNull;
 
+/**
+ * mock 查询参数 模型
+ */
 @ApiModel
 @Join
 @Mapper(targetAlias = "QueryParamMockEntity")

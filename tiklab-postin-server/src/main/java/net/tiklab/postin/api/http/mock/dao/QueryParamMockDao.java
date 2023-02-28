@@ -14,7 +14,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * 用户数据操作
+ * mock
+ * query查询参数 数据访问
  */
 @Repository
 public class QueryParamMockDao{
@@ -25,7 +26,7 @@ public class QueryParamMockDao{
     JpaTemplate jpaTemplate;
 
     /**
-     * 创建用户
+     * 创建query查询参数
      * @param queryParamMockEntity
      * @return
      */
@@ -34,7 +35,7 @@ public class QueryParamMockDao{
     }
 
     /**
-     * 更新用户
+     * 更新query查询参数
      * @param queryParamMockEntity
      */
     public void updateQueryParamMock(QueryParamMockEntity queryParamMockEntity){
@@ -42,7 +43,7 @@ public class QueryParamMockDao{
     }
 
     /**
-     * 删除用户
+     * 删除query查询参数
      * @param id
      */
     public void deleteQueryParamMock(String id){
@@ -50,7 +51,7 @@ public class QueryParamMockDao{
     }
 
     /**
-     * 查找用户
+     * 查找query查询参数
      * @param id
      * @return
      */
@@ -59,13 +60,18 @@ public class QueryParamMockDao{
     }
 
     /**
-    * findAllQueryParamMock
+    * 查找所有query参数
     * @return
     */
     public List<QueryParamMockEntity> findAllQueryParamMock() {
         return jpaTemplate.findAll(QueryParamMockEntity.class);
     }
 
+    /**
+     * 通过查询参数查找query列表
+     * @param queryParamMockQuery
+     * @return
+     */
     public List<QueryParamMockEntity> findQueryParamMockList(QueryParamMockQuery queryParamMockQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(QueryParamMockEntity.class)
                 .eq("mockId", queryParamMockQuery.getMockId())
@@ -74,6 +80,11 @@ public class QueryParamMockDao{
         return jpaTemplate.findList(queryCondition, QueryParamMockEntity.class);
     }
 
+    /**
+     * 根据查询参数按分页查找query列表
+     * @param queryParamMockQuery
+     * @return
+     */
     public Pagination<QueryParamMockEntity> findQueryParamMockPage(QueryParamMockQuery queryParamMockQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(QueryParamMockEntity.class)
                 .eq("mockId", queryParamMockQuery.getMockId())

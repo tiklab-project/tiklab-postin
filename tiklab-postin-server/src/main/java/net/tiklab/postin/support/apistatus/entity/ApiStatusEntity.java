@@ -5,6 +5,9 @@ import net.tiklab.dal.jpa.annotation.*;
 
 import java.io.Serializable;
 
+/**
+ * 接口状态 实体
+ */
 @Entity
 @Table(name="postin_api_status")
 public class ApiStatusEntity implements Serializable {
@@ -14,15 +17,19 @@ public class ApiStatusEntity implements Serializable {
     @Column(name="id",length = 32)
     private String id;
 
+    //颜色
     @Column(name = "color",length = 32)
     private String color;
 
+    //名称
     @Column(name = "name",length = 32)
     private String name;
 
+    //状态类型 如：未开始、进行中
     @Column(name = "type",length = 32)
     private String type;
 
+    //所属空间
     @Column(name = "workspace_id",length = 32)
     private String workspaceId;
 

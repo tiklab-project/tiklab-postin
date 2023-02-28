@@ -10,25 +10,25 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
-* EnumParamService
+* 枚举结构 服务接口
 */
 public interface EnumParamService {
 
     /**
-    * 创建
+    * 创建枚举结构
     * @param enumParam
     * @return
     */
     String createEnumParam(@NotNull @Valid EnumParam enumParam);
 
     /**
-    * 更新
+    * 更新枚举结构
     * @param enumParam
     */
     void updateEnumParam(@NotNull @Valid EnumParam enumParam);
 
     /**
-    * 删除
+    * 删除枚举结构
     * @param id
     */
     void deleteEnumParam(@NotNull String id);
@@ -38,27 +38,27 @@ public interface EnumParamService {
     List<EnumParam> findList(List<String> idList);
 
     /**
-    * 查找
+    * 查找枚举结构
     * @param id
     * @return
     */
     EnumParam findEnumParam(@NotNull String id);
 
     /**
-    * 查找所有
+    * 查找所有枚举结构
     * @return
     */
     List<EnumParam> findAllEnumParam();
 
     /**
-    * 查询列表
+    * 查询列表枚举结构
     * @param enumParamQuery
     * @return
     */
     List<EnumParam> findEnumParamList(EnumParamQuery enumParamQuery);
 
     /**
-    * 按分页查询
+    * 按分页查询枚举结构
     * @param enumParamQuery
     * @return
     */

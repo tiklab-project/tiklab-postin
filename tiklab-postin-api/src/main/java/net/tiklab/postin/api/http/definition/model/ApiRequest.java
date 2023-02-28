@@ -6,6 +6,9 @@ import net.tiklab.core.BaseModel;
 import net.tiklab.postin.annotation.ApiModel;
 import net.tiklab.postin.annotation.ApiProperty;
 
+/**
+ * 接口定义中请求区的模型
+ */
 @ApiModel
 @Mapper(targetAlias = "ApiRequestEntity")
 public class ApiRequest extends BaseModel {
@@ -16,13 +19,13 @@ public class ApiRequest extends BaseModel {
     @ApiProperty(name="httpId",desc="httpId")
     private java.lang.String httpId;
 
-    @ApiProperty(name="bodyType",desc="bodyType")
+    @ApiProperty(name="bodyType",desc="请求体类型")
     private java.lang.String bodyType;
 
-    @ApiProperty(name="preScript",desc="preScript")
+    @ApiProperty(name="preScript",desc="前置脚本")
     private java.lang.String preScript;
 
-    @ApiProperty(name="afterScript",desc="afterScript")
+    @ApiProperty(name="afterScript",desc="后置脚本")
     private java.lang.String afterScript;
 
     public java.lang.String getId() {

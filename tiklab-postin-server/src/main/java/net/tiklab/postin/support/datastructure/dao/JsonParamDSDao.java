@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * JsonParamDSDao
+ * json 类型的数据结构  数据访问
  */
 @Repository
 public class JsonParamDSDao{
@@ -26,7 +26,7 @@ public class JsonParamDSDao{
     JpaTemplate jpaTemplate;
 
     /**
-     * 创建
+     * 创建json类型的数据结构内容
      * @param jsonParamDSEntity
      * @return
      */
@@ -35,7 +35,7 @@ public class JsonParamDSDao{
     }
 
     /**
-     * 更新
+     * 更新json类型的数据结构内容
      * @param jsonParamDSEntity
      */
     public void updateJsonParamDS(JsonParamDSEntity jsonParamDSEntity){
@@ -43,7 +43,7 @@ public class JsonParamDSDao{
     }
 
     /**
-     * 删除
+     * 删除json类型的数据结构内容
      * @param id
      */
     public void deleteJsonParamDS(String id){
@@ -55,7 +55,7 @@ public class JsonParamDSDao{
     }
 
     /**
-     * 查找
+     * 通过id查询json类型的数据结构内容
      * @param id
      * @return
      */
@@ -64,7 +64,7 @@ public class JsonParamDSDao{
     }
 
     /**
-    * findAllJsonParamDS
+    * 查询所有json 类型的数据结构内容
     * @return
     */
     public List<JsonParamDSEntity> findAllJsonParamDS() {
@@ -75,6 +75,11 @@ public class JsonParamDSDao{
         return jpaTemplate.findList(JsonParamDSEntity.class,idList);
     }
 
+    /**
+     * 通过查询对象 查询json 类型的数据结构内容
+     * @param jsonParamDSQuery
+     * @return
+     */
     public List<JsonParamDSEntity> findJsonParamDSList(JsonParamDSQuery jsonParamDSQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(JsonParamDSEntity.class)
                 .eq("dataStructureId", jsonParamDSQuery.getDataStructureId())
@@ -83,6 +88,11 @@ public class JsonParamDSDao{
         return jpaTemplate.findList(queryCondition, JsonParamDSEntity.class);
     }
 
+    /**
+     * 通过查询对象 查询json 类型的数据结构内容树
+     * @param jsonParamDSQuery
+     * @return
+     */
     public Pagination<JsonParamDSEntity> findJsonParamDSPage(JsonParamDSQuery jsonParamDSQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(JsonParamDSEntity.class)
                 .eq("dataStructureId", jsonParamDSQuery.getDataStructureId())

@@ -10,6 +10,10 @@ import net.tiklab.join.annotation.Join;
 
 import javax.validation.constraints.NotNull;
 
+/**
+ * http
+ * 断言实例 模型
+ */
 @ApiModel
 @Join
 @Mapper(targetAlias = "AssertInstanceEntity")

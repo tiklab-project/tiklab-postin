@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * 用户数据操作
+ * 环境 数据访问
  */
 @Repository
 public class EnvironmentDao{
@@ -26,7 +26,7 @@ public class EnvironmentDao{
     JpaTemplate jpaTemplate;
 
     /**
-     * 创建用户
+     * 创建环境
      * @param environmentEntity
      * @return
      */
@@ -35,7 +35,7 @@ public class EnvironmentDao{
     }
 
     /**
-     * 更新用户
+     * 更新环境
      * @param environmentEntity
      */
     public void updateEnvironment(EnvironmentEntity environmentEntity){
@@ -43,7 +43,7 @@ public class EnvironmentDao{
     }
 
     /**
-     * 删除用户
+     * 删除环境
      * @param id
      */
     public void deleteEnvironment(String id){
@@ -55,7 +55,7 @@ public class EnvironmentDao{
     }
 
     /**
-     * 查找用户
+     * 查找环境
      * @param id
      * @return
      */
@@ -64,7 +64,7 @@ public class EnvironmentDao{
     }
 
     /**
-    * findAllEnvironment
+    * 查找所有环境
     * @return
     */
     public List<EnvironmentEntity> findAllEnvironment() {
@@ -75,6 +75,11 @@ public class EnvironmentDao{
         return jpaTemplate.findList(EnvironmentEntity.class,idList);
     }
 
+    /**
+     * 根据查询参数查找环境
+     * @param environmentQuery
+     * @return
+     */
     public List<EnvironmentEntity> findEnvironmentList(EnvironmentQuery environmentQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(EnvironmentEntity.class)
                 .like("name", environmentQuery.getName())
@@ -83,6 +88,11 @@ public class EnvironmentDao{
         return jpaTemplate.findList(queryCondition, EnvironmentEntity.class);
     }
 
+    /**
+     * 根据查询参数按分页查找环境
+     * @param environmentQuery
+     * @return
+     */
     public Pagination<EnvironmentEntity> findEnvironmentPage(EnvironmentQuery environmentQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(EnvironmentEntity.class)
                 .like("name", environmentQuery.getName())

@@ -15,7 +15,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * 用户数据操作
+ * 定义
+ * http协议
+ * 请求中json 数据访问
  */
 @Repository
 public class JsonParamDao{
@@ -26,7 +28,7 @@ public class JsonParamDao{
     JpaTemplate jpaTemplate;
 
     /**
-     * 创建用户
+     * 创建请求中json
      * @param jsonParamPo
      * @return
      */
@@ -35,7 +37,7 @@ public class JsonParamDao{
     }
 
     /**
-     * 更新用户
+     * 更新请求中json
      * @param jsonParamPo
      */
     public void updateJsonParam(JsonParamEntity jsonParamPo){
@@ -43,7 +45,7 @@ public class JsonParamDao{
     }
 
     /**
-     * 删除用户
+     * 删除请求中json
      * @param id
      */
     public void deleteJsonParam(String id){
@@ -51,7 +53,7 @@ public class JsonParamDao{
     }
 
     /**
-     * 通过条件删除
+     * 通过条件删除请求中json
      * @param deleteCondition
      */
     public void deleteJsonParamList(DeleteCondition deleteCondition){
@@ -59,7 +61,7 @@ public class JsonParamDao{
     }
 
     /**
-     * 查找用户
+     * 查找请求中json
      * @param id
      * @return
      */
@@ -68,7 +70,7 @@ public class JsonParamDao{
     }
 
     /**
-    * findAllJsonParam
+    * 查找所有请求中json
     * @return
     */
     public List<JsonParamEntity> findAllJsonParam() {
@@ -79,6 +81,11 @@ public class JsonParamDao{
         return jpaTemplate.findList(JsonParamEntity.class,idList);
     }
 
+    /**
+     * 根据查询参数查找请求中json
+     * @param jsonParamQuery
+     * @return
+     */
     public List<JsonParamEntity> findJsonParamList(JsonParamQuery jsonParamQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(JsonParamEntity.class)
                 .eq("httpId", jsonParamQuery.getHttpId())
@@ -87,6 +94,11 @@ public class JsonParamDao{
         return jpaTemplate.findList(queryCondition, JsonParamEntity.class);
     }
 
+    /**
+     * 根据查询参数按分页查找请求中json
+     * @param jsonParamQuery
+     * @return
+     */
     public Pagination<JsonParamEntity> findJsonParamPage(JsonParamQuery jsonParamQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(JsonParamEntity.class)
                 .eq("httpId", jsonParamQuery.getHttpId())

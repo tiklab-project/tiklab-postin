@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * WorkspaceRecentDao
+ * 最近访问空间 数据访问
  */
 @Repository
 public class WorkspaceRecentDao{
@@ -26,7 +26,7 @@ public class WorkspaceRecentDao{
     JpaTemplate jpaTemplate;
 
     /**
-     * 创建
+     * 创建最近访问空间
      * @param workspaceRecentEntity
      * @return
      */
@@ -35,7 +35,7 @@ public class WorkspaceRecentDao{
     }
 
     /**
-     * 更新
+     * 更新最近访问空间
      * @param workspaceRecentEntity
      */
     public void updateWorkspaceRecent(WorkspaceRecentEntity workspaceRecentEntity){
@@ -43,7 +43,7 @@ public class WorkspaceRecentDao{
     }
 
     /**
-     * 删除
+     * 删除最近访问空间
      * @param id
      */
     public void deleteWorkspaceRecent(String id){
@@ -55,7 +55,7 @@ public class WorkspaceRecentDao{
     }
 
     /**
-     * 查找
+     * 通过id查找最近访问空间
      * @param id
      * @return
      */
@@ -64,7 +64,7 @@ public class WorkspaceRecentDao{
     }
 
     /**
-    * findAllWorkspaceRecent
+    * 查找所有最近访问空间
     * @return
     */
     public List<WorkspaceRecentEntity> findAllWorkspaceRecent() {
@@ -75,6 +75,11 @@ public class WorkspaceRecentDao{
         return jpaTemplate.findList(WorkspaceRecentEntity.class,idList);
     }
 
+    /**
+     * 根据查询参数查找最近访问空间
+     * @param workspaceRecentQuery
+     * @return
+     */
     public List<WorkspaceRecentEntity> findWorkspaceRecentList(WorkspaceRecentQuery workspaceRecentQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(WorkspaceRecentEntity.class)
                 .eq("workspaceId",workspaceRecentQuery.getWorkspaceId())
@@ -84,6 +89,11 @@ public class WorkspaceRecentDao{
         return jpaTemplate.findList(queryCondition,WorkspaceRecentEntity.class);
     }
 
+    /**
+     * 根据查询参数按分页查找最近访问空间
+     * @param workspaceRecentQuery
+     * @return
+     */
     public Pagination<WorkspaceRecentEntity> findWorkspaceRecentPage(WorkspaceRecentQuery workspaceRecentQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(WorkspaceRecentEntity.class)
                 .eq("workspaceId",workspaceRecentQuery.getWorkspaceId())

@@ -14,26 +14,26 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
-* DataStructureService
+* 数据结构 服务接口
 */
 @JoinProvider(model = DataStructure.class)
 public interface DataStructureService {
 
     /**
-    * 创建
+    * 创建数据结构
     * @param dataStructure
     * @return
     */
     String createDataStructure(@NotNull @Valid DataStructure dataStructure);
 
     /**
-    * 更新
+    * 更新数据结构
     * @param dataStructure
     */
     void updateDataStructure(@NotNull @Valid DataStructure dataStructure);
 
     /**
-    * 删除
+    * 删除数据结构
     * @param id
     */
     void deleteDataStructure(@NotNull String id);
@@ -45,28 +45,28 @@ public interface DataStructureService {
     List<DataStructure> findList(List<String> idList);
 
     /**
-    * 查找
+    * 查找数据结构
     * @param id
     * @return
     */
     DataStructure findDataStructure(@NotNull String id);
 
     /**
-    * 查找所有
+    * 查找所有数据结构
     * @return
     */
     @FindAll
     List<DataStructure> findAllDataStructure();
 
     /**
-    * 查询列表
+    * 查询列表数据结构
     * @param dataStructureQuery
     * @return
     */
     List<DataStructure> findDataStructureList(DataStructureQuery dataStructureQuery);
 
     /**
-    * 按分页查询
+    * 按分页查询数据结构
     * @param dataStructureQuery
     * @return
     */

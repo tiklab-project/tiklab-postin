@@ -25,6 +25,9 @@ import java.net.URISyntaxException;
 import java.time.Duration;
 import java.time.Instant;
 
+/**
+ * json类型转发
+ */
 @Component
 public class RouteDispatchForJson {
 
@@ -39,6 +42,12 @@ public class RouteDispatchForJson {
     @Autowired
     DataProcessCommon dataProcessCommon;
 
+    /**
+     * 发送请求
+     * @param request
+     * @param response
+     * @param httpRequest
+     */
     public void dispatch(HttpServletRequest request, HttpServletResponse response, HttpRequest httpRequest){
         try {
             //构建请求entity
@@ -60,27 +69,6 @@ public class RouteDispatchForJson {
 
 
             dataProcessCommon.buildResponseHeader(responseEntity,response,timeString);
-
-
-            //获取状态码
-//            int statusCode = responseEntity.getStatusCodeValue();
-//            String statusText = responseEntity.getStatusCode().getReasonPhrase();
-//
-//            String result = String.format("statusCode=%d,statusText=%s,time=%s", statusCode, statusText, timeString);
-//            response.setHeader("pi-base",result);
-//
-//
-//            //把响应头返回回去
-//            HttpHeaders httpHeaders = responseEntity.getHeaders();
-//
-//            String piResHeader =  httpHeaders.entrySet()
-//                    .stream()
-//                    .map(entry -> entry.getKey() + ":" + String.join(",", entry.getValue()))
-//                    .collect(Collectors.joining(","));
-//
-//            response.setHeader("pi-header",piResHeader);
-
-
 
 
 

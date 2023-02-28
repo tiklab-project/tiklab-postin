@@ -15,26 +15,26 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
-* 用户服务接口
+* http协议 服务接口
 */
 @JoinProvider(model = HttpApi.class)
 public interface HttpApiService {
 
     /**
-    * 创建用户
+    * 创建http协议
     * @param
     * @return
     */
     String createHttpApi(@NotNull @Valid HttpApi httpApi);
 
     /**
-    * 更新用户
+    * 更新http协议
     * @param httpApi
     */
     void updateHttpApi(@NotNull @Valid HttpApi httpApi);
 
     /**
-    * 删除用户
+    * 删除http协议
     * @param id
     */
     void deleteHttpApi(@NotNull String id);
@@ -46,28 +46,28 @@ public interface HttpApiService {
     List<HttpApi> findList(List<String> idList);
 
     /**
-    * 查找用户
+    * 查找http协议
     * @param id
     * @return
     */
     HttpApi findHttpApi(@NotNull String id);
 
     /**
-    * 查找所有
+    * 查找http协议
     * @return
     */
     @FindAll
     List<HttpApi> findAllHttpApi();
 
     /**
-    * 查询列表
+    * 查询列表http协议
     * @param httpApiQuery
     * @return
     */
     List<HttpApi> findHttpApiList(HttpApiQuery httpApiQuery);
 
     /**
-    * 按分页查询
+    * 按分页查询http协议
     * @param httpApiQuery
     * @return
     */

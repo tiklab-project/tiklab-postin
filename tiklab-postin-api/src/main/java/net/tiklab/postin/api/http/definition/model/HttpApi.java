@@ -15,9 +15,11 @@ import net.tiklab.join.annotation.JoinQuery;
 
 import java.util.List;
 
+/**
+ * http 特有字段模型
+ */
 @ApiModel
 @Join
-@Index
 @Mapper(targetAlias = "HttpApiEntity")
 public class HttpApi extends BaseModel {
 
@@ -26,7 +28,7 @@ public class HttpApi extends BaseModel {
     @IndexField
     private java.lang.String id;
 
-    @ApiProperty(name="apix",desc="所属定义",eg="@selectOne",required = true)
+    @ApiProperty(name="apix",desc="所属接口公共定义",eg="@selectOne",required = true)
     @Mappings({
             @Mapping(source = "apix.id",target = "apixId")
     })
@@ -39,31 +41,31 @@ public class HttpApi extends BaseModel {
     @ApiProperty(name="methodType",desc="请求类型",required = true)
     private String methodType;
 
-    @ApiProperty(name = "headerList")
+    @ApiProperty(name = "headerList",desc="请求头列表")
     private List<RequestHeader> headerList;
 
-    @ApiProperty(name = "queryList")
+    @ApiProperty(name = "queryList",desc="查询参数列表")
     private List<QueryParam> queryList;
 
-    @ApiProperty(name = "requestBody")
+    @ApiProperty(name = "request",desc="请求")
     private ApiRequest request;
 
-    @ApiProperty(name = "formParamList")
+    @ApiProperty(name = "formParamList",desc="form-data列表")
     private List<FormParam> formList;
 
-    @ApiProperty(name = "formUrlencodedList")
+    @ApiProperty(name = "formUrlencodedList",desc="form-url列表")
     private List<FormUrlencoded> urlencodedList;
 
-    @ApiProperty(name = "jsonParamList")
+    @ApiProperty(name = "jsonParamList",desc="json列表")
     private List<JsonParam> jsonList;
 
-    @ApiProperty(name = "raw")
+    @ApiProperty(name = "raw",desc="raw")
     private RawParam rawParam;
 
-    @ApiProperty(name = "responseHeaderList")
+    @ApiProperty(name = "responseHeaderList",desc="响应头列表")
     private List<ResponseHeader> responseHeaderList;
 
-    @ApiProperty(name = "responseResultList")
+    @ApiProperty(name = "responseResultList",desc="响应结果列表")
     private List<ApiResponse> responseResultList;
 
 

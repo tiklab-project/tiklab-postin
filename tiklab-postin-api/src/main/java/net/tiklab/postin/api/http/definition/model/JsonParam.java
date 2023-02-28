@@ -12,6 +12,9 @@ import net.tiklab.join.annotation.JoinQuery;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
+/**
+ * json 模型
+ */
 @ApiModel
 @Join
 @Mapper(targetAlias = "JsonParamEntity")
@@ -28,7 +31,7 @@ public class JsonParam extends BaseModel {
     private JsonParam parent;
 
     @NotNull
-    @ApiProperty(name="http",desc="所属接口",eg="@selectOne",required = true)
+    @ApiProperty(name="http",desc="所属接口",required = true)
     @Mappings({
             @Mapping(source = "http.id",target = "httpId")
     })

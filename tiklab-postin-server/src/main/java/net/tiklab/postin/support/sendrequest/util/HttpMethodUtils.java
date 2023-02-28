@@ -4,6 +4,9 @@ import net.tiklab.core.exception.SystemException;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 
+/**
+ * http请求类型
+ */
 @Service
 public class HttpMethodUtils {
 

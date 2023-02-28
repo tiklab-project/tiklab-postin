@@ -1,15 +1,22 @@
 package net.tiklab.postin.support.sendrequest;
 
 import net.tiklab.postin.annotation.ApiModel;
+import net.tiklab.postin.annotation.ApiProperty;
 import org.springframework.http.HttpHeaders;
 
+/**
+ * http发送请求 模型
+ */
 @ApiModel
 public class HttpRequest {
 
+    @ApiProperty(name="url",desc="请求前置url")
     String url;
 
+    @ApiProperty(name="method",desc="请求类型")
     String method;
 
+    @ApiProperty(name="method",desc="请求头")
     HttpHeaders headers;
 
 

@@ -18,8 +18,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
-* 用户服务业务处理
-*/
+ * 定义
+ * http协议
+ * 响应中json服务
+ */
 @Service
 public class JsonResponseServiceImpl implements JsonResponseService {
 

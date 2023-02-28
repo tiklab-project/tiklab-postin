@@ -15,7 +15,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * 用户数据操作
+ * 定义
+ * http协议
+ * 响应区 数据访问
  */
 @Repository
 public class ApiResponseDao {
@@ -26,7 +28,7 @@ public class ApiResponseDao {
     JpaTemplate jpaTemplate;
 
     /**
-     * 创建用户
+     * 创建
      * @param apiResponseEntity
      * @return
      */
@@ -35,7 +37,7 @@ public class ApiResponseDao {
     }
 
     /**
-     * 更新用户
+     * 更新
      * @param apiResponseEntity
      */
     public void updateApiResponse(ApiResponseEntity apiResponseEntity){
@@ -43,7 +45,7 @@ public class ApiResponseDao {
     }
 
     /**
-     * 删除用户
+     * 删除
      * @param id
      */
     public void deleteApiResponse(String id){
@@ -60,7 +62,7 @@ public class ApiResponseDao {
 
 
     /**
-     * 查找用户
+     * 查找
      * @param id
      * @return
      */
@@ -69,13 +71,18 @@ public class ApiResponseDao {
     }
 
     /**
-    * findAllApiResponse
+    * 查找所有
     * @return
     */
     public List<ApiResponseEntity> findAllApiResponse() {
         return jpaTemplate.findAll(ApiResponseEntity.class);
     }
 
+    /**
+     * 查找列表
+     * @param apiResponseQuery
+     * @return
+     */
     public List<ApiResponseEntity> findApiResponseList(ApiResponseQuery apiResponseQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(ApiResponseEntity.class)
                 .eq("httpId", apiResponseQuery.getHttpId())
@@ -84,6 +91,11 @@ public class ApiResponseDao {
         return jpaTemplate.findList(queryCondition, ApiResponseEntity.class);
     }
 
+    /**
+     * 按分页查找列表
+     * @param apiResponseQuery
+     * @return
+     */
     public Pagination<ApiResponseEntity> findApiResponsePage(ApiResponseQuery apiResponseQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(ApiResponseEntity.class)
                 .eq("httpId", apiResponseQuery.getHttpId())

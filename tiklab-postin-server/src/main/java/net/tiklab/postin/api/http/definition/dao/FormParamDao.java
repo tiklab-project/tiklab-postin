@@ -15,7 +15,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * 用户数据操作
+ * 定义
+ * http协议
+ * formdata 数据访问
  */
 @Repository
 public class FormParamDao{
@@ -26,7 +28,7 @@ public class FormParamDao{
     JpaTemplate jpaTemplate;
 
     /**
-     * 创建用户
+     * 创建formdata
      * @param formParamEntity
      * @return
      */
@@ -35,7 +37,7 @@ public class FormParamDao{
     }
 
     /**
-     * 更新用户
+     * 更新formdata
      * @param formParamEntity
      */
     public void updateFormParam(FormParamEntity formParamEntity){
@@ -43,7 +45,7 @@ public class FormParamDao{
     }
 
     /**
-     * 删除用户
+     * 删除formdata
      * @param id
      */
     public void deleteFormParam(String id){
@@ -51,7 +53,7 @@ public class FormParamDao{
     }
 
     /**
-     * 通过条件删除
+     * 通过条件删除formdata
      * @param deleteCondition
      */
     public void deleteFormParamLsit(DeleteCondition deleteCondition){
@@ -59,7 +61,7 @@ public class FormParamDao{
     }
 
     /**
-     * 查找用户
+     * 查找formdata
      * @param id
      * @return
      */
@@ -68,13 +70,18 @@ public class FormParamDao{
     }
 
     /**
-    * findAllFormParam
+    * 查找所有formdata
     * @return
     */
     public List<FormParamEntity> findAllFormParam() {
         return jpaTemplate.findAll(FormParamEntity.class);
     }
 
+    /**
+     * 根据查询参数查找formdata列表
+     * @param formParamQuery
+     * @return
+     */
     public List<FormParamEntity> findFormParamList(FormParamQuery formParamQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(FormParamEntity.class)
                 .eq("httpId",formParamQuery.getHttpId())
@@ -83,6 +90,11 @@ public class FormParamDao{
         return jpaTemplate.findList(queryCondition, FormParamEntity.class);
     }
 
+    /**
+     * 根据查询参数按分页查找formdata列表
+     * @param formParamQuery
+     * @return
+     */
     public Pagination<FormParamEntity> findFormParamPage(FormParamQuery formParamQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(FormParamEntity.class)
                 .eq("httpId",formParamQuery.getHttpId())

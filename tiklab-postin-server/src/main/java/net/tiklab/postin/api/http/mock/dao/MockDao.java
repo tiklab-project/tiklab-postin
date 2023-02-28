@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * 用户数据操作
+ * mock 数据访问
  */
 @Repository
 public class MockDao{
@@ -25,7 +25,7 @@ public class MockDao{
     JpaTemplate jpaTemplate;
 
     /**
-     * 创建用户
+     * 创建mock
      * @param mockEntity
      * @return
      */
@@ -34,7 +34,7 @@ public class MockDao{
     }
 
     /**
-     * 更新用户
+     * 更新mock
      * @param mockEntity
      */
     public void updateMock(MockEntity mockEntity){
@@ -42,7 +42,7 @@ public class MockDao{
     }
 
     /**
-     * 删除用户
+     * 删除mock
      * @param id
      */
     public void deleteMock(String id){
@@ -50,7 +50,7 @@ public class MockDao{
     }
 
     /**
-     * 查找用户
+     * 查找mock
      * @param id
      * @return
      */
@@ -59,7 +59,7 @@ public class MockDao{
     }
 
     /**
-    * findAllMock
+    * 查找所有mock
     * @return
     */
     public List<MockEntity> findAllMock() {
@@ -70,6 +70,11 @@ public class MockDao{
         return jpaTemplate.findList(MockEntity.class,idList);
     }
 
+    /**
+     * 根据查询条件查找mock列表
+     * @param mockQuery
+     * @return
+     */
     public List<MockEntity> findMockList(MockQuery mockQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(MockEntity.class)
                 .eq("httpId", mockQuery.getHttpId())
@@ -79,6 +84,11 @@ public class MockDao{
         return jpaTemplate.findList(queryCondition, MockEntity.class);
     }
 
+    /**
+     * 根据查询条件按分页查找mock列表
+     * @param mockQuery
+     * @return
+     */
     public Pagination<MockEntity> findMockPage(MockQuery mockQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(MockEntity.class)
                 .eq("httpId", mockQuery.getHttpId())

@@ -16,13 +16,21 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.io.InputStream;
 
+/**
+ * 上报导入
+ */
 @Component
 public class ReportImport {
 
     @Autowired
     FunctionImport functionImport;
 
-
+    /**
+     * 解析上报数据
+     * @param workspaceId
+     * @param stream
+     * @throws IOException
+     */
     public void analysisReportData(String workspaceId,InputStream stream ) throws IOException {
         //文件数据转换为JSONObject
         JSONObject allData =functionImport.getJsonData(stream);
@@ -38,7 +46,9 @@ public class ReportImport {
         }
     }
 
-    //method操作
+    /**
+     *   method操作
+     */
     private void analysisMethod(JSONObject controllerData, String categoryId){
         JSONArray methodArr = controllerData.getJSONArray("method");
         for(int i = 0;i<methodArr.size();i++){
@@ -61,7 +71,9 @@ public class ReportImport {
         }
     }
 
-    //解析request response
+    /**
+     *  解析request response
+     */
     private void analysisRequestResponse(JSONObject methodItem, String methodId){
         //获取请求体类型
         String bodyType = transferBodyType(methodItem.getString("paramDataType"));
@@ -79,7 +91,9 @@ public class ReportImport {
 
     }
 
-    //根据请求体类型操作
+    /**
+     *  根据请求体类型操作
+     */
     private void analysisBodyType(String bodyType, JSONArray param, String methodId){
         switch (bodyType){
             case "formdata":
@@ -91,6 +105,11 @@ public class ReportImport {
         }
     }
 
+    /**
+     * 解析 formdata
+     * @param param
+     * @param methodId
+     */
     private void analysisFormData(JSONArray param, String methodId){
         for(int i = 0;i<param.size();i++){
             JSONObject formDataItem = param.getJSONObject(i);
@@ -107,11 +126,19 @@ public class ReportImport {
     }
 
 
+    /**
+     * 解析json
+     * @param param
+     * @param methodId
+     */
     private void analysisRequestJson(JSONArray param, String methodId){
         String parentId = null;
         jsonParamLoop(param, methodId,parentId);
     }
-    //jsonParam递归
+
+    /**
+     *  jsonParam递归
+     */
     private void jsonParamLoop(JSONArray param,String methodId,String parentId){
         for(int i = 0;i<param.size();i++){
             JSONObject jsonItem = param.getJSONObject(i);
@@ -140,7 +167,11 @@ public class ReportImport {
         }
     }
 
-
+    /**
+     * 解析响应json
+     * @param methodItem
+     * @param methodId
+     */
     private void analysisResponseJson(JSONObject methodItem, String methodId){
         JSONObject result = methodItem.getJSONObject("result");
         JSONArray model = result.getJSONArray("model");
@@ -190,7 +221,9 @@ public class ReportImport {
         return "none";
     }
 
-    //转换类型
+    /**
+     *  转换类型
+     */
     private String transferDataType(String dataType){
         switch (dataType){
             case "java.lang.String":
@@ -207,7 +240,9 @@ public class ReportImport {
         return "object";
     }
 
-    //转换required
+    /**
+     * 转换required
+     */
     private Integer transferRequired(String re){
         int required = 0;
         if(re=="true"){

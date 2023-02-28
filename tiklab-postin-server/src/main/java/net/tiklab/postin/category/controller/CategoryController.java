@@ -22,8 +22,7 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
- * ManagerController
- * Created by Zhangzhihua on 2017/9/25.
+ * 分类管理控制器
  */
 @RestController
 @RequestMapping("/category")

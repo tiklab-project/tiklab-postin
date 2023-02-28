@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * ShareDao
+ * 分享 数据访问
  */
 @Repository
 public class ShareDao{
@@ -25,7 +25,7 @@ public class ShareDao{
     JpaTemplate jpaTemplate;
 
     /**
-     * 创建
+     * 创建分享
      * @param shareEntity
      * @return
      */
@@ -34,7 +34,7 @@ public class ShareDao{
     }
 
     /**
-     * 更新
+     * 更新分享
      * @param shareEntity
      */
     public void updateShare(ShareEntity shareEntity){
@@ -42,7 +42,7 @@ public class ShareDao{
     }
 
     /**
-     * 删除
+     * 删除分享
      * @param id
      */
     public void deleteShare(String id){
@@ -54,7 +54,7 @@ public class ShareDao{
     }
 
     /**
-     * 查找
+     * 查找分享
      * @param id
      * @return
      */
@@ -63,7 +63,7 @@ public class ShareDao{
     }
 
     /**
-    * findAllShare
+    * 查找所有分享
     * @return
     */
     public List<ShareEntity> findAllShare() {

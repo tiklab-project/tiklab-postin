@@ -23,7 +23,7 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 
 /**
-* 用户服务业务处理
+* 空间概要 服务
 */
 @Service
 public class WorkspaceOverviewServiceImpl implements WorkspaceOverviewService {

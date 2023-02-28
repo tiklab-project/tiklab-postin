@@ -15,6 +15,9 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *分类 模型
+ */
 @ApiModel
 @Join
 @Mapper(targetAlias = "CategoryEntity")
@@ -27,14 +30,14 @@ public class Category extends BaseModel {
     @ApiProperty(name="name",desc="分类名称",eg="@text32",required = true)
     private java.lang.String name;
 
-    @ApiProperty(name="workspace",desc="所属空间",eg="@selectOne")
+    @ApiProperty(name="workspace",desc="所属空间")
     @Mappings({
             @Mapping(source = "workspace.id",target = "workspaceId")
     })
     @JoinQuery(key = "id")
     private Workspace workspace;
 
-    @ApiProperty(name="parent",desc="上级分类",eg="@selectOne")
+    @ApiProperty(name="parent",desc="上级分类")
     @Mappings({
             @Mapping(source = "parent.id",target = "parentId")
     })

@@ -10,51 +10,51 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
-* 用户服务接口
+* query服务接口
 */
 public interface QueryParamService {
 
     /**
-    * 创建用户
+    * 创建query
     * @param queryParam
     * @return
     */
     String createQueryParam(@NotNull @Valid QueryParam queryParam);
 
     /**
-    * 更新用户
+    * 更新query
     * @param queryParam
     */
     void updateQueryParam(@NotNull @Valid QueryParam queryParam);
 
     /**
-    * 删除用户
+    * 删除query
     * @param id
     */
     void deleteQueryParam(@NotNull String id);
 
     /**
-    * 查找用户
+    * 查找query
     * @param id
     * @return
     */
     QueryParam findQueryParam(@NotNull String id);
 
     /**
-    * 查找所有
+    * 查找所有query
     * @return
     */
     List<QueryParam> findAllQueryParam();
 
     /**
-    * 查询列表
+    * 查询列表query
     * @param queryParamQuery
     * @return
     */
     List<QueryParam> findQueryParamList(QueryParamQuery queryParamQuery);
 
     /**
-    * 按分页查询
+    * 按分页查询query
     * @param queryParamQuery
     * @return
     */

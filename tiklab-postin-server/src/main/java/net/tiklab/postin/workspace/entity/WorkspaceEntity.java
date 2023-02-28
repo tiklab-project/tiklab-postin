@@ -8,6 +8,9 @@ import net.tiklab.dal.jpa.annotation.Table;import net.tiklab.dal.jpa.annotation.
 
 import java.io.Serializable;
 
+/**
+ * 空间 实体
+ */
 @Entity @Table(name="postin_workspace")
 public class WorkspaceEntity implements Serializable {
 
@@ -16,18 +19,23 @@ public class WorkspaceEntity implements Serializable {
     @Column(name = "id",length = 32)
     private String id;
 
+    // 空间名称
     @Column(name = "workspace_name",length = 64,notNull = true)
     private String workspaceName;
 
+    // 描述
     @Column(name = "description",length = 64)
     private String desc;
 
+    // 所属用户
     @Column(name = "user_id",length = 32)
     private String userId;
 
+    // 是否可见
     @Column(name = "visibility")
     private Integer visibility;
 
+    // icon路径
     @Column(name = "icon_url",length = 256)
     private String iconUrl;
 

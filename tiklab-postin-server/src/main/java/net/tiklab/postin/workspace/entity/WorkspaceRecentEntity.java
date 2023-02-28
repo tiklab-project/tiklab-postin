@@ -6,6 +6,9 @@ import net.tiklab.dal.jpa.annotation.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
+/**
+ * 最近访问空间 实体
+ */
 @Entity @Table(name="postin_workspace_recent")
 public class WorkspaceRecentEntity implements Serializable {
 
@@ -14,12 +17,15 @@ public class WorkspaceRecentEntity implements Serializable {
     @Column(name = "id",length = 32)
     private String id;
 
+    //  所属空间
     @Column(name = "workspace_id",length = 64,notNull = true)
     private String workspaceId;
 
+    // 所属用户
     @Column(name = "user_id",length = 32)
     private String userId;
 
+    // 更新时间
     @Column(name = "update_time",length = 4)
     private Timestamp updateTime;
 

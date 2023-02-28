@@ -9,6 +9,9 @@ import net.tiklab.core.BaseModel;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
+/**
+ * 接口定义中响应区的模型
+ */
 @ApiModel
 @Mapper(targetAlias = "ApiResponseEntity")
 public class ApiResponse extends BaseModel {
@@ -20,7 +23,7 @@ public class ApiResponse extends BaseModel {
     @ApiProperty(name="http",desc="所属接口",required = true)
     private String httpId;
 
-    @ApiProperty(name="createTime",desc="createTime")
+    @ApiProperty(name="createTime",desc="创建时间")
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private java.sql.Timestamp createTime;
 

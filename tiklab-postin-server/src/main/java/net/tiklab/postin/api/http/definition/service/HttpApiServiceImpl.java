@@ -23,7 +23,8 @@ import java.util.List;
 import java.util.UUID;
 
 /**
-* 用户服务业务处理
+ * 定义
+ * http协议服务
 */
 @Service
 public class HttpApiServiceImpl implements HttpApiService {

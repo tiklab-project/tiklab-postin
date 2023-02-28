@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
-* 用户服务接口
+* 响应json服务接口
 */
 @JoinProvider(model = JsonResponse.class)
 public interface JsonResponseService {

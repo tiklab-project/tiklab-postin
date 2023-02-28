@@ -15,6 +15,9 @@ import net.tiklab.user.user.model.User;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
+/**
+ * mock 模型
+ */
 @ApiModel
 @Join
 @Mapper(targetAlias = "MockEntity")
@@ -44,7 +47,7 @@ public class Mock extends BaseModel {
     @JoinQuery(key = "id")
     private User createUser;
 
-    @ApiProperty(name="createTime",desc="createTime")
+    @ApiProperty(name="createTime",desc="创建时间")
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private java.sql.Timestamp createTime;
 

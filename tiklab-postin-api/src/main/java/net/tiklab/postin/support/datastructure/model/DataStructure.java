@@ -1,5 +1,6 @@
 package net.tiklab.postin.support.datastructure.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import net.tiklab.join.annotation.Join;
 import net.tiklab.postin.annotation.ApiModel;
 import net.tiklab.postin.annotation.ApiProperty;
@@ -13,6 +14,9 @@ import net.tiklab.user.user.model.User;
 
 import javax.validation.constraints.NotNull;
 
+/**
+ * 数据结构 模型
+ */
 @ApiModel
 @Join
 @Mapper(targetAlias = "DataStructureEntity")
@@ -21,7 +25,7 @@ public class DataStructure extends BaseModel{
     @ApiProperty(name="id",desc="id")
     private java.lang.String id;
 
-    @ApiProperty(name="workspace",desc="所属空间",eg="@selectOne")
+    @ApiProperty(name="workspace",desc="所属空间")
     @Mappings({
             @Mapping(source = "workspace.id",target = "workspaceId")
     })
@@ -46,9 +50,11 @@ public class DataStructure extends BaseModel{
     private User createUser;
 
     @ApiProperty(name="createTime",desc="创建时间")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private java.util.Date createTime;
 
     @ApiProperty(name="updateTime",desc="更新时间")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private java.util.Date updateTime;
 
     public java.lang.String getId() {

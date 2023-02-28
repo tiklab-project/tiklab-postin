@@ -22,8 +22,8 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
- * ManagerController
- * Created by Zhangzhihua on 2017/9/25.
+ * http协议 定义
+ * 请求中json 控制器
  */
 @RestController
 @RequestMapping("/jsonParam")

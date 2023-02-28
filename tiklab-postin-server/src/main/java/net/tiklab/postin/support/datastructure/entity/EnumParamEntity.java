@@ -8,6 +8,9 @@ import net.tiklab.dal.jpa.annotation.Table;import net.tiklab.dal.jpa.annotation.
 
 import java.io.Serializable;
 
+/**
+ * enum类型 实体
+ */
 @Entity @Table(name="postin_model_enum")
 public class EnumParamEntity implements Serializable {
 
@@ -16,18 +19,23 @@ public class EnumParamEntity implements Serializable {
     @Column(name = "id",length = 32)
     private String id;
 
+    // 名称
     @Column(name = "param_name",length = 64,notNull = true)
     private String paramName;
 
+    // 所属数据结构
     @Column(name = "subject_id",length = 32)
     private String dataStructureId;
 
+    // 数据类型
     @Column(name = "data_type",length = 32)
     private String dataType;
 
+    // 是否必选
     @Column(name = "required")
     private Integer required;
 
+    // 描述
     @Column(name = "description",length = 128)
     private String description;
 

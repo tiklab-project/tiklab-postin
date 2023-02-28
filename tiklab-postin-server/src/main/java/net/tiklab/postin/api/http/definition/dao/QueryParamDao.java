@@ -15,7 +15,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * 用户数据操作
+ * 定义
+ * http协议
+ * 查询参数 数据访问
  */
 @Repository
 public class QueryParamDao{
@@ -26,7 +28,7 @@ public class QueryParamDao{
     JpaTemplate jpaTemplate;
 
     /**
-     * 创建用户
+     * 创建query参数
      * @param queryParamEntity
      * @return
      */
@@ -35,7 +37,7 @@ public class QueryParamDao{
     }
 
     /**
-     * 更新用户
+     * 更新query参数
      * @param queryParamEntity
      */
     public void updateQueryParam(QueryParamEntity queryParamEntity){
@@ -43,7 +45,7 @@ public class QueryParamDao{
     }
 
     /**
-     * 删除用户
+     * 删除query参数
      * @param id
      */
     public void deleteQueryParam(String id){
@@ -51,7 +53,7 @@ public class QueryParamDao{
     }
 
     /**
-     * 通过条件删除
+     * 通过条件删除query参数
      * @param deleteCondition
      */
     public void deleteQueryParamList(DeleteCondition deleteCondition){
@@ -59,7 +61,7 @@ public class QueryParamDao{
     }
 
     /**
-     * 查找用户
+     * 查找query参数
      * @param id
      * @return
      */
@@ -68,13 +70,18 @@ public class QueryParamDao{
     }
 
     /**
-    * findAllQueryParam
+    * 查找所有query参数
     * @return
     */
     public List<QueryParamEntity> findAllQueryParam() {
         return jpaTemplate.findAll(QueryParamEntity.class);
     }
 
+    /**
+     * 根据查询查收查找query参数列表
+     * @param queryParamQuery
+     * @return
+     */
     public List<QueryParamEntity> findQueryParamList(QueryParamQuery queryParamQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(QueryParamEntity.class)
                 .eq("httpId", queryParamQuery.getHttpId())
@@ -83,6 +90,11 @@ public class QueryParamDao{
         return jpaTemplate.findList(queryCondition, QueryParamEntity.class);
     }
 
+    /**
+     * 根据查询参数按分页查找query参数列表
+     * @param queryParamQuery
+     * @return
+     */
     public Pagination<QueryParamEntity> findQueryParamPage(QueryParamQuery queryParamQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(QueryParamEntity.class)
                 .eq("httpId", queryParamQuery.getHttpId())

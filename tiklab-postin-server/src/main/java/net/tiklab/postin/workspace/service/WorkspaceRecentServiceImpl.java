@@ -27,7 +27,7 @@ import java.util.Objects;
 
 
 /**
-* WorkspaceRecentServiceImpl
+* 最近访问空间 服务
 */
 @Service
 public class WorkspaceRecentServiceImpl implements WorkspaceRecentService {

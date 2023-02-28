@@ -1,5 +1,8 @@
 package net.tiklab.postin.common;
 
+/**
+ * 固定的消息Id
+ */
 public class MessageTemplateConstant {
 
     //消息模板ID

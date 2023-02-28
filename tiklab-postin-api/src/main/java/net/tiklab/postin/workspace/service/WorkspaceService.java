@@ -14,26 +14,26 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
-* 用户服务接口
+* 空间 服务接口
 */
 @JoinProvider(model = Workspace.class)
 public interface WorkspaceService {
 
     /**
-    * 创建用户
+    * 创建空间
     * @param workspace
     * @return
     */
     String createWorkspace(@NotNull @Valid Workspace workspace) throws Exception;
 
     /**
-    * 更新用户
+    * 更新空间
     * @param workspace
     */
     void updateWorkspace(@NotNull @Valid Workspace workspace);
 
     /**
-    * 删除用户
+    * 删除空间
     * @param id
     */
     void deleteWorkspace(@NotNull String id);
@@ -45,28 +45,28 @@ public interface WorkspaceService {
     List<Workspace> findList(List<String> idList);
 
     /**
-    * 查找用户
+    * 查找空间
     * @param id
     * @return
     */
     Workspace findWorkspace(@NotNull String id);
 
     /**
-    * 查找所有
+    * 查找所有空间
     * @return
     */
     @FindAll
     List<Workspace> findAllWorkspace();
 
     /**
-    * 查询列表
+    * 查询列表空间
     * @param workspaceQuery
     * @return
     */
     List<Workspace> findWorkspaceList(WorkspaceQuery workspaceQuery);
 
     /**
-    * 按分页查询
+    * 按分页查询空间
     * @param workspaceQuery
     * @return
     */
@@ -74,7 +74,7 @@ public interface WorkspaceService {
 
 
     /**
-     * 查询我加入的列表
+     * 查询我加入的空间列表
      * @param workspaceQuery
      * @return
      */

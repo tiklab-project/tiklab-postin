@@ -11,6 +11,9 @@ import net.tiklab.join.annotation.JoinQuery;
 
 import javax.validation.constraints.NotNull;
 
+/**
+ * mock form-data模型
+ */
 @ApiModel
 @Join
 @Mapper(targetAlias = "FormParamMockEntity")

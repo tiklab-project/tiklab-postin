@@ -8,6 +8,11 @@ import net.tiklab.dal.jpa.annotation.Table;import net.tiklab.dal.jpa.annotation.
 
 import java.io.Serializable;
 
+/**
+ * mock
+ * http协议
+ * 请求头 实体
+ */
 @Entity @Table(name="postin_http_mock_request_header")
 public class RequestHeaderMockEntity implements Serializable {
 
@@ -16,15 +21,19 @@ public class RequestHeaderMockEntity implements Serializable {
     @Column(name = "id",length = 32)
     private String id;
 
+    //所属mock
     @Column(name = "mock_id",length = 32,notNull = true)
     private String mockId;
 
+    //参数名称
     @Column(name = "header_name",length = 64,notNull = true)
     private String headerName;
 
+    //示例值
     @Column(name = "value",length = 256)
     private String value;
 
+    //排序
     @Column(name = "sort",length = 4)
     private Integer sort;
 

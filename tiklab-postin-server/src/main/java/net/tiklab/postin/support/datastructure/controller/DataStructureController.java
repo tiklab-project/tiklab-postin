@@ -21,7 +21,7 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
- * DataStructureController
+ * 数据结构 控制器
  */
 @RestController
 @RequestMapping("/dataStructure")

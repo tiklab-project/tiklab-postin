@@ -17,8 +17,9 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
-* 用户服务业务处理
-*/
+ * mock
+ * 请求头 服务
+ */
 @Service
 public class RequestHeaderMockServiceImpl implements RequestHeaderMockService {
 

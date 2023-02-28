@@ -11,13 +11,18 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.io.InputStream;
 
+/**
+ * postman 导入
+ */
 @Component
 public class PostmanImport {
 
     @Autowired
     FunctionImport functionImport;
 
-    //postman解析
+    /**
+     * postman解析
+     */
     public void analysisPostmanData( String workspaceId, InputStream stream) throws IOException {
 
         JSONObject jsonObject =functionImport.getJsonData(stream);
@@ -33,7 +38,9 @@ public class PostmanImport {
         analysisData(jsonObject,categoryId);
     }
 
-    //获取path
+    /**
+     * 获取path
+     */
     private String getPath(JSONArray urlPath){
         String path= new String();
         for(int j=0; j<urlPath.size();j++){
@@ -42,7 +49,9 @@ public class PostmanImport {
         return path;
     }
 
-    //解析数据
+    /**
+     *  解析数据
+     */
     private void analysisData(JSONObject jsonObject, String categoryId){
         JSONArray item = jsonObject.getJSONArray("item");
         for (int i =0 ;i<item.toArray().length;i++){
@@ -68,7 +77,9 @@ public class PostmanImport {
         }
     }
 
-    //操作method
+    /**
+     * 操作method
+     */
     private void analysisMethod( JSONObject obj, String categoryId, String methodId){
         JSONObject request = obj.getJSONObject("request");
         JSONObject url = request.getJSONObject("url");
@@ -84,7 +95,9 @@ public class PostmanImport {
         functionImport.addMethod(apixImportVo);
     }
 
-    //header
+    /**
+     * 解析请求头 header
+     */
     private void analysisHeader(JSONObject request, String methodId){
         if(request.containsKey("header")){
             JSONArray header = request.getJSONArray("header");
@@ -102,7 +115,9 @@ public class PostmanImport {
         }
     }
 
-    //query参数
+    /**
+     * 解析query参数
+     */
     private void analysisQuery(JSONObject url, String methodId){
         if(url.containsKey("query")){
             JSONArray query = url.getJSONArray("query");
@@ -120,7 +135,11 @@ public class PostmanImport {
         }
     }
 
-    //requestBody
+    /**
+     * 解析请求体
+     * @param request
+     * @param methodId
+     */
     private void analysisBody(JSONObject request,  String methodId){
         //获取request中的对象body
         JSONObject body = request.getJSONObject("body");
@@ -144,7 +163,11 @@ public class PostmanImport {
         }
     }
 
-    //formdata
+    /**
+     * 解析formdata
+     * @param body
+     * @param methodId
+     */
     private void analysisFormData(JSONObject body, String methodId){
         if(body.containsKey("formdata")){
             JSONArray formParam = body.getJSONArray("formdata");
@@ -164,7 +187,11 @@ public class PostmanImport {
         }
     }
 
-    //formurlencoded
+    /**
+     * 解析formurl
+     * @param body
+     * @param methodId
+     */
     private void analysisFormUrlencoded(JSONObject body, String methodId){
         if(body.containsKey("urlencoded")){
             JSONArray urlencoded = body.getJSONArray("urlencoded");
@@ -184,7 +211,9 @@ public class PostmanImport {
         }
     }
 
-    //raw: json,html,xml,javascript
+    /**
+     *  解析 raw: json,html,xml,javascript
+     */
     private void analysisRaw(JSONObject body, String methodId){
         if(body.containsKey("raw")){
             JSONObject options = body.getJSONObject("options");
@@ -196,7 +225,9 @@ public class PostmanImport {
         }
     }
 
-    //转换请求体类型
+    /**
+     * 转换请求体类型
+     */
     private String transferBodyType(String bodyType){
         switch (bodyType){
             case "raw":

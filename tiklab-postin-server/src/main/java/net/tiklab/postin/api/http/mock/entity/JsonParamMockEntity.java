@@ -8,6 +8,11 @@ import net.tiklab.dal.jpa.annotation.Table;import net.tiklab.dal.jpa.annotation.
 
 import java.io.Serializable;
 
+/**
+ * mock
+ * http协议
+ * 请求中的json 实体
+ */
 @Entity
 @Table(name="postin_http_mock_request_json")
 public class JsonParamMockEntity implements Serializable {
@@ -17,15 +22,19 @@ public class JsonParamMockEntity implements Serializable {
     @Column(name = "id",length = 32)
     private String id;
 
+    //所属mock
     @Column(name = "mock_id",length = 32,notNull = true)
     private String mockId;
 
+    //jsonpath
     @Column(name = "exp",length = 64,notNull = true)
     private String exp;
 
+    //示例值
     @Column(name = "value",length = 256)
     private String value;
 
+    //排序
     @Column(name = "sort",length = 4)
     private Integer sort;
 

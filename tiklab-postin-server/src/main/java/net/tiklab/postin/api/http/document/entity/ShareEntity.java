@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 
 /**
- * @author Sun
+ * 分享 实体
  */
 @Entity
 @Table(name="postin_share")
@@ -17,21 +17,27 @@ public class ShareEntity implements Serializable {
     @Column(name = "id",length = 32)
     private String id;
 
+    //目标id
     @Column(name = "target_Id",length = 32,notNull = true)
     private String targetId;
 
+    //目标类型  接口或目录
     @Column(name = "target_type",length = 32,notNull = true)
     private String targetType;
 
+    //是否可见
     @Column(name = "visibility",length = 8,notNull = true)
     private Integer visibility;
 
+    //密码
     @Column(name = "password",length = 32)
     private String password;
 
+    //创建时间
     @Column(name = "create_time")
     private Timestamp createTime;
 
+    //更新时间
     @Column(name = "update_time")
     private Timestamp updateTime;
 

@@ -9,6 +9,9 @@ import net.tiklab.dal.jpa.annotation.Table;import net.tiklab.dal.jpa.annotation.
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * 数据结构 实体
+ */
 @Entity @Table(name="postin_model")
 public class DataStructureEntity implements Serializable {
 
@@ -17,25 +20,31 @@ public class DataStructureEntity implements Serializable {
     @Column(name = "id",length = 32)
     private String id;
 
+    // 所属空间
     @Column(name = "workspace_id",length = 32)
     private String workspaceId;
 
-
+    // 名称
     @Column(name = "name",length = 64,notNull = true)
     private String name;
 
+    // 编码
     @Column(name = "coding",length = 32)
     private String coding;
 
+    // 数据类型
     @Column(name = "data_type",length = 32)
     private String dataType;
 
+    //  创建人
     @Column(name = "create_user",length = 32)
     private String createUser;
 
+    // 创建时间
     @Column(name = "create_time")
     private Date createTime;
 
+    // 更新时间
     @Column(name = "update_time")
     private Date updateTime;
 

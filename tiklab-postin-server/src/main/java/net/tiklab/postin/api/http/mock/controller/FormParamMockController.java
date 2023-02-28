@@ -22,8 +22,8 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
- * ManagerController
- * Created by Zhangzhihua on 2017/9/25.
+ * mock
+ * formdata 控制器
  */
 @RestController
 @RequestMapping("/formParamMock")
@@ -36,7 +36,7 @@ public class FormParamMockController {
     private FormParamMockService formParamMockService;
 
     @RequestMapping(path="/createFormParamMock",method = RequestMethod.POST)
-    @ApiMethod(name = "createFormParamMock",desc = "createFormParamMock")
+    @ApiMethod(name = "createFormParamMock",desc = "创建form-data")
     @ApiParam(name = "formParamMock",desc = "formParamMock",required = true)
     public Result<String> createFormParamMock(@RequestBody @NotNull @Valid FormParamMock formParamMock){
         String id = formParamMockService.createFormParamMock(formParamMock);
@@ -45,7 +45,7 @@ public class FormParamMockController {
     }
 
     @RequestMapping(path="/updateFormParamMock",method = RequestMethod.POST)
-    @ApiMethod(name = "updateFormParamMock",desc = "updateFormParamMock")
+    @ApiMethod(name = "updateFormParamMock",desc = "更新form-data")
     @ApiParam(name = "formParamMock",desc = "formParamMock",required = true)
     public Result<Void> updateFormParamMock(@RequestBody @NotNull @Valid FormParamMock formParamMock){
         formParamMockService.updateFormParamMock(formParamMock);
@@ -54,7 +54,7 @@ public class FormParamMockController {
     }
 
     @RequestMapping(path="/deleteFormParamMock",method = RequestMethod.POST)
-    @ApiMethod(name = "deleteFormParamMock",desc = "deleteFormParamMock")
+    @ApiMethod(name = "deleteFormParamMock",desc = "删除form-data")
     @ApiParam(name = "id",desc = "id",required = true)
     public Result<Void> deleteFormParamMock(@NotNull String id){
         formParamMockService.deleteFormParamMock(id);
@@ -63,7 +63,7 @@ public class FormParamMockController {
     }
 
     @RequestMapping(path="/findFormParamMock",method = RequestMethod.POST)
-    @ApiMethod(name = "findFormParamMock",desc = "findFormParamMock")
+    @ApiMethod(name = "findFormParamMock",desc = "根据id查找form-data")
     @ApiParam(name = "id",desc = "id",required = true)
     public Result<FormParamMock> findFormParamMock(@NotNull String id){
         FormParamMock formParamMock = formParamMockService.findFormParamMock(id);
@@ -72,7 +72,7 @@ public class FormParamMockController {
     }
 
     @RequestMapping(path="/findAllFormParamMock",method = RequestMethod.POST)
-    @ApiMethod(name = "findAllFormParamMock",desc = "findAllFormParamMock")
+    @ApiMethod(name = "findAllFormParamMock",desc = "查找所有form-data")
     public Result<List<FormParamMock>> findAllFormParamMock(){
         List<FormParamMock> formParamMockList = formParamMockService.findAllFormParamMock();
 
@@ -81,7 +81,7 @@ public class FormParamMockController {
 
 
     @RequestMapping(path = "/findFormParamMockList",method = RequestMethod.POST)
-    @ApiMethod(name = "findFormParamMockList",desc = "findFormParamMockList")
+    @ApiMethod(name = "findFormParamMockList",desc = "根据查询参数查找form-data")
     @ApiParam(name = "formParamMockQuery",desc = "formParamMockQuery",required = true)
     public Result<List<FormParamMock>> findFormParamMockList(@RequestBody @Valid @NotNull FormParamMockQuery formParamMockQuery){
         List<FormParamMock> formParamMockList = formParamMockService.findFormParamMockList(formParamMockQuery);
@@ -91,7 +91,7 @@ public class FormParamMockController {
 
 
     @RequestMapping(path = "/findFormParamMockPage",method = RequestMethod.POST)
-    @ApiMethod(name = "findFormParamMockPage",desc = "findFormParamMockPage")
+    @ApiMethod(name = "findFormParamMockPage",desc = "根据查询参数按分页查找form-data")
     @ApiParam(name = "formParamMockQuery",desc = "formParamMockQuery",required = true)
     public Result<Pagination<FormParamMock>> findFormParamMockPage(@RequestBody @Valid @NotNull FormParamMockQuery formParamMockQuery){
         Pagination<FormParamMock> pagination = formParamMockService.findFormParamMockPage(formParamMockQuery);

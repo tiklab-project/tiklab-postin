@@ -17,6 +17,9 @@ import net.tiklab.user.user.model.User;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
+/**
+ * 空间 模型
+ */
 @ApiModel
 @Join
 @Index

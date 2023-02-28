@@ -8,6 +8,10 @@ import net.tiklab.join.annotation.Join;
 
 import javax.validation.constraints.NotNull;
 
+/**
+ * mock
+ * 请求区 模型
+ */
 @ApiModel
 @Join
 @Mapper(targetAlias = "RequestMockEntity")
