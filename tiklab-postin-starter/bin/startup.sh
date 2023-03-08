@@ -2,7 +2,7 @@
 #-------------------------------------------------------------------------------------------------------------
 DIRS=$(dirname "$PWD")
 
-APP_MAIN="net.tiklab.postin.PostInApplication"
+APP_MAIN="io.tiklab.postin.PostInApplication"
 JAVA_HOME="/usr/local/jdk-16.0.2"
 JDK_VERSION=jdk-16.0.2
 #判断是否自定义jdk

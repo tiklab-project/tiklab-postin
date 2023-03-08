@@ -1,4 +1,4 @@
-#application net.tiklab.postin.config
+#application io.tiklab.postin.config
 app:
   name: tiklab-postin
 spring:
@@ -8,11 +8,11 @@ spring:
 
 PROJECT_HOME: ${user.home}/tiklab/${app.name}
 
-#web net.tiklab.postin.config
+#web io.tiklab.postin.config
 server:
   port: 8080
 
-#dal net.tiklab.postin.config
+#dal io.tiklab.postin.config
 jdbc:
   driverClassName: com.mysql.cj.jdbc.Driver
 #  172.10.1.10
@@ -21,7 +21,7 @@ jdbc:
   password: darth2020
 
 
-#dfs net.tiklab.postin.config
+#dfs io.tiklab.postin.config
 dfs:
   server:
     enable: false
@@ -32,7 +32,7 @@ dfs:
     url: 127.0.0.1:4000
     bucket: ${app.name}
 
-#dcs net.tiklab.postin.config
+#dcs io.tiklab.postin.config
 dcs:
   server:
     enable: false
@@ -43,7 +43,7 @@ dcs:
     url: 127.0.0.1:5000
     bucket: ${app.name}
 
-#dss net.tiklab.postin.config
+#dss io.tiklab.postin.config
 dss:
   server:
     enable: false

@@ -9,7 +9,7 @@ if [ -e "${DIRS}/embbed/${JDK_VERSION}" ]; then
 fi
 
 #APP_MAIN=${application.main.class}
-APP_MAIN="net.tiklab.postin.PostInApplication"
+APP_MAIN="io.tiklab.postin.PostInApplication"
 
 PID=0
 getPID(){
