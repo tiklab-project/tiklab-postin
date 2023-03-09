@@ -115,7 +115,9 @@ public class WorkspaceRecentServiceImpl implements WorkspaceRecentService {
 
             //获取分组的总数
             int categoryCount=0;
-            List<Category> categoryList = categoryService.findCategoryList(new CategoryQuery().setWorkspaceId(workspaceId));
+            CategoryQuery categoryQuery = new CategoryQuery();
+            categoryQuery.setWorkspaceId(workspaceId);
+            List<Category> categoryList = categoryService.findCategoryList(categoryQuery);
             categoryCount=categoryList.size();
             workspace.setCategoryNum(categoryCount);
 

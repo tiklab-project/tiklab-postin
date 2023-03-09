@@ -16,7 +16,7 @@ server:
 jdbc:
   driverClassName: com.mysql.cj.jdbc.Driver
 #  172.10.1.10
-  url: jdbc:mysql://172.11.1.15:3306/tiklab_postin?characterEncoding=utf8&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+  url: jdbc:mysql://172.10.1.10:3306/tiklab_postin?characterEncoding=utf8&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
   username: root
   password: darth2020
 
@@ -75,14 +75,14 @@ file:
   path: http://file.dev.tiklab.net
 
 base:
-  url: http://192.168.10.16:3000
+  url: http://192.168.10.18:3000
 
 eas:
   embbed:
-    enable: true
-#  address: http://192.168.10.14:8080
-#  web:
-#    address: http://192.168.10.14:3001
+    enable: false
+  address: http://192.168.10.11:8081
+  web:
+    address: http://192.168.10.11:3001
 
 mysql:
   database: tiklab_postin

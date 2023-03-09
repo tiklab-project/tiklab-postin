@@ -2,7 +2,6 @@ package io.tiklab.postin.workspace.service;
 
 
 import io.tiklab.join.annotation.JoinProvider;
-import io.tiklab.postin.workspace.model.Workspace;
 import io.tiklab.postin.workspace.model.WorkspaceTotal;
 
 import javax.validation.constraints.NotNull;
@@ -10,7 +9,7 @@ import javax.validation.constraints.NotNull;
 /**
 * 空间概况 服务接口
 */
-@JoinProvider(model = Workspace.class)
+@JoinProvider(model = WorkspaceTotal.class)
 public interface WorkspaceOverviewService {
 
 

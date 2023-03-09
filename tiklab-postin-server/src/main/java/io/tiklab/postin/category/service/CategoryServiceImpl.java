@@ -210,6 +210,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public List<Category> findCategoryList(CategoryQuery categoryQuery) {
+//        categoryQuery.setParentId("111");
         List<CategoryEntity> categoryEntityList = categoryDao.findCategoryList(categoryQuery);
 
         List<Category> categoryList = BeanMapper.mapList(categoryEntityList,Category.class);

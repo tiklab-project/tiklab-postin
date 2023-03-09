@@ -70,7 +70,7 @@ file:
   path: http://file.tiklab.net
 
 base:
-  url: http://192.168.10.16:3000
+  url: http://192.168.10.18:3000
 
 eas:
   embbed:

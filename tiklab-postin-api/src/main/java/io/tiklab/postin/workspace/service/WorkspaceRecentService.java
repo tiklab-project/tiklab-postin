@@ -1,6 +1,10 @@
 package io.tiklab.postin.workspace.service;
 
 
+import io.tiklab.join.annotation.FindAll;
+import io.tiklab.join.annotation.FindList;
+import io.tiklab.join.annotation.FindOne;
+import io.tiklab.join.annotation.JoinProvider;
 import io.tiklab.postin.workspace.model.Workspace;
 import io.tiklab.postin.workspace.model.WorkspaceRecent;
 import io.tiklab.postin.workspace.model.WorkspaceRecentQuery;
@@ -13,6 +17,7 @@ import java.util.List;
 /**
 * 最近访问空间 服务接口
 */
+@JoinProvider(model = WorkspaceRecent.class)
 public interface WorkspaceRecentService {
 
     /**
@@ -34,8 +39,10 @@ public interface WorkspaceRecentService {
     */
     void deleteWorkspaceRecent(@NotNull String id);
 
+    @FindOne
     WorkspaceRecent findOne(@NotNull String id);
 
+    @FindList
     List<WorkspaceRecent> findList(List<String> idList);
 
     /**
@@ -49,6 +56,7 @@ public interface WorkspaceRecentService {
     * 查找所有最近访问空间
     * @return
     */
+    @FindAll
     List<WorkspaceRecent> findAllWorkspaceRecent();
 
     /**
