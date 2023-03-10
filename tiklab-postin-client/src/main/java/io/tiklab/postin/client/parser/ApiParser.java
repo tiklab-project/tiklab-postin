@@ -1,10 +1,10 @@
 package io.tiklab.postin.client.parser;
 
+import io.tiklab.core.resolver.AnnotationResourceResolver;
 import io.tiklab.postin.client.model.ApiMeta;
 import io.tiklab.core.exception.SystemException;
 import io.tiklab.postin.annotation.Api;
 import io.tiklab.postin.client.model.ApiMethodMeta;
-import io.tiklab.utils.resolver.AnnotationResourceResolver;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.ArrayList;

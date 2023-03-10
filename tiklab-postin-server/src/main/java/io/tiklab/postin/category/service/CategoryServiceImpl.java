@@ -1,5 +1,6 @@
 package io.tiklab.postin.category.service;
 
+import io.tiklab.core.context.LoginContext;
 import io.tiklab.postin.api.apix.model.Apix;
 import io.tiklab.postin.api.apix.model.ApixQuery;
 import io.tiklab.postin.api.apix.service.ApixService;
@@ -15,7 +16,6 @@ import io.tiklab.postin.common.LogUnit;
 import io.tiklab.postin.common.PostInUnit;
 import io.tiklab.security.logging.model.LoggingType;
 import io.tiklab.security.logging.service.LoggingTypeService;
-import io.tiklab.utils.context.LoginContext;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -64,7 +64,7 @@ public class CategoryServiceImpl implements CategoryService {
         String categoryId = categoryDao.createCategory(categoryEntity);
 
         //日志
-        String userId =LoginContext.getLoginId();
+        String userId = LoginContext.getLoginId();
         Map<String,String> map = new HashMap<>();
         map.put("name",category.getName());
         map.put("id",categoryId);

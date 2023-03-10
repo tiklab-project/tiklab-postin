@@ -1,6 +1,6 @@
 package io.tiklab.postin.category.controller;
 
-import io.tiklab.utils.MapUtils;
+import io.tiklab.core.utils.MapUtils;
 import io.tiklab.core.Result;
 import io.tiklab.postin.client.mock.JMockit;
 import io.tiklab.postin.config.TestConfig;

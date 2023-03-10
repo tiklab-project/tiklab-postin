@@ -1,11 +1,11 @@
 package io.tiklab.postin.client.mock.mocker;
 
+import io.tiklab.core.utils.BeanUtils;
 import io.tiklab.postin.client.mock.support.MockUtils;
 import io.tiklab.postin.client.model.ApiPropertyMeta;
 import io.tiklab.postin.client.parser.ApiModelParser;
 import io.tiklab.core.exception.ApplicationException;
 import io.tiklab.postin.annotation.ApiProperty;
-import io.tiklab.utils.BeanUtils;
 
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.*;

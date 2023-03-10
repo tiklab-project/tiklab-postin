@@ -5,7 +5,7 @@ import io.tiklab.postin.api.http.test.cases.model.RequestHeaderCase;
 import io.tiklab.postin.client.mock.JMockit;
 import io.tiklab.postin.config.TestConfig;
 import io.tiklab.core.Result;
-import io.tiklab.utils.MapUtils;
+import io.tiklab.core.utils.MapUtils;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;

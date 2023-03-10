@@ -15,7 +15,7 @@ import io.tiklab.postin.common.PostInUnit;
 import io.tiklab.rpc.annotation.Exporter;
 import io.tiklab.security.logging.model.LoggingType;
 import io.tiklab.security.logging.service.LoggingTypeService;
-import io.tiklab.utils.context.LoginContext;
+import io.tiklab.core.context.LoginContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

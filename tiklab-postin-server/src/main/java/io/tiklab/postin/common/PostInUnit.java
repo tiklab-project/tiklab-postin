@@ -2,7 +2,7 @@ package io.tiklab.postin.common;
 
 import io.tiklab.user.user.model.User;
 import io.tiklab.user.user.service.UserService;
-import io.tiklab.utils.context.LoginContext;
+import io.tiklab.core.context.LoginContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
