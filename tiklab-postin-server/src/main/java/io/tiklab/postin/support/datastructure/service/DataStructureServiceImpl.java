@@ -14,7 +14,7 @@ import io.tiklab.core.page.PaginationBuilder;
 import io.tiklab.dal.jpa.criterial.condition.DeleteCondition;
 import io.tiklab.dal.jpa.criterial.conditionbuilder.DeleteBuilders;
 import io.tiklab.join.JoinTemplate;
-import io.tiklab.core.context.LoginContext;
+import io.tiklab.eam.common.context.LoginContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

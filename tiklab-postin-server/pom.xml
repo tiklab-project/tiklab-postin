@@ -49,7 +49,11 @@
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
 
-
+        <dependency>
+            <groupId>io.tiklab</groupId>
+            <artifactId>tiklab-eam-api</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
         <dependency>
             <groupId>io.tiklab</groupId>
             <artifactId>tiklab-web-spring-boot-starter</artifactId>

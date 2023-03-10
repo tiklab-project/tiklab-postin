@@ -1,6 +1,7 @@
 package io.tiklab.postin.workspace.service;
 
 import com.alibaba.fastjson.JSONObject;
+import io.tiklab.eam.common.context.LoginContext;
 import io.tiklab.message.message.model.SendMessageNotice;
 import io.tiklab.message.message.service.SendMessageNoticeService;
 import io.tiklab.postin.api.apix.service.ApixService;
@@ -27,7 +28,6 @@ import io.tiklab.user.dmUser.model.DmUserQuery;
 import io.tiklab.user.dmUser.service.DmUserService;
 import io.tiklab.user.user.model.User;
 import io.tiklab.user.user.service.UserService;
-import io.tiklab.core.context.LoginContext;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -98,7 +98,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
 
     @Override
     public String createWorkspace(@NotNull @Valid Workspace workspace) throws Exception {
-        String userId =LoginContext.getLoginId();
+        String userId = LoginContext.getLoginId();
         User userInfo = userService.findUser(userId);
 
         //创建项目

@@ -1,6 +1,6 @@
 package io.tiklab.postin.category.service;
 
-import io.tiklab.core.context.LoginContext;
+import io.tiklab.eam.common.context.LoginContext;
 import io.tiklab.postin.api.apix.model.Apix;
 import io.tiklab.postin.api.apix.model.ApixQuery;
 import io.tiklab.postin.api.apix.service.ApixService;

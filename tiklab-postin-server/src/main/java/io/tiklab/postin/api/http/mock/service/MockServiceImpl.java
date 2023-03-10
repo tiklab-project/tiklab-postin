@@ -10,7 +10,7 @@ import io.tiklab.core.page.PaginationBuilder;
 import io.tiklab.join.JoinTemplate;
 import io.tiklab.postin.api.http.mock.model.RequestMock;
 import io.tiklab.postin.api.http.mock.model.ResponseMock;
-import io.tiklab.core.context.LoginContext;
+import io.tiklab.eam.common.context.LoginContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
