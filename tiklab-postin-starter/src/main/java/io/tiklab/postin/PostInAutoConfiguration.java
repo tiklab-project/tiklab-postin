@@ -35,8 +35,8 @@ import org.springframework.context.annotation.Configuration;
 @EnableDcs
 @EnableDss
 @EnableRpc
-@EnableMessage
 @EnableGateway
+@EnableMessage
 
 //pcs
 @EnableSecurity
@@ -46,6 +46,7 @@ import org.springframework.context.annotation.Configuration;
 @EnableEam
 @EnablePluginServer
 @EnableLicenceServer
+
 //other
 @EnablePostInServer
 @EnablePostInClient

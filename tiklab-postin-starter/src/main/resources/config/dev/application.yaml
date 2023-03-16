@@ -80,7 +80,7 @@ base:
 eas:
   embbed:
     enable: true
-#  address: http://192.168.10.11:8081
+#  address: http://192.168.10.11:8080
 #  web:
 #    address: http://192.168.10.11:3001
 
