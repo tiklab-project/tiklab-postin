@@ -22,8 +22,7 @@ public class FormUrlencoded extends BaseModel{
     @ApiProperty(name="id",desc="唯一标识")
     private java.lang.String id;
 
-    @NotNull
-    @ApiProperty(name="http",desc="所属接口",required = true)
+    @ApiProperty(name="http",desc="所属接口")
     @Mappings({
             @Mapping(source = "http.id",target = "httpId")
     })

@@ -11,6 +11,10 @@ import io.tiklab.core.page.Pagination;
 import io.tiklab.core.page.PaginationBuilder;
 import io.tiklab.dss.client.DssClient;
 import io.tiklab.join.JoinTemplate;
+import io.tiklab.postin.support.apistatus.model.ApiStatus;
+import io.tiklab.postin.support.apistatus.service.ApiStatusService;
+import io.tiklab.user.user.model.User;
+import io.tiklab.user.user.service.UserService;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -67,6 +71,11 @@ public class HttpApiServiceImpl implements HttpApiService {
     @Autowired
     DssClient disClient;
 
+    @Autowired
+    ApiStatusService apiStatusService;
+
+    @Autowired
+    UserService userService;
 
 
     @Override
@@ -92,6 +101,18 @@ public class HttpApiServiceImpl implements HttpApiService {
         apiRequest.setHttpId(id);
         apiRequest.setBodyType("none");
         apiRequestService.createApiRequest(apiRequest);
+
+        JsonParam jsonParam = new JsonParam();
+        jsonParam.setId(id);
+        jsonParam.setHttpId(id);
+        jsonParam.setJsonText(
+                "{\n" +
+                "    \"type\": \"object\",\n" +
+                "    \"title\": \"title\",\n" +
+                "    \"properties\": {}\n" +
+                "}"
+        );
+        jsonParamService.createJsonParam(jsonParam);
 
         //初始化一个返回结果 数据类型为json， 所以设置值为jsonSchema结构的值
         ApiResponse apiResponse = new ApiResponse();
@@ -258,7 +279,29 @@ public class HttpApiServiceImpl implements HttpApiService {
 
         joinTemplate.joinQuery(httpApiList);
 
-        return httpApiList;
+        ArrayList<HttpApi> newApiList = new ArrayList<>();
+
+        //手动添加未显示的字段
+        if(CollectionUtils.isNotEmpty(httpApiList)){
+            for(HttpApi httpApi:httpApiList){
+
+                //状态
+                if( httpApi.getApix().getStatus()!=null){
+                    ApiStatus apiStatus = apiStatusService.findApiStatus( httpApi.getApix().getStatus().getId());
+                    httpApi.getApix().setStatus(apiStatus);
+                }
+
+                //执行人
+                if(httpApi.getApix().getExecutor()!=null){
+                    User user = userService.findUser(httpApi.getApix().getCreateUser().getId());
+                    httpApi.getApix().setExecutor(user);
+                }
+
+                newApiList.add(httpApi);
+            }
+        }
+
+        return newApiList;
     }
 
     @Override

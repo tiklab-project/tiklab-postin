@@ -31,23 +31,22 @@ public class JsonParam extends BaseModel {
     private JsonParam parent;
 
     @NotNull
-    @ApiProperty(name="http",desc="所属接口",required = true)
-    @Mappings({
-            @Mapping(source = "http.id",target = "httpId")
-    })
-    @JoinQuery(key = "id")
-    private HttpApi http;
+    @ApiProperty(name="httpId",desc="httpId")
+    private String httpId;
 
-    @NotNull
-    @ApiProperty(name="paramName",desc="参数名称",eg="@text32",required = true)
+    @ApiProperty(name="jsonText",desc="jsonText")
+    private java.lang.String jsonText;
+
+
+    @ApiProperty(name="paramName",desc="参数名称",eg="@text32")
     private java.lang.String paramName;
 
-    @NotNull
-    @ApiProperty(name="dataType",desc="数据类型,[int,string,boolean]",required = true)
+
+    @ApiProperty(name="dataType",desc="数据类型,[int,string,boolean]")
     private java.lang.String dataType;
 
-    @NotNull
-    @ApiProperty(name="required",desc="是否必须,0:非必须;1:必须",required = true)
+
+    @ApiProperty(name="required",desc="是否必须,0:非必须;1:必须")
     private java.lang.Integer required = 0;
 
     @ApiProperty(name="desc",desc="参数说明",eg="@text32")
@@ -70,12 +69,20 @@ public class JsonParam extends BaseModel {
         this.id = id;
     }
 
-    public HttpApi getHttp() {
-        return http;
+    public String getHttpId() {
+        return httpId;
     }
 
-    public void setHttp(HttpApi http) {
-        this.http = http;
+    public void setHttpId(String httpId) {
+        this.httpId = httpId;
+    }
+
+    public String getJsonText() {
+        return jsonText;
+    }
+
+    public void setJsonText(String jsonText) {
+        this.jsonText = jsonText;
     }
 
     public String getParamName() {

@@ -59,8 +59,6 @@ public class DataProcessCommon {
 
 //        List<String> headerNames = Collections.list(request.getHeaderNames());
 //
-//
-//
 //        for (String headerName : headerNames) {
 //            String headerNameLow = headerName.toLowerCase();
 //
@@ -108,23 +106,36 @@ public class DataProcessCommon {
      * @param timeString
      */
     public void buildResponseHeader(ResponseEntity<byte[]> responseEntity, HttpServletResponse response, String timeString){
-        //获取状态码
-        int statusCode = responseEntity.getStatusCodeValue();
-        String statusText = responseEntity.getStatusCode().getReasonPhrase();
-
-        String result = String.format("statusCode=%d,statusText=%s,time=%s", statusCode, statusText, timeString);
-        response.setHeader("pi-base",result);
-
-
         //把响应头返回回去
         HttpHeaders httpHeaders = responseEntity.getHeaders();
 
-        String piResHeader =  httpHeaders.entrySet()
-                .stream()
-                .map(entry -> entry.getKey() + ":" + String.join(",", "[" + String.join(",", entry.getValue()) + "]"))
-                .collect(Collectors.joining(","));
+        //获取状态码  如果存在 pi-mock-status 就设置 pi-mock-status 中的值
+
+        String piBaseInfo;
+        String piResHeader;
+
+        //如果存在pi-mock-status 则 走了mock地址
+        if(httpHeaders.containsKey("pi-mock-baseInfo")){
+
+            piBaseInfo=httpHeaders.getFirst("pi-mock-baseInfo");
+            piResHeader=httpHeaders.getFirst("pi-mock-header");
+
+        }else {
+            int statusCode=responseEntity.getStatusCodeValue();
+            piResHeader =  httpHeaders.entrySet()
+                    .stream()
+                    .map(entry -> entry.getKey() + ":" + String.join(",", "[" + String.join(",", entry.getValue()) + "]"))
+                    .collect(Collectors.joining(","));
+
+            piBaseInfo = String.format("statusCode=%d,time=%s", statusCode,  timeString);
+
+        }
+
+
 
         response.setHeader("pi-header",piResHeader);
+        response.setHeader("pi-base",piBaseInfo);
+
 
     }
 

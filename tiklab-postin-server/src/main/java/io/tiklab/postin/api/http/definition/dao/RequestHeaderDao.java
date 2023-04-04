@@ -85,6 +85,7 @@ public class RequestHeaderDao{
     public List<RequestHeaderEntity> findRequestHeaderList(RequestHeaderQuery requestHeaderQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(RequestHeaderEntity.class)
                 .eq("httpId", requestHeaderQuery.getHttpId())
+                .eq("workspaceId",requestHeaderQuery.getWorkspaceId())
                 .orders(requestHeaderQuery.getOrderParams())
                 .get();
 
@@ -99,6 +100,7 @@ public class RequestHeaderDao{
     public Pagination<RequestHeaderEntity> findRequestHeaderPage(RequestHeaderQuery requestHeaderQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(RequestHeaderEntity.class)
                 .eq("httpId", requestHeaderQuery.getHttpId())
+                .eq("workspaceId",requestHeaderQuery.getWorkspaceId())
                 .pagination(requestHeaderQuery.getPageParam())
                 .orders(requestHeaderQuery.getOrderParams())
                 .get();

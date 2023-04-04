@@ -18,6 +18,7 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.Random;
 
 /**
  * mock
@@ -36,7 +37,7 @@ public class MockServletResponse {
     ResponseResultMockService responseResultMockService;
 
     /**
-     * 响应处理
+     * 响应
      * @param mockId
      * @param response
      * @throws IOException
@@ -52,10 +53,22 @@ public class MockServletResponse {
     /**
      *  从数据库获取httpcode，设置到servlet中
      */
-    public  void setHttpCode(String mockId, HttpServletResponse response){
+    public void setHttpCode(String mockId, HttpServletResponse response){
         ResponseMock responseMock = responseMockService.findResponseMock(mockId);
-        int HttpCode =Integer.parseInt(responseMock.getHttpCode());
-        response.setStatus(HttpCode);
+
+
+        //添加随机毫秒
+        int randomDelay = new Random().nextInt(1000);
+        int time = responseMock.getTime() + randomDelay;
+        try {
+            Thread.sleep(time);
+        } catch (InterruptedException e) {
+            throw new ApplicationException(e);
+        }
+
+        String result = String.format("statusCode=%s,time=%d", responseMock.getHttpCode(),  time);
+
+        response.setHeader("pi-mock-baseInfo",result);
     }
 
     /**
@@ -64,31 +77,35 @@ public class MockServletResponse {
     public void setHeader(String mockId, HttpServletResponse response){
         ResponseHeaderMockQuery responseHeaderMockQuery = new ResponseHeaderMockQuery().setMockId(mockId);
         List<ResponseHeaderMock> responseHeaderMockList = responseHeaderMockService.findResponseHeaderMockList(responseHeaderMockQuery);
-        String headers = null;
-        if(CollectionUtils.isNotEmpty(responseHeaderMockList)){
-            for(ResponseHeaderMock responseHeaderMock : responseHeaderMockList){
+
+        if(responseHeaderMockList != null) {
+            StringBuilder headersBuilder = new StringBuilder();
+            for (ResponseHeaderMock responseHeaderMock : responseHeaderMockList) {
                 String headerName = responseHeaderMock.getHeaderName();
                 String headerValue = responseHeaderMock.getValue();
-                String mockVal = null;
+
+                if (headerName == null || headerValue == null) {
+                    continue;
+                }
+
+                String mockVal;
                 try {
-                    mockVal =  MockProcess.mock(headerValue);
+                    mockVal = MockProcess.mock(headerValue);
                 } catch (ScriptException e) {
                     throw new ApplicationException(e);
                 }
-                response.setHeader(headerName,mockVal);
-                if(headers!=null){
-                    headers =headers+headerName+",";
-                }else {
-                    headers =headerName+",";
+
+                if (headersBuilder.length() > 0) {
+                    headersBuilder.append(",");
                 }
+
+                headersBuilder.append(headerName).append(":[").append(mockVal).append("]");
+            }
+
+            if (headersBuilder.length() > 0) {
+                response.setHeader("pi-mock-header", headersBuilder.toString());
             }
         }
-
-
-        ResponseMock responseMock = responseMockService.findResponseMock(mockId);
-        String responseType = responseMock.getBodyType();
-
-        response.setHeader("content-type", responseType);
     }
 
     /**
@@ -96,9 +113,12 @@ public class MockServletResponse {
      */
     public void setBody(String mockId,  HttpServletResponse response) throws IOException {
         ResponseResultMock responseResultMock = responseResultMockService.findResponseResultMock(mockId);
-        String jsonMockData = responseResultMock.getResult();
-        ServletOutputStream servletOutputStream = response.getOutputStream();
-        servletOutputStream.write(jsonMockData.getBytes("UTF-8"));
+        if(responseResultMock != null){
+            String jsonMockData = responseResultMock.getResult();
+            ServletOutputStream servletOutputStream = response.getOutputStream();
+            servletOutputStream.write(jsonMockData.getBytes("UTF-8"));
+        }
+
     }
 
 

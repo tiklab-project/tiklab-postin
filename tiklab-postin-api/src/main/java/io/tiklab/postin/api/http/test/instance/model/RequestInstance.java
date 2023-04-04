@@ -7,6 +7,7 @@ import io.tiklab.beans.annotation.Mapping;
 import io.tiklab.beans.annotation.Mappings;
 import io.tiklab.core.BaseModel;
 import io.tiklab.join.annotation.Join;
+import io.tiklab.user.user.model.User;
 
 import javax.validation.constraints.NotNull;
 

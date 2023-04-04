@@ -1,6 +1,7 @@
 package io.tiklab.postin.api.http.test.instance.dao;
 
 import io.tiklab.postin.api.http.test.instance.entity.HttpInstanceEntity;
+import io.tiklab.postin.api.http.test.instance.entity.RequestInstanceEntity;
 import io.tiklab.postin.api.http.test.instance.model.HttpInstanceQuery;
 import io.tiklab.core.page.Pagination;
 import io.tiklab.dal.jpa.JpaTemplate;
@@ -10,6 +11,7 @@ import io.tiklab.dal.jpa.criterial.conditionbuilder.QueryBuilders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -76,13 +78,17 @@ public class HttpInstanceDao {
     }
 
     public List<HttpInstanceEntity> findTestInstanceList(HttpInstanceQuery httpInstanceQuery) {
-        QueryCondition queryCondition = QueryBuilders.createQuery(HttpInstanceEntity.class)
-                .eq("workspaceId",httpInstanceQuery.getWorkspaceId())
-                .eq("httpCaseId", httpInstanceQuery.getHttpCaseId())
-                .eq("userId",httpInstanceQuery.getUserId())
-                .orders(httpInstanceQuery.getOrderParams())
-                .get();
-        return jpaTemplate.findList(queryCondition, HttpInstanceEntity.class);
+        String sql = "SELECT pi.id,pi.create_time,pi.user_id,pi.size,pi.result,pi.status_code,pi.time,pi.workspace_id,pir.method_type,pir.URL"+
+                    " FROM postin_instance pi JOIN postin_instance_http_request pir ON pi.id = pir.http_instance_id "+
+                    " WHERE pi.workspace_id = '" + httpInstanceQuery.getWorkspaceId() +"'"+
+                    " AND pi.user_id = " + httpInstanceQuery.getUserId();
+
+        if(httpInstanceQuery.getUrl()!=null){
+            sql = sql + " AND pir.URL like '"+"%"+ httpInstanceQuery.getUrl() +"%"+"'";
+        }
+
+
+        return jpaTemplate.getJdbcTemplate().query(sql , new BeanPropertyRowMapper(HttpInstanceEntity.class));
     }
 
     public Pagination<HttpInstanceEntity> findTestInstancePage(HttpInstanceQuery httpInstanceQuery) {

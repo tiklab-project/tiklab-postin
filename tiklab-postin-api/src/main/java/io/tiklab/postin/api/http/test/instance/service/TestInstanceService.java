@@ -7,6 +7,8 @@ import io.tiklab.core.page.Pagination;
 import io.tiklab.join.annotation.FindList;
 import io.tiklab.join.annotation.FindOne;
 import io.tiklab.join.annotation.JoinProvider;
+import io.tiklab.postin.api.http.test.instance.model.RequestInstance;
+import io.tiklab.postin.api.http.test.instance.model.RequestInstanceQuery;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -75,5 +77,6 @@ public interface TestInstanceService {
     * @return
     */
     Pagination<HttpInstance> findTestInstancePage(HttpInstanceQuery httpInstanceQuery);
+
 
 }

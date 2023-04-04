@@ -12,6 +12,7 @@ import io.tiklab.dss.annotation.IndexId;
 import io.tiklab.dss.annotation.IndexQueryField;
 import io.tiklab.join.annotation.Join;
 import io.tiklab.join.annotation.JoinQuery;
+import io.tiklab.privilege.role.model.PatchUser;
 import io.tiklab.user.user.model.User;
 
 import javax.validation.constraints.NotNull;
@@ -56,7 +57,7 @@ public class Workspace extends BaseModel {
 
 
     private Integer isFollow;
-    private List<String> memberList;
+    private List<PatchUser> userList;
     private Integer categoryNum;
     private Integer apiNum;
 
@@ -115,12 +116,12 @@ public class Workspace extends BaseModel {
         this.iconUrl = iconUrl;
     }
 
-    public List<String> getMemberList() {
-        return memberList;
+    public List<PatchUser> getUserList() {
+        return userList;
     }
 
-    public void setMemberList(List<String> memberList) {
-        this.memberList = memberList;
+    public void setUserList(List<PatchUser> userList) {
+        this.userList = userList;
     }
 
     public Integer getCategoryNum() {

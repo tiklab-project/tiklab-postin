@@ -15,33 +15,17 @@ import java.io.Serializable;
 public class JsonParamDSEntity implements Serializable {
 
     @Id
-    @GeneratorValue
+//    @GeneratorValue
     @Column(name = "id",length = 32)
     private String id;
 
-    // 名称
-    @Column(name = "param_name",length = 64,notNull = true)
-    private String paramName;
-
     // 所属数据结构
-    @Column(name = "subject_id",length = 32)
+    @Column(name = "data_structure_id",length = 32)
     private String dataStructureId;
 
-    // 数据类型
-    @Column(name = "data_type",length = 32)
-    private String dataType;
+    @Column(name = "json_text",length = 2048)
+    private String jsonText;
 
-    // 是否必选
-    @Column(name = "required")
-    private Integer required;
-
-    // 描述
-    @Column(name = "description",length = 128)
-    private String description;
-
-    // 所属上级
-    @Column(name = "parent_id",length = 32)
-    private String parentId;
 
     public String getId() {
         return id;
@@ -49,14 +33,6 @@ public class JsonParamDSEntity implements Serializable {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getParamName() {
-        return paramName;
-    }
-
-    public void setParamName(String paramName) {
-        this.paramName = paramName;
     }
 
     public String getDataStructureId() {
@@ -67,35 +43,11 @@ public class JsonParamDSEntity implements Serializable {
         this.dataStructureId = dataStructureId;
     }
 
-    public String getDataType() {
-        return dataType;
+    public String getJsonText() {
+        return jsonText;
     }
 
-    public void setDataType(String dataType) {
-        this.dataType = dataType;
-    }
-
-    public Integer getRequired() {
-        return required;
-    }
-
-    public void setRequired(Integer required) {
-        this.required = required;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getParentId() {
-        return parentId;
-    }
-
-    public void setParentId(String parentId) {
-        this.parentId = parentId;
+    public void setJsonText(String jsonText) {
+        this.jsonText = jsonText;
     }
 }

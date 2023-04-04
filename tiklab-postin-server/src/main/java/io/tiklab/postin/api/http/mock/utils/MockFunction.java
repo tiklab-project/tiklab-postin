@@ -13,7 +13,7 @@ import cn.hutool.script.ScriptUtil;
 import javax.script.ScriptException;
 import java.util.Map;
 
-public class MockFun {
+public class MockFunction {
 
     private static Cache<String, String> lfuCache = CacheUtil.newLFUCache(1);
     private static JavaScriptEngine scriptEngine = ScriptUtil.getJavaScriptEngine();

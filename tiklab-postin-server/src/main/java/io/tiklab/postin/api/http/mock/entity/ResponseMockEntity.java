@@ -32,6 +32,10 @@ public class ResponseMockEntity implements Serializable {
     @Column(name = "http_code",length = 2048)
     private String httpCode;
 
+    //响应延迟时间
+    @Column(name = "time",length = 16)
+    private Integer time;
+
     public String getId() {
         return id;
     }
@@ -62,5 +66,13 @@ public class ResponseMockEntity implements Serializable {
 
     public void setBodyType(String bodyType) {
         this.bodyType = bodyType;
+    }
+
+    public Integer getTime() {
+        return time;
+    }
+
+    public void setTime(Integer time) {
+        this.time = time;
     }
 }

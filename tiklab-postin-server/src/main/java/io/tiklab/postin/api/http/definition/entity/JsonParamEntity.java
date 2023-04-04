@@ -5,6 +5,7 @@ import io.tiklab.dal.jpa.annotation.Column;
 import io.tiklab.dal.jpa.annotation.GeneratorValue;
 import io.tiklab.dal.jpa.annotation.Id;
 import io.tiklab.dal.jpa.annotation.Table;import io.tiklab.dal.jpa.annotation.Entity;
+import io.tiklab.postin.annotation.ApiProperty;
 
 import java.io.Serializable;
 
@@ -18,7 +19,7 @@ import java.io.Serializable;
 public class JsonParamEntity implements Serializable {
 
     @Id
-    @GeneratorValue
+//    @GeneratorValue
     @Column(name = "id",length = 40)
     private String id;
 
@@ -30,16 +31,19 @@ public class JsonParamEntity implements Serializable {
     @Column(name = "http_id",length = 40,notNull = true)
     private String httpId;
 
+    @Column(name = "json_text",length = 2048)
+    private String jsonText;
+
     //参数名称
-    @Column(name = "param_name",length = 64,notNull = true)
+    @Column(name = "param_name",length = 64)
     private String paramName;
 
     //数据类型
-    @Column(name = "data_type",length = 32,notNull = true)
+    @Column(name = "data_type",length = 32)
     private String dataType;
 
     //是否必选
-    @Column(name = "required",length = 2,notNull = true)
+    @Column(name = "required",length = 2)
     private Integer required;
 
     //描述说明
@@ -76,6 +80,14 @@ public class JsonParamEntity implements Serializable {
 
     public void setParamName(String paramName) {
         this.paramName = paramName;
+    }
+
+    public String getJsonText() {
+        return jsonText;
+    }
+
+    public void setJsonText(String jsonText) {
+        this.jsonText = jsonText;
     }
 
     public String getDataType() {

@@ -1,5 +1,6 @@
 package io.tiklab.postin.support.sendrequest.dispatch;
 
+import io.tiklab.core.exception.ApplicationException;
 import io.tiklab.core.exception.SystemException;
 import io.tiklab.postin.support.sendrequest.util.DataProcessCommon;
 import io.tiklab.postin.support.sendrequest.util.HttpMethodUtils;
@@ -97,7 +98,7 @@ public class RouteDispatchForFormUrl {
                 outputStream.flush();
             }
         } catch (Exception e) {
-            throw new SystemException(e);
+            throw new ApplicationException(e);
         }
     }
 

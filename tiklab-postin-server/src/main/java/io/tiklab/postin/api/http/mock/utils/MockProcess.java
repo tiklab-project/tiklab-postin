@@ -25,7 +25,7 @@ public class MockProcess {
                 paramList.add(param);
             }
         }else {
-            funcationName = express.substring(1);
+            funcationName = express;
         }
 
         String data = switchFun(funcationName,paramList);
@@ -108,11 +108,12 @@ public class MockProcess {
             case "guid":
                 return guid();
         }
-        return null;
+
+        return funcationName;
     }
 
     public static String bool() throws ScriptException {
-        String bool = String.valueOf(MockFun.bool());
+        String bool = String.valueOf(MockFunction.bool());
         return bool;
     }
 
@@ -121,112 +122,112 @@ public class MockProcess {
         char cha;
         String chaval = null;
         if(paramList.size()==0){
-            cha = MockFun.character();
+            cha = MockFunction.character();
             chaval = Character.toString(cha);
         }else if(paramList.size()==1){
             String one = paramList.get(0);
-            cha = MockFun.character(one);
+            cha = MockFunction.character(one);
             chaval = Character.toString(cha);
         }
         return chaval;
     }
 
     public static String email() throws ScriptException {
-        return MockFun.email();
+        return MockFunction.email();
     }
 
     public static String name() throws ScriptException {
-        return MockFun.name();
+        return MockFunction.name();
     }
 
     public static String cname() throws ScriptException {
-        return MockFun.cname();
+        return MockFunction.cname();
     }
 
     public static String naturel(List<String> paramList) throws ScriptException {
         long natural;
         String na=null;
         if(paramList.size()==0){
-            natural = MockFun.natural();
+            natural = MockFunction.natural();
             na = String.valueOf(natural);
         }else if(paramList.size()==1){
             long one =Long.parseLong (paramList.get(0));
-            natural = MockFun.natural(one);
+            natural = MockFunction.natural(one);
             na = String.valueOf(natural);
         }else if(paramList.size()==2){
             long one = Long.parseLong (paramList.get(0));
             long two = Long.parseLong (paramList.get(1));
-            natural = MockFun.natural(one,two);
+            natural = MockFunction.natural(one,two);
             na = String.valueOf(natural);
         }
         return na;
     }
 
     public static String time() throws ScriptException {
-        return MockFun.time();
+        return MockFunction.time();
     }
 
     public static String date() throws ScriptException {
-        return MockFun.date();
+        return MockFunction.date();
     }
 
     public static String datetime () throws ScriptException {
-        return MockFun.datetime();
+        return MockFunction.datetime();
     }
 
     public static String color() throws ScriptException {
-        return MockFun.color();
+        return MockFunction.color();
     }
 
     public static String hex() throws ScriptException {
-        return MockFun.hex();
+        return MockFunction.hex();
     }
 
     public static String rgb() throws ScriptException {
-        return MockFun.rgb();
+        return MockFunction.rgb();
     }
 
     public static String rgba() throws ScriptException {
-        return MockFun.rgba();
+        return MockFunction.rgba();
     }
 
     public static String hsl() throws ScriptException {
-        return MockFun.hsl();
+        return MockFunction.hsl();
     }
 
     public static String title() throws ScriptException {
-        return MockFun.title();
+        return MockFunction.title();
     }
 
     public static String paragraph() throws ScriptException {
-        return MockFun.paragraph();
+        return MockFunction.paragraph();
     }
 
     public static String word() throws ScriptException {
-        return MockFun.word();
+        return MockFunction.word();
     }
 
     public static String cword() throws ScriptException {
-        return MockFun.cword();
+        return MockFunction.cword();
     }
 
     public static String ctitle() throws ScriptException {
-        return MockFun.ctitle();
+        return MockFunction.ctitle();
     }
 
     public static String cparagraph() throws ScriptException {
-        return MockFun.cparagraph();
+        return MockFunction.cparagraph();
     }
 
     public static String first() throws ScriptException {
-        return MockFun.first();
+        return MockFunction.first();
     }
 
     public static String floatNumber(List<String> paramList) throws ScriptException {
         float floatNum =0;
         String flonum =null;
         if(paramList.size()==0){
-            floatNum = MockFun.floatNumber();
+            floatNum = MockFunction.floatNumber();
             flonum = Float.toString(floatNum);
         }else {
             if (paramList.size()>0){
@@ -243,7 +244,7 @@ public class MockProcess {
                         }
                     }
                 }
-                floatNum = MockFun.floatNumber(s0,s1,s2,s3);
+                floatNum = MockFunction.floatNumber(s0,s1,s2,s3);
             }
 
             flonum = Float.toString(floatNum);
@@ -252,59 +253,59 @@ public class MockProcess {
     }
 
     public static String cfirst() throws ScriptException {
-        return MockFun.cfirst();
+        return MockFunction.cfirst();
     }
 
     public static String last() throws ScriptException {
-        return MockFun.last();
+        return MockFunction.last();
     }
 
     public static String clast() throws ScriptException {
-        return MockFun.clast();
+        return MockFunction.clast();
     }
 
     public static String protocol() throws ScriptException {
-        return MockFun.protocol();
+        return MockFunction.protocol();
     }
 
     public static String url() throws ScriptException {
-        return MockFun.url();
+        return MockFunction.url();
     }
 
     public static String domain() throws ScriptException {
-        return MockFun.domain();
+        return MockFunction.domain();
     }
 
     public static String ip() throws ScriptException {
-        return MockFun.ip();
+        return MockFunction.ip();
     }
 
     public static String regin() throws ScriptException {
-        return MockFun.region();
+        return MockFunction.region();
     }
 
     public static String province() throws ScriptException {
-        return MockFun.province();
+        return MockFunction.province();
     }
 
     public static String city() throws ScriptException {
-        return MockFun.city();
+        return MockFunction.city();
     }
 
     public static String country() throws ScriptException {
-        return MockFun.county();
+        return MockFunction.county();
     }
 
     public static String zip() throws ScriptException {
-        return MockFun.zip();
+        return MockFunction.zip();
     }
 
     public static String id() throws ScriptException {
-        return MockFun.id();
+        return MockFunction.id();
     }
 
     public static String guid() throws ScriptException {
-        return MockFun.guid();
+        return MockFunction.guid();
     }
 
 }

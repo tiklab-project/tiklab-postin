@@ -17,6 +17,9 @@ public class HttpInstanceQuery {
     @ApiProperty(name ="httpCaseId",desc = "接口用例ID，精确匹配")
     private String httpCaseId;
 
+    @ApiProperty(name ="url",desc = "url，模糊匹配")
+    private String url;
+
     @ApiProperty(name="workspaceId",desc="空间ID")
     private String workspaceId;
 
@@ -66,4 +69,11 @@ public class HttpInstanceQuery {
         this.pageParam = pageParam;
     }
 
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 }

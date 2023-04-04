@@ -44,17 +44,20 @@ public class MockServiceImpl implements MockService {
         mockEntity.setCreateTime(new Timestamp(System.currentTimeMillis()));
         String id = mockDao.createMock(mockEntity);
 
-        //初始化，请求响应中的bodyType
+        //初始化，请求中的bodyType
         RequestMock requestMock = new RequestMock();
         requestMock.setId(id);
         requestMock.setMockId(id);
         requestMock.setBodyType("form");
         requestMockService.createRequestMock(requestMock);
 
+        //初始化，响应中的参数
         ResponseMock responseMock = new ResponseMock();
         responseMock.setId(id);
         responseMock.setMockId(id);
         responseMock.setBodyType("application/json");
+        responseMock.setHttpCode("200");
+        responseMock.setTime(0);
         responseMockService.createResponseMock(responseMock);
 
         return id;

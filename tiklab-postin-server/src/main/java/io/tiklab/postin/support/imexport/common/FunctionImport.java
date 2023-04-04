@@ -248,8 +248,7 @@ public class FunctionImport {
      * @return
      */
     public String addJsonParam(JsonParamImportVo jVo){
-        HttpApi httpApi = new HttpApi();
-        httpApi.setId(jVo.getMethodId());
+
 
         JsonParam jsonParam = new JsonParam();
 
@@ -258,7 +257,7 @@ public class FunctionImport {
         jsonParam.setDataType(jVo.getDataType());
         jsonParam.setRequired(jVo.getRequired());
         jsonParam.setDesc(jVo.getDesc());
-        jsonParam.setHttp(httpApi);
+        jsonParam.setHttpId(jVo.getMethodId());
         jsonParam.setParent(jVo.getParentId());
 
         String parentid = jsonParamService.createJsonParam(jsonParam);

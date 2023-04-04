@@ -2,6 +2,7 @@ package io.tiklab.postin.workspace.service;
 
 import io.tiklab.postin.workspace.dao.WorkspaceFollowDao;
 import io.tiklab.postin.workspace.entity.WorkspaceFollowEntity;
+import io.tiklab.postin.workspace.model.Workspace;
 import io.tiklab.postin.workspace.model.WorkspaceFollow;
 import io.tiklab.postin.workspace.model.WorkspaceFollowQuery;
 
@@ -9,6 +10,7 @@ import io.tiklab.beans.BeanMapper;
 import io.tiklab.core.page.Pagination;
 import io.tiklab.core.page.PaginationBuilder;
 import io.tiklab.join.JoinTemplate;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +33,7 @@ public class WorkspaceFollowServiceImpl implements WorkspaceFollowService {
 
     @Override
     public String createWorkspaceFollow(@NotNull @Valid WorkspaceFollow workspaceFollow) {
+
         WorkspaceFollowEntity workspaceFollowEntity = BeanMapper.map(workspaceFollow, WorkspaceFollowEntity.class);
 
         return workspaceFollowDao.createWorkspaceFollow(workspaceFollowEntity);
@@ -101,6 +104,13 @@ public class WorkspaceFollowServiceImpl implements WorkspaceFollowService {
         List<WorkspaceFollow> workspaceFollowList = BeanMapper.mapList(workspaceFollowEntityList,WorkspaceFollow.class);
 
         joinTemplate.joinQuery(workspaceFollowList);
+
+        //设置是否关注
+        if(CollectionUtils.isNotEmpty(workspaceFollowList)){
+            for(WorkspaceFollow workspaceFollow: workspaceFollowList){
+                workspaceFollow.getWorkspace().setIsFollow(1);
+            }
+        }
 
         return workspaceFollowList;
     }

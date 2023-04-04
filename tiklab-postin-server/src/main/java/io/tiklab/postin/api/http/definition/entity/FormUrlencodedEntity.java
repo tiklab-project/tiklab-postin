@@ -19,7 +19,7 @@ public class FormUrlencodedEntity implements Serializable {
     private String id;
 
     //所属接口
-    @Column(name = "http_id",length = 40,notNull = true)
+    @Column(name = "http_id",length = 40)
     private String httpId;
 
     //参数名称

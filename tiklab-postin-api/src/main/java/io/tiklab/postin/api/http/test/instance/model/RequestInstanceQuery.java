@@ -14,6 +14,9 @@ public class RequestInstanceQuery {
     @ApiProperty(name ="httpInstanceId",desc = "测试实例ID，精确匹配")
     private String httpInstanceId;
 
+    @ApiProperty(name ="url",desc = "url，模糊匹配")
+    private String url;
+
     @ApiProperty(name ="orderParams",desc = "排序参数")
     private List<Order> orderParams = OrderBuilders.instance().asc("id").get();
 
@@ -42,5 +45,13 @@ public class RequestInstanceQuery {
 
     public void setPageParam(Page pageParam) {
         this.pageParam = pageParam;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

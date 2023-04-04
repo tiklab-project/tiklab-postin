@@ -1,5 +1,6 @@
 package io.tiklab.postin.support.sendrequest.dispatch;
 
+import io.tiklab.core.exception.ApplicationException;
 import io.tiklab.core.exception.SystemException;
 import io.tiklab.postin.support.sendrequest.HttpRequest;
 import io.tiklab.postin.support.sendrequest.util.HttpMethodUtils;
@@ -72,7 +73,7 @@ public class RouteDispatchForText {
                 }
             }
         } catch (Exception e) {
-            throw new SystemException(e);
+            throw new ApplicationException(e);
         }
     }
 }

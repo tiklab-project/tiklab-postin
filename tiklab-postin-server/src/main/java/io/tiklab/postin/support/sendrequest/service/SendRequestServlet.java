@@ -57,7 +57,12 @@ public class SendRequestServlet extends HttpServlet {
         if(method.equals("get")){
             routeDispatchForGet.dispatch(request,response,httpRequest);
         }else {
-            switch (request.getContentType()){
+            String contentType = request.getContentType();
+            if(contentType.contains("multipart/form-data")){
+                contentType = "multipart/form-data";
+            }
+
+            switch (contentType){
                 case "multipart/form-data":
                     routeDispatchForFormData.dispatch(request,response,httpRequest);
                     break;

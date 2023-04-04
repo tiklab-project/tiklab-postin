@@ -23,8 +23,12 @@ public class RequestHeaderEntity implements Serializable {
     private String id;
 
     //所属接口
-    @Column(name = "http_id",length = 40,notNull = true)
+    @Column(name = "http_id",length = 40)
     private String httpId;
+
+    //所属空间用于全局
+    @Column(name = "workspace_id",length = 40)
+    private String workspaceId;
 
     //参数名称
     @Column(name = "header_name",length = 64,notNull = true)
@@ -60,6 +64,14 @@ public class RequestHeaderEntity implements Serializable {
 
     public void setHttpId(String httpId) {
         this.httpId = httpId;
+    }
+
+    public String getWorkspaceId() {
+        return workspaceId;
+    }
+
+    public void setWorkspaceId(String workspaceId) {
+        this.workspaceId = workspaceId;
     }
 
     public String getHeaderName() {

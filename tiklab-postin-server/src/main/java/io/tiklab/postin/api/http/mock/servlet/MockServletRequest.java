@@ -192,7 +192,7 @@ public class MockServletRequest {
                 }
             }
         } catch (FileUploadException | UnsupportedEncodingException e) {
-            throw new SystemException(e);
+            throw new ApplicationException(e);
         } catch (IOException e) {
             throw new ApplicationException(e);
         }

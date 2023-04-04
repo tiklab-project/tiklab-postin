@@ -74,7 +74,8 @@ CREATE TABLE postin_api_http(
 
 CREATE TABLE postin_http_request_header(
         id VARCHAR(40) PRIMARY KEY,
-        http_id VARCHAR(40) NOT NULL,
+        http_id VARCHAR(40),
+        workspace_id VARCHAR(32),
         header_name VARCHAR(64) NOT NULL,
         required int NOT NULL,
         description VARCHAR(128),
@@ -83,7 +84,7 @@ CREATE TABLE postin_http_request_header(
 );
 CREATE TABLE postin_http_request_query(
         id VARCHAR(40) PRIMARY KEY,
-        http_id VARCHAR(40) NOT NULL,
+        http_id VARCHAR(40),
         param_name VARCHAR(64) NOT NULL,
         required int NOT NULL,
         description VARCHAR(128),
@@ -101,7 +102,7 @@ CREATE TABLE postin_http_request(
 
 CREATE TABLE postin_http_request_form(
         id VARCHAR(40) PRIMARY KEY,
-        http_id VARCHAR(40) NOT NULL,
+        http_id VARCHAR(40),
         param_name VARCHAR(64) NOT NULL,
         data_type VARCHAR(32) NOT NULL,
         required int NOT NULL,
@@ -111,7 +112,7 @@ CREATE TABLE postin_http_request_form(
 );
 CREATE TABLE postin_http_request_urlencoded(
         id VARCHAR(40) PRIMARY KEY,
-        http_id VARCHAR(40) NOT NULL,
+        http_id VARCHAR(40),
         param_name VARCHAR(64) NOT NULL,
         data_type VARCHAR(32) NOT NULL,
         required int NOT NULL,
@@ -122,10 +123,11 @@ CREATE TABLE postin_http_request_urlencoded(
 CREATE TABLE postin_http_request_json(
         id VARCHAR(40) PRIMARY KEY,
         http_id VARCHAR(40) NOT NULL,
+        json_text VARCHAR(2048),
         parent_id VARCHAR(40),
-        param_name VARCHAR(64) NOT NULL,
-        data_type VARCHAR(32) NOT NULL,
-        required int NOT NULL,
+        param_name VARCHAR(64),
+        data_type VARCHAR(32),
+        required int,
         description VARCHAR(128),
         value VARCHAR(128),
         sort int
@@ -266,7 +268,7 @@ CREATE TABLE postin_http_case_request_assert(
         value VARCHAR(128) NOT NULL,
         sort int
 );
-CREATE TABLE postin_http_case_instance(
+CREATE TABLE postin_instance(
         id VARCHAR(40) PRIMARY KEY,
         http_case_id VARCHAR(40),
         workspace_id VARCHAR(32),
@@ -279,7 +281,7 @@ CREATE TABLE postin_http_case_instance(
         error_message VARCHAR(2048)
 );
 
-CREATE TABLE postin_http_case_instance_request(
+CREATE TABLE postin_instance_http_request(
         id VARCHAR(32) PRIMARY KEY,
         http_instance_id VARCHAR(32) NOT NULL,
         URL VARCHAR(2048),
@@ -291,14 +293,14 @@ CREATE TABLE postin_http_case_instance_request(
         media_type VARCHAR(32)
 );
 
-CREATE TABLE postin_http_case_instance_response(
+CREATE TABLE postin_instance_http_response(
         id VARCHAR(32) PRIMARY KEY,
         http_instance_id VARCHAR(32),
         headers text,
         body longtext
 );
 
-CREATE TABLE postin_http_case_instance_assert(
+CREATE TABLE postin_instance_http_assert(
         id VARCHAR(32) PRIMARY KEY,
         http_instance_id VARCHAR(32) NOT NULL,
         source int,
@@ -383,15 +385,13 @@ CREATE TABLE postin_model(
         update_time timestamp
 
 );
+
 CREATE TABLE postin_model_json(
         id VARCHAR(32) PRIMARY KEY,
-        subject_id VARCHAR(32) NOT NULL,
-        param_name VARCHAR(64) NOT NULL,
-        data_type VARCHAR(32) NOT NULL,
-        required int NOT NULL,
-        description VARCHAR(128),
-        parent_id VARCHAR(32)
+        data_structure_id VARCHAR(32) NOT NULL,
+        json_text VARCHAR(2048)
 );
+
 CREATE TABLE postin_model_enum(
         id VARCHAR(32) PRIMARY KEY,
         subject_id VARCHAR(32) NOT NULL,

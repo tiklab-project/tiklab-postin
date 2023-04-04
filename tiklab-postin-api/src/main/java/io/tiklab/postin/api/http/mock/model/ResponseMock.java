@@ -30,6 +30,9 @@ public class ResponseMock extends BaseModel {
     @ApiProperty(name="httpCode",desc="返回http状态码，默认200为正常")
     private java.lang.String httpCode;
 
+    @ApiProperty(name="time",desc="响应延迟时间")
+    private Integer time;
+
     public java.lang.String getId() {
         return id;
     }
@@ -60,5 +63,13 @@ public class ResponseMock extends BaseModel {
 
     public void setBodyType(String bodyType) {
         this.bodyType = bodyType;
+    }
+
+    public Integer getTime() {
+        return time;
+    }
+
+    public void setTime(Integer time) {
+        this.time = time;
     }
 }

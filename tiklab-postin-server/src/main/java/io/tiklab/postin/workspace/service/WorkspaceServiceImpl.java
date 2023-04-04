@@ -114,9 +114,8 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         category.setName("默认分组");
         categoryService.createCategory(category);
 
-        //初始化项目权限
-        dmRoleService.initDmRoles(workspaceId,userId,"postin" );
-
+        //拉入创建人 关联权限
+        dmRoleService.initPatchDmRole(workspaceId,workspace.getUserList(), "postin");
 
         //日志
         Map<String,String> map = new HashMap<>();
@@ -332,8 +331,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         List<DmUser> dmUserList = dmUserService.findDmUserList(dmUserQuery);
 
         //查询空间列表
-        WorkspaceQuery workspaceQuery1 = new WorkspaceQuery();
-        List<Workspace> workspaceList = findWorkspaceList(workspaceQuery1);
+        List<Workspace> workspaceList = findWorkspaceList(workspaceQuery);
 
         //存储list
         ArrayList<Workspace> arrayList = new ArrayList<>();

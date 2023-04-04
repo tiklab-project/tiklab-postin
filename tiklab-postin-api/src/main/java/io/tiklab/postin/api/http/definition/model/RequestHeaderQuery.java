@@ -14,6 +14,9 @@ public class RequestHeaderQuery {
     @ApiProperty(name ="httpId",desc = "接口ID，精确匹配")
     private String httpId;
 
+    @ApiProperty(name ="workspaceId",desc = "workspaceId，精确匹配")
+    private String workspaceId;
+
     @ApiProperty(name ="orderParams",desc = "排序参数")
     private List<Order> orderParams = OrderBuilders.instance().asc("headerName").get();
 
@@ -27,6 +30,14 @@ public class RequestHeaderQuery {
     public RequestHeaderQuery setHttpId(String httpId) {
         this.httpId = httpId;
         return this;
+    }
+
+    public String getWorkspaceId() {
+        return workspaceId;
+    }
+
+    public void setWorkspaceId(String workspaceId) {
+        this.workspaceId = workspaceId;
     }
 
     public List<Order> getOrderParams() {

@@ -15,13 +15,16 @@ import io.tiklab.dal.jpa.criterial.condition.DeleteCondition;
 import io.tiklab.dal.jpa.criterial.conditionbuilder.DeleteBuilders;
 import io.tiklab.join.JoinTemplate;
 import io.tiklab.eam.common.context.LoginContext;
+import io.tiklab.postin.support.datastructure.model.JsonParamDS;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 /**
 * 数据结构 服务
@@ -31,6 +34,9 @@ public class DataStructureServiceImpl implements DataStructureService {
 
     @Autowired
     DataStructureDao dataStructureDao;
+
+    @Autowired
+    JsonParamDSService jsonParamDSService;
 
     @Autowired
     JoinTemplate joinTemplate;
@@ -46,9 +52,27 @@ public class DataStructureServiceImpl implements DataStructureService {
         DataStructureEntity dataStructureEntity = BeanMapper.map(dataStructure, DataStructureEntity.class);
         //添加创建人
         dataStructureEntity.setCreateUser(LoginContext.getLoginId());
-        dataStructureEntity.setCreateTime( new Date());
+        dataStructureEntity.setCreateTime( new Timestamp(System.currentTimeMillis()));
 
-        return dataStructureDao.createDataStructure(dataStructureEntity);
+        String dataStructureId = dataStructureDao.createDataStructure(dataStructureEntity);
+
+        if(Objects.equals(dataStructure.getDataType(), "json")){
+            JsonParamDS jsonParamDS = new JsonParamDS();
+            jsonParamDS.setDataStructureId(dataStructureId);
+            jsonParamDS.setId(dataStructureId);
+            jsonParamDS.setJsonText(
+                "{\n" +
+                "    \"type\": \"object\",\n" +
+                "    \"title\": \"title\",\n" +
+                "    \"properties\": {}\n" +
+                "}"
+            );
+
+            jsonParamDSService.createJsonParamDS(jsonParamDS);
+        }
+
+
+        return dataStructureId;
     }
 
     @Override

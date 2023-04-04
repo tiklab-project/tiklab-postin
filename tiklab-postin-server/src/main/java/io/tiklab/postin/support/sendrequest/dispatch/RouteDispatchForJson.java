@@ -1,5 +1,6 @@
 package io.tiklab.postin.support.sendrequest.dispatch;
 
+import io.tiklab.core.exception.ApplicationException;
 import io.tiklab.core.exception.SystemException;
 import io.tiklab.postin.support.sendrequest.util.DataProcessCommon;
 import io.tiklab.postin.support.sendrequest.HttpRequest;
@@ -71,7 +72,6 @@ public class RouteDispatchForJson {
             dataProcessCommon.buildResponseHeader(responseEntity,response,timeString);
 
 
-
             if (responseEntity.hasBody()) {
                 try {
                     ServletOutputStream outputStream = response.getOutputStream();
@@ -82,7 +82,7 @@ public class RouteDispatchForJson {
                 }
             }
         } catch (Exception e) {
-            throw new SystemException(e);
+            throw new ApplicationException(e);
         }
     }
 
@@ -112,8 +112,7 @@ public class RouteDispatchForJson {
         byte[] body = StreamUtils.copyToByteArray(inputStream);
 
         // 3、构造出RestTemplate能识别的RequestEntity
-        RequestEntity<byte[]> requestEntity = new RequestEntity<byte[]>(body, headers, httpMethod, new URI(url));
-        return requestEntity;
+        return new RequestEntity<byte[]>(body, headers, httpMethod, new URI(url));
     }
 
 }

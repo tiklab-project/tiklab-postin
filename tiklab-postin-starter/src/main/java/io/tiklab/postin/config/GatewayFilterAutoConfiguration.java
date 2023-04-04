@@ -54,7 +54,8 @@ public class GatewayFilterAutoConfiguration{
                         ".xml",
                         ".ftl",
                         ".map",
-                        ".svg"
+                        ".svg",
+                        ".txt"
                 })
                 .ignoreUrls(new String[]{
                         "/",
@@ -69,19 +70,17 @@ public class GatewayFilterAutoConfiguration{
                         "/version/getVersion",
                         "/user/wechatcfg/findWechatById",
                         "/dingding/passport/login",
-                        "/passport/login",
-                        "/wechat/passport/login",
-                        "/passport/logout",
-                        "/wechat/passport/logout",
-                        "/dingding/passport/logout",
-                        "/ldap/passport/login",
-                        "/ldap/passport/logout",
-                        "/portal.html/",
+                        "/eam/passport/login",
+                        "/eam/wechat/passport/login",
+                        "/eam/passport/logout",
+                        "/eam/wechat/passport/logout",
+                        "/eam/dingding/passport/logout",
+                        "/eam/ldap/passport/login",
+                        "/eam/ldap/passport/logout",
+                        "/eam/portal.html/",
                         "/testInstance/findTestInstanceList",
                         "/appLink/findAppLinkList",
                         "/eam/auth/login",
-                        "/local-proxy",
-                        "/cloud-proxy"
 
                 })
                 .ignorePreUrls(new String[]{
