@@ -24,13 +24,7 @@ public class MockServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        //浏览器用utf8来解析返回的数据
-        response.setContentType("text/html;charset=utf-8");
-        //servlet用UTF-8转码，而不是用默认的ISO8859
-        response.setCharacterEncoding("utf-8");
-
-        mockServletRequest.actRequest(request,response);
-
+        sendMock(request,response);
     }
 
     /**
@@ -41,7 +35,17 @@ public class MockServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        doGet(req, resp);
+        sendMock(req, resp);
+    }
+
+
+    private void sendMock(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        //浏览器用utf8来解析返回的数据
+        response.setContentType("text/html;charset=utf-8");
+        //servlet用UTF-8转码，而不是用默认的ISO8859
+        response.setCharacterEncoding("utf-8");
+
+        mockServletRequest.actRequest(request,response);
     }
 
 }

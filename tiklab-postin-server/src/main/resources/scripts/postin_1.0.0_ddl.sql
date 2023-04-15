@@ -562,6 +562,7 @@ CREATE TABLE postin_http_mock_response(
         id VARCHAR(32) PRIMARY KEY,
         mock_id VARCHAR(32) NOT NULL,
         http_code VARCHAR(32),
+        time int,
         body_type VARCHAR(32)
 );
 
