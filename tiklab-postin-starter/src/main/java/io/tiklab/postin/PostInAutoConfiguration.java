@@ -16,6 +16,7 @@ import io.tiklab.dss.starter.EnableDss;
 import io.tiklab.eam.starter.EnableEam;
 import io.tiklab.gateway.starter.EnableGateway;
 import io.tiklab.pluginx.starter.EnablePluginServer;
+import io.tiklab.privilege.EnablePrivilegeServer;
 import io.tiklab.rpc.starter.annotation.EnableRpc;
 import io.tiklab.security.stater.EnableSecurity;
 import io.tiklab.todotask.stater.EnableTodoTask;
@@ -46,6 +47,7 @@ import org.springframework.context.annotation.Configuration;
 @EnableEam
 @EnablePluginServer
 @EnableLicenceServer
+@EnablePrivilegeServer
 
 //other
 @EnablePostInServer

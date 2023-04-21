@@ -432,7 +432,7 @@ CREATE TABLE postin_instance_http_request(
         pre_script longtext,
         after_script longtext,
         method_type VARCHAR(32),
-        media_type VARCHAR(32)
+        media_type VARCHAR(64)
 );
 
 -- ---------------------------

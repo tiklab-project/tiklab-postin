@@ -27,7 +27,7 @@ public class RequestInstanceEntity implements Serializable {
     @Column(name = "headers")
     private String headers;
 
-    @Column(name = "media_type",length = 32)
+    @Column(name = "media_type",length = 64)
     private String mediaType;
 
     @Column(name = "body")

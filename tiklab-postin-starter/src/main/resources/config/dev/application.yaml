@@ -79,10 +79,11 @@ base:
 
 eas:
   embbed:
-    enable: true
-#  address: http://192.168.10.11:8080
-#  web:
-#    address: http://192.168.10.11:3001
+    enable: false
+  address: http://eas.dev.tiklab.net
+  web:
+    address: http://eas.dev.tiklab.net
+
 
 mysql:
   database: tiklab_postin

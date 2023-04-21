@@ -68,6 +68,8 @@ public class ApixServiceImpl implements ApixService {
         //初始化项目成员
         String userId = LoginContext.getLoginId();
         apixEntity.setCreateUser(userId);
+        apixEntity.setStatusId("developmentid");
+        apixEntity.setProtocolType("http");
 
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         apixEntity.setCreateTime(timestamp);
