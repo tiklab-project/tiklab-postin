@@ -79,10 +79,10 @@ base:
 
 eas:
   embbed:
-    enable: false
-  address: http://eas.dev.tiklab.net
-  web:
-    address: http://eas.dev.tiklab.net
+    enable: true
+#  address: http://eas.dev.tiklab.net
+#  web:
+#    address: http://eas.dev.tiklab.net
 
 
 mysql:

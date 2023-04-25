@@ -106,6 +106,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         workspaceEntity.setUserId(userId);
         String workspaceId = workspaceDao.createWorkspace(workspaceEntity);
 
+
         //初始化默认分组
         Category category = new Category();
         Workspace ws = new Workspace();
