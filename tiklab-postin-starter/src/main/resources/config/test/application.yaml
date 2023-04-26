@@ -69,12 +69,12 @@ file:
   path: http://file.test.tiklab.net
 
 base:
-  url: http://postin-ce.test.tiklab.net
+  url: bac.postin.test.tiklab.net
 
 eas:
   embbed:
     enable: true
-  address: http://eas-ce.test.tiklab.net
+  address: bac.eas.test.tiklab.net
 
 mysql:
   database: tiklab_postin
