@@ -40,13 +40,6 @@ INSERT INTO `pcs_prc_role_function` (`id`, `role_id`, `function_id`) VALUES ('70
 
 -- pcs ---end
 
---初始化的空间的角色
-INSERT INTO `pcs_ucc_dm_user`  (`id`, `domain_id`, `user_id`, `type`)  VALUES ('5c56ca9a24afaba76ceef3173348f2b8', 'bd26c6ec5c6e12fd1082772362e096a8', '111111', 0);
-
-INSERT INTO `pcs_prc_dm_role` (`id`, `domain_id`, `role_id`, `business_type`) VALUES ('1bd0aa5c5f07932e2a23bb198e0efe7a', 'bd26c6ec5c6e12fd1082772362e096a8', '3', 1);
-INSERT INTO `pcs_prc_dm_role` (`id`, `domain_id`, `role_id`, `business_type`) VALUES ('adf4c4ca696d1bdea7b67a5666becc5e', 'bd26c6ec5c6e12fd1082772362e096a8', '4', 0);
-
-
 --功能点
 INSERT INTO `pcs_prc_function` (`id`, `name`, `code`, `parent_function_id`, `sort`, `type`) VALUES ('03e4b44977b5403a8bc99b1492534e2d', '删除空间', 'workspaceDelete', NULL, 31, '2');
 INSERT INTO `pcs_prc_function` (`id`, `name`, `code`, `parent_function_id`, `sort`, `type`) VALUES ('06efc60a2f96ef583637d0eccf44b6d7', '消息管理', 'MSG_Notice', '305864b7559f0a81b500dc93521cab07', 33, '1');
@@ -95,4 +88,16 @@ INSERT INTO `pcs_mec_message_notice_connect_role` (`id`, `message_notice_id`, `r
 
 INSERT INTO `pcs_mec_message_type` (`id`, `name`, `description`, `bgroup`) VALUES ('WORKSPACE_CREATE_TYPE', '创建空间通知', NULL, 'postin');
 
+
+
+--初始化的空间的角色
+INSERT INTO `pcs_prc_role` (`id`, `name`, `description`, `grouper`, `type`, `scope`, `business_type`, `default_role`) VALUES ('custom3', '项目管理员', NULL, 'system', '2', 2, 1, 0);
+INSERT INTO `pcs_prc_role` (`id`, `name`, `description`, `grouper`, `type`, `scope`, `business_type`, `default_role`) VALUES ('custom4', '项目普通角色', NULL, 'system', '2', 2, 0, 1);
+INSERT INTO `pcs_prc_role_function` (`id`, `role_id`, `function_id`) VALUES ('7a06707984ca2d9eb793a5cc2cacc82c', 'custom3', '03e4b44977b5403a8bc99b1492534e2d');
+
+INSERT INTO `pcs_ucc_dm_user`  (`id`, `domain_id`, `user_id`, `type`)  VALUES ('5c56ca9a24afaba76ceef3173348f2b8', 'bd26c6ec5c6e12fd1082772362e096a8', '111111', 0);
+INSERT INTO `pcs_prc_dm_role_user` (`id`, `dmRole_id`, `domain_id`, `user_id`) VALUES ('36388488b093804877508413a94aa8cd', '1bd0aa5c5f07932e2a23bb198e0efe7a', 'bd26c6ec5c6e12fd1082772362e096a8', '111111');
+
+INSERT INTO `pcs_prc_dm_role` (`id`, `domain_id`, `role_id`, `business_type`) VALUES ('1bd0aa5c5f07932e2a23bb198e0efe7a', 'bd26c6ec5c6e12fd1082772362e096a8', 'custom3', 1);
+INSERT INTO `pcs_prc_dm_role` (`id`, `domain_id`, `role_id`, `business_type`) VALUES ('adf4c4ca696d1bdea7b67a5666becc5e', 'bd26c6ec5c6e12fd1082772362e096a8', 'custom4', 0);
 

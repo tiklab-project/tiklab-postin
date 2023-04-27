@@ -40,7 +40,7 @@ public class PostInDsmAutoConfiguration {
                 "todotask_1.0.0_dml",
 
 
-                //TestOn
+                //postin
                 "postin_1.0.0_ddl",
                 "postin-init_1.0.0_dml",
 
