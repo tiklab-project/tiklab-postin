@@ -326,28 +326,28 @@ public class WorkspaceServiceImpl implements WorkspaceService {
 
     @Override
     public List<Workspace> findWorkspaceJoinList(WorkspaceQuery workspaceQuery) {
-        //查询dmuser list
-        DmUserQuery dmUserQuery = new DmUserQuery();
-        dmUserQuery.setUserId(workspaceQuery.getUserId());
-        List<DmUser> dmUserList = dmUserService.findDmUserList(dmUserQuery);
 
         //查询空间列表
-        List<Workspace> workspaceList = findWorkspaceList(workspaceQuery);
+        WorkspaceQuery processQuery = new WorkspaceQuery();
+        processQuery.setOrderParams(workspaceQuery.getOrderParams());
+        List<Workspace> workspaceList = findWorkspaceList(processQuery);
 
         //存储list
         ArrayList<Workspace> arrayList = new ArrayList<>();
 
-        //把我参与的空间 存储到list中
-        if(CollectionUtils.isNotEmpty(dmUserList)){
+        for(Workspace workspace : workspaceList){
+            //查询dmuser list
+            DmUserQuery dmUserQuery = new DmUserQuery();
+            dmUserQuery.setUserId(workspaceQuery.getUserId());
+            dmUserQuery.setDomainId(workspace.getId());
+            List<DmUser> dmUserList = dmUserService.findDmUserList(dmUserQuery);
+
             for(DmUser dmUser : dmUserList){
-                for(Workspace workspace : workspaceList){
-                    if(Objects.equals(dmUser.getDomainId(), workspace.getId())){
-                        arrayList.add(workspace);
-                    }
+                if(Objects.equals(dmUser.getDomainId(), workspace.getId())){
+                    arrayList.add(workspace);
                 }
             }
         }
-
 
         joinTemplate.joinQuery(arrayList);
 
