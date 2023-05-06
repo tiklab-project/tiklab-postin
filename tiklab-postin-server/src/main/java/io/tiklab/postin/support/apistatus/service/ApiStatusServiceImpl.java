@@ -1,5 +1,8 @@
 package io.tiklab.postin.support.apistatus.service;
 
+import io.tiklab.dal.jpa.criterial.condition.DeleteCondition;
+import io.tiklab.dal.jpa.criterial.conditionbuilder.DeleteBuilders;
+import io.tiklab.postin.api.http.definition.entity.FormUrlencodedEntity;
 import io.tiklab.postin.support.apistatus.dao.ApiStatusDao;
 import io.tiklab.postin.support.apistatus.entity.ApiStatusEntity;
 import io.tiklab.postin.support.apistatus.model.ApiStatus;
@@ -45,6 +48,14 @@ public class ApiStatusServiceImpl implements ApiStatusService {
     @Override
     public void deleteApiStatus(@NotNull String id) {
         apiStatusDao.deleteApiStatus(id);
+    }
+
+    @Override
+    public void deleteAllApiStatus(String workspaceId) {
+        DeleteCondition deleteCondition = DeleteBuilders.createDelete(ApiStatusEntity.class)
+                .eq("workspaceId", workspaceId)
+                .get();
+        apiStatusDao.deleteApiStatus(deleteCondition);
     }
 
     @Override

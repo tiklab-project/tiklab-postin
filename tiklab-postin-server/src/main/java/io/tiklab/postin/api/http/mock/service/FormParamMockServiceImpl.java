@@ -1,7 +1,10 @@
 package io.tiklab.postin.api.http.mock.service;
 
+import io.tiklab.dal.jpa.criterial.condition.DeleteCondition;
+import io.tiklab.dal.jpa.criterial.conditionbuilder.DeleteBuilders;
 import io.tiklab.postin.api.http.mock.dao.FormParamMockDao;
 import io.tiklab.postin.api.http.mock.entity.FormParamMockEntity;
+import io.tiklab.postin.api.http.mock.entity.QueryParamMockEntity;
 import io.tiklab.postin.api.http.mock.model.FormParamMock;
 import io.tiklab.postin.api.http.mock.model.FormParamMockQuery;
 
@@ -45,6 +48,14 @@ public class FormParamMockServiceImpl implements FormParamMockService {
     @Override
     public void deleteFormParamMock(@NotNull String id) {
         formParamMockDao.deleteFormParamMock(id);
+    }
+
+    @Override
+    public void deleteAllFormParamMock(String mockId) {
+        DeleteCondition deleteCondition = DeleteBuilders.createDelete(FormParamMockEntity.class)
+                .eq("mockId", mockId)
+                .get();
+        formParamMockDao.deleteFormParamMockList(deleteCondition);
     }
 
     @Override

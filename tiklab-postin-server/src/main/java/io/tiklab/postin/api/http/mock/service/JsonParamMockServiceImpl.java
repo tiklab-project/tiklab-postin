@@ -1,5 +1,7 @@
 package io.tiklab.postin.api.http.mock.service;
 
+import io.tiklab.dal.jpa.criterial.condition.DeleteCondition;
+import io.tiklab.dal.jpa.criterial.conditionbuilder.DeleteBuilders;
 import io.tiklab.postin.api.http.mock.dao.JsonParamMockDao;
 import io.tiklab.postin.api.http.mock.entity.JsonParamMockEntity;
 import io.tiklab.postin.api.http.mock.model.JsonParamMock;
@@ -45,6 +47,14 @@ public class JsonParamMockServiceImpl implements JsonParamMockService {
     @Override
     public void deleteJsonParamMock(@NotNull String id) {
         jsonParamMockDao.deleteJsonParamMock(id);
+    }
+
+    @Override
+    public void deleteAllJsonParamMock(String mockId) {
+        DeleteCondition deleteCondition = DeleteBuilders.createDelete(JsonParamMockEntity.class)
+                .eq("mockId", mockId)
+                .get();
+        jsonParamMockDao.deleteJsonParamMockList(deleteCondition);
     }
 
     @Override

@@ -34,6 +34,12 @@ public interface FormParamMockService {
     void deleteFormParamMock(@NotNull String id);
 
     /**
+     * 通过httpId删除所有Mock
+     * @param mockId
+     */
+    void deleteAllFormParamMock(@NotNull String mockId);
+
+    /**
     * 查找用户
     * @param id
     * @return

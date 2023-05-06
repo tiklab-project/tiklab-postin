@@ -1,5 +1,6 @@
 package io.tiklab.postin.api.http.mock.dao;
 
+import io.tiklab.dal.jpa.criterial.condition.DeleteCondition;
 import io.tiklab.postin.api.http.mock.entity.FormParamMockEntity;
 import io.tiklab.postin.api.http.mock.model.FormParamMockQuery;
 import io.tiklab.core.page.Pagination;
@@ -49,6 +50,15 @@ public class FormParamMockDao{
     public void deleteFormParamMock(String id){
         jpaTemplate.delete(FormParamMockEntity.class,id);
     }
+
+    /**
+     * 通过条件删除
+     * @param deleteCondition
+     */
+    public void deleteFormParamMockList(DeleteCondition deleteCondition){
+        jpaTemplate.delete(deleteCondition);
+    }
+
 
     /**
      * 查找form-data

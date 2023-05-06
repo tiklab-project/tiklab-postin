@@ -21,6 +21,9 @@ public class Environment extends BaseModel {
     @ApiProperty(name="id",desc="唯一标识")
     private java.lang.String id;
 
+    @ApiProperty(name="workspaceId",desc="空间Id")
+    private String workspaceId;
+
     @NotNull
     @ApiProperty(name="name",desc="环境名称",required = true)
     private java.lang.String name;
@@ -57,6 +60,14 @@ public class Environment extends BaseModel {
 
     public void setUrl(java.lang.String url) {
         this.url = url;
+    }
+
+    public String getWorkspaceId() {
+        return workspaceId;
+    }
+
+    public void setWorkspaceId(String workspaceId) {
+        this.workspaceId = workspaceId;
     }
 
     public Date getCreateTime() {

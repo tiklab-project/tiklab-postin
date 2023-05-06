@@ -1,6 +1,7 @@
 package io.tiklab.postin.api.http.mock.dao;
 
 import io.tiklab.core.page.Pagination;
+import io.tiklab.dal.jpa.criterial.condition.DeleteCondition;
 import io.tiklab.postin.api.http.mock.entity.JsonParamMockEntity;
 import io.tiklab.postin.api.http.mock.model.JsonParamMockQuery;
 import io.tiklab.dal.jpa.JpaTemplate;
@@ -49,6 +50,15 @@ public class JsonParamMockDao{
     public void deleteJsonParamMock(String id){
         jpaTemplate.delete(JsonParamMockEntity.class,id);
     }
+
+    /**
+     * 通过条件删除
+     * @param deleteCondition
+     */
+    public void deleteJsonParamMockList(DeleteCondition deleteCondition){
+        jpaTemplate.delete(deleteCondition);
+    }
+
 
     /**
      * 查找json

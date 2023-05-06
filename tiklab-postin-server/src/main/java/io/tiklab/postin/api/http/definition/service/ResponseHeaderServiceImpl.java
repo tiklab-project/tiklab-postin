@@ -1,6 +1,10 @@
 package io.tiklab.postin.api.http.definition.service;
 
+import io.tiklab.dal.jpa.criterial.condition.DeleteCondition;
+import io.tiklab.dal.jpa.criterial.conditionbuilder.DeleteBuilders;
 import io.tiklab.postin.api.http.definition.dao.ResponseHeaderDao;
+import io.tiklab.postin.api.http.definition.entity.FormParamEntity;
+import io.tiklab.postin.api.http.definition.entity.RequestHeaderEntity;
 import io.tiklab.postin.api.http.definition.entity.ResponseHeaderEntity;
 import io.tiklab.postin.api.http.definition.model.ResponseHeader;
 import io.tiklab.postin.api.http.definition.model.ResponseHeaderQuery;
@@ -47,6 +51,14 @@ public class ResponseHeaderServiceImpl implements ResponseHeaderService {
     @Override
     public void deleteResponseHeader(@NotNull String id) {
         responseHeaderDao.deleteResponseHeader(id);
+    }
+
+    @Override
+    public void deleteAllResponseHeader(String id) {
+        DeleteCondition deleteCondition = DeleteBuilders.createDelete(RequestHeaderEntity.class)
+                .eq("httpId", id)
+                .get();
+        responseHeaderDao.deleteResponseHeaderList(deleteCondition);
     }
 
     @Override

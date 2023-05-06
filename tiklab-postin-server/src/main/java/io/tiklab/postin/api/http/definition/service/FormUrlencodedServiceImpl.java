@@ -1,6 +1,9 @@
 package io.tiklab.postin.api.http.definition.service;
 
+import io.tiklab.dal.jpa.criterial.condition.DeleteCondition;
+import io.tiklab.dal.jpa.criterial.conditionbuilder.DeleteBuilders;
 import io.tiklab.postin.api.http.definition.dao.FormUrlencodedDao;
+import io.tiklab.postin.api.http.definition.entity.FormParamEntity;
 import io.tiklab.postin.api.http.definition.entity.FormUrlencodedEntity;
 import io.tiklab.postin.api.http.definition.model.FormUrlencoded;
 import io.tiklab.postin.api.http.definition.model.FormUrlencodedQuery;
@@ -42,6 +45,14 @@ public class FormUrlencodedServiceImpl implements FormUrlencodedService {
         FormUrlencodedEntity formUrlencodedEntity = BeanMapper.map(formUrlencoded, FormUrlencodedEntity.class);
 
         formUrlencodedDao.updateFormUrlencoded(formUrlencodedEntity);
+    }
+
+    @Override
+    public void deleteAllFormUrlencoded(String id) {
+        DeleteCondition deleteCondition = DeleteBuilders.createDelete(FormUrlencodedEntity.class)
+                .eq("httpId", id)
+                .get();
+        formUrlencodedDao.deleteFormUrlencoded(deleteCondition);
     }
 
     @Override

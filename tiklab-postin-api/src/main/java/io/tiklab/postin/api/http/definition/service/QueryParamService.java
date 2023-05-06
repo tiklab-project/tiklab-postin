@@ -34,6 +34,12 @@ public interface QueryParamService {
     void deleteQueryParam(@NotNull String id);
 
     /**
+     * 通过httpId删除所有query
+     * @param id
+     */
+    void deleteAllQueryParam(@NotNull String id);
+
+    /**
     * 查找query
     * @param id
     * @return

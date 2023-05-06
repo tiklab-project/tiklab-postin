@@ -37,6 +37,13 @@ public interface EnvironmentService {
     */
     void deleteEnvironment(@NotNull String id);
 
+    /**
+     * 通过workspaceId删除
+     * @param workspaceId
+     */
+    void deleteAllEnvironment(@NotNull String workspaceId);
+
+
     @FindOne
     Environment findOne(@NotNull String id);
 

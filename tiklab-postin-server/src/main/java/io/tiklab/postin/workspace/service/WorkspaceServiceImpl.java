@@ -9,9 +9,13 @@ import io.tiklab.postin.api.http.test.cases.service.HttpTestcaseService;
 import io.tiklab.postin.category.model.Category;
 import io.tiklab.postin.category.model.CategoryQuery;
 import io.tiklab.postin.category.service.CategoryService;
+import io.tiklab.postin.support.apistatus.service.ApiStatusService;
+import io.tiklab.postin.support.datastructure.model.DataStructure;
+import io.tiklab.postin.support.datastructure.model.DataStructureQuery;
 import io.tiklab.postin.support.datastructure.service.DataStructureService;
 import io.tiklab.postin.common.LogUnit;
 import io.tiklab.postin.common.PostInUnit;
+import io.tiklab.postin.support.environment.service.EnvironmentService;
 import io.tiklab.postin.workspace.dao.WorkspaceDao;
 import io.tiklab.postin.workspace.entity.WorkspaceEntity;
 import io.tiklab.beans.BeanMapper;
@@ -60,11 +64,15 @@ public class WorkspaceServiceImpl implements WorkspaceService {
     @Autowired
     ApixService apixService;
 
-    @Autowired
-    HttpTestcaseService httpTestcaseService;
 
     @Autowired
     DataStructureService dataStructureService;
+
+    @Autowired
+    ApiStatusService apiStatusService;
+
+    @Autowired
+    EnvironmentService environmentService;
 
     @Autowired
     DmUserService dmUserService;
@@ -209,8 +217,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         map.put("actionType",oplogTypeOne.getName());
         logUnit.log(LOG_TYPE_DELETE_ID,"workspace",map);
 
-        //删除数据
-        workspaceDao.deleteWorkspace(id);
+
         List<Category> categoryList = categoryService.findCategoryList(new CategoryQuery().setWorkspaceId(id));
         if(CollectionUtils.isNotEmpty(categoryList)){
             for(Category category:categoryList){
@@ -242,11 +249,27 @@ public class WorkspaceServiceImpl implements WorkspaceService {
             }
         }
 
+        //删除状态
+        apiStatusService.deleteAllApiStatus(id);
+
+        //删除数据结构
+        DataStructureQuery dataStructureQuery = new DataStructureQuery();
+        dataStructureQuery.setWorkspaceId(id);
+        List<DataStructure> dataStructureList = dataStructureService.findDataStructureList(dataStructureQuery);
+        if(dataStructureList!=null){
+            for(DataStructure dataStructure:dataStructureList){
+                dataStructureService.deleteDataStructure(dataStructure.getId());
+            }
+        }
+
+        //删除环境
+        environmentService.deleteAllEnvironment(id);
+
         //删除角色以及相关的关联表
         dmRoleService.deleteDmRoleByDomainId(id);
 
-
-
+        //删除空间
+        workspaceDao.deleteWorkspace(id);
 
         //删除索引
 //        disClient.delete(Workspace.class,id);

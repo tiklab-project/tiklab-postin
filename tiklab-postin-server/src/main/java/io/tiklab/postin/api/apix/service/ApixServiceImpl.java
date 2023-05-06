@@ -10,6 +10,7 @@ import io.tiklab.core.page.Pagination;
 import io.tiklab.core.page.PaginationBuilder;
 import io.tiklab.dss.client.DssClient;
 import io.tiklab.join.JoinTemplate;
+import io.tiklab.postin.api.http.definition.service.HttpApiService;
 import io.tiklab.postin.common.LogUnit;
 import io.tiklab.postin.common.PostInUnit;
 
@@ -44,6 +45,9 @@ public class ApixServiceImpl implements ApixService {
 
     @Autowired
     ApixDao apixDao;
+
+    @Autowired
+    HttpApiService httpApiService;
 
     @Autowired
     JoinTemplate joinTemplate;
@@ -153,6 +157,10 @@ public class ApixServiceImpl implements ApixService {
 
         logUnit.log(LOG_TYPE_DELETE_ID,"api",map);
 
+        //http协议的接口。id与apix的公共表相同
+        httpApiService.deleteHttpApi(id);
+
+        //删除接口
         apixDao.deleteApix(id);
 
         //删除索引

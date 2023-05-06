@@ -32,26 +32,6 @@ public class GatewayFilterAutoConfiguration{
     //路由配置
     @Bean
     RouterConfig routerConfig(){
-        //        String[] s = {
-//                "/user",
-//                "/eam",
-//                "/appLink",
-//                "/todo/deletetodo",
-//                "/todo/updatetodo",
-//                "/todo/detailtodo",
-//                "/todo/findtodopage",
-//                "/message/message",
-//                "/message/messageItem",
-//                "/message/messageReceiver",
-//                "/oplog/deletelog",
-//                "/oplog/updatelog",
-//                "/oplog/detaillog",
-//                "/oplog/findlogpage",
-//        };
-
-//        if (enableEam){
-//            s = new String[]{};
-//        }
         return RouterConfigBuilder.instance()
                 .preRoute(new String[]{}, authAddress)
                 .get();
@@ -120,7 +100,6 @@ public class GatewayFilterAutoConfiguration{
                         "/webjars",
                         "/csrf",
                         "/v2",
-                        "/mockx",
                         "/licence",
                         "/ws",
                         "/socket",

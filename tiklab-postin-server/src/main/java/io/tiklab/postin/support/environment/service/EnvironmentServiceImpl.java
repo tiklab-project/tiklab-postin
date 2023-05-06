@@ -1,5 +1,8 @@
 package io.tiklab.postin.support.environment.service;
 
+import io.tiklab.dal.jpa.criterial.condition.DeleteCondition;
+import io.tiklab.dal.jpa.criterial.conditionbuilder.DeleteBuilders;
+import io.tiklab.postin.support.datastructure.entity.DataStructureEntity;
 import io.tiklab.postin.support.environment.dao.EnvironmentDao;
 import io.tiklab.postin.support.environment.entity.EnvironmentEntity;
 import io.tiklab.postin.support.environment.model.Environment;
@@ -48,6 +51,14 @@ public class EnvironmentServiceImpl implements EnvironmentService {
     @Override
     public void deleteEnvironment(@NotNull String id) {
         environmentDao.deleteEnvironment(id);
+    }
+
+    @Override
+    public void deleteAllEnvironment(String workspaceId) {
+        DeleteCondition deleteCondition = DeleteBuilders.createDelete(EnvironmentEntity.class)
+                .eq("workspaceId", workspaceId)
+                .get();
+        environmentDao.deleteEnvironment(deleteCondition);
     }
 
     @Override

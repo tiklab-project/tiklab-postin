@@ -3,8 +3,11 @@ package io.tiklab.postin.api.http.mock.service;
 import io.tiklab.beans.BeanMapper;
 import io.tiklab.core.page.Pagination;
 import io.tiklab.core.page.PaginationBuilder;
+import io.tiklab.dal.jpa.criterial.condition.DeleteCondition;
+import io.tiklab.dal.jpa.criterial.conditionbuilder.DeleteBuilders;
 import io.tiklab.join.JoinTemplate;
 import io.tiklab.postin.api.http.mock.dao.QueryParamMockDao;
+import io.tiklab.postin.api.http.mock.entity.MockEntity;
 import io.tiklab.postin.api.http.mock.entity.QueryParamMockEntity;
 import io.tiklab.postin.api.http.mock.model.QueryParamMock;
 import io.tiklab.postin.api.http.mock.model.QueryParamMockQuery;
@@ -47,6 +50,15 @@ public class QueryParamMockServiceImpl implements QueryParamMockService {
     public void deleteQueryParamMock(@NotNull String id) {
         queryParamMockDao.deleteQueryParamMock(id);
     }
+
+    @Override
+    public void deleteAllQueryParamMock(String mockId) {
+        DeleteCondition deleteCondition = DeleteBuilders.createDelete(QueryParamMockEntity.class)
+                .eq("mockId", mockId)
+                .get();
+        queryParamMockDao.deleteQueryParamMockList(deleteCondition);
+    }
+
 
     @Override
     public QueryParamMock findQueryParamMock(@NotNull String id) {

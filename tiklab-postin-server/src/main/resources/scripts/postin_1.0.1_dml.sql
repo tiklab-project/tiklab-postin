@@ -1,0 +1,1 @@
+alter table postin_environment add workspace_id VARCHAR(32);

@@ -38,6 +38,13 @@ public interface ApiStatusService {
     */
     void deleteApiStatus(@NotNull String id);
 
+
+    /**
+     * 通过workspaceId删除
+     * @param workspaceId
+     */
+    void deleteAllApiStatus(@NotNull String workspaceId);
+
     @FindOne
     ApiStatus findOne(@NotNull String id);
 

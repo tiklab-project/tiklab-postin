@@ -38,6 +38,13 @@ public interface MockService {
     */
     void deleteMock(@NotNull String id);
 
+    /**
+     * 通过httpId删除所有Mock
+     * @param httpId
+     */
+    void deleteAllMock(@NotNull String httpId);
+
+
     @FindOne
     Mock findOne(@NotNull String id);
 

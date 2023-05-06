@@ -35,6 +35,12 @@ public interface QueryParamMockService {
     void deleteQueryParamMock(@NotNull String id);
 
     /**
+     * 通过httpId删除所有Mock
+     * @param mockId
+     */
+    void deleteAllQueryParamMock(@NotNull String mockId);
+
+    /**
     * 查找用户
     * @param id
     * @return

@@ -74,8 +74,8 @@ base:
 
 eas:
   embbed:
-    enable: false
-  address: bac.eas.tiklab.net
+    enable: true
+#  address: bac.eas.tiklab.net
 
 mysql:
   database: tiklab_postin

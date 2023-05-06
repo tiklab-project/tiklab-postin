@@ -37,6 +37,12 @@ public interface FormParamService {
     void deleteFormParam(@NotNull String id);
 
     /**
+     * 通过httpId删除所有formdata
+     * @param id
+     */
+    void deleteAllFormParam(@NotNull String id);
+
+    /**
     * 查找formdata
     * @param id
     * @return

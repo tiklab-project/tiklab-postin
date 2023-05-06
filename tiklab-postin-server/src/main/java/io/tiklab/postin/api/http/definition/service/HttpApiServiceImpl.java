@@ -11,6 +11,7 @@ import io.tiklab.core.page.Pagination;
 import io.tiklab.core.page.PaginationBuilder;
 import io.tiklab.dss.client.DssClient;
 import io.tiklab.join.JoinTemplate;
+import io.tiklab.postin.api.http.mock.service.MockService;
 import io.tiklab.postin.support.apistatus.model.ApiStatus;
 import io.tiklab.postin.support.apistatus.service.ApiStatusService;
 import io.tiklab.user.user.model.User;
@@ -76,6 +77,9 @@ public class HttpApiServiceImpl implements HttpApiService {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    MockService mockService;
 
 
     @Override
@@ -156,11 +160,36 @@ public class HttpApiServiceImpl implements HttpApiService {
     }
 
     @Override
-    public void deleteHttpApi(@NotNull String id) {
+    public void deleteHttpApi(@NotNull String httpId) {
         //删除
-        httpApiDao.deleteHttpApi(id);
-        //删除apix
-        apixService.deleteApix(id);
+        httpApiDao.deleteHttpApi(httpId);
+
+        //删除请求头
+        requestHeaderService.deleteAllRequestHeader(httpId);
+
+        //删除query
+        queryParamService.deleteAllQueryParam(httpId);
+
+        //删除formdata
+        formParamService.deleteAllFormParam(httpId);
+
+        //删除formurl
+        formUrlencodedService.deleteAllFormUrlencoded(httpId);
+
+        //删除raw
+        rawParamService.deleteRawParam(httpId);
+
+        //删除请求
+        apiRequestService.deleteApiRequest(httpId);
+
+        //删除响应部分
+        apiResponseService.deleteApiResponse(httpId);
+
+        //删除响应头
+        responseHeaderService.deleteAllResponseHeader(httpId);
+
+        //删除mock
+        mockService.deleteAllMock(httpId);
 
 
         //删除索引

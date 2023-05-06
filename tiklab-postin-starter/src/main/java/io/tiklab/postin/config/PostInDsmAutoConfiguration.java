@@ -48,7 +48,7 @@ public class PostInDsmAutoConfiguration {
 
         });
         dsmConfig.newVersion("1.0.1", new String[]{
-
+                "postin_1.0.1_dml",
         });
         return dsmConfig;
     }

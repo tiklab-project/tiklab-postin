@@ -1,5 +1,6 @@
 package io.tiklab.postin.api.http.mock.dao;
 
+import io.tiklab.dal.jpa.criterial.condition.DeleteCondition;
 import io.tiklab.postin.api.http.mock.entity.ResponseHeaderMockEntity;
 import io.tiklab.postin.api.http.mock.model.ResponseHeaderMockQuery;
 import io.tiklab.core.page.Pagination;
@@ -48,6 +49,14 @@ public class ResponseHeaderMockDao{
      */
     public void deleteResponseHeaderMock(String id){
         jpaTemplate.delete(ResponseHeaderMockEntity.class,id);
+    }
+
+    /**
+     * 通过条件删除
+     * @param deleteCondition
+     */
+    public void deleteResponseHeaderMockList(DeleteCondition deleteCondition){
+        jpaTemplate.delete(deleteCondition);
     }
 
     /**

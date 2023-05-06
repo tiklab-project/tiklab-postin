@@ -1,5 +1,8 @@
 package io.tiklab.postin.api.http.mock.service;
 
+import io.tiklab.dal.jpa.criterial.condition.DeleteCondition;
+import io.tiklab.dal.jpa.criterial.conditionbuilder.DeleteBuilders;
+import io.tiklab.postin.api.http.definition.entity.RequestHeaderEntity;
 import io.tiklab.postin.api.http.mock.dao.MockDao;
 import io.tiklab.postin.api.http.mock.entity.MockEntity;
 import io.tiklab.postin.api.http.mock.model.Mock;
@@ -29,10 +32,28 @@ public class MockServiceImpl implements MockService {
     MockDao mockDao;
 
     @Autowired
+    RequestHeaderMockService requestHeaderMockService;
+
+    @Autowired
+    QueryParamMockService queryParamMockService;
+
+    @Autowired
+    FormParamMockService formParamMockService;
+
+    @Autowired
+    JsonParamMockService jsonParamMockService;
+
+    @Autowired
     RequestMockService requestMockService;
 
     @Autowired
     ResponseMockService responseMockService;
+
+    @Autowired
+    ResponseHeaderMockService responseHeaderMockService;
+
+    @Autowired
+    ResponseResultMockService responseResultMockService;
 
     @Autowired
     JoinTemplate joinTemplate;
@@ -72,7 +93,31 @@ public class MockServiceImpl implements MockService {
 
     @Override
     public void deleteMock(@NotNull String id) {
+        requestHeaderMockService.deleteAllRequestHeaderMock(id);
+
+        queryParamMockService.deleteAllQueryParamMock(id);
+
+        formParamMockService.deleteAllFormParamMock(id);
+
+        jsonParamMockService.deleteAllJsonParamMock(id);
+
+        requestMockService.deleteRequestMock(id);
+
+        responseMockService.deleteResponseMock(id);
+
+        responseHeaderMockService.deleteAllResponseHeaderMock(id);
+
+        responseResultMockService.deleteResponseResultMock(id);
+
         mockDao.deleteMock(id);
+    }
+
+    @Override
+    public void deleteAllMock(String httpId) {
+        DeleteCondition deleteCondition = DeleteBuilders.createDelete(MockEntity.class)
+                .eq("httpId", httpId)
+                .get();
+        mockDao.deleteMockList(deleteCondition);
     }
 
     @Override

@@ -105,7 +105,6 @@ public class CategoryServiceImpl implements CategoryService {
     public void deleteCategory(@NotNull String id) {
         Category category = findCategory(id);
         //日志
-        String userId =LoginContext.getLoginId();
         Map<String,String> map = new HashMap<>();
         map.put("name",category.getName());
         map.put("workspaceId",category.getWorkspace().getId());
@@ -118,9 +117,6 @@ public class CategoryServiceImpl implements CategoryService {
 
         logUnit.log(LOG_TYPE_DELETE_ID,"category",map);
 
-        //删除目录
-        categoryDao.deleteCategory(id);
-
         //删除目录下的接口
         List<Apix> apixList = apixService.findApixList(new ApixQuery().setCategoryId(id));
         if (CollectionUtils.isNotEmpty(apixList)){
@@ -128,6 +124,9 @@ public class CategoryServiceImpl implements CategoryService {
                 apixService.deleteApix(apix.getId());
             }
         }
+
+        //删除目录
+        categoryDao.deleteCategory(id);
 
     }
 

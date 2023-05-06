@@ -37,6 +37,14 @@ public interface RequestHeaderService {
     */
     void deleteRequestHeader(@NotNull String id);
 
+
+    /**
+     * 通过httpId删除所有请求头
+     * @param id
+     */
+    void deleteAllRequestHeader(@NotNull String id);
+
+
     /**
     * 查找请求头
     * @param id

@@ -33,6 +33,13 @@ public interface FormUrlencodedService {
     void updateFormUrlencoded(@NotNull @Valid FormUrlencoded formUrlencoded);
 
     /**
+     * 通过httpId删除所有form-urlencoded
+     * @param id
+     */
+    void deleteAllFormUrlencoded(@NotNull String id);
+
+
+    /**
     * 删除 form-urlencoded
     * @param id
     */

@@ -2,6 +2,7 @@ package io.tiklab.postin.api.http.mock.dao;
 
 import io.tiklab.core.page.Pagination;
 import io.tiklab.dal.jpa.JpaTemplate;
+import io.tiklab.dal.jpa.criterial.condition.DeleteCondition;
 import io.tiklab.dal.jpa.criterial.condition.QueryCondition;
 import io.tiklab.dal.jpa.criterial.conditionbuilder.QueryBuilders;
 import io.tiklab.postin.api.http.mock.entity.QueryParamMockEntity;
@@ -48,6 +49,14 @@ public class QueryParamMockDao{
      */
     public void deleteQueryParamMock(String id){
         jpaTemplate.delete(QueryParamMockEntity.class,id);
+    }
+
+    /**
+     * 通过条件删除
+     * @param deleteCondition
+     */
+    public void deleteQueryParamMockList(DeleteCondition deleteCondition){
+        jpaTemplate.delete(deleteCondition);
     }
 
     /**

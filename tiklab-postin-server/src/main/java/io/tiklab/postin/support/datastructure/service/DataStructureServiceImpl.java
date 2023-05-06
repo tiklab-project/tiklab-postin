@@ -1,5 +1,6 @@
 package io.tiklab.postin.support.datastructure.service;
 
+import io.tiklab.postin.api.http.definition.entity.FormParamEntity;
 import io.tiklab.postin.support.datastructure.dao.DataStructureDao;
 import io.tiklab.postin.support.datastructure.dao.EnumParamDao;
 import io.tiklab.postin.support.datastructure.dao.JsonParamDSDao;
@@ -98,6 +99,15 @@ public class DataStructureServiceImpl implements DataStructureService {
 
         dataStructureDao.deleteDataStructure(id);
     }
+
+    @Override
+    public void deleteAllDataStructure(String workspaceId) {
+        DeleteCondition deleteCondition = DeleteBuilders.createDelete(DataStructureEntity.class)
+                .eq("workspaceId", workspaceId)
+                .get();
+        dataStructureDao.deleteDataStructure(deleteCondition);
+    }
+
 
     @Override
     public DataStructure findOne(String id) {

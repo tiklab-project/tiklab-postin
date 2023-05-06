@@ -38,6 +38,12 @@ public interface ResponseHeaderService {
     void deleteResponseHeader(@NotNull String id);
 
     /**
+     * 通过httpId删除所有响应头
+     * @param id
+     */
+    void deleteAllResponseHeader(@NotNull String id);
+
+    /**
     * 查找响应头
     * @param id
     * @return

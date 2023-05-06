@@ -33,6 +33,13 @@ public interface JsonParamMockService {
     */
     void deleteJsonParamMock(@NotNull String id);
 
+    /**
+     * 通过httpId删除所有Mock
+     * @param mockId
+     */
+    void deleteAllJsonParamMock(@NotNull String mockId);
+
+
     JsonParamMock findOne(@NotNull String id);
 
     List<JsonParamMock> findList(List<String> idList);

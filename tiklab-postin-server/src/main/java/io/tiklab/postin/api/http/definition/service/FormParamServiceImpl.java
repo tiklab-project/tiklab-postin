@@ -1,5 +1,7 @@
 package io.tiklab.postin.api.http.definition.service;
 
+import io.tiklab.dal.jpa.criterial.condition.DeleteCondition;
+import io.tiklab.dal.jpa.criterial.conditionbuilder.DeleteBuilders;
 import io.tiklab.postin.api.http.definition.dao.FormParamDao;
 import io.tiklab.postin.api.http.definition.entity.FormParamEntity;
 import io.tiklab.postin.api.http.definition.model.FormParam;
@@ -47,6 +49,14 @@ public class FormParamServiceImpl implements FormParamService {
     @Override
     public void deleteFormParam(@NotNull String id) {
         formParamDao.deleteFormParam(id);
+    }
+
+    @Override
+    public void deleteAllFormParam(String id) {
+        DeleteCondition deleteCondition = DeleteBuilders.createDelete(FormParamEntity.class)
+                .eq("httpId", id)
+                .get();
+        formParamDao.deleteFormParamLsit(deleteCondition);
     }
 
     @Override

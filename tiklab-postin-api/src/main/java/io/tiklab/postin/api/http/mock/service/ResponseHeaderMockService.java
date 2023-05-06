@@ -34,6 +34,12 @@ public interface ResponseHeaderMockService {
     void deleteResponseHeaderMock(@NotNull String id);
 
     /**
+     * 通过httpId删除所有Mock
+     * @param mockId
+     */
+    void deleteAllResponseHeaderMock(@NotNull String mockId);
+
+    /**
     * 查找用户
     * @param id
     * @return

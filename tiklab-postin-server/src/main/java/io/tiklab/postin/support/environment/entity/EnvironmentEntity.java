@@ -6,6 +6,7 @@ import io.tiklab.dal.jpa.annotation.GeneratorValue;
 import io.tiklab.dal.jpa.annotation.Id;
 import io.tiklab.dal.jpa.annotation.Table;
 import io.tiklab.dal.jpa.annotation.Entity;
+import io.tiklab.postin.annotation.ApiProperty;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -21,6 +22,9 @@ public class EnvironmentEntity implements Serializable {
     @GeneratorValue
     @Column(name = "id",length = 32)
     private String id;
+
+    @Column(name="workspace_id",length = 32)
+    private String workspaceId;
 
     // 名称
     @Column(name = "name",length = 64,notNull = true)
@@ -44,6 +48,14 @@ public class EnvironmentEntity implements Serializable {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getWorkspaceId() {
+        return workspaceId;
+    }
+
+    public void setWorkspaceId(String workspaceId) {
+        this.workspaceId = workspaceId;
     }
 
     public String getName() {

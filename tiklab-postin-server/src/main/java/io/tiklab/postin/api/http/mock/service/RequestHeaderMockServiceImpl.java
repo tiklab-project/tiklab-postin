@@ -1,6 +1,9 @@
 package io.tiklab.postin.api.http.mock.service;
 
+import io.tiklab.dal.jpa.criterial.condition.DeleteCondition;
+import io.tiklab.dal.jpa.criterial.conditionbuilder.DeleteBuilders;
 import io.tiklab.postin.api.http.mock.dao.RequestHeaderMockDao;
+import io.tiklab.postin.api.http.mock.entity.MockEntity;
 import io.tiklab.postin.api.http.mock.entity.RequestHeaderMockEntity;
 import io.tiklab.postin.api.http.mock.model.RequestHeaderMock;
 import io.tiklab.postin.api.http.mock.model.RequestHeaderMockQuery;
@@ -46,6 +49,14 @@ public class RequestHeaderMockServiceImpl implements RequestHeaderMockService {
     @Override
     public void deleteRequestHeaderMock(@NotNull String id) {
         requestHeaderMockDao.deleteRequestHeaderMock(id);
+    }
+
+    @Override
+    public void deleteAllRequestHeaderMock(String mockId) {
+        DeleteCondition deleteCondition = DeleteBuilders.createDelete(RequestHeaderMockEntity.class)
+                .eq("mockId", mockId)
+                .get();
+        requestHeaderMockDao.deleteRequestHeaderMockList(deleteCondition);
     }
 
     @Override

@@ -15,33 +15,40 @@ import java.util.List;
 public interface RequestHeaderMockService {
 
     /**
-    * 创建用户
+    * 创建
     * @param requestHeaderMock
     * @return
     */
     String createRequestHeaderMock(@NotNull @Valid RequestHeaderMock requestHeaderMock);
 
     /**
-    * 更新用户
+    * 更新
     * @param requestHeaderMock
     */
     void updateRequestHeaderMock(@NotNull @Valid RequestHeaderMock requestHeaderMock);
 
     /**
-    * 删除用户
+    * 删除
     * @param id
     */
     void deleteRequestHeaderMock(@NotNull String id);
 
     /**
-    * 查找用户
+     * 通过httpId删除所有
+     * @param mockId
+     */
+    void deleteAllRequestHeaderMock(@NotNull String mockId);
+
+
+    /**
+    * 查找
     * @param id
     * @return
     */
     RequestHeaderMock findRequestHeaderMock(@NotNull String id);
 
     /**
-    * 查找所有
+    * 查找
     * @return
     */
     List<RequestHeaderMock> findAllRequestHeaderMock();

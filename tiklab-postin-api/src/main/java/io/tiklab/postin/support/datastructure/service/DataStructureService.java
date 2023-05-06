@@ -38,6 +38,14 @@ public interface DataStructureService {
     */
     void deleteDataStructure(@NotNull String id);
 
+    /**
+     * 通过workspaceId删除
+     * @param workspaceId
+     */
+    void deleteAllDataStructure(@NotNull String workspaceId);
+
+
+
     @FindOne
     DataStructure findOne(@NotNull String id);
 
