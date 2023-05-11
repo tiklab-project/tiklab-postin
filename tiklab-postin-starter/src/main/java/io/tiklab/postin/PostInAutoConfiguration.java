@@ -1,9 +1,7 @@
 package io.tiklab.postin;
 
-
-import io.tiklab.beans.starter.EnableBeans;
 import io.tiklab.integration.starter.EnableIntegration;
-import io.tiklab.join.starter.EnableJoin;
+import io.tiklab.join.starter.EnableToolkit;
 import io.tiklab.licence.starter.EnableLicenceServer;
 import io.tiklab.messsage.starter.EnableMessage;
 import io.tiklab.mysql.starter.EnableMysql;
@@ -21,14 +19,14 @@ import io.tiklab.rpc.starter.annotation.EnableRpc;
 import io.tiklab.security.stater.EnableSecurity;
 import io.tiklab.todotask.stater.EnableTodoTask;
 import io.tiklab.user.starter.EnableUser;
-import io.tiklab.web.starter.annotation.EnableWeb;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 //platform
-@EnableBeans
-@EnableJoin
-@EnableWeb
+//@EnableBeans
+//@EnableJoin
+//@EnableWeb
+@EnableToolkit
 @EnableMysql
 @EnableDal
 @EnableDsm

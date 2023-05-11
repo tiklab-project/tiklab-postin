@@ -355,6 +355,8 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         processQuery.setOrderParams(workspaceQuery.getOrderParams());
         List<Workspace> workspaceList = findWorkspaceList(processQuery);
 
+
+
         //存储list
         ArrayList<Workspace> arrayList = new ArrayList<>();
 
@@ -365,8 +367,13 @@ public class WorkspaceServiceImpl implements WorkspaceService {
             dmUserQuery.setDomainId(workspace.getId());
             List<DmUser> dmUserList = dmUserService.findDmUserList(dmUserQuery);
 
+            if(dmUserList==null||dmUserList.size()==0){
+                continue;
+            }
+
             for(DmUser dmUser : dmUserList){
-                if(Objects.equals(dmUser.getDomainId(), workspace.getId())){
+                //如果空间成员与当前人相同
+                if(Objects.equals(dmUser.getUser().getId(), workspaceQuery.getUserId())){
                     arrayList.add(workspace);
                 }
             }
