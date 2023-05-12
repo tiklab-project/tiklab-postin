@@ -52,6 +52,7 @@ CREATE TABLE postin_environment(
         id VARCHAR(32) PRIMARY KEY,
         name VARCHAR(64) NOT NULL,
         url VARCHAR(256) NOT NULL,
+        workspace_id VARCHAR(32),
         create_time timestamp,
         update_time timestamp
 );

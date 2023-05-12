@@ -1,9 +1,9 @@
-INSERT INTO `postin_workspace` (`id`, `workspace_name`, `description`, `user_id`, `visibility`, `icon_url`) VALUES ('bd26c6ec5c6e12fd1082772362e096a8', '默认空间', NULL, '111111', 1, '/images/pi1.png');
+INSERT INTO `postin_workspace` (`id`, `workspace_name`, `description`, `user_id`, `visibility`, `icon_url`) VALUES ('bd26c6ec5c6e', '默认空间', NULL, '111111', 1, '/images/pi1.png');
 
-INSERT INTO `postin_environment` VALUES ('f25d692b439b0d714a7c9d26182eb0fb', 'test', 'http://postin-ce.tiklab.net', '2022-7-28 06:07:28', NULL);
+-- INSERT INTO `postin_environment` VALUES ('f25d692b439b0d714a7c9d26182eb0fb', 'test', 'http://postin-ce.tiklab.net', '2022-7-28 06:07:28', NULL, 'bd26c6ec5c6e');
 
-INSERT INTO `postin_category` (`id`, `name`, `workspace_id`, `parent_category_id`) VALUES ('86e78329ea1145309b1b207ca4504cbb', 'test', 'bd26c6ec5c6e12fd1082772362e096a8', NULL);
-INSERT INTO `postin_category` (`id`, `name`, `workspace_id`, `parent_category_id`) VALUES ('a8ead30da71c493789e1a7354164f4ec', '默认分组', 'bd26c6ec5c6e12fd1082772362e096a8', NULL);
+INSERT INTO `postin_category` (`id`, `name`, `workspace_id`, `parent_category_id`) VALUES ('86e78329ea1145309b1b207ca4504cbb', 'test', 'bd26c6ec5c6e', NULL);
+INSERT INTO `postin_category` (`id`, `name`, `workspace_id`, `parent_category_id`) VALUES ('a8ead30da71c493789e1a7354164f4ec', '默认分组', 'bd26c6ec5c6e', NULL);
 
 INSERT INTO `postin_apix` (`id`, `category_id`, `name`, `protocol_type`, `method_type`, `create_user`, `update_user`, `create_time`, `update_time`, `status_id`, `executor_id`, `description`, `workspace_id`, `version`, `api_uid`) VALUES ('219512b6cb7446d0adf661607561e9a5', 'a8ead30da71c493789e1a7354164f4ec', 'name', 'http', 'post', '111111', '111111', '2022-09-24 09:17:01', '2022-09-24 09:20:28', 'developmentid', NULL, NULL, 'bb2a25071239f2323358be55844ae10b', NULL, NULL);
 INSERT INTO `postin_apix` (`id`, `category_id`, `name`, `protocol_type`, `method_type`, `create_user`, `update_user`, `create_time`, `update_time`, `status_id`, `executor_id`, `description`, `workspace_id`, `version`, `api_uid`) VALUES ('f483d630bafa46e781c14491fad1881f', 'a8ead30da71c493789e1a7354164f4ec', 'test', 'http', 'post', '111111', NULL, '2022-09-19 07:36:53', NULL, 'developmentid', NULL, NULL, 'bb2a25071239f2323358be55844ae10b', NULL, NULL);
@@ -21,15 +21,6 @@ INSERT INTO `postin_http_request_raw` VALUES ('219512b6cb7446d0adf661607561e9a5'
 INSERT INTO `postin_http_response` (`id`, `http_id`, `json_text`, `http_code`, `name`, `data_type`, `raw_text`, `create_time`) VALUES ('219512b6cb7446d0adf661607561e9a5', '219512b6cb7446d0adf661607561e9a5', '{\"type\":\"object\",\"title\":\"title\",\"properties\":{\"field_0_277\":{\"type\":\"boolean\",\"properties\":{}}}}', 200, '成功', 'json', NULL, '2022-12-08 13:41:04');
 INSERT INTO `postin_http_response` (`id`, `http_id`, `json_text`, `http_code`, `name`, `data_type`, `raw_text`, `create_time`) VALUES ('219512b6cb76d0adf661607561e9a5', 'f483d630bafa46e781c14491fad1881f', '{\"type\":\"object\",\"title\":\"title\",\"properties\":{\"field_0_277\":{\"type\":\"boolean\",\"properties\":{}}}}', 200, '成功', 'json', NULL, '2022-12-08 13:41:04');
 
-
-INSERT INTO `postin_http_case` VALUES ('05d69a6cf4a90ff3060d871c190445fd', 'f483d630bafa46e781c14491fad1881f', '成功');
-INSERT INTO `postin_http_case` VALUES ('3423f288df5dbf271c8f8533af51df86', '219512b6cb7446d0adf661607561e9a5', '成功');
-
-INSERT INTO `postin_http_case_request` VALUES ('05d69a6cf4a90ff3060d871c190445fd', '05d69a6cf4a90ff3060d871c190445fd', 'raw', '', '');
-INSERT INTO `postin_http_case_request` VALUES ('3423f288df5dbf271c8f8533af51df86', '3423f288df5dbf271c8f8533af51df86', 'raw', NULL, NULL);
-
-INSERT INTO `postin_http_case_request_raw` VALUES ('05d69a6cf4a90ff3060d871c190445fd', '05d69a6cf4a90ff3060d871c190445fd', '{\n	\"account\": \"admin\",\n	\"password\": \"12345\",\n	\"userType\": \"1\"\n}', 'application/json');
-INSERT INTO `postin_http_case_request_raw` VALUES ('3423f288df5dbf271c8f8533af51df86', '3423f288df5dbf271c8f8533af51df86', '{\"account\":\"18783894551\",\"password\":\"123456\"}', 'application/json');
 
 INSERT INTO `postin_http_mock` VALUES ('4dbfdd774c9cd245baf2e1ead23a6a36', '219512b6cb7446d0adf661607561e9a5', '登录失败', NULL, '111111', '2022-7-28 00:00:00', 1);
 INSERT INTO `postin_http_mock_request` (`id`, `mock_id`, `body_type`) VALUES ('4dbfdd774c9cd245baf2e1ead23a6a36', '4dbfdd774c9cd245baf2e1ead23a6a36', 'json');

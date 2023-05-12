@@ -22,10 +22,6 @@ import io.tiklab.user.starter.EnableUser;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-//platform
-//@EnableBeans
-//@EnableJoin
-//@EnableWeb
 @EnableToolkit
 @EnableMysql
 @EnableDal

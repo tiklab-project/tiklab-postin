@@ -17,7 +17,7 @@ import java.sql.Timestamp;
 public class MockEntity implements Serializable {
 
     @Id
-    @GeneratorValue
+     @GeneratorValue(length = 12)
     @Column(name = "id",length = 32)
     private String id;
 

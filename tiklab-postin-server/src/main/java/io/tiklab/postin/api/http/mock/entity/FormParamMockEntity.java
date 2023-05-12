@@ -18,7 +18,7 @@ import java.io.Serializable;
 public class FormParamMockEntity implements Serializable {
 
     @Id
-    @GeneratorValue
+    @GeneratorValue(length = 12)
     @Column(name = "id",length = 32)
     private String id;
 

@@ -14,7 +14,7 @@ import java.io.Serializable;
 public class BinaryParamEntity implements Serializable {
 
     @Id
-    @GeneratorValue
+     @GeneratorValue(length = 12)
     @Column(name = "id", length = 40)
     private String id;
 

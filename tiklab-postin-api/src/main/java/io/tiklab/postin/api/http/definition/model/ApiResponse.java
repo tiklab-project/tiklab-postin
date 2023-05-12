@@ -27,7 +27,6 @@ public class ApiResponse extends BaseModel {
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private java.sql.Timestamp createTime;
 
-
     @ApiProperty(name="httpCode",desc="返回http状态码，默认200为正常")
     private Integer httpCode;
 
