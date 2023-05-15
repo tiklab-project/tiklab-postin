@@ -1,1 +1,1 @@
-alter table postin_environment add workspace_id VARCHAR(32);
+-- alter table postin_environment add workspace_id VARCHAR(32);

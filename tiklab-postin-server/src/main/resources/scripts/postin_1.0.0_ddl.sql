@@ -131,8 +131,8 @@ CREATE TABLE postin_http_request(
         id VARCHAR(40) PRIMARY KEY,
         http_id VARCHAR(40),
         body_type VARCHAR(32),
-        pre_script longtext,
-        after_script longtext
+        pre_script TEXT ,
+        after_script TEXT 
 );
 
 -- ---------------------------
@@ -194,7 +194,7 @@ CREATE TABLE postin_http_request_json(
 CREATE TABLE postin_http_request_raw(
         id VARCHAR(40) ,
         http_id VARCHAR(40) NOT NULL,
-        raw longtext NOT NULL,
+        raw TEXT  NOT NULL,
         type VARCHAR(32) NOT NULL
 );
 
@@ -236,8 +236,8 @@ CREATE TABLE postin_http_response(
         http_code int,
         name VARCHAR(64),
         data_type VARCHAR(32),
-        json_text longtext,
-        raw_text longtext
+        json_text TEXT ,
+        raw_text TEXT 
 );
 
 -- ---------------------------
@@ -429,9 +429,9 @@ CREATE TABLE postin_instance_http_request(
         http_instance_id VARCHAR(32) NOT NULL,
         URL VARCHAR(2048),
         headers text,
-        body longtext,
-        pre_script longtext,
-        after_script longtext,
+        body TEXT ,
+        pre_script TEXT ,
+        after_script TEXT ,
         method_type VARCHAR(32),
         media_type VARCHAR(64)
 );
@@ -445,7 +445,7 @@ CREATE TABLE postin_instance_http_response(
         id VARCHAR(32) PRIMARY KEY,
         http_instance_id VARCHAR(32),
         headers text,
-        body longtext
+        body TEXT 
 );
 
 -- ---------------------------

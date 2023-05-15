@@ -13,10 +13,16 @@ server:
   port: 8080
 
 #dal 
+#jdbc:
+#  driverClassName: com.mysql.jdbc.Driver
+#  url: jdbc:mysql://172.12.1.16:3306/tiklab_postin?characterEncoding=utf8&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+#  username: root
+#  password: darth2020
+
 jdbc:
-  driverClassName: com.mysql.jdbc.Driver
-  url: jdbc:mysql://172.12.1.16:3306/tiklab_postin?characterEncoding=utf8&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
-  username: root
+  driverClassName: org.postgresql.Driver
+  url: jdbc:postgresql://172.12.1.16:5432/tiklab_postin?stringtype=unspecified
+  username: postgres
   password: darth2020
 
 #dfs 

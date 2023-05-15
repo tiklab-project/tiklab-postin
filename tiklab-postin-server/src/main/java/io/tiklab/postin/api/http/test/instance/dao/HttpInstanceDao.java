@@ -81,7 +81,7 @@ public class HttpInstanceDao {
         String sql = "SELECT pi.id,pi.create_time,pi.user_id,pi.size,pi.result,pi.status_code,pi.time,pi.workspace_id,pir.method_type,pir.URL"+
                     " FROM postin_instance pi JOIN postin_instance_http_request pir ON pi.id = pir.http_instance_id "+
                     " WHERE pi.workspace_id = '" + httpInstanceQuery.getWorkspaceId() +"'"+
-                    " AND pi.user_id = " + httpInstanceQuery.getUserId();
+                    " AND pi.user_id = '" + httpInstanceQuery.getUserId() +"'";
 
         if(httpInstanceQuery.getUrl()!=null){
             sql = sql + " AND pir.URL like '"+"%"+ httpInstanceQuery.getUrl() +"%"+"'";

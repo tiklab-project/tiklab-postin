@@ -18,6 +18,7 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 /**
@@ -43,9 +44,11 @@ public class MockServletResponse {
      * @throws IOException
      */
     public void actResponse(String mockId, HttpServletResponse response) throws IOException {
-        setHttpCode(mockId,response);
+        ResponseMock responseMock = responseMockService.findResponseMock(mockId);
 
-        setHeader(mockId,response);
+        setHttpCode(mockId,response,responseMock);
+
+        setHeader(mockId,response,responseMock);
 
         setBody(mockId,response);
     }
@@ -53,8 +56,7 @@ public class MockServletResponse {
     /**
      *  从数据库获取httpcode，设置到servlet中
      */
-    public void setHttpCode(String mockId, HttpServletResponse response){
-        ResponseMock responseMock = responseMockService.findResponseMock(mockId);
+    public void setHttpCode(String mockId, HttpServletResponse response, ResponseMock responseMock){
 
 
         //添加随机毫秒
@@ -74,7 +76,7 @@ public class MockServletResponse {
     /**
      * 从数据库获取header，设置到servlet header中
      */
-    public void setHeader(String mockId, HttpServletResponse response){
+    public void setHeader(String mockId, HttpServletResponse response, ResponseMock responseMock){
         ResponseHeaderMockQuery responseHeaderMockQuery = new ResponseHeaderMockQuery().setMockId(mockId);
         List<ResponseHeaderMock> responseHeaderMockList = responseHeaderMockService.findResponseHeaderMockList(responseHeaderMockQuery);
 
@@ -101,6 +103,15 @@ public class MockServletResponse {
 
                 headersBuilder.append(headerName).append(":[").append(mockVal).append("]");
             }
+
+            String bodyType;
+            if(Objects.equals(responseMock.getBodyType(),"json")){
+                bodyType = "application/json";
+            }else {
+                bodyType = "text/plain";
+            }
+
+            headersBuilder.append("content-type").append(":[").append(bodyType).append("]");
 
             if (headersBuilder.length() > 0) {
                 response.setHeader("pi-mock-header", headersBuilder.toString());

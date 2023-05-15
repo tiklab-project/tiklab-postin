@@ -48,7 +48,10 @@ public class PostInDsmAutoConfiguration {
 
         });
         dsmConfig.newVersion("1.0.1", new String[]{
+                "user_1.0.1_dml",
+                "oplog_1.0.1_dml"
 //                "postin_1.0.1_dml",
+
         });
         return dsmConfig;
     }
