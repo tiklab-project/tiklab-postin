@@ -40,7 +40,7 @@ public class LogUnit {
         log.setActionType(opLogType);
         log.setModule(module);
         log.setLoggingTemplateId(LOG_TEMPLATE_ID);
-        log.setTimestamp(new Timestamp(System.currentTimeMillis()));
+        log.setCreateTime(new Timestamp(System.currentTimeMillis()));
         log.setUser(user);
         log.setBgroup("postin");
         log.setContent(JSONObject.toJSONString(map));
