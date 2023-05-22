@@ -1,7 +1,7 @@
 package io.tiklab.postin.api.http.test.cases.controller;
 
 import io.tiklab.postin.annotation.Api;
-import io.tiklab.postin.api.http.test.cases.model.JsonParamCase;
+import io.tiklab.postin.api.http.test.cases.model.JsonParamCases;
 import io.tiklab.postin.api.http.test.cases.model.JsonParamCaseQuery;
 import io.tiklab.postin.api.http.test.cases.service.JsonParamCaseService;
 import io.tiklab.core.page.Pagination;
@@ -38,8 +38,8 @@ public class JsonParamCaseController {
     @RequestMapping(path="/createJsonParamCase",method = RequestMethod.POST)
     @ApiMethod(name = "createJsonParamCase",desc = "createJsonParamCase")
     @ApiParam(name = "jsonParamCase",desc = "jsonParamCase",required = true)
-    public Result<String> createJsonParamCase(@RequestBody @NotNull @Valid JsonParamCase jsonParamCase){
-        String id = jsonParamCaseService.createJsonParamCase(jsonParamCase);
+    public Result<String> createJsonParamCase(@RequestBody @NotNull @Valid JsonParamCases jsonParamCases){
+        String id = jsonParamCaseService.createJsonParamCase(jsonParamCases);
 
         return Result.ok(id);
     }
@@ -47,8 +47,8 @@ public class JsonParamCaseController {
     @RequestMapping(path="/updateJsonParamCase",method = RequestMethod.POST)
     @ApiMethod(name = "updateJsonParamCase",desc = "updateJsonParamCase")
     @ApiParam(name = "jsonParamCase",desc = "jsonParamCase",required = true)
-    public Result<Void> updateJsonParamCase(@RequestBody @NotNull @Valid JsonParamCase jsonParamCase){
-        jsonParamCaseService.updateJsonParamCase(jsonParamCase);
+    public Result<Void> updateJsonParamCase(@RequestBody @NotNull @Valid JsonParamCases jsonParamCases){
+        jsonParamCaseService.updateJsonParamCase(jsonParamCases);
 
         return Result.ok();
     }
@@ -65,36 +65,36 @@ public class JsonParamCaseController {
     @RequestMapping(path="/findJsonParamCase",method = RequestMethod.POST)
     @ApiMethod(name = "findJsonParamCase",desc = "findJsonParamCase")
     @ApiParam(name = "id",desc = "id",required = true)
-    public Result<JsonParamCase> findJsonParamCase(@NotNull String id){
-        JsonParamCase jsonParamCase = jsonParamCaseService.findJsonParamCase(id);
+    public Result<JsonParamCases> findJsonParamCase(@NotNull String id){
+        JsonParamCases jsonParamCases = jsonParamCaseService.findJsonParamCase(id);
 
-        return Result.ok(jsonParamCase);
+        return Result.ok(jsonParamCases);
     }
 
     @RequestMapping(path="/findAllJsonParamCase",method = RequestMethod.POST)
     @ApiMethod(name = "findAllJsonParamCase",desc = "findAllJsonParamCase")
-    public Result<List<JsonParamCase>> findAllJsonParamCase(){
-        List<JsonParamCase> jsonParamCaseList = jsonParamCaseService.findAllJsonParamCase();
+    public Result<List<JsonParamCases>> findAllJsonParamCase(){
+        List<JsonParamCases> jsonParamCasesList = jsonParamCaseService.findAllJsonParamCase();
 
-        return Result.ok(jsonParamCaseList);
+        return Result.ok(jsonParamCasesList);
     }
 
 
     @RequestMapping(path = "/findJsonParamCaseList",method = RequestMethod.POST)
     @ApiMethod(name = "findJsonParamCaseList",desc = "findJsonParamCaseList")
     @ApiParam(name = "jsonParamCaseQuery",desc = "jsonParamCaseQuery",required = true)
-    public Result<List<JsonParamCase>> findJsonParamCaseList(@RequestBody @Valid @NotNull JsonParamCaseQuery jsonParamCaseQuery){
-        List<JsonParamCase> jsonParamCaseList = jsonParamCaseService.findJsonParamCaseList(jsonParamCaseQuery);
+    public Result<List<JsonParamCases>> findJsonParamCaseList(@RequestBody @Valid @NotNull JsonParamCaseQuery jsonParamCaseQuery){
+        List<JsonParamCases> jsonParamCasesList = jsonParamCaseService.findJsonParamCaseList(jsonParamCaseQuery);
 
-        return Result.ok(jsonParamCaseList);
+        return Result.ok(jsonParamCasesList);
     }
 
 
     @RequestMapping(path = "/findJsonParamCasePage",method = RequestMethod.POST)
     @ApiMethod(name = "findJsonParamCasePage",desc = "findJsonParamCasePage")
     @ApiParam(name = "jsonParamCaseQuery",desc = "jsonParamCaseQuery",required = true)
-    public Result<Pagination<JsonParamCase>> findJsonParamCasePage(@RequestBody @Valid @NotNull JsonParamCaseQuery jsonParamCaseQuery){
-        Pagination<JsonParamCase> pagination = jsonParamCaseService.findJsonParamCasePage(jsonParamCaseQuery);
+    public Result<Pagination<JsonParamCases>> findJsonParamCasePage(@RequestBody @Valid @NotNull JsonParamCaseQuery jsonParamCaseQuery){
+        Pagination<JsonParamCases> pagination = jsonParamCaseService.findJsonParamCasePage(jsonParamCaseQuery);
 
         return Result.ok(pagination);
     }
@@ -103,10 +103,10 @@ public class JsonParamCaseController {
     @RequestMapping(path = "/findJsonParamCaseListTree",method = RequestMethod.POST)
     @ApiMethod(name = "findJsonParamCaseListTree",desc = "findJsonParamCaseListTree")
     @ApiParam(name = "jsonParamCaseQuery",desc = "jsonParamCaseQuery",required = true)
-    public Result<List<JsonParamCase>> findJsonParamCaseListTree(@RequestBody @Valid @NotNull JsonParamCaseQuery jsonParamCaseQuery){
-        List<JsonParamCase> jsonParamCaseList = jsonParamCaseService.findJsonParamCaseListTree(jsonParamCaseQuery);
+    public Result<List<JsonParamCases>> findJsonParamCaseListTree(@RequestBody @Valid @NotNull JsonParamCaseQuery jsonParamCaseQuery){
+        List<JsonParamCases> jsonParamCasesList = jsonParamCaseService.findJsonParamCaseListTree(jsonParamCaseQuery);
 
-        return Result.ok(jsonParamCaseList);
+        return Result.ok(jsonParamCasesList);
     }
 
 }

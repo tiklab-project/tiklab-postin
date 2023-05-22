@@ -56,27 +56,27 @@ public class HttpInstanceServiceImpl implements TestInstanceService {
         String id = createTestInstance(httpInstance);
 
         //保存实例-请求从表
-        RequestInstance requestInstance = httpInstance.getRequestInstance();
-        if(requestInstance != null){
-            requestInstance.setId(id);
-            requestInstance.setHttpInstance(new HttpInstance().setId(id));
-            requestInstanceService.createRequestInstance(requestInstance);
+        RequestInstances requestInstances = httpInstance.getRequestInstance();
+        if(requestInstances != null){
+            requestInstances.setId(id);
+            requestInstances.setHttpInstance(new HttpInstance().setId(id));
+            requestInstanceService.createRequestInstance(requestInstances);
         }
 
         //保存实例-响应从表
-        ResponseInstance responseInstance = httpInstance.getResponseInstance();
-        if(responseInstance != null){
-            responseInstance.setId(id);
-            responseInstance.setHttpInstance(new HttpInstance().setId(id));
-            responseInstanceService.createResponseInstance(responseInstance);
+        ResponseInstances responseInstances = httpInstance.getResponseInstance();
+        if(responseInstances != null){
+            responseInstances.setId(id);
+            responseInstances.setHttpInstance(new HttpInstance().setId(id));
+            responseInstanceService.createResponseInstance(responseInstances);
         }
 
         //保存实例-断言子表
-        List<AssertInstance> assertInstanceList = httpInstance.getAssertInstanceList();
-        if(assertInstanceList != null && assertInstanceList.size() > 0){
-            for(AssertInstance assertInstance:assertInstanceList){
-                assertInstance.setHttpInstance(new HttpInstance().setId(id));
-                assertInstanceService.createAssertInstance(assertInstance);
+        List<AssertInstances> assertInstancesList = httpInstance.getAssertInstanceList();
+        if(assertInstancesList != null && assertInstancesList.size() > 0){
+            for(AssertInstances assertInstances : assertInstancesList){
+                assertInstances.setHttpInstance(new HttpInstance().setId(id));
+                assertInstanceService.createAssertInstance(assertInstances);
             }
         }
         return id;
@@ -132,23 +132,23 @@ public class HttpInstanceServiceImpl implements TestInstanceService {
         HttpInstance httpInstance = findTestInstance(id);
 
         //查找实例-请求从表
-        RequestInstance requestInstance = requestInstanceService.findRequestInstance(id);
-        if(requestInstance != null){
-            httpInstance.setRequestInstance(requestInstance);
+        RequestInstances requestInstances = requestInstanceService.findRequestInstance(id);
+        if(requestInstances != null){
+            httpInstance.setRequestInstance(requestInstances);
         }
 
         //查找实例-响应从表
-        ResponseInstance responseInstance = responseInstanceService.findResponseInstance(id);
-        if(responseInstance != null){
-            httpInstance.setResponseInstance(responseInstance);
+        ResponseInstances responseInstances = responseInstanceService.findResponseInstance(id);
+        if(responseInstances != null){
+            httpInstance.setResponseInstance(responseInstances);
         }
 
         //查找实例-断言子表
         AssertInstanceQuery assertInstanceQuery = new AssertInstanceQuery();
         assertInstanceQuery.setHttpInstanceId(id);
-        List<AssertInstance> assertInstanceList = assertInstanceService.findAssertInstanceList(assertInstanceQuery);
-        if(assertInstanceList != null && assertInstanceList.size() > 0){
-            httpInstance.setAssertInstanceList(assertInstanceList);
+        List<AssertInstances> assertInstancesList = assertInstanceService.findAssertInstanceList(assertInstanceQuery);
+        if(assertInstancesList != null && assertInstancesList.size() > 0){
+            httpInstance.setAssertInstanceList(assertInstancesList);
         }
 
         return httpInstance;
@@ -175,8 +175,8 @@ public class HttpInstanceServiceImpl implements TestInstanceService {
         joinTemplate.joinQuery(httpInstanceList);
 
         List<HttpInstance> httpInstances = httpInstanceList.stream().map(httpInstance -> {
-            RequestInstance requestInstance = requestInstanceService.findRequestInstance(httpInstance.getId());
-            httpInstance.setRequestInstance(requestInstance);
+            RequestInstances requestInstances = requestInstanceService.findRequestInstance(httpInstance.getId());
+            httpInstance.setRequestInstance(requestInstances);
 
             return httpInstance;
         }).collect(Collectors.toList());

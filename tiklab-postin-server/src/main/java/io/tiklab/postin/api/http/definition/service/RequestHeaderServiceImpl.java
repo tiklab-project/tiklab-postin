@@ -3,8 +3,8 @@ package io.tiklab.postin.api.http.definition.service;
 import io.tiklab.dal.jpa.criterial.condition.DeleteCondition;
 import io.tiklab.dal.jpa.criterial.conditionbuilder.DeleteBuilders;
 import io.tiklab.postin.api.http.definition.dao.RequestHeaderDao;
-import io.tiklab.postin.api.http.definition.entity.RequestHeaderEntity;
-import io.tiklab.postin.api.http.definition.model.RequestHeader;
+import io.tiklab.postin.api.http.definition.entity.RequestHeadersEntity;
+import io.tiklab.postin.api.http.definition.model.RequestHeaders;
 import io.tiklab.postin.api.http.definition.model.RequestHeaderQuery;
 
 import io.tiklab.core.page.Pagination;
@@ -33,17 +33,17 @@ public class RequestHeaderServiceImpl implements RequestHeaderService {
     JoinTemplate joinTemplate;
 
     @Override
-    public String createRequestHeader(@NotNull @Valid RequestHeader requestHeader) {
-        RequestHeaderEntity requestHeaderEntity = BeanMapper.map(requestHeader, RequestHeaderEntity.class);
+    public String createRequestHeader(@NotNull @Valid RequestHeaders requestHeaders) {
+        RequestHeadersEntity requestHeadersEntity = BeanMapper.map(requestHeaders, RequestHeadersEntity.class);
 
-        return requestHeaderDao.createRequestHeader(requestHeaderEntity);
+        return requestHeaderDao.createRequestHeader(requestHeadersEntity);
     }
 
     @Override
-    public void updateRequestHeader(@NotNull @Valid RequestHeader requestHeader) {
-        RequestHeaderEntity requestHeaderEntity = BeanMapper.map(requestHeader, RequestHeaderEntity.class);
+    public void updateRequestHeader(@NotNull @Valid RequestHeaders requestHeaders) {
+        RequestHeadersEntity requestHeadersEntity = BeanMapper.map(requestHeaders, RequestHeadersEntity.class);
 
-        requestHeaderDao.updateRequestHeader(requestHeaderEntity);
+        requestHeaderDao.updateRequestHeader(requestHeadersEntity);
     }
 
     @Override
@@ -53,54 +53,54 @@ public class RequestHeaderServiceImpl implements RequestHeaderService {
 
     @Override
     public void deleteAllRequestHeader(String id) {
-        DeleteCondition deleteCondition = DeleteBuilders.createDelete(RequestHeaderEntity.class)
+        DeleteCondition deleteCondition = DeleteBuilders.createDelete(RequestHeadersEntity.class)
                 .eq("httpId", id)
                 .get();
         requestHeaderDao.deleteRequestHeaderList(deleteCondition);
     }
 
     @Override
-    public RequestHeader findRequestHeader(@NotNull String id) {
-        RequestHeaderEntity requestHeaderEntity = requestHeaderDao.findRequestHeader(id);
+    public RequestHeaders findRequestHeader(@NotNull String id) {
+        RequestHeadersEntity requestHeadersEntity = requestHeaderDao.findRequestHeader(id);
 
-        RequestHeader requestHeader = BeanMapper.map(requestHeaderEntity, RequestHeader.class);
+        RequestHeaders requestHeaders = BeanMapper.map(requestHeadersEntity, RequestHeaders.class);
 
-        joinTemplate.joinQuery(requestHeader);
+        joinTemplate.joinQuery(requestHeaders);
 
-        return requestHeader;
+        return requestHeaders;
     }
 
     @Override
-    public List<RequestHeader> findAllRequestHeader() {
-        List<RequestHeaderEntity> requestHeaderEntityList =  requestHeaderDao.findAllRequestHeader();
+    public List<RequestHeaders> findAllRequestHeader() {
+        List<RequestHeadersEntity> requestHeadersEntityList =  requestHeaderDao.findAllRequestHeader();
 
-        List<RequestHeader> requestHeaderList = BeanMapper.mapList(requestHeaderEntityList,RequestHeader.class);
+        List<RequestHeaders> requestHeadersList = BeanMapper.mapList(requestHeadersEntityList, RequestHeaders.class);
 
-        joinTemplate.joinQuery(requestHeaderList);
+        joinTemplate.joinQuery(requestHeadersList);
 
-        return requestHeaderList;
+        return requestHeadersList;
     }
 
     @Override
-    public List<RequestHeader> findRequestHeaderList(RequestHeaderQuery requestHeaderQuery) {
-        List<RequestHeaderEntity> requestHeaderEntityList = requestHeaderDao.findRequestHeaderList(requestHeaderQuery);
+    public List<RequestHeaders> findRequestHeaderList(RequestHeaderQuery requestHeaderQuery) {
+        List<RequestHeadersEntity> requestHeadersEntityList = requestHeaderDao.findRequestHeaderList(requestHeaderQuery);
 
-        List<RequestHeader> requestHeaderList = BeanMapper.mapList(requestHeaderEntityList,RequestHeader.class);
+        List<RequestHeaders> requestHeadersList = BeanMapper.mapList(requestHeadersEntityList, RequestHeaders.class);
 
-        joinTemplate.joinQuery(requestHeaderList);
+        joinTemplate.joinQuery(requestHeadersList);
 
-        return requestHeaderList;
+        return requestHeadersList;
     }
 
     @Override
-    public Pagination<RequestHeader> findRequestHeaderPage(RequestHeaderQuery requestHeaderQuery) {
+    public Pagination<RequestHeaders> findRequestHeaderPage(RequestHeaderQuery requestHeaderQuery) {
 
-        Pagination<RequestHeaderEntity>  pagination = requestHeaderDao.findRequestHeaderPage(requestHeaderQuery);
+        Pagination<RequestHeadersEntity>  pagination = requestHeaderDao.findRequestHeaderPage(requestHeaderQuery);
 
-        List<RequestHeader> requestHeaderList = BeanMapper.mapList(pagination.getDataList(),RequestHeader.class);
+        List<RequestHeaders> requestHeadersList = BeanMapper.mapList(pagination.getDataList(), RequestHeaders.class);
 
-        joinTemplate.joinQuery(requestHeaderList);
+        joinTemplate.joinQuery(requestHeadersList);
 
-        return PaginationBuilder.build(pagination,requestHeaderList);
+        return PaginationBuilder.build(pagination, requestHeadersList);
     }
 }

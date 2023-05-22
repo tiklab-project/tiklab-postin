@@ -3,7 +3,7 @@ package io.tiklab.postin.api.http.definition.dao;
 import io.tiklab.postin.api.http.definition.entity.HttpApiEntity;
 import io.tiklab.postin.api.http.definition.model.JsonResponseQuery;
 import io.tiklab.core.page.Pagination;
-import io.tiklab.postin.api.http.definition.entity.JsonResponseEntity;
+import io.tiklab.postin.api.http.definition.entity.JsonResponsesEntity;
 import io.tiklab.dal.jpa.JpaTemplate;
 import io.tiklab.dal.jpa.criterial.condition.DeleteCondition;
 import io.tiklab.dal.jpa.criterial.condition.QueryCondition;
@@ -30,11 +30,11 @@ public class JsonResponseDao {
 
     /**
      * 创建响应json
-     * @param jsonResponseEntity
+     * @param jsonResponsesEntity
      * @return
      */
-    public String createJsonResponse(JsonResponseEntity jsonResponseEntity) {
-        return jpaTemplate.save(jsonResponseEntity,String.class);
+    public String createJsonResponse(JsonResponsesEntity jsonResponsesEntity) {
+        return jpaTemplate.save(jsonResponsesEntity,String.class);
     }
 
     public List<HttpApiEntity> findJsonResponseList(List<String> idList) {
@@ -43,10 +43,10 @@ public class JsonResponseDao {
 
     /**
      * 更新响应json
-     * @param jsonResponseEntity
+     * @param jsonResponsesEntity
      */
-    public void updateJsonResponse(JsonResponseEntity jsonResponseEntity){
-        jpaTemplate.update(jsonResponseEntity);
+    public void updateJsonResponse(JsonResponsesEntity jsonResponsesEntity){
+        jpaTemplate.update(jsonResponsesEntity);
     }
 
     /**
@@ -54,7 +54,7 @@ public class JsonResponseDao {
      * @param id
      */
     public void deleteJsonResponse(String id){
-        jpaTemplate.delete(JsonResponseEntity.class,id);
+        jpaTemplate.delete(JsonResponsesEntity.class,id);
     }
 
     /**
@@ -70,16 +70,16 @@ public class JsonResponseDao {
      * @param id
      * @return
      */
-    public JsonResponseEntity findJsonResponse(String id){
-        return jpaTemplate.findOne(JsonResponseEntity.class,id);
+    public JsonResponsesEntity findJsonResponse(String id){
+        return jpaTemplate.findOne(JsonResponsesEntity.class,id);
     }
 
     /**
     * 查找所有响应json
     * @return
     */
-    public List<JsonResponseEntity> findAllJsonResponse() {
-        return jpaTemplate.findAll(JsonResponseEntity.class);
+    public List<JsonResponsesEntity> findAllJsonResponse() {
+        return jpaTemplate.findAll(JsonResponsesEntity.class);
     }
 
     /**
@@ -87,12 +87,12 @@ public class JsonResponseDao {
      * @param jsonResponseQuery
      * @return
      */
-    public List<JsonResponseEntity> findJsonResponseList(JsonResponseQuery jsonResponseQuery) {
-        QueryCondition queryCondition = QueryBuilders.createQuery(JsonResponseEntity.class)
+    public List<JsonResponsesEntity> findJsonResponseList(JsonResponseQuery jsonResponseQuery) {
+        QueryCondition queryCondition = QueryBuilders.createQuery(JsonResponsesEntity.class)
                 .eq("httpId", jsonResponseQuery.getHttpId())
                 .orders(jsonResponseQuery.getOrderParams())
                 .get();
-        return jpaTemplate.findList(queryCondition, JsonResponseEntity.class);
+        return jpaTemplate.findList(queryCondition, JsonResponsesEntity.class);
     }
 
     /**
@@ -100,12 +100,12 @@ public class JsonResponseDao {
      * @param jsonResponseQuery
      * @return
      */
-    public Pagination<JsonResponseEntity> findJsonResponsePage(JsonResponseQuery jsonResponseQuery) {
-        QueryCondition queryCondition = QueryBuilders.createQuery(JsonResponseEntity.class)
+    public Pagination<JsonResponsesEntity> findJsonResponsePage(JsonResponseQuery jsonResponseQuery) {
+        QueryCondition queryCondition = QueryBuilders.createQuery(JsonResponsesEntity.class)
                 .eq("httpId", jsonResponseQuery.getHttpId())
                 .pagination(jsonResponseQuery.getPageParam())
                 .orders(jsonResponseQuery.getOrderParams())
                 .get();
-        return jpaTemplate.findPage(queryCondition, JsonResponseEntity.class);
+        return jpaTemplate.findPage(queryCondition, JsonResponsesEntity.class);
     }
 }

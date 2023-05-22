@@ -2,7 +2,7 @@ package io.tiklab.postin.api.http.test.cases.service;
 
 import io.tiklab.core.page.Pagination;
 
-import io.tiklab.postin.api.http.test.cases.model.AssertCase;
+import io.tiklab.postin.api.http.test.cases.model.AssertCases;
 import io.tiklab.postin.api.http.test.cases.model.AssertCaseQuery;
 
 import javax.validation.Valid;
@@ -16,16 +16,16 @@ public interface AssertCaseService {
 
     /**
     * 创建用户
-    * @param assertCase
+    * @param assertCases
     * @return
     */
-    String createAssertCase(@NotNull @Valid AssertCase assertCase);
+    String createAssertCase(@NotNull @Valid AssertCases assertCases);
 
     /**
     * 更新用户
-    * @param assertCase
+    * @param assertCases
     */
-    void updateAssertCase(@NotNull @Valid AssertCase assertCase);
+    void updateAssertCase(@NotNull @Valid AssertCases assertCases);
 
     /**
     * 删除用户
@@ -33,35 +33,35 @@ public interface AssertCaseService {
     */
     void deleteAssertCase(@NotNull String id);
 
-    AssertCase findOne(@NotNull String id);
+    AssertCases findOne(@NotNull String id);
 
-    List<AssertCase> findList(List<String> idList);
+    List<AssertCases> findList(List<String> idList);
 
     /**
     * 查找用户
     * @param id
     * @return
     */
-    AssertCase findAssertCase(@NotNull String id);
+    AssertCases findAssertCase(@NotNull String id);
 
     /**
     * 查找所有
     * @return
     */
-    List<AssertCase> findAllAssertCase();
+    List<AssertCases> findAllAssertCase();
 
     /**
     * 查询列表
     * @param assertCaseQuery
     * @return
     */
-    List<AssertCase> findAssertCaseList(AssertCaseQuery assertCaseQuery);
+    List<AssertCases> findAssertCaseList(AssertCaseQuery assertCaseQuery);
 
     /**
     * 按分页查询
     * @param assertCaseQuery
     * @return
     */
-    Pagination<AssertCase> findAssertCasePage(AssertCaseQuery assertCaseQuery);
+    Pagination<AssertCases> findAssertCasePage(AssertCaseQuery assertCaseQuery);
 
 }

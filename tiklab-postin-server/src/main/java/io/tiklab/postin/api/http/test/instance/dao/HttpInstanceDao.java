@@ -1,7 +1,6 @@
 package io.tiklab.postin.api.http.test.instance.dao;
 
 import io.tiklab.postin.api.http.test.instance.entity.HttpInstanceEntity;
-import io.tiklab.postin.api.http.test.instance.entity.RequestInstanceEntity;
 import io.tiklab.postin.api.http.test.instance.model.HttpInstanceQuery;
 import io.tiklab.core.page.Pagination;
 import io.tiklab.dal.jpa.JpaTemplate;

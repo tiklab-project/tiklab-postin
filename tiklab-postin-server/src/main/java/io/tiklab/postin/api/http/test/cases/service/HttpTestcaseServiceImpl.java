@@ -1,7 +1,7 @@
 package io.tiklab.postin.api.http.test.cases.service;
 
 import io.tiklab.postin.api.http.definition.model.ApiRequest;
-import io.tiklab.postin.api.http.definition.model.RawParam;
+import io.tiklab.postin.api.http.definition.model.RawParams;
 import io.tiklab.postin.api.http.definition.service.ApiRequestService;
 import io.tiklab.postin.api.http.definition.service.RawParamService;
 import io.tiklab.postin.api.http.test.cases.dao.HttpTestcaseDao;
@@ -94,8 +94,8 @@ public class HttpTestcaseServiceImpl implements HttpTestcaseService {
             rawParamCase.setHttpCase(httpTestcase);
 
             //用例请求体中的raw里的类型根据接口定义里的设置
-            RawParam rawParam = rawParamService.findRawParam(httpTestcase.getHttp().getId());
-            rawParamCase.setType(rawParam.getType());
+            RawParams rawParams = rawParamService.findRawParam(httpTestcase.getHttp().getId());
+            rawParamCase.setType(rawParams.getType());
 
             rawParamCaseService.createRawParamCase(rawParamCase);
         }
@@ -157,11 +157,11 @@ public class HttpTestcaseServiceImpl implements HttpTestcaseService {
             }
 
             //创建请求体-json参数
-            List<JsonParamCase> jsonParamCaseList = httpTestcase.getJsonList();
-            if(jsonParamCaseList != null){
-                for(JsonParamCase jsonParamCase:jsonParamCaseList){
-                    jsonParamCase.setHttpCase(httpTestcase);
-                    jsonParamCaseService.createJsonParamCase(jsonParamCase);
+            List<JsonParamCases> jsonParamCasesList = httpTestcase.getJsonList();
+            if(jsonParamCasesList != null){
+                for(JsonParamCases jsonParamCases : jsonParamCasesList){
+                    jsonParamCases.setHttpCase(httpTestcase);
+                    jsonParamCaseService.createJsonParamCase(jsonParamCases);
                 }
             }
 
@@ -175,11 +175,11 @@ public class HttpTestcaseServiceImpl implements HttpTestcaseService {
         }
 
         //创建断言列表
-        List<AssertCase> assertCaseList = httpTestcase.getAssertList();
-        if(assertCaseList != null){
-            for(AssertCase assertCase:assertCaseList){
-                assertCase.setHttpCase(httpTestcase);
-                assertCaseService.createAssertCase(assertCase);
+        List<AssertCases> assertCasesList = httpTestcase.getAssertList();
+        if(assertCasesList != null){
+            for(AssertCases assertCases : assertCasesList){
+                assertCases.setHttpCase(httpTestcase);
+                assertCaseService.createAssertCase(assertCases);
             }
         }
 
@@ -253,9 +253,9 @@ public class HttpTestcaseServiceImpl implements HttpTestcaseService {
 
         }else if(bodyType.equals("json")){
             //获取json数据
-            List<JsonParamCase> jsonParamCaseList = jsonParamCaseService.findJsonParamCaseList(new JsonParamCaseQuery().setHttpCaseId(testcaseId));
-            if(CollectionUtils.isNotEmpty(jsonParamCaseList)){
-                httpTestcase.setJsonList(jsonParamCaseList);
+            List<JsonParamCases> jsonParamCasesList = jsonParamCaseService.findJsonParamCaseList(new JsonParamCaseQuery().setHttpCaseId(testcaseId));
+            if(CollectionUtils.isNotEmpty(jsonParamCasesList)){
+                httpTestcase.setJsonList(jsonParamCasesList);
             }
 
         }else if(bodyType.equals("raw")){
@@ -355,9 +355,9 @@ public class HttpTestcaseServiceImpl implements HttpTestcaseService {
                         }
                         break;
                     case "json":
-                        List<JsonParamCase> jsonParamCaseListTree = jsonParamCaseService.findJsonParamCaseListTree(new JsonParamCaseQuery().setHttpCaseId(httpTestcase.getId()));
-                        if(jsonParamCaseListTree.size()>0){
-                            httpTestcase.setJsonList(jsonParamCaseListTree);
+                        List<JsonParamCases> jsonParamCasesListTree = jsonParamCaseService.findJsonParamCaseListTree(new JsonParamCaseQuery().setHttpCaseId(httpTestcase.getId()));
+                        if(jsonParamCasesListTree.size()>0){
+                            httpTestcase.setJsonList(jsonParamCasesListTree);
                         }
                         break;
                     case "raw":

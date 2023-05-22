@@ -1,7 +1,7 @@
 package io.tiklab.postin.api.http.test.instance.controller;
 
 import io.tiklab.postin.annotation.Api;
-import io.tiklab.postin.api.http.test.instance.model.ResponseInstance;
+import io.tiklab.postin.api.http.test.instance.model.ResponseInstances;
 import io.tiklab.postin.api.http.test.instance.model.ResponseInstanceQuery;
 import io.tiklab.postin.api.http.test.instance.service.ResponseInstanceService;
 import io.tiklab.core.page.Pagination;
@@ -38,8 +38,8 @@ public class ResponseInstanceController {
     @RequestMapping(path="/createResponseInstance",method = RequestMethod.POST)
     @ApiMethod(name = "createResponseInstance",desc = "createResponseInstance")
     @ApiParam(name = "responseInstance",desc = "responseInstance",required = true)
-    public Result<String> createResponseInstance(@RequestBody @NotNull @Valid ResponseInstance responseInstance){
-        String id = responseInstanceService.createResponseInstance(responseInstance);
+    public Result<String> createResponseInstance(@RequestBody @NotNull @Valid ResponseInstances responseInstances){
+        String id = responseInstanceService.createResponseInstance(responseInstances);
 
         return Result.ok(id);
     }
@@ -47,8 +47,8 @@ public class ResponseInstanceController {
     @RequestMapping(path="/updateResponseInstance",method = RequestMethod.POST)
     @ApiMethod(name = "updateResponseInstance",desc = "updateResponseInstance")
     @ApiParam(name = "responseInstance",desc = "responseInstance",required = true)
-    public Result<Void> updateResponseInstance(@RequestBody @NotNull @Valid ResponseInstance responseInstance){
-        responseInstanceService.updateResponseInstance(responseInstance);
+    public Result<Void> updateResponseInstance(@RequestBody @NotNull @Valid ResponseInstances responseInstances){
+        responseInstanceService.updateResponseInstance(responseInstances);
 
         return Result.ok();
     }
@@ -65,36 +65,36 @@ public class ResponseInstanceController {
     @RequestMapping(path="/findResponseInstance",method = RequestMethod.POST)
     @ApiMethod(name = "findResponseInstance",desc = "findResponseInstance")
     @ApiParam(name = "id",desc = "id",required = true)
-    public Result<ResponseInstance> findResponseInstance(@NotNull String id){
-        ResponseInstance responseInstance = responseInstanceService.findResponseInstance(id);
+    public Result<ResponseInstances> findResponseInstance(@NotNull String id){
+        ResponseInstances responseInstances = responseInstanceService.findResponseInstance(id);
 
-        return Result.ok(responseInstance);
+        return Result.ok(responseInstances);
     }
 
     @RequestMapping(path="/findAllResponseInstance",method = RequestMethod.POST)
     @ApiMethod(name = "findAllResponseInstance",desc = "findAllResponseInstance")
-    public Result<List<ResponseInstance>> findAllResponseInstance(){
-        List<ResponseInstance> responseInstanceList = responseInstanceService.findAllResponseInstance();
+    public Result<List<ResponseInstances>> findAllResponseInstance(){
+        List<ResponseInstances> responseInstancesList = responseInstanceService.findAllResponseInstance();
 
-        return Result.ok(responseInstanceList);
+        return Result.ok(responseInstancesList);
     }
 
 
     @RequestMapping(path = "/findResponseInstanceList",method = RequestMethod.POST)
     @ApiMethod(name = "findResponseInstanceList",desc = "findResponseInstanceList")
     @ApiParam(name = "responseInstanceQuery",desc = "responseInstanceQuery",required = true)
-    public Result<List<ResponseInstance>> findResponseInstanceList(@RequestBody @Valid @NotNull ResponseInstanceQuery responseInstanceQuery){
-        List<ResponseInstance> responseInstanceList = responseInstanceService.findResponseInstanceList(responseInstanceQuery);
+    public Result<List<ResponseInstances>> findResponseInstanceList(@RequestBody @Valid @NotNull ResponseInstanceQuery responseInstanceQuery){
+        List<ResponseInstances> responseInstancesList = responseInstanceService.findResponseInstanceList(responseInstanceQuery);
 
-        return Result.ok(responseInstanceList);
+        return Result.ok(responseInstancesList);
     }
 
 
     @RequestMapping(path = "/findResponseInstancePage",method = RequestMethod.POST)
     @ApiMethod(name = "findResponseInstancePage",desc = "findResponseInstancePage")
     @ApiParam(name = "responseInstanceQuery",desc = "responseInstanceQuery",required = true)
-    public Result<Pagination<ResponseInstance>> findResponseInstancePage(@RequestBody @Valid @NotNull ResponseInstanceQuery responseInstanceQuery){
-        Pagination<ResponseInstance> pagination = responseInstanceService.findResponseInstancePage(responseInstanceQuery);
+    public Result<Pagination<ResponseInstances>> findResponseInstancePage(@RequestBody @Valid @NotNull ResponseInstanceQuery responseInstanceQuery){
+        Pagination<ResponseInstances> pagination = responseInstanceService.findResponseInstancePage(responseInstanceQuery);
 
         return Result.ok(pagination);
     }

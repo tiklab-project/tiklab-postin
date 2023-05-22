@@ -10,7 +10,7 @@ PROJECT_HOME: ${user.home}/tiklab/${app.name}
 
 #web io.tiklab.postin.config
 server:
-  port: 8080
+  port: 8090
 
 #dal io.tiklab.postin.config
 #jdbc:

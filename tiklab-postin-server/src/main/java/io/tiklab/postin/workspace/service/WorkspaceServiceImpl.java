@@ -25,6 +25,7 @@ import io.tiklab.dss.client.DssClient;
 import io.tiklab.join.JoinTemplate;
 import io.tiklab.postin.workspace.model.*;
 import io.tiklab.privilege.dmRole.service.DmRoleService;
+import io.tiklab.rpc.annotation.Exporter;
 import io.tiklab.security.logging.model.LoggingType;
 import io.tiklab.security.logging.service.LoggingTypeService;
 import io.tiklab.user.dmUser.model.DmUser;
@@ -47,6 +48,7 @@ import static io.tiklab.postin.common.MessageTemplateConstant.*;
 * 空间服务
 */
 @Service
+@Exporter
 public class WorkspaceServiceImpl implements WorkspaceService {
 
     @Autowired

@@ -2,7 +2,7 @@ package io.tiklab.postin.api.http.definition.service;
 
 import io.tiklab.core.page.Pagination;
 
-import io.tiklab.postin.api.http.definition.model.RawParam;
+import io.tiklab.postin.api.http.definition.model.RawParams;
 import io.tiklab.postin.api.http.definition.model.RawParamQuery;
 import io.tiklab.join.annotation.FindAll;
 import io.tiklab.join.annotation.FindOne;
@@ -15,21 +15,21 @@ import java.util.List;
 /**
 * raw服务接口
 */
-@JoinProvider(model = RawParam.class)
+@JoinProvider(model = RawParams.class)
 public interface RawParamService {
 
     /**
     * 创建raw
-    * @param rawParam
+    * @param rawParams
     * @return
     */
-    String createRawParam(@NotNull @Valid RawParam rawParam);
+    String createRawParam(@NotNull @Valid RawParams rawParams);
 
     /**
     * 更新raw
-    * @param rawParam
+    * @param rawParams
     */
-    void updateRawParam(@NotNull @Valid RawParam rawParam);
+    void updateRawParam(@NotNull @Valid RawParams rawParams);
 
     /**
     * 删除raw
@@ -43,28 +43,28 @@ public interface RawParamService {
     * @return
     */
     @FindOne
-    RawParam findRawParam(@NotNull String id);
+    RawParams findRawParam(@NotNull String id);
 
     /**
     * 查找所有raw
     * @return
     */
     @FindAll
-    List<RawParam> findAllRawParam();
+    List<RawParams> findAllRawParam();
 
     /**
     * 查询列表raw
     * @param rawParamQuery
     * @return
     */
-    List<RawParam> findRawParamList(RawParamQuery rawParamQuery);
+    List<RawParams> findRawParamList(RawParamQuery rawParamQuery);
 
     /**
     * 按分页查询raw
     * @param rawParamQuery
     * @return
     */
-    Pagination<RawParam> findRawParamPage(RawParamQuery rawParamQuery);
+    Pagination<RawParams> findRawParamPage(RawParamQuery rawParamQuery);
 
 
 }

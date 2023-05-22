@@ -1,7 +1,7 @@
 package io.tiklab.postin.api.http.definition.service;
 
 import io.tiklab.postin.api.http.definition.dao.RawResponseDao;
-import io.tiklab.postin.api.http.definition.entity.RawResponseEntity;
+import io.tiklab.postin.api.http.definition.entity.RawResponsesEntity;
 import io.tiklab.postin.api.http.definition.model.RawResponse;
 import io.tiklab.postin.api.http.definition.model.RawResponseQuery;
 
@@ -32,16 +32,16 @@ public class RawResponseServiceImpl implements RawResponseService {
 
     @Override
     public String createRawResponse(@NotNull @Valid RawResponse rawResponse) {
-        RawResponseEntity rawResponseEntity = BeanMapper.map(rawResponse, RawResponseEntity.class);
+        RawResponsesEntity rawResponsesEntity = BeanMapper.map(rawResponse, RawResponsesEntity.class);
 
-        return rawResponseDao.createRawResponse(rawResponseEntity);
+        return rawResponseDao.createRawResponse(rawResponsesEntity);
     }
 
     @Override
     public void updateRawResponse(@NotNull @Valid RawResponse rawResponse) {
-        RawResponseEntity rawResponseEntity = BeanMapper.map(rawResponse, RawResponseEntity.class);
+        RawResponsesEntity rawResponsesEntity = BeanMapper.map(rawResponse, RawResponsesEntity.class);
 
-        rawResponseDao.updateRawResponse(rawResponseEntity);
+        rawResponseDao.updateRawResponse(rawResponsesEntity);
     }
 
     @Override
@@ -51,9 +51,9 @@ public class RawResponseServiceImpl implements RawResponseService {
 
     @Override
     public RawResponse findRawResponse(@NotNull String id) {
-        RawResponseEntity rawResponseEntity = rawResponseDao.findRawResponse(id);
+        RawResponsesEntity rawResponsesEntity = rawResponseDao.findRawResponse(id);
 
-        RawResponse rawResponse = BeanMapper.map(rawResponseEntity, RawResponse.class);
+        RawResponse rawResponse = BeanMapper.map(rawResponsesEntity, RawResponse.class);
 
         joinTemplate.joinQuery(rawResponse);
 
@@ -62,9 +62,9 @@ public class RawResponseServiceImpl implements RawResponseService {
 
     @Override
     public List<RawResponse> findAllRawResponse() {
-        List<RawResponseEntity> rawResponseEntityList =  rawResponseDao.findAllRawResponse();
+        List<RawResponsesEntity> rawResponsesEntityList =  rawResponseDao.findAllRawResponse();
 
-        List<RawResponse> rawResponseList =  BeanMapper.mapList(rawResponseEntityList,RawResponse.class);
+        List<RawResponse> rawResponseList =  BeanMapper.mapList(rawResponsesEntityList,RawResponse.class);
 
         joinTemplate.joinQuery(rawResponseList);
 
@@ -73,9 +73,9 @@ public class RawResponseServiceImpl implements RawResponseService {
 
     @Override
     public List<RawResponse> findRawResponseList(RawResponseQuery rawResponseQuery) {
-        List<RawResponseEntity> rawResponseEntityList = rawResponseDao.findRawResponseList(rawResponseQuery);
+        List<RawResponsesEntity> rawResponsesEntityList = rawResponseDao.findRawResponseList(rawResponseQuery);
 
-        List<RawResponse> rawResponseList = BeanMapper.mapList(rawResponseEntityList,RawResponse.class);
+        List<RawResponse> rawResponseList = BeanMapper.mapList(rawResponsesEntityList,RawResponse.class);
 
         joinTemplate.joinQuery(rawResponseList);
 
@@ -85,7 +85,7 @@ public class RawResponseServiceImpl implements RawResponseService {
     @Override
     public Pagination<RawResponse> findRawResponsePage(RawResponseQuery rawResponseQuery) {
 
-        Pagination<RawResponseEntity>  pagination = rawResponseDao.findRawResponsePage(rawResponseQuery);
+        Pagination<RawResponsesEntity>  pagination = rawResponseDao.findRawResponsePage(rawResponseQuery);
 
         List<RawResponse> rawResponseList = BeanMapper.mapList(pagination.getDataList(),RawResponse.class);
 

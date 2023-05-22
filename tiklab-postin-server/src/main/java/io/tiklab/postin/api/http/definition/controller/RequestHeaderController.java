@@ -1,7 +1,7 @@
 package io.tiklab.postin.api.http.definition.controller;
 
 import io.tiklab.postin.annotation.Api;
-import io.tiklab.postin.api.http.definition.model.RequestHeader;
+import io.tiklab.postin.api.http.definition.model.RequestHeaders;
 import io.tiklab.postin.api.http.definition.model.RequestHeaderQuery;
 import io.tiklab.postin.api.http.definition.service.RequestHeaderService;
 import io.tiklab.core.page.Pagination;
@@ -38,8 +38,8 @@ public class RequestHeaderController {
     @RequestMapping(path="/createRequestHeader",method = RequestMethod.POST)
     @ApiMethod(name = "createRequestHeader",desc = "创建请求头")
     @ApiParam(name = "requestHeader",desc = "请求头DTO",required = true)
-    public Result<String> createRequestHeader(@RequestBody @NotNull @Valid RequestHeader requestHeader){
-        String id = requestHeaderService.createRequestHeader(requestHeader);
+    public Result<String> createRequestHeader(@RequestBody @NotNull @Valid RequestHeaders requestHeaders){
+        String id = requestHeaderService.createRequestHeader(requestHeaders);
 
         return Result.ok(id);
     }
@@ -47,8 +47,8 @@ public class RequestHeaderController {
     @RequestMapping(path="/updateRequestHeader",method = RequestMethod.POST)
     @ApiMethod(name = "updateRequestHeader",desc = "更新请求头")
     @ApiParam(name = "requestHeader",desc = "请求头DTO",required = true)
-    public Result<Void> updateRequestHeader(@RequestBody @NotNull @Valid RequestHeader requestHeader){
-        requestHeaderService.updateRequestHeader(requestHeader);
+    public Result<Void> updateRequestHeader(@RequestBody @NotNull @Valid RequestHeaders requestHeaders){
+        requestHeaderService.updateRequestHeader(requestHeaders);
 
         return Result.ok();
     }
@@ -65,36 +65,36 @@ public class RequestHeaderController {
     @RequestMapping(path="/findRequestHeader",method = RequestMethod.POST)
     @ApiMethod(name = "findRequestHeader",desc = "根据ID查找请求头")
     @ApiParam(name = "id",desc = "唯一标识",required = true)
-    public Result<RequestHeader> findRequestHeader(@NotNull String id){
-        RequestHeader requestHeader = requestHeaderService.findRequestHeader(id);
+    public Result<RequestHeaders> findRequestHeader(@NotNull String id){
+        RequestHeaders requestHeaders = requestHeaderService.findRequestHeader(id);
 
-        return Result.ok(requestHeader);
+        return Result.ok(requestHeaders);
     }
 
     @RequestMapping(path="/findAllRequestHeader",method = RequestMethod.POST)
     @ApiMethod(name = "findAllRequestHeader",desc = "查找所有请求头列表")
-    public Result<List<RequestHeader>> findAllRequestHeader(){
-        List<RequestHeader> requestHeaderList = requestHeaderService.findAllRequestHeader();
+    public Result<List<RequestHeaders>> findAllRequestHeader(){
+        List<RequestHeaders> requestHeadersList = requestHeaderService.findAllRequestHeader();
 
-        return Result.ok(requestHeaderList);
+        return Result.ok(requestHeadersList);
     }
 
 
     @RequestMapping(path = "/findRequestHeaderList",method = RequestMethod.POST)
     @ApiMethod(name = "findRequestHeaderList",desc = "根据查询对象查询请求头列表")
     @ApiParam(name = "requestHeaderQuery",desc = "查询对象",required = true)
-    public Result<List<RequestHeader>> findRequestHeaderList(@RequestBody @Valid @NotNull RequestHeaderQuery requestHeaderQuery){
-        List<RequestHeader> requestHeaderList = requestHeaderService.findRequestHeaderList(requestHeaderQuery);
+    public Result<List<RequestHeaders>> findRequestHeaderList(@RequestBody @Valid @NotNull RequestHeaderQuery requestHeaderQuery){
+        List<RequestHeaders> requestHeadersList = requestHeaderService.findRequestHeaderList(requestHeaderQuery);
 
-        return Result.ok(requestHeaderList);
+        return Result.ok(requestHeadersList);
     }
 
 
     @RequestMapping(path = "/findRequestHeaderPage",method = RequestMethod.POST)
     @ApiMethod(name = "findRequestHeaderPage",desc = "根据查询对象按分页查询请求头列表")
     @ApiParam(name = "requestHeaderQuery",desc = "查询对象",required = true)
-    public Result<Pagination<RequestHeader>> findRequestHeaderPage(@RequestBody @Valid @NotNull RequestHeaderQuery requestHeaderQuery){
-        Pagination<RequestHeader> pagination = requestHeaderService.findRequestHeaderPage(requestHeaderQuery);
+    public Result<Pagination<RequestHeaders>> findRequestHeaderPage(@RequestBody @Valid @NotNull RequestHeaderQuery requestHeaderQuery){
+        Pagination<RequestHeaders> pagination = requestHeaderService.findRequestHeaderPage(requestHeaderQuery);
 
         return Result.ok(pagination);
     }

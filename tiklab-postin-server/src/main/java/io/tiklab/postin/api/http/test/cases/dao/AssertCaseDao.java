@@ -1,6 +1,6 @@
 package io.tiklab.postin.api.http.test.cases.dao;
 
-import io.tiklab.postin.api.http.test.cases.entity.AssertCaseEntity;
+import io.tiklab.postin.api.http.test.cases.entity.AssertCasesEntity;
 import io.tiklab.postin.api.http.test.cases.model.AssertCaseQuery;
 import io.tiklab.core.page.Pagination;
 import io.tiklab.dal.jpa.JpaTemplate;
@@ -26,19 +26,19 @@ public class AssertCaseDao{
 
     /**
      * 创建用户
-     * @param assertCaseEntity
+     * @param assertCasesEntity
      * @return
      */
-    public String createAssertCase(AssertCaseEntity assertCaseEntity) {
-        return jpaTemplate.save(assertCaseEntity,String.class);
+    public String createAssertCase(AssertCasesEntity assertCasesEntity) {
+        return jpaTemplate.save(assertCasesEntity,String.class);
     }
 
     /**
      * 更新用户
-     * @param assertCaseEntity
+     * @param assertCasesEntity
      */
-    public void updateAssertCase(AssertCaseEntity assertCaseEntity){
-        jpaTemplate.update(assertCaseEntity);
+    public void updateAssertCase(AssertCasesEntity assertCasesEntity){
+        jpaTemplate.update(assertCasesEntity);
     }
 
     /**
@@ -46,7 +46,7 @@ public class AssertCaseDao{
      * @param id
      */
     public void deleteAssertCase(String id){
-        jpaTemplate.delete(AssertCaseEntity.class,id);
+        jpaTemplate.delete(AssertCasesEntity.class,id);
     }
 
     /**
@@ -54,36 +54,36 @@ public class AssertCaseDao{
      * @param id
      * @return
      */
-    public AssertCaseEntity findAssertCase(String id){
-        return jpaTemplate.findOne(AssertCaseEntity.class,id);
+    public AssertCasesEntity findAssertCase(String id){
+        return jpaTemplate.findOne(AssertCasesEntity.class,id);
     }
 
     /**
     * findAllAssertCase
     * @return
     */
-    public List<AssertCaseEntity> findAllAssertCase() {
-        return jpaTemplate.findAll(AssertCaseEntity.class);
+    public List<AssertCasesEntity> findAllAssertCase() {
+        return jpaTemplate.findAll(AssertCasesEntity.class);
     }
 
-    public List<AssertCaseEntity> findAssertCaseList(List<String> idList) {
-        return jpaTemplate.findList(AssertCaseEntity.class,idList);
+    public List<AssertCasesEntity> findAssertCaseList(List<String> idList) {
+        return jpaTemplate.findList(AssertCasesEntity.class,idList);
     }
 
-    public List<AssertCaseEntity> findAssertCaseList(AssertCaseQuery assertCaseQuery) {
-        QueryCondition queryCondition = QueryBuilders.createQuery(AssertCaseEntity.class)
+    public List<AssertCasesEntity> findAssertCaseList(AssertCaseQuery assertCaseQuery) {
+        QueryCondition queryCondition = QueryBuilders.createQuery(AssertCasesEntity.class)
                 .eq("httpCaseId", assertCaseQuery.getHttpCaseId())
                 .orders(assertCaseQuery.getOrderParams())
                 .get();
-        return jpaTemplate.findList(queryCondition, AssertCaseEntity.class);
+        return jpaTemplate.findList(queryCondition, AssertCasesEntity.class);
     }
 
-    public Pagination<AssertCaseEntity> findAssertCasePage(AssertCaseQuery assertCaseQuery) {
-        QueryCondition queryCondition = QueryBuilders.createQuery(AssertCaseEntity.class)
+    public Pagination<AssertCasesEntity> findAssertCasePage(AssertCaseQuery assertCaseQuery) {
+        QueryCondition queryCondition = QueryBuilders.createQuery(AssertCasesEntity.class)
                 .eq("httpCaseId", assertCaseQuery.getHttpCaseId())
                 .pagination(assertCaseQuery.getPageParam())
                 .orders(assertCaseQuery.getOrderParams())
                 .get();
-        return jpaTemplate.findPage(queryCondition, AssertCaseEntity.class);
+        return jpaTemplate.findPage(queryCondition, AssertCasesEntity.class);
     }
 }

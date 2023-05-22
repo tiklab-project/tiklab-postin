@@ -1,6 +1,6 @@
 package io.tiklab.postin.api.http.definition.dao;
 
-import io.tiklab.postin.api.http.definition.entity.RequestHeaderEntity;
+import io.tiklab.postin.api.http.definition.entity.RequestHeadersEntity;
 import io.tiklab.postin.api.http.definition.model.RequestHeaderQuery;
 import io.tiklab.core.page.Pagination;
 import io.tiklab.dal.jpa.JpaTemplate;
@@ -29,19 +29,19 @@ public class RequestHeaderDao{
 
     /**
      * 创建请求头
-     * @param requestHeaderEntity
+     * @param requestHeadersEntity
      * @return
      */
-    public String createRequestHeader(RequestHeaderEntity requestHeaderEntity) {
-        return jpaTemplate.save(requestHeaderEntity,String.class);
+    public String createRequestHeader(RequestHeadersEntity requestHeadersEntity) {
+        return jpaTemplate.save(requestHeadersEntity,String.class);
     }
 
     /**
      * 更新请求头
-     * @param requestHeaderEntity
+     * @param requestHeadersEntity
      */
-    public void updateRequestHeader(RequestHeaderEntity requestHeaderEntity){
-        jpaTemplate.update(requestHeaderEntity);
+    public void updateRequestHeader(RequestHeadersEntity requestHeadersEntity){
+        jpaTemplate.update(requestHeadersEntity);
     }
 
     /**
@@ -49,7 +49,7 @@ public class RequestHeaderDao{
      * @param id
      */
     public void deleteRequestHeader(String id){
-        jpaTemplate.delete(RequestHeaderEntity.class,id);
+        jpaTemplate.delete(RequestHeadersEntity.class,id);
     }
 
     /**
@@ -65,16 +65,16 @@ public class RequestHeaderDao{
      * @param id
      * @return
      */
-    public RequestHeaderEntity findRequestHeader(String id){
-        return jpaTemplate.findOne(RequestHeaderEntity.class,id);
+    public RequestHeadersEntity findRequestHeader(String id){
+        return jpaTemplate.findOne(RequestHeadersEntity.class,id);
     }
 
     /**
     * 查找所有请求头
     * @return
     */
-    public List<RequestHeaderEntity> findAllRequestHeader() {
-        return jpaTemplate.findAll(RequestHeaderEntity.class);
+    public List<RequestHeadersEntity> findAllRequestHeader() {
+        return jpaTemplate.findAll(RequestHeadersEntity.class);
     }
 
     /**
@@ -82,14 +82,14 @@ public class RequestHeaderDao{
      * @param requestHeaderQuery
      * @return
      */
-    public List<RequestHeaderEntity> findRequestHeaderList(RequestHeaderQuery requestHeaderQuery) {
-        QueryCondition queryCondition = QueryBuilders.createQuery(RequestHeaderEntity.class)
+    public List<RequestHeadersEntity> findRequestHeaderList(RequestHeaderQuery requestHeaderQuery) {
+        QueryCondition queryCondition = QueryBuilders.createQuery(RequestHeadersEntity.class)
                 .eq("httpId", requestHeaderQuery.getHttpId())
                 .eq("workspaceId",requestHeaderQuery.getWorkspaceId())
                 .orders(requestHeaderQuery.getOrderParams())
                 .get();
 
-        return jpaTemplate.findList(queryCondition, RequestHeaderEntity.class);
+        return jpaTemplate.findList(queryCondition, RequestHeadersEntity.class);
     }
 
     /**
@@ -97,14 +97,14 @@ public class RequestHeaderDao{
      * @param requestHeaderQuery
      * @return
      */
-    public Pagination<RequestHeaderEntity> findRequestHeaderPage(RequestHeaderQuery requestHeaderQuery) {
-        QueryCondition queryCondition = QueryBuilders.createQuery(RequestHeaderEntity.class)
+    public Pagination<RequestHeadersEntity> findRequestHeaderPage(RequestHeaderQuery requestHeaderQuery) {
+        QueryCondition queryCondition = QueryBuilders.createQuery(RequestHeadersEntity.class)
                 .eq("httpId", requestHeaderQuery.getHttpId())
                 .eq("workspaceId",requestHeaderQuery.getWorkspaceId())
                 .pagination(requestHeaderQuery.getPageParam())
                 .orders(requestHeaderQuery.getOrderParams())
                 .get();
 
-        return jpaTemplate.findPage(queryCondition, RequestHeaderEntity.class);
+        return jpaTemplate.findPage(queryCondition, RequestHeadersEntity.class);
     }
 }

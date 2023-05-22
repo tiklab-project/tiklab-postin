@@ -1,6 +1,6 @@
 package io.tiklab.postin.api.http.test.instance.service;
 
-import io.tiklab.postin.api.http.test.instance.model.RequestInstance;
+import io.tiklab.postin.api.http.test.instance.model.RequestInstances;
 import io.tiklab.postin.api.http.test.instance.model.RequestInstanceQuery;
 import io.tiklab.core.page.Pagination;
 
@@ -16,16 +16,16 @@ public interface RequestInstanceService {
 
     /**
     * 创建用户
-    * @param requestInstance
+    * @param requestInstances
     * @return
     */
-    String createRequestInstance(@NotNull @Valid RequestInstance requestInstance);
+    String createRequestInstance(@NotNull @Valid RequestInstances requestInstances);
 
     /**
     * 更新用户
-    * @param requestInstance
+    * @param requestInstances
     */
-    void updateRequestInstance(@NotNull @Valid RequestInstance requestInstance);
+    void updateRequestInstance(@NotNull @Valid RequestInstances requestInstances);
 
     /**
     * 删除用户
@@ -33,35 +33,35 @@ public interface RequestInstanceService {
     */
     void deleteRequestInstance(@NotNull String id);
 
-    RequestInstance findOne(@NotNull String id);
+    RequestInstances findOne(@NotNull String id);
 
-    List<RequestInstance> findList(List<String> idList);
+    List<RequestInstances> findList(List<String> idList);
 
     /**
     * 查找用户
     * @param id
     * @return
     */
-    RequestInstance findRequestInstance(@NotNull String id);
+    RequestInstances findRequestInstance(@NotNull String id);
 
     /**
     * 查找所有
     * @return
     */
-    List<RequestInstance> findAllRequestInstance();
+    List<RequestInstances> findAllRequestInstance();
 
     /**
     * 查询列表
     * @param requestInstanceQuery
     * @return
     */
-    List<RequestInstance> findRequestInstanceList(RequestInstanceQuery requestInstanceQuery);
+    List<RequestInstances> findRequestInstanceList(RequestInstanceQuery requestInstanceQuery);
 
     /**
     * 按分页查询
     * @param requestInstanceQuery
     * @return
     */
-    Pagination<RequestInstance> findRequestInstancePage(RequestInstanceQuery requestInstanceQuery);
+    Pagination<RequestInstances> findRequestInstancePage(RequestInstanceQuery requestInstanceQuery);
 
 }

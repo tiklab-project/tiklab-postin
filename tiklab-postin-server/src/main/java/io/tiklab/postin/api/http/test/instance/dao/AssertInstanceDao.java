@@ -1,6 +1,6 @@
 package io.tiklab.postin.api.http.test.instance.dao;
 
-import io.tiklab.postin.api.http.test.instance.entity.AssertInstanceEntity;
+import io.tiklab.postin.api.http.test.instance.entity.AssertInstancesEntity;
 import io.tiklab.postin.api.http.test.instance.model.AssertInstanceQuery;
 import io.tiklab.core.page.Pagination;
 import io.tiklab.dal.jpa.JpaTemplate;
@@ -26,19 +26,19 @@ public class AssertInstanceDao{
 
     /**
      * 创建用户
-     * @param assertInstanceEntity
+     * @param assertInstancesEntity
      * @return
      */
-    public String createAssertInstance(AssertInstanceEntity assertInstanceEntity) {
-        return jpaTemplate.save(assertInstanceEntity,String.class);
+    public String createAssertInstance(AssertInstancesEntity assertInstancesEntity) {
+        return jpaTemplate.save(assertInstancesEntity,String.class);
     }
 
     /**
      * 更新用户
-     * @param assertInstanceEntity
+     * @param assertInstancesEntity
      */
-    public void updateAssertInstance(AssertInstanceEntity assertInstanceEntity){
-        jpaTemplate.update(assertInstanceEntity);
+    public void updateAssertInstance(AssertInstancesEntity assertInstancesEntity){
+        jpaTemplate.update(assertInstancesEntity);
     }
 
     /**
@@ -46,7 +46,7 @@ public class AssertInstanceDao{
      * @param id
      */
     public void deleteAssertInstance(String id){
-        jpaTemplate.delete(AssertInstanceEntity.class,id);
+        jpaTemplate.delete(AssertInstancesEntity.class,id);
     }
 
     /**
@@ -54,36 +54,36 @@ public class AssertInstanceDao{
      * @param id
      * @return
      */
-    public AssertInstanceEntity findAssertInstance(String id){
-        return jpaTemplate.findOne(AssertInstanceEntity.class,id);
+    public AssertInstancesEntity findAssertInstance(String id){
+        return jpaTemplate.findOne(AssertInstancesEntity.class,id);
     }
 
     /**
     * findAllAssertInstance
     * @return
     */
-    public List<AssertInstanceEntity> findAllAssertInstance() {
-        return jpaTemplate.findAll(AssertInstanceEntity.class);
+    public List<AssertInstancesEntity> findAllAssertInstance() {
+        return jpaTemplate.findAll(AssertInstancesEntity.class);
     }
 
-    public List<AssertInstanceEntity> findAssertInstanceList(List<String> idList) {
-        return jpaTemplate.findList(AssertInstanceEntity.class,idList);
+    public List<AssertInstancesEntity> findAssertInstanceList(List<String> idList) {
+        return jpaTemplate.findList(AssertInstancesEntity.class,idList);
     }
 
-    public List<AssertInstanceEntity> findAssertInstanceList(AssertInstanceQuery assertInstanceQuery) {
-        QueryCondition queryCondition = QueryBuilders.createQuery(AssertInstanceEntity.class)
+    public List<AssertInstancesEntity> findAssertInstanceList(AssertInstanceQuery assertInstanceQuery) {
+        QueryCondition queryCondition = QueryBuilders.createQuery(AssertInstancesEntity.class)
                 .eq("httpInstanceId", assertInstanceQuery.getHttpInstanceId())
                 .orders(assertInstanceQuery.getOrderParams())
                 .get();
-        return jpaTemplate.findList(queryCondition, AssertInstanceEntity.class);
+        return jpaTemplate.findList(queryCondition, AssertInstancesEntity.class);
     }
 
-    public Pagination<AssertInstanceEntity> findAssertInstancePage(AssertInstanceQuery assertInstanceQuery) {
-        QueryCondition queryCondition = QueryBuilders.createQuery(AssertInstanceEntity.class)
+    public Pagination<AssertInstancesEntity> findAssertInstancePage(AssertInstanceQuery assertInstanceQuery) {
+        QueryCondition queryCondition = QueryBuilders.createQuery(AssertInstancesEntity.class)
                 .eq("httpInstanceId", assertInstanceQuery.getHttpInstanceId())
                 .pagination(assertInstanceQuery.getPageParam())
                 .orders(assertInstanceQuery.getOrderParams())
                 .get();
-        return jpaTemplate.findPage(queryCondition, AssertInstanceEntity.class);
+        return jpaTemplate.findPage(queryCondition, AssertInstancesEntity.class);
     }
 }

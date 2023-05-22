@@ -14,6 +14,7 @@ import io.tiklab.join.JoinTemplate;
 import io.tiklab.postin.api.http.mock.service.MockService;
 import io.tiklab.postin.support.apistatus.model.ApiStatus;
 import io.tiklab.postin.support.apistatus.service.ApiStatusService;
+import io.tiklab.rpc.annotation.Exporter;
 import io.tiklab.user.user.model.User;
 import io.tiklab.user.user.service.UserService;
 import org.apache.commons.collections.CollectionUtils;
@@ -32,6 +33,7 @@ import java.util.UUID;
  * http协议服务
 */
 @Service
+@Exporter
 public class HttpApiServiceImpl implements HttpApiService {
 
     @Autowired
@@ -221,9 +223,9 @@ public class HttpApiServiceImpl implements HttpApiService {
 
 
         //获取请求头中的数据
-        List<RequestHeader> requestHeaderList = requestHeaderService.findRequestHeaderList(new RequestHeaderQuery().setHttpId(httpId));
-        if(CollectionUtils.isNotEmpty(requestHeaderList)){
-            httpApi.setHeaderList(requestHeaderList);
+        List<RequestHeaders> requestHeadersList = requestHeaderService.findRequestHeaderList(new RequestHeaderQuery().setHttpId(httpId));
+        if(CollectionUtils.isNotEmpty(requestHeadersList)){
+            httpApi.setHeaderList(requestHeadersList);
         }
 
         //获取查询参数的数据
@@ -261,18 +263,18 @@ public class HttpApiServiceImpl implements HttpApiService {
 
             }else if(bodyType.equals("raw")){
                 //获取raw数据
-                RawParam rawParam = rawParamService.findRawParam(httpId);
-                if(!ObjectUtils.isEmpty(rawParam)){
-                    httpApi.setRawParam(rawParam);
+                RawParams rawParams = rawParamService.findRawParam(httpId);
+                if(!ObjectUtils.isEmpty(rawParams)){
+                    httpApi.setRawParam(rawParams);
                 }
             }
         }
 
         //获取响应里的参数
         //响应头
-        List<ResponseHeader> responseHeaderList = responseHeaderService.findResponseHeaderList(new ResponseHeaderQuery().setHttpId(httpId));
-        if(CollectionUtils.isNotEmpty(responseHeaderList)){
-            httpApi.setResponseHeaderList(responseHeaderList);
+        List<ResponseHeaders> responseHeadersList = responseHeaderService.findResponseHeaderList(new ResponseHeaderQuery().setHttpId(httpId));
+        if(CollectionUtils.isNotEmpty(responseHeadersList)){
+            httpApi.setResponseHeaderList(responseHeadersList);
         }
 
         //响应示例

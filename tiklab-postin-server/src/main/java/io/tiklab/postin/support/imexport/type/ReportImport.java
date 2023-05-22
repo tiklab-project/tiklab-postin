@@ -3,7 +3,7 @@ package io.tiklab.postin.support.imexport.type;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import io.tiklab.postin.api.http.definition.model.JsonParam;
-import io.tiklab.postin.api.http.definition.model.JsonResponse;
+import io.tiklab.postin.api.http.definition.model.JsonResponses;
 import io.tiklab.postin.support.imexport.common.FunctionImport;
 import io.tiklab.postin.support.imexport.utils.Md5;
 import io.tiklab.postin.support.imexport.model.FormDataImportVo;
@@ -185,13 +185,13 @@ public class ReportImport {
             String type = transferDataType(jsonItem.getString("dataType"));
             int required= transferRequired(jsonItem.getString("required"));
 
-            JsonResponse jsonResponse = new JsonResponse();
+            JsonResponses jsonResponses = new JsonResponses();
             if(parentId!=null){
-                jsonResponse.setId(parentId);
+                jsonResponses.setId(parentId);
             }
 
             JsonResponseImportVo jRVo = new JsonResponseImportVo();
-            jRVo.setParentId(jsonResponse);
+            jRVo.setParentId(jsonResponses);
             jRVo.setMethodId(methodId);
             jRVo.setName(jsonItem.getString("name"));
             jRVo.setDataType(type);

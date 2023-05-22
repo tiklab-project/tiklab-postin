@@ -1,7 +1,7 @@
 package io.tiklab.postin.api.http.test.instance.service;
 
 import io.tiklab.postin.api.http.test.instance.model.ResponseInstanceQuery;
-import io.tiklab.postin.api.http.test.instance.model.ResponseInstance;
+import io.tiklab.postin.api.http.test.instance.model.ResponseInstances;
 import io.tiklab.core.page.Pagination;
 
 import javax.validation.Valid;
@@ -15,16 +15,16 @@ public interface ResponseInstanceService {
 
     /**
     * 创建用户
-    * @param responseInstance
+    * @param responseInstances
     * @return
     */
-    String createResponseInstance(@NotNull @Valid ResponseInstance responseInstance);
+    String createResponseInstance(@NotNull @Valid ResponseInstances responseInstances);
 
     /**
     * 更新用户
-    * @param responseInstance
+    * @param responseInstances
     */
-    void updateResponseInstance(@NotNull @Valid ResponseInstance responseInstance);
+    void updateResponseInstance(@NotNull @Valid ResponseInstances responseInstances);
 
     /**
     * 删除用户
@@ -32,35 +32,35 @@ public interface ResponseInstanceService {
     */
     void deleteResponseInstance(@NotNull String id);
 
-    ResponseInstance findOne(@NotNull String id);
+    ResponseInstances findOne(@NotNull String id);
 
-    List<ResponseInstance> findList(List<String> idList);
+    List<ResponseInstances> findList(List<String> idList);
 
     /**
     * 查找用户
     * @param id
     * @return
     */
-    ResponseInstance findResponseInstance(@NotNull String id);
+    ResponseInstances findResponseInstance(@NotNull String id);
 
     /**
     * 查找所有
     * @return
     */
-    List<ResponseInstance> findAllResponseInstance();
+    List<ResponseInstances> findAllResponseInstance();
 
     /**
     * 查询列表
     * @param responseInstanceQuery
     * @return
     */
-    List<ResponseInstance> findResponseInstanceList(ResponseInstanceQuery responseInstanceQuery);
+    List<ResponseInstances> findResponseInstanceList(ResponseInstanceQuery responseInstanceQuery);
 
     /**
     * 按分页查询
     * @param responseInstanceQuery
     * @return
     */
-    Pagination<ResponseInstance> findResponseInstancePage(ResponseInstanceQuery responseInstanceQuery);
+    Pagination<ResponseInstances> findResponseInstancePage(ResponseInstanceQuery responseInstanceQuery);
 
 }

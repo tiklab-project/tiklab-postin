@@ -1,6 +1,6 @@
 package io.tiklab.postin.api.http.test.instance.service;
 
-import io.tiklab.postin.api.http.test.instance.model.AssertInstance;
+import io.tiklab.postin.api.http.test.instance.model.AssertInstances;
 import io.tiklab.postin.api.http.test.instance.model.AssertInstanceQuery;
 import io.tiklab.core.page.Pagination;
 
@@ -16,16 +16,16 @@ public interface AssertInstanceService {
 
     /**
     * 创建用户
-    * @param assertInstance
+    * @param assertInstances
     * @return
     */
-    String createAssertInstance(@NotNull @Valid AssertInstance assertInstance);
+    String createAssertInstance(@NotNull @Valid AssertInstances assertInstances);
 
     /**
     * 更新用户
-    * @param assertInstance
+    * @param assertInstances
     */
-    void updateAssertInstance(@NotNull @Valid AssertInstance assertInstance);
+    void updateAssertInstance(@NotNull @Valid AssertInstances assertInstances);
 
     /**
     * 删除用户
@@ -33,35 +33,35 @@ public interface AssertInstanceService {
     */
     void deleteAssertInstance(@NotNull String id);
 
-    AssertInstance findOne(@NotNull String id);
+    AssertInstances findOne(@NotNull String id);
 
-    List<AssertInstance> findList(List<String> idList);
+    List<AssertInstances> findList(List<String> idList);
 
     /**
     * 查找用户
     * @param id
     * @return
     */
-    AssertInstance findAssertInstance(@NotNull String id);
+    AssertInstances findAssertInstance(@NotNull String id);
 
     /**
     * 查找所有
     * @return
     */
-    List<AssertInstance> findAllAssertInstance();
+    List<AssertInstances> findAllAssertInstance();
 
     /**
     * 查询列表
     * @param assertInstanceQuery
     * @return
     */
-    List<AssertInstance> findAssertInstanceList(AssertInstanceQuery assertInstanceQuery);
+    List<AssertInstances> findAssertInstanceList(AssertInstanceQuery assertInstanceQuery);
 
     /**
     * 按分页查询
     * @param assertInstanceQuery
     * @return
     */
-    Pagination<AssertInstance> findAssertInstancePage(AssertInstanceQuery assertInstanceQuery);
+    Pagination<AssertInstances> findAssertInstancePage(AssertInstanceQuery assertInstanceQuery);
 
 }

@@ -159,14 +159,14 @@ public class FunctionImport {
         HttpApi httpApi = new HttpApi();
         httpApi.setId(hVo.getMethodId());
 
-        RequestHeader requestHeader = new RequestHeader();
+        RequestHeaders requestHeaders = new RequestHeaders();
 
-        requestHeader.setHttp(httpApi);
-        requestHeader.setHeaderName(hVo.getName());
-        requestHeader.setValue(hVo.getValue());
-        requestHeader.setDesc(hVo.getDesc());
+        requestHeaders.setHttp(httpApi);
+        requestHeaders.setHeaderName(hVo.getName());
+        requestHeaders.setValue(hVo.getValue());
+        requestHeaders.setDesc(hVo.getDesc());
 
-        requestHeaderService.createRequestHeader(requestHeader);
+        requestHeaderService.createRequestHeader(requestHeaders);
     }
 
     /**
@@ -275,14 +275,14 @@ public class FunctionImport {
         HttpApi rawMethod = new HttpApi();
         rawMethod.setId(methodId);
 
-        RawParam rawParam = new RawParam();
+        RawParams rawParams = new RawParams();
 
-        rawParam.setRaw(rawData);
-        rawParam.setType(rawType);
-        rawParam.setId(methodId);
-        rawParam.setHttp(rawMethod);
+        rawParams.setRaw(rawData);
+        rawParams.setType(rawType);
+        rawParams.setId(methodId);
+        rawParams.setHttp(rawMethod);
 
-        rawParamService.createRawParam(rawParam);
+        rawParamService.createRawParam(rawParams);
     }
 
     /**
@@ -307,17 +307,17 @@ public class FunctionImport {
         HttpApi httpApi = new HttpApi();
         httpApi.setId(jRVo.getMethodId());
 
-        JsonResponse jsonResponse = new JsonResponse();
+        JsonResponses jsonResponses = new JsonResponses();
 
-        jsonResponse.setHttp(httpApi);
-        jsonResponse.setParent(jRVo.getParentId());
-        jsonResponse.setPropertyName(jRVo.getName());
-        jsonResponse.setValue(jRVo.getValue());
-        jsonResponse.setDataType(jRVo.getDataType());
-        jsonResponse.setRequired(jRVo.getRequired());
-        jsonResponse.setDesc(jRVo.getDesc());
+        jsonResponses.setHttp(httpApi);
+        jsonResponses.setParent(jRVo.getParentId());
+        jsonResponses.setPropertyName(jRVo.getName());
+        jsonResponses.setValue(jRVo.getValue());
+        jsonResponses.setDataType(jRVo.getDataType());
+        jsonResponses.setRequired(jRVo.getRequired());
+        jsonResponses.setDesc(jRVo.getDesc());
 
-        String parentid = jsonResponseService.createJsonResponse(jsonResponse);
+        String parentid = jsonResponseService.createJsonResponse(jsonResponses);
         return parentid;
     }
 

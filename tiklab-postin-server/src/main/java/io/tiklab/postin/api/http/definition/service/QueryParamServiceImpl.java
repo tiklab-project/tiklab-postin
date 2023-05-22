@@ -4,7 +4,6 @@ import io.tiklab.dal.jpa.criterial.condition.DeleteCondition;
 import io.tiklab.dal.jpa.criterial.conditionbuilder.DeleteBuilders;
 import io.tiklab.postin.api.http.definition.dao.QueryParamDao;
 import io.tiklab.postin.api.http.definition.entity.QueryParamEntity;
-import io.tiklab.postin.api.http.definition.entity.RequestHeaderEntity;
 import io.tiklab.postin.api.http.definition.model.QueryParam;
 import io.tiklab.postin.api.http.definition.model.QueryParamQuery;
 

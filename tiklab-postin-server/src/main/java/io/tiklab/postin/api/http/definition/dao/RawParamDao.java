@@ -1,7 +1,7 @@
 package io.tiklab.postin.api.http.definition.dao;
 
 import io.tiklab.core.page.Pagination;
-import io.tiklab.postin.api.http.definition.entity.RawParamEntity;
+import io.tiklab.postin.api.http.definition.entity.RawParamsEntity;
 import io.tiklab.postin.api.http.definition.model.RawParamQuery;
 import io.tiklab.dal.jpa.JpaTemplate;
 import io.tiklab.dal.jpa.criterial.condition.DeleteCondition;
@@ -29,19 +29,19 @@ public class RawParamDao{
 
     /**
      * 创建请求中raw
-     * @param rawParamEntity
+     * @param rawParamsEntity
      * @return
      */
-    public String createRawParam(RawParamEntity rawParamEntity) {
-        return jpaTemplate.save(rawParamEntity,String.class);
+    public String createRawParam(RawParamsEntity rawParamsEntity) {
+        return jpaTemplate.save(rawParamsEntity,String.class);
     }
 
     /**
      * 更新请求中raw
-     * @param rawParamEntity
+     * @param rawParamsEntity
      */
-    public void updateRawParam(RawParamEntity rawParamEntity){
-        jpaTemplate.update(rawParamEntity);
+    public void updateRawParam(RawParamsEntity rawParamsEntity){
+        jpaTemplate.update(rawParamsEntity);
     }
 
     /**
@@ -49,7 +49,7 @@ public class RawParamDao{
      * @param id
      */
     public void deleteRawParam(String id){
-        jpaTemplate.delete(RawParamEntity.class,id);
+        jpaTemplate.delete(RawParamsEntity.class,id);
     }
 
     /**
@@ -65,16 +65,16 @@ public class RawParamDao{
      * @param id
      * @return
      */
-    public RawParamEntity findRawParam(String id){
-        return jpaTemplate.findOne(RawParamEntity.class,id);
+    public RawParamsEntity findRawParam(String id){
+        return jpaTemplate.findOne(RawParamsEntity.class,id);
     }
 
     /**
     * 查找所有请求中raw
     * @return
     */
-    public List<RawParamEntity> findAllRawParam() {
-        return jpaTemplate.findAll(RawParamEntity.class);
+    public List<RawParamsEntity> findAllRawParam() {
+        return jpaTemplate.findAll(RawParamsEntity.class);
     }
 
     /**
@@ -82,12 +82,12 @@ public class RawParamDao{
      * @param rawParamQuery
      * @return
      */
-    public List<RawParamEntity> findRawParamList(RawParamQuery rawParamQuery) {
-        QueryCondition queryCondition = QueryBuilders.createQuery(RawParamEntity.class)
+    public List<RawParamsEntity> findRawParamList(RawParamQuery rawParamQuery) {
+        QueryCondition queryCondition = QueryBuilders.createQuery(RawParamsEntity.class)
                 .eq("httpId", rawParamQuery.getHttpId())
                 .orders(rawParamQuery.getOrderParams())
                 .get();
-        return jpaTemplate.findList(queryCondition, RawParamEntity.class);
+        return jpaTemplate.findList(queryCondition, RawParamsEntity.class);
     }
 
     /**
@@ -95,13 +95,13 @@ public class RawParamDao{
      * @param rawParamQuery
      * @return
      */
-    public Pagination<RawParamEntity> findRawParamPage(RawParamQuery rawParamQuery) {
-        QueryCondition queryCondition = QueryBuilders.createQuery(RawParamEntity.class)
+    public Pagination<RawParamsEntity> findRawParamPage(RawParamQuery rawParamQuery) {
+        QueryCondition queryCondition = QueryBuilders.createQuery(RawParamsEntity.class)
                 .eq("httpId", rawParamQuery.getHttpId())
                 .pagination(rawParamQuery.getPageParam())
                 .orders(rawParamQuery.getOrderParams())
                 .get();
-        return jpaTemplate.findPage(queryCondition, RawParamEntity.class);
+        return jpaTemplate.findPage(queryCondition, RawParamsEntity.class);
     }
 
 

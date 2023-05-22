@@ -41,7 +41,7 @@ public class HttpApi extends BaseModel {
     private String methodType;
 
     @ApiProperty(name = "headerList",desc="请求头列表")
-    private List<RequestHeader> headerList;
+    private List<RequestHeaders> headerList;
 
     @ApiProperty(name = "queryList",desc="查询参数列表")
     private List<QueryParam> queryList;
@@ -59,10 +59,10 @@ public class HttpApi extends BaseModel {
     private List<JsonParam> jsonList;
 
     @ApiProperty(name = "raw",desc="raw")
-    private RawParam rawParam;
+    private RawParams rawParams;
 
     @ApiProperty(name = "responseHeaderList",desc="响应头列表")
-    private List<ResponseHeader> responseHeaderList;
+    private List<ResponseHeaders> responseHeadersList;
 
     @ApiProperty(name = "responseResultList",desc="响应结果列表")
     private List<ApiResponse> responseResultList;
@@ -101,11 +101,11 @@ public class HttpApi extends BaseModel {
         this.apix = apix;
     }
 
-    public List<RequestHeader> getHeaderList() {
+    public List<RequestHeaders> getHeaderList() {
         return headerList;
     }
 
-    public void setHeaderList(List<RequestHeader> headerList) {
+    public void setHeaderList(List<RequestHeaders> headerList) {
         this.headerList = headerList;
     }
 
@@ -149,20 +149,20 @@ public class HttpApi extends BaseModel {
         this.jsonList = jsonList;
     }
 
-    public RawParam getRawParam() {
-        return rawParam;
+    public RawParams getRawParam() {
+        return rawParams;
     }
 
-    public void setRawParam(RawParam rawParam) {
-        this.rawParam = rawParam;
+    public void setRawParam(RawParams rawParams) {
+        this.rawParams = rawParams;
     }
 
-    public List<ResponseHeader> getResponseHeaderList() {
-        return responseHeaderList;
+    public List<ResponseHeaders> getResponseHeaderList() {
+        return responseHeadersList;
     }
 
-    public void setResponseHeaderList(List<ResponseHeader> responseHeaderList) {
-        this.responseHeaderList = responseHeaderList;
+    public void setResponseHeaderList(List<ResponseHeaders> responseHeadersList) {
+        this.responseHeadersList = responseHeadersList;
     }
 
     public List<ApiResponse> getResponseResultList() {

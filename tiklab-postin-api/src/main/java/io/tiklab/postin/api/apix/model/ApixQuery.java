@@ -6,10 +6,11 @@ import io.tiklab.core.order.Order;
 import io.tiklab.core.order.OrderBuilders;
 import io.tiklab.core.page.Page;
 
+import java.io.Serializable;
 import java.util.List;
 
 @ApiModel
-public class ApixQuery {
+public class ApixQuery implements Serializable {
     @ApiProperty(name = "name",desc = "模糊查询")
     private String name;
 

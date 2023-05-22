@@ -14,7 +14,7 @@ public class SaveToApi extends BaseModel {
     private HttpApi httpApi;
 
     @ApiProperty(name = "headerList",desc="请求头列表")
-    private List<RequestHeader> headerList;
+    private List<RequestHeaders> headerList;
 
     @ApiProperty(name = "queryList",desc="查询参数列表")
     private List<QueryParam> queryList;
@@ -29,7 +29,7 @@ public class SaveToApi extends BaseModel {
     private List<FormUrlencoded> formUrlList;
 
     @ApiProperty(name = "raw",desc="raw")
-    private RawParam raw;
+    private RawParams raw;
 
 
 
@@ -42,11 +42,11 @@ public class SaveToApi extends BaseModel {
     }
 
 
-    public List<RequestHeader> getHeaderList() {
+    public List<RequestHeaders> getHeaderList() {
         return headerList;
     }
 
-    public void setHeaderList(List<RequestHeader> headerList) {
+    public void setHeaderList(List<RequestHeaders> headerList) {
         this.headerList = headerList;
     }
 
@@ -82,11 +82,11 @@ public class SaveToApi extends BaseModel {
         this.formUrlList = formUrlList;
     }
 
-    public RawParam getRaw() {
+    public RawParams getRaw() {
         return raw;
     }
 
-    public void setRaw(RawParam raw) {
+    public void setRaw(RawParams raw) {
         this.raw = raw;
     }
 }

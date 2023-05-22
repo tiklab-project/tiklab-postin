@@ -52,13 +52,13 @@ public class HttpTestcase extends BaseModel {
     private List<FormUrlencodedCase> urlencodedList;
 
     @ApiProperty(name="jsonList",desc="用例-请求体json参数")
-    private List<JsonParamCase> jsonList;
+    private List<JsonParamCases> jsonList;
 
     @ApiProperty(name="rawParamCase",desc="用例-请求体raw参数")
     private RawParamCase rawParamCase;
 
     @ApiProperty(name="assertList",desc="用例-断言列表")
-    private List<AssertCase> assertList;
+    private List<AssertCases> assertList;
 
     public String getId() {
         return id;
@@ -133,11 +133,11 @@ public class HttpTestcase extends BaseModel {
         this.urlencodedList = urlencodedList;
     }
 
-    public List<JsonParamCase> getJsonList() {
+    public List<JsonParamCases> getJsonList() {
         return jsonList;
     }
 
-    public void setJsonList(List<JsonParamCase> jsonList) {
+    public void setJsonList(List<JsonParamCases> jsonList) {
         this.jsonList = jsonList;
     }
 
@@ -149,11 +149,11 @@ public class HttpTestcase extends BaseModel {
         this.rawParamCase = rawParamCase;
     }
 
-    public List<AssertCase> getAssertList() {
+    public List<AssertCases> getAssertList() {
         return assertList;
     }
 
-    public void setAssertList(List<AssertCase> assertList) {
+    public void setAssertList(List<AssertCases> assertList) {
         this.assertList = assertList;
     }
 }
