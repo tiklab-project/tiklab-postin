@@ -1,7 +1,7 @@
 package io.tiklab.postin.api.http.test.cases.service;
 
 import io.tiklab.postin.api.http.definition.model.ApiRequest;
-import io.tiklab.postin.api.http.definition.model.RawParams;
+import io.tiklab.postin.api.http.definition.model.RawParam;
 import io.tiklab.postin.api.http.definition.service.ApiRequestService;
 import io.tiklab.postin.api.http.definition.service.RawParamService;
 import io.tiklab.postin.api.http.test.cases.dao.HttpTestcaseDao;
@@ -94,8 +94,8 @@ public class HttpTestcaseServiceImpl implements HttpTestcaseService {
             rawParamCase.setHttpCase(httpTestcase);
 
             //用例请求体中的raw里的类型根据接口定义里的设置
-            RawParams rawParams = rawParamService.findRawParam(httpTestcase.getHttp().getId());
-            rawParamCase.setType(rawParams.getType());
+            RawParam rawParam = rawParamService.findRawParam(httpTestcase.getHttp().getId());
+            rawParamCase.setType(rawParam.getType());
 
             rawParamCaseService.createRawParamCase(rawParamCase);
         }

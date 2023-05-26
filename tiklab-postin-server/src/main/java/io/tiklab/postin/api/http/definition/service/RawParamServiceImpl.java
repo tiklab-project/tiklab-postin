@@ -2,7 +2,7 @@ package io.tiklab.postin.api.http.definition.service;
 
 import io.tiklab.postin.api.http.definition.dao.RawParamDao;
 import io.tiklab.postin.api.http.definition.entity.RawParamsEntity;
-import io.tiklab.postin.api.http.definition.model.RawParams;
+import io.tiklab.postin.api.http.definition.model.RawParam;
 import io.tiklab.postin.api.http.definition.model.RawParamQuery;
 
 import io.tiklab.core.page.Pagination;
@@ -31,15 +31,15 @@ public class RawParamServiceImpl implements RawParamService {
     JoinTemplate joinTemplate;
 
     @Override
-    public String createRawParam(@NotNull @Valid RawParams rawParams) {
-        RawParamsEntity rawParamsEntity = BeanMapper.map(rawParams, RawParamsEntity.class);
+    public String createRawParam(@NotNull @Valid RawParam rawParam) {
+        RawParamsEntity rawParamsEntity = BeanMapper.map(rawParam, RawParamsEntity.class);
 
         return rawParamDao.createRawParam(rawParamsEntity);
     }
 
     @Override
-    public void updateRawParam(@NotNull @Valid RawParams rawParams) {
-        RawParamsEntity rawParamsEntity = BeanMapper.map(rawParams, RawParamsEntity.class);
+    public void updateRawParam(@NotNull @Valid RawParam rawParam) {
+        RawParamsEntity rawParamsEntity = BeanMapper.map(rawParam, RawParamsEntity.class);
 
         rawParamDao.updateRawParam(rawParamsEntity);
     }
@@ -50,48 +50,48 @@ public class RawParamServiceImpl implements RawParamService {
     }
 
     @Override
-    public RawParams findRawParam(@NotNull String id) {
+    public RawParam findRawParam(@NotNull String id) {
         RawParamsEntity rawParamsEntity = rawParamDao.findRawParam(id);
 
-        RawParams rawParams = BeanMapper.map(rawParamsEntity, RawParams.class);
+        RawParam rawParam = BeanMapper.map(rawParamsEntity, RawParam.class);
 
-        joinTemplate.joinQuery(rawParams);
+        joinTemplate.joinQuery(rawParam);
 
-        return rawParams;
+        return rawParam;
     }
 
     @Override
-    public List<RawParams> findAllRawParam() {
+    public List<RawParam> findAllRawParam() {
         List<RawParamsEntity> rawParamsEntityList =  rawParamDao.findAllRawParam();
 
-        List<RawParams> rawParamsList =  BeanMapper.mapList(rawParamsEntityList, RawParams.class);
+        List<RawParam> rawParamList =  BeanMapper.mapList(rawParamsEntityList, RawParam.class);
 
-        joinTemplate.joinQuery(rawParamsList);
+        joinTemplate.joinQuery(rawParamList);
 
-        return rawParamsList;
+        return rawParamList;
     }
 
     @Override
-    public List<RawParams> findRawParamList(RawParamQuery rawParamQuery) {
+    public List<RawParam> findRawParamList(RawParamQuery rawParamQuery) {
         List<RawParamsEntity> rawParamsEntityList = rawParamDao.findRawParamList(rawParamQuery);
 
-        List<RawParams> rawParamsList = BeanMapper.mapList(rawParamsEntityList, RawParams.class);
+        List<RawParam> rawParamList = BeanMapper.mapList(rawParamsEntityList, RawParam.class);
 
-        joinTemplate.joinQuery(rawParamsList);
+        joinTemplate.joinQuery(rawParamList);
 
-        return rawParamsList;
+        return rawParamList;
     }
 
     @Override
-    public Pagination<RawParams> findRawParamPage(RawParamQuery rawParamQuery) {
+    public Pagination<RawParam> findRawParamPage(RawParamQuery rawParamQuery) {
 
         Pagination<RawParamsEntity>  pagination = rawParamDao.findRawParamPage(rawParamQuery);
 
-        List<RawParams> rawParamsList = BeanMapper.mapList(pagination.getDataList(), RawParams.class);
+        List<RawParam> rawParamList = BeanMapper.mapList(pagination.getDataList(), RawParam.class);
 
-        joinTemplate.joinQuery(rawParamsList);
+        joinTemplate.joinQuery(rawParamList);
 
-        return PaginationBuilder.build(pagination, rawParamsList);
+        return PaginationBuilder.build(pagination, rawParamList);
     }
 
 }

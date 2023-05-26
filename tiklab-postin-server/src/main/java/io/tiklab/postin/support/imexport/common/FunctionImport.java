@@ -275,14 +275,14 @@ public class FunctionImport {
         HttpApi rawMethod = new HttpApi();
         rawMethod.setId(methodId);
 
-        RawParams rawParams = new RawParams();
+        RawParam rawParam = new RawParam();
 
-        rawParams.setRaw(rawData);
-        rawParams.setType(rawType);
-        rawParams.setId(methodId);
-        rawParams.setHttp(rawMethod);
+        rawParam.setRaw(rawData);
+        rawParam.setType(rawType);
+        rawParam.setId(methodId);
+        rawParam.setHttp(rawMethod);
 
-        rawParamService.createRawParam(rawParams);
+        rawParamService.createRawParam(rawParam);
     }
 
     /**

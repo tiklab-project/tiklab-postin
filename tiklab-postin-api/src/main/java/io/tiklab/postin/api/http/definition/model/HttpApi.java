@@ -59,7 +59,7 @@ public class HttpApi extends BaseModel {
     private List<JsonParam> jsonList;
 
     @ApiProperty(name = "raw",desc="raw")
-    private RawParams rawParams;
+    private RawParam rawParam;
 
     @ApiProperty(name = "responseHeaderList",desc="响应头列表")
     private List<ResponseHeaders> responseHeadersList;
@@ -149,12 +149,12 @@ public class HttpApi extends BaseModel {
         this.jsonList = jsonList;
     }
 
-    public RawParams getRawParam() {
-        return rawParams;
+    public RawParam getRawParam() {
+        return rawParam;
     }
 
-    public void setRawParam(RawParams rawParams) {
-        this.rawParams = rawParams;
+    public void setRawParam(RawParam rawParam) {
+        this.rawParam = rawParam;
     }
 
     public List<ResponseHeaders> getResponseHeaderList() {

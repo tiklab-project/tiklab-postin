@@ -1,6 +1,6 @@
 package io.tiklab.postin.api.http.service;
 
-import io.tiklab.postin.api.http.definition.model.RawParams;
+import io.tiklab.postin.api.http.definition.model.RawParam;
 import io.tiklab.postin.api.http.definition.service.RawParamService;
 import io.tiklab.postin.client.mock.JMockit;
 import io.tiklab.postin.config.TestConfig;
@@ -25,9 +25,9 @@ import static org.junit.Assert.assertNotNull;
 @Transactional
 @Rollback(false)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class RawParamsServiceImplTest {
+public class RawParamServiceImplTest {
 
-    private static Logger logger = LoggerFactory.getLogger(RawParamsServiceImplTest.class);
+    private static Logger logger = LoggerFactory.getLogger(RawParamServiceImplTest.class);
 
     @Autowired
     RawParamService rawParamService;
@@ -36,33 +36,33 @@ public class RawParamsServiceImplTest {
 
     @Test
     public void test01ForSaveRawParam() {
-        RawParams rawParams = JMockit.mock(RawParams.class);
+        RawParam rawParam = JMockit.mock(RawParam.class);
 
-        id = rawParamService.createRawParam(rawParams);
+        id = rawParamService.createRawParam(rawParam);
 
         assertNotNull(id);
     }
 
     @Test
     public void test02ForUpdateRawParam(){
-        RawParams rawParams = JMockit.mock(RawParams.class);
-        rawParams.setId(id);
+        RawParam rawParam = JMockit.mock(RawParam.class);
+        rawParam.setId(id);
 
-        rawParamService.updateRawParam(rawParams);
+        rawParamService.updateRawParam(rawParam);
     }
 
     @Test
     public void test03ForFindRawParam() {
-        RawParams rawParams = rawParamService.findRawParam(id);
+        RawParam rawParam = rawParamService.findRawParam(id);
 
-        assertNotNull(rawParams);
+        assertNotNull(rawParam);
     }
 
     @Test
     public void test04ForFindAllRawParam() {
-        List<RawParams> rawParamsList = rawParamService.findAllRawParam();
+        List<RawParam> rawParamList = rawParamService.findAllRawParam();
 
-        assertNotNull(rawParamsList);
+        assertNotNull(rawParamList);
     }
 
     @Test

@@ -265,9 +265,9 @@ public class HttpApiServiceImpl implements HttpApiService {
 //            }
             else if(bodyType.equals("raw")){
                 //获取raw数据
-                RawParams rawParams = rawParamService.findRawParam(httpId);
-                if(!ObjectUtils.isEmpty(rawParams)){
-                    httpApi.setRawParam(rawParams);
+                RawParam rawParam = rawParamService.findRawParam(httpId);
+                if(!ObjectUtils.isEmpty(rawParam)){
+                    httpApi.setRawParam(rawParam);
                 }
             }
         }

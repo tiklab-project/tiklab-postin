@@ -36,9 +36,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Transactional
 @Rollback(false)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class RawParamsCaseControllerTest {
+public class RawParamCaseControllerTest {
 
-    private static Logger logger = LoggerFactory.getLogger(RawParamsCaseControllerTest.class);
+    private static Logger logger = LoggerFactory.getLogger(RawParamCaseControllerTest.class);
 
     static String id;
 

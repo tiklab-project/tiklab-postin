@@ -29,7 +29,7 @@ public class SaveToApi extends BaseModel {
     private List<FormUrlencoded> formUrlList;
 
     @ApiProperty(name = "raw",desc="raw")
-    private RawParams raw;
+    private RawParam raw;
 
 
 
@@ -82,11 +82,11 @@ public class SaveToApi extends BaseModel {
         this.formUrlList = formUrlList;
     }
 
-    public RawParams getRaw() {
+    public RawParam getRaw() {
         return raw;
     }
 
-    public void setRaw(RawParams raw) {
+    public void setRaw(RawParam raw) {
         this.raw = raw;
     }
 }

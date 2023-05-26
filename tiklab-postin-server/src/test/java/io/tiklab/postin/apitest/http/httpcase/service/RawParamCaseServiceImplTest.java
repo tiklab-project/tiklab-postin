@@ -25,9 +25,9 @@ import static org.junit.Assert.assertNotNull;
 @Transactional
 @Rollback(false)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class RawParamsCaseServiceImplTest {
+public class RawParamCaseServiceImplTest {
 
-    private static Logger logger = LoggerFactory.getLogger(RawParamsCaseServiceImplTest.class);
+    private static Logger logger = LoggerFactory.getLogger(RawParamCaseServiceImplTest.class);
 
     @Autowired
     RawParamCaseService rawParamCaseService;

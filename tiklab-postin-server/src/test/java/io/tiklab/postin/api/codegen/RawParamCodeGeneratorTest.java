@@ -1,6 +1,6 @@
-package io.tiklab.postin.apitest.codegen;
+package io.tiklab.postin.api.codegen;
 
-import io.tiklab.postin.api.http.test.cases.entity.RawParamCaseEntity;
+import io.tiklab.postin.api.http.definition.entity.RawParamsEntity;
 import io.tiklab.codegen.CodeGeneratorTemplate;
 import io.tiklab.codegen.config.CodeGeneratorConfig;
 import io.tiklab.codegen.config.ProjectGeneratorConfig;
@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = ProjectGeneratorConfig.class)
-public class RawParamsCaseCodeGeneratorTest extends CodeGeneratorTemplate {
+public class RawParamCodeGeneratorTest extends CodeGeneratorTemplate {
 
     @Autowired
     ProjectGeneratorConfig projectGeneratorConfig;
@@ -21,9 +21,9 @@ public class RawParamsCaseCodeGeneratorTest extends CodeGeneratorTemplate {
     protected CodeGeneratorConfig getCodeGeneratorConfig() {
         CodeGeneratorConfig config = new CodeGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
-        config.setEntity(RawParamCaseEntity.class);
-        config.setPkg("io.tiklab.postin.apitest");
-        config.setModel("RawParamCase");
+        config.setEntity(RawParamsEntity.class);
+        config.setPkg("io.tiklab.postin.apidef");
+        config.setModel("RawParam");
         return config;
     }
 

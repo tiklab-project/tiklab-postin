@@ -85,7 +85,7 @@ public class SaveToApiServicelmpl implements SaveToApiService {
             }
         }
 
-        RawParams raw = saveToApi.getRaw();
+        RawParam raw = saveToApi.getRaw();
         if(raw!=null){
             raw.setHttp(new HttpApi().setId(httpApiId));
             raw.setId(httpApiId);

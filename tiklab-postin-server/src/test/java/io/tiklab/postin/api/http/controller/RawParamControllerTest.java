@@ -1,6 +1,6 @@
 package io.tiklab.postin.api.http.controller;
 
-import io.tiklab.postin.api.http.definition.model.RawParams;
+import io.tiklab.postin.api.http.definition.model.RawParam;
 import io.tiklab.postin.client.mock.JMockit;
 import io.tiklab.postin.config.TestConfig;
 import io.tiklab.core.Result;
@@ -36,9 +36,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Transactional
 @Rollback(false)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class RawParamsControllerTest {
+public class RawParamControllerTest {
 
-    private static Logger logger = LoggerFactory.getLogger(RawParamsControllerTest.class);
+    private static Logger logger = LoggerFactory.getLogger(RawParamControllerTest.class);
 
     static String id;
 
@@ -54,9 +54,9 @@ public class RawParamsControllerTest {
 
     @Test
     public void test01ForSaveRawParam() {
-        RawParams rawParams = JMockit.mock(RawParams.class);
+        RawParam rawParam = JMockit.mock(RawParam.class);
 
-        MultiValueMap<String, String> multiValueMap = MapUtils.toMultiMap(rawParams);
+        MultiValueMap<String, String> multiValueMap = MapUtils.toMultiMap(rawParam);
 
         try {
             MvcResult mvcResult = mockMvc.perform(
@@ -80,10 +80,10 @@ public class RawParamsControllerTest {
 
     @Test
     public void test02ForUpdateRawParam(){
-        RawParams rawParams = JMockit.mock(RawParams.class);
-        rawParams.setId(id);
+        RawParam rawParam = JMockit.mock(RawParam.class);
+        rawParam.setId(id);
 
-        MultiValueMap<String, String> multiValueMap = MapUtils.toMultiMap(rawParams);
+        MultiValueMap<String, String> multiValueMap = MapUtils.toMultiMap(rawParam);
 
         try {
             MvcResult mvcResult = mockMvc.perform(

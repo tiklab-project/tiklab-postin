@@ -17,7 +17,7 @@ import javax.validation.constraints.NotNull;
 @ApiModel
 @Join
 @Mapper(targetAlias = "RawParamsEntity")
-public class RawParams extends BaseModel {
+public class RawParam extends BaseModel {
 
     @ApiProperty(name="id",desc="唯一标识，非自动生成")
     private java.lang.String id;
