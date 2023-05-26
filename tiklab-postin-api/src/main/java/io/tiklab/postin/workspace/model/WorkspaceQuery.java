@@ -5,11 +5,13 @@ import io.tiklab.postin.annotation.ApiProperty;
 import io.tiklab.core.page.Page;
 import io.tiklab.core.order.Order;
 import io.tiklab.core.order.OrderBuilders;
+import io.tiklab.rpc.annotation.Exporter;
 
+import java.io.Serializable;
 import java.util.List;
 
 @ApiModel
-public class WorkspaceQuery {
+public class WorkspaceQuery implements Serializable {
 
     @ApiProperty(name ="userId",desc = "用户ID，精确匹配")
     private String userId;

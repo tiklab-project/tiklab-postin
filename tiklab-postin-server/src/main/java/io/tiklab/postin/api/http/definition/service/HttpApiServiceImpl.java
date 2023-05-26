@@ -254,14 +254,16 @@ public class HttpApiServiceImpl implements HttpApiService {
                     httpApi.setUrlencodedList(formUrlencodedList);
                 }
 
-            }else if(bodyType.equals("json")){
-                //获取json数据
-                List<JsonParam> jsonParamList = jsonParamService.findJsonParamListTree(new JsonParamQuery().setHttpId(httpId));
-                if(CollectionUtils.isNotEmpty(jsonParamList)){
-                    httpApi.setJsonList(jsonParamList);
-                }
-
-            }else if(bodyType.equals("raw")){
+            }
+//            else if(bodyType.equals("json")){
+//                //获取json数据
+//                List<JsonParam> jsonParamList = jsonParamService.findJsonParamListTree(new JsonParamQuery().setHttpId(httpId));
+//                if(CollectionUtils.isNotEmpty(jsonParamList)){
+//                    httpApi.setJsonList(jsonParamList);
+//                }
+//
+//            }
+            else if(bodyType.equals("raw")){
                 //获取raw数据
                 RawParams rawParams = rawParamService.findRawParam(httpId);
                 if(!ObjectUtils.isEmpty(rawParams)){

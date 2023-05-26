@@ -62,7 +62,7 @@ dss:
 
 
 homes:
-  address: http://192.168.10.19:8080
+  address: http://192.168.10.14:8080
 
 #project:
 #  address: http://127.0.0.1:8081
@@ -81,7 +81,7 @@ file:
   path: http://file.dev.tiklab.net
 
 base:
-  url: http://192.168.10.18:3000
+  url: http://192.168.10.22:3000
 
 eas:
   embbed:
