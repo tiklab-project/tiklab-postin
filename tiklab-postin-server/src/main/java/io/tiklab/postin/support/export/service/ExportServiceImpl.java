@@ -1,7 +1,10 @@
 package io.tiklab.postin.support.export.service;
 
+
+
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -19,10 +22,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
-import java.util.HashMap;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
 
 
 /**
@@ -112,18 +113,18 @@ public class ExportServiceImpl implements ExportService {
      * @param workspaceId
      * @return
      */
+    @Override
     public String allJson(String workspaceId){
 
         JSONObject allJson = new JSONObject();
-
 
         allJson.put("projectInfo",projectJson(workspaceId));
         JSONArray list = apiGroupList(workspaceId);
         allJson.put("apiGroupList",list);
 
-
         return allJson.toString();
     }
+
 
     /**
      * 获取空间项目的json
@@ -374,7 +375,18 @@ public class ExportServiceImpl implements ExportService {
     /**
      * response
      */
-    private JSONArray responseJson(String httpId){
+
+    private JSONObject responseJson(String httpId){
+        JSONObject json = new JSONObject();
+
+        json.put("header",responseHeaderList(httpId));
+        json.put("result",responseResultList(httpId));
+
+        return json;
+    }
+
+
+    private JSONArray responseResultList(String httpId){
 
         List<ApiResponse> apiResponseList = apiResponseService.findApiResponseList(new ApiResponseQuery().setHttpId(httpId));
 
@@ -392,6 +404,31 @@ public class ExportServiceImpl implements ExportService {
                 }else {
                     json.put("rawText",apiResponse.getRawText());
                 }
+
+                array.add(json);
+            }
+        }
+
+        return array;
+    }
+
+    /**
+     * 响应头
+     */
+    private JSONArray responseHeaderList(String httpId){
+        List<ResponseHeaders> responseHeaderList = responseHeaderService.findResponseHeaderList(new ResponseHeaderQuery().setHttpId(httpId));
+
+        JSONArray array = new JSONArray();
+        if(responseHeaderList!=null&&responseHeaderList.size()>0){
+            for (ResponseHeaders responseHeaders:responseHeaderList){
+                JSONObject json = new JSONObject();
+
+                json.put("id",responseHeaders.getId());
+                json.put("name",responseHeaders.getHeaderName());
+                json.put("value",responseHeaders.getValue());
+                json.put("required",responseHeaders.getRequired());
+                json.put("desc",responseHeaders.getDesc());
+                json.put("sort",responseHeaders.getSort());
 
                 array.add(json);
             }

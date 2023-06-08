@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.constraints.NotNull;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -49,6 +52,17 @@ public class ExportController {
 
     }
 
-
+    @RequestMapping(path = "/exportPdf",method = RequestMethod.POST)
+    public void exportPdf(HttpServletRequest request, HttpServletResponse response, @NotNull String workspaceId) throws IOException {
+        byte[] bytes = exportService.exportPdf(workspaceId);
+        // 设置响应头信息
+        response.setContentType(MediaType.APPLICATION_PDF_VALUE);
+        response.setHeader("Content-Disposition", "attachment; filename=output.pdf");
+        response.setContentLength(bytes.length);
+        // 将字节流写入响应流
+        ServletOutputStream outputStream = response.getOutputStream();
+        outputStream.write(bytes);
+        outputStream.flush();
+    }
 
 }
