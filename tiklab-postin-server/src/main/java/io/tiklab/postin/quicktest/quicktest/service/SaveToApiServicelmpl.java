@@ -41,11 +41,11 @@ public class SaveToApiServicelmpl implements SaveToApiService {
         String httpApiId = httpApiService.createHttpApi(saveToApi.getHttpApi());
 
         //创建请求头
-        List<RequestHeaders> headerList = saveToApi.getHeaderList();
+        List<RequestHeader> headerList = saveToApi.getHeaderList();
         if(headerList!=null){
-           for(RequestHeaders requestHeaders : headerList){
-               requestHeaders.setHttp(new HttpApi().setId(httpApiId));
-               requestHeaderService.createRequestHeader(requestHeaders);
+           for(RequestHeader requestHeader : headerList){
+               requestHeader.setHttp(new HttpApi().setId(httpApiId));
+               requestHeaderService.createRequestHeader(requestHeader);
            }
         }
 

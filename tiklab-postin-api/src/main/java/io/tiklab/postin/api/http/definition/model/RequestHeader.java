@@ -12,26 +12,28 @@ import io.tiklab.join.annotation.JoinQuery;
 import javax.validation.constraints.NotNull;
 
 /**
- * 响应头模型
+ * 请求头模型
  */
 @ApiModel
 @Join
-@Mapper(targetAlias = "ResponseHeadersEntity")
-public class ResponseHeaders extends BaseModel {
+@Mapper(targetAlias = "RequestHeadersEntity")
+public class RequestHeader extends BaseModel {
 
     @ApiProperty(name="id",desc="唯一标识")
     private java.lang.String id;
 
-    @NotNull
-    @ApiProperty(name="http",desc="所属接口",required = true)
+    @ApiProperty(name="http",desc="所属接口")
     @Mappings({
             @Mapping(source = "http.id",target = "httpId")
     })
     @JoinQuery(key = "id")
     private HttpApi http;
 
+    @ApiProperty(name="workspaceId",desc="空间id，用于全局")
+    private java.lang.String workspaceId;
+
     @NotNull
-    @ApiProperty(name="headerName",desc="响应头名称",eg="@text32",required = true)
+    @ApiProperty(name="headerName",desc="请求头名称",eg="@text32",required = true)
     private java.lang.String headerName;
 
     @NotNull
@@ -61,6 +63,14 @@ public class ResponseHeaders extends BaseModel {
 
     public void setHttp(HttpApi http) {
         this.http = http;
+    }
+
+    public String getWorkspaceId() {
+        return workspaceId;
+    }
+
+    public void setWorkspaceId(String workspaceId) {
+        this.workspaceId = workspaceId;
     }
 
     public String getHeaderName() {

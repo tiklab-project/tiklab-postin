@@ -4,7 +4,7 @@ import io.tiklab.core.utils.MapUtils;
 import io.tiklab.core.Result;
 import io.tiklab.postin.client.mock.JMockit;
 import io.tiklab.postin.config.TestConfig;
-import io.tiklab.postin.api.http.mock.model.RequestHeaderMock;
+import io.tiklab.postin.api.http.mock.model.ResponseHeaderMock;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,9 +36,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Transactional
 @Rollback(false)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class RequestHeadersMockControllerTest {
+public class ResponseHeaderMockControllerTest {
 
-    private static Logger logger = LoggerFactory.getLogger(RequestHeadersMockControllerTest.class);
+    private static Logger logger = LoggerFactory.getLogger(ResponseHeaderMockControllerTest.class);
 
     static String id;
 
@@ -53,14 +53,14 @@ public class RequestHeadersMockControllerTest {
     }
 
     @Test
-    public void test01ForSaveRequestHeaderMock() {
-        RequestHeaderMock requestHeaderMock = JMockit.mock(RequestHeaderMock.class);
+    public void test01ForSaveResponseHeaderMock() {
+        ResponseHeaderMock responseHeaderMock = JMockit.mock(ResponseHeaderMock.class);
 
-        MultiValueMap<String, String> multiValueMap = MapUtils.toMultiMap(requestHeaderMock);
+        MultiValueMap<String, String> multiValueMap = MapUtils.toMultiMap(responseHeaderMock);
 
         try {
             MvcResult mvcResult = mockMvc.perform(
-                                post("/requestHeaderMock/createRequestHeaderMock")
+                                post("/responseHeaderMock/createResponseHeaderMock")
                                 .params(multiValueMap)
                                 .accept(MediaType.APPLICATION_JSON)
                                 .contentType(MediaType.APPLICATION_JSON)
@@ -79,15 +79,15 @@ public class RequestHeadersMockControllerTest {
     }
 
     @Test
-    public void test02ForUpdateRequestHeaderMock(){
-        RequestHeaderMock requestHeaderMock = JMockit.mock(RequestHeaderMock.class);
-        requestHeaderMock.setId(id);
+    public void test02ForUpdateResponseHeaderMock(){
+        ResponseHeaderMock responseHeaderMock = JMockit.mock(ResponseHeaderMock.class);
+        responseHeaderMock.setId(id);
 
-        MultiValueMap<String, String> multiValueMap = MapUtils.toMultiMap(requestHeaderMock);
+        MultiValueMap<String, String> multiValueMap = MapUtils.toMultiMap(responseHeaderMock);
 
         try {
             MvcResult mvcResult = mockMvc.perform(
-                                post("/requestHeaderMock/updateRequestHeaderMock")
+                                post("/responseHeaderMock/updateResponseHeaderMock")
                                 .params(multiValueMap)
                                 .accept(MediaType.APPLICATION_JSON)
                                 .contentType(MediaType.APPLICATION_JSON)
@@ -105,10 +105,10 @@ public class RequestHeadersMockControllerTest {
     }
 
     @Test
-    public void test03ForFindRequestHeaderMock() {
+    public void test03ForFindResponseHeaderMock() {
         try {
             MvcResult mvcResult = mockMvc.perform(
-                    post("/requestHeaderMock/findRequestHeaderMock")
+                    post("/responseHeaderMock/findResponseHeaderMock")
                             .param("id",id)
                             .accept(MediaType.APPLICATION_JSON)
                             .contentType(MediaType.APPLICATION_JSON)
@@ -126,10 +126,10 @@ public class RequestHeadersMockControllerTest {
     }
 
     @Test
-    public void test04ForFindAllRequestHeaderMock() {
+    public void test04ForFindAllResponseHeaderMock() {
         try {
             MvcResult mvcResult = mockMvc.perform(
-                    post("/requestHeaderMock/findAllRequestHeaderMock")
+                    post("/responseHeaderMock/findAllResponseHeaderMock")
                             .accept(MediaType.APPLICATION_JSON)
                             .contentType(MediaType.APPLICATION_JSON)
             )
@@ -146,10 +146,10 @@ public class RequestHeadersMockControllerTest {
     }
 
     @Test
-    public void test05ForDeleteRequestHeaderMock(){
+    public void test05ForDeleteResponseHeaderMock(){
         try {
             MvcResult mvcResult = mockMvc.perform(
-                    post("/requestHeaderMock/deleteRequestHeaderMock")
+                    post("/responseHeaderMock/deleteResponseHeaderMock")
                             .param("id",id)
                             .accept(MediaType.APPLICATION_JSON)
                             .contentType(MediaType.APPLICATION_JSON)

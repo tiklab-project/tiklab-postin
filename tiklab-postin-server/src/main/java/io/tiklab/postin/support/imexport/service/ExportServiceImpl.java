@@ -1,4 +1,4 @@
-package io.tiklab.postin.support.export.service;
+package io.tiklab.postin.support.imexport.service;
 
 
 
@@ -80,10 +80,10 @@ public class ExportServiceImpl implements ExportService {
 
         try {
             // 加载模板
-            InputStream ips = this.getClass().getResourceAsStream("/templates/welcome.ftl");
+            InputStream ips = this.getClass().getResourceAsStream("/templates/exportHtml.ftl");
             BufferedReader tplReader = new BufferedReader(new InputStreamReader(ips));
 
-            template = new Template("welcome.ftl", tplReader, configuration);
+            template = new Template("exportHtml.ftl", tplReader, configuration);
         } catch (IOException e) {
             throw new ApplicationException("Error while loading template", e);
         }
@@ -246,7 +246,7 @@ public class ExportServiceImpl implements ExportService {
         JSONArray headerArr = new JSONArray();
 
         if(httpApi.getHeaderList()!=null&&httpApi.getHeaderList().size()>0){
-            for(RequestHeaders requestHeader : httpApi.getHeaderList()){
+            for(RequestHeader requestHeader : httpApi.getHeaderList()){
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put("name",requestHeader.getHeaderName());
                 jsonObject.put("value",requestHeader.getValue());
@@ -416,19 +416,19 @@ public class ExportServiceImpl implements ExportService {
      * 响应头
      */
     private JSONArray responseHeaderList(String httpId){
-        List<ResponseHeaders> responseHeaderList = responseHeaderService.findResponseHeaderList(new ResponseHeaderQuery().setHttpId(httpId));
+        List<ResponseHeader> responseHeaderList = responseHeaderService.findResponseHeaderList(new ResponseHeaderQuery().setHttpId(httpId));
 
         JSONArray array = new JSONArray();
         if(responseHeaderList!=null&&responseHeaderList.size()>0){
-            for (ResponseHeaders responseHeaders:responseHeaderList){
+            for (ResponseHeader responseHeader :responseHeaderList){
                 JSONObject json = new JSONObject();
 
-                json.put("id",responseHeaders.getId());
-                json.put("name",responseHeaders.getHeaderName());
-                json.put("value",responseHeaders.getValue());
-                json.put("required",responseHeaders.getRequired());
-                json.put("desc",responseHeaders.getDesc());
-                json.put("sort",responseHeaders.getSort());
+                json.put("id", responseHeader.getId());
+                json.put("name", responseHeader.getHeaderName());
+                json.put("value", responseHeader.getValue());
+                json.put("required", responseHeader.getRequired());
+                json.put("desc", responseHeader.getDesc());
+                json.put("sort", responseHeader.getSort());
 
                 array.add(json);
             }

@@ -1,6 +1,6 @@
 package io.tiklab.postin.api.http.service;
 
-import io.tiklab.postin.api.http.definition.model.ResponseHeaders;
+import io.tiklab.postin.api.http.definition.model.ResponseHeader;
 import io.tiklab.postin.api.http.definition.service.ResponseHeaderService;
 import io.tiklab.postin.client.mock.JMockit;
 import io.tiklab.postin.config.TestConfig;
@@ -25,9 +25,9 @@ import static org.junit.Assert.assertNotNull;
 @Transactional
 @Rollback(false)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class ResponseHeadersServiceImplTest {
+public class ResponseHeaderServiceImplTest {
 
-    private static Logger logger = LoggerFactory.getLogger(ResponseHeadersServiceImplTest.class);
+    private static Logger logger = LoggerFactory.getLogger(ResponseHeaderServiceImplTest.class);
 
     @Autowired
     ResponseHeaderService responseHeaderService;
@@ -36,33 +36,33 @@ public class ResponseHeadersServiceImplTest {
 
     @Test
     public void test01ForSaveResponseHeader() {
-        ResponseHeaders responseHeaders = JMockit.mock(ResponseHeaders.class);
+        ResponseHeader responseHeader = JMockit.mock(ResponseHeader.class);
 
-        id = responseHeaderService.createResponseHeader(responseHeaders);
+        id = responseHeaderService.createResponseHeader(responseHeader);
 
         assertNotNull(id);
     }
 
     @Test
     public void test02ForUpdateResponseHeader(){
-        ResponseHeaders responseHeaders = JMockit.mock(ResponseHeaders.class);
-        responseHeaders.setId(id);
+        ResponseHeader responseHeader = JMockit.mock(ResponseHeader.class);
+        responseHeader.setId(id);
 
-        responseHeaderService.updateResponseHeader(responseHeaders);
+        responseHeaderService.updateResponseHeader(responseHeader);
     }
 
     @Test
     public void test03ForFindResponseHeader() {
-        ResponseHeaders responseHeaders = responseHeaderService.findResponseHeader(id);
+        ResponseHeader responseHeader = responseHeaderService.findResponseHeader(id);
 
-        assertNotNull(responseHeaders);
+        assertNotNull(responseHeader);
     }
 
     @Test
     public void test04ForFindAllResponseHeader() {
-        List<ResponseHeaders> responseHeadersList = responseHeaderService.findAllResponseHeader();
+        List<ResponseHeader> responseHeaderList = responseHeaderService.findAllResponseHeader();
 
-        assertNotNull(responseHeadersList);
+        assertNotNull(responseHeaderList);
     }
 
     @Test

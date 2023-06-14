@@ -5,7 +5,7 @@ import io.tiklab.dal.jpa.criterial.conditionbuilder.DeleteBuilders;
 import io.tiklab.postin.api.http.definition.dao.ResponseHeaderDao;
 import io.tiklab.postin.api.http.definition.entity.RequestHeadersEntity;
 import io.tiklab.postin.api.http.definition.entity.ResponseHeadersEntity;
-import io.tiklab.postin.api.http.definition.model.ResponseHeaders;
+import io.tiklab.postin.api.http.definition.model.ResponseHeader;
 import io.tiklab.postin.api.http.definition.model.ResponseHeaderQuery;
 
 import io.tiklab.core.page.Pagination;
@@ -34,15 +34,15 @@ public class ResponseHeaderServiceImpl implements ResponseHeaderService {
     JoinTemplate joinTemplate;
 
     @Override
-    public String createResponseHeader(@NotNull @Valid ResponseHeaders responseHeaders) {
-        ResponseHeadersEntity responseHeadersEntity = BeanMapper.map(responseHeaders, ResponseHeadersEntity.class);
+    public String createResponseHeader(@NotNull @Valid ResponseHeader responseHeader) {
+        ResponseHeadersEntity responseHeadersEntity = BeanMapper.map(responseHeader, ResponseHeadersEntity.class);
 
         return responseHeaderDao.createResponseHeader(responseHeadersEntity);
     }
 
     @Override
-    public void updateResponseHeader(@NotNull @Valid ResponseHeaders responseHeaders) {
-        ResponseHeadersEntity responseHeadersEntity = BeanMapper.map(responseHeaders, ResponseHeadersEntity.class);
+    public void updateResponseHeader(@NotNull @Valid ResponseHeader responseHeader) {
+        ResponseHeadersEntity responseHeadersEntity = BeanMapper.map(responseHeader, ResponseHeadersEntity.class);
 
         responseHeaderDao.updateResponseHeader(responseHeadersEntity);
     }
@@ -61,47 +61,47 @@ public class ResponseHeaderServiceImpl implements ResponseHeaderService {
     }
 
     @Override
-    public ResponseHeaders findResponseHeader(@NotNull String id) {
+    public ResponseHeader findResponseHeader(@NotNull String id) {
         ResponseHeadersEntity responseHeadersEntity = responseHeaderDao.findResponseHeader(id);
 
-        ResponseHeaders responseHeaders = BeanMapper.map(responseHeadersEntity, ResponseHeaders.class);
+        ResponseHeader responseHeader = BeanMapper.map(responseHeadersEntity, ResponseHeader.class);
 
-        joinTemplate.joinQuery(responseHeaders);
+        joinTemplate.joinQuery(responseHeader);
 
-        return responseHeaders;
+        return responseHeader;
     }
 
     @Override
-    public List<ResponseHeaders> findAllResponseHeader() {
+    public List<ResponseHeader> findAllResponseHeader() {
         List<ResponseHeadersEntity> responseHeadersEntityList =  responseHeaderDao.findAllResponseHeader();
 
-        List<ResponseHeaders> responseHeadersList = BeanMapper.mapList(responseHeadersEntityList, ResponseHeaders.class);
+        List<ResponseHeader> responseHeaderList = BeanMapper.mapList(responseHeadersEntityList, ResponseHeader.class);
 
-        joinTemplate.joinQuery(responseHeadersList);
+        joinTemplate.joinQuery(responseHeaderList);
 
-        return responseHeadersList;
+        return responseHeaderList;
     }
 
     @Override
-    public List<ResponseHeaders> findResponseHeaderList(ResponseHeaderQuery responseHeaderQuery) {
+    public List<ResponseHeader> findResponseHeaderList(ResponseHeaderQuery responseHeaderQuery) {
         List<ResponseHeadersEntity> responseHeadersEntityList = responseHeaderDao.findResponseHeaderList(responseHeaderQuery);
 
-        List<ResponseHeaders> responseHeadersList = BeanMapper.mapList(responseHeadersEntityList, ResponseHeaders.class);
+        List<ResponseHeader> responseHeaderList = BeanMapper.mapList(responseHeadersEntityList, ResponseHeader.class);
 
-        joinTemplate.joinQuery(responseHeadersList);
+        joinTemplate.joinQuery(responseHeaderList);
 
-        return responseHeadersList;
+        return responseHeaderList;
     }
 
     @Override
-    public Pagination<ResponseHeaders> findResponseHeaderPage(ResponseHeaderQuery responseHeaderQuery) {
+    public Pagination<ResponseHeader> findResponseHeaderPage(ResponseHeaderQuery responseHeaderQuery) {
 
         Pagination<ResponseHeadersEntity>  pagination = responseHeaderDao.findResponseHeaderPage(responseHeaderQuery);
 
-        List<ResponseHeaders> responseHeadersList = BeanMapper.mapList(pagination.getDataList(), ResponseHeaders.class);
+        List<ResponseHeader> responseHeaderList = BeanMapper.mapList(pagination.getDataList(), ResponseHeader.class);
 
-        joinTemplate.joinQuery(responseHeadersList);
+        joinTemplate.joinQuery(responseHeaderList);
 
-        return PaginationBuilder.build(pagination, responseHeadersList);
+        return PaginationBuilder.build(pagination, responseHeaderList);
     }
 }

@@ -1,6 +1,6 @@
 package io.tiklab.postin.api.http.controller;
 
-import io.tiklab.postin.api.http.definition.model.ResponseHeaders;
+import io.tiklab.postin.api.http.definition.model.ResponseHeader;
 import io.tiklab.postin.client.mock.JMockit;
 import io.tiklab.postin.config.TestConfig;
 import io.tiklab.core.Result;
@@ -36,9 +36,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Transactional
 @Rollback(false)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class ResponseHeadersControllerTest {
+public class ResponseHeaderControllerTest {
 
-    private static Logger logger = LoggerFactory.getLogger(ResponseHeadersControllerTest.class);
+    private static Logger logger = LoggerFactory.getLogger(ResponseHeaderControllerTest.class);
 
     static String id;
 
@@ -54,9 +54,9 @@ public class ResponseHeadersControllerTest {
 
     @Test
     public void test01ForSaveResponseHeader() {
-        ResponseHeaders responseHeaders = JMockit.mock(ResponseHeaders.class);
+        ResponseHeader responseHeader = JMockit.mock(ResponseHeader.class);
 
-        MultiValueMap<String, String> multiValueMap = MapUtils.toMultiMap(responseHeaders);
+        MultiValueMap<String, String> multiValueMap = MapUtils.toMultiMap(responseHeader);
         try {
             MvcResult mvcResult = mockMvc.perform(
                                 post("/responseHeader/createResponseHeader")
@@ -79,10 +79,10 @@ public class ResponseHeadersControllerTest {
 
     @Test
     public void test02ForUpdateResponseHeader(){
-        ResponseHeaders responseHeaders = JMockit.mock(ResponseHeaders.class);
-        responseHeaders.setId(id);
+        ResponseHeader responseHeader = JMockit.mock(ResponseHeader.class);
+        responseHeader.setId(id);
 
-        MultiValueMap<String, String> multiValueMap = MapUtils.toMultiMap(responseHeaders);
+        MultiValueMap<String, String> multiValueMap = MapUtils.toMultiMap(responseHeader);
         try {
             MvcResult mvcResult = mockMvc.perform(
                                 post("/responseHeader/updateResponseHeader")

@@ -58,7 +58,7 @@ public class CategoryServiceImpl implements CategoryService {
         CategoryEntity categoryEntity = BeanMapper.map(category, CategoryEntity.class);
         if (StringUtils.isEmpty(category.getId())) {
             String uid = UUID.randomUUID().toString();
-            String id = uid.trim().replaceAll("-", "");
+            String id = uid.trim().replaceAll("-", "").substring(0, 12);;
             categoryEntity.setId(id);
         }
         String categoryId = categoryDao.createCategory(categoryEntity);
@@ -122,6 +122,16 @@ public class CategoryServiceImpl implements CategoryService {
         if (CollectionUtils.isNotEmpty(apixList)){
             for (Apix apix : apixList){
                 apixService.deleteApix(apix.getId());
+            }
+        }
+
+        //删除子目录
+        CategoryQuery categoryQuery = new CategoryQuery();
+        categoryQuery.setParentId(id);
+        List<Category> categoryList = findCategoryList(categoryQuery);
+        if(categoryList!=null&categoryList.size()>0){
+            for(Category categoryChild:categoryList){
+                deleteCategory(categoryChild.getId());
             }
         }
 
@@ -209,7 +219,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public List<Category> findCategoryList(CategoryQuery categoryQuery) {
-//        categoryQuery.setParentId("111");
+
         List<CategoryEntity> categoryEntityList = categoryDao.findCategoryList(categoryQuery);
 
         List<Category> categoryList = BeanMapper.mapList(categoryEntityList,Category.class);

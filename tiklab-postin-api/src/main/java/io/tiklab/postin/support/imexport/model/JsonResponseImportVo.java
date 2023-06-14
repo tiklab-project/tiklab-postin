@@ -2,7 +2,7 @@ package io.tiklab.postin.support.imexport.model;
 
 
 import io.tiklab.postin.annotation.ApiProperty;
-import io.tiklab.postin.api.http.definition.model.JsonResponses;
+import io.tiklab.postin.api.http.definition.model.JsonResponse;
 
 /**
  * 导入
@@ -11,7 +11,7 @@ import io.tiklab.postin.api.http.definition.model.JsonResponses;
 public class JsonResponseImportVo {
 
     @ApiProperty(name="parentId",desc="上级Id")
-    private JsonResponses parentId;
+    private JsonResponse parentId;
 
     @ApiProperty(name="methodId",desc="接口Id")
     private String methodId;
@@ -31,11 +31,11 @@ public class JsonResponseImportVo {
     @ApiProperty(name="desc",desc="描述")
     private String desc;
 
-    public JsonResponses getParentId() {
+    public JsonResponse getParentId() {
         return parentId;
     }
 
-    public void setParentId(JsonResponses parentId) {
+    public void setParentId(JsonResponse parentId) {
         this.parentId = parentId;
     }
 

@@ -223,9 +223,9 @@ public class HttpApiServiceImpl implements HttpApiService {
 
 
         //获取请求头中的数据
-        List<RequestHeaders> requestHeadersList = requestHeaderService.findRequestHeaderList(new RequestHeaderQuery().setHttpId(httpId));
-        if(CollectionUtils.isNotEmpty(requestHeadersList)){
-            httpApi.setHeaderList(requestHeadersList);
+        List<RequestHeader> requestHeaderList = requestHeaderService.findRequestHeaderList(new RequestHeaderQuery().setHttpId(httpId));
+        if(CollectionUtils.isNotEmpty(requestHeaderList)){
+            httpApi.setHeaderList(requestHeaderList);
         }
 
         //获取查询参数的数据
@@ -274,9 +274,9 @@ public class HttpApiServiceImpl implements HttpApiService {
 
         //获取响应里的参数
         //响应头
-        List<ResponseHeaders> responseHeadersList = responseHeaderService.findResponseHeaderList(new ResponseHeaderQuery().setHttpId(httpId));
-        if(CollectionUtils.isNotEmpty(responseHeadersList)){
-            httpApi.setResponseHeaderList(responseHeadersList);
+        List<ResponseHeader> responseHeaderList = responseHeaderService.findResponseHeaderList(new ResponseHeaderQuery().setHttpId(httpId));
+        if(CollectionUtils.isNotEmpty(responseHeaderList)){
+            httpApi.setResponseHeaderList(responseHeaderList);
         }
 
         //响应示例

@@ -25,9 +25,9 @@ import static org.junit.Assert.assertNotNull;
 @Transactional
 @Rollback(false)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class RequestHeadersMockServiceImplTest {
+public class RequestHeaderMockServiceImplTest {
 
-    private static Logger logger = LoggerFactory.getLogger(RequestHeadersMockServiceImplTest.class);
+    private static Logger logger = LoggerFactory.getLogger(RequestHeaderMockServiceImplTest.class);
 
     @Autowired
     RequestHeaderMockService requestHeaderMockService;

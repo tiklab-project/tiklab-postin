@@ -18,7 +18,7 @@ import java.util.List;
 @ApiModel
 @Join
 @Mapper(targetAlias = "JsonResponsesEntity")
-public class JsonResponses extends BaseModel {
+public class JsonResponse extends BaseModel {
 
     @ApiProperty(name="id",desc="唯一ID")
     private java.lang.String id;
@@ -28,7 +28,7 @@ public class JsonResponses extends BaseModel {
             @Mapping(source = "parent.id",target = "parentId")
     })
     @JoinQuery(key = "id")
-    private JsonResponses parent;
+    private JsonResponse parent;
 
     @NotNull
     @ApiProperty(name="http",desc="所属接口",eg="@selectOne",required = true)
@@ -60,7 +60,7 @@ public class JsonResponses extends BaseModel {
     private java.lang.Integer sort;
 
     @ApiProperty(name="children",desc="下级属性列表")
-    private List<JsonResponses> children;
+    private List<JsonResponse> children;
 
     public String getId() {
         return id;
@@ -126,19 +126,19 @@ public class JsonResponses extends BaseModel {
         this.value = value;
     }
 
-    public JsonResponses getParent() {
+    public JsonResponse getParent() {
         return parent;
     }
 
-    public void setParent(JsonResponses parent) {
+    public void setParent(JsonResponse parent) {
         this.parent = parent;
     }
 
-    public List<JsonResponses> getChildren() {
+    public List<JsonResponse> getChildren() {
         return children;
     }
 
-    public void setChildren(List<JsonResponses> children) {
+    public void setChildren(List<JsonResponse> children) {
         this.children = children;
     }
 }

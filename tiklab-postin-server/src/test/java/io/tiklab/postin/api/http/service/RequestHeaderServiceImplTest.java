@@ -1,6 +1,6 @@
 package io.tiklab.postin.api.http.service;
 
-import io.tiklab.postin.api.http.definition.model.RequestHeaders;
+import io.tiklab.postin.api.http.definition.model.RequestHeader;
 import io.tiklab.postin.api.http.definition.service.RequestHeaderService;
 import io.tiklab.postin.client.mock.JMockit;
 import io.tiklab.postin.config.TestConfig;
@@ -25,9 +25,9 @@ import static org.junit.Assert.assertNotNull;
 @Transactional
 @Rollback(false)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class RequestHeadersServiceImplTest {
+public class RequestHeaderServiceImplTest {
 
-    private static Logger logger = LoggerFactory.getLogger(RequestHeadersServiceImplTest.class);
+    private static Logger logger = LoggerFactory.getLogger(RequestHeaderServiceImplTest.class);
 
     @Autowired
     RequestHeaderService requestHeaderService;
@@ -36,33 +36,33 @@ public class RequestHeadersServiceImplTest {
 
     @Test
     public void test01ForSaveRequestHeader() {
-        RequestHeaders requestHeaders = JMockit.mock(RequestHeaders.class);
+        RequestHeader requestHeader = JMockit.mock(RequestHeader.class);
 
-        id = requestHeaderService.createRequestHeader(requestHeaders);
+        id = requestHeaderService.createRequestHeader(requestHeader);
 
         assertNotNull(id);
     }
 
     @Test
     public void test02ForUpdateRequestHeader(){
-        RequestHeaders requestHeaders = JMockit.mock(RequestHeaders.class);
-        requestHeaders.setId(id);
+        RequestHeader requestHeader = JMockit.mock(RequestHeader.class);
+        requestHeader.setId(id);
 
-        requestHeaderService.updateRequestHeader(requestHeaders);
+        requestHeaderService.updateRequestHeader(requestHeader);
     }
 
     @Test
     public void test03ForFindRequestHeader() {
-        RequestHeaders requestHeaders = requestHeaderService.findRequestHeader(id);
+        RequestHeader requestHeader = requestHeaderService.findRequestHeader(id);
 
-        assertNotNull(requestHeaders);
+        assertNotNull(requestHeader);
     }
 
     @Test
     public void test04ForFindAllRequestHeader() {
-        List<RequestHeaders> requestHeadersList = requestHeaderService.findAllRequestHeader();
+        List<RequestHeader> requestHeaderList = requestHeaderService.findAllRequestHeader();
 
-        assertNotNull(requestHeadersList);
+        assertNotNull(requestHeaderList);
     }
 
     @Test

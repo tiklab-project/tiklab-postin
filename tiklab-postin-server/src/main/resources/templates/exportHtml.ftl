@@ -130,6 +130,12 @@
             color: #fff; /* White */
         }
 
+        .request-type-default {
+            background-color: #dbd0af; /* Orange Red */
+            color: #fff; /* White */
+        }
+
+
         .detail-container {
             background-color: #f9f9f9;
             padding: 10px;
@@ -262,49 +268,48 @@
 </head>
 <body>
     <header class="header">
-        <!-- 在这里插入头部内容 -->
-        <h5 id="workspaceName" style="margin: 10px 0"> </h5>
+      <!-- 在这里插入头部内容 -->
+      <h5 id="workspaceName" style="margin: 10px 0"> </h5>
     </header>
 
     <div class="container">
-        <aside class="sidebar">
-            <!-- 在这里插入左侧导航栏内容 -->
-            <ul id="sidebarList" style="overflow: hidden">
-                <li class="sidebarTitle">分组列表</li>
-                <!-- 左侧导航栏项将在 JavaScript 中生成 -->
+      <aside class="sidebar">
+        <!-- 在这里插入左侧导航栏内容 -->
+        <ul id="sidebarList" style="overflow: hidden">
+          <li class="sidebarTitle">分组列表</li>
+          <!-- 左侧导航栏项将在 JavaScript 中生成 -->
+        </ul>
+      </aside>
+
+      <div class="content" style="overflow: auto">
+        <!-- 在这里插入右侧内容 -->
+        <div id="rightContent">
+          <!-- 右侧内容将在 JavaScript 中生成 -->
+            <ul id="apiList" class="table-list">
+                <li class="table-header-box">
+                    <span class="item-name">名称</span>
+                    <span class="item-address">地址</span>
+                    <span class="item-status">状态</span>
+                </li>
             </ul>
-        </aside>
+            <div id="detailContainer" >
+                <!-- 这里插入接口的详情内容 -->
+                <div id="backBtn" onclick="backToList()">返回列表</div>
 
-        <div class="content" style="overflow: auto">
-            <!-- 在这里插入右侧内容 -->
-            <div id="rightContent">
-                <!-- 右侧内容将在 JavaScript 中生成 -->
-                <ul id="apiList" class="table-list">
-                    <li class="table-header-box">
-                        <span class="item-name">名称</span>
-                        <span class="item-address">地址</span>
-                        <span class="item-status">状态</span>
-                    </li>
-                </ul>
-                <div id="detailContainer" >
-                    <!-- 这里插入接口的详情内容 -->
-                    <div id="backBtn" onclick="backToList()">返回列表</div>
-
-                </div>
             </div>
         </div>
+      </div>
     </div>
-    <script id="json-data">
-        // JSON 数据
+<script id="json-data">
+       // JSON 数据
         let jsonData = ${jsonData}
-    </script>
+</script>
+<script >
+    //空间项目信息
+    let projectJson = jsonData.projectInfo
+    document.getElementById('workspaceName').innerHTML=projectJson.projectName;
 
-    <script >
-        //空间项目信息
-        let projectJson = jsonData.projectInfo
-        document.getElementById('workspaceName').innerHTML=projectJson.projectName;
-
-    </script>
+</script>
     <script>
         //公共
 
@@ -333,7 +338,8 @@
                     requestTypeSpan.classList.add('request-type-delete',"fontSize");
                     break;
                 default:
-                    requestTypeSpan.textContent = "";
+                    requestTypeSpan.textContent = type.toUpperCase();
+                    requestTypeSpan.classList.add('request-type-default',"fontSize");
                     break;
             }
 
@@ -368,7 +374,6 @@
         //详情
         const clickItem = (item,node) =>{
             item.addEventListener("click", function() {
-                console.log(node)
 
                 // 隐藏表格
                 ulList.style.display = "none";
@@ -408,7 +413,7 @@
                 const listItem = document.createElement('li');
                 listItem.textContent = group.name;
                 listItem.classList.add('tree-li');
-                listItem.style.paddingLeft = (level * 20) + "px"; // 添加左侧缩进样式
+                listItem.style.paddingLeft = (level * 20) + "px";// 添加左侧缩进样式
                 sidebarList.appendChild(listItem);
 
                 if (group.children && group.children.length > 0) {
@@ -431,6 +436,11 @@
 
                 // 添加点击事件，显示相应的 nodelist 内容
                 listItem.addEventListener('click', function () {
+                    let detailContainer = document.getElementById("detailContainer")
+                    detailContainer.innerHTML="<div id=\"backBtn\" onclick=\"backToList()\">返回列表</div>";
+                    detailContainer.style.display = 'none'
+                    ulList.style.display = "block";
+
                     showNodeList(group.nodeList, group.name);
                 });
             });
@@ -527,56 +537,56 @@
         showNodeList(apiArr, '所有接口');
     </script>
 
-    <script>
-        /**
-         * 详情的基础信息
-         */
-        const baseInfo = (detailBox,node)=>{
-            let nameBox = document.createElement("div");
-            nameBox.classList.add("itemBox")
+<script>
+    /**
+     * 详情的基础信息
+     */
+    const baseInfo = (detailBox,node)=>{
+        let nameBox = document.createElement("div");
+        nameBox.classList.add("itemBox")
 
-            let apiNameElement = document.createElement("div");
-            apiNameElement.id="apiNameElement"
-            apiNameElement.textContent = node.name;
+        let apiNameElement = document.createElement("div");
+        apiNameElement.id="apiNameElement"
+        apiNameElement.textContent = node.name;
 
-            let statusElement = document.createElement("div");
-            statusElement.id="statusElement"
-            statusElement.textContent = node.status.name;
-            statusElement.style.backgroundColor = node.status.color;
+        let statusElement = document.createElement("div");
+        statusElement.id="statusElement"
+        statusElement.textContent = node.status.name;
+        statusElement.style.backgroundColor = node.status.color;
 
-            nameBox.appendChild(apiNameElement)
-            nameBox.appendChild(statusElement)
+        nameBox.appendChild(apiNameElement)
+        nameBox.appendChild(statusElement)
 
-            let pathBox = document.createElement("div");
-            pathBox.classList.add("itemBox")
+        let pathBox = document.createElement("div");
+        pathBox.classList.add("itemBox")
 
-            let protocolType = document.createElement("div");
-            protocolType.textContent =  node.protocolType.toUpperCase();
-            protocolType.id="protocolType"
+        let protocolType = document.createElement("div");
+        protocolType.textContent =  node.protocolType.toUpperCase();
+        protocolType.id="protocolType"
 
-            let methodType =  showRequestType(node.methodType);
+        let methodType =  showRequestType(node.methodType);
 
-            let apiAddressElement = document.createElement("div");
-            apiAddressElement.textContent =  node.path;
+        let apiAddressElement = document.createElement("div");
+        apiAddressElement.textContent =  node.path;
 
-            pathBox.appendChild(protocolType)
-            pathBox.appendChild(methodType)
-            pathBox.appendChild(apiAddressElement)
+        pathBox.appendChild(protocolType)
+        pathBox.appendChild(methodType)
+        pathBox.appendChild(apiAddressElement)
 
-            // 将详情内容添加到容器
-            detailBox.appendChild(nameBox);
-            detailBox.appendChild(pathBox);
-        }
-    </script>
-    <script>
+        // 将详情内容添加到容器
+        detailBox.appendChild(nameBox);
+        detailBox.appendChild(pathBox);
+    }
+</script>
+<script>
 
-        /**
-         * 表格
-         * @param detailBox  添加到详情div里
-         * @param dataList  数组项
-         * @param type  header，query 无需数据类型
-         */
-        const createTable = (detailBox, dataList, type) => {
+    /**
+     * 表格
+     * @param detailBox  添加到详情div里
+     * @param dataList  数组项
+     * @param type  header，query 无需数据类型
+     */
+    const createTable = (detailBox, dataList, type) => {
 
             // 创建表格容器
             const tableContainer = document.createElement("div");
@@ -610,108 +620,112 @@
             // 将表格容器添加到页面
             detailBox.appendChild(tableContainer);
         }
-    </script>
-    <script>
-        /**
-         * textArea
-         * 文本框
-         */
-        const createRaw =(detailBox,data)=>{
-            let rawEle=document.createElement("textarea");
-            rawEle.style.width="100%";
-            rawEle.style.height="150px";
-            rawEle.style.border="1px solid #e4e4e4";
-            rawEle.style.outline="none";
-            rawEle.textContent=data
+</script>
+<script>
+    /**
+     * textArea
+     * 文本框
+     */
+    const createRaw =(detailBox,data)=>{
+        let rawEle=document.createElement("textarea");
+        rawEle.style.width="100%";
+        rawEle.style.height="150px";
+        rawEle.style.border="1px solid #e4e4e4";
+        rawEle.style.outline="none";
+        rawEle.textContent=data
 
-            detailBox.appendChild(rawEle)
+        detailBox.appendChild(rawEle)
+    }
+</script>
+<script>
+    /**
+     * 请求体
+     */
+    const requestBody = (detailBox,body)=>{
+        switch (body.bodyType) {
+            case "formdata":
+                if(body.formdata!==null&&body.formdata.length>0){
+                    addTitle(detailBox,"Form-Data")
+                    createTable(detailBox,body.formdata)
+                }
+                break;
+            case "formUrlencoded":
+                if(body.formUrlencoded!==null&&body.formUrlencoded.length>0){
+                    addTitle(detailBox,"Form-Urlencoded")
+                    createTable(detailBox,body.formUrlencoded)
+                }
+                break;
+            case "raw":
+                addTitle(detailBox,"Raw")
+                createRaw(detailBox,body.raw.raw)
+                break;
         }
-    </script>
-    <script>
-        /**
-         * 请求体
-         */
-        const requestBody = (detailBox,body)=>{
-            switch (body.bodyType) {
-                case "formdata":
-                    if(body.formdata!==null&&body.formdata.length>0){
-                        addTitle(detailBox,"Form-Data")
-                        createTable(detailBox,body.formdata)
-                    }
-                    break;
-                case "formUrlencoded":
-                    if(body.formUrlencoded!==null&&body.formUrlencoded.length>0){
-                        addTitle(detailBox,"Form-Urlencoded")
-                        createTable(detailBox,body.formUrlencoded)
-                    }
-                    break;
-                case "raw":
-                    addTitle(detailBox,"Raw")
-                    createRaw(detailBox,body.raw.raw)
-                    break;
-            }
+    }
+</script>
+<script>
+    /**
+     * 创建详情的请求信息
+     */
+    const requestInfo = (detailBox,request) =>{
+        let title = document.createElement("div");
+        title.classList.add("title-box")
+        title.textContent="请求信息"
+
+
+        // 将详情内容添加到容器
+        detailBox.appendChild(title);
+
+        //请求头
+        if(request.header!==null&&request.header.length>0){
+            addTitle(detailBox,"请求头")
+            createTable(detailBox,request.header,"header")
         }
-    </script>
-    <script>
-        /**
-         * 创建详情的请求信息
-         */
-        const requestInfo = (detailBox,request) =>{
-            let title = document.createElement("div");
-            title.classList.add("title-box")
-            title.textContent="请求信息"
-
-
-            // 将详情内容添加到容器
-            detailBox.appendChild(title);
-
-            //请求头
-            if(request.header!==null&&request.header.length>0){
-                addTitle(detailBox,"请求头")
-                createTable(detailBox,request.header,"header")
-            }
-            //query
-            if(request.query!==null&&request.query.length>0){
-                addTitle(detailBox,"Query")
-                createTable(detailBox,request.query,"query")
-            }
-
-            //请求体
-            if(request.body!==null){
-                addTitle(detailBox,"请求体")
-                requestBody(detailBox,request.body)
-            }
-
+        //query
+        if(request.query!==null&&request.query.length>0){
+            addTitle(detailBox,"Query")
+            createTable(detailBox,request.query,"query")
         }
 
-    </script>
-    <script>
-        /**
-         * 返回参数
-         */
-        const  responseInfo = (detailBox,response) =>{
-
-            if(response.header!==null&&response.header.length>0){
-                addTitle(detailBox,"响应头")
-                createTable(detailBox,response.header,"header")
-            }
-
-
-            addTitle(detailBox,"返回参数")
-            if(response.result!==null&&response.result.length>0){
-                response.result.map(item=>{
-                    addTitle(detailBox,item.name)
-
-                    if(item.dataType==="json"){
-                        createRaw(detailBox,item.jsonText)
-                    }else {
-                        createRaw(detailBox,item.raw)
-                    }
-
-                })
-            }
+        //请求体
+        if(request.body!==null){
+            addTitle(detailBox,"请求体")
+            requestBody(detailBox,request.body)
         }
-    </script>
+
+    }
+
+</script>
+<script>
+    /**
+     * 返回参数
+     */
+    const  responseInfo = (detailBox,response) =>{
+
+        if(response?.header!==null&&response?.header.length>0){
+            addTitle(detailBox,"响应头")
+            createTable(detailBox,response.header,"header")
+        }
+
+
+        addTitle(detailBox,"返回参数")
+        if(response.result!==null&&response.result.length>0){
+            response.result.map(item=>{
+                addTitle(detailBox,item.name)
+
+                if(item.dataType==="json"){
+                    createRaw(detailBox,item.jsonText)
+                }else {
+                    createRaw(detailBox,item.raw)
+                }
+
+            })
+        }
+    }
+</script>
+
+
+
+
 
 </body>
 </html>

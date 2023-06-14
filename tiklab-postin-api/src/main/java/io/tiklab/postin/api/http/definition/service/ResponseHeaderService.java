@@ -2,7 +2,7 @@ package io.tiklab.postin.api.http.definition.service;
 
 import io.tiklab.core.page.Pagination;
 
-import io.tiklab.postin.api.http.definition.model.ResponseHeaders;
+import io.tiklab.postin.api.http.definition.model.ResponseHeader;
 import io.tiklab.postin.api.http.definition.model.ResponseHeaderQuery;
 import io.tiklab.join.annotation.FindAll;
 import io.tiklab.join.annotation.FindOne;
@@ -15,21 +15,21 @@ import java.util.List;
 /**
 * 响应头服务接口
 */
-@JoinProvider(model = ResponseHeaders.class)
+@JoinProvider(model = ResponseHeader.class)
 public interface ResponseHeaderService {
 
     /**
     * 创建响应头
-    * @param responseHeaders
+    * @param responseHeader
     * @return
     */
-    String createResponseHeader(@NotNull @Valid ResponseHeaders responseHeaders);
+    String createResponseHeader(@NotNull @Valid ResponseHeader responseHeader);
 
     /**
     * 更新响应头
-    * @param responseHeaders
+    * @param responseHeader
     */
-    void updateResponseHeader(@NotNull @Valid ResponseHeaders responseHeaders);
+    void updateResponseHeader(@NotNull @Valid ResponseHeader responseHeader);
 
     /**
     * 删除响应头
@@ -49,27 +49,27 @@ public interface ResponseHeaderService {
     * @return
     */
     @FindOne
-    ResponseHeaders findResponseHeader(@NotNull String id);
+    ResponseHeader findResponseHeader(@NotNull String id);
 
     /**
     * 查找所有响应头
     * @return
     */
     @FindAll
-    List<ResponseHeaders> findAllResponseHeader();
+    List<ResponseHeader> findAllResponseHeader();
 
     /**
     * 查询列表响应头
     * @param responseHeaderQuery
     * @return
     */
-    List<ResponseHeaders> findResponseHeaderList(ResponseHeaderQuery responseHeaderQuery);
+    List<ResponseHeader> findResponseHeaderList(ResponseHeaderQuery responseHeaderQuery);
 
     /**
     * 按分页查询响应头
     * @param responseHeaderQuery
     * @return
     */
-    Pagination<ResponseHeaders> findResponseHeaderPage(ResponseHeaderQuery responseHeaderQuery);
+    Pagination<ResponseHeader> findResponseHeaderPage(ResponseHeaderQuery responseHeaderQuery);
 
 }

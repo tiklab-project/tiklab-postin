@@ -14,7 +14,7 @@ public class SaveToApi extends BaseModel {
     private HttpApi httpApi;
 
     @ApiProperty(name = "headerList",desc="请求头列表")
-    private List<RequestHeaders> headerList;
+    private List<RequestHeader> headerList;
 
     @ApiProperty(name = "queryList",desc="查询参数列表")
     private List<QueryParam> queryList;
@@ -42,11 +42,11 @@ public class SaveToApi extends BaseModel {
     }
 
 
-    public List<RequestHeaders> getHeaderList() {
+    public List<RequestHeader> getHeaderList() {
         return headerList;
     }
 
-    public void setHeaderList(List<RequestHeaders> headerList) {
+    public void setHeaderList(List<RequestHeader> headerList) {
         this.headerList = headerList;
     }
 

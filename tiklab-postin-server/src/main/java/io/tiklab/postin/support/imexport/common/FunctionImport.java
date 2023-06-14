@@ -1,6 +1,7 @@
 package io.tiklab.postin.support.imexport.common;
 
 import com.alibaba.fastjson.JSONObject;
+import io.tiklab.core.exception.ApplicationException;
 import io.tiklab.postin.api.apix.model.Apix;
 import io.tiklab.postin.api.apix.service.ApixService;
 import io.tiklab.postin.api.http.definition.model.*;
@@ -65,14 +66,20 @@ public class FunctionImport {
      * 获取导入文件数据
      */
     public JSONObject getJsonData(InputStream stream) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(stream, "UTF-8"));
-        StringBuffer sb = new StringBuffer("");
-        String temp = null;
-        while ((temp = br.readLine()) != null) {
-            sb.append(temp);
+        JSONObject jsonObject =null;
+        try{
+            BufferedReader br = new BufferedReader(new InputStreamReader(stream, "UTF-8"));
+            StringBuffer sb = new StringBuffer("");
+            String temp = null;
+            while ((temp = br.readLine()) != null) {
+                sb.append(temp);
+            }
+            String jsonString = sb.toString();
+             jsonObject = JSONObject.parseObject(jsonString);
+        }catch (Exception e){
+            throw new ApplicationException("Error while reading the file",e);
         }
-        String jsonString = sb.toString();
-        JSONObject jsonObject = JSONObject.parseObject(jsonString);
+
         return jsonObject;
     }
 
@@ -84,7 +91,7 @@ public class FunctionImport {
         delCategory(workspaceId,categoryId);
 
         //添加新导入的
-        addCategroy(workspaceId,categoryId,categoryName);
+        addCategory(workspaceId,categoryId,categoryName);
 
     }
 
@@ -112,7 +119,7 @@ public class FunctionImport {
      * @param categoryId
      * @param categoryName
      */
-    private void addCategroy(String workspaceId, String categoryId, String categoryName){
+    public void addCategory(String workspaceId, String categoryId, String categoryName){
         Workspace workspace = new Workspace();
         workspace.setId(workspaceId);
 
@@ -159,14 +166,14 @@ public class FunctionImport {
         HttpApi httpApi = new HttpApi();
         httpApi.setId(hVo.getMethodId());
 
-        RequestHeaders requestHeaders = new RequestHeaders();
+        RequestHeader requestHeader = new RequestHeader();
 
-        requestHeaders.setHttp(httpApi);
-        requestHeaders.setHeaderName(hVo.getName());
-        requestHeaders.setValue(hVo.getValue());
-        requestHeaders.setDesc(hVo.getDesc());
+        requestHeader.setHttp(httpApi);
+        requestHeader.setHeaderName(hVo.getName());
+        requestHeader.setValue(hVo.getValue());
+        requestHeader.setDesc(hVo.getDesc());
 
-        requestHeaderService.createRequestHeader(requestHeaders);
+        requestHeaderService.createRequestHeader(requestHeader);
     }
 
     /**
@@ -307,17 +314,17 @@ public class FunctionImport {
         HttpApi httpApi = new HttpApi();
         httpApi.setId(jRVo.getMethodId());
 
-        JsonResponses jsonResponses = new JsonResponses();
+        JsonResponse jsonResponse = new JsonResponse();
 
-        jsonResponses.setHttp(httpApi);
-        jsonResponses.setParent(jRVo.getParentId());
-        jsonResponses.setPropertyName(jRVo.getName());
-        jsonResponses.setValue(jRVo.getValue());
-        jsonResponses.setDataType(jRVo.getDataType());
-        jsonResponses.setRequired(jRVo.getRequired());
-        jsonResponses.setDesc(jRVo.getDesc());
+        jsonResponse.setHttp(httpApi);
+        jsonResponse.setParent(jRVo.getParentId());
+        jsonResponse.setPropertyName(jRVo.getName());
+        jsonResponse.setValue(jRVo.getValue());
+        jsonResponse.setDataType(jRVo.getDataType());
+        jsonResponse.setRequired(jRVo.getRequired());
+        jsonResponse.setDesc(jRVo.getDesc());
 
-        String parentid = jsonResponseService.createJsonResponse(jsonResponses);
+        String parentid = jsonResponseService.createJsonResponse(jsonResponse);
         return parentid;
     }
 

@@ -4,7 +4,7 @@ import io.tiklab.dal.jpa.criterial.condition.DeleteCondition;
 import io.tiklab.dal.jpa.criterial.conditionbuilder.DeleteBuilders;
 import io.tiklab.postin.api.http.definition.dao.RequestHeaderDao;
 import io.tiklab.postin.api.http.definition.entity.RequestHeadersEntity;
-import io.tiklab.postin.api.http.definition.model.RequestHeaders;
+import io.tiklab.postin.api.http.definition.model.RequestHeader;
 import io.tiklab.postin.api.http.definition.model.RequestHeaderQuery;
 
 import io.tiklab.core.page.Pagination;
@@ -33,15 +33,15 @@ public class RequestHeaderServiceImpl implements RequestHeaderService {
     JoinTemplate joinTemplate;
 
     @Override
-    public String createRequestHeader(@NotNull @Valid RequestHeaders requestHeaders) {
-        RequestHeadersEntity requestHeadersEntity = BeanMapper.map(requestHeaders, RequestHeadersEntity.class);
+    public String createRequestHeader(@NotNull @Valid RequestHeader requestHeader) {
+        RequestHeadersEntity requestHeadersEntity = BeanMapper.map(requestHeader, RequestHeadersEntity.class);
 
         return requestHeaderDao.createRequestHeader(requestHeadersEntity);
     }
 
     @Override
-    public void updateRequestHeader(@NotNull @Valid RequestHeaders requestHeaders) {
-        RequestHeadersEntity requestHeadersEntity = BeanMapper.map(requestHeaders, RequestHeadersEntity.class);
+    public void updateRequestHeader(@NotNull @Valid RequestHeader requestHeader) {
+        RequestHeadersEntity requestHeadersEntity = BeanMapper.map(requestHeader, RequestHeadersEntity.class);
 
         requestHeaderDao.updateRequestHeader(requestHeadersEntity);
     }
@@ -60,47 +60,47 @@ public class RequestHeaderServiceImpl implements RequestHeaderService {
     }
 
     @Override
-    public RequestHeaders findRequestHeader(@NotNull String id) {
+    public RequestHeader findRequestHeader(@NotNull String id) {
         RequestHeadersEntity requestHeadersEntity = requestHeaderDao.findRequestHeader(id);
 
-        RequestHeaders requestHeaders = BeanMapper.map(requestHeadersEntity, RequestHeaders.class);
+        RequestHeader requestHeader = BeanMapper.map(requestHeadersEntity, RequestHeader.class);
 
-        joinTemplate.joinQuery(requestHeaders);
+        joinTemplate.joinQuery(requestHeader);
 
-        return requestHeaders;
+        return requestHeader;
     }
 
     @Override
-    public List<RequestHeaders> findAllRequestHeader() {
+    public List<RequestHeader> findAllRequestHeader() {
         List<RequestHeadersEntity> requestHeadersEntityList =  requestHeaderDao.findAllRequestHeader();
 
-        List<RequestHeaders> requestHeadersList = BeanMapper.mapList(requestHeadersEntityList, RequestHeaders.class);
+        List<RequestHeader> requestHeaderList = BeanMapper.mapList(requestHeadersEntityList, RequestHeader.class);
 
-        joinTemplate.joinQuery(requestHeadersList);
+        joinTemplate.joinQuery(requestHeaderList);
 
-        return requestHeadersList;
+        return requestHeaderList;
     }
 
     @Override
-    public List<RequestHeaders> findRequestHeaderList(RequestHeaderQuery requestHeaderQuery) {
+    public List<RequestHeader> findRequestHeaderList(RequestHeaderQuery requestHeaderQuery) {
         List<RequestHeadersEntity> requestHeadersEntityList = requestHeaderDao.findRequestHeaderList(requestHeaderQuery);
 
-        List<RequestHeaders> requestHeadersList = BeanMapper.mapList(requestHeadersEntityList, RequestHeaders.class);
+        List<RequestHeader> requestHeaderList = BeanMapper.mapList(requestHeadersEntityList, RequestHeader.class);
 
-        joinTemplate.joinQuery(requestHeadersList);
+        joinTemplate.joinQuery(requestHeaderList);
 
-        return requestHeadersList;
+        return requestHeaderList;
     }
 
     @Override
-    public Pagination<RequestHeaders> findRequestHeaderPage(RequestHeaderQuery requestHeaderQuery) {
+    public Pagination<RequestHeader> findRequestHeaderPage(RequestHeaderQuery requestHeaderQuery) {
 
         Pagination<RequestHeadersEntity>  pagination = requestHeaderDao.findRequestHeaderPage(requestHeaderQuery);
 
-        List<RequestHeaders> requestHeadersList = BeanMapper.mapList(pagination.getDataList(), RequestHeaders.class);
+        List<RequestHeader> requestHeaderList = BeanMapper.mapList(pagination.getDataList(), RequestHeader.class);
 
-        joinTemplate.joinQuery(requestHeadersList);
+        joinTemplate.joinQuery(requestHeaderList);
 
-        return PaginationBuilder.build(pagination, requestHeadersList);
+        return PaginationBuilder.build(pagination, requestHeaderList);
     }
 }

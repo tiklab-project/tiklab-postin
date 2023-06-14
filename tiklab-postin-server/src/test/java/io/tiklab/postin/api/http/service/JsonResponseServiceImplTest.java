@@ -1,6 +1,6 @@
 package io.tiklab.postin.api.http.service;
 
-import io.tiklab.postin.api.http.definition.model.JsonResponses;
+import io.tiklab.postin.api.http.definition.model.JsonResponse;
 import io.tiklab.postin.api.http.definition.service.JsonResponseService;
 import io.tiklab.postin.client.mock.JMockit;
 import io.tiklab.postin.config.TestConfig;
@@ -25,9 +25,9 @@ import static org.junit.Assert.assertNotNull;
 @Transactional
 @Rollback(false)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class JsonResponsesServiceImplTest {
+public class JsonResponseServiceImplTest {
 
-    private static Logger logger = LoggerFactory.getLogger(JsonResponsesServiceImplTest.class);
+    private static Logger logger = LoggerFactory.getLogger(JsonResponseServiceImplTest.class);
 
     @Autowired
     JsonResponseService jsonResponseService;
@@ -36,33 +36,33 @@ public class JsonResponsesServiceImplTest {
 
     @Test
     public void test01ForSaveJsonResponse() {
-        JsonResponses jsonResponses = JMockit.mock(JsonResponses.class);
+        JsonResponse jsonResponse = JMockit.mock(JsonResponse.class);
 
-        id = jsonResponseService.createJsonResponse(jsonResponses);
+        id = jsonResponseService.createJsonResponse(jsonResponse);
 
         assertNotNull(id);
     }
 
     @Test
     public void test02ForUpdateJsonResponse(){
-        JsonResponses jsonResponses = JMockit.mock(JsonResponses.class);
-        jsonResponses.setId(id);
+        JsonResponse jsonResponse = JMockit.mock(JsonResponse.class);
+        jsonResponse.setId(id);
 
-        jsonResponseService.updateJsonResponse(jsonResponses);
+        jsonResponseService.updateJsonResponse(jsonResponse);
     }
 
     @Test
     public void test03ForFindJsonResponse() {
-        JsonResponses jsonResponses = jsonResponseService.findJsonResponse(id);
+        JsonResponse jsonResponse = jsonResponseService.findJsonResponse(id);
 
-        assertNotNull(jsonResponses);
+        assertNotNull(jsonResponse);
     }
 
     @Test
     public void test04ForFindAllJsonResponse() {
-        List<JsonResponses> jsonResponsesList = jsonResponseService.findAllJsonResponse();
+        List<JsonResponse> jsonResponseList = jsonResponseService.findAllJsonResponse();
 
-        assertNotNull(jsonResponsesList);
+        assertNotNull(jsonResponseList);
     }
 
     @Test

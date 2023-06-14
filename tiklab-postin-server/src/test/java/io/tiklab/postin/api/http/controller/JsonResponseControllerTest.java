@@ -1,6 +1,6 @@
 package io.tiklab.postin.api.http.controller;
 
-import io.tiklab.postin.api.http.definition.model.JsonResponses;
+import io.tiklab.postin.api.http.definition.model.JsonResponse;
 import io.tiklab.postin.client.mock.JMockit;
 import io.tiklab.postin.config.TestConfig;
 import io.tiklab.core.Result;
@@ -36,9 +36,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Transactional
 @Rollback(false)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class JsonResponsesControllerTest {
+public class JsonResponseControllerTest {
 
-    private static Logger logger = LoggerFactory.getLogger(JsonResponsesControllerTest.class);
+    private static Logger logger = LoggerFactory.getLogger(JsonResponseControllerTest.class);
 
     static String id;
 
@@ -54,9 +54,9 @@ public class JsonResponsesControllerTest {
 
     @Test
     public void test01ForSaveJsonResponse() {
-        JsonResponses jsonResponses = JMockit.mock(JsonResponses.class);
+        JsonResponse jsonResponse = JMockit.mock(JsonResponse.class);
 
-        MultiValueMap<String, String> multiValueMap = MapUtils.toMultiMap(jsonResponses);
+        MultiValueMap<String, String> multiValueMap = MapUtils.toMultiMap(jsonResponse);
         try {
             MvcResult mvcResult = mockMvc.perform(
                                 post("/jsonResponse/createJsonResponse")
@@ -79,10 +79,10 @@ public class JsonResponsesControllerTest {
 
     @Test
     public void test02ForUpdateJsonResponse(){
-        JsonResponses jsonResponses = JMockit.mock(JsonResponses.class);
-        jsonResponses.setId(id);
+        JsonResponse jsonResponse = JMockit.mock(JsonResponse.class);
+        jsonResponse.setId(id);
 
-        MultiValueMap<String, String> multiValueMap = MapUtils.toMultiMap(jsonResponses);
+        MultiValueMap<String, String> multiValueMap = MapUtils.toMultiMap(jsonResponse);
         try {
             MvcResult mvcResult = mockMvc.perform(
                                 post("/jsonResponse/updateJsonResponse")

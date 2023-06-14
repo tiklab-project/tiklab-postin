@@ -37,7 +37,7 @@ public class Category extends BaseModel {
     @JoinQuery(key = "id")
     private Workspace workspace;
 
-    @ApiProperty(name="parent",desc="上级分类")
+    @ApiProperty(name="parentId",desc="上级分类")
     @Mappings({
             @Mapping(source = "parent.id",target = "parentId")
     })

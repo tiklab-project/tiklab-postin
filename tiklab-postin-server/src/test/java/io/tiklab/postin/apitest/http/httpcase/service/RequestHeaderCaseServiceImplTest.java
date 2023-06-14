@@ -25,9 +25,9 @@ import static org.junit.Assert.assertNotNull;
 @Transactional
 @Rollback(false)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class RequestHeadersCaseServiceImplTest {
+public class RequestHeaderCaseServiceImplTest {
 
-    private static Logger logger = LoggerFactory.getLogger(RequestHeadersCaseServiceImplTest.class);
+    private static Logger logger = LoggerFactory.getLogger(RequestHeaderCaseServiceImplTest.class);
 
     @Autowired
     RequestHeaderCaseService requestHeaderCaseService;

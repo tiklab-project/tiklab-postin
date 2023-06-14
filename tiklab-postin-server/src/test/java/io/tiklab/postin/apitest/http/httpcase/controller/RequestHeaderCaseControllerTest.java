@@ -37,9 +37,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Transactional
 @Rollback(false)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class RequestHeadersCaseControllerTest {
+public class RequestHeaderCaseControllerTest {
 
-    private static Logger logger = LoggerFactory.getLogger(RequestHeadersCaseControllerTest.class);
+    private static Logger logger = LoggerFactory.getLogger(RequestHeaderCaseControllerTest.class);
 
     static String id;
 

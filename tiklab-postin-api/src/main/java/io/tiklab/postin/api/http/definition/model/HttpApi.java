@@ -41,7 +41,7 @@ public class HttpApi extends BaseModel {
     private String methodType;
 
     @ApiProperty(name = "headerList",desc="请求头列表")
-    private List<RequestHeaders> headerList;
+    private List<RequestHeader> headerList;
 
     @ApiProperty(name = "queryList",desc="查询参数列表")
     private List<QueryParam> queryList;
@@ -62,7 +62,7 @@ public class HttpApi extends BaseModel {
     private RawParam rawParam;
 
     @ApiProperty(name = "responseHeaderList",desc="响应头列表")
-    private List<ResponseHeaders> responseHeadersList;
+    private List<ResponseHeader> responseHeaderList;
 
     @ApiProperty(name = "responseResultList",desc="响应结果列表")
     private List<ApiResponse> responseResultList;
@@ -101,11 +101,11 @@ public class HttpApi extends BaseModel {
         this.apix = apix;
     }
 
-    public List<RequestHeaders> getHeaderList() {
+    public List<RequestHeader> getHeaderList() {
         return headerList;
     }
 
-    public void setHeaderList(List<RequestHeaders> headerList) {
+    public void setHeaderList(List<RequestHeader> headerList) {
         this.headerList = headerList;
     }
 
@@ -157,12 +157,12 @@ public class HttpApi extends BaseModel {
         this.rawParam = rawParam;
     }
 
-    public List<ResponseHeaders> getResponseHeaderList() {
-        return responseHeadersList;
+    public List<ResponseHeader> getResponseHeaderList() {
+        return responseHeaderList;
     }
 
-    public void setResponseHeaderList(List<ResponseHeaders> responseHeadersList) {
-        this.responseHeadersList = responseHeadersList;
+    public void setResponseHeaderList(List<ResponseHeader> responseHeaderList) {
+        this.responseHeaderList = responseHeaderList;
     }
 
     public List<ApiResponse> getResponseResultList() {
