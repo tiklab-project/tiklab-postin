@@ -93,9 +93,9 @@ public class MockServletRequest {
      */
     private void mockOperate(HttpServletRequest request, HttpServletResponse response, String mockPath) throws IOException {
         //workspaceId
-        String workspaceId = mockPath.substring(1,33);
+        String workspaceId = mockPath.substring(1,12);
         //接口路径
-        String path = mockPath.substring(33);
+        String path = mockPath.substring(12);
         String methodId = getMethodId(workspaceId,path,"http");
 
 
