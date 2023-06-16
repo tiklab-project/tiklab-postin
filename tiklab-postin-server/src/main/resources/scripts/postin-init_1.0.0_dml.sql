@@ -29,7 +29,7 @@ INSERT INTO  postin_http_mock_response_result  VALUES ('4dbfdd774c9c', '4dbfdd77
 
 INSERT INTO  postin_http_mock  VALUES ('4dbfdd774c95', 'f483d630bafa', '登录失败', NULL, '111111', '2022-7-28 00:00:00', 1);
 INSERT INTO  postin_http_mock_request  ( id ,  mock_id ,  body_type ) VALUES ('4dbfdd774c95', '4dbfdd774c95', 'json');
-INSERT INTO  postin_http_mock_request_json  VALUES ('9a24d52f1e82', '4dbfdd774c95', 'password', '123', 0);
+INSERT INTO  postin_http_mock_request_json  VALUES ('9624d52f1e82', '4dbfdd774c95', 'password', '123', 0);
 INSERT INTO  postin_http_mock_response  ( id ,  mock_id ,  http_code ,  body_type ) VALUES ('4dbfdd774c95', '4dbfdd774c95', '400','json');
 INSERT INTO  postin_http_mock_response_result  VALUES ('4dbfdd774c95', '4dbfdd774c95', '{"status":"error"}');
 
