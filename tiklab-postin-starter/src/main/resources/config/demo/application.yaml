@@ -11,12 +11,6 @@ PROJECT_HOME: ${user.home}/tiklab/${app.name}
 server:
   port: 8080
 
-#dal 
-#jdbc:
-#  driverClassName: com.mysql.jdbc.Driver
-#  url: jdbc:mysql://localhost:3306/tiklab_postin?characterEncoding=utf8&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
-#  username: root
-#  password: darth2020
 jdbc:
   driverClassName: org.postgresql.Driver
   url: jdbc:postgresql://172.12.1.10:5432/tiklab_boss?stringtype=unspecified
