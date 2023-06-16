@@ -363,7 +363,12 @@
             </properties>
         </profile>
 
-
+        <profile>
+            <id>env-demo</id>
+            <properties>
+                <yaml-type>/config/demo</yaml-type>
+            </properties>
+        </profile>
     </profiles>
 
     <build>
