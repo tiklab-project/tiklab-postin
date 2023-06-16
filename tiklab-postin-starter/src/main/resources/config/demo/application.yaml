@@ -11,9 +11,10 @@ PROJECT_HOME: ${user.home}/tiklab/${app.name}
 server:
   port: 8080
 
+
 jdbc:
   driverClassName: org.postgresql.Driver
-  url: jdbc:postgresql://172.12.1.10:5432/tiklab_boss?stringtype=unspecified
+  url: jdbc:postgresql://172.12.1.10:5432/tiklab_postin?stringtype=unspecified
   username: postgres
   password: darth2020
 
