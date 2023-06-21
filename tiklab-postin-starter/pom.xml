@@ -119,9 +119,8 @@
 
         <dependency>
             <groupId>io.tiklab</groupId>
-            <artifactId>tiklab-mysql-starter</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
-            <scope>compile</scope>
+            <artifactId>tiklab-postgresql-starter</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <!-- iText -->
