@@ -82,7 +82,7 @@ eas:
     enable: true
   address: http://bac.eas.test.tiklab.net
 
-mysql:
-  database: tiklab_postin
+postgresql:
   embbed:
-    enable: false
+    enable: true
+  database: tiklab_eas

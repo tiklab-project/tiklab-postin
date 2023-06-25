@@ -4,7 +4,7 @@ import io.tiklab.integration.starter.EnableIntegration;
 import io.tiklab.join.starter.EnableToolkit;
 import io.tiklab.licence.starter.EnableLicenceServer;
 import io.tiklab.messsage.starter.EnableMessage;
-import io.tiklab.mysql.starter.EnableMysql;
+import io.tiklab.postgresql.EnablePostgresql;
 import io.tiklab.postin.client.EnablePostInClient;
 import io.tiklab.dal.starter.annotation.EnableDal;
 import io.tiklab.dcs.starter.EnableDcs;
@@ -23,7 +23,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @EnableToolkit
-@EnableMysql
+@EnablePostgresql
 @EnableDal
 @EnableDsm
 @EnableDfs

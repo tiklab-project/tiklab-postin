@@ -149,22 +149,6 @@
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>io.tiklab</groupId>
-                    <artifactId>tiklab-mysql-linux</artifactId>
-                    <version>${project.version}</version>
-                    <type>zip</type>
-                    <scope>provided</scope>
-                </dependency>
-                <dependency>
-                    <groupId>io.tiklab</groupId>
-                    <artifactId>tiklab-jdk-linux</artifactId>
-                    <version>${project.version}</version>
-                    <type>zip</type>
-                    <scope>provided</scope>
-                </dependency>
-            </dependencies>
             <properties>
                 <assembly>linux</assembly>
                 <systemType>linux</systemType>
@@ -193,7 +177,7 @@
                                         </artifactItem>
                                         <artifactItem>
                                             <groupId>io.tiklab</groupId>
-                                            <artifactId>tiklab-mysql-linux</artifactId>
+                                            <artifactId>tiklab-postgresql-linux</artifactId>
                                             <version>${project.version}</version>
                                             <type>zip</type>
                                             <outputDirectory>embbed</outputDirectory>
