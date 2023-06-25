@@ -19,7 +19,7 @@ server:
 #  password: darth2020
 jdbc:
   driverClassName: org.postgresql.Driver
-  url: jdbc:postgresql://172.11.1.10:5432/tiklab_postin?stringtype=unspecified
+  url: jdbc:postgresql://localhost:5432/tiklab_postin?stringtype=unspecified
   username: postgres
   password: darth2020
 
@@ -85,4 +85,4 @@ eas:
 postgresql:
   embbed:
     enable: true
-  database: tiklab_eas
+  database: tiklab_postin
