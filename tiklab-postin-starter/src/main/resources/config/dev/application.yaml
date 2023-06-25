@@ -81,7 +81,7 @@ file:
   path: http://file.dev.tiklab.net
 
 base:
-  url: http://192.168.10.22:3000
+  url: http://192.168.10.3:3000
 
 eas:
   embbed:
@@ -91,7 +91,7 @@ eas:
 #    address: http://eas.dev.tiklab.net
 
 
-mysql:
+postgresql:
   database: tiklab_postin
   embbed:
     enable: false

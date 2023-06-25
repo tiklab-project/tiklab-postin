@@ -75,14 +75,14 @@ file:
   path: http://file.test.tiklab.net
 
 base:
-  url: http://bac.postin.test.tiklab.net
+  url: http://postin-ce.test.tiklab.net
 
 eas:
   embbed:
     enable: true
-  address: http://bac.eas.test.tiklab.net
+  address: http://eas-ce.test.tiklab.net
 
 postgresql:
+  database: tiklab_postin
   embbed:
     enable: true
-  database: tiklab_postin
