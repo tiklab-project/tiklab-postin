@@ -1,4 +1,4 @@
-#application io.tiklab.testondriver.config
+#application 
 app:
   name: tiklab-postin
 spring:
@@ -7,11 +7,11 @@ spring:
 
 PROJECT_HOME: ${user.home}/tiklab/${app.name}
 
-#web io.tiklab.testondriver.config
+#web 
 server:
   port: 8080
 
-#dal io.tiklab.testondriver.config
+#dal 
 #jdbc:
 #  driverClassName: com.mysql.jdbc.Driver
 #  url: jdbc:mysql://localhost:3306/tiklab_postin?characterEncoding=utf8&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
@@ -24,7 +24,7 @@ jdbc:
   password: darth2020
 
 
-#dfs io.tiklab.testondriver.config
+#dfs 
 dfs:
   server:
     enable: false
@@ -35,7 +35,7 @@ dfs:
     url: 127.0.0.1:4000
     bucket: ${app.name}
 
-#dcs io.tiklab.testondriver.config
+#dcs 
 dcs:
   server:
     enable: false
@@ -46,7 +46,7 @@ dcs:
     url: 127.0.0.1:5000
     bucket: ${app.name}
 
-#dss io.tiklab.testondriver.config
+#dss 
 dss:
   server:
     enable: false
@@ -57,15 +57,15 @@ dss:
     url: 127.0.0.1:6000
     bucket: ${app.name}
 
-#integration io.tiklab.testondriver.config
+#integration 
 homes:
   address: http://172.11.1.11:8080
 
-#plugin io.tiklab.testondriver.config
+#plugin 
 plugin:
   path: ${PROJECT_HOME}/plugin
 
-#licences io.tiklab.testondriver.config
+#licences 
 licences:
   path: ${PROJECT_HOME}/licences
 
