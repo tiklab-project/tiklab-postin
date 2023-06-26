@@ -54,7 +54,7 @@ dss:
 
 #integration 
 homes:
-  address: http://172.11.1.11:8080
+  address: http://homes-api.demo.tiklab.net
 
 #plugin 
 plugin:
