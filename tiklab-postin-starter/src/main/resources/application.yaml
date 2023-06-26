@@ -1,6 +1,6 @@
 #application io.tiklab.postin.config
 app:
-  name: tiklab-postin
+  name: postin
 
 spring:
   config:

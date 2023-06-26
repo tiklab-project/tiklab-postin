@@ -432,16 +432,11 @@
                 </executions>
                 <configuration>
                     <artifactItems>
-                        <artifactItem>
-                            <groupId>io.tiklab</groupId>
-                            <artifactId>tiklab-eam-plugin</artifactId>
-                            <version>${project.version}</version>
-                        </artifactItem>
-                        <artifactItem>
-                            <groupId>io.tiklab</groupId>
-                            <artifactId>tiklab-user-plugin-all</artifactId>
-                            <version>${project.version}</version>
-                        </artifactItem>
+<!--                        <artifactItem>-->
+<!--                            <groupId>io.tiklab</groupId>-->
+<!--                            <artifactId>tiklab-user-plugin-all</artifactId>-->
+<!--                            <version>${project.version}</version>-->
+<!--                        </artifactItem>-->
                         <artifactItem>
                             <groupId>io.tiklab</groupId>
                             <artifactId>tiklab-postin-exportpdf-plugin</artifactId>

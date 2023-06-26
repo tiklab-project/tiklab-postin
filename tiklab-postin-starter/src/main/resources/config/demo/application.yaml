@@ -1,6 +1,6 @@
 #application 
 app:
-  name: tiklab-postin
+  name: postin
 spring:
   profiles:
     active: demo

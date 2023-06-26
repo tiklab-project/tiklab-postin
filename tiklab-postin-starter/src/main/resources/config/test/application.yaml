@@ -1,6 +1,6 @@
 #application 
 app:
-  name: tiklab-postin
+  name: postin
 spring:
   profiles:
     active: test
@@ -86,3 +86,5 @@ postgresql:
   database: tiklab_postin
   embbed:
     enable: true
+  server:
+    port: 2345
