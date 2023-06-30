@@ -14,10 +14,11 @@ server:
 
 #dal
 jdbc:
-  driverClassName: com.mysql.jdbc.Driver
-  url: jdbc:mysql://localhost:3306/tiklab_postin?characterEncoding=utf8&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
-  username: root
+  driverClassName: org.postgresql.Driver
+  url: jdbc:postgresql://localhost:5432/tiklab_postin?stringtype=unspecified
+  username: postgres
   password: darth2020
+
 
 #dfs
 dfs:
@@ -70,12 +71,12 @@ file:
   path: http://file.tiklab.net
 
 base:
-  url: http://192.168.10.18:3000
+  url: http://
 
 eas:
   embbed:
     enable: true
-#  address: eas-ce.tiklab.net
+#  address:
 
 postgresql:
   database: tiklab_postin
