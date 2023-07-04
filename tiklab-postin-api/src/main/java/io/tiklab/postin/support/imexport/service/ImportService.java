@@ -21,4 +21,7 @@ public interface ImportService {
      * @throws IOException
      */
     void importReport( String workspaceId, InputStream stream) throws IOException;
+
+
+    void getDoc();
 }

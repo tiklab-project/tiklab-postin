@@ -62,6 +62,7 @@
             <fileMode>755</fileMode>
             <outputDirectory>/embbed</outputDirectory>
         </fileSet>
+
     </fileSets>
 
     <dependencySets>

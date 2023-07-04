@@ -102,6 +102,12 @@
             <version>${project.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>io.tiklab</groupId>
+            <artifactId>tiklab-upgrade-starter</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
         <!-- iText -->
         <dependency>
             <groupId>com.itextpdf</groupId>
@@ -119,6 +125,16 @@
             <version>2.8.9</version>
         </dependency>
 
+        <dependency>
+            <groupId>xdoclet</groupId>
+            <artifactId>xjavadoc</artifactId>
+            <version>1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>xdoclet</groupId>
+            <artifactId>xdoclet</artifactId>
+            <version>1.2.3</version>
+        </dependency>
     </dependencies>
 
     <profiles>
@@ -452,6 +468,32 @@
                     <outputDirectory>${project.basedir}/plugin</outputDirectory>
                 </configuration>
             </plugin>
+
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>xdoclet-maven-plugin</artifactId>
+                <version>1.0</version>
+                <configuration>
+                    <sourceDirectories>
+<!--                        <sourceDirectory>src/main/java</sourceDirectory>  &lt;!&ndash; 指定源代码路径 &ndash;&gt;-->
+                        <sourceDirectory>src/main/java/io/tiklab/postin/**/controller</sourceDirectory>
+                    </sourceDirectories>
+                    <tagsHandlers>
+                        <tagsHandler>
+                            <handlerClass>io.tiklab.postin.config.CustomTagsHandler</handlerClass>  <!-- 自定义注释标签处理器类 -->
+                        </tagsHandler>
+                    </tagsHandlers>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>xdoclet</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
         </plugins>
     </build>
 
