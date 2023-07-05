@@ -470,26 +470,68 @@
             </plugin>
 
 
+<!--            <plugin>-->
+<!--                <groupId>org.codehaus.mojo</groupId>-->
+<!--                <artifactId>xdoclet-maven-plugin</artifactId>-->
+<!--                <version>1.0</version>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <phase>generate-sources</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>xdoclet</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--&lt;!&ndash;                <configuration>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <sourceDirectories>&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                        <sourceDirectory>src/main/java</sourceDirectory>  &lt;!&ndash; 指定源代码路径 &ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                        <sourceDirectory>src/main/java/io/tiklab/postin/**/controller</sourceDirectory>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </sourceDirectories>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <tagsHandlers>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <tagsHandler>&ndash;&gt;-->
+<!--&lt;!&ndash;                            <handlerClass>io.tiklab.postin.config.CustomTagsHandler</handlerClass>  &lt;!&ndash; 自定义注释标签处理器类 &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                        </tagsHandler>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </tagsHandlers>&ndash;&gt;-->
+<!--&lt;!&ndash;                </configuration>&ndash;&gt;-->
+<!--                <configuration>-->
+<!--&lt;!&ndash;                    <fileset>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <directory>src/main/java/io/tiklab/postin</directory>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <includes>&ndash;&gt;-->
+<!--&lt;!&ndash;                            <include>**/controller/**/*.java</include>&ndash;&gt;-->
+<!--&lt;!&ndash;                        </includes>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </fileset>&ndash;&gt;-->
+<!--                    <tasks>-->
+<!--                        <task>-->
+<!--                            <name>io.tiklab.postin.config.CustomTagsHandler</name>-->
+<!--                        </task>-->
+<!--                    </tasks>-->
+<!--                </configuration>-->
+<!--                <dependencies>-->
+<!--                    <dependency>-->
+<!--                        <groupId>xdoclet</groupId>-->
+<!--                        <artifactId>xdoclet</artifactId>-->
+<!--                        <version>1.2.3</version>-->
+<!--                    </dependency>-->
+<!--                </dependencies>-->
+<!--            </plugin>-->
+
+
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>xdoclet-maven-plugin</artifactId>
-                <version>1.0</version>
-                <configuration>
-                    <sourceDirectories>
-<!--                        <sourceDirectory>src/main/java</sourceDirectory>  &lt;!&ndash; 指定源代码路径 &ndash;&gt;-->
-                        <sourceDirectory>src/main/java/io/tiklab/postin/**/controller</sourceDirectory>
-                    </sourceDirectories>
-                    <tagsHandlers>
-                        <tagsHandler>
-                            <handlerClass>io.tiklab.postin.config.CustomTagsHandler</handlerClass>  <!-- 自定义注释标签处理器类 -->
-                        </tagsHandler>
-                    </tagsHandlers>
-                </configuration>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.1</version>
                 <executions>
                     <execution>
+                        <phase>validate</phase>
                         <goals>
-                            <goal>xdoclet</goal>
+                            <goal>run</goal>
                         </goals>
+                        <configuration>
+                            <tasks>
+<!--                                <echo message="Hello world" />-->
+<!--                                <java classname="io.tiklab.postin.config.CustomTagsHandler" classpath="src/main/java" />-->
+                            </tasks>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>

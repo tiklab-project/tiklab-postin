@@ -1,8 +1,7 @@
 package io.tiklab.postin.config;
 import xdoclet.XDocletException;
 import xdoclet.tagshandler.AbstractProgramElementTagsHandler;
-import xdoclet.tagshandler.ClassTagsHandler;
-import xdoclet.tagshandler.MethodTagsHandler;
+
 
 public class CustomTagsHandler extends AbstractProgramElementTagsHandler {
 
@@ -10,24 +9,24 @@ public class CustomTagsHandler extends AbstractProgramElementTagsHandler {
         super();
     }
 
-    public void startClass(ClassTagsHandler classTagsHandler) throws XDocletException {
+    public void startClass() throws XDocletException {
         // 处理类级别的注释
         String classComment = getCurrentClass().getDoc().toString();
         // 解析自定义注释，例如 @pi.protocol 和 @pi.groupName
         String protocol = getTagValue(classComment, "pi.protocol");
         String groupName = getTagValue(classComment, "pi.groupName");
-        // TODO: 处理自定义注释
+
         System.out.println(protocol);
         System.out.println(groupName);
     }
 
-    public void startMethod(MethodTagsHandler methodTagsHandler) throws XDocletException {
+    public void startMethod() throws XDocletException {
         // 处理方法级别的注释
         String methodComment = getCurrentMethod().getDoc().toString();
         // 解析自定义注释，例如 @pi.name 和 @pi.url
         String name = getTagValue(methodComment, "pi.name");
         String url = getTagValue(methodComment, "pi.url");
-        // TODO: 处理自定义注释
+
         System.out.println(name);
         System.out.println(url);
     }
