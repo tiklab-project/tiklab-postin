@@ -65,5 +65,10 @@ public class ImportController {
     }
 
 
+    @RequestMapping(path = "/getDoc",method = RequestMethod.POST)
+    public Result<Void> getDoc(@NotNull String workspaceId){
+        importService.getDoc();
+        return Result.ok();
+    }
 
 }

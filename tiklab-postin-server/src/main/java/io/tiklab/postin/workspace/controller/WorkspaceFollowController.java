@@ -21,7 +21,8 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
- * 空间关注 控制器
+ * @pi.protocol: http
+ * @pi.groupName: 空间关注
  */
 @RestController
 @RequestMapping("/workspaceFollow")
@@ -33,6 +34,12 @@ public class WorkspaceFollowController {
     @Autowired
     private WorkspaceFollowService workspaceFollowService;
 
+    /**
+     * @pi.name:创建空间关注
+     * @pi.url:/workspaceFollow/createWorkspaceFollow
+     * @pi.method:post
+     * @pi.request-type:json
+     */
     @RequestMapping(path="/createWorkspaceFollow",method = RequestMethod.POST)
     @ApiMethod(name = "createWorkspaceFollow",desc = "创建空间关注")
     @ApiParam(name = "workspaceFollow",desc = "workspaceFollow",required = true)
@@ -40,6 +47,21 @@ public class WorkspaceFollowController {
         String id = workspaceFollowService.createWorkspaceFollow(workspaceFollow);
 
         return Result.ok(id);
+    }
+
+    /**
+     * @pi.name:删除空间关注
+     * @pi.url:/workspaceFollow/deleteWorkspaceFollow
+     * @pi.method:post
+     * @pi.request-type:formdata
+     */
+    @RequestMapping(path="/deleteWorkspaceFollow",method = RequestMethod.POST)
+    @ApiMethod(name = "deleteWorkspaceFollow",desc = "删除空间关注")
+    @ApiParam(name = "id",desc = "id",required = true)
+    public Result<Void> deleteWorkspaceFollow(@NotNull String id){
+        workspaceFollowService.deleteWorkspaceFollow(id);
+
+        return Result.ok();
     }
 
     @RequestMapping(path="/updateWorkspaceFollow",method = RequestMethod.POST)
@@ -51,14 +73,6 @@ public class WorkspaceFollowController {
         return Result.ok();
     }
 
-    @RequestMapping(path="/deleteWorkspaceFollow",method = RequestMethod.POST)
-    @ApiMethod(name = "deleteWorkspaceFollow",desc = "删除空间关注")
-    @ApiParam(name = "id",desc = "id",required = true)
-    public Result<Void> deleteWorkspaceFollow(@NotNull String id){
-        workspaceFollowService.deleteWorkspaceFollow(id);
-
-        return Result.ok();
-    }
 
     @RequestMapping(path="/findWorkspaceFollow",method = RequestMethod.POST)
     @ApiMethod(name = "findWorkspaceFollow",desc = "根据id查询空间关注")

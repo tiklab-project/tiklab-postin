@@ -1,0 +1,9 @@
+<!DOCTYPE xdoclet SYSTEM "xdoclet.dtd">
+<xdoclet>
+
+    <!-- 定义要处理的源文件 -->
+    <fileset dir="src" includes="**/*.java"/>
+
+    <!-- 定义要使用的标签处理器 -->
+    <tagshandler name="io.tiklab.postin.config.CustomTagsHandler"/>
+</xdoclet>

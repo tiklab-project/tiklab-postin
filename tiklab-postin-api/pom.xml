@@ -23,16 +23,6 @@
             <groupId>io.tiklab</groupId>
             <artifactId>tiklab-core</artifactId>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>io.tiklab</groupId>-->
-<!--            <artifactId>tiklab-beans-annotation</artifactId>-->
-<!--            <version>${project.version}</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>io.tiklab</groupId>-->
-<!--            <artifactId>tiklab-join-annotation</artifactId>-->
-<!--            <version>${project.version}</version>-->
-<!--        </dependency>-->
         <dependency>
             <groupId>io.tiklab</groupId>
             <artifactId>tiklab-dss-annotation</artifactId>
@@ -56,11 +46,12 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
+            <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>javax.servlet</groupId>-->
+<!--            <artifactId>javax.servlet-api</artifactId>-->
+<!--        </dependency>-->
     </dependencies>
 
     <build>

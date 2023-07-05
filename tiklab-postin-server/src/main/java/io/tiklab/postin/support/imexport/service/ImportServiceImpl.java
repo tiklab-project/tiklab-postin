@@ -2,10 +2,20 @@ package io.tiklab.postin.support.imexport.service;
 
 import io.tiklab.postin.support.imexport.type.PostmanImport;
 import io.tiklab.postin.support.imexport.type.ReportImport;
+import io.tiklab.postin.workspace.controller.WorkspaceFollowController;
+import io.tiklab.postin.workspace.model.WorkspaceFollow;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.lang.model.element.ExecutableElement;
+import javax.lang.model.element.TypeElement;
+import javax.lang.model.util.Elements;
 import java.io.*;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 
 /**
  * 导入导出 服务
@@ -28,4 +38,30 @@ public class ImportServiceImpl implements ImportService {
     public void importReport( String workspaceId, InputStream stream) throws IOException {
         reportImport.analysisReportData(workspaceId,stream);
     }
+
+    @Override
+    public void getDoc(){
+
+
+
+    }
+
+    // 获取方法头部的注释
+    private static String getJavadocComment(TypeElement typeElement, ExecutableElement method) {
+//        Elements elementUtils = // 获取 Elements 的方法，请自行实现
+//                Types typeUtils = // 获取 Types 的方法，请自行实现
+//                SourceVersion sourceVersion = // 获取 SourceVersion 的方法，请自行实现
+
+        // 获取方法的起始位置和结束位置
+//        long startPosition = method.getStartPosition();
+//        long endPosition = startPosition + elementUtils.getDocComment(method);
+
+        // 获取方法头部的注释内容
+//        String source = typeElement.getEnclosingElement().toString();
+//        String javadocComment = source.substring((int) startPosition, (int) endPosition);
+
+        return null;
+    }
+
+
 }
