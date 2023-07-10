@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
  * 接口文档分享模型
  */
 @ApiModel
-@Mapper(targetAlias = "ShareEntity")
+@Mapper
 public class Share extends BaseModel {
 
     @ApiProperty(name="id",desc="id")

@@ -20,7 +20,7 @@ import java.util.List;
  */
 @ApiModel
 @Join
-@Mapper(targetAlias = "CategoryEntity")
+@Mapper
 public class Category extends BaseModel {
 
     @ApiProperty(name="id",desc="唯一标识")

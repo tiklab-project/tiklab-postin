@@ -23,7 +23,7 @@ import java.util.List;
  */
 @ApiModel
 @Join
-@Mapper(targetAlias = "HttpInstanceEntity")
+@Mapper
 public class HttpInstance extends BaseModel {
 
     @ApiProperty(name="id",desc="id")

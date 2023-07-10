@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 
 @ApiModel
 @Join
-@Mapper(targetAlias = "QueryParamCaseEntity")
+@Mapper
 public class QueryParamCase extends BaseModel {
 
     @ApiProperty(name="id",desc="唯一标识")

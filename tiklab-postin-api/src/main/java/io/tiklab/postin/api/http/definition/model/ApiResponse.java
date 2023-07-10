@@ -13,7 +13,7 @@ import java.sql.Timestamp;
  * 接口定义中响应区的模型
  */
 @ApiModel
-@Mapper(targetAlias = "ApiResponseEntity")
+@Mapper
 public class ApiResponse extends BaseModel {
 
     @ApiProperty(name="id",desc="唯一标识")

@@ -23,6 +23,7 @@ import java.util.List;
 /**
  * @pi.protocol: http
  * @pi.groupName: 空间关注
+ * @author sxc
  */
 @RestController
 @RequestMapping("/workspaceFollow")
@@ -36,9 +37,10 @@ public class WorkspaceFollowController {
 
     /**
      * @pi.name:创建空间关注
-     * @pi.url:/workspaceFollow/createWorkspaceFollow
+     * @pi.path:/workspaceFollow/createWorkspaceFollow
      * @pi.method:post
      * @pi.request-type:json
+     *     name:id;value:workspaceId;
      */
     @RequestMapping(path="/createWorkspaceFollow",method = RequestMethod.POST)
     @ApiMethod(name = "createWorkspaceFollow",desc = "创建空间关注")
@@ -51,9 +53,11 @@ public class WorkspaceFollowController {
 
     /**
      * @pi.name:删除空间关注
-     * @pi.url:/workspaceFollow/deleteWorkspaceFollow
+     * @pi.path:/workspaceFollow/deleteWorkspaceFollow
      * @pi.method:post
      * @pi.request-type:formdata
+     * @pi.param:
+     *     name:id;value:workspaceId;
      */
     @RequestMapping(path="/deleteWorkspaceFollow",method = RequestMethod.POST)
     @ApiMethod(name = "deleteWorkspaceFollow",desc = "删除空间关注")
@@ -64,6 +68,12 @@ public class WorkspaceFollowController {
         return Result.ok();
     }
 
+    /**
+     * @pi.name:更新空间关注
+     * @pi.path:/workspaceFollow/updateWorkspaceFollow
+     * @pi.method:post
+     * @pi.request-type:json
+     */
     @RequestMapping(path="/updateWorkspaceFollow",method = RequestMethod.POST)
     @ApiMethod(name = "updateWorkspaceFollow",desc = "更新空间关注")
     @ApiParam(name = "workspaceFollow",desc = "workspaceFollow",required = true)
@@ -73,7 +83,12 @@ public class WorkspaceFollowController {
         return Result.ok();
     }
 
-
+    /**
+     * @pi.name:根据id查询空间关注
+     * @pi.path:/workspaceFollow/findWorkspaceFollow
+     * @pi.method:post
+     * @pi.request-type:formdata
+     */
     @RequestMapping(path="/findWorkspaceFollow",method = RequestMethod.POST)
     @ApiMethod(name = "findWorkspaceFollow",desc = "根据id查询空间关注")
     @ApiParam(name = "id",desc = "id",required = true)
@@ -83,6 +98,12 @@ public class WorkspaceFollowController {
         return Result.ok(workspaceFollow);
     }
 
+    /**
+     * @pi.name:查询所有空间关注
+     * @pi.path:/workspaceFollow/findAllWorkspaceFollow
+     * @pi.method:post
+     * @pi.request-type:none
+     */
     @RequestMapping(path="/findAllWorkspaceFollow",method = RequestMethod.POST)
     @ApiMethod(name = "findAllWorkspaceFollow",desc = "查询所有空间关注")
     public Result<List<WorkspaceFollow>> findAllWorkspaceFollow(){
@@ -91,6 +112,13 @@ public class WorkspaceFollowController {
         return Result.ok(workspaceFollowList);
     }
 
+    /**
+     * @pi.name:根据查询参数查找空间关注
+     * @pi.path:/workspaceFollow/findWorkspaceFollowList
+     * @pi.method:post
+     * @pi.request-type:json
+     *
+     */
     @RequestMapping(path = "/findWorkspaceFollowList",method = RequestMethod.POST)
     @ApiMethod(name = "findWorkspaceFollowList",desc = "根据查询参数查找空间关注")
     @ApiParam(name = "workspaceFollowQuery",desc = "workspaceFollowQuery",required = true)
@@ -100,6 +128,12 @@ public class WorkspaceFollowController {
         return Result.ok(workspaceFollowList);
     }
 
+    /**
+     * @pi.name:根据查询参数按分页查找空间关注
+     * @pi.path:/workspaceFollow/findWorkspaceFollowPage
+     * @pi.method:post
+     * @pi.request-type:json
+     */
     @RequestMapping(path = "/findWorkspaceFollowPage",method = RequestMethod.POST)
     @ApiMethod(name = "findWorkspaceFollowPage",desc = "根据查询参数按分页查找空间关注")
     @ApiParam(name = "workspaceFollowQuery",desc = "workspaceFollowQuery",required = true)

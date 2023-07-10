@@ -22,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 @ApiModel
 @Join
 @Index
-@Mapper(targetAlias = "ApixEntity")
+@Mapper
 public class Apix extends BaseModel{
 
     @ApiProperty(name="id",desc="id")

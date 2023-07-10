@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull;
  */
 @ApiModel
 @Join
-@Mapper(targetAlias = "EnumParamEntity")
+@Mapper
 public class EnumParam extends BaseModel{
 
     @ApiProperty(name="id",desc="id")

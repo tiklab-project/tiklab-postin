@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull;
  */
 @ApiModel
 @Join
-@Mapper(targetAlias = "FormParamEntity")
+@Mapper
 public class FormParam extends BaseModel {
 
     @ApiProperty(name="id",desc="唯一标识")

@@ -4,11 +4,13 @@ import io.tiklab.postin.api.http.definition.model.*;
 import io.tiklab.postin.api.http.definition.service.*;
 import io.tiklab.postin.quicktest.model.SaveToApi;
 import io.tiklab.postin.quicktest.service.SaveToApiService;
+import io.tiklab.rpc.annotation.Exporter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Exporter
 @Service
 public class SaveToApiServicelmpl implements SaveToApiService {
 

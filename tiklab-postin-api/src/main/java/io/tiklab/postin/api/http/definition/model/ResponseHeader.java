@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull;
  */
 @ApiModel
 @Join
-@Mapper(targetAlias = "ResponseHeadersEntity")
+@Mapper
 public class ResponseHeader extends BaseModel {
 
     @ApiProperty(name="id",desc="唯一标识")

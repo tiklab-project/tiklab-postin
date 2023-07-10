@@ -9,7 +9,7 @@ import io.tiklab.postin.annotation.ApiProperty;
 import javax.validation.constraints.NotNull;
 
 @ApiModel
-@Mapper(targetAlias = "RequestCaseEntity")
+@Mapper
 public class RequestCase extends BaseModel {
 
     @ApiProperty(name="id",desc="id")

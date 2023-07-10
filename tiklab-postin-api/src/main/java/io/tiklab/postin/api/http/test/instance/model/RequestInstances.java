@@ -17,7 +17,7 @@ import javax.validation.constraints.NotNull;
  */
 @ApiModel
 @Join
-@Mapper(targetAlias = "RequestInstancesEntity")
+@Mapper
 public class RequestInstances extends BaseModel {
 
     @ApiProperty(name="id",desc="id")

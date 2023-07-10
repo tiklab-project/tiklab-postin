@@ -24,7 +24,7 @@ import java.util.List;
 @ApiModel
 @Join
 @Index
-@Mapper(targetAlias = "WorkspaceEntity")
+@Mapper
 public class Workspace extends BaseModel {
 
     @ApiProperty(name="id",desc="空间ID")

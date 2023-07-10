@@ -17,7 +17,7 @@ import io.tiklab.user.user.model.User;
  */
 @ApiModel
 @Join
-@Mapper(targetAlias = "ApiRecentEntity")
+@Mapper
 public class ApiRecent extends BaseModel {
 
     @ApiProperty(name="id",desc="id")

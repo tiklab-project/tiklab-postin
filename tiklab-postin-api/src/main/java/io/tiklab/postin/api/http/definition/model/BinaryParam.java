@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull;
  */
 @ApiModel
 @Join
-@Mapper(targetAlias = "BinaryParamEntity")
+@Mapper
 public class BinaryParam extends BaseModel{
 
     @ApiProperty(name="id",desc="唯一标识")

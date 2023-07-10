@@ -19,7 +19,7 @@ import java.util.List;
  */
 @ApiModel
 @Join
-@Mapper(targetAlias = "HttpApiEntity")
+@Mapper
 public class HttpApi extends BaseModel {
 
     @ApiProperty(name="id",desc="唯一ID")

@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
  */
 @ApiModel
 @Join
-@Mapper(targetAlias = "ResponseMockEntity")
+@Mapper
 public class ResponseMock extends BaseModel {
 
     @ApiProperty(name="id",desc="唯一标识")

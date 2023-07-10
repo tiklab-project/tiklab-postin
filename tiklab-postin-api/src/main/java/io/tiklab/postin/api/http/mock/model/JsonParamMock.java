@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull;
  */
 @ApiModel
 @Join
-@Mapper(targetAlias = "JsonParamMockEntity")
+@Mapper
 public class JsonParamMock extends BaseModel {
 
     @ApiProperty(name="id",desc="唯一ID")

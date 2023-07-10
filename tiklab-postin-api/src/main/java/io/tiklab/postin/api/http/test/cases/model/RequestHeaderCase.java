@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 
 @ApiModel
 @Join
-@Mapper(targetAlias = "RequestHeaderCaseEntity")
+@Mapper
 public class RequestHeaderCase extends BaseModel {
 
     @ApiProperty(name="id",desc="唯一标识")

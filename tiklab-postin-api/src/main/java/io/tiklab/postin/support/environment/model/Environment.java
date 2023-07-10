@@ -15,7 +15,7 @@ import java.util.Date;
  */
 @ApiModel
 @Join
-@Mapper(targetAlias = "EnvironmentEntity")
+@Mapper
 public class Environment extends BaseModel {
 
     @ApiProperty(name="id",desc="唯一标识")

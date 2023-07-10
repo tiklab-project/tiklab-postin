@@ -125,16 +125,16 @@
             <version>2.8.9</version>
         </dependency>
 
-        <dependency>
-            <groupId>xdoclet</groupId>
-            <artifactId>xjavadoc</artifactId>
-            <version>1.1</version>
-        </dependency>
-        <dependency>
-            <groupId>xdoclet</groupId>
-            <artifactId>xdoclet</artifactId>
-            <version>1.2.3</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>xdoclet</groupId>-->
+<!--            <artifactId>xjavadoc</artifactId>-->
+<!--            <version>1.1</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>xdoclet</groupId>-->
+<!--            <artifactId>xdoclet</artifactId>-->
+<!--            <version>1.2.3</version>-->
+<!--        </dependency>-->
     </dependencies>
 
     <profiles>
@@ -365,6 +365,7 @@
                     </excludes>
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-deploy-plugin</artifactId>
@@ -372,6 +373,7 @@
                     <skip>true</skip>
                 </configuration>
             </plugin>
+
             <!--maven打包插件-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -489,7 +491,7 @@
 <!--&lt;!&ndash;                    </sourceDirectories>&ndash;&gt;-->
 <!--&lt;!&ndash;                    <tagsHandlers>&ndash;&gt;-->
 <!--&lt;!&ndash;                        <tagsHandler>&ndash;&gt;-->
-<!--&lt;!&ndash;                            <handlerClass>io.tiklab.postin.config.CustomTagsHandler</handlerClass>  &lt;!&ndash; 自定义注释标签处理器类 &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                            <handlerClass>io.tiklab.postin.CustomTagsHandler</handlerClass>  &lt;!&ndash; 自定义注释标签处理器类 &ndash;&gt;&ndash;&gt;-->
 <!--&lt;!&ndash;                        </tagsHandler>&ndash;&gt;-->
 <!--&lt;!&ndash;                    </tagsHandlers>&ndash;&gt;-->
 <!--&lt;!&ndash;                </configuration>&ndash;&gt;-->
@@ -502,7 +504,7 @@
 <!--&lt;!&ndash;                    </fileset>&ndash;&gt;-->
 <!--                    <tasks>-->
 <!--                        <task>-->
-<!--                            <name>io.tiklab.postin.config.CustomTagsHandler</name>-->
+<!--                            <name>io.tiklab.postin.CustomTagsHandler</name>-->
 <!--                        </task>-->
 <!--                    </tasks>-->
 <!--                </configuration>-->
@@ -515,26 +517,6 @@
 <!--                </dependencies>-->
 <!--            </plugin>-->
 
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <version>1.1</version>
-                <executions>
-                    <execution>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                        <configuration>
-                            <tasks>
-<!--                                <echo message="Hello world" />-->
-<!--                                <java classname="io.tiklab.postin.config.CustomTagsHandler" classpath="src/main/java" />-->
-                            </tasks>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
 
         </plugins>
     </build>

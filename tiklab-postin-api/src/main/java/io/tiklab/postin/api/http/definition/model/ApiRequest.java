@@ -10,7 +10,7 @@ import io.tiklab.postin.annotation.ApiProperty;
  * 接口定义中请求区的模型
  */
 @ApiModel
-@Mapper(targetAlias = "ApiRequestEntity")
+@Mapper
 public class ApiRequest extends BaseModel {
 
     @ApiProperty(name="id",desc="id")

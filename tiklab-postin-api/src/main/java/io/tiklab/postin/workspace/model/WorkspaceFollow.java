@@ -16,7 +16,7 @@ import io.tiklab.user.user.model.User;
  */
 @ApiModel
 @Join
-@Mapper(targetAlias = "WorkspaceFollowEntity")
+@Mapper
 public class WorkspaceFollow extends BaseModel {
 
     @ApiProperty(name="id",desc="id")

@@ -17,7 +17,7 @@ import java.util.List;
  */
 @ApiModel
 @Join
-@Mapper(targetAlias = "JsonResponsesEntity")
+@Mapper
 public class JsonResponse extends BaseModel {
 
     @ApiProperty(name="id",desc="唯一ID")

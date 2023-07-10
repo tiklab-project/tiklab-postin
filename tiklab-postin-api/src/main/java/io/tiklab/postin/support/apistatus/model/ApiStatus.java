@@ -9,7 +9,7 @@ import io.tiklab.core.BaseModel;
  * 接口状态 模型
  */
 @ApiModel
-@Mapper(targetAlias = "ApiStatusEntity")
+@Mapper
 public class ApiStatus extends BaseModel{
 
     @ApiProperty(name="id",desc="id")

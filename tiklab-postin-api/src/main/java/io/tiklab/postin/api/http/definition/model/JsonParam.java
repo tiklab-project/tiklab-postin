@@ -17,7 +17,7 @@ import java.util.List;
  */
 @ApiModel
 @Join
-@Mapper(targetAlias = "JsonParamEntity")
+@Mapper
 public class JsonParam extends BaseModel {
 
     @ApiProperty(name="id",desc="唯一ID")

@@ -1,6 +1,5 @@
 -- ---------------------------
 -- 空间表
--- @dsm.cmd.id="1001"
 -- ----------------------------
 CREATE TABLE postin_workspace(
         id VARCHAR(32) PRIMARY KEY,
@@ -13,7 +12,6 @@ CREATE TABLE postin_workspace(
 
 -- ---------------------------
 -- 最近空间表
--- @dsm.cmd.id="1002"
 -- ----------------------------
 CREATE TABLE postin_workspace_recent (
         id VARCHAR(32) PRIMARY KEY,
@@ -24,7 +22,6 @@ CREATE TABLE postin_workspace_recent (
 
 -- ---------------------------
 -- 空间关注表
--- @dsm.cmd.id="1003"
 -- ----------------------------
 CREATE TABLE postin_workspace_follow(
         id VARCHAR(32) PRIMARY KEY,
@@ -35,7 +32,6 @@ CREATE TABLE postin_workspace_follow(
 
 -- ---------------------------
 -- 分组表
--- @dsm.cmd.id="1004"
 -- ----------------------------
 CREATE TABLE postin_category(
         id VARCHAR(48) PRIMARY KEY,
@@ -46,7 +42,6 @@ CREATE TABLE postin_category(
 
 -- ---------------------------
 -- 环境表
--- @dsm.cmd.id="1005"
 -- ----------------------------
 CREATE TABLE postin_environment(
         id VARCHAR(32) PRIMARY KEY,
@@ -59,7 +54,6 @@ CREATE TABLE postin_environment(
 
 -- ---------------------------
 -- 接口表  中间关联
--- @dsm.cmd.id="1006"
 -- ----------------------------
 CREATE TABLE postin_apix(
         id VARCHAR(40) PRIMARY KEY,
@@ -82,7 +76,6 @@ CREATE TABLE postin_apix(
 -- ---------------------------
 -- 接口表
 -- http
--- @dsm.cmd.id="1007"
 -- ----------------------------
 CREATE TABLE postin_api_http(
         id VARCHAR(40) PRIMARY KEY,
@@ -94,7 +87,6 @@ CREATE TABLE postin_api_http(
 -- ---------------------------
 -- http
 -- 请求头
--- @dsm.cmd.id="1008"
 -- ----------------------------
 CREATE TABLE postin_http_request_header(
         id VARCHAR(40) PRIMARY KEY,
@@ -110,7 +102,6 @@ CREATE TABLE postin_http_request_header(
 -- ---------------------------
 -- http
 -- query查询参数
--- @dsm.cmd.id="1009"
 -- ----------------------------
 CREATE TABLE postin_http_request_query(
         id VARCHAR(40) PRIMARY KEY,
@@ -125,7 +116,6 @@ CREATE TABLE postin_http_request_query(
 -- ---------------------------
 -- http
 -- 请求的公共字段表
--- @dsm.cmd.id="1010"
 -- ----------------------------
 CREATE TABLE postin_http_request(
         id VARCHAR(40) PRIMARY KEY,
@@ -138,7 +128,6 @@ CREATE TABLE postin_http_request(
 -- ---------------------------
 -- http
 -- form-data
--- @dsm.cmd.id="1011"
 -- ----------------------------
 CREATE TABLE postin_http_request_form(
         id VARCHAR(40) PRIMARY KEY,
@@ -154,7 +143,6 @@ CREATE TABLE postin_http_request_form(
 -- ---------------------------
 -- http
 -- form-url
--- @dsm.cmd.id="1012"
 -- ----------------------------
 CREATE TABLE postin_http_request_urlencoded(
         id VARCHAR(40) PRIMARY KEY,
@@ -170,7 +158,6 @@ CREATE TABLE postin_http_request_urlencoded(
 -- ---------------------------
 -- http
 -- json
--- @dsm.cmd.id="1013"
 -- ----------------------------
 CREATE TABLE postin_http_request_json(
         id VARCHAR(40) PRIMARY KEY,
@@ -189,7 +176,6 @@ CREATE TABLE postin_http_request_json(
 -- ---------------------------
 -- http
 -- raw
--- @dsm.cmd.id="1014"
 -- ----------------------------
 CREATE TABLE postin_http_request_raw(
         id VARCHAR(40) ,
@@ -201,7 +187,6 @@ CREATE TABLE postin_http_request_raw(
 -- ---------------------------
 -- http
 -- binary
--- @dsm.cmd.id="1015"
 -- ----------------------------
 CREATE TABLE postin_http_request_binary(
         id VARCHAR(40) PRIMARY KEY,
@@ -212,7 +197,6 @@ CREATE TABLE postin_http_request_binary(
 -- ---------------------------
 -- http
 -- 响应头
--- @dsm.cmd.id="1016"
 -- ----------------------------
 CREATE TABLE postin_http_response_header(
         id VARCHAR(40) PRIMARY KEY,
@@ -227,7 +211,6 @@ CREATE TABLE postin_http_response_header(
 -- ---------------------------
 -- http
 -- 响应中的公共字段
--- @dsm.cmd.id="1017"
 -- ----------------------------
 CREATE TABLE postin_http_response(
         id VARCHAR(40) PRIMARY KEY,
@@ -243,7 +226,6 @@ CREATE TABLE postin_http_response(
 -- ---------------------------
 -- http
 -- 响应中的json
--- @dsm.cmd.id="1018"
 -- ----------------------------
 CREATE TABLE postin_http_response_json(
         id VARCHAR(40) PRIMARY KEY,
@@ -261,7 +243,6 @@ CREATE TABLE postin_http_response_json(
 -- ---------------------------
 -- http
 -- 响应中raw
--- @dsm.cmd.id="1019"
 -- ----------------------------
 CREATE TABLE postin_http_response_raw(
         id VARCHAR(40) PRIMARY KEY,
@@ -272,7 +253,6 @@ CREATE TABLE postin_http_response_raw(
 
 -- ---------------------------
 -- http 用例
--- @dsm.cmd.id="1020"
 -- ----------------------------
 CREATE TABLE postin_http_case(
         id VARCHAR(40) PRIMARY KEY,
@@ -283,7 +263,6 @@ CREATE TABLE postin_http_case(
 -- ---------------------------
 -- http 用例
 -- 请求头
--- @dsm.cmd.id="1021"
 -- ----------------------------
 CREATE TABLE postin_http_case_request_header(
         id VARCHAR(32) PRIMARY KEY,
@@ -296,7 +275,6 @@ CREATE TABLE postin_http_case_request_header(
 -- ---------------------------
 -- http 用例
 -- query查询参数
--- @dsm.cmd.id="1022"
 -- ----------------------------
 CREATE TABLE postin_http_case_request_query(
         id VARCHAR(32) PRIMARY KEY,
@@ -309,7 +287,6 @@ CREATE TABLE postin_http_case_request_query(
 -- ---------------------------
 -- http 用例
 -- 请求的公共字段表
--- @dsm.cmd.id="1023"
 -- ----------------------------
 CREATE TABLE postin_http_case_request(
         id VARCHAR(32) PRIMARY KEY,
@@ -322,7 +299,6 @@ CREATE TABLE postin_http_case_request(
 -- ---------------------------
 -- http 用例
 -- form-data
--- @dsm.cmd.id="1024"
 -- ----------------------------
 CREATE TABLE postin_http_case_request_form(
         id VARCHAR(32) PRIMARY KEY,
@@ -336,7 +312,6 @@ CREATE TABLE postin_http_case_request_form(
 -- ---------------------------
 -- http 用例
 -- form-url
--- @dsm.cmd.id="1025"
 -- ----------------------------
 CREATE TABLE postin_http_case_request_urlencoded(
         id VARCHAR(32) PRIMARY KEY,
@@ -350,7 +325,6 @@ CREATE TABLE postin_http_case_request_urlencoded(
 -- ---------------------------
 -- http 用例
 -- json
--- @dsm.cmd.id="1026"
 -- ----------------------------
 CREATE TABLE postin_http_case_request_json(
         id VARCHAR(32) PRIMARY KEY,
@@ -365,7 +339,6 @@ CREATE TABLE postin_http_case_request_json(
 -- ---------------------------
 -- http 用例
 -- raw
--- @dsm.cmd.id="1027"
 -- ----------------------------
 CREATE TABLE postin_http_case_request_raw(
         id VARCHAR(32) PRIMARY KEY,
@@ -377,7 +350,6 @@ CREATE TABLE postin_http_case_request_raw(
 -- ---------------------------
 -- http 用例
 -- binary
--- @dsm.cmd.id="1028"
 -- ----------------------------
 CREATE TABLE postin_http_case_request_binary(
         id VARCHAR(32) PRIMARY KEY,
@@ -388,7 +360,6 @@ CREATE TABLE postin_http_case_request_binary(
 -- ---------------------------
 -- http 用例
 -- 断言
--- @dsm.cmd.id="1029"
 -- ----------------------------
 CREATE TABLE postin_http_case_request_assert(
         id VARCHAR(32) PRIMARY KEY,
@@ -404,7 +375,6 @@ CREATE TABLE postin_http_case_request_assert(
 -- ---------------------------
 -- http 用例
 -- 实例
--- @dsm.cmd.id="1030"
 -- ----------------------------
 CREATE TABLE postin_instance(
         id VARCHAR(40) PRIMARY KEY,
@@ -422,7 +392,6 @@ CREATE TABLE postin_instance(
 -- ---------------------------
 -- http 用例
 -- 请求实例
--- @dsm.cmd.id="1031"
 -- ----------------------------
 CREATE TABLE postin_instance_http_request(
         id VARCHAR(32) PRIMARY KEY,
@@ -439,7 +408,6 @@ CREATE TABLE postin_instance_http_request(
 -- ---------------------------
 -- http 用例
 -- 响应实例
--- @dsm.cmd.id="1032"
 -- ----------------------------
 CREATE TABLE postin_instance_http_response(
         id VARCHAR(32) PRIMARY KEY,
@@ -451,7 +419,6 @@ CREATE TABLE postin_instance_http_response(
 -- ---------------------------
 -- http 用例
 -- 断言实例
--- @dsm.cmd.id="1033"
 -- ----------------------------
 CREATE TABLE postin_instance_http_assert(
         id VARCHAR(32) PRIMARY KEY,
@@ -466,7 +433,6 @@ CREATE TABLE postin_instance_http_assert(
 
 -- ---------------------------
 -- http mock
--- @dsm.cmd.id="1034"
 -- ----------------------------
 CREATE TABLE postin_http_mock(
         id VARCHAR(40) PRIMARY KEY,
@@ -481,7 +447,6 @@ CREATE TABLE postin_http_mock(
 -- ---------------------------
 -- http mock
 -- 请求头
--- @dsm.cmd.id="1035"
 -- ----------------------------
 CREATE TABLE postin_http_mock_request_header(
         id VARCHAR(32) PRIMARY KEY,
@@ -494,7 +459,6 @@ CREATE TABLE postin_http_mock_request_header(
 -- ---------------------------
 -- http mock
 -- query查询参数
--- @dsm.cmd.id="1036"
 -- ----------------------------
 CREATE TABLE postin_http_mock_request_query(
         id VARCHAR(32) PRIMARY KEY,
@@ -507,7 +471,6 @@ CREATE TABLE postin_http_mock_request_query(
 -- ---------------------------
 -- http mock
 -- 请求体的类型
--- @dsm.cmd.id="1037"
 -- ----------------------------
 CREATE TABLE postin_http_mock_request(
         id VARCHAR(32) PRIMARY KEY,
@@ -518,7 +481,6 @@ CREATE TABLE postin_http_mock_request(
 -- ---------------------------
 -- http mock
 -- form-data
--- @dsm.cmd.id="1038"
 -- ----------------------------
 CREATE TABLE postin_http_mock_request_form(
         id VARCHAR(32) PRIMARY KEY,
@@ -531,7 +493,6 @@ CREATE TABLE postin_http_mock_request_form(
 -- ---------------------------
 -- http mock
 -- json
--- @dsm.cmd.id="1039"
 -- ----------------------------
 CREATE TABLE postin_http_mock_request_json(
         id VARCHAR(32) PRIMARY KEY,
@@ -544,7 +505,6 @@ CREATE TABLE postin_http_mock_request_json(
 -- ---------------------------
 -- http mock
 -- 响应头
--- @dsm.cmd.id="1040"
 -- ----------------------------
 CREATE TABLE postin_http_mock_response_header(
         id VARCHAR(32) PRIMARY KEY,
@@ -557,7 +517,6 @@ CREATE TABLE postin_http_mock_response_header(
 -- ---------------------------
 -- http mock
 -- 响应中的公共字段
--- @dsm.cmd.id="1041"
 -- ----------------------------
 CREATE TABLE postin_http_mock_response(
         id VARCHAR(32) PRIMARY KEY,
@@ -570,7 +529,6 @@ CREATE TABLE postin_http_mock_response(
 -- ---------------------------
 -- http mock
 -- 响应结果
--- @dsm.cmd.id="1042"
 -- ----------------------------
 CREATE TABLE postin_http_mock_response_result(
         id VARCHAR(32) PRIMARY KEY,
@@ -580,7 +538,6 @@ CREATE TABLE postin_http_mock_response_result(
 
 -- ---------------------------
 -- 模型
--- @dsm.cmd.id="1043"
 -- ----------------------------
 CREATE TABLE postin_model(
         id VARCHAR(32) PRIMARY KEY,
@@ -597,7 +554,6 @@ CREATE TABLE postin_model(
 -- ---------------------------
 -- 模型
 -- json
--- @dsm.cmd.id="1044"
 -- ----------------------------
 CREATE TABLE postin_model_json(
         id VARCHAR(32) PRIMARY KEY,
@@ -608,7 +564,6 @@ CREATE TABLE postin_model_json(
 -- ---------------------------
 -- 模型
 -- 枚举
--- @dsm.cmd.id="1045"
 -- ----------------------------
 CREATE TABLE postin_model_enum(
         id VARCHAR(32) PRIMARY KEY,
@@ -621,7 +576,6 @@ CREATE TABLE postin_model_enum(
 
 -- ---------------------------
 -- 状态
--- @dsm.cmd.id="1046"
 -- ----------------------------
 CREATE TABLE postin_api_status(
         id VARCHAR(32) PRIMARY KEY,
@@ -633,7 +587,6 @@ CREATE TABLE postin_api_status(
 
 -- ---------------------------
 -- 分享
--- @dsm.cmd.id="1047"
 -- ----------------------------
 CREATE TABLE postin_share(
         id VARCHAR(32) PRIMARY KEY,
@@ -653,3 +606,5 @@ CREATE TABLE postin_api_recent (
         user_id VARCHAR (32),
         update_time timestamp
 );
+
+

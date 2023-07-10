@@ -20,7 +20,7 @@ import java.sql.Timestamp;
  */
 @ApiModel
 @Join
-@Mapper(targetAlias = "MockEntity")
+@Mapper
 public class Mock extends BaseModel {
 
     @ApiProperty(name="id",desc="唯一标识")
