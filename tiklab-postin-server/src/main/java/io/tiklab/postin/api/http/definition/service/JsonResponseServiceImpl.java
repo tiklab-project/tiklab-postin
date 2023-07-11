@@ -1,7 +1,7 @@
 package io.tiklab.postin.api.http.definition.service;
 
 import io.tiklab.postin.api.http.definition.dao.JsonResponseDao;
-import io.tiklab.postin.api.http.definition.entity.JsonResponsesEntity;
+import io.tiklab.postin.api.http.definition.entity.JsonResponseEntity;
 import io.tiklab.postin.api.http.definition.entity.HttpApiEntity;
 import io.tiklab.postin.api.http.definition.model.JsonResponse;
 import io.tiklab.postin.api.http.definition.model.JsonResponseQuery;
@@ -33,16 +33,16 @@ public class JsonResponseServiceImpl implements JsonResponseService {
 
     @Override
     public String createJsonResponse(@NotNull @Valid JsonResponse jsonResponse) {
-        JsonResponsesEntity jsonResponsesEntity = BeanMapper.map(jsonResponse, JsonResponsesEntity.class);
+        JsonResponseEntity jsonResponseEntity = BeanMapper.map(jsonResponse, JsonResponseEntity.class);
 
-        return jsonResponseDao.createJsonResponse(jsonResponsesEntity);
+        return jsonResponseDao.createJsonResponse(jsonResponseEntity);
     }
 
     @Override
     public void updateJsonResponse(@NotNull @Valid JsonResponse jsonResponse) {
-        JsonResponsesEntity jsonResponsesEntity = BeanMapper.map(jsonResponse, JsonResponsesEntity.class);
+        JsonResponseEntity jsonResponseEntity = BeanMapper.map(jsonResponse, JsonResponseEntity.class);
 
-        jsonResponseDao.updateJsonResponse(jsonResponsesEntity);
+        jsonResponseDao.updateJsonResponse(jsonResponseEntity);
     }
 
     @Override
@@ -52,9 +52,9 @@ public class JsonResponseServiceImpl implements JsonResponseService {
 
     @Override
     public JsonResponse findJsonResponse(@NotNull String id) {
-        JsonResponsesEntity jsonResponsesEntity = jsonResponseDao.findJsonResponse(id);
+        JsonResponseEntity jsonResponseEntity = jsonResponseDao.findJsonResponse(id);
 
-        JsonResponse jsonResponse = BeanMapper.map(jsonResponsesEntity, JsonResponse.class);
+        JsonResponse jsonResponse = BeanMapper.map(jsonResponseEntity, JsonResponse.class);
 
         joinTemplate.joinQuery(jsonResponse);
 
@@ -63,9 +63,9 @@ public class JsonResponseServiceImpl implements JsonResponseService {
 
     @Override
     public List<JsonResponse> findAllJsonResponse() {
-        List<JsonResponsesEntity> jsonResponsesEntityList =  jsonResponseDao.findAllJsonResponse();
+        List<JsonResponseEntity> jsonResponseEntityList =  jsonResponseDao.findAllJsonResponse();
 
-        List<JsonResponse> jsonResponseList = BeanMapper.mapList(jsonResponsesEntityList, JsonResponse.class);
+        List<JsonResponse> jsonResponseList = BeanMapper.mapList(jsonResponseEntityList, JsonResponse.class);
 
         joinTemplate.joinQuery(jsonResponseList);
 
@@ -74,9 +74,9 @@ public class JsonResponseServiceImpl implements JsonResponseService {
 
     @Override
     public List<JsonResponse> findJsonResponseList(JsonResponseQuery jsonResponseQuery) {
-        List<JsonResponsesEntity> jsonResponsesEntityList = jsonResponseDao.findJsonResponseList(jsonResponseQuery);
+        List<JsonResponseEntity> jsonResponseEntityList = jsonResponseDao.findJsonResponseList(jsonResponseQuery);
 
-        List<JsonResponse> jsonResponseList = BeanMapper.mapList(jsonResponsesEntityList, JsonResponse.class);
+        List<JsonResponse> jsonResponseList = BeanMapper.mapList(jsonResponseEntityList, JsonResponse.class);
 
         joinTemplate.joinQuery(jsonResponseList);
 
@@ -86,7 +86,7 @@ public class JsonResponseServiceImpl implements JsonResponseService {
     @Override
     public Pagination<JsonResponse> findJsonResponsePage(JsonResponseQuery jsonResponseQuery) {
 
-        Pagination<JsonResponsesEntity>  pagination = jsonResponseDao.findJsonResponsePage(jsonResponseQuery);
+        Pagination<JsonResponseEntity>  pagination = jsonResponseDao.findJsonResponsePage(jsonResponseQuery);
 
         List<JsonResponse> jsonResponseList = BeanMapper.mapList(pagination.getDataList(), JsonResponse.class);
 

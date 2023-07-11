@@ -1,6 +1,6 @@
 package io.tiklab.postin.api.codegen;
 
-import io.tiklab.postin.api.http.definition.entity.JsonResponsesEntity;
+import io.tiklab.postin.api.http.definition.entity.JsonResponseEntity;
 import io.tiklab.codegen.CodeGeneratorTemplate;
 import io.tiklab.codegen.config.ProjectGeneratorConfig;
 import io.tiklab.codegen.config.CodeGeneratorConfig;
@@ -21,7 +21,7 @@ public class JsonResponseCodeGeneratorTest extends CodeGeneratorTemplate {
     protected CodeGeneratorConfig getCodeGeneratorConfig() {
         CodeGeneratorConfig config = new CodeGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
-        config.setEntity(JsonResponsesEntity.class);
+        config.setEntity(JsonResponseEntity.class);
         config.setPkg("io.tiklab.postin.apidef.http");
         config.setModel("JsonResponse");
         return config;

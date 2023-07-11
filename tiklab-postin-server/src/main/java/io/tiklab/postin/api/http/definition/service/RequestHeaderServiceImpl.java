@@ -3,7 +3,7 @@ package io.tiklab.postin.api.http.definition.service;
 import io.tiklab.dal.jpa.criterial.condition.DeleteCondition;
 import io.tiklab.dal.jpa.criterial.conditionbuilder.DeleteBuilders;
 import io.tiklab.postin.api.http.definition.dao.RequestHeaderDao;
-import io.tiklab.postin.api.http.definition.entity.RequestHeadersEntity;
+import io.tiklab.postin.api.http.definition.entity.RequestHeaderEntity;
 import io.tiklab.postin.api.http.definition.model.RequestHeader;
 import io.tiklab.postin.api.http.definition.model.RequestHeaderQuery;
 
@@ -34,16 +34,16 @@ public class RequestHeaderServiceImpl implements RequestHeaderService {
 
     @Override
     public String createRequestHeader(@NotNull @Valid RequestHeader requestHeader) {
-        RequestHeadersEntity requestHeadersEntity = BeanMapper.map(requestHeader, RequestHeadersEntity.class);
+        RequestHeaderEntity requestHeaderEntity = BeanMapper.map(requestHeader, RequestHeaderEntity.class);
 
-        return requestHeaderDao.createRequestHeader(requestHeadersEntity);
+        return requestHeaderDao.createRequestHeader(requestHeaderEntity);
     }
 
     @Override
     public void updateRequestHeader(@NotNull @Valid RequestHeader requestHeader) {
-        RequestHeadersEntity requestHeadersEntity = BeanMapper.map(requestHeader, RequestHeadersEntity.class);
+        RequestHeaderEntity requestHeaderEntity = BeanMapper.map(requestHeader, RequestHeaderEntity.class);
 
-        requestHeaderDao.updateRequestHeader(requestHeadersEntity);
+        requestHeaderDao.updateRequestHeader(requestHeaderEntity);
     }
 
     @Override
@@ -53,7 +53,7 @@ public class RequestHeaderServiceImpl implements RequestHeaderService {
 
     @Override
     public void deleteAllRequestHeader(String id) {
-        DeleteCondition deleteCondition = DeleteBuilders.createDelete(RequestHeadersEntity.class)
+        DeleteCondition deleteCondition = DeleteBuilders.createDelete(RequestHeaderEntity.class)
                 .eq("httpId", id)
                 .get();
         requestHeaderDao.deleteRequestHeaderList(deleteCondition);
@@ -61,9 +61,9 @@ public class RequestHeaderServiceImpl implements RequestHeaderService {
 
     @Override
     public RequestHeader findRequestHeader(@NotNull String id) {
-        RequestHeadersEntity requestHeadersEntity = requestHeaderDao.findRequestHeader(id);
+        RequestHeaderEntity requestHeaderEntity = requestHeaderDao.findRequestHeader(id);
 
-        RequestHeader requestHeader = BeanMapper.map(requestHeadersEntity, RequestHeader.class);
+        RequestHeader requestHeader = BeanMapper.map(requestHeaderEntity, RequestHeader.class);
 
         joinTemplate.joinQuery(requestHeader);
 
@@ -72,9 +72,9 @@ public class RequestHeaderServiceImpl implements RequestHeaderService {
 
     @Override
     public List<RequestHeader> findAllRequestHeader() {
-        List<RequestHeadersEntity> requestHeadersEntityList =  requestHeaderDao.findAllRequestHeader();
+        List<RequestHeaderEntity> requestHeaderEntityList =  requestHeaderDao.findAllRequestHeader();
 
-        List<RequestHeader> requestHeaderList = BeanMapper.mapList(requestHeadersEntityList, RequestHeader.class);
+        List<RequestHeader> requestHeaderList = BeanMapper.mapList(requestHeaderEntityList, RequestHeader.class);
 
         joinTemplate.joinQuery(requestHeaderList);
 
@@ -83,9 +83,9 @@ public class RequestHeaderServiceImpl implements RequestHeaderService {
 
     @Override
     public List<RequestHeader> findRequestHeaderList(RequestHeaderQuery requestHeaderQuery) {
-        List<RequestHeadersEntity> requestHeadersEntityList = requestHeaderDao.findRequestHeaderList(requestHeaderQuery);
+        List<RequestHeaderEntity> requestHeaderEntityList = requestHeaderDao.findRequestHeaderList(requestHeaderQuery);
 
-        List<RequestHeader> requestHeaderList = BeanMapper.mapList(requestHeadersEntityList, RequestHeader.class);
+        List<RequestHeader> requestHeaderList = BeanMapper.mapList(requestHeaderEntityList, RequestHeader.class);
 
         joinTemplate.joinQuery(requestHeaderList);
 
@@ -95,7 +95,7 @@ public class RequestHeaderServiceImpl implements RequestHeaderService {
     @Override
     public Pagination<RequestHeader> findRequestHeaderPage(RequestHeaderQuery requestHeaderQuery) {
 
-        Pagination<RequestHeadersEntity>  pagination = requestHeaderDao.findRequestHeaderPage(requestHeaderQuery);
+        Pagination<RequestHeaderEntity>  pagination = requestHeaderDao.findRequestHeaderPage(requestHeaderQuery);
 
         List<RequestHeader> requestHeaderList = BeanMapper.mapList(pagination.getDataList(), RequestHeader.class);
 

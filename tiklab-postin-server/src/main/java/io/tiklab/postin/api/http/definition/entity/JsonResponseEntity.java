@@ -11,24 +11,32 @@ import java.io.Serializable;
 /**
  * 定义
  * http协议
- * 响应 实体
+ * 响应中json 实体
  */
 @Entity
-@Table(name="postin_http_response_header")
-public class ResponseHeadersEntity implements Serializable {
+@Table(name="postin_http_response_json")
+public class JsonResponseEntity implements Serializable {
 
     @Id
      @GeneratorValue(length = 12)
     @Column(name = "id",length = 40)
     private String id;
 
+    //所属上级
+    @Column(name = "parent_id",length = 40)
+    private String parentId;
+
     //所属接口
     @Column(name = "http_id",length = 40,notNull = true)
     private String httpId;
 
     //参数名称
-    @Column(name = "header_name",length = 64,notNull = true)
-    private String headerName;
+    @Column(name = "property_name",length = 64,notNull = true)
+    private String propertyName;
+
+    //数据类型
+    @Column(name = "data_type",length = 32,notNull = true)
+    private String dataType;
 
     //是否必选
     @Column(name = "required",length = 2,notNull = true)
@@ -62,12 +70,20 @@ public class ResponseHeadersEntity implements Serializable {
         this.httpId = httpId;
     }
 
-    public String getHeaderName() {
-        return headerName;
+    public String getPropertyName() {
+        return propertyName;
     }
 
-    public void setHeaderName(String headerName) {
-        this.headerName = headerName;
+    public void setPropertyName(String propertyName) {
+        this.propertyName = propertyName;
+    }
+
+    public String getDataType() {
+        return dataType;
+    }
+
+    public void setDataType(String dataType) {
+        this.dataType = dataType;
     }
 
     public Integer getRequired() {
@@ -86,6 +102,14 @@ public class ResponseHeadersEntity implements Serializable {
         this.desc = desc;
     }
 
+    public Integer getSort() {
+        return sort;
+    }
+
+    public void setSort(Integer sort) {
+        this.sort = sort;
+    }
+
     public String getValue() {
         return value;
     }
@@ -94,11 +118,11 @@ public class ResponseHeadersEntity implements Serializable {
         this.value = value;
     }
 
-    public Integer getSort() {
-        return sort;
+    public String getParentId() {
+        return parentId;
     }
 
-    public void setSort(Integer sort) {
-        this.sort = sort;
+    public void setParentId(String parentId) {
+        this.parentId = parentId;
     }
 }

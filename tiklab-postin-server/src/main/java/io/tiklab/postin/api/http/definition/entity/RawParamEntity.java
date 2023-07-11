@@ -14,7 +14,7 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name="postin_http_request_raw")
-public class RawParamsEntity implements Serializable {
+public class RawParamEntity implements Serializable {
 
     @Id
     @Column(name = "id",length = 40)

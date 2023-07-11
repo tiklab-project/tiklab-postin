@@ -1,6 +1,6 @@
 package io.tiklab.postin.api.codegen;
 
-import io.tiklab.postin.api.http.definition.entity.ResponseHeadersEntity;
+import io.tiklab.postin.api.http.definition.entity.ResponseHeaderEntity;
 import io.tiklab.codegen.CodeGeneratorTemplate;
 import io.tiklab.codegen.config.ProjectGeneratorConfig;
 import io.tiklab.codegen.config.CodeGeneratorConfig;
@@ -21,7 +21,7 @@ public class ResponseHeaderCodeGeneratorTest extends CodeGeneratorTemplate {
     protected CodeGeneratorConfig getCodeGeneratorConfig() {
         CodeGeneratorConfig config = new CodeGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
-        config.setEntity(ResponseHeadersEntity.class);
+        config.setEntity(ResponseHeaderEntity.class);
         config.setPkg("io.tiklab.postin.responseheader");
         config.setModel("ResponseHeader");
         return config;

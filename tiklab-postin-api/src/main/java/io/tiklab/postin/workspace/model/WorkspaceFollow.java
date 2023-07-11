@@ -12,16 +12,25 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import io.tiklab.user.user.model.User;
 
 /**
+ *
  * 空间关注 模型
+ * @pi.model: WorkspaceFollow
  */
 @ApiModel
 @Join
 @Mapper
 public class WorkspaceFollow extends BaseModel {
 
+    /**
+     * @pi.name: id
+     * @pi.value: workspaceId
+     */
     @ApiProperty(name="id",desc="id")
     private java.lang.String id;
 
+    /**
+     * @pi.model: Workspace
+     */
     @ApiProperty(name="workspace",desc="所属空间",eg="@selectOne")
     @Mappings({
             @Mapping(source = "workspace.id",target = "workspaceId")
@@ -29,6 +38,9 @@ public class WorkspaceFollow extends BaseModel {
     @JoinQuery(key = "id")
     private Workspace workspace;
 
+    /**
+     * @pi.model: User
+     */
     @ApiProperty(name="user",desc="所属用户",eg="@selectOne")
     @Mappings({
             @Mapping(source = "user.id",target = "userId")
@@ -36,6 +48,10 @@ public class WorkspaceFollow extends BaseModel {
     @JoinQuery(key = "id")
     private User user;
 
+    /**
+     * @pi.name: createTime
+     * @pi.value: 2023-01-01 12:00:00
+     */
     @ApiProperty(name="createTime",desc="createTime")
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private java.sql.Timestamp createTime;

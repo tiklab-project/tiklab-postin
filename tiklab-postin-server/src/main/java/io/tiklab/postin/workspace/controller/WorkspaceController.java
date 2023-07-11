@@ -34,6 +34,7 @@ public class WorkspaceController {
     @Autowired
     private WorkspaceService workspaceService;
 
+
     @RequestMapping(path="/createWorkspace",method = RequestMethod.POST)
     @ApiMethod(name = "createWorkspace",desc = "创建空间")
     @ApiParam(name = "workspace",desc = "空间DTO",required = true)

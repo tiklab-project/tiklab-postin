@@ -20,28 +20,43 @@ import java.util.List;
 
 /**
  * 空间 模型
+ * @pi.model: Workspace
  */
 @ApiModel
 @Join
 @Index
 @Mapper
 public class Workspace extends BaseModel {
-
+    /**
+     * @pi.name: id
+     * @pi.value: workspaceId
+     */
     @ApiProperty(name="id",desc="空间ID")
     @IndexId
     @IndexField
     private java.lang.String id;
 
+    /**
+     * @pi.name: workspaceName
+     * @pi.value: 空间名称
+     */
     @NotNull
     @ApiProperty(name="workspaceName",desc="空间名称",eg="@text32",required = true)
     @IndexField
     @IndexQueryField
     private java.lang.String workspaceName;
 
+    /**
+     * @pi.name: desc
+     * @pi.value: workspaceId
+     */
     @ApiProperty(name="desc",desc="描述",eg="@text32")
     @IndexField
     private java.lang.String desc;
 
+    /**
+     * @pi.model: User
+     */
     @ApiProperty(name="user",desc="所属用户",eg="@selectOne")
     @Mappings({
             @Mapping(source = "user.id",target = "userId")
@@ -49,9 +64,17 @@ public class Workspace extends BaseModel {
     @JoinQuery(key = "id")
     private User user;
 
+    /**
+     * @pi.name: visibility
+     * @pi.value: 1
+     */
     @ApiProperty(name="visibility",desc="可见范围",eg = "0: 公共， 1：私密")
     private Integer visibility;
 
+    /**
+     * @pi.name: iconUrl
+     * @pi.value: a.png
+     */
     @ApiProperty(name="iconUrl",desc="图标地址",eg = "a.png")
     private String iconUrl;
 

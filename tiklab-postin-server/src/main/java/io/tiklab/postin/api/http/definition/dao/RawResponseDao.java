@@ -1,6 +1,6 @@
 package io.tiklab.postin.api.http.definition.dao;
 
-import io.tiklab.postin.api.http.definition.entity.RawResponsesEntity;
+import io.tiklab.postin.api.http.definition.entity.RawResponseEntity;
 import io.tiklab.postin.api.http.definition.model.RawResponseQuery;
 import io.tiklab.core.page.Pagination;
 import io.tiklab.dal.jpa.JpaTemplate;
@@ -29,19 +29,19 @@ public class RawResponseDao{
 
     /**
      * 创建响应中raw
-     * @param rawResponsesEntity
+     * @param rawResponseEntity
      * @return
      */
-    public String createRawResponse(RawResponsesEntity rawResponsesEntity) {
-        return jpaTemplate.save(rawResponsesEntity,String.class);
+    public String createRawResponse(RawResponseEntity rawResponseEntity) {
+        return jpaTemplate.save(rawResponseEntity,String.class);
     }
 
     /**
      * 更新响应中raw
-     * @param rawResponsesEntity
+     * @param rawResponseEntity
      */
-    public void updateRawResponse(RawResponsesEntity rawResponsesEntity){
-        jpaTemplate.update(rawResponsesEntity);
+    public void updateRawResponse(RawResponseEntity rawResponseEntity){
+        jpaTemplate.update(rawResponseEntity);
     }
 
     /**
@@ -49,7 +49,7 @@ public class RawResponseDao{
      * @param id
      */
     public void deleteRawResponse(String id){
-        jpaTemplate.delete(RawResponsesEntity.class,id);
+        jpaTemplate.delete(RawResponseEntity.class,id);
     }
 
     /**
@@ -65,16 +65,16 @@ public class RawResponseDao{
      * @param id
      * @return
      */
-    public RawResponsesEntity findRawResponse(String id){
-        return jpaTemplate.findOne(RawResponsesEntity.class,id);
+    public RawResponseEntity findRawResponse(String id){
+        return jpaTemplate.findOne(RawResponseEntity.class,id);
     }
 
     /**
     * 查找所有响应中raw
     * @return
     */
-    public List<RawResponsesEntity> findAllRawResponse() {
-        return jpaTemplate.findAll(RawResponsesEntity.class);
+    public List<RawResponseEntity> findAllRawResponse() {
+        return jpaTemplate.findAll(RawResponseEntity.class);
     }
 
     /**
@@ -82,12 +82,12 @@ public class RawResponseDao{
      * @param rawResponseQuery
      * @return
      */
-    public List<RawResponsesEntity> findRawResponseList(RawResponseQuery rawResponseQuery) {
-        QueryCondition queryCondition = QueryBuilders.createQuery(RawResponsesEntity.class)
+    public List<RawResponseEntity> findRawResponseList(RawResponseQuery rawResponseQuery) {
+        QueryCondition queryCondition = QueryBuilders.createQuery(RawResponseEntity.class)
                 .eq("httpId", rawResponseQuery.getHttpId())
                 .orders(rawResponseQuery.getOrderParams())
                 .get();
-        return jpaTemplate.findList(queryCondition, RawResponsesEntity.class);
+        return jpaTemplate.findList(queryCondition, RawResponseEntity.class);
     }
 
     /**
@@ -95,12 +95,12 @@ public class RawResponseDao{
      * @param rawResponseQuery
      * @return
      */
-    public Pagination<RawResponsesEntity> findRawResponsePage(RawResponseQuery rawResponseQuery) {
-        QueryCondition queryCondition = QueryBuilders.createQuery(RawResponsesEntity.class)
+    public Pagination<RawResponseEntity> findRawResponsePage(RawResponseQuery rawResponseQuery) {
+        QueryCondition queryCondition = QueryBuilders.createQuery(RawResponseEntity.class)
                 .eq("httpId", rawResponseQuery.getHttpId())
                 .pagination(rawResponseQuery.getPageParam())
                 .orders(rawResponseQuery.getOrderParams())
                 .get();
-        return jpaTemplate.findPage(queryCondition, RawResponsesEntity.class);
+        return jpaTemplate.findPage(queryCondition, RawResponseEntity.class);
     }
 }

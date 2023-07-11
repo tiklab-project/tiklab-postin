@@ -11,32 +11,24 @@ import java.io.Serializable;
 /**
  * 定义
  * http协议
- * 响应中json 实体
+ * 响应 实体
  */
 @Entity
-@Table(name="postin_http_response_json")
-public class JsonResponsesEntity implements Serializable {
+@Table(name="postin_http_response_header")
+public class ResponseHeaderEntity implements Serializable {
 
     @Id
      @GeneratorValue(length = 12)
     @Column(name = "id",length = 40)
     private String id;
 
-    //所属上级
-    @Column(name = "parent_id",length = 40)
-    private String parentId;
-
     //所属接口
     @Column(name = "http_id",length = 40,notNull = true)
     private String httpId;
 
     //参数名称
-    @Column(name = "property_name",length = 64,notNull = true)
-    private String propertyName;
-
-    //数据类型
-    @Column(name = "data_type",length = 32,notNull = true)
-    private String dataType;
+    @Column(name = "header_name",length = 64,notNull = true)
+    private String headerName;
 
     //是否必选
     @Column(name = "required",length = 2,notNull = true)
@@ -70,20 +62,12 @@ public class JsonResponsesEntity implements Serializable {
         this.httpId = httpId;
     }
 
-    public String getPropertyName() {
-        return propertyName;
+    public String getHeaderName() {
+        return headerName;
     }
 
-    public void setPropertyName(String propertyName) {
-        this.propertyName = propertyName;
-    }
-
-    public String getDataType() {
-        return dataType;
-    }
-
-    public void setDataType(String dataType) {
-        this.dataType = dataType;
+    public void setHeaderName(String headerName) {
+        this.headerName = headerName;
     }
 
     public Integer getRequired() {
@@ -102,14 +86,6 @@ public class JsonResponsesEntity implements Serializable {
         this.desc = desc;
     }
 
-    public Integer getSort() {
-        return sort;
-    }
-
-    public void setSort(Integer sort) {
-        this.sort = sort;
-    }
-
     public String getValue() {
         return value;
     }
@@ -118,11 +94,11 @@ public class JsonResponsesEntity implements Serializable {
         this.value = value;
     }
 
-    public String getParentId() {
-        return parentId;
+    public Integer getSort() {
+        return sort;
     }
 
-    public void setParentId(String parentId) {
-        this.parentId = parentId;
+    public void setSort(Integer sort) {
+        this.sort = sort;
     }
 }

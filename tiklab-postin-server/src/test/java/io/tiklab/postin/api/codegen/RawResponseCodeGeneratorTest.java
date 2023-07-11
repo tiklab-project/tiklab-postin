@@ -1,6 +1,6 @@
 package io.tiklab.postin.api.codegen;
 
-import io.tiklab.postin.api.http.definition.entity.RawResponsesEntity;
+import io.tiklab.postin.api.http.definition.entity.RawResponseEntity;
 import io.tiklab.codegen.CodeGeneratorTemplate;
 import io.tiklab.codegen.config.CodeGeneratorConfig;
 import io.tiklab.codegen.config.ProjectGeneratorConfig;
@@ -21,7 +21,7 @@ public class RawResponseCodeGeneratorTest extends CodeGeneratorTemplate {
     protected CodeGeneratorConfig getCodeGeneratorConfig() {
         CodeGeneratorConfig config = new CodeGeneratorConfig();
         config.setProjectGeneratorConfig(projectGeneratorConfig);
-        config.setEntity(RawResponsesEntity.class);
+        config.setEntity(RawResponseEntity.class);
         config.setPkg("io.tiklab.postin.apidef");
         config.setModel("RawResponse");
         return config;

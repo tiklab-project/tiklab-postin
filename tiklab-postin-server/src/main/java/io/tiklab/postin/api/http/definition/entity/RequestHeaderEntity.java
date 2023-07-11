@@ -15,7 +15,7 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name="postin_http_request_header")
-public class RequestHeadersEntity implements Serializable {
+public class RequestHeaderEntity implements Serializable {
 
     @Id
      @GeneratorValue(length = 12)

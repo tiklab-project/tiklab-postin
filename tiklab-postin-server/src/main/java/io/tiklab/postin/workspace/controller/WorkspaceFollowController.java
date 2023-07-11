@@ -40,7 +40,7 @@ public class WorkspaceFollowController {
      * @pi.path:/workspaceFollow/createWorkspaceFollow
      * @pi.method:post
      * @pi.request-type:json
-     *     name:id;value:workspaceId;
+     * @pi.param: model=WorkspaceFollow
      */
     @RequestMapping(path="/createWorkspaceFollow",method = RequestMethod.POST)
     @ApiMethod(name = "createWorkspaceFollow",desc = "创建空间关注")
@@ -56,8 +56,7 @@ public class WorkspaceFollowController {
      * @pi.path:/workspaceFollow/deleteWorkspaceFollow
      * @pi.method:post
      * @pi.request-type:formdata
-     * @pi.param:
-     *     name:id;value:workspaceId;
+     * @pi.param: name=id;dataType=string;value=workspaceId;
      */
     @RequestMapping(path="/deleteWorkspaceFollow",method = RequestMethod.POST)
     @ApiMethod(name = "deleteWorkspaceFollow",desc = "删除空间关注")
@@ -73,6 +72,7 @@ public class WorkspaceFollowController {
      * @pi.path:/workspaceFollow/updateWorkspaceFollow
      * @pi.method:post
      * @pi.request-type:json
+     * @pi.param: model=WorkspaceFollow
      */
     @RequestMapping(path="/updateWorkspaceFollow",method = RequestMethod.POST)
     @ApiMethod(name = "updateWorkspaceFollow",desc = "更新空间关注")
@@ -88,6 +88,7 @@ public class WorkspaceFollowController {
      * @pi.path:/workspaceFollow/findWorkspaceFollow
      * @pi.method:post
      * @pi.request-type:formdata
+     * @pi.param: name=id;dataType=string;value=workspaceId;
      */
     @RequestMapping(path="/findWorkspaceFollow",method = RequestMethod.POST)
     @ApiMethod(name = "findWorkspaceFollow",desc = "根据id查询空间关注")
@@ -117,7 +118,7 @@ public class WorkspaceFollowController {
      * @pi.path:/workspaceFollow/findWorkspaceFollowList
      * @pi.method:post
      * @pi.request-type:json
-     *
+     * @pi.param: model=WorkspaceFollowQuery
      */
     @RequestMapping(path = "/findWorkspaceFollowList",method = RequestMethod.POST)
     @ApiMethod(name = "findWorkspaceFollowList",desc = "根据查询参数查找空间关注")
@@ -133,6 +134,7 @@ public class WorkspaceFollowController {
      * @pi.path:/workspaceFollow/findWorkspaceFollowPage
      * @pi.method:post
      * @pi.request-type:json
+     * @pi.param: model=WorkspaceFollowQuery
      */
     @RequestMapping(path = "/findWorkspaceFollowPage",method = RequestMethod.POST)
     @ApiMethod(name = "findWorkspaceFollowPage",desc = "根据查询参数按分页查找空间关注")
