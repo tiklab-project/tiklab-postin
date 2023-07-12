@@ -9,7 +9,6 @@ import io.tiklab.postin.api.http.definition.model.*;
 import io.tiklab.beans.BeanMapper;
 import io.tiklab.core.page.Pagination;
 import io.tiklab.core.page.PaginationBuilder;
-import io.tiklab.dss.client.DssClient;
 import io.tiklab.join.JoinTemplate;
 import io.tiklab.postin.api.http.mock.service.MockService;
 import io.tiklab.postin.support.apistatus.model.ApiStatus;
@@ -71,8 +70,8 @@ public class HttpApiServiceImpl implements HttpApiService {
     @Autowired
     ApiResponseService apiResponseService;
 
-    @Autowired
-    DssClient disClient;
+//    @Autowired
+//    DssClient disClient;
 
     @Autowired
     ApiStatusService apiStatusService;

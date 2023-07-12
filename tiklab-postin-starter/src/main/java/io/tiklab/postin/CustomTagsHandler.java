@@ -502,12 +502,12 @@ public class CustomTagsHandler implements Doclet {
         List<File> javaFiles = new ArrayList<>();
 
         // 获取模型
-        String directory = "tiklab-postin-api/src/main/java/io/tiklab/postin";
-        findJavaFiles(new File(directory), javaFiles);
+        String modelDirectory = "tiklab-postin-api/src/main/java/io/tiklab/postin";
+        findJavaFiles(new File(modelDirectory), javaFiles);
 
         // 获取controller
-        String projectDirectory = "tiklab-postin-server/src/main/java/io/tiklab/postin";
-        findJavaFiles(new File(projectDirectory), javaFiles);
+        String controllerDirectory = "tiklab-postin-server/src/main/java/io/tiklab/postin";
+        findJavaFiles(new File(controllerDirectory), javaFiles);
 
 
         // 获取要处理的编译单元
@@ -526,9 +526,9 @@ public class CustomTagsHandler implements Doclet {
 
         Boolean success = task.call();
         if (success) {
-            System.out.println("执行文档成功");
+            System.out.println("执行成功");
         } else {
-            System.out.println("执行文档失败");
+            System.out.println("执行失败");
         }
 
         // 关闭文件管理器

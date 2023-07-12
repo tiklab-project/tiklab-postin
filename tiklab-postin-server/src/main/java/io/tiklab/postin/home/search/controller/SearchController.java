@@ -1,5 +1,6 @@
 package io.tiklab.postin.home.search.controller;
 
+import io.tiklab.dss.common.index.model.query.*;
 import io.tiklab.postin.annotation.Api;
 import io.tiklab.postin.annotation.ApiMethod;
 import io.tiklab.postin.annotation.ApiParam;
@@ -8,7 +9,6 @@ import io.tiklab.postin.home.search.SearchService;
 import io.tiklab.postin.workspace.model.Workspace;
 import io.tiklab.core.Result;
 import io.tiklab.core.exception.ApplicationException;
-import io.tiklab.dss.common.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -8,7 +8,7 @@ import io.tiklab.postin.api.apix.model.ApixQuery;
 import io.tiklab.beans.BeanMapper;
 import io.tiklab.core.page.Pagination;
 import io.tiklab.core.page.PaginationBuilder;
-import io.tiklab.dss.client.DssClient;
+
 import io.tiklab.join.JoinTemplate;
 import io.tiklab.postin.api.http.definition.service.HttpApiService;
 import io.tiklab.postin.common.LogUnit;
@@ -52,8 +52,8 @@ public class ApixServiceImpl implements ApixService {
     @Autowired
     JoinTemplate joinTemplate;
 
-    @Autowired
-    DssClient disClient;
+//    @Autowired
+//    DssClient disClient;
 
     @Autowired
     LogUnit logUnit;
