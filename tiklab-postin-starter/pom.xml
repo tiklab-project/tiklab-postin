@@ -110,7 +110,7 @@
             <groupId>io.tiklab</groupId>
             <artifactId>tiklab-postin-api</artifactId>
             <version>1.0.0-SNAPSHOT</version>
-            <scope>compile</scope>
+            <scope>${project.version}</scope>
         </dependency>
 
         <!-- iText -->
@@ -484,52 +484,52 @@
             </plugin>
 
 
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>3.0.0</version>
-                <executions>
-                    <execution>
-                        <phase>generate-resources</phase>
-                        <goals>
-                            <goal>java</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <mainClass>io.tiklab.postin.CustomTagsHandler</mainClass>
-                    <!-- 可选：指定其他 Java 执行参数 -->
-                    <!-- <arguments>
-                        <argument>arg1</argument>
-                        <argument>arg2</argument>
-                    </arguments> -->
-                </configuration>
-            </plugin>
 <!--            <plugin>-->
-<!--                <groupId>org.apache.maven.plugins</groupId>-->
-<!--                <artifactId>maven-antrun-plugin</artifactId>-->
+<!--                <groupId>org.codehaus.mojo</groupId>-->
+<!--                <artifactId>exec-maven-plugin</artifactId>-->
 <!--                <version>3.0.0</version>-->
 <!--                <executions>-->
 <!--                    <execution>-->
-<!--                        <id>java-execution</id>-->
-<!--                        <phase>compile</phase>-->
+<!--                        <phase>generate-resources</phase>-->
 <!--                        <goals>-->
-<!--                            <goal>run</goal>-->
+<!--                            <goal>java</goal>-->
 <!--                        </goals>-->
-<!--                        <configuration>-->
-<!--                            <target>-->
-<!--                                <echo message="${project.basedir}/target/classes"/>-->
-<!--                                <taskdef name="postindoclet" classname="io.tiklab.postin.DemoDoclet" classpathref="maven.runtime.classpath"/>-->
-<!--                                <postindoclet destdir="${project.basedir}/src/main/java">-->
-<!--                                    <fileset dir="${project.basedir}/src/main/java">-->
-<!--                                        <include name="*.java"/>-->
-<!--                                    </fileset>-->
-<!--                                </postindoclet>-->
-<!--                            </target>-->
-<!--                        </configuration>-->
 <!--                    </execution>-->
 <!--                </executions>-->
+<!--                <configuration>-->
+<!--                    <mainClass>io.tiklab.postin.CustomTagsHandler</mainClass>-->
+<!--                    &lt;!&ndash; 可选：指定其他 Java 执行参数 &ndash;&gt;-->
+<!--                    &lt;!&ndash; <arguments>-->
+<!--                        <argument>arg1</argument>-->
+<!--                        <argument>arg2</argument>-->
+<!--                    </arguments> &ndash;&gt;-->
+<!--                </configuration>-->
 <!--            </plugin>-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>3.0.0</version>
+                <executions>
+                    <execution>
+                        <id>java-execution</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <echo message="${project.basedir}/target/classes"/>
+                                <taskdef name="postindoclet" classname="io.tiklab.postin.DemoDoclet" classpathref="maven.runtime.classpath"/>
+                                <postindoclet destdir="${project.basedir}/src/main/java">
+                                    <fileset dir="${project.basedir}/src/main/java">
+                                        <include name="*.java"/>
+                                    </fileset>
+                                </postindoclet>
+                            </target>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 
