@@ -85,7 +85,11 @@ public class GatewayFilterAutoConfiguration{
                         "/testInstance/findTestInstanceList",
                         "/appLink/findAppLinkList",
                         "/eam/auth/login",
-
+                        "/category/createCategory",
+                        "/quickTest/saveToApi",
+                        "/formParam/createFormParam",
+                        "/formUrlencoded/createFormUrlencoded",
+                        "/rawParam/createRawParam",
                 })
                 .ignorePreUrls(new String[]{
                         "/share",

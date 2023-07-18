@@ -1,9 +1,9 @@
 package io.tiklab.postin.home.search;
 
-import io.tiklab.dss.common.index.model.query.CountResponse;
-import io.tiklab.dss.common.index.model.query.PageCondition;
-import io.tiklab.dss.common.index.model.query.PageResponse;
-import io.tiklab.dss.common.index.model.query.TopResponse;
+import io.tiklab.dss.common.document.model.CountResponse;
+import io.tiklab.dss.common.document.model.PageCondition;
+import io.tiklab.dss.common.document.model.PageResponse;
+import io.tiklab.dss.common.document.model.TopResponse;
 
 import java.util.Map;
 

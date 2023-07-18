@@ -1,10 +1,10 @@
 package io.tiklab.postin.home.search.service;
 
 import io.tiklab.dss.client.DssClient;
-import io.tiklab.dss.common.index.model.query.CountResponse;
-import io.tiklab.dss.common.index.model.query.PageCondition;
-import io.tiklab.dss.common.index.model.query.PageResponse;
-import io.tiklab.dss.common.index.model.query.TopResponse;
+import io.tiklab.dss.common.document.model.CountResponse;
+import io.tiklab.dss.common.document.model.PageCondition;
+import io.tiklab.dss.common.document.model.PageResponse;
+import io.tiklab.dss.common.document.model.TopResponse;
 import io.tiklab.postin.api.http.definition.model.HttpApi;
 import io.tiklab.postin.api.http.definition.service.HttpApiService;
 import io.tiklab.postin.home.search.SearchService;

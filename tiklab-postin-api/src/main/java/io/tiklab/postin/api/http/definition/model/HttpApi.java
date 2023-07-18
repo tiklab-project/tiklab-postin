@@ -7,8 +7,8 @@ import io.tiklab.beans.annotation.Mapper;
 import io.tiklab.beans.annotation.Mapping;
 import io.tiklab.beans.annotation.Mappings;
 import io.tiklab.core.BaseModel;
-import io.tiklab.dss.annotation.IndexField;
-import io.tiklab.dss.annotation.IndexId;
+
+
 import io.tiklab.join.annotation.Join;
 import io.tiklab.join.annotation.JoinQuery;
 
@@ -23,8 +23,8 @@ import java.util.List;
 public class HttpApi extends BaseModel {
 
     @ApiProperty(name="id",desc="唯一ID")
-    @IndexId
-    @IndexField
+    //@IndexId
+    //@IndexField
     private java.lang.String id;
 
     @ApiProperty(name="apix",desc="所属接口公共定义",eg="@selectOne",required = true)

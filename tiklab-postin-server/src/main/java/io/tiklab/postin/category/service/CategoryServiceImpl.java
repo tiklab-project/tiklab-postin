@@ -66,18 +66,17 @@ public class CategoryServiceImpl implements CategoryService {
         String categoryId = categoryDao.createCategory(categoryEntity);
 
         //日志
-        String userId = LoginContext.getLoginId();
-        Map<String,String> map = new HashMap<>();
-        map.put("name",category.getName());
-        map.put("id",categoryId);
-        map.put("workspaceId",category.getWorkspace().getId());
-        map.put("user",postInUnit.getUser().getNickname());
-        map.put("mode","目录");
-        map.put("images","/images/log.png");
-        LoggingType oplogTypeOne = loggingTypeService.findOplogTypeOne(LOG_TYPE_CREATE_ID);
-        map.put("actionType",oplogTypeOne.getName());
-
-        logUnit.log(LOG_TYPE_CREATE_ID,"category",map);
+//        Map<String,String> map = new HashMap<>();
+//        map.put("name",category.getName());
+//        map.put("id",categoryId);
+//        map.put("workspaceId",category.getWorkspace().getId());
+//        map.put("user",postInUnit.getUser().getNickname());
+//        map.put("mode","目录");
+//        map.put("images","/images/log.png");
+//        LoggingType oplogTypeOne = loggingTypeService.findOplogTypeOne(LOG_TYPE_CREATE_ID);
+//        map.put("actionType",oplogTypeOne.getName());
+//
+//        logUnit.log(LOG_TYPE_CREATE_ID,"category",map);
 
         return categoryId;
     }

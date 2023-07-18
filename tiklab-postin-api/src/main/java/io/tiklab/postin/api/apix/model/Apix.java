@@ -9,10 +9,7 @@ import io.tiklab.beans.annotation.Mapper;
 import io.tiklab.beans.annotation.Mapping;
 import io.tiklab.beans.annotation.Mappings;
 import io.tiklab.core.BaseModel;
-import io.tiklab.dss.annotation.Index;
-import io.tiklab.dss.annotation.IndexField;
-import io.tiklab.dss.annotation.IndexId;
-import io.tiklab.dss.annotation.IndexQueryField;
+
 import io.tiklab.join.annotation.Join;
 import io.tiklab.join.annotation.JoinQuery;
 import io.tiklab.user.user.model.User;
@@ -21,13 +18,13 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 @ApiModel
 @Join
-@Index
+//@Index
 @Mapper
 public class Apix extends BaseModel{
 
     @ApiProperty(name="id",desc="id")
-    @IndexId
-    @IndexField
+    //@IndexId
+    //@IndexField
     private java.lang.String id;
 
     @ApiProperty(name="category",desc="所属分类",eg="@selectOne",required = true)
@@ -35,20 +32,20 @@ public class Apix extends BaseModel{
             @Mapping(source = "category.id",target = "categoryId")
     })
     @JoinQuery(key = "id")
-    @IndexField
+    //@IndexField
     private Category category;
 
     @ApiProperty(name="name",desc="接口名称",required = true)
-    @IndexField
-    @IndexQueryField
+    //@IndexField
+    //@IndexQueryField
     private java.lang.String name;
 
     @ApiProperty(name="protocolType",desc="协议类型",required = true)
-    @IndexField
+    //@IndexField
     private java.lang.String protocolType;
 
     @ApiProperty(name="methodType",desc="请求类型",required = true)
-    @IndexField
+    //@IndexField
     private java.lang.String methodType;
 
     @ApiProperty(name="createUser",desc="创建人")
@@ -78,7 +75,7 @@ public class Apix extends BaseModel{
             @Mapping(source = "status.id",target = "statusId")
     })
     @JoinQuery(key = "id")
-    @IndexField
+    //@IndexField
     private ApiStatus status;
 
     @ApiProperty(name="executor",desc="责任人")

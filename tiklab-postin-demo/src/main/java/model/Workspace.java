@@ -1,14 +1,13 @@
-package io.tiklab.postin.workspace.model;
+package model;
 
-import io.tiklab.postin.annotation.ApiModel;
-import io.tiklab.postin.annotation.ApiProperty;
 import io.tiklab.beans.annotation.Mapper;
 import io.tiklab.beans.annotation.Mapping;
 import io.tiklab.beans.annotation.Mappings;
 import io.tiklab.core.BaseModel;
-
 import io.tiklab.join.annotation.Join;
 import io.tiklab.join.annotation.JoinQuery;
+import io.tiklab.postin.annotation.ApiModel;
+import io.tiklab.postin.annotation.ApiProperty;
 import io.tiklab.privilege.role.model.PatchUser;
 import io.tiklab.user.user.model.User;
 
@@ -31,7 +30,7 @@ public class Workspace extends BaseModel {
     @ApiProperty(name="id",desc="空间ID")
     //@IndexId
     //@IndexField
-    private java.lang.String id;
+    private String id;
 
     /**
      * @pi.name: workspaceName
@@ -41,7 +40,7 @@ public class Workspace extends BaseModel {
     @ApiProperty(name="workspaceName",desc="空间名称",eg="@text32",required = true)
     //@IndexField
     //@IndexQueryField
-    private java.lang.String workspaceName;
+    private String workspaceName;
 
     /**
      * @pi.name: desc
@@ -49,7 +48,7 @@ public class Workspace extends BaseModel {
      */
     @ApiProperty(name="desc",desc="描述",eg="@text32")
     //@IndexField
-    private java.lang.String desc;
+    private String desc;
 
     /**
      * @pi.model: User
@@ -82,21 +81,21 @@ public class Workspace extends BaseModel {
     private Integer apiNum;
 
 
-    public java.lang.String getId() {
+    public String getId() {
         return id;
     }
 
     public void setId(String id) {
         this.id = id;
     }
-    public java.lang.String getWorkspaceName() {
+    public String getWorkspaceName() {
         return workspaceName;
     }
 
     public void setWorkspaceName(String workspaceName) {
         this.workspaceName = workspaceName;
     }
-    public java.lang.String getDesc() {
+    public String getDesc() {
         return desc;
     }
 

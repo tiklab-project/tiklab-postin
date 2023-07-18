@@ -28,7 +28,6 @@
             <groupId>io.tiklab</groupId>
             <artifactId>tiklab-rpc-spring-boot-starter</artifactId>
         </dependency>
-
         <dependency>
             <groupId>io.tiklab</groupId>
             <artifactId>tiklab-plugin-spring-boot-starter</artifactId>
@@ -37,13 +36,12 @@
         <dependency>
             <groupId>io.tiklab</groupId>
             <artifactId>tiklab-user-spring-boot-starter</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
-            <scope>compile</scope>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>io.tiklab</groupId>
             <artifactId>tiklab-toolkit-spring-boot-starter</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>io.tiklab</groupId>
@@ -54,22 +52,27 @@
                     <artifactId>dysmsapi20170525</artifactId>
                 </exclusion>
             </exclusions>
-            <version>1.0.0-SNAPSHOT</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>io.tiklab</groupId>
             <artifactId>tiklab-licence-spring-boot-starter</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>io.tiklab</groupId>
             <artifactId>tiklab-gateway-spring-boot-starter</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>io.tiklab</groupId>
             <artifactId>tiklab-eam-spring-boot-starter</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.tiklab</groupId>
+            <artifactId>tiklab-integration-spring-boot-starter</artifactId>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>io.tiklab</groupId>
@@ -84,7 +87,7 @@
         <dependency>
             <groupId>io.tiklab</groupId>
             <artifactId>tiklab-privilege-spring-boot-starter</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>io.tiklab</groupId>
@@ -128,22 +131,6 @@
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>2.8.9</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.ant</groupId>
-            <artifactId>ant</artifactId>
-            <version>1.10.3</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>xdoclet</groupId>
-            <artifactId>xdoclet</artifactId>
-            <version>1.2.3</version>
-        </dependency>
-        <dependency>
-            <groupId>xdoclet</groupId>
-            <artifactId>xjavadoc</artifactId>
-            <version>1.1</version>
         </dependency>
 
 
@@ -483,53 +470,6 @@
                 </configuration>
             </plugin>
 
-
-<!--            <plugin>-->
-<!--                <groupId>org.codehaus.mojo</groupId>-->
-<!--                <artifactId>exec-maven-plugin</artifactId>-->
-<!--                <version>3.0.0</version>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <phase>generate-resources</phase>-->
-<!--                        <goals>-->
-<!--                            <goal>java</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--                <configuration>-->
-<!--                    <mainClass>io.tiklab.postin.CustomTagsHandler</mainClass>-->
-<!--                    &lt;!&ndash; 可选：指定其他 Java 执行参数 &ndash;&gt;-->
-<!--                    &lt;!&ndash; <arguments>-->
-<!--                        <argument>arg1</argument>-->
-<!--                        <argument>arg2</argument>-->
-<!--                    </arguments> &ndash;&gt;-->
-<!--                </configuration>-->
-<!--            </plugin>-->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <version>3.0.0</version>
-                <executions>
-                    <execution>
-                        <id>java-execution</id>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                        <configuration>
-                            <target>
-                                <echo message="${project.basedir}/target/classes"/>
-                                <taskdef name="postindoclet" classname="io.tiklab.postin.DemoDoclet" classpathref="maven.runtime.classpath"/>
-                                <postindoclet destdir="${project.basedir}/src/main/java">
-                                    <fileset dir="${project.basedir}/src/main/java">
-                                        <include name="*.java"/>
-                                    </fileset>
-                                </postindoclet>
-                            </target>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
 

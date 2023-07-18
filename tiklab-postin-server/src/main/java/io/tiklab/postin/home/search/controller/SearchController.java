@@ -1,6 +1,7 @@
 package io.tiklab.postin.home.search.controller;
 
-import io.tiklab.dss.common.index.model.query.*;
+
+import io.tiklab.dss.common.document.model.*;
 import io.tiklab.postin.annotation.Api;
 import io.tiklab.postin.annotation.ApiMethod;
 import io.tiklab.postin.annotation.ApiParam;

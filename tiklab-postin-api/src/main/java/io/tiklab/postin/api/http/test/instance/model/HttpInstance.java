@@ -7,7 +7,7 @@ import io.tiklab.beans.annotation.Mapper;
 import io.tiklab.beans.annotation.Mapping;
 import io.tiklab.beans.annotation.Mappings;
 import io.tiklab.core.BaseModel;
-import io.tiklab.dss.annotation.IndexField;
+
 import io.tiklab.join.annotation.Join;
 import io.tiklab.join.annotation.JoinQuery;
 import io.tiklab.user.user.model.User;
@@ -47,7 +47,7 @@ public class HttpInstance extends BaseModel {
     private User user;
 
     @ApiProperty(name="createTime",desc="创建时间")
-    @IndexField
+    //@IndexField
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Timestamp createTime;
 
