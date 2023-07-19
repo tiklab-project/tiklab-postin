@@ -3,7 +3,7 @@ package io.tiklab.postin.common;
 /**
  * 固定的消息Id
  */
-public class MessageTemplateConstant {
+public class EnumTemplateConstant {
 
     //消息模板ID
     public static final String MESSAGE_TEMPLATE_ID = "WORKSPACE_CREATE";
@@ -18,5 +18,9 @@ public class MessageTemplateConstant {
     public static final String LOG_TYPE_CREATE_ID = "CREATE_TYPE";
     public static final String LOG_TYPE_UPDATE_ID = "UPDATE_TYPE";
     public static final String LOG_TYPE_DELETE_ID = "DELETE_TYPE";
+
+
+
+
 
 }

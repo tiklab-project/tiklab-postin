@@ -28,7 +28,7 @@ import javax.validation.constraints.NotNull;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static io.tiklab.postin.common.MessageTemplateConstant.*;
+import static io.tiklab.postin.common.EnumTemplateConstant.*;
 
 /**
 * 分类 服务

@@ -3,6 +3,8 @@ package io.tiklab.postin.api.apix.service;
 
 import io.tiklab.postin.api.apix.dao.ApixDao;
 import io.tiklab.postin.api.apix.entity.ApixEntity;
+import io.tiklab.postin.api.apix.model.ApiRecent;
+import io.tiklab.postin.api.apix.model.ApiRecentQuery;
 import io.tiklab.postin.api.apix.model.Apix;
 import io.tiklab.postin.api.apix.model.ApixQuery;
 import io.tiklab.beans.BeanMapper;
@@ -10,31 +12,26 @@ import io.tiklab.core.page.Pagination;
 import io.tiklab.core.page.PaginationBuilder;
 
 import io.tiklab.join.JoinTemplate;
+import io.tiklab.postin.api.http.definition.service.ApiResponseService;
 import io.tiklab.postin.api.http.definition.service.HttpApiService;
 import io.tiklab.postin.common.LogUnit;
 import io.tiklab.postin.common.PostInUnit;
 
-import io.tiklab.postin.support.apistatus.model.ApiStatus;
-import io.tiklab.postin.support.apistatus.service.ApiStatusService;
 import io.tiklab.rpc.annotation.Exporter;
 import io.tiklab.security.logging.model.LoggingType;
 import io.tiklab.security.logging.service.LoggingTypeService;
 import io.tiklab.eam.common.context.LoginContext;
-import io.tiklab.user.user.model.User;
-import io.tiklab.user.user.service.UserService;
-import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static io.tiklab.postin.common.MessageTemplateConstant.*;
+import static io.tiklab.postin.common.EnumTemplateConstant.*;
 
 /**
  * 接口公共实体
@@ -51,6 +48,9 @@ public class ApixServiceImpl implements ApixService {
 
     @Autowired
     JoinTemplate joinTemplate;
+
+    @Autowired
+    ApiRecentService apiRecentService;
 
 //    @Autowired
 //    DssClient disClient;
@@ -159,6 +159,17 @@ public class ApixServiceImpl implements ApixService {
 
         //http协议的接口。id与apix的公共表相同
         httpApiService.deleteHttpApi(id);
+
+        //删除最近
+        ApiRecentQuery apiRecentQuery = new ApiRecentQuery();
+        apiRecentQuery.setApixId(id);
+        List<ApiRecent> apiRecentList = apiRecentService.findApiRecentList(apiRecentQuery);
+        for(ApiRecent apiRecent:apiRecentList){
+            if(apiRecent.getApix().getId()==id){
+                apiRecentService.deleteApiRecent(id);
+            }
+        }
+
 
         //删除接口
         apixDao.deleteApix(id);

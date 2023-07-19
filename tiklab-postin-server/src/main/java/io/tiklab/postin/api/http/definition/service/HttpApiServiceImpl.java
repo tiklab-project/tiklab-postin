@@ -107,17 +107,17 @@ public class HttpApiServiceImpl implements HttpApiService {
         apiRequest.setBodyType("none");
         apiRequestService.createApiRequest(apiRequest);
 
-        JsonParam jsonParam = new JsonParam();
-        jsonParam.setId(id);
-        jsonParam.setHttpId(id);
-        jsonParam.setJsonText(
-                "{\n" +
-                "    \"type\": \"object\",\n" +
-                "    \"title\": \"title\",\n" +
-                "    \"properties\": {}\n" +
-                "}"
-        );
-        jsonParamService.createJsonParam(jsonParam);
+//        JsonParam jsonParam = new JsonParam();
+//        jsonParam.setId(id);
+//        jsonParam.setHttpId(id);
+//        jsonParam.setJsonText(
+//                "{\n" +
+//                "    \"type\": \"object\",\n" +
+//                "    \"title\": \"title\",\n" +
+//                "    \"properties\": {}\n" +
+//                "}"
+//        );
+//        jsonParamService.createJsonParam(jsonParam);
 
         //初始化一个返回结果 数据类型为json， 所以设置值为jsonSchema结构的值
         ApiResponse apiResponse = new ApiResponse();

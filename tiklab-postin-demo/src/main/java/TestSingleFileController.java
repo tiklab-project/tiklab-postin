@@ -44,5 +44,20 @@ public class TestSingleFileController {
         return Result.ok(id);
     }
 
+    /**
+     * @pi.name:删除空间关注
+     * @pi.path:/workspaceFollow/deleteWorkspaceFollow
+     * @pi.method:post
+     * @pi.request-type:formdata
+     * @pi.param: name=id;dataType=string;value=workspaceId;
+     */
+    @RequestMapping(path="/deleteWorkspaceFollow",method = RequestMethod.POST)
+    @ApiMethod(name = "deleteWorkspaceFollow",desc = "删除空间关注")
+    @ApiParam(name = "id",desc = "id",required = true)
+    public Result<Void> deleteWorkspaceFollow(@NotNull String id){
+        workspaceFollowService.deleteWorkspaceFollow(id);
+
+        return Result.ok();
+    }
 
 }

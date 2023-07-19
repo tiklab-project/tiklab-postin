@@ -36,7 +36,7 @@ public class WorkspaceFollowController {
     private WorkspaceFollowService workspaceFollowService;
 
     /**
-     * @pi.name:创建空间关注
+     * @pi.name:创建空间关注123
      * @pi.path:/workspaceFollow/createWorkspaceFollow
      * @pi.method:post
      * @pi.request-type:json
@@ -52,7 +52,7 @@ public class WorkspaceFollowController {
     }
 
     /**
-     * @pi.name:删除空间关注
+     * @pi.name:删除空间关注123
      * @pi.path:/workspaceFollow/deleteWorkspaceFollow
      * @pi.method:post
      * @pi.request-type:formdata
@@ -68,7 +68,7 @@ public class WorkspaceFollowController {
     }
 
     /**
-     * @pi.name:更新空间关注
+     * @pi.name:更新空间关注2
      * @pi.path:/workspaceFollow/updateWorkspaceFollow
      * @pi.method:post
      * @pi.request-type:json
@@ -84,7 +84,7 @@ public class WorkspaceFollowController {
     }
 
     /**
-     * @pi.name:根据id查询空间关注
+     * @pi.name:根据id查询空间关注3
      * @pi.path:/workspaceFollow/findWorkspaceFollow
      * @pi.method:post
      * @pi.request-type:formdata
@@ -100,7 +100,7 @@ public class WorkspaceFollowController {
     }
 
     /**
-     * @pi.name:查询所有空间关注
+     * @pi.name:查询所有空间关注3
      * @pi.path:/workspaceFollow/findAllWorkspaceFollow
      * @pi.method:post
      * @pi.request-type:none
@@ -114,7 +114,7 @@ public class WorkspaceFollowController {
     }
 
     /**
-     * @pi.name:根据查询参数查找空间关注
+     * @pi.name:根据查询参数查找空间关注2
      * @pi.path:/workspaceFollow/findWorkspaceFollowList
      * @pi.method:post
      * @pi.request-type:json

@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import java.sql.Timestamp;
 import java.util.Map;
 
-import static io.tiklab.postin.common.MessageTemplateConstant.LOG_TEMPLATE_ID;
+import static io.tiklab.postin.common.EnumTemplateConstant.LOG_TEMPLATE_ID;
 
 /**
  * 公共的日志处理

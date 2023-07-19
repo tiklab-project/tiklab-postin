@@ -5,7 +5,6 @@ import io.tiklab.eam.common.context.LoginContext;
 import io.tiklab.message.message.model.SendMessageNotice;
 import io.tiklab.message.message.service.SendMessageNoticeService;
 import io.tiklab.postin.api.apix.service.ApixService;
-import io.tiklab.postin.api.http.test.cases.service.HttpTestcaseService;
 import io.tiklab.postin.category.model.Category;
 import io.tiklab.postin.category.model.CategoryQuery;
 import io.tiklab.postin.category.service.CategoryService;
@@ -42,7 +41,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.*;
 
-import static io.tiklab.postin.common.MessageTemplateConstant.*;
+import static io.tiklab.postin.common.EnumTemplateConstant.*;
 
 /**
 * 空间服务

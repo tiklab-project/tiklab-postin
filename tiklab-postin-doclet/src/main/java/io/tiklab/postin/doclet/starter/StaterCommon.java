@@ -41,7 +41,11 @@ public class StaterCommon {
         }
 
         // 创建标准文件管理器
-        StandardJavaFileManager fileManager = documentationTool.getStandardFileManager(null, null, Charset.forName("UTF-8"));
+        StandardJavaFileManager fileManager = documentationTool.getStandardFileManager(
+                null,
+                null,
+                Charset.forName("UTF-8")
+        );
 
         // 获取要处理的编译单元
         List<JavaFileObject> compilationUnitsList = new ArrayList<>();
@@ -104,7 +108,7 @@ public class StaterCommon {
             fileManager.close();
         }catch (Exception e){
             logger.info("执行错误{}",e);
-            System.out.println("执行失败: " + e);
+            System.out.println("执行错误: " + e);
         }
     }
 
@@ -157,16 +161,18 @@ public class StaterCommon {
                 InvocationRequest request = new DefaultInvocationRequest();
                 // 指定项目的 pom.xml 文件路径
                 // 截取路径
-//        String modules = props.getProperty(key);
-//        int lastIndex = modules.lastIndexOf("/");
-//        String module = modules.substring(lastIndex + 1);
-                request.setPomFile( new File( props.getProperty(key)+"/pom.xml"));
+                String modules = props.getProperty(key);
+                int lastIndex = modules.lastIndexOf("/");
+                String module = modules.substring(lastIndex + 1);
+                request.setPomFile( new File( module+"/pom.xml"));
+//                request.setPomFile( new File( props.getProperty(key)+"/pom.xml"));
                 //执行maven的命令
                 request.setGoals( Collections.singletonList( "dependency:copy-dependencies"));
 
                 Invoker invoker = new DefaultInvoker();
                 // 设置要执行的 MavenHome
-                invoker.setMavenHome(new File(props.getProperty("mavenHome")));
+                invoker.setMavenHome(new File(System.getProperty("maven.home")));
+//                invoker.setMavenHome(new File(props.getProperty("mavenHome")));
 
                 try {
                     invoker.execute( request );
@@ -181,7 +187,7 @@ public class StaterCommon {
     }
 
     /**
-     * 获取所有pox中的依赖包
+     * 获取所有pox中的依赖包名称拼成字符串
      * @param props
      * @param classpathBuilder
      */

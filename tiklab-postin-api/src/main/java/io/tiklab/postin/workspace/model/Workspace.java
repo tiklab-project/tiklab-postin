@@ -35,7 +35,7 @@ public class Workspace extends BaseModel {
 
     /**
      * @pi.name: workspaceName
-     * @pi.value: 空间名称
+     * @pi.value: 空间名称111
      */
     @NotNull
     @ApiProperty(name="workspaceName",desc="空间名称",eg="@text32",required = true)
@@ -45,7 +45,7 @@ public class Workspace extends BaseModel {
 
     /**
      * @pi.name: desc
-     * @pi.value: workspaceId
+     * @pi.value: workspaceID
      */
     @ApiProperty(name="desc",desc="描述",eg="@text32")
     //@IndexField
