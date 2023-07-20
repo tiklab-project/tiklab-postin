@@ -50,6 +50,11 @@ public class CustomTagsHandler implements Doclet {
     @Override
     public boolean run(DocletEnvironment environment) {
         Set<? extends Element> elements = environment.getSpecifiedElements();
+
+        if(elements==null||elements.size()==0){
+            System.out.println("Error --- elements编译单元为空");
+        }
+
         for (Element element : elements) {
             if (element instanceof TypeElement) {
                 TypeElement type = (TypeElement) element;
@@ -82,6 +87,7 @@ public class CustomTagsHandler implements Doclet {
         String categoryId = categoryReport(classMap);
 
         if(categoryId==null){
+            System.out.println("Error --- categoryId返回为null");
             return;
         }
 

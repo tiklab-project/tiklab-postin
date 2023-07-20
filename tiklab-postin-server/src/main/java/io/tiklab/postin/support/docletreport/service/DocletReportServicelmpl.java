@@ -61,7 +61,7 @@ public class DocletReportServicelmpl implements DocletReportService {
             updateApi(apiReport);
         }
 
-        return null;
+        return apiId;
     }
 
     private void createApi(ApiReport apiReport){

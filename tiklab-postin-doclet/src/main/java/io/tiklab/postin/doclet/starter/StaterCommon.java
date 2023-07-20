@@ -29,6 +29,11 @@ public class StaterCommon {
         //获取配置文件
         Properties props = DocletUtils.loadConfig();
 
+        if(props==null){
+            System.out.println("properties 文件获取为null");
+            return;
+        }
+
         //执行maven
         exeLoopMaven(props);
 
@@ -69,6 +74,11 @@ public class StaterCommon {
             }
         }
 
+        if(javaFiles.size() == 0){
+            System.out.println("Error --- 获取的文件为空");
+            return;
+        }
+
         for (File javaFile : javaFiles) {
             Iterable<? extends JavaFileObject> fileObjects = fileManager.getJavaFileObjects(javaFile);
             compilationUnitsList.addAll((Collection<? extends JavaFileObject>) fileObjects);
@@ -76,6 +86,7 @@ public class StaterCommon {
 
         //compilationUnitsList 如果为null或者size = 0 不在执行
         if(compilationUnitsList==null||compilationUnitsList.size()==0){
+            System.out.println("Error --- 编译的文件为空");
             return;
         }
 
@@ -84,6 +95,11 @@ public class StaterCommon {
         // 创建 classpath 字符串
         StringBuilder classpathBuilder = new StringBuilder();
         getClassPath(props,classpathBuilder);
+
+        if(classpathBuilder.isEmpty()) {
+            System.out.println("Error --- 依赖文件构造的classpath为空");
+            return;
+        }
 
 
         //option配置 classpath
@@ -118,24 +134,30 @@ public class StaterCommon {
      * @param javaFiles
      */
     private void findJavaFiles(File directory, List<File> javaFiles) {
-        if (directory.isDirectory()) {
-            File[] files = directory.listFiles();
-            if (files != null) {
-                for (File file : files) {
-                    if (file.isDirectory() && file.getName().equals("model")) {
-                        // 获取名为"model"的目录下的所有文件添加到列表中
-                        getAllFilesInDirectory(file, javaFiles);
-                    } else if (file.getName().endsWith("Controller.java")) {
-                        // 如果文件后缀为"Controller.java"，则添加到列表中
-                        javaFiles.add(file);
-                    } else if(file.isDirectory()){
-                        findJavaFiles(file, javaFiles);
+        try {
+            boolean isDir = directory.isDirectory();
+            if (isDir) {
+                File[] files = directory.listFiles();
+                if (files != null) {
+                    for (File file : files) {
+                        if (file.isDirectory() && file.getName().equals("model")) {
+                            // 获取名为"model"的目录下的所有文件添加到列表中
+                            getAllFilesInDirectory(file, javaFiles);
+                        } else if (file.getName().endsWith("Controller.java")) {
+                            // 如果文件后缀为"Controller.java"，则添加到列表中
+                            javaFiles.add(file);
+                        } else if(file.isDirectory()){
+                            findJavaFiles(file, javaFiles);
+                        }
                     }
                 }
+            }else {
+                System.out.println("is not file ");
             }
-        }else {
-            System.out.println("is not file");
+        }catch (Exception e){
+            System.out.println("file Error "+e);
         }
+
     }
 
     private void getAllFilesInDirectory(File directory, List<File> files) {
@@ -160,23 +182,26 @@ public class StaterCommon {
             if(key.startsWith("modules")) {
                 InvocationRequest request = new DefaultInvocationRequest();
                 // 指定项目的 pom.xml 文件路径
-                // 截取路径
-                String modules = props.getProperty(key);
-                int lastIndex = modules.lastIndexOf("/");
-                String module = modules.substring(lastIndex + 1);
-                request.setPomFile( new File( module+"/pom.xml"));
-//                request.setPomFile( new File( props.getProperty(key)+"/pom.xml"));
+                // 截取路径  debug需要改为截取
+//                String modules = props.getProperty(key);
+//                int lastIndex = modules.lastIndexOf("/");
+//                String module = modules.substring(lastIndex + 1);
+//                String filePath = module + "/pom.xml";
+
+                String filePath = props.getProperty(key) + "/pom.xml";
+                request.setPomFile( new File(filePath ));
+
+                System.out.println("-------filePath-----: "+filePath);
+
                 //执行maven的命令
                 request.setGoals( Collections.singletonList( "dependency:copy-dependencies"));
 
                 Invoker invoker = new DefaultInvoker();
                 // 设置要执行的 MavenHome
                 invoker.setMavenHome(new File(System.getProperty("maven.home")));
-//                invoker.setMavenHome(new File(props.getProperty("mavenHome")));
 
                 try {
                     invoker.execute( request );
-                    System.out.println("执行maven成功");
                 } catch (MavenInvocationException e) {
                     logger.info("exe maven error",e);
 

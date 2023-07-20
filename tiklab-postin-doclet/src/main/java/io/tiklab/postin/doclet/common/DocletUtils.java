@@ -20,6 +20,8 @@ public class DocletUtils {
             input.close();
         }catch (Exception e){
             System.out.println("读取properties文件失败");
+
+            return null;
         }
 
         return props;
