@@ -1,0 +1,132 @@
+package io.tiklab.postin.doclet.handler;
+
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+public class ReportData {
+
+    /**
+     * 接口基础信息
+     */
+    public static JSONObject getHttpApiJson(JSONObject methodJson, Map<String, String> classMap, String categoryId){
+
+        JSONObject httpApiJson = new JSONObject();
+        JSONObject apixJson = new JSONObject();
+        JSONObject categoryJson = new JSONObject();
+        categoryJson.put("id",categoryId);
+        apixJson.put("category",categoryJson);
+        apixJson.put("name",methodJson.getString("name"));
+        apixJson.put("method",methodJson.getString("method"));
+        apixJson.put("protocol",classMap.get("protocol"));
+        httpApiJson.put("apix",apixJson);
+        httpApiJson.put("path",methodJson.getString("path"));
+        httpApiJson.put("methodType",methodJson.getString("method"));
+
+        return httpApiJson;
+    }
+
+    /**
+     * 接口请求体基础信息
+     * @param methodJson
+     */
+    public static JSONObject getApiRequest(JSONObject methodJson) {
+        JSONObject apiRequest = new JSONObject();
+        String bodyType = methodJson.getString("request-type");
+        if(bodyType.equals("json")){
+            apiRequest.put("bodyType","raw");
+        }else {
+            apiRequest.put("bodyType",bodyType);
+        }
+
+        return apiRequest;
+    }
+
+
+    /**
+     * 请求体
+     * formdata类型
+     */
+    public static ArrayList<Object> getFormDataJson(JSONObject methodJson, String apiId) {
+        JSONArray params = methodJson.getJSONArray("params");
+
+        ArrayList<Object> arrayList = new ArrayList<>();
+
+        for(Object param:params){
+            JSONObject paramJson = (JSONObject) param;
+
+            JSONObject formParam = new JSONObject();
+            JSONObject http = new JSONObject();
+            http.put("id",apiId);
+            formParam.put("http",http);
+            formParam.put("paramName",paramJson.getString("name"));
+            formParam.put("dataType",paramJson.getString("dataType"));
+            formParam.put("value",paramJson.getString("value"));
+
+            arrayList.add(formParam);
+        }
+        return arrayList;
+    }
+
+    /**
+     * 请求体
+     * formUrlencoded类型
+     */
+    public static ArrayList<Object> getFormUrlList(JSONObject methodMap, String apiId) {
+        JSONArray params = methodMap.getJSONArray("param");
+
+        ArrayList<Object> arrayList = new ArrayList<>();
+
+        for(Object param:params){
+            JSONObject paramJson = (JSONObject) param;
+
+            JSONObject formUrlencoded = new JSONObject();
+            JSONObject http = new JSONObject();
+            http.put("id",apiId);
+            formUrlencoded.put("http",http);
+            formUrlencoded.put("paramName",paramJson.getString("name"));
+            formUrlencoded.put("dataType",paramJson.getString("dataType"));
+            formUrlencoded.put("value",paramJson.getString("value"));
+
+            arrayList.add(formUrlencoded);
+        }
+
+        return arrayList;
+    }
+
+    /**
+     * 请求体
+     * raw
+     */
+    public static JSONObject getRawJson(JSONObject methodJson, String apiId, HashMap<String, JSONObject> modelMap) {
+        JSONObject rawJson = new JSONObject();
+        rawJson.put("id",apiId);
+
+        JSONObject http = new JSONObject();
+        http.put("id",apiId);
+        rawJson.put("http",http);
+
+        if("json".equals(methodJson.getString("request-type"))){
+            String model = methodJson.getString("model");
+            //从内存中获取模型
+            JSONObject jsonObject = modelMap.get(model);
+            String jsonText = "{}";
+            if(jsonObject!=null) {
+                jsonText = jsonObject.toJSONString();
+            }
+            rawJson.put("raw",jsonText);
+            rawJson.put("type","application/json");
+
+        }else {
+            rawJson.put("raw",methodJson.getString("param"));
+            rawJson.put("type","text/plain");
+        }
+
+        return rawJson;
+    }
+
+
+}

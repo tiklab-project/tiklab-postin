@@ -35,7 +35,7 @@ public class StaterCommon {
         }
 
         //执行maven
-        exeLoopMaven(props);
+//        exeLoopMaven(props);
 
         // 创建 DocumentationTool 实例
         DocumentationTool documentationTool = ToolProvider.getSystemDocumentationTool();
@@ -183,12 +183,13 @@ public class StaterCommon {
                 InvocationRequest request = new DefaultInvocationRequest();
                 // 指定项目的 pom.xml 文件路径
                 // 截取路径  debug需要改为截取
-//                String modules = props.getProperty(key);
-//                int lastIndex = modules.lastIndexOf("/");
-//                String module = modules.substring(lastIndex + 1);
-//                String filePath = module + "/pom.xml";
+                String modules = props.getProperty(key);
+                int lastIndex = modules.lastIndexOf("/");
+                String module = modules.substring(lastIndex + 1);
+                String filePath = module + "/pom.xml";
 
-                String filePath = props.getProperty(key) + "/pom.xml";
+
+//                String filePath = props.getProperty(key) + "/pom.xml";
                 request.setPomFile( new File(filePath ));
 
                 System.out.println("-------filePath-----: "+filePath);
@@ -196,16 +197,19 @@ public class StaterCommon {
                 //执行maven的命令
                 request.setGoals( Collections.singletonList( "dependency:copy-dependencies"));
 
-                Invoker invoker = new DefaultInvoker();
-                // 设置要执行的 MavenHome
-                invoker.setMavenHome(new File(System.getProperty("maven.home")));
-
                 try {
+
+                    Invoker invoker = new DefaultInvoker();
+                    // 设置要执行的 MavenHome
+//                    invoker.setMavenHome(new File(System.getProperty("maven.home")));
+                    invoker.setMavenHome(new File(props.getProperty("mavenHome")));
+
+
                     invoker.execute( request );
                 } catch (MavenInvocationException e) {
                     logger.info("exe maven error",e);
 
-                    System.out.println("执行maven失败");
+                    System.out.println("执行maven失败"+e);
                 }
             }
         }

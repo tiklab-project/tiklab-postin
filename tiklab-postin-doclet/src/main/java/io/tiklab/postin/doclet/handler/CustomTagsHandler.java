@@ -1,5 +1,6 @@
 package io.tiklab.postin.doclet.handler;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import io.tiklab.postin.doclet.common.DocletUtils;
 import jdk.javadoc.doclet.*;
@@ -10,6 +11,7 @@ import javax.lang.model.SourceVersion;
 import javax.lang.model.element.*;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.reflect.Field;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.*;
@@ -50,10 +52,6 @@ public class CustomTagsHandler implements Doclet {
     @Override
     public boolean run(DocletEnvironment environment) {
         Set<? extends Element> elements = environment.getSpecifiedElements();
-
-        if(elements==null||elements.size()==0){
-            System.out.println("Error --- elements编译单元为空");
-        }
 
         for (Element element : elements) {
             if (element instanceof TypeElement) {
@@ -100,6 +98,22 @@ public class CustomTagsHandler implements Doclet {
         for (Element member : members) {
             if (member.getKind() == ElementKind.METHOD) {
                 ExecutableElement method = (ExecutableElement) member;
+
+                List<? extends VariableElement> parameters = method.getParameters();
+                for (VariableElement parameter : parameters) {
+                    String parameterType = parameter.asType().toString();
+                    try {
+
+                        Class<?> paramClass = Class.forName(parameterType);
+                        Field[] declaredFields = paramClass.getDeclaredFields();
+
+
+                    } catch (ClassNotFoundException e) {
+                        System.out.println("获取Class失败----:"+e);
+                    }
+                }
+
+
                 //获取当前方法的注释
                 String methodComment = environment.getElementUtils().getDocComment(method);
 
@@ -166,14 +180,14 @@ public class CustomTagsHandler implements Doclet {
     private void analyticalApi(String methodComment, Map<String, String> classMap,String categoryId){
 
         // 解析方法注释
-        Map<String, String> methodMap = parseMethodComment(methodComment);
+        JSONObject methodJson = parseMethodComment(methodComment);
 
         JSONObject apiJson = new JSONObject();
 
-        JSONObject httpApiJson = getHttpApiJson(methodMap, classMap, categoryId);
+        JSONObject httpApiJson = ReportData.getHttpApiJson(methodJson, classMap, categoryId);
         apiJson.put("httpApi",httpApiJson);
 
-        JSONObject apiRequest = getApiRequest(methodMap);
+        JSONObject apiRequest = ReportData.getApiRequest(methodJson);
         apiJson.put("request",apiRequest);
 
         //通过路径md5 生成一个 id
@@ -183,137 +197,26 @@ public class CustomTagsHandler implements Doclet {
 
         if(apiId==null){return;}
 
-        switch (methodMap.get("request-type")){
+        switch (methodJson.getString("request-type")){
             case "formdata":
-                ArrayList<Object> formDataJsonList = getFormDataJson(methodMap, apiId);
+                ArrayList<Object> formDataJsonList = ReportData.getFormDataJson(methodJson, apiId);
                 apiJson.put("formList",formDataJsonList);
                 break;
             case "formUrlencoded":
-                ArrayList<Object> formUrlList = getFormUrlList(methodMap, apiId);
+                ArrayList<Object> formUrlList = ReportData.getFormUrlList(methodJson, apiId);
                 apiJson.put("formUrlList",formUrlList);
                 break;
             case "json":
             case "raw":
-                JSONObject rawJson = getRawJson(methodMap, apiId);
+                JSONObject rawJson = ReportData.getRawJson(methodJson, apiId,modelMap);
                 apiJson.put("raw",rawJson);
                 break;
             default:
                 break;
         }
 
+        //上报接口
         httpCommon("/docletReport/api", apiJson.toJSONString());
-    }
-
-    /**
-     * 接口基础信息
-     */
-    private JSONObject getHttpApiJson(Map<String, String> methodMap, Map<String, String> classMap, String categoryId){
-
-        JSONObject httpApiJson = new JSONObject();
-        JSONObject apixJson = new JSONObject();
-        JSONObject categoryJson = new JSONObject();
-        categoryJson.put("id",categoryId);
-        apixJson.put("category",categoryJson);
-        apixJson.put("name",methodMap.get("name"));
-        apixJson.put("method",methodMap.get("method"));
-        apixJson.put("protocol",classMap.get("protocol"));
-        httpApiJson.put("apix",apixJson);
-        httpApiJson.put("path",methodMap.get("path"));
-        httpApiJson.put("methodType",methodMap.get("method"));
-
-        return httpApiJson;
-    }
-
-    /**
-     * 接口请求体基础信息
-     */
-    private JSONObject getApiRequest(Map<String, String> methodMap) {
-        JSONObject apiRequest = new JSONObject();
-        String bodyType = methodMap.get("request-type");
-        if(bodyType.equals("json")){
-            apiRequest.put("bodyType","raw");
-        }else {
-            apiRequest.put("bodyType",bodyType);
-        }
-
-        return apiRequest;
-    }
-
-    /**
-     * 请求体
-     * formdata类型
-     */
-    private ArrayList<Object> getFormDataJson(Map<String, String> methodMap, String apiId) {
-        String param = methodMap.get("param");
-        HashMap<String, String> keyValueMap = parseParam(param);
-
-        ArrayList<Object> arrayList = new ArrayList<>();
-
-        JSONObject formParam = new JSONObject();
-        JSONObject http = new JSONObject();
-        http.put("id",apiId);
-        formParam.put("http",http);
-        formParam.put("paramName",keyValueMap.get("name"));
-        formParam.put("dataType",keyValueMap.get("dataType"));
-        formParam.put("value",keyValueMap.get("value"));
-
-        arrayList.add(formParam);
-
-        return arrayList;
-    }
-
-    /**
-     * 请求体
-     * formUrlencoded类型
-     */
-    private ArrayList<Object> getFormUrlList(Map<String, String> methodMap, String apiId) {
-        String param = methodMap.get("param");
-        HashMap<String, String> keyValueMap = parseParam(param);
-
-        ArrayList<Object> arrayList = new ArrayList<>();
-
-        JSONObject formUrlencoded = new JSONObject();
-        JSONObject http = new JSONObject();
-        http.put("id",apiId);
-        formUrlencoded.put("http",http);
-        formUrlencoded.put("paramName",keyValueMap.get("name"));
-        formUrlencoded.put("dataType",keyValueMap.get("dataType"));
-        formUrlencoded.put("value",keyValueMap.get("value"));
-
-        arrayList.add(formUrlencoded);
-
-        return arrayList;
-    }
-
-    /**
-     * 请求体
-     * raw
-     */
-    private JSONObject getRawJson(Map<String, String> methodMap, String apiId) {
-        JSONObject rawJson = new JSONObject();
-        rawJson.put("id",apiId);
-
-        JSONObject http = new JSONObject();
-        http.put("id",apiId);
-        rawJson.put("http",http);
-
-        if(methodMap.get("request-type").equals("json")){
-            String model = methodMap.get("model");
-            //从内存中获取模型
-            JSONObject jsonObject = modelMap.get(model);
-            String jsonText = "{}";
-            if(jsonObject!=null) {
-                jsonText = jsonObject.toJSONString();
-            }
-            rawJson.put("raw",jsonText);
-            rawJson.put("type","application/json");
-
-        }else {
-            rawJson.put("raw",methodMap.get("param"));
-            rawJson.put("type","text/plain");
-        }
-
-        return rawJson;
     }
 
     /**
@@ -403,11 +306,14 @@ public class CustomTagsHandler implements Doclet {
     /**
      * 获取方法注释
      * @param comment
+     * @return
      */
-    private Map<String, String> parseMethodComment(String comment) {
+    private JSONObject parseMethodComment(String comment) {
         String[] lines = comment.split("\\R");
 
-        HashMap<String, String> methodMap = new HashMap<>();
+        JSONObject methodJson = new JSONObject();
+
+        JSONArray paramList = new JSONArray();
         for (String line : lines) {
             if (line.trim().startsWith("@pi")) {
                 String[] parts = line.split(":", 2);
@@ -416,29 +322,36 @@ public class CustomTagsHandler implements Doclet {
                     String value = parts[1].trim();
 
                     // 处理 key 和 value
-                    if (key.equals("@pi.name")) {
-                        methodMap.put("name",value);
-                    } else if (key.equals("@pi.path")) {
-                        methodMap.put("path",value);
-                    } else if (key.equals("@pi.method")) {
-                        methodMap.put("method",value);
-                    } else if (key.equals("@pi.request-type")) {
-                        methodMap.put("request-type",value);
-                    }else if (key.equals("@pi.param")) {
-                        //解析是否param中含有model字段，如果有设置为模型参数
-                        HashMap<String, String> paramMap = parseParam(value);
-                        if(paramMap.get("model")!=null){
-                            methodMap.put("model",paramMap.get("model"));
-                        }else {
-                            methodMap.put("param",value);
+                    if ("@pi.name".equals(key)) {
+                        methodJson.put("name",value);
+                    } else if ("@pi.path".equals(key)) {
+                        methodJson.put("path",value);
+                    } else if ("@pi.method".equals(key)) {
+                        methodJson.put("method",value);
+                    } else if ("@pi.request-type".equals(key)) {
+                        methodJson.put("request-type",value);
+                    }else if ("@pi.param".equals(key)) {
+                        if(value.startsWith("model=")) {
+                            // 获取model名
+                            String model = value.split("=")[1];
+                            methodJson.put("model",model);
+                        } else {
+                            // 解析name/value参数
+                            JSONObject jsonObject = parseParam(value);
+                            paramList.add(jsonObject);
                         }
-
                     }
                 }
             }
         }
 
-        return methodMap;
+        if(paramList.size()>0){
+            // 将参数列表添加到返回值中
+            methodJson.put("params", paramList);
+        }
+
+
+        return methodJson;
     }
 
     /**
@@ -446,11 +359,11 @@ public class CustomTagsHandler implements Doclet {
      * @param param
      * @return
      */
-    private HashMap<String, String> parseParam(String param){
+    private JSONObject parseParam(String param){
         // 分割字符串
         String[] pairs = param.split(";");
 
-        HashMap<String, String> keyValueMap = new HashMap<>();
+        JSONObject jsonObject = new JSONObject();
 
         // 遍历键值对
         for (String pair : pairs) {
@@ -462,11 +375,11 @@ public class CustomTagsHandler implements Doclet {
                 String key = keyValue[0].trim();
                 String value = keyValue[1].trim();
 
-                keyValueMap.put(key,value);
+                jsonObject.put(key,value);
             }
         }
 
-        return keyValueMap;
+        return jsonObject;
     }
 
     /**

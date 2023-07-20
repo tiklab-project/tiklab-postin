@@ -8,7 +8,6 @@ import java.security.MessageDigest;
 import java.util.Properties;
 
 public class DocletUtils {
-
     /**
      *  获取配置文件
      */
