@@ -11,6 +11,8 @@ import io.tiklab.core.page.Pagination;
 import io.tiklab.core.page.PaginationBuilder;
 import io.tiklab.join.JoinTemplate;
 import org.apache.commons.collections.CollectionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +26,8 @@ import java.util.Objects;
 */
 @Service
 public class WorkspaceFollowServiceImpl implements WorkspaceFollowService {
+    private static Logger logger = LoggerFactory.getLogger(WorkspaceFollowServiceImpl.class);
+
 
     @Autowired
     WorkspaceFollowDao workspaceFollowDao;

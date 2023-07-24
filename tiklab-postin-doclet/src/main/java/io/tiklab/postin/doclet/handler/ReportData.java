@@ -2,9 +2,13 @@ package io.tiklab.postin.doclet.handler;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import io.tiklab.postin.doclet.starter.DocletApplication;
 
+import javax.lang.model.element.ExecutableElement;
+import javax.lang.model.element.VariableElement;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ReportData {
@@ -12,7 +16,7 @@ public class ReportData {
     /**
      * 接口基础信息
      */
-    public static JSONObject getHttpApiJson(JSONObject methodJson, Map<String, String> classMap, String categoryId){
+    public static JSONObject getHttpApiJson(JSONObject methodJson, Map<String, String> classMap, String categoryId, ExecutableElement method){
 
         JSONObject httpApiJson = new JSONObject();
         JSONObject apixJson = new JSONObject();
@@ -27,6 +31,36 @@ public class ReportData {
         httpApiJson.put("methodType",methodJson.getString("method"));
 
         return httpApiJson;
+    }
+
+    private static JSONObject loopModel( String modelFullName){
+        JSONObject jsonObject = new JSONObject();
+        try {
+
+            //通过反射获取模型类
+            Class<?> paramClass = Class.forName(modelFullName, true, DocletApplication.urlClassLoader);
+
+            //获取模型类中的所有字段
+            Field[] fields = paramClass.getDeclaredFields();
+            // 遍历字段并获取字段信息
+            for (Field field : fields) {
+                // 获取字段名
+                String fieldName = field.getName();
+                // 获取字段类型
+                Class<?> fieldType = field.getType();
+
+                if(fieldType.getName().startsWith("java")){
+                    jsonObject.put(fieldName,fieldName);
+                }else {
+                    JSONObject modelJson = loopModel(fieldType.getName());
+                    jsonObject.put(fieldName,modelJson);
+                }
+            }
+
+        } catch (ClassNotFoundException e) {
+            System.out.println("Error --- 获取Class失败 :"+e);
+        }
+        return jsonObject;
     }
 
     /**
@@ -50,7 +84,8 @@ public class ReportData {
      * 请求体
      * formdata类型
      */
-    public static ArrayList<Object> getFormDataJson(JSONObject methodJson, String apiId) {
+    public static ArrayList<Object> getFormDataJson(JSONObject methodJson, String apiId, ExecutableElement method) {
+
         JSONArray params = methodJson.getJSONArray("params");
 
         ArrayList<Object> arrayList = new ArrayList<>();
@@ -101,7 +136,7 @@ public class ReportData {
      * 请求体
      * raw
      */
-    public static JSONObject getRawJson(JSONObject methodJson, String apiId, HashMap<String, JSONObject> modelMap) {
+    public static JSONObject getRawJson(JSONObject methodJson, String apiId, ExecutableElement method) {
         JSONObject rawJson = new JSONObject();
         rawJson.put("id",apiId);
 
@@ -110,9 +145,15 @@ public class ReportData {
         rawJson.put("http",http);
 
         if("json".equals(methodJson.getString("request-type"))){
-            String model = methodJson.getString("model");
             //从内存中获取模型
-            JSONObject jsonObject = modelMap.get(model);
+            //获取接口传入的参数
+            List<? extends VariableElement> parameters = method.getParameters();
+
+            //获取模型全称
+            String modelFullName = parameters.get(0).asType().toString();
+
+            JSONObject jsonObject = loopModel(modelFullName);
+
             String jsonText = "{}";
             if(jsonObject!=null) {
                 jsonText = jsonObject.toJSONString();

@@ -4,28 +4,16 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import io.tiklab.postin.doclet.common.DocletUtils;
 import jdk.javadoc.doclet.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.*;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.lang.reflect.Field;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.*;
 
 public class CustomTagsHandler implements Doclet {
 
-    /**
-     * Logger for this class
-     */
-    private static Logger logger = LoggerFactory.getLogger(CustomTagsHandler.class);
-
-
-    //用于存储所有的模型
-    private HashMap<String, JSONObject> modelMap=new HashMap<String, JSONObject>();
 
     private Reporter reporter;
 
@@ -57,11 +45,6 @@ public class CustomTagsHandler implements Doclet {
             if (element instanceof TypeElement) {
                 TypeElement type = (TypeElement) element;
                 String classComment = environment.getElementUtils().getDocComment(type);
-
-                //获取模型注释
-                if(classComment != null && classComment.contains("@pi.model")){
-                    parseModel(type,classComment,environment);
-                }
 
                 // 判断controller类头上是否有自定义的信息
                 if (classComment != null && classComment.contains("@pi.protocol") && classComment.contains("@pi.groupName")) {
@@ -99,21 +82,6 @@ public class CustomTagsHandler implements Doclet {
             if (member.getKind() == ElementKind.METHOD) {
                 ExecutableElement method = (ExecutableElement) member;
 
-                List<? extends VariableElement> parameters = method.getParameters();
-                for (VariableElement parameter : parameters) {
-                    String parameterType = parameter.asType().toString();
-                    try {
-
-                        Class<?> paramClass = Class.forName(parameterType);
-                        Field[] declaredFields = paramClass.getDeclaredFields();
-
-
-                    } catch (ClassNotFoundException e) {
-                        System.out.println("获取Class失败----:"+e);
-                    }
-                }
-
-
                 //获取当前方法的注释
                 String methodComment = environment.getElementUtils().getDocComment(method);
 
@@ -121,42 +89,11 @@ public class CustomTagsHandler implements Doclet {
                     continue;
                 }
 
-                analyticalApi(methodComment,classMap,categoryId);
+                analyticalApi(methodComment,classMap,categoryId,method);
             }
         }
     }
 
-    /**
-     * 解析 模型 信息
-     */
-    private void parseModel(TypeElement type, String classComment, DocletEnvironment environment) {
-        List<? extends Element> members = type.getEnclosedElements();
-        if(members==null||members.size()==0){
-            return;
-        }
-
-        //模型下的所有变量
-        JSONObject variableJson = new JSONObject();
-        for (Element member : members) {
-            if (member.getKind() == ElementKind.FIELD) {
-                VariableElement  variable  = (VariableElement) member;
-                //获取当前变量的注释
-                String variableComment = environment.getElementUtils().getDocComment(variable);
-
-                if(variableComment==null){
-                    continue;
-                }
-
-                //注释处理
-                parseVariableComment(variableComment,variableJson);
-            }
-        }
-
-        //获取模型名称
-        String modelName = extractTagValue(classComment,"@pi.model:");
-        //获取的模型存在内存中
-        modelMap.put(modelName,variableJson);
-    }
 
     /**
      * 通过解析的类注释创建分组
@@ -177,14 +114,14 @@ public class CustomTagsHandler implements Doclet {
     /**
      * 解析方法上的注释创建接口
      */
-    private void analyticalApi(String methodComment, Map<String, String> classMap,String categoryId){
+    private void analyticalApi(String methodComment, Map<String, String> classMap, String categoryId, ExecutableElement method){
 
         // 解析方法注释
         JSONObject methodJson = parseMethodComment(methodComment);
 
         JSONObject apiJson = new JSONObject();
 
-        JSONObject httpApiJson = ReportData.getHttpApiJson(methodJson, classMap, categoryId);
+        JSONObject httpApiJson = ReportData.getHttpApiJson(methodJson, classMap, categoryId,method);
         apiJson.put("httpApi",httpApiJson);
 
         JSONObject apiRequest = ReportData.getApiRequest(methodJson);
@@ -199,7 +136,7 @@ public class CustomTagsHandler implements Doclet {
 
         switch (methodJson.getString("request-type")){
             case "formdata":
-                ArrayList<Object> formDataJsonList = ReportData.getFormDataJson(methodJson, apiId);
+                ArrayList<Object> formDataJsonList = ReportData.getFormDataJson(methodJson, apiId,method);
                 apiJson.put("formList",formDataJsonList);
                 break;
             case "formUrlencoded":
@@ -208,7 +145,7 @@ public class CustomTagsHandler implements Doclet {
                 break;
             case "json":
             case "raw":
-                JSONObject rawJson = ReportData.getRawJson(methodJson, apiId,modelMap);
+                JSONObject rawJson = ReportData.getRawJson(methodJson, apiId,method);
                 apiJson.put("raw",rawJson);
                 break;
             default:
@@ -257,13 +194,11 @@ public class CustomTagsHandler implements Doclet {
 
                 return Id;
             } else {
-                logger.info("http code is not 200");
-                System.out.println("http code is not 200" );
+                System.out.println("Error --- http code is not 200" );
             }
 
         }catch (Exception e){
-            logger.info("接口调用失败:{}",e);
-            System.out.println("接口调用失败 : " + e  );
+            System.out.println("Error --- 接口调用失败 : " + e  );
             return null;
         }
 
@@ -382,54 +317,6 @@ public class CustomTagsHandler implements Doclet {
         return jsonObject;
     }
 
-    /**
-     * 获取模型的字段
-     * @param comment
-     * @param jsonObject
-     * @return
-     */
-    private void parseVariableComment(String comment, JSONObject jsonObject) {
-        String[] lines = comment.split("\\R");
-
-        HashMap<String, String> map = new HashMap<>();
-
-        for (String line : lines) {
-            if (line.trim().startsWith("@pi")) {
-                String[] parts = line.split(":", 2);
-                if (parts.length == 2) {
-                    String key = parts[0].trim();
-                    String value = parts[1].trim();
-
-                    // 处理 key 和 value
-                    if (key.equals("@pi.name")) {
-                        map.put("name",value);
-                    } else if (key.equals("@pi.value")) {
-                        map.put("value",value);
-                    } else if (key.equals("@pi.model")) {
-                        // 例 Workspace, {}
-
-                        if(modelMap.get(value)==null){
-                            //把首字母改为小写
-                            char[] chars = value.toCharArray();
-                            chars[0] = Character.toLowerCase(value.charAt(0));
-                            String newValue = new String(chars);
-
-                            jsonObject.put(newValue,"{}");
-                        }else {
-                            //把首字母改为小写
-                            char[] chars = value.toCharArray();
-                            chars[0] = Character.toLowerCase(value.charAt(0));
-                            String newValue = new String(chars);
-
-                            jsonObject.put(newValue,modelMap.get(value));
-                        }
-                    }
-                }
-            }
-        }
-
-        jsonObject.put(map.get("name"),map.get("value"));
-    }
 
 
 

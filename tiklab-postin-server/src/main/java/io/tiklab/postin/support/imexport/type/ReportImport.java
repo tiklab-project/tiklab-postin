@@ -161,8 +161,8 @@ public class ReportImport {
             String pid =functionImport.addJsonParam(jVo);
 
             //是否有model， 有 递归
-            if(jsonItem.containsKey("model")){
-                jsonParamLoop(jsonItem.getJSONArray("model"),methodId,pid);
+            if(jsonItem.containsKey("io.tiklab.postin.test.model")){
+                jsonParamLoop(jsonItem.getJSONArray("io.tiklab.postin.test.model"),methodId,pid);
             }
         }
     }
@@ -174,7 +174,7 @@ public class ReportImport {
      */
     private void analysisResponseJson(JSONObject methodItem, String methodId){
         JSONObject result = methodItem.getJSONObject("result");
-        JSONArray model = result.getJSONArray("model");
+        JSONArray model = result.getJSONArray("io.tiklab.postin.test.model");
         String parentId = null;
         jsonResponseloop(model,methodId,parentId);
     }
@@ -203,8 +203,8 @@ public class ReportImport {
             String pid =functionImport.addResponseJson(jRVo);
 
             //是否有model， 有 递归
-            if(jsonItem.containsKey("model")){
-                jsonResponseloop(jsonItem.getJSONArray("model"),methodId,pid);
+            if(jsonItem.containsKey("io.tiklab.postin.test.model")){
+                jsonResponseloop(jsonItem.getJSONArray("io.tiklab.postin.test.model"),methodId,pid);
             }
         }
     }

@@ -2,9 +2,8 @@ package io.tiklab.postin;
 
 import io.tiklab.dal.boot.starter.annotation.EnableDal;
 import io.tiklab.dcs.boot.starter.EnableDcs;
-import io.tiklab.dfs.boot.starter.EnableDfs;
 import io.tiklab.dsm.boot.starter.EnableDsm;
-import io.tiklab.dss.boot.starter.EnableDss;
+import io.tiklab.gateway.boot.starter.EnableGateway;
 import io.tiklab.integration.starter.EnableIntegration;
 import io.tiklab.licence.starter.EnableLicenceServer;
 import io.tiklab.messsage.starter.EnableMessage;
@@ -13,7 +12,6 @@ import io.tiklab.postgresql.EnablePostgresql;
 import io.tiklab.postin.client.EnablePostInClient;
 
 import io.tiklab.eam.starter.EnableEam;
-import io.tiklab.gateway.starter.EnableGateway;
 import io.tiklab.privilege.EnablePrivilegeServer;
 import io.tiklab.rpc.boot.starter.EnableRpc;
 import io.tiklab.security.stater.EnableSecurity;
@@ -29,7 +27,7 @@ import org.springframework.context.annotation.Configuration;
 @EnableDsm
 //@EnableDfs
 @EnableDcs
-@EnableDss
+
 @EnableRpc
 @EnableGateway
 @EnableMessage

@@ -8,30 +8,15 @@ import io.tiklab.core.page.Page;
 
 import java.util.List;
 
-/**
- * @pi.model: WorkspaceFollowQuery
- */
 @ApiModel
 public class WorkspaceFollowQuery {
 
-    /**
-     * @pi.name: userId
-     * @pi.value: userId
-     */
     @ApiProperty(name ="userId",desc = "userId")
     private String userId;
 
-    /**
-     * @pi.name: orderParams
-     * @pi.value: []
-     */
     @ApiProperty(name ="orderParams",desc = "排序参数")
     private List<Order> orderParams = OrderBuilders.instance().asc("id").get();
 
-    /**
-     * @pi.name: pageParam
-     * @pi.value: {}
-     */
     @ApiProperty(name ="pageParam",desc = "分页参数")
     private Page pageParam = new Page();
 

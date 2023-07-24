@@ -17,13 +17,13 @@ public class DocletUtils {
             InputStream input = DocletApplication.class.getClassLoader().getResourceAsStream("docletConfig.properties");
             props.load(input);
             input.close();
+
+            return props;
         }catch (Exception e){
-            System.out.println("读取properties文件失败");
+            System.out.println("Error --- 读取properties文件失败");
 
             return null;
         }
-
-        return props;
     }
 
     /**
@@ -42,7 +42,7 @@ public class DocletUtils {
                 id = "00000000000".substring(0, 12 - id.length()) + id;
             }
         }catch (Exception e){
-            System.out.println("通过MD5获取ID失败");
+            System.out.println("Error --- 通过MD5获取ID失败");
         }
 
         return id;
