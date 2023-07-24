@@ -20,7 +20,7 @@ import io.tiklab.postin.workspace.entity.WorkspaceEntity;
 import io.tiklab.beans.BeanMapper;
 import io.tiklab.core.page.Pagination;
 import io.tiklab.core.page.PaginationBuilder;
-import io.tiklab.dss.client.DssClient;
+//import io.tiklab.dss.client.DssClient;
 import io.tiklab.join.JoinTemplate;
 import io.tiklab.postin.workspace.model.*;
 import io.tiklab.privilege.dmRole.service.DmRoleService;
@@ -93,8 +93,8 @@ public class WorkspaceServiceImpl implements WorkspaceService {
     @Autowired
     SendMessageNoticeService sendMessageNoticeService;
 
-    @Autowired
-    DssClient disClient;
+//    @Autowired
+//    DssClient disClient;
 
     @Autowired
     UserService userService;

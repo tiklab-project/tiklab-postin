@@ -51,7 +51,7 @@ public class ApiModelParser {
                 return apiPropertyMetaList;
             }
         } catch (Throwable e) {
-            String errorMsg = String.format("parse model failed,modelType:%s",modelType);
+            String errorMsg = String.format("parse io.tiklab.postin.test.model failed,modelType:%s",modelType);
             throw new SystemException(errorMsg,e);
         }
 
@@ -84,7 +84,7 @@ public class ApiModelParser {
                     fieldType = field.getType();
                 }
             } catch (Throwable e) {
-                String errorMsg = String.format("parse model property failed,modelType:%s,fieldType:%s",modelType,field.getType());
+                String errorMsg = String.format("parse io.tiklab.postin.test.model property failed,modelType:%s,fieldType:%s",modelType,field.getType());
                 throw new SystemException(errorMsg,e);
             }
 

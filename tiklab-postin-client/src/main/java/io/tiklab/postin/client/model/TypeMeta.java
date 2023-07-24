@@ -32,7 +32,7 @@ public class TypeMeta {
     private boolean required = false;
 
     //子节点列表
-    @JSONField(name = "model",ordinal = 5)
+    @JSONField(name = "io.tiklab.postin.test.model",ordinal = 5)
     private List<ApiPropertyMeta> children;
 
     public String getName() {

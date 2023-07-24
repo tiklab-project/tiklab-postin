@@ -184,7 +184,10 @@ public class HttpApiServiceImpl implements HttpApiService {
         apiRequestService.deleteApiRequest(httpId);
 
         //删除响应部分
-        apiResponseService.deleteApiResponse(httpId);
+        List<ApiResponse> apiResponseList = apiResponseService.findApiResponseList(new ApiResponseQuery().setHttpId(httpId));
+        for(ApiResponse apiResponse: apiResponseList){
+            apiResponseService.deleteApiResponse(apiResponse.getId());
+        }
 
         //删除响应头
         responseHeaderService.deleteAllResponseHeader(httpId);
