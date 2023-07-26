@@ -17,7 +17,7 @@ import java.util.List;
 
 /**
  * 空间 模型
- * @pi.model: Workspace
+ * @pi.model: io.tiklab.postin.workspace.model.Workspace
  */
 @ApiModel
 @Join
@@ -26,7 +26,9 @@ import java.util.List;
 public class Workspace extends BaseModel {
     /**
      * @pi.name: id
-     * @pi.value: workspaceId
+     * @pi.dataType:string
+     * @pi.desc: ID
+     * @pi.value: workspaceIddfdfdfdfdf
      */
     @ApiProperty(name="id",desc="空间ID")
     //@IndexId
@@ -35,7 +37,9 @@ public class Workspace extends BaseModel {
 
     /**
      * @pi.name: workspaceName
-     * @pi.value: 空间名称111
+     * @pi.dataType:string
+     * @pi.desc: 空间名称
+     * @pi.value: workspaceName
      */
     @NotNull
     @ApiProperty(name="workspaceName",desc="空间名称",eg="@text32",required = true)
@@ -45,14 +49,17 @@ public class Workspace extends BaseModel {
 
     /**
      * @pi.name: desc
-     * @pi.value: workspaceID
+     * @pi.dataType:string
+     * @pi.desc: 描述
+     * @pi.value: desc
      */
     @ApiProperty(name="desc",desc="描述",eg="@text32")
     //@IndexField
     private java.lang.String desc;
 
     /**
-     * @pi.model: User
+     * @pi.model: user
+     * @pi.desc: 所属用户
      */
     @ApiProperty(name="user",desc="所属用户",eg="@selectOne")
     @Mappings({
@@ -63,13 +70,16 @@ public class Workspace extends BaseModel {
 
     /**
      * @pi.name: visibility
+     * @pi.dataType:Integer
+     * @pi.desc: 可见范围
      * @pi.value: 1
      */
     @ApiProperty(name="visibility",desc="可见范围",eg = "0: 公共， 1：私密")
     private Integer visibility;
-
     /**
      * @pi.name: iconUrl
+     * @pi.dataType:String
+     * @pi.desc: 图标地址
      * @pi.value: a.png
      */
     @ApiProperty(name="iconUrl",desc="图标地址",eg = "a.png")

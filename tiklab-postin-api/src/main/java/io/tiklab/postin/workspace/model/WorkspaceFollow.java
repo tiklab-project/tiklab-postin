@@ -14,22 +14,31 @@ import io.tiklab.user.user.model.User;
 /**
  *
  * 空间关注 模型
- * @pi.model: WorkspaceFollow
+ * @pi.model: io.tiklab.postin.workspace.model.WorkspaceFollow
  */
 @ApiModel
 @Join
 @Mapper
 public class WorkspaceFollow extends BaseModel {
 
+    private int a;
+
+
     /**
      * @pi.name: id
-     * @pi.value: workspaceId
+     * @pi.dataType:string
+     * @pi.desc: ID
+     * @pi.value: WorkspaceFollowId
      */
+
     @ApiProperty(name="id",desc="id")
     private java.lang.String id;
 
+
+
     /**
-     * @pi.model: Workspace
+     * @pi.model: workspace
+     * @pi.desc: 所属空间
      */
     @ApiProperty(name="workspace",desc="所属空间",eg="@selectOne")
     @Mappings({
@@ -39,7 +48,8 @@ public class WorkspaceFollow extends BaseModel {
     private Workspace workspace;
 
     /**
-     * @pi.model: User
+     * @pi.model: user
+     * @pi.desc: 所属用户
      */
     @ApiProperty(name="user",desc="所属用户",eg="@selectOne")
     @Mappings({
@@ -48,8 +58,11 @@ public class WorkspaceFollow extends BaseModel {
     @JoinQuery(key = "id")
     private User user;
 
+
     /**
      * @pi.name: createTime
+     * @pi.dataType:datatime
+     * @pi.desc: 创建时间
      * @pi.value: 2023-01-01 12:00:00
      */
     @ApiProperty(name="createTime",desc="createTime")

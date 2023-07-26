@@ -1,5 +1,6 @@
-package io.tiklab.postin;
+package io.tiklab.postin.annotation;
 
+import io.tiklab.postin.config.PostInAutoConfiguration;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;

@@ -22,7 +22,6 @@
         <module>tiklab-postin-server</module>
         <module>tiklab-postin-starter</module>
         <module>tiklab-postin-doclet</module>
-        <module>tiklab-postin-demo</module>
     </modules>
 
     <properties>

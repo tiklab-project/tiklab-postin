@@ -2,7 +2,9 @@ package io.tiklab.postin.doclet.handler;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import io.tiklab.postin.doclet.common.DocletGetModel;
 import io.tiklab.postin.doclet.common.DocletUtils;
+import io.tiklab.postin.doclet.starter.DocletApplication;
 import jdk.javadoc.doclet.*;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.*;
@@ -14,6 +16,8 @@ import java.util.*;
 
 public class CustomTagsHandler implements Doclet {
 
+    //用于存储所有的模型
+    public static HashMap<String, JSONObject> modelMap=new HashMap<String, JSONObject>();
 
     private Reporter reporter;
 
@@ -45,6 +49,12 @@ public class CustomTagsHandler implements Doclet {
             if (element instanceof TypeElement) {
                 TypeElement type = (TypeElement) element;
                 String classComment = environment.getElementUtils().getDocComment(type);
+
+                //获取模型注释
+                if(classComment != null && classComment.contains("@pi.model")){
+                    parseModel(type,classComment,environment);
+                }
+
 
                 // 判断controller类头上是否有自定义的信息
                 if (classComment != null && classComment.contains("@pi.protocol") && classComment.contains("@pi.groupName")) {
@@ -94,16 +104,48 @@ public class CustomTagsHandler implements Doclet {
         }
     }
 
+    /**
+     * 解析 模型 信息
+     */
+    private void parseModel(TypeElement type, String classComment, DocletEnvironment environment) {
+        List<? extends Element> members = type.getEnclosedElements();
+        if(members==null||members.size()==0){
+            return;
+        }
+
+        //模型下的所有变量
+        JSONObject variableJson = new JSONObject();
+        for (Element member : members) {
+            if (member.getKind() == ElementKind.FIELD) {
+                VariableElement  variable  = (VariableElement) member;
+                //获取当前变量的注释
+                String variableComment = environment.getElementUtils().getDocComment(variable);
+
+                if(variableComment==null){
+                    continue;
+                }
+
+                //注释处理
+                parseVariableComment(variableComment,variableJson,variable);
+            }
+        }
+
+        //获取模型名称
+        String modelName = extractTagValue(classComment,"@pi.model:");
+        //获取的模型存在内存中
+        modelMap.put(modelName,variableJson);
+    }
+
 
     /**
      * 通过解析的类注释创建分组
      */
     private String categoryReport( Map<String, String> classMap){
         //获取配置文件
-        Properties props = DocletUtils.loadConfig();
+//        Properties props = DocletUtils.loadConfig();
         JSONObject categoryJson = new JSONObject();
         JSONObject workspaceJson = new JSONObject();
-        workspaceJson.put("id",props.getProperty("workspaceId"));
+        workspaceJson.put("id", DocletApplication.workspaceId);
         categoryJson.put("workspace",workspaceJson);
         categoryJson.put("name",classMap.get("groupName"));
         String categoryId = httpCommon("/docletReport/category", categoryJson.toJSONString());
@@ -161,7 +203,7 @@ public class CustomTagsHandler implements Doclet {
      */
     private String httpCommon(String path,String jsonBody) {
         try {
-            String serverUrl = DocletUtils.loadConfig().getProperty("server") + path;
+            String serverUrl = DocletApplication.server+ path;
             //请求接口
             URL url = new URL(serverUrl);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -188,13 +230,14 @@ public class CustomTagsHandler implements Doclet {
                     response.append(scanner.nextLine());
                 }
 
+//                System.out.println("接口返回数据："+response);
                 //获取创建过后返回的id
                 JSONObject jsonObject = JSONObject.parseObject(response.toString());
                 String Id = jsonObject.getString("data");
 
                 return Id;
             } else {
-                System.out.println("Error --- http code is not 200" );
+                System.out.println("Error --- http code is not 200 : "+responseCode );
             }
 
         }catch (Exception e){
@@ -315,6 +358,54 @@ public class CustomTagsHandler implements Doclet {
         }
 
         return jsonObject;
+    }
+
+
+    /**
+     * 获取模型的字段
+     * @param comment
+     * @param jsonObject
+     * @param variable
+     * @return
+     */
+    private void parseVariableComment(String comment, JSONObject jsonObject, VariableElement variable) {
+        //全路径模型名称
+        String fullModelName = variable.asType().toString();
+
+        String[] lines = comment.split("\\R");
+
+        HashMap<String, String> map = new HashMap<>();
+
+        String egValue = null;
+        for (String line : lines) {
+            if (line.trim().startsWith("@pi")) {
+                String[] parts = line.split(":", 2);
+                if (parts.length == 2) {
+                    String key = parts[0].trim();
+                    String value = parts[1].trim();
+
+                    // 处理 key 和 value
+                    if (key.equals("@pi.name")) {
+                        map.put("name",value);
+                    } else if (key.equals("@pi.value")) {
+                        egValue=value;
+                        map.put("value",value);
+                    } else if (key.equals("@pi.model")) {
+                        // 例 Workspace, {}
+
+                        if(modelMap.get(fullModelName)==null){
+                            JSONObject jsonObject1 = DocletGetModel.loopModel(fullModelName);
+
+                            jsonObject.put(value,jsonObject1);
+                        }else {
+                            jsonObject.put(value,modelMap.get(fullModelName));
+                        }
+                    }
+                }
+            }
+        }
+
+        jsonObject.put(map.get("name"),map.get("value"));
     }
 
 

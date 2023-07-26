@@ -19,11 +19,7 @@ public class StaterCommon {
      * @throws IOException
      */
     public void staterFunction() throws IOException {
-        Properties props = DocletApplication.props;
-        if(props==null){
-            System.out.println("properties 文件获取为null");
-            return;
-        }
+
 
         // 创建 DocumentationTool 实例
         DocumentationTool documentationTool = ToolProvider.getSystemDocumentationTool();
@@ -41,11 +37,14 @@ public class StaterCommon {
 
         // 获取工程下的所有 Java 文件
         List<File> javaFiles = new ArrayList<>();
-        if(props.getProperty("modules")!=null) {
-            // 获取目录配置
-            String dir = props.getProperty("modules")+"/src/main/java";
-            // 加载目录中的文件
-            findJavaFiles(new File(dir), javaFiles);
+        if(DocletApplication.modulesPathArray!=null) {
+            for (String path : DocletApplication.modulesPathArray) {
+                // 获取目录配置
+                String dir = path+"/src/main/java";
+                System.out.println(dir);
+                // 加载目录中的文件
+                findJavaFiles(new File(dir), javaFiles);
+            }
         }
 
         if(javaFiles.size() > 0){
@@ -53,6 +52,8 @@ public class StaterCommon {
                 Iterable<? extends JavaFileObject> fileObjects = fileManager.getJavaFileObjects(javaFile);
                 compilationUnitsList.addAll((Collection<? extends JavaFileObject>) fileObjects);
             }
+        }else {
+            System.out.println("javaFile为空");
         }
 
         //编译文件不为空
@@ -65,7 +66,7 @@ public class StaterCommon {
         CustomTagsHandler doclet = new CustomTagsHandler();
         // 创建 classpath 字符串
         StringBuilder classpathBuilder = new StringBuilder();
-        getClassPath(props,classpathBuilder);
+        getClassPath(classpathBuilder);
 
         if(classpathBuilder.isEmpty()) {
             System.out.println("Error --- 依赖文件构造的classpath为空");
@@ -103,62 +104,58 @@ public class StaterCommon {
     private void findJavaFiles(File directory, List<File> javaFiles) {
         try {
             boolean isDir = directory.isDirectory();
-            if (isDir) {
-                File[] files = directory.listFiles();
-                if (files != null) {
-                    for (File file : files) {
-                        if (file.isDirectory() && file.getName().equals("model")) {
-                            // 获取名为"io.tiklab.postin.test.model"的目录下的所有文件添加到列表中
-                            getAllFilesInDirectory(file, javaFiles);
-                        } else if (file.getName().endsWith("Controller.java")) {
-                            // 如果文件后缀为"Controller.java"，则添加到列表中
-                            javaFiles.add(file);
-                        } else if(file.isDirectory()){
-                            findJavaFiles(file, javaFiles);
-                        }
-                    }
-                }
-            }else {
+            if (!isDir) {return;}
+
+            File[] files = directory.listFiles();
+
+            if (files == null) {
                 System.out.println("is not file ");
+                return;
+            }
+
+            for (File file : files) {
+                if (file.isDirectory() && "model".equals(file.getName())) {
+                    // 获取名为"model"的目录下的所有文件添加到列表中
+                    getAllFilesInDirectory(file, javaFiles);
+                }
+
+                if (file.getName().endsWith("Controller.java")) {
+                    // 如果文件后缀为"Controller.java"，则添加到列表中
+                    javaFiles.add(file);
+                }
+
+                if(file.isDirectory()){
+                    findJavaFiles(file, javaFiles);
+                }
             }
         }catch (Exception e){
             System.out.println("file Error "+e);
         }
-
     }
 
     private void getAllFilesInDirectory(File directory, List<File> files) {
         File[] fileList = directory.listFiles();
         if (fileList != null) {
-            for (File file : fileList) {
-                files.add(file);
-            }
+            Collections.addAll(files, fileList);
         }
+
     }
 
 
     /**
      * 获取所有pox中的依赖包名称拼成字符串
-     * @param props
      * @param classpathBuilder
      */
-    private void getClassPath(Properties props, StringBuilder classpathBuilder){
-        //获取properties中的所有的key
-        Enumeration<Object> keys = props.keys();
-        // 获取所有key
-        while(keys.hasMoreElements()) {
-            String key = (String) keys.nextElement();
-            // 过滤出directory开头的key
-            if(key.startsWith("modules")) {
-                // 获取目录中的所有 JAR 文件路径
-                File directory = new File(props.getProperty(key)+"/target/dependency");
-                File[] jarFiles = directory.listFiles((dir, name) -> name.endsWith(".jar"));
+    private void getClassPath( StringBuilder classpathBuilder){
+        for (String path : DocletApplication.modulesPathArray) {
+            // 获取目录中的所有 JAR 文件路径
+            File directory = new File(path+"/target/dependency");
+            File[] jarFiles = directory.listFiles((dir, name) -> name.endsWith(".jar"));
 
-                if(jarFiles==null){continue;}
+            if(jarFiles==null){return;}
 
-                for (File jarFile : jarFiles) {
-                    classpathBuilder.append(jarFile.getAbsolutePath()).append(File.pathSeparator);
-                }
+            for (File jarFile : jarFiles) {
+                classpathBuilder.append(jarFile.getAbsolutePath()).append(File.pathSeparator);
             }
         }
     }

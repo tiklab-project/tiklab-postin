@@ -37,16 +37,10 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <!--platform-->
         <dependency>
             <groupId>io.tiklab</groupId>
             <artifactId>tiklab-eam-api</artifactId>
             <version>1.0.0-SNAPSHOT</version>
-        </dependency>
-
-        <dependency>
-            <groupId>io.tiklab</groupId>
-            <artifactId>tiklab-dal-spring-boot-starter</artifactId>
         </dependency>
         <dependency>
             <groupId>io.tiklab</groupId>
@@ -59,17 +53,10 @@
             <artifactId>tiklab-rpc-annotation</artifactId>
             <version>${project.version}</version>
         </dependency>
-
         <dependency>
             <groupId>io.tiklab</groupId>
             <artifactId>tiklab-user-api</artifactId>
             <version>1.0.0-SNAPSHOT</version>
-        </dependency>
-
-        <dependency>
-            <groupId>io.tiklab</groupId>
-            <artifactId>tiklab-integration-spring-boot-starter</artifactId>
-            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>io.tiklab</groupId>
@@ -108,12 +95,6 @@
         </dependency>
         <dependency>
             <groupId>io.tiklab</groupId>
-            <artifactId>tiklab-dsm-annotation</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.tiklab</groupId>
             <artifactId>tiklab-security-api</artifactId>
             <version>${project.version}</version>
         </dependency>
@@ -140,6 +121,12 @@
         <dependency>
             <groupId>io.tiklab</groupId>
             <artifactId>tiklab-dss-client</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.tiklab</groupId>
+            <artifactId>tiklab-dal-jpa</artifactId>
             <version>1.0.0-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>

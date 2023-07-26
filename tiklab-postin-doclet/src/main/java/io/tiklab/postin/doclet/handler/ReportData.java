@@ -2,11 +2,9 @@ package io.tiklab.postin.doclet.handler;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import io.tiklab.postin.doclet.starter.DocletApplication;
-
+import io.tiklab.postin.doclet.common.DocletGetModel;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.VariableElement;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -33,35 +31,6 @@ public class ReportData {
         return httpApiJson;
     }
 
-    private static JSONObject loopModel( String modelFullName){
-        JSONObject jsonObject = new JSONObject();
-        try {
-
-            //通过反射获取模型类
-            Class<?> paramClass = Class.forName(modelFullName, true, DocletApplication.urlClassLoader);
-
-            //获取模型类中的所有字段
-            Field[] fields = paramClass.getDeclaredFields();
-            // 遍历字段并获取字段信息
-            for (Field field : fields) {
-                // 获取字段名
-                String fieldName = field.getName();
-                // 获取字段类型
-                Class<?> fieldType = field.getType();
-
-                if(fieldType.getName().startsWith("java")){
-                    jsonObject.put(fieldName,fieldName);
-                }else {
-                    JSONObject modelJson = loopModel(fieldType.getName());
-                    jsonObject.put(fieldName,modelJson);
-                }
-            }
-
-        } catch (ClassNotFoundException e) {
-            System.out.println("Error --- 获取Class失败 :"+e);
-        }
-        return jsonObject;
-    }
 
     /**
      * 接口请求体基础信息
@@ -78,7 +47,6 @@ public class ReportData {
 
         return apiRequest;
     }
-
 
     /**
      * 请求体
@@ -100,6 +68,7 @@ public class ReportData {
             formParam.put("paramName",paramJson.getString("name"));
             formParam.put("dataType",paramJson.getString("dataType"));
             formParam.put("value",paramJson.getString("value"));
+            formParam.put("desc",paramJson.getString("desc"));
 
             arrayList.add(formParam);
         }
@@ -152,7 +121,13 @@ public class ReportData {
             //获取模型全称
             String modelFullName = parameters.get(0).asType().toString();
 
-            JSONObject jsonObject = loopModel(modelFullName);
+
+            JSONObject jsonObject;
+            if(CustomTagsHandler.modelMap.get(modelFullName)!=null){
+                jsonObject = CustomTagsHandler.modelMap.get(modelFullName);
+            }else {
+                jsonObject = DocletGetModel.loopModel(modelFullName);
+            }
 
             String jsonText = "{}";
             if(jsonObject!=null) {
@@ -168,6 +143,8 @@ public class ReportData {
 
         return rawJson;
     }
+
+
 
 
 }

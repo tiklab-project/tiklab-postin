@@ -41,13 +41,14 @@ dfs:
 #dcs io.tiklab.postin.config
 dcs:
   server:
-    enable: false
-    mode: server
+    enabled: true
     port: 5000
-    datapath: ${PROJECT_HOME}/caches
+    datapath: ${PROJECT_HOME}/data
   client:
     url: 127.0.0.1:5000
-    bucket: ${app.name}
+    group: g1
+    database: dcs1
+    expire: 7200
 
 #dss io.tiklab.postin.config
 dss:
