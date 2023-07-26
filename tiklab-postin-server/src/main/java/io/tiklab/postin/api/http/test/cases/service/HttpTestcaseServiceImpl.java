@@ -157,11 +157,11 @@ public class HttpTestcaseServiceImpl implements HttpTestcaseService {
             }
 
             //创建请求体-json参数
-            List<JsonParamCases> jsonParamCasesList = httpTestcase.getJsonList();
-            if(jsonParamCasesList != null){
-                for(JsonParamCases jsonParamCases : jsonParamCasesList){
-                    jsonParamCases.setHttpCase(httpTestcase);
-                    jsonParamCaseService.createJsonParamCase(jsonParamCases);
+            List<JsonParamCase> jsonParamCaseList = httpTestcase.getJsonList();
+            if(jsonParamCaseList != null){
+                for(JsonParamCase jsonParamCase : jsonParamCaseList){
+                    jsonParamCase.setHttpCase(httpTestcase);
+                    jsonParamCaseService.createJsonParamCase(jsonParamCase);
                 }
             }
 
@@ -175,11 +175,11 @@ public class HttpTestcaseServiceImpl implements HttpTestcaseService {
         }
 
         //创建断言列表
-        List<AssertCases> assertCasesList = httpTestcase.getAssertList();
-        if(assertCasesList != null){
-            for(AssertCases assertCases : assertCasesList){
-                assertCases.setHttpCase(httpTestcase);
-                assertCaseService.createAssertCase(assertCases);
+        List<AssertCase> assertCaseList = httpTestcase.getAssertList();
+        if(assertCaseList != null){
+            for(AssertCase assertCase : assertCaseList){
+                assertCase.setHttpCase(httpTestcase);
+                assertCaseService.createAssertCase(assertCase);
             }
         }
 
@@ -253,9 +253,9 @@ public class HttpTestcaseServiceImpl implements HttpTestcaseService {
 
         }else if(bodyType.equals("json")){
             //获取json数据
-            List<JsonParamCases> jsonParamCasesList = jsonParamCaseService.findJsonParamCaseList(new JsonParamCaseQuery().setHttpCaseId(testcaseId));
-            if(CollectionUtils.isNotEmpty(jsonParamCasesList)){
-                httpTestcase.setJsonList(jsonParamCasesList);
+            List<JsonParamCase> jsonParamCaseList = jsonParamCaseService.findJsonParamCaseList(new JsonParamCaseQuery().setHttpCaseId(testcaseId));
+            if(CollectionUtils.isNotEmpty(jsonParamCaseList)){
+                httpTestcase.setJsonList(jsonParamCaseList);
             }
 
         }else if(bodyType.equals("raw")){
@@ -355,9 +355,9 @@ public class HttpTestcaseServiceImpl implements HttpTestcaseService {
                         }
                         break;
                     case "json":
-                        List<JsonParamCases> jsonParamCasesListTree = jsonParamCaseService.findJsonParamCaseListTree(new JsonParamCaseQuery().setHttpCaseId(httpTestcase.getId()));
-                        if(jsonParamCasesListTree.size()>0){
-                            httpTestcase.setJsonList(jsonParamCasesListTree);
+                        List<JsonParamCase> jsonParamCaseListTree = jsonParamCaseService.findJsonParamCaseListTree(new JsonParamCaseQuery().setHttpCaseId(httpTestcase.getId()));
+                        if(jsonParamCaseListTree.size()>0){
+                            httpTestcase.setJsonList(jsonParamCaseListTree);
                         }
                         break;
                     case "raw":

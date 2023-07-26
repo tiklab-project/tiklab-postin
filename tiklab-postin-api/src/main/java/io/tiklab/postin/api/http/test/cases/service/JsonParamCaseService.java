@@ -2,7 +2,7 @@ package io.tiklab.postin.api.http.test.cases.service;
 
 import io.tiklab.core.page.Pagination;
 
-import io.tiklab.postin.api.http.test.cases.model.JsonParamCases;
+import io.tiklab.postin.api.http.test.cases.model.JsonParamCase;
 import io.tiklab.postin.api.http.test.cases.model.JsonParamCaseQuery;
 import io.tiklab.join.annotation.FindList;
 import io.tiklab.join.annotation.FindOne;
@@ -15,21 +15,21 @@ import java.util.List;
 /**
 * 用户服务接口
 */
-@JoinProvider(model = JsonParamCases.class)
+@JoinProvider(model = JsonParamCase.class)
 public interface JsonParamCaseService {
 
     /**
     * 创建用户
-    * @param jsonParamCases
+    * @param jsonParamCase
     * @return
     */
-    String createJsonParamCase(@NotNull @Valid JsonParamCases jsonParamCases);
+    String createJsonParamCase(@NotNull @Valid JsonParamCase jsonParamCase);
 
     /**
     * 更新用户
-    * @param jsonParamCases
+    * @param jsonParamCase
     */
-    void updateJsonParamCase(@NotNull @Valid JsonParamCases jsonParamCases);
+    void updateJsonParamCase(@NotNull @Valid JsonParamCase jsonParamCase);
 
     /**
     * 删除用户
@@ -38,43 +38,43 @@ public interface JsonParamCaseService {
     void deleteJsonParamCase(@NotNull String id);
 
     @FindOne
-    JsonParamCases findOne(@NotNull String id);
+    JsonParamCase findOne(@NotNull String id);
 
     @FindList
-    List<JsonParamCases> findList(List<String> idList);
+    List<JsonParamCase> findList(List<String> idList);
 
     /**
     * 查找用户
     * @param id
     * @return
     */
-    JsonParamCases findJsonParamCase(@NotNull String id);
+    JsonParamCase findJsonParamCase(@NotNull String id);
 
     /**
     * 查找所有
     * @return
     */
-    List<JsonParamCases> findAllJsonParamCase();
+    List<JsonParamCase> findAllJsonParamCase();
 
     /**
     * 查询列表
     * @param jsonParamCaseQuery
     * @return
     */
-    List<JsonParamCases> findJsonParamCaseList(JsonParamCaseQuery jsonParamCaseQuery);
+    List<JsonParamCase> findJsonParamCaseList(JsonParamCaseQuery jsonParamCaseQuery);
 
     /**
     * 按分页查询
     * @param jsonParamCaseQuery
     * @return
     */
-    Pagination<JsonParamCases> findJsonParamCasePage(JsonParamCaseQuery jsonParamCaseQuery);
+    Pagination<JsonParamCase> findJsonParamCasePage(JsonParamCaseQuery jsonParamCaseQuery);
 
     /**
      * 查询列表树
      * @param jsonParamCaseQuery
      * @return
      */
-    List<JsonParamCases> findJsonParamCaseListTree(JsonParamCaseQuery jsonParamCaseQuery);
+    List<JsonParamCase> findJsonParamCaseListTree(JsonParamCaseQuery jsonParamCaseQuery);
 
 }

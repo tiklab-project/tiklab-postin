@@ -37,7 +37,7 @@ public class HttpInstanceController {
 
     @RequestMapping(path="/createTestInstance",method = RequestMethod.POST)
     @ApiMethod(name = "createTestInstance",desc = "createTestInstance")
-    @ApiParam(name = "testInstance",desc = "testInstance",required = true)
+    @ApiParam(name = "httpInstance",desc = "httpInstance",required = true)
     public Result<String> createTestInstance(@RequestBody @NotNull @Valid HttpInstance httpInstance){
         String id = testInstanceService.createTestInstanceWithNest(httpInstance);
 
@@ -46,7 +46,7 @@ public class HttpInstanceController {
 
     @RequestMapping(path="/updateTestInstance",method = RequestMethod.POST)
     @ApiMethod(name = "updateTestInstance",desc = "updateTestInstance")
-    @ApiParam(name = "testInstance",desc = "testInstance",required = true)
+    @ApiParam(name = "httpInstance",desc = "httpInstance",required = true)
     public Result<Void> updateTestInstance(@RequestBody @NotNull @Valid HttpInstance httpInstance){
         testInstanceService.updateTestInstance(httpInstance);
 
@@ -91,7 +91,7 @@ public class HttpInstanceController {
 
     @RequestMapping(path = "/findTestInstanceList",method = RequestMethod.POST)
     @ApiMethod(name = "findTestInstanceList",desc = "findTestInstanceList")
-    @ApiParam(name = "testInstanceQuery",desc = "testInstanceQuery",required = true)
+    @ApiParam(name = "httpInstanceQuery",desc = "httpInstanceQuery",required = true)
     public Result<List<HttpInstance>> findTestInstanceList(@RequestBody @Valid @NotNull HttpInstanceQuery httpInstanceQuery){
         List<HttpInstance> httpInstanceList = testInstanceService.findTestInstanceList(httpInstanceQuery);
 
@@ -101,7 +101,7 @@ public class HttpInstanceController {
 
     @RequestMapping(path = "/findTestInstancePage",method = RequestMethod.POST)
     @ApiMethod(name = "findTestInstancePage",desc = "findTestInstancePage")
-    @ApiParam(name = "testInstanceQuery",desc = "testInstanceQuery",required = true)
+    @ApiParam(name = "httpInstanceQuery",desc = "httpInstanceQuery",required = true)
     public Result<Pagination<HttpInstance>> findTestInstancePage(@RequestBody @Valid @NotNull HttpInstanceQuery httpInstanceQuery){
         Pagination<HttpInstance> pagination = testInstanceService.findTestInstancePage(httpInstanceQuery);
 

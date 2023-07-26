@@ -2,7 +2,7 @@ package io.tiklab.postin.api.http.test.cases.service;
 
 import io.tiklab.postin.api.http.test.cases.dao.AssertCaseDao;
 import io.tiklab.postin.api.http.test.cases.entity.AssertCasesEntity;
-import io.tiklab.postin.api.http.test.cases.model.AssertCases;
+import io.tiklab.postin.api.http.test.cases.model.AssertCase;
 import io.tiklab.postin.api.http.test.cases.model.AssertCaseQuery;
 
 import io.tiklab.core.page.Pagination;
@@ -29,15 +29,15 @@ public class AssertCaseServiceImpl implements AssertCaseService {
     JoinTemplate joinTemplate;
 
     @Override
-    public String createAssertCase(@NotNull @Valid AssertCases assertCases) {
-        AssertCasesEntity assertCasesEntity = BeanMapper.map(assertCases, AssertCasesEntity.class);
+    public String createAssertCase(@NotNull @Valid AssertCase assertCase) {
+        AssertCasesEntity assertCasesEntity = BeanMapper.map(assertCase, AssertCasesEntity.class);
 
         return assertCaseDao.createAssertCase(assertCasesEntity);
     }
 
     @Override
-    public void updateAssertCase(@NotNull @Valid AssertCases assertCases) {
-        AssertCasesEntity assertCasesEntity = BeanMapper.map(assertCases, AssertCasesEntity.class);
+    public void updateAssertCase(@NotNull @Valid AssertCase assertCase) {
+        AssertCasesEntity assertCasesEntity = BeanMapper.map(assertCase, AssertCasesEntity.class);
 
         assertCaseDao.updateAssertCase(assertCasesEntity);
     }
@@ -48,60 +48,60 @@ public class AssertCaseServiceImpl implements AssertCaseService {
     }
 
     @Override
-    public AssertCases findOne(String id) {
+    public AssertCase findOne(String id) {
         AssertCasesEntity assertCasesEntity = assertCaseDao.findAssertCase(id);
 
-        AssertCases assertCases = BeanMapper.map(assertCasesEntity, AssertCases.class);
-        return assertCases;
+        AssertCase assertCase = BeanMapper.map(assertCasesEntity, AssertCase.class);
+        return assertCase;
     }
 
     @Override
-    public List<AssertCases> findList(List<String> idList) {
+    public List<AssertCase> findList(List<String> idList) {
         List<AssertCasesEntity> assertCasesEntityList =  assertCaseDao.findAssertCaseList(idList);
 
-        List<AssertCases> assertCasesList =  BeanMapper.mapList(assertCasesEntityList, AssertCases.class);
-        return assertCasesList;
+        List<AssertCase> assertCaseList =  BeanMapper.mapList(assertCasesEntityList, AssertCase.class);
+        return assertCaseList;
     }
 
     @Override
-    public AssertCases findAssertCase(@NotNull String id) {
-        AssertCases assertCases = findOne(id);
+    public AssertCase findAssertCase(@NotNull String id) {
+        AssertCase assertCase = findOne(id);
 
-        joinTemplate.joinQuery(assertCases);
-        return assertCases;
+        joinTemplate.joinQuery(assertCase);
+        return assertCase;
     }
 
     @Override
-    public List<AssertCases> findAllAssertCase() {
+    public List<AssertCase> findAllAssertCase() {
         List<AssertCasesEntity> assertCasesEntityList =  assertCaseDao.findAllAssertCase();
 
-        List<AssertCases> assertCasesList =  BeanMapper.mapList(assertCasesEntityList, AssertCases.class);
+        List<AssertCase> assertCaseList =  BeanMapper.mapList(assertCasesEntityList, AssertCase.class);
 
-        joinTemplate.joinQuery(assertCasesList);
-        return assertCasesList;
+        joinTemplate.joinQuery(assertCaseList);
+        return assertCaseList;
     }
 
     @Override
-    public List<AssertCases> findAssertCaseList(AssertCaseQuery assertCaseQuery) {
+    public List<AssertCase> findAssertCaseList(AssertCaseQuery assertCaseQuery) {
         List<AssertCasesEntity> assertCasesEntityList = assertCaseDao.findAssertCaseList(assertCaseQuery);
 
-        List<AssertCases> assertCasesList = BeanMapper.mapList(assertCasesEntityList, AssertCases.class);
+        List<AssertCase> assertCaseList = BeanMapper.mapList(assertCasesEntityList, AssertCase.class);
 
-        joinTemplate.joinQuery(assertCasesList);
+        joinTemplate.joinQuery(assertCaseList);
 
-        return assertCasesList;
+        return assertCaseList;
     }
 
     @Override
-    public Pagination<AssertCases> findAssertCasePage(AssertCaseQuery assertCaseQuery) {
+    public Pagination<AssertCase> findAssertCasePage(AssertCaseQuery assertCaseQuery) {
 
         Pagination<AssertCasesEntity>  pagination = assertCaseDao.findAssertCasePage(assertCaseQuery);
 
-        List<AssertCases> assertCasesList = BeanMapper.mapList(pagination.getDataList(), AssertCases.class);
+        List<AssertCase> assertCaseList = BeanMapper.mapList(pagination.getDataList(), AssertCase.class);
 
-        joinTemplate.joinQuery(assertCasesList);
+        joinTemplate.joinQuery(assertCaseList);
 
 
-        return PaginationBuilder.build(pagination, assertCasesList);
+        return PaginationBuilder.build(pagination, assertCaseList);
     }
 }

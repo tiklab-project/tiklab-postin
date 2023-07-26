@@ -2,7 +2,7 @@ package io.tiklab.postin.api.http.test.instance.service;
 
 import io.tiklab.postin.api.http.test.instance.dao.RequestInstanceDao;
 import io.tiklab.postin.api.http.test.instance.entity.RequestInstancesEntity;
-import io.tiklab.postin.api.http.test.instance.model.RequestInstances;
+import io.tiklab.postin.api.http.test.instance.model.RequestInstance;
 import io.tiklab.postin.api.http.test.instance.model.RequestInstanceQuery;
 import io.tiklab.core.page.Pagination;
 import io.tiklab.beans.BeanMapper;
@@ -28,15 +28,15 @@ public class RequestInstanceServiceImpl implements RequestInstanceService {
     JoinTemplate joinTemplate;
 
     @Override
-    public String createRequestInstance(@NotNull @Valid RequestInstances requestInstances) {
-        RequestInstancesEntity requestInstancesEntity = BeanMapper.map(requestInstances, RequestInstancesEntity.class);
+    public String createRequestInstance(@NotNull @Valid RequestInstance requestInstance) {
+        RequestInstancesEntity requestInstancesEntity = BeanMapper.map(requestInstance, RequestInstancesEntity.class);
 
         return requestInstanceDao.createRequestInstance(requestInstancesEntity);
     }
 
     @Override
-    public void updateRequestInstance(@NotNull @Valid RequestInstances requestInstances) {
-        RequestInstancesEntity requestInstancesEntity = BeanMapper.map(requestInstances, RequestInstancesEntity.class);
+    public void updateRequestInstance(@NotNull @Valid RequestInstance requestInstance) {
+        RequestInstancesEntity requestInstancesEntity = BeanMapper.map(requestInstance, RequestInstancesEntity.class);
 
         requestInstanceDao.updateRequestInstance(requestInstancesEntity);
     }
@@ -47,59 +47,59 @@ public class RequestInstanceServiceImpl implements RequestInstanceService {
     }
 
     @Override
-    public RequestInstances findOne(String id) {
+    public RequestInstance findOne(String id) {
         RequestInstancesEntity requestInstancesEntity = requestInstanceDao.findRequestInstance(id);
 
-        RequestInstances requestInstances = BeanMapper.map(requestInstancesEntity, RequestInstances.class);
-        return requestInstances;
+        RequestInstance requestInstance = BeanMapper.map(requestInstancesEntity, RequestInstance.class);
+        return requestInstance;
     }
 
     @Override
-    public List<RequestInstances> findList(List<String> idList) {
+    public List<RequestInstance> findList(List<String> idList) {
         List<RequestInstancesEntity> requestInstancesEntityList =  requestInstanceDao.findRequestInstanceList(idList);
 
-        List<RequestInstances> requestInstancesList =  BeanMapper.mapList(requestInstancesEntityList, RequestInstances.class);
-        return requestInstancesList;
+        List<RequestInstance> requestInstanceList =  BeanMapper.mapList(requestInstancesEntityList, RequestInstance.class);
+        return requestInstanceList;
     }
 
     @Override
-    public RequestInstances findRequestInstance(@NotNull String id) {
-        RequestInstances requestInstances = findOne(id);
+    public RequestInstance findRequestInstance(@NotNull String id) {
+        RequestInstance requestInstance = findOne(id);
 
-        joinTemplate.joinQuery(requestInstances);
-        return requestInstances;
+        joinTemplate.joinQuery(requestInstance);
+        return requestInstance;
     }
 
     @Override
-    public List<RequestInstances> findAllRequestInstance() {
+    public List<RequestInstance> findAllRequestInstance() {
         List<RequestInstancesEntity> requestInstancesEntityList =  requestInstanceDao.findAllRequestInstance();
 
-        List<RequestInstances> requestInstancesList =  BeanMapper.mapList(requestInstancesEntityList, RequestInstances.class);
+        List<RequestInstance> requestInstanceList =  BeanMapper.mapList(requestInstancesEntityList, RequestInstance.class);
 
-        joinTemplate.joinQuery(requestInstancesList);
-        return requestInstancesList;
+        joinTemplate.joinQuery(requestInstanceList);
+        return requestInstanceList;
     }
 
     @Override
-    public List<RequestInstances> findRequestInstanceList(RequestInstanceQuery requestInstanceQuery) {
+    public List<RequestInstance> findRequestInstanceList(RequestInstanceQuery requestInstanceQuery) {
         List<RequestInstancesEntity> requestInstancesEntityList = requestInstanceDao.findRequestInstanceList(requestInstanceQuery);
 
-        List<RequestInstances> requestInstancesList = BeanMapper.mapList(requestInstancesEntityList, RequestInstances.class);
+        List<RequestInstance> requestInstanceList = BeanMapper.mapList(requestInstancesEntityList, RequestInstance.class);
 
-        joinTemplate.joinQuery(requestInstancesList);
+        joinTemplate.joinQuery(requestInstanceList);
 
-        return requestInstancesList;
+        return requestInstanceList;
     }
 
     @Override
-    public Pagination<RequestInstances> findRequestInstancePage(RequestInstanceQuery requestInstanceQuery) {
+    public Pagination<RequestInstance> findRequestInstancePage(RequestInstanceQuery requestInstanceQuery) {
 
         Pagination<RequestInstancesEntity>  pagination = requestInstanceDao.findRequestInstancePage(requestInstanceQuery);
 
-        List<RequestInstances> requestInstancesList = BeanMapper.mapList(pagination.getDataList(), RequestInstances.class);
+        List<RequestInstance> requestInstanceList = BeanMapper.mapList(pagination.getDataList(), RequestInstance.class);
 
-        joinTemplate.joinQuery(requestInstancesList);
+        joinTemplate.joinQuery(requestInstanceList);
 
-        return PaginationBuilder.build(pagination, requestInstancesList);
+        return PaginationBuilder.build(pagination, requestInstanceList);
     }
 }

@@ -4,7 +4,7 @@ import io.tiklab.postin.api.http.test.instance.entity.AssertInstancesEntity;
 import io.tiklab.postin.api.http.test.instance.dao.AssertInstanceDao;
 
 
-import io.tiklab.postin.api.http.test.instance.model.AssertInstances;
+import io.tiklab.postin.api.http.test.instance.model.AssertInstance;
 import io.tiklab.postin.api.http.test.instance.model.AssertInstanceQuery;
 import io.tiklab.core.page.Pagination;
 import io.tiklab.beans.BeanMapper;
@@ -30,15 +30,15 @@ public class AssertInstanceServiceImpl implements AssertInstanceService {
     JoinTemplate joinTemplate;
 
     @Override
-    public String createAssertInstance(@NotNull @Valid AssertInstances assertInstances) {
-        AssertInstancesEntity assertInstancesEntity = BeanMapper.map(assertInstances, AssertInstancesEntity.class);
+    public String createAssertInstance(@NotNull @Valid AssertInstance assertInstance) {
+        AssertInstancesEntity assertInstancesEntity = BeanMapper.map(assertInstance, AssertInstancesEntity.class);
 
         return assertInstanceDao.createAssertInstance(assertInstancesEntity);
     }
 
     @Override
-    public void updateAssertInstance(@NotNull @Valid AssertInstances assertInstances) {
-        AssertInstancesEntity assertInstancesEntity = BeanMapper.map(assertInstances, AssertInstancesEntity.class);
+    public void updateAssertInstance(@NotNull @Valid AssertInstance assertInstance) {
+        AssertInstancesEntity assertInstancesEntity = BeanMapper.map(assertInstance, AssertInstancesEntity.class);
 
         assertInstanceDao.updateAssertInstance(assertInstancesEntity);
     }
@@ -49,59 +49,59 @@ public class AssertInstanceServiceImpl implements AssertInstanceService {
     }
 
     @Override
-    public AssertInstances findOne(String id) {
+    public AssertInstance findOne(String id) {
         AssertInstancesEntity assertInstancesEntity = assertInstanceDao.findAssertInstance(id);
 
-        AssertInstances assertInstances = BeanMapper.map(assertInstancesEntity, AssertInstances.class);
-        return assertInstances;
+        AssertInstance assertInstance = BeanMapper.map(assertInstancesEntity, AssertInstance.class);
+        return assertInstance;
     }
 
     @Override
-    public List<AssertInstances> findList(List<String> idList) {
+    public List<AssertInstance> findList(List<String> idList) {
         List<AssertInstancesEntity> assertInstancesEntityList =  assertInstanceDao.findAssertInstanceList(idList);
 
-        List<AssertInstances> assertInstancesList =  BeanMapper.mapList(assertInstancesEntityList, AssertInstances.class);
-        return assertInstancesList;
+        List<AssertInstance> assertInstanceList =  BeanMapper.mapList(assertInstancesEntityList, AssertInstance.class);
+        return assertInstanceList;
     }
 
     @Override
-    public AssertInstances findAssertInstance(@NotNull String id) {
-        AssertInstances assertInstances = findOne(id);
+    public AssertInstance findAssertInstance(@NotNull String id) {
+        AssertInstance assertInstance = findOne(id);
 
-        joinTemplate.joinQuery(assertInstances);
-        return assertInstances;
+        joinTemplate.joinQuery(assertInstance);
+        return assertInstance;
     }
 
     @Override
-    public List<AssertInstances> findAllAssertInstance() {
+    public List<AssertInstance> findAllAssertInstance() {
         List<AssertInstancesEntity> assertInstancesEntityList =  assertInstanceDao.findAllAssertInstance();
 
-        List<AssertInstances> assertInstancesList =  BeanMapper.mapList(assertInstancesEntityList, AssertInstances.class);
+        List<AssertInstance> assertInstanceList =  BeanMapper.mapList(assertInstancesEntityList, AssertInstance.class);
 
-        joinTemplate.joinQuery(assertInstancesList);
-        return assertInstancesList;
+        joinTemplate.joinQuery(assertInstanceList);
+        return assertInstanceList;
     }
 
     @Override
-    public List<AssertInstances> findAssertInstanceList(AssertInstanceQuery assertInstanceQuery) {
+    public List<AssertInstance> findAssertInstanceList(AssertInstanceQuery assertInstanceQuery) {
         List<AssertInstancesEntity> assertInstancesEntityList = assertInstanceDao.findAssertInstanceList(assertInstanceQuery);
 
-        List<AssertInstances> assertInstancesList = BeanMapper.mapList(assertInstancesEntityList, AssertInstances.class);
+        List<AssertInstance> assertInstanceList = BeanMapper.mapList(assertInstancesEntityList, AssertInstance.class);
 
-        joinTemplate.joinQuery(assertInstancesList);
+        joinTemplate.joinQuery(assertInstanceList);
 
-        return assertInstancesList;
+        return assertInstanceList;
     }
 
     @Override
-    public Pagination<AssertInstances> findAssertInstancePage(AssertInstanceQuery assertInstanceQuery) {
+    public Pagination<AssertInstance> findAssertInstancePage(AssertInstanceQuery assertInstanceQuery) {
 
         Pagination<AssertInstancesEntity>  pagination = assertInstanceDao.findAssertInstancePage(assertInstanceQuery);
 
-        List<AssertInstances> assertInstancesList = BeanMapper.mapList(pagination.getDataList(), AssertInstances.class);
+        List<AssertInstance> assertInstanceList = BeanMapper.mapList(pagination.getDataList(), AssertInstance.class);
 
-        joinTemplate.joinQuery(assertInstancesList);
+        joinTemplate.joinQuery(assertInstanceList);
 
-        return PaginationBuilder.build(pagination, assertInstancesList);
+        return PaginationBuilder.build(pagination, assertInstanceList);
     }
 }

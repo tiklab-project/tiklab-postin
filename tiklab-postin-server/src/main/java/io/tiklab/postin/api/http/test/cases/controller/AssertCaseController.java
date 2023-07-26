@@ -1,7 +1,7 @@
 package io.tiklab.postin.api.http.test.cases.controller;
 
 import io.tiklab.postin.annotation.Api;
-import io.tiklab.postin.api.http.test.cases.model.AssertCases;
+import io.tiklab.postin.api.http.test.cases.model.AssertCase;
 import io.tiklab.postin.api.http.test.cases.model.AssertCaseQuery;
 import io.tiklab.postin.api.http.test.cases.service.AssertCaseService;
 import io.tiklab.core.page.Pagination;
@@ -38,8 +38,8 @@ public class AssertCaseController {
     @RequestMapping(path="/createAssertCase",method = RequestMethod.POST)
     @ApiMethod(name = "createAssertCase",desc = "createAssertCase")
     @ApiParam(name = "assertCase",desc = "assertCase",required = true)
-    public Result<String> createAssertCase(@RequestBody @NotNull @Valid AssertCases assertCases){
-        String id = assertCaseService.createAssertCase(assertCases);
+    public Result<String> createAssertCase(@RequestBody @NotNull @Valid AssertCase assertCase){
+        String id = assertCaseService.createAssertCase(assertCase);
 
         return Result.ok(id);
     }
@@ -47,8 +47,8 @@ public class AssertCaseController {
     @RequestMapping(path="/updateAssertCase",method = RequestMethod.POST)
     @ApiMethod(name = "updateAssertCase",desc = "updateAssertCase")
     @ApiParam(name = "assertCase",desc = "assertCase",required = true)
-    public Result<Void> updateAssertCase(@RequestBody @NotNull @Valid AssertCases assertCases){
-        assertCaseService.updateAssertCase(assertCases);
+    public Result<Void> updateAssertCase(@RequestBody @NotNull @Valid AssertCase assertCase){
+        assertCaseService.updateAssertCase(assertCase);
 
         return Result.ok();
     }
@@ -65,36 +65,36 @@ public class AssertCaseController {
     @RequestMapping(path="/findAssertCase",method = RequestMethod.POST)
     @ApiMethod(name = "findAssertCase",desc = "findAssertCase")
     @ApiParam(name = "id",desc = "id",required = true)
-    public Result<AssertCases> findAssertCase(@NotNull String id){
-        AssertCases assertCases = assertCaseService.findAssertCase(id);
+    public Result<AssertCase> findAssertCase(@NotNull String id){
+        AssertCase assertCase = assertCaseService.findAssertCase(id);
 
-        return Result.ok(assertCases);
+        return Result.ok(assertCase);
     }
 
     @RequestMapping(path="/findAllAssertCase",method = RequestMethod.POST)
     @ApiMethod(name = "findAllAssertCase",desc = "findAllAssertCase")
-    public Result<List<AssertCases>> findAllAssertCase(){
-        List<AssertCases> assertCasesList = assertCaseService.findAllAssertCase();
+    public Result<List<AssertCase>> findAllAssertCase(){
+        List<AssertCase> assertCaseList = assertCaseService.findAllAssertCase();
 
-        return Result.ok(assertCasesList);
+        return Result.ok(assertCaseList);
     }
 
 
     @RequestMapping(path = "/findAssertCaseList",method = RequestMethod.POST)
     @ApiMethod(name = "findAssertCaseList",desc = "findAssertCaseList")
     @ApiParam(name = "assertCaseQuery",desc = "assertCaseQuery",required = true)
-    public Result<List<AssertCases>> findAssertCaseList(@RequestBody @Valid @NotNull AssertCaseQuery assertCaseQuery){
-        List<AssertCases> assertCasesList = assertCaseService.findAssertCaseList(assertCaseQuery);
+    public Result<List<AssertCase>> findAssertCaseList(@RequestBody @Valid @NotNull AssertCaseQuery assertCaseQuery){
+        List<AssertCase> assertCaseList = assertCaseService.findAssertCaseList(assertCaseQuery);
 
-        return Result.ok(assertCasesList);
+        return Result.ok(assertCaseList);
     }
 
 
     @RequestMapping(path = "/findAssertCasePage",method = RequestMethod.POST)
     @ApiMethod(name = "findAssertCasePage",desc = "findAssertCasePage")
     @ApiParam(name = "assertCaseQuery",desc = "assertCaseQuery",required = true)
-    public Result<Pagination<AssertCases>> findAssertCasePage(@RequestBody @Valid @NotNull AssertCaseQuery assertCaseQuery){
-        Pagination<AssertCases> pagination = assertCaseService.findAssertCasePage(assertCaseQuery);
+    public Result<Pagination<AssertCase>> findAssertCasePage(@RequestBody @Valid @NotNull AssertCaseQuery assertCaseQuery){
+        Pagination<AssertCase> pagination = assertCaseService.findAssertCasePage(assertCaseQuery);
 
         return Result.ok(pagination);
     }

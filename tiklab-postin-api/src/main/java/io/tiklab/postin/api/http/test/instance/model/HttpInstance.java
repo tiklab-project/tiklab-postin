@@ -67,13 +67,13 @@ public class HttpInstance extends BaseModel {
     private String errorMessage;
 
     @ApiProperty(name="requestInstance",desc="实例-请求部分")
-    private RequestInstances requestInstances;
+    private RequestInstance requestInstance;
 
     @ApiProperty(name="responseInstance",desc="实例-响应部分")
-    private ResponseInstances responseInstances;
+    private ResponseInstance responseInstance;
 
     @ApiProperty(name="assertInstanceList",desc="实例-断言列表")
-    private List<AssertInstances> assertInstancesList = new ArrayList<>();
+    private List<AssertInstance> assertInstanceList = new ArrayList<>();
 
 
 
@@ -150,28 +150,28 @@ public class HttpInstance extends BaseModel {
         this.errorMessage = errorMessage;
     }
 
-    public RequestInstances getRequestInstance() {
-        return requestInstances;
+    public RequestInstance getRequestInstance() {
+        return requestInstance;
     }
 
-    public void setRequestInstance(RequestInstances requestInstances) {
-        this.requestInstances = requestInstances;
+    public void setRequestInstance(RequestInstance requestInstance) {
+        this.requestInstance = requestInstance;
     }
 
-    public ResponseInstances getResponseInstance() {
-        return responseInstances;
+    public ResponseInstance getResponseInstance() {
+        return responseInstance;
     }
 
-    public void setResponseInstance(ResponseInstances responseInstances) {
-        this.responseInstances = responseInstances;
+    public void setResponseInstance(ResponseInstance responseInstance) {
+        this.responseInstance = responseInstance;
     }
 
-    public List<AssertInstances> getAssertInstanceList() {
-        return assertInstancesList;
+    public List<AssertInstance> getAssertInstanceList() {
+        return assertInstanceList;
     }
 
-    public void setAssertInstanceList(List<AssertInstances> assertInstancesList) {
-        this.assertInstancesList = assertInstancesList;
+    public void setAssertInstanceList(List<AssertInstance> assertInstanceList) {
+        this.assertInstanceList = assertInstanceList;
     }
 
     public Timestamp getCreateTime() {

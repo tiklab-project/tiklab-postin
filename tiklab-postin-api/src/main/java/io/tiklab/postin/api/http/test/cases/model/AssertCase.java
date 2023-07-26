@@ -10,23 +10,14 @@ import io.tiklab.join.annotation.Join;
 import io.tiklab.join.annotation.JoinQuery;
 
 import javax.validation.constraints.NotNull;
-import java.util.List;
 
 @ApiModel
 @Join
 @Mapper
-public class JsonParamCases extends BaseModel {
+public class AssertCase extends BaseModel {
 
     @ApiProperty(name="id",desc="唯一标识")
     private java.lang.String id;
-
-
-    @ApiProperty(name="parent",desc="上级参数")
-    @Mappings({
-            @Mapping(source = "parent.id",target = "parentId")
-    })
-    @JoinQuery(key = "id")
-    private JsonParamCases parent;
 
     @NotNull
     @ApiProperty(name="httpCase",desc="所属接口用例",required = true)
@@ -37,21 +28,25 @@ public class JsonParamCases extends BaseModel {
     private HttpTestcase httpCase;
 
     @NotNull
-    @ApiProperty(name="paramName",desc="参数名称",required = true)
-    private java.lang.String paramName;
+    @ApiProperty(name="source",desc="来源,1:状态码;2:请求头;3:请求体",required = true)
+    private Integer source;
 
-    @NotNull
-    @ApiProperty(name="dataType",desc="数据类型",required = true)
+    @ApiProperty(name="propertyName",desc="属性名称")
+    private java.lang.String propertyName;
+
+    @ApiProperty(name="dataType",desc="数据类型")
     private java.lang.String dataType;
 
-    @ApiProperty(name="value",desc="值")
+    @NotNull
+    @ApiProperty(name="comparator",desc="比较符",required = true)
+    private java.lang.String comparator;
+
+    @NotNull
+    @ApiProperty(name="value",desc="值",required = true)
     private java.lang.String value;
 
     @ApiProperty(name="sort",desc="排序")
     private java.lang.Integer sort;
-
-    @ApiProperty(name="children",desc="子节点列表")
-    private List<JsonParamCases> children;
 
     public String getId() {
         return id;
@@ -69,12 +64,12 @@ public class JsonParamCases extends BaseModel {
         this.httpCase = httpCase;
     }
 
-    public String getParamName() {
-        return paramName;
+    public String getPropertyName() {
+        return propertyName;
     }
 
-    public void setParamName(String paramName) {
-        this.paramName = paramName;
+    public void setPropertyName(String propertyName) {
+        this.propertyName = propertyName;
     }
 
     public String getDataType() {
@@ -83,6 +78,14 @@ public class JsonParamCases extends BaseModel {
 
     public void setDataType(String dataType) {
         this.dataType = dataType;
+    }
+
+    public String getComparator() {
+        return comparator;
+    }
+
+    public void setComparator(String comparator) {
+        this.comparator = comparator;
     }
 
     public String getValue() {
@@ -101,19 +104,11 @@ public class JsonParamCases extends BaseModel {
         this.sort = sort;
     }
 
-    public JsonParamCases getParent() {
-        return parent;
+    public Integer getSource() {
+        return source;
     }
 
-    public void setParent(JsonParamCases parent) {
-        this.parent = parent;
-    }
-
-    public List<JsonParamCases> getChildren() {
-        return children;
-    }
-
-    public void setChildren(List<JsonParamCases> children) {
-        this.children = children;
+    public void setSource(Integer source) {
+        this.source = source;
     }
 }

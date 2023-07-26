@@ -37,7 +37,7 @@ public class HttpTestcaseController {
 
     @RequestMapping(path="/createTestcase",method = RequestMethod.POST)
     @ApiMethod(name = "createTestcase",desc = "创建测试用例")
-    @ApiParam(name = "testcase",desc = "testcase",required = true)
+    @ApiParam(name = "httpTestcase",desc = "httpTestcase",required = true)
     public Result<String> createTestcase(@RequestBody @NotNull @Valid HttpTestcase httpTestcase){
         String id = httpTestcaseService.createTestcase(httpTestcase);
 
@@ -46,7 +46,7 @@ public class HttpTestcaseController {
 
     @RequestMapping(path="/createTestcaseWithNest",method = RequestMethod.POST)
     @ApiMethod(name = "createTestcaseWithNest",desc = "创建测试用例，级联保存从、子表数据")
-    @ApiParam(name = "testcase",desc = "testcase",required = true)
+    @ApiParam(name = "httpTestcase",desc = "httpTestcase",required = true)
     public Result<String> createTestcaseWithNest(@RequestBody @NotNull @Valid HttpTestcase httpTestcase){
         String id = httpTestcaseService.createTestcaseWithNest(httpTestcase);
 
@@ -55,7 +55,7 @@ public class HttpTestcaseController {
 
     @RequestMapping(path="/updateTestcase",method = RequestMethod.POST)
     @ApiMethod(name = "updateTestcase",desc = "updateTestcase")
-    @ApiParam(name = "testcase",desc = "testcase",required = true)
+    @ApiParam(name = "httpTestcase",desc = "httpTestcase",required = true)
     public Result<Void> updateTestcase(@RequestBody @NotNull @Valid HttpTestcase httpTestcase){
         httpTestcaseService.updateTestcase(httpTestcase);
 
@@ -91,7 +91,7 @@ public class HttpTestcaseController {
 
     @RequestMapping(path = "/findTestcaseList",method = RequestMethod.POST)
     @ApiMethod(name = "findTestcaseList",desc = "findTestcaseList")
-    @ApiParam(name = "testcaseQuery",desc = "testcaseQuery",required = true)
+    @ApiParam(name = "httpTestcaseQuery",desc = "httpTestcaseQuery",required = true)
     public Result<List<HttpTestcase>> findTestcaseList(@RequestBody @Valid @NotNull HttpTestcaseQuery httpTestcaseQuery){
         List<HttpTestcase> httpTestcaseList = httpTestcaseService.findTestcaseList(httpTestcaseQuery);
 
@@ -101,7 +101,7 @@ public class HttpTestcaseController {
 
     @RequestMapping(path = "/findTestcasePage",method = RequestMethod.POST)
     @ApiMethod(name = "findTestcasePage",desc = "findTestcasePage")
-    @ApiParam(name = "testcaseQuery",desc = "testcaseQuery",required = true)
+    @ApiParam(name = "httpTestcaseQuery",desc = "httpTestcaseQuery",required = true)
     public Result<Pagination<HttpTestcase>> findTestcasePage(@RequestBody @Valid @NotNull HttpTestcaseQuery httpTestcaseQuery){
         Pagination<HttpTestcase> pagination = httpTestcaseService.findTestcasePage(httpTestcaseQuery);
 

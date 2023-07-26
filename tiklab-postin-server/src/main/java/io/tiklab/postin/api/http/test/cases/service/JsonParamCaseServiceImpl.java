@@ -2,7 +2,7 @@ package io.tiklab.postin.api.http.test.cases.service;
 
 import io.tiklab.postin.api.http.test.cases.dao.JsonParamCaseDao;
 import io.tiklab.postin.api.http.test.cases.entity.JsonParamCaseEntity;
-import io.tiklab.postin.api.http.test.cases.model.JsonParamCases;
+import io.tiklab.postin.api.http.test.cases.model.JsonParamCase;
 import io.tiklab.postin.api.http.test.cases.model.JsonParamCaseQuery;
 
 import io.tiklab.core.page.Pagination;
@@ -30,15 +30,15 @@ public class JsonParamCaseServiceImpl implements JsonParamCaseService {
     JoinTemplate joinTemplate;
 
     @Override
-    public String createJsonParamCase(@NotNull @Valid JsonParamCases jsonParamCases) {
-        JsonParamCaseEntity jsonParamCaseEntity = BeanMapper.map(jsonParamCases, JsonParamCaseEntity.class);
+    public String createJsonParamCase(@NotNull @Valid JsonParamCase jsonParamCase) {
+        JsonParamCaseEntity jsonParamCaseEntity = BeanMapper.map(jsonParamCase, JsonParamCaseEntity.class);
 
         return jsonParamCaseDao.createJsonParamCase(jsonParamCaseEntity);
     }
 
     @Override
-    public void updateJsonParamCase(@NotNull @Valid JsonParamCases jsonParamCases) {
-        JsonParamCaseEntity jsonParamCaseEntity = BeanMapper.map(jsonParamCases, JsonParamCaseEntity.class);
+    public void updateJsonParamCase(@NotNull @Valid JsonParamCase jsonParamCase) {
+        JsonParamCaseEntity jsonParamCaseEntity = BeanMapper.map(jsonParamCase, JsonParamCaseEntity.class);
 
         jsonParamCaseDao.updateJsonParamCase(jsonParamCaseEntity);
     }
@@ -49,108 +49,108 @@ public class JsonParamCaseServiceImpl implements JsonParamCaseService {
     }
 
     @Override
-    public JsonParamCases findOne(String id) {
+    public JsonParamCase findOne(String id) {
         JsonParamCaseEntity jsonParamCaseEntity = jsonParamCaseDao.findJsonParamCase(id);
 
-        JsonParamCases jsonParamCases = BeanMapper.map(jsonParamCaseEntity, JsonParamCases.class);
-        return jsonParamCases;
+        JsonParamCase jsonParamCase = BeanMapper.map(jsonParamCaseEntity, JsonParamCase.class);
+        return jsonParamCase;
     }
 
     @Override
-    public List<JsonParamCases> findList(List<String> idList) {
+    public List<JsonParamCase> findList(List<String> idList) {
         List<JsonParamCaseEntity> jsonParamCaseEntityList =  jsonParamCaseDao.findJsonParamCaseList(idList);
 
-        List<JsonParamCases> jsonParamCasesList =  BeanMapper.mapList(jsonParamCaseEntityList, JsonParamCases.class);
-        return jsonParamCasesList;
+        List<JsonParamCase> jsonParamCaseList =  BeanMapper.mapList(jsonParamCaseEntityList, JsonParamCase.class);
+        return jsonParamCaseList;
     }
 
     @Override
-    public JsonParamCases findJsonParamCase(@NotNull String id) {
-        JsonParamCases jsonParamCases = findOne(id);
+    public JsonParamCase findJsonParamCase(@NotNull String id) {
+        JsonParamCase jsonParamCase = findOne(id);
 
-        joinTemplate.joinQuery(jsonParamCases);
-        return jsonParamCases;
+        joinTemplate.joinQuery(jsonParamCase);
+        return jsonParamCase;
     }
 
     @Override
-    public List<JsonParamCases> findAllJsonParamCase() {
+    public List<JsonParamCase> findAllJsonParamCase() {
         List<JsonParamCaseEntity> jsonParamCaseEntityList =  jsonParamCaseDao.findAllJsonParamCase();
 
-        List<JsonParamCases> jsonParamCasesList =  BeanMapper.mapList(jsonParamCaseEntityList, JsonParamCases.class);
+        List<JsonParamCase> jsonParamCaseList =  BeanMapper.mapList(jsonParamCaseEntityList, JsonParamCase.class);
 
-        joinTemplate.joinQuery(jsonParamCasesList);
-        return jsonParamCasesList;
+        joinTemplate.joinQuery(jsonParamCaseList);
+        return jsonParamCaseList;
     }
 
     @Override
-    public List<JsonParamCases> findJsonParamCaseList(JsonParamCaseQuery jsonParamCaseQuery) {
+    public List<JsonParamCase> findJsonParamCaseList(JsonParamCaseQuery jsonParamCaseQuery) {
         List<JsonParamCaseEntity> jsonParamCaseEntityList = jsonParamCaseDao.findJsonParamCaseList(jsonParamCaseQuery);
 
-        List<JsonParamCases> jsonParamCasesList = BeanMapper.mapList(jsonParamCaseEntityList, JsonParamCases.class);
+        List<JsonParamCase> jsonParamCaseList = BeanMapper.mapList(jsonParamCaseEntityList, JsonParamCase.class);
 
-        joinTemplate.joinQuery(jsonParamCasesList);
+        joinTemplate.joinQuery(jsonParamCaseList);
 
-        return jsonParamCasesList;
+        return jsonParamCaseList;
     }
 
     @Override
-    public Pagination<JsonParamCases> findJsonParamCasePage(JsonParamCaseQuery jsonParamCaseQuery) {
+    public Pagination<JsonParamCase> findJsonParamCasePage(JsonParamCaseQuery jsonParamCaseQuery) {
 
         Pagination<JsonParamCaseEntity>  pagination = jsonParamCaseDao.findJsonParamCasePage(jsonParamCaseQuery);
 
-        List<JsonParamCases> jsonParamCasesList = BeanMapper.mapList(pagination.getDataList(), JsonParamCases.class);
+        List<JsonParamCase> jsonParamCaseList = BeanMapper.mapList(pagination.getDataList(), JsonParamCase.class);
 
-        joinTemplate.joinQuery(jsonParamCasesList);
+        joinTemplate.joinQuery(jsonParamCaseList);
 
-        return PaginationBuilder.build(pagination, jsonParamCasesList);
+        return PaginationBuilder.build(pagination, jsonParamCaseList);
     }
 
     @Override
-    public List<JsonParamCases> findJsonParamCaseListTree(JsonParamCaseQuery jsonParamCaseQuery) {
+    public List<JsonParamCase> findJsonParamCaseListTree(JsonParamCaseQuery jsonParamCaseQuery) {
         //查找所有参数列表
-        List<JsonParamCases> matchJsonParamCasesList = this.findJsonParamCaseList(jsonParamCaseQuery);
+        List<JsonParamCase> matchJsonParamCaseList = this.findJsonParamCaseList(jsonParamCaseQuery);
 
         //查找第一级参数列表
-        List<JsonParamCases> topJsonParamCasesList = findTopJsonParamCaseList(matchJsonParamCasesList);
+        List<JsonParamCase> topJsonParamCaseList = findTopJsonParamCaseList(matchJsonParamCaseList);
 
         //设置下级节点列表
-        if(topJsonParamCasesList != null && topJsonParamCasesList.size() > 0){
-            for(JsonParamCases topJsonParamCases : topJsonParamCasesList){
-                setChildren(matchJsonParamCasesList, topJsonParamCases);
+        if(topJsonParamCaseList != null && topJsonParamCaseList.size() > 0){
+            for(JsonParamCase topJsonParamCase : topJsonParamCaseList){
+                setChildren(matchJsonParamCaseList, topJsonParamCase);
             }
         }
 
-        return topJsonParamCasesList;
+        return topJsonParamCaseList;
     }
 
     /**
      * 查找第一级参数列表
-     * @param matchJsonParamCasesList
+     * @param matchJsonParamCaseList
      * @return
      */
-    List<JsonParamCases> findTopJsonParamCaseList(List<JsonParamCases> matchJsonParamCasesList) {
-        List<JsonParamCases> jsonParamCasesList = matchJsonParamCasesList.stream()
+    List<JsonParamCase> findTopJsonParamCaseList(List<JsonParamCase> matchJsonParamCaseList) {
+        List<JsonParamCase> jsonParamCaseList = matchJsonParamCaseList.stream()
                 .filter(jsonParamCase -> (jsonParamCase.getParent() == null || jsonParamCase.getParent().getId() == null))
                 .collect(Collectors.toList());
-        return jsonParamCasesList;
+        return jsonParamCaseList;
     }
 
     /**
      * 设置下级节点列表
-     * @param matchJsonParamCasesList
-     * @param parentJsonParamCases
+     * @param matchJsonParamCaseList
+     * @param parentJsonParamCase
      */
-    void setChildren(List<JsonParamCases> matchJsonParamCasesList, JsonParamCases parentJsonParamCases){
-        List<JsonParamCases> childList = matchJsonParamCasesList.stream()
-                .filter(jsonParamCase -> (jsonParamCase.getParent() != null && jsonParamCase.getParent().getId() != null && jsonParamCase.getParent().getId().equals(parentJsonParamCases.getId())))
+    void setChildren(List<JsonParamCase> matchJsonParamCaseList, JsonParamCase parentJsonParamCase){
+        List<JsonParamCase> childList = matchJsonParamCaseList.stream()
+                .filter(jsonParamCase -> (jsonParamCase.getParent() != null && jsonParamCase.getParent().getId() != null && jsonParamCase.getParent().getId().equals(parentJsonParamCase.getId())))
                 .collect(Collectors.toList());
 
         if(childList != null && childList.size() > 0){
-            parentJsonParamCases.setChildren(childList);
+            parentJsonParamCase.setChildren(childList);
 
             //设置下级节点列表
-            for(JsonParamCases childJsonParamCases :childList){
-                setChildren(matchJsonParamCasesList, childJsonParamCases);
+            for(JsonParamCase childJsonParamCase :childList){
+                setChildren(matchJsonParamCaseList, childJsonParamCase);
             }
         }
     }

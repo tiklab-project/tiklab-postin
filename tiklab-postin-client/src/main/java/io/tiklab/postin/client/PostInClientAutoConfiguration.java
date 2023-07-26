@@ -17,8 +17,8 @@ public class PostInClientAutoConfiguration {
     @Value("${postin.scan.package:io.tiklab}")
     private String scanPackage;
 
-    //@Bean
-    @DependsOn({"joinQuery"})
+    @Bean
+    //@DependsOn({"joinQuery"})
     public PostInIniter postinIniter(){
         new PostInBuilder()
                 .scan(scanPackage)

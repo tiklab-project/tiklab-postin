@@ -17,7 +17,7 @@ import javax.validation.constraints.NotNull;
 @ApiModel
 @Join
 @Mapper
-public class AssertInstances extends BaseModel {
+public class AssertInstance extends BaseModel {
 
     @ApiProperty(name="id",desc="唯一ID")
     private java.lang.String id;

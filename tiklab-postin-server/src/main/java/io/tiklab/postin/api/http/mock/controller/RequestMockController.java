@@ -37,7 +37,7 @@ public class RequestMockController {
 
     @RequestMapping(path="/createRequestMock",method = RequestMethod.POST)
     @ApiMethod(name = "createRequestMock",desc = "创建请求体")
-    @ApiParam(name = "RequestMock",desc = "RequestMock",required = true)
+    @ApiParam(name = "requestMock",desc = "requestMock",required = true)
     public Result<String> createRequestMock(@RequestBody @NotNull @Valid RequestMock requestMock){
         String id = requestMockService.createRequestMock(requestMock);
 
@@ -46,7 +46,7 @@ public class RequestMockController {
 
     @RequestMapping(path="/updateRequestMock",method = RequestMethod.POST)
     @ApiMethod(name = "updateRequestMock",desc = "更新请求体")
-    @ApiParam(name = "RequestMock",desc = "RequestMock",required = true)
+    @ApiParam(name = "requestMock",desc = "requestMock",required = true)
     public Result<Void> updateRequestMock(@RequestBody @NotNull @Valid RequestMock requestMock){
         requestMockService.updateRequestMock(requestMock);
 
@@ -82,7 +82,7 @@ public class RequestMockController {
 
     @RequestMapping(path = "/findRequestMockList",method = RequestMethod.POST)
     @ApiMethod(name = "findRequestMockList",desc = "根据查询参数查找请求体")
-    @ApiParam(name = "RequestMockQuery",desc = "RequestMockQuery",required = true)
+    @ApiParam(name = "requestMockQuery",desc = "requestMockQuery",required = true)
     public Result<List<RequestMock>> findRequestMockList(@RequestBody @Valid @NotNull RequestMockQuery requestMockQuery){
         List<RequestMock> requestMockList = requestMockService.findRequestMockList(requestMockQuery);
 
@@ -92,7 +92,7 @@ public class RequestMockController {
 
     @RequestMapping(path = "/findRequestMockPage",method = RequestMethod.POST)
     @ApiMethod(name = "findRequestMockPage",desc = "根据查询参数按分页查找请求体")
-    @ApiParam(name = "RequestMockQuery",desc = "RequestMockQuery",required = true)
+    @ApiParam(name = "requestMockQuery",desc = "requestMockQuery",required = true)
     public Result<Pagination<RequestMock>> findRequestMockPage(@RequestBody @Valid @NotNull RequestMockQuery requestMockQuery){
         Pagination<RequestMock> pagination = requestMockService.findRequestMockPage(requestMockQuery);
 

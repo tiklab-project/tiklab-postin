@@ -1,7 +1,7 @@
 package io.tiklab.postin.api.http.test.instance.controller;
 
 import io.tiklab.postin.annotation.Api;
-import io.tiklab.postin.api.http.test.instance.model.RequestInstances;
+import io.tiklab.postin.api.http.test.instance.model.RequestInstance;
 import io.tiklab.postin.api.http.test.instance.model.RequestInstanceQuery;
 import io.tiklab.postin.api.http.test.instance.service.RequestInstanceService;
 import io.tiklab.core.page.Pagination;
@@ -38,8 +38,8 @@ public class RequestInstanceController {
     @RequestMapping(path="/createRequestInstance",method = RequestMethod.POST)
     @ApiMethod(name = "createRequestInstance",desc = "createRequestInstance")
     @ApiParam(name = "requestInstance",desc = "requestInstance",required = true)
-    public Result<String> createRequestInstance(@RequestBody @NotNull @Valid RequestInstances requestInstances){
-        String id = requestInstanceService.createRequestInstance(requestInstances);
+    public Result<String> createRequestInstance(@RequestBody @NotNull @Valid RequestInstance requestInstance){
+        String id = requestInstanceService.createRequestInstance(requestInstance);
 
         return Result.ok(id);
     }
@@ -47,8 +47,8 @@ public class RequestInstanceController {
     @RequestMapping(path="/updateRequestInstance",method = RequestMethod.POST)
     @ApiMethod(name = "updateRequestInstance",desc = "updateRequestInstance")
     @ApiParam(name = "requestInstance",desc = "requestInstance",required = true)
-    public Result<Void> updateRequestInstance(@RequestBody @NotNull @Valid RequestInstances requestInstances){
-        requestInstanceService.updateRequestInstance(requestInstances);
+    public Result<Void> updateRequestInstance(@RequestBody @NotNull @Valid RequestInstance requestInstance){
+        requestInstanceService.updateRequestInstance(requestInstance);
 
         return Result.ok();
     }
@@ -65,36 +65,36 @@ public class RequestInstanceController {
     @RequestMapping(path="/findRequestInstance",method = RequestMethod.POST)
     @ApiMethod(name = "findRequestInstance",desc = "findRequestInstance")
     @ApiParam(name = "id",desc = "id",required = true)
-    public Result<RequestInstances> findRequestInstance(@NotNull String id){
-        RequestInstances requestInstances = requestInstanceService.findRequestInstance(id);
+    public Result<RequestInstance> findRequestInstance(@NotNull String id){
+        RequestInstance requestInstance = requestInstanceService.findRequestInstance(id);
 
-        return Result.ok(requestInstances);
+        return Result.ok(requestInstance);
     }
 
     @RequestMapping(path="/findAllRequestInstance",method = RequestMethod.POST)
     @ApiMethod(name = "findAllRequestInstance",desc = "findAllRequestInstance")
-    public Result<List<RequestInstances>> findAllRequestInstance(){
-        List<RequestInstances> requestInstancesList = requestInstanceService.findAllRequestInstance();
+    public Result<List<RequestInstance>> findAllRequestInstance(){
+        List<RequestInstance> requestInstanceList = requestInstanceService.findAllRequestInstance();
 
-        return Result.ok(requestInstancesList);
+        return Result.ok(requestInstanceList);
     }
 
 
     @RequestMapping(path = "/findRequestInstanceList",method = RequestMethod.POST)
     @ApiMethod(name = "findRequestInstanceList",desc = "findRequestInstanceList")
     @ApiParam(name = "requestInstanceQuery",desc = "requestInstanceQuery",required = true)
-    public Result<List<RequestInstances>> findRequestInstanceList(@RequestBody @Valid @NotNull RequestInstanceQuery requestInstanceQuery){
-        List<RequestInstances> requestInstancesList = requestInstanceService.findRequestInstanceList(requestInstanceQuery);
+    public Result<List<RequestInstance>> findRequestInstanceList(@RequestBody @Valid @NotNull RequestInstanceQuery requestInstanceQuery){
+        List<RequestInstance> requestInstanceList = requestInstanceService.findRequestInstanceList(requestInstanceQuery);
 
-        return Result.ok(requestInstancesList);
+        return Result.ok(requestInstanceList);
     }
 
 
     @RequestMapping(path = "/findRequestInstancePage",method = RequestMethod.POST)
     @ApiMethod(name = "findRequestInstancePage",desc = "findRequestInstancePage")
     @ApiParam(name = "requestInstanceQuery",desc = "requestInstanceQuery",required = true)
-    public Result<Pagination<RequestInstances>> findRequestInstancePage(@RequestBody @Valid @NotNull RequestInstanceQuery requestInstanceQuery){
-        Pagination<RequestInstances> pagination = requestInstanceService.findRequestInstancePage(requestInstanceQuery);
+    public Result<Pagination<RequestInstance>> findRequestInstancePage(@RequestBody @Valid @NotNull RequestInstanceQuery requestInstanceQuery){
+        Pagination<RequestInstance> pagination = requestInstanceService.findRequestInstancePage(requestInstanceQuery);
 
         return Result.ok(pagination);
     }

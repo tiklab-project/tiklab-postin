@@ -5,7 +5,7 @@ spring:
   profiles:
     active: demo
 
-PROJECT_HOME: ${user.home}/tiklab/${app.name}
+DATA_HOME: ${user.home}/tiklab/${app.name}
 
 #web 
 server:
@@ -25,7 +25,7 @@ dfs:
     enable: false
     mode: server
     port: 4000
-    datapath: ${PROJECT_HOME}/files
+    datapath: ${DATA_HOME}/files
   client:
     url: 127.0.0.1:4000
     bucket: ${app.name}
@@ -36,7 +36,7 @@ dcs:
     enable: false
     mode: server
     port: 5000
-    datapath: ${PROJECT_HOME}/caches
+    datapath: ${DATA_HOME}/caches
   client:
     url: 127.0.0.1:5000
     bucket: ${app.name}
@@ -47,7 +47,7 @@ dss:
     enable: false
     mode: server
     port: 6000
-    datapath: ${PROJECT_HOME}/index
+    datapath: ${DATA_HOME}/index
   client:
     url: 127.0.0.1:6000
     bucket: ${app.name}
@@ -58,11 +58,11 @@ homes:
 
 #plugin 
 plugin:
-  path: ${PROJECT_HOME}/plugin
+  path: ${DATA_HOME}/plugin
 
 #licences 
 licences:
-  path: ${PROJECT_HOME}/licences
+  path: ${DATA_HOME}/licences
 
 application: postin
 
