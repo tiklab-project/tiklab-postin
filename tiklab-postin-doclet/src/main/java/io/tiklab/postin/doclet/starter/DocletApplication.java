@@ -27,7 +27,7 @@ public class DocletApplication  {
 
         String modulesPath="D:/a-dk-sever/tiklab-postin/tiklab-postin-api;D:/a-dk-sever/tiklab-postin/tiklab-postin-server";
         modulesPathArray = modulesPath.split(";");
-        workspaceId="73c78f9e2b1c";
+        workspaceId="14a356a05690";
         server="http://192.168.10.3:8090";
 
         try {

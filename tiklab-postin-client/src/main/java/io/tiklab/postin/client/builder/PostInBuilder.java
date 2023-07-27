@@ -101,7 +101,7 @@ public class PostInBuilder {
 
             ApiMeta controllerMap = entry.getValue();
             String categoryName = controllerMap.getName();
-            //创建分组获取分组id
+            //获取分组id
             String categoryId = getIdByMd5(categoryName);
             JSONObject categoryJson = getCategoryJson(controllerMap, categoryId);
             moduleJson.put("category",categoryJson);
@@ -121,7 +121,7 @@ public class PostInBuilder {
                 apiJson.put("apiId",apiId);
 
                 JSONObject httpApiJson = getHttpApiJson(apiMethodMeta, categoryId);
-                apiJson.put("httpApi",httpApiJson);
+                apiJson.put("apiBase",httpApiJson);
 
                 JSONObject apiRequest = getApiRequest(apiMethodMeta);
                 apiJson.put("request",apiRequest);
@@ -386,7 +386,7 @@ public class PostInBuilder {
                 JSONObject jsonObject = JSONObject.parseObject(response.toString());
                 String data = jsonObject.getString("data");
 
-                logger.info(categoryName+" --- 上报 :"+data );
+                logger.info(categoryName+" --- report :"+data );
             } else {
                 logger.info("Error --- http code is not 200 : "+responseCode );
             }

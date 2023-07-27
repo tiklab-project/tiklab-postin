@@ -10,7 +10,7 @@ public class ApiReport {
 
     private String apiId;
 
-    private HttpApi httpApi;
+    private HttpApi apiBase;
 
     private ApiRequest request;
 
@@ -28,12 +28,12 @@ public class ApiReport {
         this.apiId = apiId;
     }
 
-    public HttpApi getHttpApi() {
-        return httpApi;
+    public HttpApi getApiBase() {
+        return apiBase;
     }
 
-    public void setHttpApi(HttpApi httpApi) {
-        this.httpApi = httpApi;
+    public void setApiBase(HttpApi apiBase) {
+        this.apiBase = apiBase;
     }
 
     public ApiRequest getRequest() {

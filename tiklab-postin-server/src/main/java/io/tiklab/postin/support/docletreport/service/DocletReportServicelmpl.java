@@ -120,7 +120,7 @@ public class DocletReportServicelmpl implements DocletReportService {
     private void createApi(ApiReport apiReport){
         String apiId = apiReport.getApiId();
 
-        HttpApi httpApi = apiReport.getHttpApi();
+        HttpApi httpApi = apiReport.getApiBase();
         httpApi.setId(apiId);
         httpApiService.createHttpApi(httpApi);
 
@@ -158,7 +158,7 @@ public class DocletReportServicelmpl implements DocletReportService {
     private void updateApi(ApiReport apiReport) {
         String apiId = apiReport.getApiId();
 
-        HttpApi httpApi = apiReport.getHttpApi();
+        HttpApi httpApi = apiReport.getApiBase();
         httpApi.setId(apiId);
         httpApi.getApix().setId(apiId);
         httpApiService.updateHttpApi(httpApi);

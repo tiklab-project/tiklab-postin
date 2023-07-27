@@ -12,6 +12,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class CustomTagsHandler implements Doclet {
@@ -46,15 +47,14 @@ public class CustomTagsHandler implements Doclet {
         Set<? extends Element> elements = environment.getSpecifiedElements();
 
         for (Element element : elements) {
-            if (element instanceof TypeElement) {
-                TypeElement type = (TypeElement) element;
+            if (element instanceof TypeElement type) {
+
                 String classComment = environment.getElementUtils().getDocComment(type);
 
                 //获取模型注释
                 if(classComment != null && classComment.contains("@pi.model")){
                     parseModel(type,classComment,environment);
                 }
-
 
                 // 判断controller类头上是否有自定义的信息
                 if (classComment != null && classComment.contains("@pi.protocol") && classComment.contains("@pi.groupName")) {
@@ -74,13 +74,15 @@ public class CustomTagsHandler implements Doclet {
         // 解析类注释
         Map<String, String> classMap = parseClassComment(classComment);
 
-        //通过解析的类注释创建分组
-        String categoryId = categoryReport(classMap);
 
-        if(categoryId==null){
-            System.out.println("Error --- categoryId返回为null");
-            return;
-        }
+        JSONObject moduleJson = new JSONObject();
+
+        String groupName = classMap.get("groupName");
+        //获取分组id
+        String categoryId = DocletUtils.getIdByMd5(groupName);
+        //通过解析的类注释获取分组信息
+        JSONObject categoryJson = getCategoryJson(classMap, categoryId);
+        moduleJson.put("category",categoryJson);
 
         // 获取方法
         List<? extends Element> members = type.getEnclosedElements();
@@ -88,6 +90,7 @@ public class CustomTagsHandler implements Doclet {
             return;
         }
 
+        JSONArray moduleMethodList = new JSONArray();
         for (Element member : members) {
             if (member.getKind() == ElementKind.METHOD) {
                 ExecutableElement method = (ExecutableElement) member;
@@ -99,9 +102,15 @@ public class CustomTagsHandler implements Doclet {
                     continue;
                 }
 
-                analyticalApi(methodComment,classMap,categoryId,method);
+                JSONObject apiJson = analyticalApi(methodComment, classMap, categoryId, method);
+
+                moduleMethodList.add(apiJson);
             }
         }
+
+        moduleJson.put("moduleMethodList",moduleMethodList);
+
+        httpCommon(groupName,moduleJson.toJSONString());
     }
 
     /**
@@ -138,25 +147,25 @@ public class CustomTagsHandler implements Doclet {
 
 
     /**
-     * 通过解析的类注释创建分组
+     * 通过解析的类注释信息
      */
-    private String categoryReport( Map<String, String> classMap){
-        //获取配置文件
-//        Properties props = DocletUtils.loadConfig();
+    private JSONObject getCategoryJson(Map<String, String> classMap, String categoryId){
+
         JSONObject categoryJson = new JSONObject();
         JSONObject workspaceJson = new JSONObject();
         workspaceJson.put("id", DocletApplication.workspaceId);
         categoryJson.put("workspace",workspaceJson);
         categoryJson.put("name",classMap.get("groupName"));
-        String categoryId = httpCommon("/docletReport/category", categoryJson.toJSONString());
+        categoryJson.put("id",categoryId);
 
-        return categoryId;
+        return categoryJson;
     }
 
     /**
      * 解析方法上的注释创建接口
+     * @return
      */
-    private void analyticalApi(String methodComment, Map<String, String> classMap, String categoryId, ExecutableElement method){
+    private JSONObject analyticalApi(String methodComment, Map<String, String> classMap, String categoryId, ExecutableElement method){
 
         // 解析方法注释
         JSONObject methodJson = parseMethodComment(methodComment);
@@ -164,7 +173,7 @@ public class CustomTagsHandler implements Doclet {
         JSONObject apiJson = new JSONObject();
 
         JSONObject httpApiJson = ReportData.getHttpApiJson(methodJson, classMap, categoryId,method);
-        apiJson.put("httpApi",httpApiJson);
+        apiJson.put("apiBase",httpApiJson);
 
         JSONObject apiRequest = ReportData.getApiRequest(methodJson);
         apiJson.put("request",apiRequest);
@@ -174,7 +183,9 @@ public class CustomTagsHandler implements Doclet {
         String apiId = DocletUtils.getIdByMd5(path);
         apiJson.put("apiId",apiId);
 
-        if(apiId==null){return;}
+        if(apiId==null){
+            return methodJson;
+        }
 
         switch (methodJson.getString("request-type")){
             case "formdata":
@@ -194,16 +205,15 @@ public class CustomTagsHandler implements Doclet {
                 break;
         }
 
-        //上报接口
-        httpCommon("/docletReport/api", apiJson.toJSONString());
+       return apiJson;
     }
 
     /**
      * http发送请求公共方法
      */
-    private String httpCommon(String path,String jsonBody) {
+    private void httpCommon(String categoryName,String jsonBody) {
         try {
-            String serverUrl = DocletApplication.server+ path;
+            String serverUrl = DocletApplication.server+ "/docletReport/moduleReport";
             //请求接口
             URL url = new URL(serverUrl);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -212,7 +222,7 @@ public class CustomTagsHandler implements Doclet {
             connection.setDoOutput(true);
 
             try(OutputStream os = connection.getOutputStream()) {
-                byte[] input = jsonBody.getBytes("utf-8");
+                byte[] input = jsonBody.getBytes(StandardCharsets.UTF_8);
                 os.write(input, 0, input.length);
             }
 
@@ -230,23 +240,20 @@ public class CustomTagsHandler implements Doclet {
                     response.append(scanner.nextLine());
                 }
 
-//                System.out.println("接口返回数据："+response);
                 //获取创建过后返回的id
                 JSONObject jsonObject = JSONObject.parseObject(response.toString());
-                String Id = jsonObject.getString("data");
+                String data = jsonObject.getString("data");
 
-                return Id;
+                System.out.println(categoryName+" --- report :"+data );
             } else {
                 System.out.println("Error --- http code is not 200 : "+responseCode );
             }
 
         }catch (Exception e){
             System.out.println("Error --- 接口调用失败 : " + e  );
-            return null;
         }
-
-        return null;
     }
+
 
     /**
      * 解析类注释
