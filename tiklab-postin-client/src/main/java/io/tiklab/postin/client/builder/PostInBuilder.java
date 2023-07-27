@@ -1,19 +1,33 @@
 package io.tiklab.postin.client.builder;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import io.tiklab.postin.client.model.ApiMeta;
+import io.tiklab.postin.client.model.ApiParamMeta;
 import io.tiklab.postin.client.parser.ApiParser;
-import io.tiklab.core.exception.ApplicationException;
 import io.tiklab.postin.client.model.ApiMethodMeta;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 import java.io.*;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.math.BigInteger;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.*;
 
+@Service
 public class PostInBuilder {
+
+    @Value("${postin.report.workspaceId}")
+    private String workspaceId;
+
+    @Value("${postin.report.server}")
+    private String server;
 
     private static Logger logger = LoggerFactory.getLogger(PostInBuilder.class);
 
@@ -21,7 +35,7 @@ public class PostInBuilder {
 
     private String scanPackage;
 
-    private String docPath= "D:/a-dk-sever/tiklab-postin/tiklab-postin-starter/html";
+    private String docPath;
 
     private int formater = 2;//1:json;2:html
 
@@ -35,11 +49,18 @@ public class PostInBuilder {
         return this;
     }
 
+    private List<ApiMeta> scanPackage(String basePackage){
+        List<ApiMeta> apiMetaList =  apiParser.parseApiMeta(basePackage);
+
+        return apiMetaList;
+    }
+
     public void build(){
         List<ApiMeta> apiMetaList = scanPackage(scanPackage);
 
         ApiMetaContext.setApiMetaList(apiMetaList);
 
+        //所有controller
         Map<String,ApiMeta> apiMetaMap = new HashMap<>();
 
         if(apiMetaList != null){
@@ -48,6 +69,10 @@ public class PostInBuilder {
             }
             ApiMetaContext.setApiMetaMap(apiMetaMap);
         }
+
+        //上报信息
+        reportData(apiMetaMap);
+
 
 //        //写入文本
 //        createReportFile(apiMetaMap);
@@ -62,14 +87,346 @@ public class PostInBuilder {
 //            apiData.setApis(apiMetaList);
 //            saveDocToHtml(docPath,apiData);
 //        }
-
     }
 
-    private List<ApiMeta> scanPackage(String basePackage){
-        List<ApiMeta> apiMetaList =  apiParser.parseApiMeta(basePackage);
 
-        return apiMetaList;
+    /**
+     * 上报信息
+     * @param apiMetaMap
+     */
+    private void reportData(Map<String, ApiMeta> apiMetaMap){
+        // 使用entrySet()方法遍历HashMap的键值对
+        for (Map.Entry<String, ApiMeta> entry : apiMetaMap.entrySet()) {
+            JSONObject moduleJson = new JSONObject();
+
+            ApiMeta controllerMap = entry.getValue();
+            String categoryName = controllerMap.getName();
+            //创建分组获取分组id
+            String categoryId = getIdByMd5(categoryName);
+            JSONObject categoryJson = getCategoryJson(controllerMap, categoryId);
+            moduleJson.put("category",categoryJson);
+
+            JSONArray moduleMethodList = new JSONArray();
+
+            //接口
+            List<ApiMethodMeta> apiMethodMetaList = controllerMap.getApiMethodMetaList();
+            for(ApiMethodMeta apiMethodMeta:apiMethodMetaList){
+                //通过路径md5 生成一个 id
+                String path = apiMethodMeta.getPath();
+                String apiId = getIdByMd5(path);
+
+                if(apiId==null){return;}
+
+                JSONObject apiJson = new JSONObject();
+                apiJson.put("apiId",apiId);
+
+                JSONObject httpApiJson = getHttpApiJson(apiMethodMeta, categoryId);
+                apiJson.put("httpApi",httpApiJson);
+
+                JSONObject apiRequest = getApiRequest(apiMethodMeta);
+                apiJson.put("request",apiRequest);
+
+                switch (apiMethodMeta.getParamDataType()){
+                    case "form-data":
+                        ArrayList<Object> formDataJsonList = getFormDataJson(apiMethodMeta.getApiParamMetaList(), apiId);
+                        apiJson.put("formList",formDataJsonList);
+                        break;
+                    case "json":
+                        JSONObject rawJson = getJson(apiMethodMeta,apiId);
+                        apiJson.put("raw",rawJson);
+                        break;
+                    default:
+                        break;
+
+                }
+                moduleMethodList.add(apiJson);
+            }
+
+            moduleJson.put("moduleMethodList",moduleMethodList);
+
+            httpCommon(categoryName,moduleJson.toJSONString());
+
+        }
     }
+
+
+
+    /**
+     * 创建分组
+     * @param controllerMap
+     * @param categoryId
+     */
+    private JSONObject getCategoryJson(ApiMeta controllerMap, String categoryId){
+
+        String name = controllerMap.getName();
+        String desc = controllerMap.getDesc();
+
+        JSONObject categoryJson = new JSONObject();
+        JSONObject workspaceJson = new JSONObject();
+        workspaceJson.put("id", workspaceId);
+        categoryJson.put("workspace",workspaceJson);
+        categoryJson.put("name",name);
+        categoryJson.put("id",categoryId);
+
+        return categoryJson;
+    }
+
+    /**
+     * 接口基础信息
+     * @param apiMethodMeta
+     * @param categoryId
+     */
+    public static JSONObject getHttpApiJson(ApiMethodMeta apiMethodMeta, String categoryId){
+
+        JSONObject httpApiJson = new JSONObject();
+        JSONObject apixJson = new JSONObject();
+        JSONObject categoryJson = new JSONObject();
+        categoryJson.put("id",categoryId);
+        apixJson.put("category",categoryJson);
+        apixJson.put("name",apiMethodMeta.getName());
+        apixJson.put("method",apiMethodMeta.getRequestType());
+        apixJson.put("protocol","http");
+        httpApiJson.put("apix",apixJson);
+        httpApiJson.put("path",apiMethodMeta.getPath());
+        httpApiJson.put("methodType",apiMethodMeta.getRequestType());
+
+        return httpApiJson;
+    }
+
+    /**
+     * 接口请求体基础信息
+     */
+    public static JSONObject getApiRequest(ApiMethodMeta apiMethodMeta) {
+        JSONObject apiRequest = new JSONObject();
+        String bodyType = apiMethodMeta.getParamDataType();
+
+        if("json".equals(bodyType)){
+            apiRequest.put("bodyType","raw");
+        }
+
+        //这里获取的bodyTyp为form-data字符串，postin为formdata
+        if("form-data".equals(bodyType)) {
+            apiRequest.put("bodyType","formdata");
+        }
+
+        return apiRequest;
+    }
+
+    /**
+     * 请求体
+     * formdata类型
+     * @param apiParamMetaList
+     * @param apiId
+     */
+    public static ArrayList<Object> getFormDataJson(List<ApiParamMeta> apiParamMetaList, String apiId) {
+
+        ArrayList<Object> arrayList = new ArrayList<>();
+
+        for(ApiParamMeta apiParamMeta: apiParamMetaList){
+
+            JSONObject formParam = new JSONObject();
+            JSONObject http = new JSONObject();
+            http.put("id",apiId);
+            formParam.put("http",http);
+            formParam.put("paramName",apiParamMeta.getName());
+            String dataType = getDataType(apiParamMeta.getDataType());
+            formParam.put("dataType",dataType);
+            formParam.put("value",apiParamMeta.getEg());
+            formParam.put("desc",apiParamMeta.getDesc());
+
+            arrayList.add(formParam);
+        }
+        return arrayList;
+    }
+
+    /**
+     * 处理获取的dataType
+     * @param dataTypeSource
+     * @return
+     */
+    private static String getDataType(String dataTypeSource){
+        String dataTypeLow = dataTypeSource.toLowerCase();
+        if (dataTypeLow.contains("int")) {
+            return "int";
+        } else if (dataTypeLow.contains("double")) {
+            return "double";
+        } else if (dataTypeLow.contains("float")) {
+            return "float";
+        } else if (dataTypeLow.contains("long")) {
+            return "long";
+        } else if (dataTypeLow.contains("char")) {
+            return "char";
+        } else if (dataTypeLow.contains("boolean")) {
+            return "boolean";
+        } else if (dataTypeLow.contains("byte")) {
+            return "byte";
+        }else if (dataTypeLow.contains("string")){
+            return "string";
+        } else if (dataTypeLow.contains("list")){
+            return "array";
+        }
+
+        return "string";
+    }
+
+    /**
+     * 获取json
+     * @param apiMethodMeta
+     * @param apiId
+     * @return
+     */
+    private JSONObject getJson(ApiMethodMeta apiMethodMeta, String apiId) {
+        JSONObject rawJson = new JSONObject();
+        rawJson.put("id",apiId);
+
+        JSONObject http = new JSONObject();
+        http.put("id",apiId);
+        rawJson.put("http",http);
+
+        ApiParamMeta apiParamMeta = apiMethodMeta.getApiParamMetaList().get(0);
+        String textDef = apiParamMeta.getTextDef();
+
+        JSONArray jsonArray = JSONArray.parseArray(textDef);
+
+        JSONObject jsonObject = loopModel(jsonArray);
+        rawJson.put("raw",jsonObject.toJSONString());
+        rawJson.put("type","application/json");
+
+        return rawJson;
+    }
+
+    private JSONObject loopModel(JSONArray modelData){
+        JSONObject jsonModel = new JSONObject();
+
+        if(modelData==null){return jsonModel;}
+
+        for (Object jsonObject:modelData){
+            JSONObject modelJson = JSONObject.parseObject(jsonObject.toString());
+            String name = modelJson.getString("name");
+            String dataType = modelJson.getString("dataType").toLowerCase();
+
+
+            if (dataType.contains("int")) {
+                jsonModel.put(name,0);
+            } else if (dataType.contains("double")) {
+                jsonModel.put(name,0.0);
+            } else if (dataType.contains("float")) {
+                jsonModel.put(name,0.0f);
+            } else if (dataType.contains("long")) {
+                jsonModel.put(name,0L);
+            } else if (dataType.contains("char")) {
+                jsonModel.put(name,'\u0000');
+            } else if (dataType.contains("boolean")) {
+                jsonModel.put(name,false);
+            } else if (dataType.contains("byte")) {
+                jsonModel.put(name, "");
+            }else if (dataType.contains("string")){
+                jsonModel.put(name, name);
+            } else if (dataType.contains("list")){
+                JSONArray jsonArray1 = new JSONArray();
+
+                if(modelJson.getString("io.tiklab.postin.test.model")!=null){
+                    String string = modelJson.getString("io.tiklab.postin.test.model");
+                    JSONArray jsonArray = JSONArray.parseArray(string);
+                    JSONObject jsonObject1 = loopModel(jsonArray);
+                    jsonArray1.add(jsonObject1);
+                }
+
+                jsonModel.put(name, jsonArray1);
+
+            }else {
+
+            }
+
+            if(modelJson.getString("io.tiklab.postin.test.model")!=null){
+                String string = modelJson.getString("io.tiklab.postin.test.model");
+                JSONArray jsonArray = JSONArray.parseArray(string);
+
+                JSONObject jsonObject1 = loopModel(jsonArray);
+
+                jsonModel.put(name, jsonObject1);
+            }
+        }
+        return jsonModel;
+    }
+
+    /**
+     * http发送请求公共方法
+     */
+    private void httpCommon(String categoryName,String jsonBody) {
+        try {
+            String serverUrl = server+ "/docletReport/moduleReport";
+            //请求接口
+            URL url = new URL(serverUrl);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("POST");
+            connection.setRequestProperty("Content-Type", "application/json");
+            connection.setDoOutput(true);
+
+            try(OutputStream os = connection.getOutputStream()) {
+                byte[] input = jsonBody.getBytes(StandardCharsets.UTF_8);
+                os.write(input, 0, input.length);
+            }
+
+            connection.connect();
+
+            int responseCode = connection.getResponseCode();
+            if (responseCode == 200) {
+
+                InputStream inputStream = connection.getInputStream();
+                // 从输入流中读取响应
+                StringBuilder response = new StringBuilder();
+
+                Scanner scanner = new Scanner(inputStream);
+                while (scanner.hasNextLine()) {
+                    response.append(scanner.nextLine());
+                }
+
+                //获取创建过后返回的id
+                JSONObject jsonObject = JSONObject.parseObject(response.toString());
+                String data = jsonObject.getString("data");
+
+                logger.info(categoryName+" --- 上报 :"+data );
+            } else {
+                logger.info("Error --- http code is not 200 : "+responseCode );
+            }
+
+        }catch (Exception e){
+            logger.info("Error --- 接口调用失败 : " + e  );
+        }
+    }
+
+    /**
+     * 使用md5 获取id
+     */
+    public static String getIdByMd5(String data){
+        String id = null;
+        try {
+            // 获取 MD5 算法实例
+            MessageDigest md5 = MessageDigest.getInstance("MD5");
+            byte[] hashBytes = md5.digest(data.getBytes(StandardCharsets.UTF_8));
+
+            // 将哈希字节数组转换为正数的 BigInteger
+            BigInteger bigInt = new BigInteger(1, hashBytes);
+            // 将 BigInteger 转换为 32 位十六进制字符串
+            String hashString = bigInt.toString(16);
+
+            // 如果哈希字符串长度不足 32 位，则在前面补充零，使其长度为 32 位
+            while (hashString.length() < 32) {
+                hashString = "0" + hashString;
+            }
+
+            // 取哈希字符串的前 12 个字符作为 ID
+            id = hashString.substring(0, 12);
+        } catch (NoSuchAlgorithmException e) {
+            logger.info("Error --- 通过MD5获取ID失败{}",e);
+        }
+
+        return id;
+    }
+
+
+
 
 //    private void saveDocToHtml(String docPath, ApiData apiData) {
 //        //如果目录不存在，则创建

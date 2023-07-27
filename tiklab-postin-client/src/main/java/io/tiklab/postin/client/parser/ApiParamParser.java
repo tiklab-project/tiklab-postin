@@ -130,7 +130,7 @@ public class ApiParamParser {
              */
 
             //解析子节点列表
-            new ApiTypeParser().parseChildren(paramMeta, TypeMetaEnum.TYPE_INPUT,3);
+            new ApiTypeParser().parseChildren(paramMeta, TypeMetaEnum.TYPE_INPUT,1);
 
             //deep = 0;
 

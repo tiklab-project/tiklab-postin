@@ -43,7 +43,7 @@ public class ApiResultParser {
             }
 
             //解析子节点列表
-            new ApiTypeParser().parseChildren(resultMeta, TypeMetaEnum.TYPE_OUPUT,3);
+            new ApiTypeParser().parseChildren(resultMeta, TypeMetaEnum.TYPE_OUPUT,1);
 
             //deep = 0;
 
@@ -91,4 +91,6 @@ public class ApiResultParser {
         }
         return false;
     }
+
+
 }

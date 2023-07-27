@@ -1,12 +1,17 @@
 package io.tiklab.postin.support.docletreport.service;
 
+import com.alibaba.fastjson.JSONObject;
 import io.tiklab.core.exception.ApplicationException;
+import io.tiklab.postin.api.http.definition.controller.HttpApiController;
 import io.tiklab.postin.api.http.definition.model.*;
 import io.tiklab.postin.api.http.definition.service.*;
 import io.tiklab.postin.category.model.Category;
 import io.tiklab.postin.category.service.CategoryService;
 import io.tiklab.postin.support.docletreport.model.ApiReport;
+import io.tiklab.postin.support.docletreport.model.ModuleReport;
 import org.apache.commons.codec.binary.Hex;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +20,8 @@ import java.util.List;
 
 @Service
 public class DocletReportServicelmpl implements DocletReportService {
+    private static Logger logger = LoggerFactory.getLogger(DocletReportServicelmpl.class);
+
 
     @Autowired
     CategoryService categoryService;
@@ -37,17 +44,15 @@ public class DocletReportServicelmpl implements DocletReportService {
 
     @Override
     public String categoryReport(Category category) {
-        String name = category.getName();
-        String categoryId = getIdByMd5(name);
-
+        String id = category.getId();
         //如果查询不到分组，新建分组
-        Category isExistCategory = categoryService.findCategory(categoryId);
+        Category isExistCategory = categoryService.findCategory(id);
         if(isExistCategory==null){
-            category.setId(categoryId);
+            category.setId(id);
             categoryService.createCategory(category);
         }
 
-        return categoryId;
+        return id;
     }
 
     @Override
@@ -62,6 +67,54 @@ public class DocletReportServicelmpl implements DocletReportService {
         }
 
         return apiId;
+    }
+
+    @Override
+    public String moduleReport(ModuleReport moduleReport) {
+
+        try {
+            //创建分组
+            categoryReport(moduleReport.getCategory());
+        }catch (Exception e){
+            return "category create error";
+        }
+
+        JSONObject jsonObject = new JSONObject();
+
+        int add=0;
+        int update=0;
+        int error = 0;
+        if(moduleReport.getModuleMethodList()==null){
+            jsonObject.put("add",add);
+            jsonObject.put("update",update);
+            jsonObject.put("error",error);
+
+            return jsonObject.toJSONString();
+        }
+
+        //创建接口
+        for (ApiReport apiReportData: moduleReport.getModuleMethodList()){
+            try {
+                String apiId = apiReportData.getApiId();
+                HttpApi isExistApi = httpApiService.findOne(apiId);
+                if(isExistApi==null){
+                    createApi(apiReportData);
+                    ++add;
+                }else {
+                    updateApi(apiReportData);
+                    ++update;
+                }
+            }catch (Exception e){
+                logger.info("Error --- report api error : {}",e);
+                ++error;
+            }
+        }
+
+        jsonObject.put("add",add);
+        jsonObject.put("update",update);
+        jsonObject.put("error",error);
+
+        return jsonObject.toJSONString();
     }
 
     private void createApi(ApiReport apiReport){
@@ -153,29 +206,6 @@ public class DocletReportServicelmpl implements DocletReportService {
         }
     }
 
-
-
-    /**
-     * 使用md5 获取id
-     */
-    private  String getIdByMd5(String data){
-        String id = null;
-        try {
-            MessageDigest md5 = MessageDigest.getInstance("MD5");
-            byte[] hashBytes = md5.digest(data.getBytes("UTF-8"));
-
-            String hashString = Hex.encodeHexString(hashBytes);
-            id = hashString.substring(0, 12);
-
-            if(id.length() < 12) {
-                id = "00000000000".substring(0, 12 - id.length()) + id;
-            }
-        }catch (Exception e){
-            throw new ApplicationException("通过MD5获取ID失败");
-        }
-
-        return id;
-    }
 
 
 }

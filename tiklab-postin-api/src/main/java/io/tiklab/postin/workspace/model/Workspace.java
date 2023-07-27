@@ -61,7 +61,7 @@ public class Workspace extends BaseModel {
      * @pi.model: user
      * @pi.desc: 所属用户
      */
-    @ApiProperty(name="user",desc="所属用户",eg="@selectOne")
+    @ApiProperty(name="user",desc="所属用户",eg="user111")
     @Mappings({
             @Mapping(source = "user.id",target = "userId")
     })

@@ -38,7 +38,7 @@ public class ApiRecent extends BaseModel {
     })
     private User user;
 
-    @ApiProperty(name="apixId",desc="接口")
+    @ApiProperty(name="apix",desc="接口")
     @Mappings({
             @Mapping(source = "apix.id",target = "apixId")
     })

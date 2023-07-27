@@ -52,6 +52,6 @@ public class LogUnit {
 
 //        log.setAbstractTitle();
 
-        opLogByTemplService.createLog(log);
+//        opLogByTemplService.createLog(log);
     }
 }
