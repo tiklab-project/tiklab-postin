@@ -14,7 +14,7 @@ public class ReportData {
     /**
      * 接口基础信息
      */
-    public static JSONObject getHttpApiJson(JSONObject methodJson, Map<String, String> classMap, String categoryId, ExecutableElement method){
+    public static JSONObject getHttpApiJson(JSONObject methodJson, Map<String, String> classMap, String categoryId){
 
         JSONObject httpApiJson = new JSONObject();
         JSONObject apixJson = new JSONObject();
@@ -52,7 +52,7 @@ public class ReportData {
      * 请求体
      * formdata类型
      */
-    public static ArrayList<Object> getFormDataJson(JSONObject methodJson, String apiId, ExecutableElement method) {
+    public static ArrayList<Object> getFormDataJson(JSONObject methodJson, String apiId) {
 
         JSONArray params = methodJson.getJSONArray("params");
 

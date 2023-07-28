@@ -20,6 +20,8 @@ public class ApiReport {
 
     private RawParam raw;
 
+    private ApiResponse response;
+
     public String getApiId() {
         return apiId;
     }
@@ -66,6 +68,14 @@ public class ApiReport {
 
     public void setRaw(RawParam raw) {
         this.raw = raw;
+    }
+
+    public ApiResponse getResponse() {
+        return response;
+    }
+
+    public void setResponse(ApiResponse response) {
+        this.response = response;
     }
 }
 

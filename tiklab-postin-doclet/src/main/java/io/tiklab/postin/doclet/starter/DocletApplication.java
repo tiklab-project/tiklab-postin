@@ -43,7 +43,7 @@ public class DocletApplication  {
 
 
             //执行maven命令生成dependence依赖包
-//            exeMaven();
+            exeMaven();
 
             //获取URLClassLoader，用于全局引用
             urlClassLoader = getURLClassLoader();

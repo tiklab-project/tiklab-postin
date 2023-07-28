@@ -1,21 +1,16 @@
 package io.tiklab.postin.support.docletreport.service;
 
 import com.alibaba.fastjson.JSONObject;
-import io.tiklab.core.exception.ApplicationException;
-import io.tiklab.postin.api.http.definition.controller.HttpApiController;
 import io.tiklab.postin.api.http.definition.model.*;
 import io.tiklab.postin.api.http.definition.service.*;
 import io.tiklab.postin.category.model.Category;
 import io.tiklab.postin.category.service.CategoryService;
 import io.tiklab.postin.support.docletreport.model.ApiReport;
 import io.tiklab.postin.support.docletreport.model.ModuleReport;
-import org.apache.commons.codec.binary.Hex;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.security.MessageDigest;
 import java.util.List;
 
 @Service
@@ -41,6 +36,8 @@ public class DocletReportServicelmpl implements DocletReportService {
     @Autowired
     RawParamService rawParamService;
 
+    @Autowired
+    ApiResponseService apiResponseService;
 
     @Override
     public String categoryReport(Category category) {
@@ -120,15 +117,18 @@ public class DocletReportServicelmpl implements DocletReportService {
     private void createApi(ApiReport apiReport){
         String apiId = apiReport.getApiId();
 
+        //创建基础
         HttpApi httpApi = apiReport.getApiBase();
         httpApi.setId(apiId);
         httpApiService.createHttpApi(httpApi);
 
+        //请求信息
         ApiRequest request = apiReport.getRequest();
         request.setId(apiId);
         request.setHttpId(apiId);
         apiRequestService.updateApiRequest(apiReport.getRequest());
 
+        //请求体
         String bodyType = apiReport.getRequest().getBodyType();
         if(bodyType!=null){
             switch (bodyType){
@@ -153,6 +153,16 @@ public class DocletReportServicelmpl implements DocletReportService {
                     break;
             }
         }
+
+        //响应
+        List<ApiResponse> apiResponseList = apiResponseService.findApiResponseList(new ApiResponseQuery().setHttpId(apiId));
+        for (ApiResponse apiResponse : apiResponseList) {
+            apiResponseService.deleteApiResponse(apiResponse.getId());
+        }
+
+        ApiResponse response = apiReport.getResponse();
+        response.setHttpId(apiId);
+        apiResponseService.createApiResponse(response);
     }
 
     private void updateApi(ApiReport apiReport) {

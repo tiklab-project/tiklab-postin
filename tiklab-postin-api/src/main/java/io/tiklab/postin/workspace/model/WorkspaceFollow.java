@@ -30,7 +30,6 @@ public class WorkspaceFollow extends BaseModel {
      * @pi.desc: ID
      * @pi.value: WorkspaceFollowId
      */
-
     @ApiProperty(name="id",desc="id")
     private java.lang.String id;
 

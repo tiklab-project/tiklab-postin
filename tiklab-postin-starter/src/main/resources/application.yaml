@@ -1,12 +1,11 @@
 #application io.tiklab.postin.config
 app:
   name: postin
-
 spring:
   config:
     import: optional:classpath:/config/${env:dev}/application.yaml
 
-DATA_HOME: ${user.home}/tiklab/${app.name}
+DATA_HOME: opt/tiklab/postin
 
 #web
 server:
@@ -20,38 +19,18 @@ jdbc:
   password: darth2020
 
 
-#dfs
-dfs:
-  server:
-    enable: false
-    mode: server
-    port: 4000
-    datapath: ${DATA_HOME}/files
-  client:
-    url: 127.0.0.1:4000
-    bucket: ${app.name}
-
 #dcs
 dcs:
   server:
     enable: false
-    mode: server
     port: 5000
     datapath: ${DATA_HOME}/caches
   client:
     url: 127.0.0.1:5000
-    bucket: ${app.name}
+    group: g1
+    database: dcs1
+    expire: 7200
 
-#dss
-dss:
-  server:
-    enable: false
-    mode: server
-    port: 6000
-    datapath: ${DATA_HOME}/index
-  client:
-    url: 127.0.0.1:6000
-    bucket: ${app.name}
 
 #integration
 homes:
@@ -81,4 +60,9 @@ eas:
 postgresql:
   database: tiklab_postin
   embbed:
-    enable: true
+    enable: false
+#  db:
+#    port: 5432
+#    username: postgres
+#    password: darth2020
+#    address: ${DATA_HOME}/postgresql

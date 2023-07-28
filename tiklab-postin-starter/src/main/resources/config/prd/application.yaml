@@ -1,23 +1,15 @@
 #application io.tiklab.postin.config
 app:
   name: postin
-
 spring:
   profiles:
     active: prd
 
-DATA_HOME: ${user.home}/tiklab/${app.name}
+DATA_HOME: opt/tiklab/postin
 
 #web 
 server:
   port: 8080
-
-#dal 
-#jdbc:
-#  driverClassName: com.mysql.jdbc.Driver
-#  url: jdbc:mysql://172.12.1.16:3306/tiklab_postin?characterEncoding=utf8&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
-#  username: root
-#  password: darth2020
 
 jdbc:
   driverClassName: org.postgresql.Driver
@@ -25,16 +17,6 @@ jdbc:
   username: postgres
   password: darth2020
 
-#dfs 
-dfs:
-  server:
-    enable: false
-    mode: server
-    port: 4000
-    datapath: ${DATA_HOME}/files
-  client:
-    url: 127.0.0.1:4000
-    bucket: ${app.name}
 
 #dcs 
 dcs:
@@ -45,22 +27,20 @@ dcs:
     datapath: ${DATA_HOME}/caches
   client:
     url: 127.0.0.1:5000
-    bucket: ${app.name}
+    group: g1
+    database: dcs1
+    expire: 7200
 
-#dss 
-dss:
-  server:
-    enable: false
-    mode: server
-    port: 6000
-    datapath: ${DATA_HOME}/index
-  client:
-    url: 127.0.0.1:6000
-    bucket: ${app.name}
 
 #integration 
 homes:
   address: http://172.11.1.11:8080
+
+eas:
+  embbed:
+    enable: false
+  address:  http://eas-ce.tiklab.net
+
 
 #plugin 
 plugin:
@@ -78,12 +58,3 @@ file:
 base:
   url:  http://postin-ce.tiklab.net
 
-eas:
-  embbed:
-    enable: false
-  address:  http://eas-ce.tiklab.net
-
-postgresql:
-  database: tiklab_postin
-  embbed:
-    enable: false

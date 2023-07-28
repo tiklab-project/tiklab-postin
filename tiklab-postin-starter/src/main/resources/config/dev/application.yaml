@@ -5,40 +5,17 @@ spring:
   profiles:
     active: dev
 
-
 DATA_HOME: ${user.home}/tiklab/${app.name}
 
-#web io.tiklab.postin.config
 server:
   port: 8090
 
-#dal io.tiklab.postin.config
-#jdbc:
-#  driverClassName: com.mysql.cj.jdbc.Driver
-##  172.10.1.10
-#  url: jdbc:mysql://172.10.1.10:3306/tiklab_postin?characterEncoding=utf8&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
-#  username: root
-#  password: darth2020
 jdbc:
   driverClassName: org.postgresql.Driver
   url: jdbc:postgresql://172.10.1.10:5432/tiklab_postin?stringtype=unspecified
   username: postgres
   password: darth2020
 
-
-
-#dfs io.tiklab.postin.config
-dfs:
-  server:
-    enable: false
-    mode: server
-    port: 4000
-    datapath: ${DATA_HOME}/files
-  client:
-    url: 127.0.0.1:4000
-    bucket: ${app.name}
-
-#dcs io.tiklab.postin.config
 dcs:
   server:
     enabled: true
@@ -50,23 +27,16 @@ dcs:
     database: dcs1
     expire: 7200
 
-#dss io.tiklab.postin.config
-dss:
-  server:
-    enable: false
-    mode: server
-    port: 6000
-    datapath: ${DATA_HOME}/index
-  client:
-    url: 127.0.0.1:6000
-    bucket: ${app.name}
-
 
 homes:
   address: http://192.168.10.14:8080
 
-#project:
-#  address: http://127.0.0.1:8081
+eas:
+  embbed:
+    enable: true
+#  address: http://eas.dev.tiklab.net
+#  web:
+#    address: http://eas.dev.tiklab.net
 
 #plugin
 plugin:
@@ -83,16 +53,3 @@ file:
 
 base:
   url: http://192.168.10.3:3000
-
-eas:
-  embbed:
-    enable: true
-#  address: http://eas.dev.tiklab.net
-#  web:
-#    address: http://eas.dev.tiklab.net
-
-
-postgresql:
-  database: tiklab_postin
-  embbed:
-    enable: false

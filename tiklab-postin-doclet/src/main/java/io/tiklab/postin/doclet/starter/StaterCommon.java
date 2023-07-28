@@ -54,6 +54,7 @@ public class StaterCommon {
             }
         }else {
             System.out.println("javaFile为空");
+            return;
         }
 
         //编译文件不为空

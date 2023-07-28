@@ -33,7 +33,7 @@ public class ApiResponse extends BaseModel {
     @ApiProperty(name="name",desc="名称")
     private java.lang.String name;
 
-    @ApiProperty(name="dataType",desc="内容格式")
+    @ApiProperty(name="dataType",desc="内容格式:json raw")
     private java.lang.String dataType;
 
     @ApiProperty(name="jsonText",desc="根据dataType，设置相应的值 json")

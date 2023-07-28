@@ -8,6 +8,8 @@ import io.tiklab.postin.doclet.starter.DocletApplication;
 import jdk.javadoc.doclet.*;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.*;
+import javax.lang.model.type.DeclaredType;
+import javax.lang.model.type.TypeMirror;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
@@ -102,6 +104,7 @@ public class CustomTagsHandler implements Doclet {
                     continue;
                 }
 
+                //获取接口信息
                 JSONObject apiJson = analyticalApi(methodComment, classMap, categoryId, method);
 
                 moduleMethodList.add(apiJson);
@@ -162,7 +165,7 @@ public class CustomTagsHandler implements Doclet {
     }
 
     /**
-     * 解析方法上的注释创建接口
+     * 解析方法上的注释
      * @return
      */
     private JSONObject analyticalApi(String methodComment, Map<String, String> classMap, String categoryId, ExecutableElement method){
@@ -172,7 +175,7 @@ public class CustomTagsHandler implements Doclet {
 
         JSONObject apiJson = new JSONObject();
 
-        JSONObject httpApiJson = ReportData.getHttpApiJson(methodJson, classMap, categoryId,method);
+        JSONObject httpApiJson = ReportData.getHttpApiJson(methodJson, classMap, categoryId);
         apiJson.put("apiBase",httpApiJson);
 
         JSONObject apiRequest = ReportData.getApiRequest(methodJson);
@@ -189,7 +192,7 @@ public class CustomTagsHandler implements Doclet {
 
         switch (methodJson.getString("request-type")){
             case "formdata":
-                ArrayList<Object> formDataJsonList = ReportData.getFormDataJson(methodJson, apiId,method);
+                ArrayList<Object> formDataJsonList = ReportData.getFormDataJson(methodJson, apiId);
                 apiJson.put("formList",formDataJsonList);
                 break;
             case "formUrlencoded":
@@ -205,7 +208,61 @@ public class CustomTagsHandler implements Doclet {
                 break;
         }
 
+        //响应信息
+        JSONObject responseJson = getResponseJson(method);
+        apiJson.put("response",responseJson);
+
        return apiJson;
+    }
+
+    /**
+     * 获取响应信息
+     * @param method
+     * @return
+     */
+    private JSONObject getResponseJson(ExecutableElement method) {
+        DeclaredType returnType = (DeclaredType) method.getReturnType();
+        TypeElement simpleName = (TypeElement) returnType.asElement();
+        JSONObject jsonData = DocletGetModel.loopModel(simpleName.toString());
+
+        JSONObject jsonText = jsonToSchema(jsonData);
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("name","成功");
+        jsonObject.put("httpCode",200);
+        jsonObject.put("dataType","json");
+        jsonObject.put("jsonText",jsonText.toJSONString());
+
+        return jsonObject;
+    }
+
+
+    public JSONObject jsonToSchema(JSONObject json) {
+        JSONObject schema = new JSONObject();
+        schema.put("$schema", "http://json-schema.org/draft-04/schema#");
+        schema.put("type", "object");
+
+        JSONObject properties = new JSONObject();
+        for(String key : json.keySet()) {
+            Object value = json.get(key);
+            JSONObject propSchema = new JSONObject();
+            propSchema.put("type", getType(value));
+            properties.put(key, propSchema);
+        }
+
+        schema.put("properties", properties);
+
+        return schema;
+    }
+
+    private String getType(Object value) {
+        if (value instanceof Integer) {
+            return "integer";
+        } else if (value instanceof String) {
+            return "string";
+        } else {
+            return "object";
+        }
     }
 
     /**

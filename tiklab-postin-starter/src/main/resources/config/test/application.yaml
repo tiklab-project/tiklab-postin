@@ -5,57 +5,30 @@ spring:
   profiles:
     active: test
 
-DATA_HOME: ${user.home}/tiklab/${app.name}
+DATA_HOME: opt/tiklab/postin
 
 #web 
 server:
   port: 8080
 
-#dal 
-#jdbc:
-#  driverClassName: com.mysql.jdbc.Driver
-#  url: jdbc:mysql://localhost:3306/tiklab_postin?characterEncoding=utf8&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
-#  username: root
-#  password: darth2020
 jdbc:
   driverClassName: org.postgresql.Driver
-  url: jdbc:postgresql://localhost:5432/tiklab_postin?stringtype=unspecified
+  url: jdbc:postgresql://localhost:5432/postin?stringtype=unspecified
   username: postgres
   password: darth2020
-
-
-#dfs 
-dfs:
-  server:
-    enable: false
-    mode: server
-    port: 4000
-    datapath: ${DATA_HOME}/files
-  client:
-    url: 127.0.0.1:4000
-    bucket: ${app.name}
 
 #dcs 
 dcs:
   server:
     enable: false
-    mode: server
     port: 5000
     datapath: ${DATA_HOME}/caches
   client:
     url: 127.0.0.1:5000
-    bucket: ${app.name}
+    group: g1
+    database: dcs1
+    expire: 7200
 
-#dss 
-dss:
-  server:
-    enable: false
-    mode: server
-    port: 6000
-    datapath: ${DATA_HOME}/index
-  client:
-    url: 127.0.0.1:6000
-    bucket: ${app.name}
 
 #integration 
 homes:
@@ -83,6 +56,11 @@ eas:
   address: http://eas-ce.test.tiklab.net
 
 postgresql:
-  database: tiklab_postin
+  database: postin
   embbed:
     enable: true
+  db:
+    port: 5432
+    username: postgres
+    password: darth2020
+    address: ${DATA_HOME}/postgresql

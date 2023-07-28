@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import io.tiklab.postin.doclet.starter.DocletApplication;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
@@ -22,6 +23,10 @@ public class DocletGetModel {
             Field[] fields = paramClass.getDeclaredFields();
             // 遍历字段并获取字段信息
             for (Field field : fields) {
+
+                // 非static字段
+                if( field.getModifiers() == (Modifier.PRIVATE | Modifier.STATIC | Modifier.FINAL)) {continue;}
+
                 // 获取字段名
                 String fieldName = field.getName();
                 // 获取字段类型
