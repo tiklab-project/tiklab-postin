@@ -85,6 +85,8 @@ public class GatewayFilterAutoConfiguration{
                         "/testInstance/findTestInstanceList",
                         "/appLink/findAppLinkList",
                         "/eam/auth/login",
+                        "/dsm/tenant/init",
+
                 })
                 .ignorePreUrls(new String[]{
                         "/share",
