@@ -9,7 +9,7 @@ import io.tiklab.dal.jpa.annotation.Entity;
 import java.io.Serializable;
 
 @Entity @Table(name="postin_instance_http_request")
-public class RequestInstancesEntity implements Serializable {
+public class RequestInstanceEntity implements Serializable {
 
     @Id
     @Column(name = "id",length = 32)

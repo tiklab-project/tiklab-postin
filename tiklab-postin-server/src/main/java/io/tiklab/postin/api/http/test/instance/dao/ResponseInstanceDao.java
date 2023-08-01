@@ -1,7 +1,7 @@
 package io.tiklab.postin.api.http.test.instance.dao;
 
-import io.tiklab.postin.api.http.test.instance.entity.RequestInstancesEntity;
-import io.tiklab.postin.api.http.test.instance.entity.ResponseInstancesEntity;
+import io.tiklab.postin.api.http.test.instance.entity.RequestInstanceEntity;
+import io.tiklab.postin.api.http.test.instance.entity.ResponseInstanceEntity;
 import io.tiklab.postin.api.http.test.instance.model.ResponseInstanceQuery;
 import io.tiklab.core.page.Pagination;
 import io.tiklab.dal.jpa.JpaTemplate;
@@ -27,19 +27,19 @@ public class ResponseInstanceDao{
 
     /**
      * 创建用户
-     * @param responseInstancesEntity
+     * @param responseInstanceEntity
      * @return
      */
-    public String createResponseInstance(ResponseInstancesEntity responseInstancesEntity) {
-        return jpaTemplate.save(responseInstancesEntity,String.class);
+    public String createResponseInstance(ResponseInstanceEntity responseInstanceEntity) {
+        return jpaTemplate.save(responseInstanceEntity,String.class);
     }
 
     /**
      * 更新用户
-     * @param responseInstancesEntity
+     * @param responseInstanceEntity
      */
-    public void updateResponseInstance(ResponseInstancesEntity responseInstancesEntity){
-        jpaTemplate.update(responseInstancesEntity);
+    public void updateResponseInstance(ResponseInstanceEntity responseInstanceEntity){
+        jpaTemplate.update(responseInstanceEntity);
     }
 
     /**
@@ -47,7 +47,7 @@ public class ResponseInstanceDao{
      * @param id
      */
     public void deleteResponseInstance(String id){
-        jpaTemplate.delete(ResponseInstancesEntity.class,id);
+        jpaTemplate.delete(ResponseInstanceEntity.class,id);
     }
 
     /**
@@ -55,36 +55,36 @@ public class ResponseInstanceDao{
      * @param id
      * @return
      */
-    public ResponseInstancesEntity findResponseInstance(String id){
-        return jpaTemplate.findOne(ResponseInstancesEntity.class,id);
+    public ResponseInstanceEntity findResponseInstance(String id){
+        return jpaTemplate.findOne(ResponseInstanceEntity.class,id);
     }
 
     /**
     * findAllResponseInstance
     * @return
     */
-    public List<ResponseInstancesEntity> findAllResponseInstance() {
-        return jpaTemplate.findAll(ResponseInstancesEntity.class);
+    public List<ResponseInstanceEntity> findAllResponseInstance() {
+        return jpaTemplate.findAll(ResponseInstanceEntity.class);
     }
 
-    public List<ResponseInstancesEntity> findResponseInstanceList(List<String> idList) {
-        return jpaTemplate.findList(ResponseInstancesEntity.class,idList);
+    public List<ResponseInstanceEntity> findResponseInstanceList(List<String> idList) {
+        return jpaTemplate.findList(ResponseInstanceEntity.class,idList);
     }
 
-    public List<ResponseInstancesEntity> findResponseInstanceList(ResponseInstanceQuery responseInstanceQuery) {
-        QueryCondition queryCondition = QueryBuilders.createQuery(RequestInstancesEntity.class)
+    public List<ResponseInstanceEntity> findResponseInstanceList(ResponseInstanceQuery responseInstanceQuery) {
+        QueryCondition queryCondition = QueryBuilders.createQuery(RequestInstanceEntity.class)
                 .eq("httpInstanceId", responseInstanceQuery.getHttpInstanceId())
                 .orders(responseInstanceQuery.getOrderParams())
                 .get();
-        return jpaTemplate.findList(queryCondition, ResponseInstancesEntity.class);
+        return jpaTemplate.findList(queryCondition, ResponseInstanceEntity.class);
     }
 
-    public Pagination<ResponseInstancesEntity> findResponseInstancePage(ResponseInstanceQuery responseInstanceQuery) {
-        QueryCondition queryCondition = QueryBuilders.createQuery(RequestInstancesEntity.class)
+    public Pagination<ResponseInstanceEntity> findResponseInstancePage(ResponseInstanceQuery responseInstanceQuery) {
+        QueryCondition queryCondition = QueryBuilders.createQuery(RequestInstanceEntity.class)
                 .eq("httpInstanceId", responseInstanceQuery.getHttpInstanceId())
                 .pagination(responseInstanceQuery.getPageParam())
                 .orders(responseInstanceQuery.getOrderParams())
                 .get();
-        return jpaTemplate.findPage(queryCondition, ResponseInstancesEntity.class);
+        return jpaTemplate.findPage(queryCondition, ResponseInstanceEntity.class);
     }
 }

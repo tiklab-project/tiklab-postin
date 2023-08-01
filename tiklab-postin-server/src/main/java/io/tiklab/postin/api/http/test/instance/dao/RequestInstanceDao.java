@@ -1,6 +1,6 @@
 package io.tiklab.postin.api.http.test.instance.dao;
 
-import io.tiklab.postin.api.http.test.instance.entity.RequestInstancesEntity;
+import io.tiklab.postin.api.http.test.instance.entity.RequestInstanceEntity;
 import io.tiklab.postin.api.http.test.instance.model.RequestInstanceQuery;
 import io.tiklab.core.page.Pagination;
 import io.tiklab.dal.jpa.JpaTemplate;
@@ -26,19 +26,19 @@ public class RequestInstanceDao{
 
     /**
      * 创建用户
-     * @param requestInstancesEntity
+     * @param requestInstanceEntity
      * @return
      */
-    public String createRequestInstance(RequestInstancesEntity requestInstancesEntity) {
-        return jpaTemplate.save(requestInstancesEntity,String.class);
+    public String createRequestInstance(RequestInstanceEntity requestInstanceEntity) {
+        return jpaTemplate.save(requestInstanceEntity,String.class);
     }
 
     /**
      * 更新用户
-     * @param requestInstancesEntity
+     * @param requestInstanceEntity
      */
-    public void updateRequestInstance(RequestInstancesEntity requestInstancesEntity){
-        jpaTemplate.update(requestInstancesEntity);
+    public void updateRequestInstance(RequestInstanceEntity requestInstanceEntity){
+        jpaTemplate.update(requestInstanceEntity);
     }
 
     /**
@@ -46,7 +46,7 @@ public class RequestInstanceDao{
      * @param id
      */
     public void deleteRequestInstance(String id){
-        jpaTemplate.delete(RequestInstancesEntity.class,id);
+        jpaTemplate.delete(RequestInstanceEntity.class,id);
     }
 
     /**
@@ -54,39 +54,39 @@ public class RequestInstanceDao{
      * @param id
      * @return
      */
-    public RequestInstancesEntity findRequestInstance(String id){
-        return jpaTemplate.findOne(RequestInstancesEntity.class,id);
+    public RequestInstanceEntity findRequestInstance(String id){
+        return jpaTemplate.findOne(RequestInstanceEntity.class,id);
     }
 
     /**
     * findAllRequestInstance
     * @return
     */
-    public List<RequestInstancesEntity> findAllRequestInstance() {
-        return jpaTemplate.findAll(RequestInstancesEntity.class);
+    public List<RequestInstanceEntity> findAllRequestInstance() {
+        return jpaTemplate.findAll(RequestInstanceEntity.class);
     }
 
-    public List<RequestInstancesEntity> findRequestInstanceList(List<String> idList) {
-        return jpaTemplate.findList(RequestInstancesEntity.class,idList);
+    public List<RequestInstanceEntity> findRequestInstanceList(List<String> idList) {
+        return jpaTemplate.findList(RequestInstanceEntity.class,idList);
     }
 
-    public List<RequestInstancesEntity> findRequestInstanceList(RequestInstanceQuery requestInstanceQuery) {
-        QueryCondition queryCondition = QueryBuilders.createQuery(RequestInstancesEntity.class)
+    public List<RequestInstanceEntity> findRequestInstanceList(RequestInstanceQuery requestInstanceQuery) {
+        QueryCondition queryCondition = QueryBuilders.createQuery(RequestInstanceEntity.class)
                 .eq("httpInstanceId", requestInstanceQuery.getHttpInstanceId())
                 .like("url",requestInstanceQuery.getUrl())
                 .orders(requestInstanceQuery.getOrderParams())
                 .get();
-        return jpaTemplate.findList(queryCondition, RequestInstancesEntity.class);
+        return jpaTemplate.findList(queryCondition, RequestInstanceEntity.class);
     }
 
-    public Pagination<RequestInstancesEntity> findRequestInstancePage(RequestInstanceQuery requestInstanceQuery) {
-        QueryCondition queryCondition = QueryBuilders.createQuery(RequestInstancesEntity.class)
+    public Pagination<RequestInstanceEntity> findRequestInstancePage(RequestInstanceQuery requestInstanceQuery) {
+        QueryCondition queryCondition = QueryBuilders.createQuery(RequestInstanceEntity.class)
                 .eq("httpInstanceId", requestInstanceQuery.getHttpInstanceId())
                 .like("url",requestInstanceQuery.getUrl())
                 .pagination(requestInstanceQuery.getPageParam())
                 .orders(requestInstanceQuery.getOrderParams())
                 .get();
-        return jpaTemplate.findPage(queryCondition, RequestInstancesEntity.class);
+        return jpaTemplate.findPage(queryCondition, RequestInstanceEntity.class);
     }
 
 }

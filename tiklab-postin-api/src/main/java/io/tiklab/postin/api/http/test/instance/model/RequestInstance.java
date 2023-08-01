@@ -17,7 +17,7 @@ import javax.validation.constraints.NotNull;
  */
 @ApiModel
 @Join
-@Mapper(targetName  = "io.tiklab.postin.api.http.test.instance.entity.ResponseInstancesEntity")
+@Mapper(targetName  = "io.tiklab.postin.api.http.test.instance.entity.RequestInstanceEntity")
 public class RequestInstance extends BaseModel {
 
     @ApiProperty(name="id",desc="id")
