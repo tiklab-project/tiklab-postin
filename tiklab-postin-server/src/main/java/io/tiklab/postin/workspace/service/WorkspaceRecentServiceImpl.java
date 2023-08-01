@@ -178,6 +178,7 @@ public class WorkspaceRecentServiceImpl implements WorkspaceRecentService {
         return PaginationBuilder.build(pagination,workspaceRecentList);
     }
 
+
     @Override
     public void workspaceRecent(WorkspaceRecent workspaceRecent) {
 

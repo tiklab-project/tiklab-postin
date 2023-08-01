@@ -347,7 +347,6 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         return PaginationBuilder.build(pagination,workspaceList);
     }
 
-
     @Override
     public List<Workspace> findWorkspaceJoinList(WorkspaceQuery workspaceQuery) {
 

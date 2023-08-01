@@ -27,10 +27,6 @@ dcs:
     database: dcs1
     expire: 7200
 
-
-homes:
-  address: http://192.168.10.14:8080
-
 eas:
   embbed:
     enable: true
@@ -45,11 +41,6 @@ plugin:
 #licences
 licences:
   path: ${DATA_HOME}/licences
-
-application: postin
-
-file:
-  path: http://file.dev.tiklab.net
 
 base:
   url: http://192.168.10.3:3000

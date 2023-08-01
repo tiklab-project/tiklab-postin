@@ -17,8 +17,6 @@ jdbc:
   username: postgres
   password: darth2020
 
-
-
 #dcs 
 dcs:
   server:
@@ -30,11 +28,6 @@ dcs:
     group: g1
     database: dcs1
     expire: 7200
-
-
-#integration 
-homes:
-  address: http://homes-api.demo.tiklab.net
 
 eas:
   embbed:
@@ -48,11 +41,6 @@ plugin:
 #licences 
 licences:
   path: ${DATA_HOME}/licences
-
-application: postin
-
-file:
-  path: http://file.demo.tiklab.net
 
 base:
   url: http://postin-ce.demo.tiklab.net
