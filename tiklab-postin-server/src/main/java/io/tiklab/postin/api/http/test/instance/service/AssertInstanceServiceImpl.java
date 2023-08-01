@@ -1,6 +1,6 @@
 package io.tiklab.postin.api.http.test.instance.service;
 
-import io.tiklab.postin.api.http.test.instance.entity.AssertInstancesEntity;
+import io.tiklab.postin.api.http.test.instance.entity.AssertInstanceEntity;
 import io.tiklab.postin.api.http.test.instance.dao.AssertInstanceDao;
 
 
@@ -31,16 +31,16 @@ public class AssertInstanceServiceImpl implements AssertInstanceService {
 
     @Override
     public String createAssertInstance(@NotNull @Valid AssertInstance assertInstance) {
-        AssertInstancesEntity assertInstancesEntity = BeanMapper.map(assertInstance, AssertInstancesEntity.class);
+        AssertInstanceEntity assertInstanceEntity = BeanMapper.map(assertInstance, AssertInstanceEntity.class);
 
-        return assertInstanceDao.createAssertInstance(assertInstancesEntity);
+        return assertInstanceDao.createAssertInstance(assertInstanceEntity);
     }
 
     @Override
     public void updateAssertInstance(@NotNull @Valid AssertInstance assertInstance) {
-        AssertInstancesEntity assertInstancesEntity = BeanMapper.map(assertInstance, AssertInstancesEntity.class);
+        AssertInstanceEntity assertInstanceEntity = BeanMapper.map(assertInstance, AssertInstanceEntity.class);
 
-        assertInstanceDao.updateAssertInstance(assertInstancesEntity);
+        assertInstanceDao.updateAssertInstance(assertInstanceEntity);
     }
 
     @Override
@@ -50,17 +50,17 @@ public class AssertInstanceServiceImpl implements AssertInstanceService {
 
     @Override
     public AssertInstance findOne(String id) {
-        AssertInstancesEntity assertInstancesEntity = assertInstanceDao.findAssertInstance(id);
+        AssertInstanceEntity assertInstanceEntity = assertInstanceDao.findAssertInstance(id);
 
-        AssertInstance assertInstance = BeanMapper.map(assertInstancesEntity, AssertInstance.class);
+        AssertInstance assertInstance = BeanMapper.map(assertInstanceEntity, AssertInstance.class);
         return assertInstance;
     }
 
     @Override
     public List<AssertInstance> findList(List<String> idList) {
-        List<AssertInstancesEntity> assertInstancesEntityList =  assertInstanceDao.findAssertInstanceList(idList);
+        List<AssertInstanceEntity> assertInstanceEntityList =  assertInstanceDao.findAssertInstanceList(idList);
 
-        List<AssertInstance> assertInstanceList =  BeanMapper.mapList(assertInstancesEntityList, AssertInstance.class);
+        List<AssertInstance> assertInstanceList =  BeanMapper.mapList(assertInstanceEntityList, AssertInstance.class);
         return assertInstanceList;
     }
 
@@ -74,9 +74,9 @@ public class AssertInstanceServiceImpl implements AssertInstanceService {
 
     @Override
     public List<AssertInstance> findAllAssertInstance() {
-        List<AssertInstancesEntity> assertInstancesEntityList =  assertInstanceDao.findAllAssertInstance();
+        List<AssertInstanceEntity> assertInstanceEntityList =  assertInstanceDao.findAllAssertInstance();
 
-        List<AssertInstance> assertInstanceList =  BeanMapper.mapList(assertInstancesEntityList, AssertInstance.class);
+        List<AssertInstance> assertInstanceList =  BeanMapper.mapList(assertInstanceEntityList, AssertInstance.class);
 
         joinTemplate.joinQuery(assertInstanceList);
         return assertInstanceList;
@@ -84,9 +84,9 @@ public class AssertInstanceServiceImpl implements AssertInstanceService {
 
     @Override
     public List<AssertInstance> findAssertInstanceList(AssertInstanceQuery assertInstanceQuery) {
-        List<AssertInstancesEntity> assertInstancesEntityList = assertInstanceDao.findAssertInstanceList(assertInstanceQuery);
+        List<AssertInstanceEntity> assertInstanceEntityList = assertInstanceDao.findAssertInstanceList(assertInstanceQuery);
 
-        List<AssertInstance> assertInstanceList = BeanMapper.mapList(assertInstancesEntityList, AssertInstance.class);
+        List<AssertInstance> assertInstanceList = BeanMapper.mapList(assertInstanceEntityList, AssertInstance.class);
 
         joinTemplate.joinQuery(assertInstanceList);
 
@@ -96,7 +96,7 @@ public class AssertInstanceServiceImpl implements AssertInstanceService {
     @Override
     public Pagination<AssertInstance> findAssertInstancePage(AssertInstanceQuery assertInstanceQuery) {
 
-        Pagination<AssertInstancesEntity>  pagination = assertInstanceDao.findAssertInstancePage(assertInstanceQuery);
+        Pagination<AssertInstanceEntity>  pagination = assertInstanceDao.findAssertInstancePage(assertInstanceQuery);
 
         List<AssertInstance> assertInstanceList = BeanMapper.mapList(pagination.getDataList(), AssertInstance.class);
 

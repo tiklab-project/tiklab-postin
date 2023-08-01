@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull;
  */
 @ApiModel
 @Join
-@Mapper
+@Mapper(targetName = "io.tiklab.postin.api.http.test.instance.entity.AssertInstanceEntity")
 public class AssertInstance extends BaseModel {
 
     @ApiProperty(name="id",desc="唯一ID")

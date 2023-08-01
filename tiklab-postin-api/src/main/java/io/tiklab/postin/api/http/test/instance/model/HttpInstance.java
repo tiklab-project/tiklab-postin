@@ -76,7 +76,6 @@ public class HttpInstance extends BaseModel {
     private List<AssertInstance> assertInstanceList = new ArrayList<>();
 
 
-
     public String getId() {
         return id;
     }
