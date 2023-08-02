@@ -111,6 +111,7 @@
             <scope>${project.version}</scope>
         </dependency>
 
+
         <!-- iText -->
         <dependency>
             <groupId>com.itextpdf</groupId>
@@ -348,6 +349,7 @@
             </properties>
         </profile>
     </profiles>
+
 
     <build>
         <plugins>

@@ -124,8 +124,8 @@ public class WorkspaceRecentServiceImpl implements WorkspaceRecentService {
             //获取接口总数
             int apiCount=0;
             for(Category category :categoryList){
-                List<Apix>  apixList = apixService.findApixList(new ApixQuery().setCategoryId(category.getId()));
-                apiCount+=apixList.size();
+                int apixNum = apixService.findApixNum(new ApixQuery().setCategoryId(category.getId()));
+                apiCount+=apixNum;
             }
             workspace.setApiNum(apiCount);
 
@@ -134,26 +134,6 @@ public class WorkspaceRecentServiceImpl implements WorkspaceRecentService {
 
         joinTemplate.joinQuery(workspaceList);
 
-        //关注
-        WorkspaceFollowQuery workspaceFollowQuery = new WorkspaceFollowQuery();
-        List<WorkspaceFollow> workspaceFollowList = workspaceFollowService.findWorkspaceFollowList(workspaceFollowQuery);
-
-        //设置是否关注
-        if(CollectionUtils.isNotEmpty(workspaceList)&&CollectionUtils.isNotEmpty(workspaceFollowList)){
-            for(Workspace workspace : workspaceList){
-                for(WorkspaceFollow workspaceFollow: workspaceFollowList){
-                    if(Objects.equals(workspace.getId(), workspaceFollow.getWorkspace().getId())){
-                        workspace.setIsFollow(1);
-                    }else {
-                        workspace.setIsFollow(0);
-                    }
-                }
-            }
-        }else {
-            for(Workspace workspace : workspaceList){
-                workspace.setIsFollow(0);
-            }
-        }
 
         return workspaceList;
     }
@@ -177,7 +157,6 @@ public class WorkspaceRecentServiceImpl implements WorkspaceRecentService {
 
         return PaginationBuilder.build(pagination,workspaceRecentList);
     }
-
 
     @Override
     public void workspaceRecent(WorkspaceRecent workspaceRecent) {

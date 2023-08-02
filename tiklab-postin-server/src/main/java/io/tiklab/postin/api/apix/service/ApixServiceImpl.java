@@ -198,6 +198,12 @@ public class ApixServiceImpl implements ApixService {
     }
 
     @Override
+    public int findApixNum(ApixQuery apixQuery) {
+        int apixNum = apixDao.findApixNum(apixQuery);
+        return apixNum;
+    }
+
+    @Override
     public Apix findApix(@NotNull String id) {
         Apix apix = findOne(id);
 

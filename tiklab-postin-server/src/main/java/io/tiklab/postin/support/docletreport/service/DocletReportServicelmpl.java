@@ -7,6 +7,7 @@ import io.tiklab.postin.category.model.Category;
 import io.tiklab.postin.category.service.CategoryService;
 import io.tiklab.postin.support.docletreport.model.ApiReport;
 import io.tiklab.postin.support.docletreport.model.ModuleReport;
+import io.tiklab.postin.workspace.model.Workspace;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,36 +40,10 @@ public class DocletReportServicelmpl implements DocletReportService {
     @Autowired
     ApiResponseService apiResponseService;
 
-    @Override
-    public String categoryReport(Category category) {
-        String id = category.getId();
-        //如果查询不到分组，新建分组
-        Category isExistCategory = categoryService.findCategory(id);
-        if(isExistCategory==null){
-            category.setId(id);
-            categoryService.createCategory(category);
-        }
-
-        return id;
-    }
-
-    @Override
-    public String apiReport(ApiReport apiReport) {
-        String apiId = apiReport.getApiId();
-
-        HttpApi isExistApi = httpApiService.findOne(apiId);
-        if(isExistApi==null){
-            createApi(apiReport);
-        }else {
-            updateApi(apiReport);
-        }
-
-        return apiId;
-    }
 
     @Override
     public String moduleReport(ModuleReport moduleReport) {
-
+        String workspaceId = moduleReport.getCategory().getWorkspace().getId();
         try {
             //创建分组
             categoryReport(moduleReport.getCategory());
@@ -95,10 +70,10 @@ public class DocletReportServicelmpl implements DocletReportService {
                 String apiId = apiReportData.getApiId();
                 HttpApi isExistApi = httpApiService.findOne(apiId);
                 if(isExistApi==null){
-                    createApi(apiReportData);
+                    createApi(apiReportData,workspaceId);
                     ++add;
                 }else {
-                    updateApi(apiReportData);
+                    updateApi(apiReportData,workspaceId);
                     ++update;
                 }
             }catch (Exception e){
@@ -114,12 +89,39 @@ public class DocletReportServicelmpl implements DocletReportService {
         return jsonObject.toJSONString();
     }
 
-    private void createApi(ApiReport apiReport){
+    /**
+     * 创建分组
+     * @param category
+     * @return
+     */
+    public String categoryReport(Category category) {
+        String id = category.getId();
+        //如果查询不到分组，新建分组
+        Category isExistCategory = categoryService.findCategory(id);
+        if(isExistCategory==null){
+            category.setId(id);
+            categoryService.createCategory(category);
+        }else {
+            category.setId(id);
+            categoryService.updateCategory(category);
+        }
+
+        return id;
+    }
+
+
+    /**
+     * 创建接口
+     * @param apiReport
+     * @param workspaceId
+     */
+    private void createApi(ApiReport apiReport,String workspaceId){
         String apiId = apiReport.getApiId();
 
         //创建基础
         HttpApi httpApi = apiReport.getApiBase();
         httpApi.setId(apiId);
+        httpApi.getApix().setWorkspaceId(workspaceId);
         httpApiService.createHttpApi(httpApi);
 
         //请求信息
@@ -165,12 +167,13 @@ public class DocletReportServicelmpl implements DocletReportService {
         apiResponseService.createApiResponse(response);
     }
 
-    private void updateApi(ApiReport apiReport) {
+    private void updateApi(ApiReport apiReport, String workspaceId) {
         String apiId = apiReport.getApiId();
 
         HttpApi httpApi = apiReport.getApiBase();
         httpApi.setId(apiId);
         httpApi.getApix().setId(apiId);
+        httpApi.getApix().setWorkspaceId(workspaceId);
         httpApiService.updateHttpApi(httpApi);
 
         ApiRequest request = apiReport.getRequest();

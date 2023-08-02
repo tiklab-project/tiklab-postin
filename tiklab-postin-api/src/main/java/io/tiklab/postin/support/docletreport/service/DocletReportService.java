@@ -15,21 +15,6 @@ import javax.validation.constraints.NotNull;
 @JoinProvider(model = Environment.class)
 public interface DocletReportService {
 
-    /**
-    * 分组目录上报
-    * @param category
-    * @return
-    */
-    String categoryReport(@NotNull @Valid Category category);
-
-
-
-    /**
-     * 接口上报
-     * @param apiReport
-     * @return
-     */
-    String apiReport(@NotNull @Valid ApiReport apiReport);
 
     /**
      * 分组模块包含下面所有接口

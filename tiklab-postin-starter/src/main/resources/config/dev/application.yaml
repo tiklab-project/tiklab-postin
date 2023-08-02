@@ -34,6 +34,9 @@ eas:
 #  web:
 #    address: http://eas.dev.tiklab.net
 
+homes:
+  address: http://192.168.10.7
+
 #plugin
 plugin:
   path: ${DATA_HOME}/plugin
@@ -44,3 +47,14 @@ licences:
 
 base:
   url: http://192.168.10.3:3000
+
+file:
+  path:
+
+postin:
+  enable: true
+  scan:
+    package: io.tiklab
+  report:
+    workspaceId: 80c5a5b08417
+    server: http://192.168.10.3:8090

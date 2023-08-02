@@ -1,6 +1,5 @@
 package io.tiklab.postin.client.builder;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import io.tiklab.postin.client.model.ApiMeta;

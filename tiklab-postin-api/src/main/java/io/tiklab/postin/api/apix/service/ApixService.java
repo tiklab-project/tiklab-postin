@@ -43,6 +43,13 @@ public interface ApixService {
     List<Apix> findList(List<String> idList);
 
     /**
+     * 查询接口总数
+     * @param apixQuery
+     * @return
+     */
+    int findApixNum(ApixQuery apixQuery);
+
+    /**
     * 查找
     * @param id
     * @return

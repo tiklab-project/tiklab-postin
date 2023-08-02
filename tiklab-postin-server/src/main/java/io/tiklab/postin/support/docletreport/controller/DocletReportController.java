@@ -25,19 +25,7 @@ public class DocletReportController {
     @Autowired
     private DocletReportService docletReportService;
 
-    @RequestMapping(path="/category",method = RequestMethod.POST)
-    public Result<String> categoryReport(@RequestBody @NotNull @Valid Category category){
-        String id = docletReportService.categoryReport(category);
 
-        return Result.ok(id);
-    }
-
-    @RequestMapping(path="/api",method = RequestMethod.POST)
-    public Result<String> apiReport(@RequestBody @NotNull @Valid ApiReport apiReport){
-        String s = docletReportService.apiReport(apiReport);
-
-        return Result.ok(s);
-    }
 
     @RequestMapping(path="/moduleReport",method = RequestMethod.POST)
     public Result<String> moduleReport(@RequestBody @NotNull @Valid ModuleReport moduleReport){

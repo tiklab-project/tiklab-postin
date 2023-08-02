@@ -155,6 +155,7 @@ public class CategoryServiceImpl implements CategoryService {
         return BeanMapper.mapList(categoryEntityList,Category.class);
     }
 
+
     @Override
     public Category findCategory(@NotNull String id) {
         Category category = findOne(id);
@@ -225,6 +226,7 @@ public class CategoryServiceImpl implements CategoryService {
 
         List<Category> categoryList = BeanMapper.mapList(categoryEntityList,Category.class);
 
+
         joinTemplate.joinQuery(categoryList);
 
         return categoryList;
@@ -284,7 +286,66 @@ public class CategoryServiceImpl implements CategoryService {
             }
         }
 
+//        List<Category> categories = findCategoryTree(categoryQuery);
+
         return categories;
+    }
+
+
+    private List<Category> findCategoryTree(CategoryQuery categoryQuery){
+
+        List<Category> arrayList = new ArrayList<>();
+
+
+        List<Category> categoryList = findCategoryList(categoryQuery);
+
+        if(categoryList!=null&&categoryList.size()>0){
+            ArrayList<Category> topCategory = new ArrayList<>();
+            ArrayList<Category> hasParentCategory = new ArrayList<>();
+
+            for(Category category:categoryList){
+                if(category.getParent()!=null){
+                    hasParentCategory.add(category);
+                }else {
+                    topCategory.add(category);
+                }
+            }
+
+            for(Category category:topCategory){
+                if(hasParentCategory!=null&&hasParentCategory.size()>0){
+                    List<Category> loop = loop(category.getId(), hasParentCategory);
+                    category.setChildren(loop);
+                }
+
+                List<Apix> apixList = apixService.findApixList(new ApixQuery().setCategoryId(category.getId()));
+                category.setNodeList(apixList);
+
+                arrayList.add(category);
+            }
+
+        }
+
+        return arrayList;
+    }
+
+    private List<Category> loop(String parentId, List<Category> hasParentCategory){
+        ArrayList<Category> arrayList1 = new ArrayList<>();
+
+        for(Category childCategory:hasParentCategory){
+            List<Apix> apixList = apixService.findApixList(new ApixQuery().setCategoryId(childCategory.getId()));
+            childCategory.setNodeList(apixList);
+
+            if(Objects.equals(parentId, childCategory.getParent().getId())){
+
+                if(childCategory.getChildren()!=null&&childCategory.getChildren().size()>0){
+                    loop(childCategory.getId(),hasParentCategory);
+                }
+
+                arrayList1.add(childCategory);
+            }
+        }
+
+        return  arrayList1;
     }
 
     /**
