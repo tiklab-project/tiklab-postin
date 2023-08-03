@@ -45,3 +45,9 @@ licences:
 base:
   url:  http://postin-ce.tiklab.net
 
+
+file:
+  path:
+homes:
+  address: http://192.168.10.7
+

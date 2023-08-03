@@ -34,8 +34,7 @@ eas:
 #  web:
 #    address: http://eas.dev.tiklab.net
 
-homes:
-  address: http://192.168.10.7
+
 
 #plugin
 plugin:
@@ -50,6 +49,9 @@ base:
 
 file:
   path:
+homes:
+  address: http://192.168.10.7
+
 
 postin:
   enable: true

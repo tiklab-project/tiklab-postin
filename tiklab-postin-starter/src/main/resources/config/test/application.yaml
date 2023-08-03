@@ -53,3 +53,10 @@ postgresql:
     username: postgres
     password: darth2020
     address: ${DATA_HOME}/postgresql
+
+
+file:
+  path:
+homes:
+  address: http://192.168.10.7
+
