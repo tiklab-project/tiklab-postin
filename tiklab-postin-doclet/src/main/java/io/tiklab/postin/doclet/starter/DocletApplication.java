@@ -25,21 +25,21 @@ public class DocletApplication  {
 
     public static void main(String[] args){
 
-        String modulesPath="D:/a-dk-sever/tiklab-postin/tiklab-postin-api;D:/a-dk-sever/tiklab-postin/tiklab-postin-server";
-        modulesPathArray = modulesPath.split(";");
-        workspaceId="14a356a05690";
-        server="http://192.168.10.3:8090";
+//        String modulesPath="D:/a-dk-sever/tiklab-postin/tiklab-postin-api;D:/a-dk-sever/tiklab-postin/tiklab-postin-server";
+//        modulesPathArray = modulesPath.split(";");
+//        workspaceId="14a356a05690";
+//        server="http://192.168.10.3:8090";
 
         try {
-//            if(args.length < 3){
-//                System.out.println("Error --- pom传入参数错误");
-//                return;
-//            }else {
-//                String modulesPath=args[0];
-//                modulesPathArray = modulesPath.split(";");
-//                workspaceId=args[1];
-//                server=args[2];
-//            }
+            if(args.length < 3){
+                System.out.println("Error --- pom传入参数错误");
+                return;
+            }else {
+                String modulesPath=args[0];
+                modulesPathArray = modulesPath.split(";");
+                workspaceId=args[1];
+                server=args[2];
+            }
 
 
             //执行maven命令生成dependence依赖包

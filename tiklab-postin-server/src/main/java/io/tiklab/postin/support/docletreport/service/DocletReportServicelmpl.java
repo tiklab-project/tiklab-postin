@@ -156,13 +156,17 @@ public class DocletReportServicelmpl implements DocletReportService {
             }
         }
 
+        ApiResponse response = apiReport.getResponse();
+        if(response==null){
+            return;
+        }
+
         //响应
         List<ApiResponse> apiResponseList = apiResponseService.findApiResponseList(new ApiResponseQuery().setHttpId(apiId));
         for (ApiResponse apiResponse : apiResponseList) {
             apiResponseService.deleteApiResponse(apiResponse.getId());
         }
 
-        ApiResponse response = apiReport.getResponse();
         response.setHttpId(apiId);
         apiResponseService.createApiResponse(response);
     }
