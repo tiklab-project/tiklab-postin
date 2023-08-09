@@ -223,7 +223,7 @@ public class CustomTagsHandler implements Doclet {
     private JSONObject getResponseJson(ExecutableElement method) {
         DeclaredType returnType = (DeclaredType) method.getReturnType();
         TypeElement simpleName = (TypeElement) returnType.asElement();
-        JSONObject jsonData = DocletGetModel.loopModel(simpleName.toString());
+        JSONObject jsonData = DocletGetModel.loopModel(simpleName.toString(),0);
 
         JSONObject jsonText = jsonToSchema(jsonData);
 
@@ -458,7 +458,7 @@ public class CustomTagsHandler implements Doclet {
                         // 例 Workspace, {}
 
                         if(modelMap.get(fullModelName)==null){
-                            JSONObject jsonObject1 = DocletGetModel.loopModel(fullModelName);
+                            JSONObject jsonObject1 = DocletGetModel.loopModel(fullModelName,0);
 
                             jsonObject.put(value,jsonObject1);
                         }else {

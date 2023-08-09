@@ -6,7 +6,7 @@
     <parent>
         <groupId>io.tiklab</groupId>
         <artifactId>tiklab-postin</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.0.0.2</version>
     </parent>
     <artifactId>tiklab-postin-server</artifactId>
     <name>${project.artifactId}</name>
@@ -40,7 +40,7 @@
         <dependency>
             <groupId>io.tiklab</groupId>
             <artifactId>tiklab-eam-api</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <version>1.0.0.2</version>
         </dependency>
         <dependency>
             <groupId>io.tiklab</groupId>
@@ -56,7 +56,7 @@
         <dependency>
             <groupId>io.tiklab</groupId>
             <artifactId>tiklab-user-api</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <version>1.0.0.2</version>
         </dependency>
         <dependency>
             <groupId>io.tiklab</groupId>
@@ -78,13 +78,13 @@
         <dependency>
             <groupId>io.tiklab</groupId>
             <artifactId>tiklab-message-api</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <version>1.0.0.2</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>io.tiklab</groupId>
             <artifactId>tiklab-user-api</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <version>1.0.0.2</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
@@ -109,19 +109,19 @@
         <dependency>
             <groupId>io.tiklab</groupId>
             <artifactId>tiklab-toolkit-core</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <version>1.0.0.2</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>io.tiklab</groupId>
             <artifactId>tiklab-dss-client</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <version>1.0.0.2</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>io.tiklab</groupId>
             <artifactId>tiklab-dal-jpa</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <version>1.0.0.2</version>
             <scope>compile</scope>
         </dependency>
 

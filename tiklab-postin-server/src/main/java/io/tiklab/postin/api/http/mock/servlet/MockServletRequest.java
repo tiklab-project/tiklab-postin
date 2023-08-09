@@ -241,7 +241,6 @@ public class MockServletRequest {
                         headerStatus=true;
                     }
                 }
-
             }
         }else {
             headerStatus=true;

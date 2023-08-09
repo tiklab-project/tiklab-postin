@@ -12,8 +12,14 @@ import java.util.List;
 public class DocletGetModel {
 
 
-    public static JSONObject loopModel(String modelFullName){
+    public static JSONObject loopModel(String modelFullName,Integer length){
+        if(length>3){
+            return null;
+        }
+
         JSONObject jsonObject = new JSONObject();
+
+
         try {
 
             //通过反射获取模型类
@@ -55,14 +61,14 @@ public class DocletGetModel {
                     // 获取 List 的泛型类型
                     Class<?> listGenericType = getListGenericType(field);
                     if (listGenericType != null) {
-                        JSONObject elementJson = loopModel(listGenericType.getName());
+                        JSONObject elementJson = loopModel(listGenericType.getName(),0);
                         jsonArray.add(elementJson);
                     }
 
                     jsonObject.put(fieldName, jsonArray);
 
                 }else {
-                    JSONObject modelJson = loopModel(fieldType.getName());
+                    JSONObject modelJson = loopModel(fieldType.getName(),0);
                     jsonObject.put(fieldName,modelJson);
                 }
             }

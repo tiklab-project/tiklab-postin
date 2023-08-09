@@ -126,7 +126,7 @@ public class ReportData {
             if(CustomTagsHandler.modelMap.get(modelFullName)!=null){
                 jsonObject = CustomTagsHandler.modelMap.get(modelFullName);
             }else {
-                jsonObject = DocletGetModel.loopModel(modelFullName);
+                jsonObject = DocletGetModel.loopModel(modelFullName,0);
             }
 
             String jsonText = "{}";
