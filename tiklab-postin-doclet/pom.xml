@@ -5,7 +5,7 @@
     <parent>
         <artifactId>tiklab-postin</artifactId>
         <groupId>io.tiklab</groupId>
-        <version>1.0.0.2</version>
+        <version>1.0.0.3</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -15,15 +15,14 @@
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
         </dependency>
+
         <dependency>
             <groupId>xdoclet</groupId>
             <artifactId>xdoclet</artifactId>
-            <version>1.2.3</version>
         </dependency>
         <dependency>
             <groupId>org.apache.maven.shared</groupId>
             <artifactId>maven-invoker</artifactId>
-            <version>3.1.0</version>
         </dependency>
     </dependencies>
 

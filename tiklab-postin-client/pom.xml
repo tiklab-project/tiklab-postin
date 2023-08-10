@@ -6,13 +6,12 @@
     <parent>
         <groupId>io.tiklab</groupId>
         <artifactId>tiklab-postin</artifactId>
-        <version>1.0.0.2</version>
+        <version>1.0.0.3</version>
     </parent>
     <artifactId>tiklab-postin-client</artifactId>
     <name>${project.artifactId}</name>
 
     <dependencies>
-        <!--common-->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
@@ -26,7 +25,6 @@
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
         </dependency>
-        <!--spring-->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
@@ -40,17 +38,15 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-freemarker</artifactId>
         </dependency>
-        <!--tiklab-->
         <dependency>
             <groupId>io.tiklab</groupId>
             <artifactId>tiklab-core</artifactId>
         </dependency>
+
         <dependency>
             <groupId>io.tiklab</groupId>
             <artifactId>tiklab-postin-annotation</artifactId>
-            <version>1.0.0.2</version>
         </dependency>
-
 
     </dependencies>
 

@@ -6,7 +6,7 @@
     <parent>
         <groupId>io.tiklab</groupId>
         <artifactId>tiklab-postin</artifactId>
-        <version>1.0.0.2</version>
+        <version>1.0.0.3</version>
     </parent>
     <artifactId>tiklab-postin-starter</artifactId>
     <name>${project.artifactId}</name>
@@ -35,17 +35,14 @@
         <dependency>
             <groupId>io.tiklab</groupId>
             <artifactId>tiklab-user-spring-boot-starter</artifactId>
-            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>io.tiklab</groupId>
             <artifactId>tiklab-plugin-spring-boot-starter</artifactId>
-            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>io.tiklab</groupId>
             <artifactId>tiklab-toolkit-spring-boot-starter</artifactId>
-            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>io.tiklab</groupId>
@@ -56,83 +53,65 @@
                     <artifactId>dysmsapi20170525</artifactId>
                 </exclusion>
             </exclusions>
-            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>io.tiklab</groupId>
             <artifactId>tiklab-licence-spring-boot-starter</artifactId>
-            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>io.tiklab</groupId>
             <artifactId>tiklab-gateway-spring-boot-starter</artifactId>
-            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>io.tiklab</groupId>
             <artifactId>tiklab-eam-spring-boot-starter</artifactId>
-            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>io.tiklab</groupId>
             <artifactId>tiklab-security-spring-boot-starter</artifactId>
-            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>io.tiklab</groupId>
             <artifactId>tiklab-todotask-spring-boot-starter</artifactId>
-            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>io.tiklab</groupId>
             <artifactId>tiklab-privilege-spring-boot-starter</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>io.tiklab</groupId>
-            <artifactId>tiklab-postin-server</artifactId>
-            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>io.tiklab</groupId>
             <artifactId>tiklab-postgresql-starter</artifactId>
-            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>io.tiklab</groupId>
             <artifactId>tiklab-upgrade-starter</artifactId>
-            <version>${project.version}</version>
         </dependency>
+
+
         <dependency>
             <groupId>io.tiklab</groupId>
             <artifactId>tiklab-postin-api</artifactId>
-            <version>1.0.0.2</version>
-            <scope>${project.version}</scope>
         </dependency>
-
-
+        <dependency>
+            <groupId>io.tiklab</groupId>
+            <artifactId>tiklab-postin-server</artifactId>
+        </dependency>
         <!-- iText -->
         <dependency>
             <groupId>com.itextpdf</groupId>
             <artifactId>itextpdf</artifactId>
-            <version>5.5.5</version>
         </dependency>
         <dependency>
             <groupId>com.itextpdf</groupId>
             <artifactId>itext-asian</artifactId>
-            <version>5.2.0</version>
         </dependency>
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
-            <version>2.8.9</version>
         </dependency>
-
         <dependency>
             <groupId>xdoclet</groupId>
             <artifactId>xdoclet</artifactId>
-            <version>1.2.3</version>
         </dependency>
 
 
@@ -460,12 +439,12 @@
                         <artifactItem>
                             <groupId>io.tiklab</groupId>
                             <artifactId>tiklab-postin-exportpdf-plugin</artifactId>
-                            <version>${project.version}</version>
+                            <version>1.0.0.3</version>
                         </artifactItem>
                         <artifactItem>
                             <groupId>io.tiklab</groupId>
                             <artifactId>tiklab-postin-version-plugin</artifactId>
-                            <version>${project.version}</version>
+                            <version>1.0.0.3</version>
                         </artifactItem>
                     </artifactItems>
                     <includeTypes>jar</includeTypes>
