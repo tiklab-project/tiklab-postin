@@ -19,9 +19,7 @@ public class DocletGetModel {
 
         JSONObject jsonObject = new JSONObject();
 
-
         try {
-
             //通过反射获取模型类
             Class<?> paramClass = Class.forName(modelFullName, true, DocletApplication.urlClassLoader);
 
@@ -61,14 +59,13 @@ public class DocletGetModel {
                     // 获取 List 的泛型类型
                     Class<?> listGenericType = getListGenericType(field);
                     if (listGenericType != null) {
-                        JSONObject elementJson = loopModel(listGenericType.getName(),0);
+                        JSONObject elementJson = loopModel(listGenericType.getName(),length++);
                         jsonArray.add(elementJson);
                     }
 
                     jsonObject.put(fieldName, jsonArray);
-
                 }else {
-                    JSONObject modelJson = loopModel(fieldType.getName(),0);
+                    JSONObject modelJson = loopModel(fieldType.getName(),length++);
                     jsonObject.put(fieldName,modelJson);
                 }
             }
@@ -83,8 +80,7 @@ public class DocletGetModel {
     // 获取 List 的泛型类型
     private static Class<?> getListGenericType(Field field) {
         java.lang.reflect.Type genericType = field.getGenericType();
-        if (genericType instanceof ParameterizedType) {
-            ParameterizedType parameterizedType = (ParameterizedType) genericType;
+        if (genericType instanceof ParameterizedType parameterizedType) {
             java.lang.reflect.Type[] typeArguments = parameterizedType.getActualTypeArguments();
             if (typeArguments.length > 0 && typeArguments[0] instanceof Class) {
                 return (Class<?>) typeArguments[0];

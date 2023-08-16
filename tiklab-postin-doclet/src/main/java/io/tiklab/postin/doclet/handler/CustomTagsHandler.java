@@ -61,7 +61,6 @@ public class CustomTagsHandler implements Doclet {
                 // 判断controller类头上是否有自定义的信息
                 if (classComment != null && classComment.contains("@pi.protocol") && classComment.contains("@pi.groupName")) {
                     parseController(type,classComment,environment);
-
                 }
             }
         }
@@ -75,7 +74,6 @@ public class CustomTagsHandler implements Doclet {
     private void parseController(TypeElement type, String classComment, DocletEnvironment environment){
         // 解析类注释
         Map<String, String> classMap = parseClassComment(classComment);
-
 
         JSONObject moduleJson = new JSONObject();
 
@@ -239,15 +237,23 @@ public class CustomTagsHandler implements Doclet {
 
     public JSONObject jsonToSchema(JSONObject json) {
         JSONObject schema = new JSONObject();
-        schema.put("$schema", "http://json-schema.org/draft-04/schema#");
+//        schema.put("$schema", "http://json-schema.org/draft-04/schema#");
         schema.put("type", "object");
 
         JSONObject properties = new JSONObject();
         for(String key : json.keySet()) {
             Object value = json.get(key);
-            JSONObject propSchema = new JSONObject();
-            propSchema.put("type", getType(value));
-            properties.put(key, propSchema);
+
+            if(value instanceof JSONObject) {
+                // 对象类型,递归转换
+                properties.put(key, jsonToSchema((JSONObject)value));
+
+            } else {
+                // 基本类型
+                JSONObject propSchema = new JSONObject();
+                propSchema.put("type", getType(value));
+                properties.put(key, propSchema);
+            }
         }
 
         schema.put("properties", properties);
@@ -256,13 +262,20 @@ public class CustomTagsHandler implements Doclet {
     }
 
     private String getType(Object value) {
-        if (value instanceof Integer) {
-            return "integer";
-        } else if (value instanceof String) {
-            return "string";
-        } else {
+
+        if (JSONObject.class.equals(value.getClass())) {
             return "object";
+        } else if (JSONArray.class.equals(value.getClass())) {
+            return "array";
+        } else if (Integer.class.equals(value.getClass()) || Long.class.equals(value.getClass())) {
+            return "integer";
+        } else if (Double.class.equals(value.getClass())) {
+            return "number";
+        } else if (Boolean.class.equals(value.getClass())) {
+            return "boolean";
         }
+        return "string";
+
     }
 
     /**
@@ -440,7 +453,7 @@ public class CustomTagsHandler implements Doclet {
 
         HashMap<String, String> map = new HashMap<>();
 
-        String egValue = null;
+
         for (String line : lines) {
             if (line.trim().startsWith("@pi")) {
                 String[] parts = line.split(":", 2);
@@ -452,7 +465,6 @@ public class CustomTagsHandler implements Doclet {
                     if (key.equals("@pi.name")) {
                         map.put("name",value);
                     } else if (key.equals("@pi.value")) {
-                        egValue=value;
                         map.put("value",value);
                     } else if (key.equals("@pi.model")) {
                         // 例 Workspace, {}

@@ -63,8 +63,7 @@ public class StaterCommon {
             return;
         }
 
-        // 创建 Doclet 实例
-        CustomTagsHandler doclet = new CustomTagsHandler();
+
         // 创建 classpath 字符串
         StringBuilder classpathBuilder = new StringBuilder();
         getClassPath(classpathBuilder);
@@ -80,9 +79,17 @@ public class StaterCommon {
         options.add(classpathBuilder.toString());
 
         try {
+            // 创建 Doclet 实例
+            CustomTagsHandler doclet = new CustomTagsHandler();
             // 创建 DocumentationTask 对象
-            DocumentationTool.DocumentationTask task = documentationTool.getTask(null, fileManager, null,
-                    doclet.getClass(), options, compilationUnitsList);
+            DocumentationTool.DocumentationTask task = documentationTool.getTask(
+                    null,
+                    fileManager,
+                    null,
+                    doclet.getClass(),
+                    options,
+                    compilationUnitsList
+            );
 
             Boolean success = task.call();
             if (success) {

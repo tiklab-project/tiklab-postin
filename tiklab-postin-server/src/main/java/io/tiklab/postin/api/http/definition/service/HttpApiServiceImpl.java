@@ -126,16 +126,8 @@ public class HttpApiServiceImpl implements HttpApiService {
         apiResponse.setHttpCode(200);
         apiResponse.setName("成功");
         apiResponse.setDataType("json");
-        apiResponse.setJsonText(
-                "{\n" +
-                "    \"type\": \"object\",\n" +
-                "    \"title\": \"title\",\n" +
-                "    \"properties\": {}\n" +
-                "}"
-        );
+        apiResponse.setJsonText("{\"type\": \"object\",\"properties\": {}}");
         apiResponseService.createApiResponse(apiResponse);
-
-
 
 
 

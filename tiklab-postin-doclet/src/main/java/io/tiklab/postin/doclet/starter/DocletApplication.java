@@ -25,21 +25,21 @@ public class DocletApplication  {
 
     public static void main(String[] args){
 
-//        String modulesPath="D:/a-dk-sever/tiklab-postin/tiklab-postin-api;D:/a-dk-sever/tiklab-postin/tiklab-postin-server";
-//        modulesPathArray = modulesPath.split(";");
-//        workspaceId="14a356a05690";
-//        server="http://192.168.10.3:8090";
+        String modulesPath="D:/a-dk-sever/tiklab-postin/tiklab-postin-api;D:/a-dk-sever/tiklab-postin/tiklab-postin-server";
+        modulesPathArray = modulesPath.split(";");
+        workspaceId="f5b82a695903";
+        server="http://192.168.10.3:8090";
 
         try {
-            if(args.length < 3){
-                System.out.println("Error --- pom传入参数错误");
-                return;
-            }else {
-                String modulesPath=args[0];
-                modulesPathArray = modulesPath.split(";");
-                workspaceId=args[1];
-                server=args[2];
-            }
+//            if(args.length < 3){
+//                System.out.println("Error --- pom传入参数错误");
+//                return;
+//            }else {
+//                String modulesPath=args[0];
+//                modulesPathArray = modulesPath.split(";");
+//                workspaceId=args[1];
+//                server=args[2];
+//            }
 
 
             //执行maven命令生成dependence依赖包
@@ -49,7 +49,6 @@ public class DocletApplication  {
             urlClassLoader = getURLClassLoader();
 
             StaterCommon staterCommon = new StaterCommon();
-
             staterCommon.staterFunction();
         } catch (IOException e) {
             System.out.println("Error --- 执行错误 : "+e);
@@ -68,6 +67,7 @@ public class DocletApplication  {
             //获取所有依赖包
             for (String path : modulesPathArray) {
                 File directory = new File(path+"/target/dependency");
+                //获取所有pom中的依赖
                 File[] jarFiles = directory.listFiles((dir, name) -> name.endsWith(".jar"));
 
                 if (jarFiles != null) {
@@ -76,6 +76,7 @@ public class DocletApplication  {
                     }
                 }
 
+                //自身的class
                 File classesDirectory = new File(path+"/target/classes");
                 urlsList.add(classesDirectory.toURI().toURL());
             }
@@ -92,7 +93,7 @@ public class DocletApplication  {
     }
 
     /**
-     * 执行maven，properties中配的modules
+     * 执行maven
      */
     private static void exeMaven(){
         for (String path : modulesPathArray) {

@@ -77,31 +77,40 @@ public class MockServletRequest {
      * @throws IOException
      */
     public void actRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        //获取路径
-        String mockPath = request.getRequestURI().replaceAll("/mockx","");
 
-        mockOperate(request,response,mockPath);
+        String[] parts = request.getRequestURI().split("/");
+        String workspaceId = parts[2];
 
+        //构建接口路径
+        String path = "";
+        for(int i=3; i<parts.length; i++) {
+            path += "/" + parts[i];
+        }
+
+        //获取接口id
+        String apiId = getMethodId(workspaceId,path,"http");
+
+        mockOperate(request,response,apiId);
     }
 
     /**
      *
      * @param request
      * @param response
-     * @param mockPath
      * @throws IOException
      */
-    private void mockOperate(HttpServletRequest request, HttpServletResponse response, String mockPath) throws IOException {
-        //workspaceId
-        String workspaceId = mockPath.substring(1,12);
-        //接口路径
-        String path = mockPath.substring(12);
-        String methodId = getMethodId(workspaceId,path,"http");
+    private void mockOperate(HttpServletRequest request, HttpServletResponse response, String apiId) throws IOException {
 
-
-        MockQuery mockQuery = new MockQuery().setHttpId(methodId);
+        MockQuery mockQuery = new MockQuery().setHttpId(apiId);
         //通过methodid查询所有mock
         List<Mock> mockList = mockService.findMockList(mockQuery);
+
+        //没有mock，走接口定义中默认的响应
+        if(mockList==null|| mockList.size() == 0){
+            mockServletResponse.definitionResponse(response,apiId);
+        }
+
+        Integer allValidationFail = 0;
         for(Mock mock:mockList){
             String mockId = mock.getId();
             int enabled = mock.getEnable();
@@ -120,8 +129,17 @@ public class MockServletRequest {
                 //如果都匹配返回数据
                 if(headerStatus&&queryStatus&&bodyStatus){
                     mockServletResponse.actResponse(mockId,response);
+                }else {
+                    ++allValidationFail;
                 }
+            }else {
+                ++allValidationFail;
             }
+        }
+
+        //所有都不匹配，走接口定义中默认的响应
+        if(allValidationFail==mockList.size()){
+            mockServletResponse.definitionResponse(response,apiId);
         }
     }
 
@@ -191,8 +209,6 @@ public class MockServletRequest {
                     }
                 }
             }
-        } catch (FileUploadException | UnsupportedEncodingException e) {
-            throw new ApplicationException(e);
         } catch (IOException e) {
             throw new ApplicationException(e);
         }
@@ -295,9 +311,9 @@ public class MockServletRequest {
         RequestMock requestMock = requestMockService.findRequestMock(mockId);
         String bodyType = requestMock.getBodyType();
 
-        boolean bodyStatus = false;
+        boolean bodyStatus;
 
-        if(bodyType.equals("formdata")){
+        if("formdata".equals(bodyType)){
             bodyStatus = getFormStatus(mockId,request);
         }else {
             bodyStatus = getJsonStatus(mockId,request);
