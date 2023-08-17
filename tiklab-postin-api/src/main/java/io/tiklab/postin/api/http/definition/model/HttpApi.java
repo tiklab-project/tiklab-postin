@@ -55,8 +55,8 @@ public class HttpApi extends BaseModel {
     @ApiProperty(name = "formUrlencodedList",desc="form-url列表")
     private List<FormUrlencoded> urlencodedList;
 
-    @ApiProperty(name = "jsonParamList",desc="json列表")
-    private List<JsonParam> jsonList;
+    @ApiProperty(name = "jsonParam",desc="json")
+    private JsonParam jsonParam;
 
     @ApiProperty(name = "raw",desc="raw")
     private RawParam rawParam;
@@ -141,12 +141,12 @@ public class HttpApi extends BaseModel {
         this.urlencodedList = urlencodedList;
     }
 
-    public List<JsonParam> getJsonList() {
-        return jsonList;
+    public JsonParam getJsonParam() {
+        return jsonParam;
     }
 
-    public void setJsonList(List<JsonParam> jsonList) {
-        this.jsonList = jsonList;
+    public void setJsonParam(JsonParam jsonParam) {
+        this.jsonParam = jsonParam;
     }
 
     public RawParam getRawParam() {

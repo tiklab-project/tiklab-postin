@@ -9,6 +9,7 @@ import io.tiklab.postin.api.http.definition.entity.ApiRequestEntity;
 import io.tiklab.postin.api.http.definition.model.ApiRequest;
 import io.tiklab.postin.api.http.definition.model.ApiRequestQuery;
 
+import io.tiklab.postin.api.http.definition.model.JsonParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +32,9 @@ public class ApiRequestServiceImpl implements ApiRequestService {
     @Autowired
     JoinTemplate joinTemplate;
 
+    @Autowired
+    JsonParamService jsonParamService;
+
     @Override
     public String createApiRequest(@NotNull @Valid ApiRequest apiRequest) {
         ApiRequestEntity apiRequestEntity = BeanMapper.map(apiRequest, ApiRequestEntity.class);
@@ -41,6 +45,17 @@ public class ApiRequestServiceImpl implements ApiRequestService {
     @Override
     public void updateApiRequest(@NotNull @Valid ApiRequest apiRequest) {
         ApiRequestEntity apiRequestEntity = BeanMapper.map(apiRequest, ApiRequestEntity.class);
+
+        //切换请求体，如果是json，没有找到，就会自动生成一个。
+        String httpId = apiRequest.getHttpId();
+        JsonParam isExsit = jsonParamService.findJsonParam(httpId);
+        if(isExsit==null){
+            JsonParam jsonParam = new JsonParam();
+            jsonParam.setId(httpId);
+            jsonParam.setHttpId(httpId);
+            jsonParam.setJsonText("{\"type\": \"object\",\"properties\": {}}");
+            jsonParamService.createJsonParam(jsonParam);
+        }
 
         apiRequestDao.updateApiRequest(apiRequestEntity);
     }
