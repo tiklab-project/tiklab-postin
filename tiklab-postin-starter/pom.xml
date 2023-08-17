@@ -82,10 +82,10 @@
             <groupId>io.tiklab</groupId>
             <artifactId>tiklab-postgresql-starter</artifactId>
         </dependency>
-        <dependency>
-            <groupId>io.tiklab</groupId>
-            <artifactId>tiklab-upgrade-starter</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>io.tiklab</groupId>-->
+<!--            <artifactId>tiklab-upgrade-starter</artifactId>-->
+<!--        </dependency>-->
 
 
         <dependency>
