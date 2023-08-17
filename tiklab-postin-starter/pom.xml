@@ -162,14 +162,14 @@
                                         <artifactItem>
                                             <groupId>io.tiklab</groupId>
                                             <artifactId>tiklab-jdk-linux</artifactId>
-                                            <version>${project.version}</version>
+                                            <version>${tiklab-jdk.version}</version>
                                             <type>zip</type>
                                             <outputDirectory>embbed</outputDirectory>
                                         </artifactItem>
                                         <artifactItem>
                                             <groupId>io.tiklab</groupId>
                                             <artifactId>tiklab-postgresql-linux</artifactId>
-                                            <version>${project.version}</version>
+                                            <version>${tiklab-postgresql.version}</version>
                                             <type>zip</type>
                                             <outputDirectory>embbed</outputDirectory>
                                         </artifactItem>
