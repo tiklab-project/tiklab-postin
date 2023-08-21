@@ -49,9 +49,6 @@ public class LogUnit {
         String contentStr = map.get("user")+map.get("actionType")+map.get("name");
         log.setAbstractContent(contentStr);
 
-
-//        log.setAbstractTitle();
-
-//        opLogByTemplService.createLog(log);
+        opLogByTemplService.createLog(log);
     }
 }

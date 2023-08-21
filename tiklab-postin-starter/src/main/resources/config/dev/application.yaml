@@ -45,7 +45,7 @@ licences:
   path: ${DATA_HOME}/licences
 
 base:
-  url: http://192.168.10.3:3000
+  url: http://192.168.10.12:8090
 
 file:
   path:

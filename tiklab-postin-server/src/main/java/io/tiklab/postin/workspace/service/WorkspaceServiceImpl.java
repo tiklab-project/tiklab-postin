@@ -14,6 +14,7 @@ import io.tiklab.postin.support.datastructure.model.DataStructureQuery;
 import io.tiklab.postin.support.datastructure.service.DataStructureService;
 import io.tiklab.postin.common.LogUnit;
 import io.tiklab.postin.common.PostInUnit;
+import io.tiklab.postin.support.environment.model.Environment;
 import io.tiklab.postin.support.environment.service.EnvironmentService;
 import io.tiklab.postin.workspace.dao.WorkspaceDao;
 import io.tiklab.postin.workspace.entity.WorkspaceEntity;
@@ -40,6 +41,7 @@ import org.springframework.stereotype.Service;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static io.tiklab.postin.common.EnumTemplateConstant.*;
 
@@ -105,6 +107,8 @@ public class WorkspaceServiceImpl implements WorkspaceService {
     @Value("${base.url:null}")
     String baseUrl;
 
+
+
     @Override
     public String createWorkspace(@NotNull @Valid Workspace workspace) throws Exception {
         String userId = LoginContext.getLoginId();
@@ -137,6 +141,14 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         LoggingType oplogTypeOne = loggingTypeService.findOplogTypeOne(LOG_TYPE_CREATE_ID);
         map.put("actionType",oplogTypeOne.getName());
         logUnit.log(LOG_TYPE_CREATE_ID,"workspace",map);
+
+        //初始化一个mock
+        Environment environment = new Environment();
+        environment.setWorkspaceId(workspaceId);
+        environment.setName("Mock");
+        String mockUrl = baseUrl+"/mockx/"+workspaceId;
+        environment.setUrl(mockUrl);
+        environmentService.createEnvironment(environment);
 
         //消息
         //站内信
@@ -310,23 +322,14 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         List<WorkspaceEntity> workspaceEntityList = workspaceDao.findWorkspaceList(workspaceQuery);
         List<Workspace> workspaceList = BeanMapper.mapList(workspaceEntityList, Workspace.class);
 
-        //关注
-        WorkspaceFollowQuery workspaceFollowQuery = new WorkspaceFollowQuery();
-        List<WorkspaceFollow> workspaceFollowList = workspaceFollowService.findWorkspaceFollowList(workspaceFollowQuery);
+        // 获取所有关注的 Workspace 的 ID 列表
+        List<String> followedWorkspaceIds = getFollowedWorkspaceIds();
 
-        //设置是否关注
-        if(CollectionUtils.isNotEmpty(workspaceList)&&CollectionUtils.isNotEmpty(workspaceFollowList)){
-            for(Workspace workspace : workspaceList){
-                for(WorkspaceFollow workspaceFollow: workspaceFollowList){
-                    if(Objects.equals(workspace.getId(), workspaceFollow.getWorkspace().getId())){
-                        workspace.setIsFollow(1);
-                    }else {
-                        workspace.setIsFollow(0);
-                    }
-                }
-            }
-        }else {
-            for(Workspace workspace : workspaceList){
+        // 设置是否关注
+        for (Workspace workspace : workspaceList) {
+            if (followedWorkspaceIds.contains(workspace.getId())) {
+                workspace.setIsFollow(1);
+            } else {
                 workspace.setIsFollow(0);
             }
         }
@@ -352,10 +355,9 @@ public class WorkspaceServiceImpl implements WorkspaceService {
 
         //查询空间列表
         WorkspaceQuery processQuery = new WorkspaceQuery();
+        processQuery.setWorkspaceName(workspaceQuery.getWorkspaceName());
         processQuery.setOrderParams(workspaceQuery.getOrderParams());
         List<Workspace> workspaceList = findWorkspaceList(processQuery);
-
-
 
         //存储list
         ArrayList<Workspace> arrayList = new ArrayList<>();
@@ -379,11 +381,34 @@ public class WorkspaceServiceImpl implements WorkspaceService {
             }
         }
 
+        // 获取所有关注的 Workspace 的 ID 列表
+        List<String> followedWorkspaceIds = getFollowedWorkspaceIds();
+        // 设置是否关注
+        for (Workspace workspace : arrayList) {
+            if (followedWorkspaceIds.contains(workspace.getId())) {
+                workspace.setIsFollow(1);
+            } else {
+                workspace.setIsFollow(0);
+            }
+        }
+
+
         joinTemplate.joinQuery(arrayList);
 
         return arrayList;
     }
 
+    /**
+     * 获取当前用户关注的 Workspace 的 ID 列表
+     */
+    private List<String> getFollowedWorkspaceIds() {
+        WorkspaceFollowQuery workspaceFollowQuery = new WorkspaceFollowQuery();
+        workspaceFollowQuery.setUserId(LoginContext.getLoginId());
+        List<WorkspaceFollow> workspaceFollowList = workspaceFollowService.findWorkspaceFollowList(workspaceFollowQuery);
 
+        return workspaceFollowList.stream()
+                .map(workspaceFollow -> workspaceFollow.getWorkspace().getId())
+                .collect(Collectors.toList());
+    }
 
 }

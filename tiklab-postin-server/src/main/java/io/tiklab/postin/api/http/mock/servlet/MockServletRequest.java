@@ -108,6 +108,7 @@ public class MockServletRequest {
         //没有mock，走接口定义中默认的响应
         if(mockList==null|| mockList.size() == 0){
             mockServletResponse.definitionResponse(response,apiId);
+            return;
         }
 
         Integer allValidationFail = 0;
@@ -152,15 +153,11 @@ public class MockServletRequest {
 
             //查询所有定义
             List<Apix> apixList = apixService.findApixList(new ApixQuery().setCategoryId(category.getId()));
-            if(CollectionUtils.isEmpty(apixList)){
-                continue;
-            }
+            if(CollectionUtils.isEmpty(apixList)){continue;}
 
             //获取所有http定义
             List<Apix> httpList = apixList.stream().filter(a -> protocolType.equals(a.getProtocolType())).collect(Collectors.toList());
-            if(CollectionUtils.isEmpty(httpList)){
-                continue;
-            }
+            if(CollectionUtils.isEmpty(httpList)){continue;}
 
             //通过path找到相应的定义id
             for(Apix apix : httpList){
@@ -172,7 +169,6 @@ public class MockServletRequest {
                     httpApiId=apix.getId();
                 }
             }
-
         }
         return httpApiId;
     }
