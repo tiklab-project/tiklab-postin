@@ -67,9 +67,9 @@ public class RouteDispatchForJson {
             Duration duration = Duration.between(startTime, endTime);
             long millis = duration.toMillis();
             String timeString = String.format("%d", millis);
+            int size = responseEntity.getBody().length;
 
-
-            dataProcessCommon.buildResponseHeader(responseEntity,response,timeString);
+            dataProcessCommon.buildResponseHeader(responseEntity,response,timeString,size);
 
 
             if (responseEntity.hasBody()) {

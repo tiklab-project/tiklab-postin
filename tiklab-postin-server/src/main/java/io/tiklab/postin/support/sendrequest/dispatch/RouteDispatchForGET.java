@@ -71,9 +71,9 @@ public class RouteDispatchForGET {
             Duration duration = Duration.between(startTime, endTime);
             long millis = duration.toMillis();
             String timeString = String.format("%d", millis);
-
+            int size = responseEntity.getBody().length;
             //响应头处理
-            dataProcessCommon.buildResponseHeader(responseEntity,response,timeString);
+            dataProcessCommon.buildResponseHeader(responseEntity,response,timeString, size);
 
 
             //response body

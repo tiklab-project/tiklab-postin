@@ -104,8 +104,9 @@ public class DataProcessCommon {
      * @param responseEntity
      * @param response
      * @param timeString
+     * @param size
      */
-    public void buildResponseHeader(ResponseEntity<byte[]> responseEntity, HttpServletResponse response, String timeString){
+    public void buildResponseHeader(ResponseEntity<byte[]> responseEntity, HttpServletResponse response, String timeString, int size){
         //把响应头返回回去
         HttpHeaders httpHeaders = responseEntity.getHeaders();
 
@@ -127,7 +128,7 @@ public class DataProcessCommon {
                     .map(entry -> entry.getKey() + ":" + String.join(",", "[" + String.join(",", entry.getValue()) + "]"))
                     .collect(Collectors.joining(","));
 
-            piBaseInfo = String.format("statusCode=%d,time=%s", statusCode,  timeString);
+            piBaseInfo = String.format("statusCode=%d,time=%s,size=%d", statusCode,  timeString,size);
 
         }
 

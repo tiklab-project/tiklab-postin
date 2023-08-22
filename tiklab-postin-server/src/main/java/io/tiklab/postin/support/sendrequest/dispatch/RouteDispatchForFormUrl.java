@@ -1,7 +1,6 @@
 package io.tiklab.postin.support.sendrequest.dispatch;
 
 import io.tiklab.core.exception.ApplicationException;
-import io.tiklab.core.exception.SystemException;
 import io.tiklab.postin.support.sendrequest.util.DataProcessCommon;
 import io.tiklab.postin.support.sendrequest.util.HttpMethodUtils;
 import io.tiklab.postin.support.sendrequest.HttpRequest;
@@ -85,10 +84,10 @@ public class RouteDispatchForFormUrl {
             Duration duration = Duration.between(startTime, endTime);
             long millis = duration.toMillis();
             String timeString = String.format("%d", millis);
-
+            int size = responseEntity.getBody().length;
 
             //响应头处理
-            dataProcessCommon.buildResponseHeader(responseEntity,response,timeString);
+            dataProcessCommon.buildResponseHeader(responseEntity,response,timeString, size);
 
 
             //response body
