@@ -13,13 +13,10 @@ import io.tiklab.postin.api.http.mock.model.ResponseResultMock;
 import io.tiklab.postin.api.http.mock.service.ResponseHeaderMockService;
 import io.tiklab.postin.api.http.mock.service.ResponseMockService;
 import io.tiklab.postin.api.http.mock.service.ResponseResultMockService;
-import io.tiklab.postin.api.http.mock.utils.MockProcess;
 import io.tiklab.core.exception.ApplicationException;
-import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.script.ScriptException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -58,13 +55,14 @@ public class MockServletResponse {
     public void actResponse(String mockId, HttpServletResponse response){
         ResponseMock responseMock = responseMockService.findResponseMock(mockId);
 
-        setHttpCode(response,responseMock.getTime(),responseMock.getHttpCode());
-
         StringBuilder headersBuilder= processMockHeader(mockId);
         setHeader(headersBuilder,responseMock.getBodyType(),response);
 
         String bodyData = processMockBody(mockId);
         setBody(bodyData,response);
+
+        int length = bodyData.length();
+        setHttpCode(response,responseMock.getTime(),responseMock.getHttpCode(),length);
     }
 
     /**
@@ -75,14 +73,17 @@ public class MockServletResponse {
         apiResponseQuery.setHttpId(apiId);
         List<ApiResponse> apiResponseList = apiResponseService.findApiResponseList(apiResponseQuery);
         ApiResponse apiResponse = apiResponseList.get(0);
-        //响应码
-        setHttpCode(response,0,apiResponse.getHttpCode().toString());
+
         //响应体
         String bodyData = processApiBody(apiResponse);
         setBody(bodyData,response);
         //响应头
         StringBuilder headersBuilder = processApiHeader(apiId);
         setHeader(headersBuilder,apiResponse.getDataType(),response);
+
+        int length = bodyData.length();
+        //响应码
+        setHttpCode(response,0,apiResponse.getHttpCode().toString(), length);
     };
 
 
@@ -181,7 +182,7 @@ public class MockServletResponse {
     /**
      *  设置到servlet中
      */
-    public void setHttpCode(HttpServletResponse response, Integer delayTime, String httpCode){
+    public void setHttpCode(HttpServletResponse response, Integer delayTime, String httpCode, int length){
         //添加随机毫秒
         int randomDelay = new Random().nextInt(1000);
         int time = delayTime + randomDelay;
@@ -191,7 +192,7 @@ public class MockServletResponse {
             throw new ApplicationException(e);
         }
 
-        String result = String.format("statusCode=%s,time=%d", httpCode,  time);
+        String result = String.format("statusCode=%s,time=%d,size=%d", httpCode, time,length);
 
         response.setHeader("pi-mock-baseInfo",result);
     }
