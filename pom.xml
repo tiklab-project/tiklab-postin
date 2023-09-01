@@ -13,7 +13,7 @@
     <artifactId>tiklab-postin</artifactId>
     <name>${project.artifactId}</name>
     <packaging>pom</packaging>
-    <version>1.0.0.4</version>
+    <version>1.0.0.5</version>
 
     <modules>
         <module>tiklab-postin-annotation</module>
@@ -35,19 +35,19 @@
         <tiklab-dcs.version>1.0.0.3</tiklab-dcs.version>
         <tiklab-dss.version>1.0.0.3</tiklab-dss.version>
         <tiklab-dss.version>1.0.0.3</tiklab-dss.version>
-        <tiklab-user.version>1.0.0.3</tiklab-user.version>
-        <tiklab-privilege.version>1.0.0.3</tiklab-privilege.version>
-        <tiklab-eam.version>1.0.0.3</tiklab-eam.version>
-        <tiklab-message.version>1.0.0.3</tiklab-message.version>
-        <tiklab-security.version>1.0.0.3</tiklab-security.version>
+        <tiklab-user.version>1.0.0.5</tiklab-user.version>
+        <tiklab-privilege.version>1.0.0.5</tiklab-privilege.version>
+        <tiklab-eam.version>1.0.0.5</tiklab-eam.version>
+        <tiklab-message.version>1.0.0.5</tiklab-message.version>
+        <tiklab-security.version>1.0.0.5</tiklab-security.version>
         <tiklab-toolkit.version>1.0.0.3</tiklab-toolkit.version>
         <tiklab-plugin.version>1.0.0.3</tiklab-plugin.version>
-        <tiklab-licence.version>1.0.0.3</tiklab-licence.version>
+        <tiklab-licence.version>1.0.0.5</tiklab-licence.version>
         <tiklab-gateway.version>1.0.0.3</tiklab-gateway.version>
-        <tiklab-todotask.version>1.0.0.3</tiklab-todotask.version>
-        <tiklab-jdk.version>1.0.0.3</tiklab-jdk.version>
+        <tiklab-todotask.version>1.0.0.5</tiklab-todotask.version>
         <tiklab-postgresql.version>1.0.0.3</tiklab-postgresql.version>
         <tiklab-upgrade.version>1.0.0.3</tiklab-upgrade.version>
+        <tiklab-jdk.version>1.0.0.3</tiklab-jdk.version>
 
         <!--第三方-->
         <xdoclet.version>1.2.3</xdoclet.version>
