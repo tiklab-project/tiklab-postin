@@ -52,6 +52,8 @@ file:
 homes:
   address: http://192.168.10.7
 
+postgresql:
+  type: local
 
 postin:
   enable: true
@@ -60,3 +62,7 @@ postin:
   report:
     workspaceId: 80c5a5b08417
     server: http://192.168.10.3:8090
+  backups:
+    dir: /data/postin
+    #    time: 0 */1 * * * ?
+    time: 0 0 2 * * ?

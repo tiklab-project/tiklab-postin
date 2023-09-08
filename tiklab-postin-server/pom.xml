@@ -6,7 +6,7 @@
     <parent>
         <groupId>io.tiklab</groupId>
         <artifactId>tiklab-postin</artifactId>
-        <version>1.0.0.5</version>
+        <version>1.0.2-SNAPSHOT</version>
     </parent>
     <artifactId>tiklab-postin-server</artifactId>
     <name>${project.artifactId}</name>
@@ -116,6 +116,10 @@
                 </exclusion>
             </exclusions>
             <version>1.0.2</version>
+        </dependency>
+        <dependency>
+            <groupId>io.tiklab</groupId>
+            <artifactId>tiklab-upgrade-starter</artifactId>
         </dependency>
 
     </dependencies>

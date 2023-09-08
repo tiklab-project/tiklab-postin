@@ -39,9 +39,9 @@ public class PostInDalAutoConfiguration {
                 "postin-platform_1.0.0",
 
         });
-//        dsmConfig.newVersion("1.0.1", new String[]{
-//
-//        });
+        dsmConfig.newVersion("1.0.1", new String[]{
+                "postin_1.0.1",
+        });
 
 
         return dsmConfig;

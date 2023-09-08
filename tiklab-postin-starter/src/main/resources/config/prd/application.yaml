@@ -51,3 +51,8 @@ file:
 homes:
   address: http://192.168.10.7
 
+postin:
+  backups:
+    dir: /data/postin
+    #    time: 0 */1 * * * ?
+    time: 0 0 2 * * ?
