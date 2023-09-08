@@ -34,25 +34,25 @@ public class DbRestoreServiceImpl implements DbRestoreService {
     private final static Logger logger = LoggerFactory.getLogger(DbRestoreServiceImpl.class);
 
 
-    private static final String run = "run";
-    private static final String success = "success";
-    private static final String error = "error";
+    public static final String run = "run";
+    public static final String success = "success";
+    public static final String error = "error";
 
-    private static final String type = "restore";
+    public static final String type = "restore";
 
     // 备份脚本
-    private static final String shScript = "backups.sh";
+    public static final String shScript = "backups.sh";
 
     // 结果文件
-    private static final String logResult = "restore.txt";
+    public static final String logResult = "restore.txt";
 
     // 默认值
-    private static final String defaultValues = "default";
+    public static final String defaultValues = "default";
 
     // 是否在执行
-    private static final Map<String,Backups> execMap = new HashMap<>();
+    public static final Map<String,Backups> execMap = new HashMap<>();
 
-    private static final Map<String,Backups> backupsMap = new HashMap<>();
+    public static final Map<String,Backups> backupsMap = new HashMap<>();
 
 
     @Value("${jdbc.url}")

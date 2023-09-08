@@ -32,23 +32,23 @@ public class DbBackupsServiceImpl implements DbBackupsService {
 
     private final static Logger logger = LoggerFactory.getLogger(DbBackupsServiceImpl.class);
 
-    private static final String run = "run";
-    private static final String success = "success";
-    private static final String error = "error";
+    public static final String run = "run";
+    public static final String success = "success";
+    public static final String error = "error";
 
-    private static final String type = "backups";
+    public static final String type = "backups";
 
 
     // 备份脚本
-    private static final String shScript = "backups.sh";
+    public static final String shScript = "backups.sh";
 
     // 结果文件
-    private static final String logResult = "result.txt";
+    public static final String logResult = "result.txt";
 
     // 默认值
-    private static final String defaultValues = "default";
+    public static final String defaultValues = "default";
     // 是否在执行
-    private static final Map<String, Backups> execMap = new HashMap<>();
+    public static final Map<String, Backups> execMap = new HashMap<>();
 
     @Value("${jdbc.url}")
     String jdbcUrl;
