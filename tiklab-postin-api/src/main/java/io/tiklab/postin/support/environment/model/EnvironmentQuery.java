@@ -11,6 +11,9 @@ import java.util.List;
 @ApiModel
 public class EnvironmentQuery {
 
+    @ApiProperty(name ="workspaceId",desc = "workspaceId")
+    private String workspaceId;
+
     @ApiProperty(name ="name",desc = "分类名称，模糊匹配")
     private String name;
 
@@ -19,6 +22,14 @@ public class EnvironmentQuery {
 
     @ApiProperty(name ="pageParam",desc = "分页参数")
     private Page pageParam = new Page();
+
+    public String getWorkspaceId() {
+        return workspaceId;
+    }
+
+    public void setWorkspaceId(String workspaceId) {
+        this.workspaceId = workspaceId;
+    }
 
     public String getName() {
         return name;

@@ -82,6 +82,7 @@ public class EnvironmentDao{
      */
     public List<EnvironmentEntity> findEnvironmentList(EnvironmentQuery environmentQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(EnvironmentEntity.class)
+                .eq("workspaceId",environmentQuery.getWorkspaceId())
                 .like("name", environmentQuery.getName())
                 .orders(environmentQuery.getOrderParams())
                 .get();
@@ -95,6 +96,7 @@ public class EnvironmentDao{
      */
     public Pagination<EnvironmentEntity> findEnvironmentPage(EnvironmentQuery environmentQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(EnvironmentEntity.class)
+                .eq("workspaceId",environmentQuery.getWorkspaceId())
                 .like("name", environmentQuery.getName())
                 .pagination(environmentQuery.getPageParam())
                 .orders(environmentQuery.getOrderParams())
