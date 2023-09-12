@@ -31,6 +31,7 @@ public class PostInDalAutoConfiguration {
                 //TodoTaskDsm
                 "todotask_1.0.0",
 
+                "backups_1.0.0",
 
                 //postin
                 "postin_1.0.0",

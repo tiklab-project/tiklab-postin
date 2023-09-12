@@ -46,15 +46,17 @@ public class ApiRequestServiceImpl implements ApiRequestService {
     public void updateApiRequest(@NotNull @Valid ApiRequest apiRequest) {
         ApiRequestEntity apiRequestEntity = BeanMapper.map(apiRequest, ApiRequestEntity.class);
 
-        //切换请求体，如果是json，没有找到，就会自动生成一个。
-        String httpId = apiRequest.getHttpId();
-        JsonParam isExsit = jsonParamService.findJsonParam(httpId);
-        if(isExsit==null){
-            JsonParam jsonParam = new JsonParam();
-            jsonParam.setId(httpId);
-            jsonParam.setHttpId(httpId);
-            jsonParam.setJsonText("{\"type\": \"object\",\"properties\": {}}");
-            jsonParamService.createJsonParam(jsonParam);
+        if("json".equals(apiRequest.getBodyType())){
+            //切换请求体，如果是json，没有找到，就会自动生成一个。
+            String httpId = apiRequest.getHttpId();
+            JsonParam isExsit = jsonParamService.findJsonParam(httpId);
+            if(isExsit==null){
+                JsonParam jsonParam = new JsonParam();
+                jsonParam.setId(httpId);
+                jsonParam.setHttpId(httpId);
+                jsonParam.setJsonText("{\"type\": \"object\",\"properties\": {}}");
+                jsonParamService.createJsonParam(jsonParam);
+            }
         }
 
         apiRequestDao.updateApiRequest(apiRequestEntity);

@@ -29,6 +29,17 @@ dcs:
     database: dcs1
     expire: 7200
 
+#dfs config
+dfs:
+  server:
+    #    enabled: true
+    #    mode:server
+    port: 4000
+    datapath: ${DATA_HOME}/files
+  client:
+    url: 172.10.1.11:4000
+    bucket: ${app.name}
+
 eas:
   embbed:
     enable: false
@@ -61,10 +72,6 @@ file:
 homes:
   address: http://192.168.10.7
 
-
-
-postin:
-  backups:
-    dir: /data/postin
-    #    time: 0 */1 * * * ?
-    time: 0 0 2 * * ?
+backups:
+  dir:  /data/eas
+  time: 0 0 2 * * ?
