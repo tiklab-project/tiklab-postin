@@ -33,8 +33,6 @@
         <tiklab-rpc.version>1.0.0.3</tiklab-rpc.version>
         <tiklab-dfs.version>1.0.0.3</tiklab-dfs.version>
         <tiklab-dcs.version>1.0.0.3</tiklab-dcs.version>
-        <tiklab-dss.version>1.0.0.3</tiklab-dss.version>
-        <tiklab-dss.version>1.0.0.3</tiklab-dss.version>
         <tiklab-user.version>1.0.0-SNAPSHOT</tiklab-user.version>
         <tiklab-privilege.version>1.0.0-SNAPSHOT</tiklab-privilege.version>
         <tiklab-eam.version>1.0.0-SNAPSHOT</tiklab-eam.version>
