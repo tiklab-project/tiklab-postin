@@ -5,7 +5,7 @@ import io.tiklab.postin.support.sendrequest.dispatch.*;
 import io.tiklab.postin.support.sendrequest.util.DataProcessCommon;
 import io.tiklab.postin.support.sendrequest.HttpRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.http.HttpHeaders;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -52,12 +52,15 @@ public class SendRequestServlet extends HttpServlet {
         HttpRequest httpRequest = dataProcessCommon.buildRequestInfo(request);
 
         String method = httpRequest.getMethod().toLowerCase();
+        HttpHeaders headers = httpRequest.getHeaders();
+
+        String contentType = headers.getContentType().toString();
 
         //get请求不需要content-type
         if(method.equals("get")){
             routeDispatchForGet.dispatch(request,response,httpRequest);
         }else {
-            String contentType = request.getContentType();
+
             if(contentType.contains("multipart/form-data")){
                 contentType = "multipart/form-data";
             }
@@ -81,10 +84,7 @@ public class SendRequestServlet extends HttpServlet {
                 default:
                     break;
             }
-
         }
-
-
     }
 
 
