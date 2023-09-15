@@ -76,5 +76,5 @@ postin:
     server: http://192.168.10.3:8090
 
 backups:
-  dir:  /data/eas
+  dir:  /data/postin
   time: 0 0 2 * * ?

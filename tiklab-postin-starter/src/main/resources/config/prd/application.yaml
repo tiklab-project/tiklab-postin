@@ -64,5 +64,5 @@ homes:
   address: http://192.168.10.7
 
 backups:
-  dir:  /data/eas
+  dir:  /data/postin
   time: 0 0 2 * * ?
