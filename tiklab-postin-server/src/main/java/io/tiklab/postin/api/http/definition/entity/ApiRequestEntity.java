@@ -30,11 +30,11 @@ public class ApiRequestEntity implements Serializable {
     private String bodyType;
 
     //前置脚本
-    @Column(name = "pre_script",length = 2048)
+    @Column(name = "pre_script")
     private String preScript;
 
     //后置脚本
-    @Column(name = "after_script",length = 2048)
+    @Column(name = "after_script")
     private String afterScript;
 
     public String getId() {
