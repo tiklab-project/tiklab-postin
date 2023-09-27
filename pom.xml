@@ -45,7 +45,7 @@
         <tiklab-todotask.version>1.0.0.5</tiklab-todotask.version>
         <tiklab-postgresql.version>1.0.0-SNAPSHOT</tiklab-postgresql.version>
         <tiklab-upgrade.version>1.0.0.3</tiklab-upgrade.version>
-        <tiklab-jdk.version>1.0.0.3</tiklab-jdk.version>
+        <tiklab-jdk.version>1.0.0.5</tiklab-jdk.version>
 
         <!--第三方-->
         <xdoclet.version>1.2.3</xdoclet.version>
