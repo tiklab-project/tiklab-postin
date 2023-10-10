@@ -161,10 +161,7 @@ public class MockServletRequest {
 
             //通过path找到相应的定义id
             for(Apix apix : httpList){
-                //通过apix 查询对应的httpApi，用于获取path
-                HttpApi httpApi = httpApiService.findHttpApi(apix.getId());
-
-                if(path.equals(httpApi.getPath())){
+                if(path.equals(apix.getPath())){
                     //apix 与 定义的id相同
                     httpApiId=apix.getId();
                 }

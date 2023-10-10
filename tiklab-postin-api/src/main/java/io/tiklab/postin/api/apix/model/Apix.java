@@ -18,13 +18,10 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 @ApiModel
 @Join
-//@Index
 @Mapper
 public class Apix extends BaseModel{
 
     @ApiProperty(name="id",desc="id")
-    //@IndexId
-    //@IndexField
     private java.lang.String id;
 
     @ApiProperty(name="category",desc="所属分类",eg="@selectOne",required = true)
@@ -32,20 +29,18 @@ public class Apix extends BaseModel{
             @Mapping(source = "category.id",target = "categoryId")
     })
     @JoinQuery(key = "id")
-    //@IndexField
     private Category category;
 
     @ApiProperty(name="name",desc="接口名称",required = true)
-    //@IndexField
-    //@IndexQueryField
     private java.lang.String name;
 
+    @ApiProperty(name="path",desc="路径",required = true)
+    private java.lang.String path;
+
     @ApiProperty(name="protocolType",desc="协议类型",required = true)
-    //@IndexField
     private java.lang.String protocolType;
 
     @ApiProperty(name="methodType",desc="请求类型",required = true)
-    //@IndexField
     private java.lang.String methodType;
 
     @ApiProperty(name="createUser",desc="创建人")
@@ -75,7 +70,6 @@ public class Apix extends BaseModel{
             @Mapping(source = "status.id",target = "statusId")
     })
     @JoinQuery(key = "id")
-    //@IndexField
     private ApiStatus status;
 
     @ApiProperty(name="executor",desc="责任人")
@@ -122,6 +116,14 @@ public class Apix extends BaseModel{
 
     public void setName(java.lang.String name) {
         this.name = name;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
     }
 
     public String getProtocolType() {

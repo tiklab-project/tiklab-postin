@@ -12,7 +12,6 @@ import io.tiklab.core.page.Pagination;
 import io.tiklab.core.page.PaginationBuilder;
 
 import io.tiklab.join.JoinTemplate;
-import io.tiklab.postin.api.http.definition.service.ApiResponseService;
 import io.tiklab.postin.api.http.definition.service.HttpApiService;
 import io.tiklab.postin.common.LogUnit;
 import io.tiklab.postin.common.PostInUnit;
@@ -30,6 +29,7 @@ import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import static io.tiklab.postin.common.EnumTemplateConstant.*;
 
@@ -68,12 +68,17 @@ public class ApixServiceImpl implements ApixService {
     public String createApix(@NotNull @Valid Apix apix) {
         ApixEntity apixEntity = BeanMapper.map(apix, ApixEntity.class);
 
+        if(apix.getId()!=null){
+            apixEntity.setId(apix.getId());
+        }else {
+            String id = postInUnit.generateId();
+            apixEntity.setId(id);
+        }
 
         //初始化项目成员
         String userId = LoginContext.getLoginId();
         apixEntity.setCreateUser(userId);
         apixEntity.setStatusId("developmentid");
-        apixEntity.setProtocolType("http");
 
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         apixEntity.setCreateTime(timestamp);
@@ -151,21 +156,12 @@ public class ApixServiceImpl implements ApixService {
     public void deleteApix(@NotNull String id) {
         ApixEntity apix = apixDao.findApix(id);
 
-        //日志
-        Map<String,String> map = new HashMap<>();
-        map.put("name",apix.getName());
-        map.put("id",apix.getId());
-        map.put("user",postInUnit.getUser().getNickname());
-        map.put("workspaceId",apix.getWorkspaceId());
-        map.put("mode","接口");
-        map.put("images","/images/log.png");
-        LoggingType oplogTypeOne = loggingTypeService.findOplogTypeOne(LOG_TYPE_DELETE_ID);
-        map.put("actionType",oplogTypeOne.getName());
+        if(Objects.equals(apix.getProtocolType(), "http")){
+            //http协议的接口。id与apix的公共表相同
+            httpApiService.deleteHttpApi(id);
+        }else {
 
-        logUnit.log(LOG_TYPE_DELETE_ID,"api",map);
-
-        //http协议的接口。id与apix的公共表相同
-        httpApiService.deleteHttpApi(id);
+        }
 
         //删除最近
         ApiRecentQuery apiRecentQuery = new ApiRecentQuery();

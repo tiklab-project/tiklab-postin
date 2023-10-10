@@ -131,6 +131,14 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         //拉入创建人 关联权限
         dmRoleService.initPatchDmRole(workspaceId,workspace.getUserList(), "postin");
 
+        //初始化一个mock
+        Environment environment = new Environment();
+        environment.setWorkspaceId(workspaceId);
+        environment.setName("Mock");
+        String mockUrl = baseUrl+"/mockx/"+workspaceId;
+        environment.setUrl(mockUrl);
+        environmentService.createEnvironment(environment);
+
         //日志
         Map<String,String> map = new HashMap<>();
         map.put("name",workspace.getWorkspaceName());
@@ -142,13 +150,6 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         map.put("actionType",oplogTypeOne.getName());
         logUnit.log(LOG_TYPE_CREATE_ID,"workspace",map);
 
-        //初始化一个mock
-        Environment environment = new Environment();
-        environment.setWorkspaceId(workspaceId);
-        environment.setName("Mock");
-        String mockUrl = baseUrl+"/mockx/"+workspaceId;
-        environment.setUrl(mockUrl);
-        environmentService.createEnvironment(environment);
 
         //消息
         //站内信

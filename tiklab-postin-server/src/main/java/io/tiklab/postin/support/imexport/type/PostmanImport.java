@@ -201,11 +201,11 @@ public class PostmanImport {
     private  String addApi(String categoryId,String name,String path,String method,String desc){
 
         HttpApi httpApi = new HttpApi();
-        httpApi.setPath(path);
         httpApi.setMethodType(method.toLowerCase());
 
         Apix apix = new Apix();
         apix.setName(name);
+        apix.setPath(path);
         apix.setDesc(desc);
         apix.setWorkspaceId(workspaceIds);
         Category category = new Category();

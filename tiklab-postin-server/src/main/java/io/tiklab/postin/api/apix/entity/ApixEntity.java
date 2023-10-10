@@ -19,6 +19,10 @@ public class ApixEntity implements Serializable {
     @Column(name = "name",length = 64)
     private String name;
 
+    //路径
+    @Column(name = "path",length = 256,notNull = true)
+    private String path;
+
     //所属分类
     @Column(name = "category_id",length = 40)
     private String categoryId;
@@ -92,6 +96,14 @@ public class ApixEntity implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
     }
 
     public String getCreateUser() {

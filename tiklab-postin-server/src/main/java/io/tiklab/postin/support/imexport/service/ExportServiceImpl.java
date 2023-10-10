@@ -184,7 +184,7 @@ public class ExportServiceImpl implements ExportService {
 
                         HttpApi httpApi = httpApiService.findHttpApi(apix.getId());
                         apiJson.put("methodType", httpApi.getMethodType());
-                        apiJson.put("path",httpApi.getPath());
+                        apiJson.put("path",apix.getPath());
                         apiJson.put("request",requestJson(httpApi));
                         apiJson.put("response",responseJson(httpApi.getId()));
 

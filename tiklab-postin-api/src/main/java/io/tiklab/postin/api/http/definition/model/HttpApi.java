@@ -23,8 +23,6 @@ import java.util.List;
 public class HttpApi extends BaseModel {
 
     @ApiProperty(name="id",desc="唯一ID")
-    //@IndexId
-    //@IndexField
     private java.lang.String id;
 
     @ApiProperty(name="apix",desc="所属接口公共定义",eg="@selectOne",required = true)
@@ -33,9 +31,6 @@ public class HttpApi extends BaseModel {
     })
     @JoinQuery(key = "id")
     private Apix apix;
-
-    @ApiProperty(name="path",desc="路径",required = true)
-    private String path;
 
     @ApiProperty(name="methodType",desc="请求类型",required = true)
     private String methodType;
@@ -66,15 +61,6 @@ public class HttpApi extends BaseModel {
 
     @ApiProperty(name = "responseResultList",desc="响应结果列表")
     private List<ApiResponse> responseResultList;
-
-
-    public String getPath() {
-        return path;
-    }
-
-    public void setPath(String path) {
-        this.path = path;
-    }
 
     public String getMethodType() {
         return methodType;
