@@ -2,7 +2,7 @@ package io.tiklab.postin.support.imexport.type;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import io.tiklab.postin.api.http.definition.model.JsonParam;
+import io.tiklab.postin.api.apix.model.JsonParam;
 import io.tiklab.postin.api.http.definition.model.JsonResponse;
 import io.tiklab.postin.support.imexport.common.FunctionImport;
 import io.tiklab.postin.support.imexport.utils.Md5;

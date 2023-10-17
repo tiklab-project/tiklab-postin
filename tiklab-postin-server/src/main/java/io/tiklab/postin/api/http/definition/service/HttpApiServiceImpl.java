@@ -1,8 +1,7 @@
 package io.tiklab.postin.api.http.definition.service;
 
-import io.tiklab.postin.api.apix.model.Apix;
-import io.tiklab.postin.api.apix.model.ApixQuery;
-import io.tiklab.postin.api.apix.service.ApixService;
+import io.tiklab.postin.api.apix.model.*;
+import io.tiklab.postin.api.apix.service.*;
 import io.tiklab.postin.api.http.definition.dao.HttpApiDao;
 import io.tiklab.postin.api.http.definition.entity.HttpApiEntity;
 import io.tiklab.postin.api.http.definition.model.*;
@@ -104,7 +103,7 @@ public class HttpApiServiceImpl implements HttpApiService {
         //初始化请求响应中的类型
         ApiRequest apiRequest = new ApiRequest();
         apiRequest.setId(id);
-        apiRequest.setHttpId(id);
+        apiRequest.setApiId(id);
         apiRequest.setBodyType("none");
         apiRequestService.createApiRequest(apiRequest);
 
@@ -209,13 +208,13 @@ public class HttpApiServiceImpl implements HttpApiService {
 
 
         //获取请求头中的数据
-        List<RequestHeader> requestHeaderList = requestHeaderService.findRequestHeaderList(new RequestHeaderQuery().setHttpId(httpId));
+        List<RequestHeader> requestHeaderList = requestHeaderService.findRequestHeaderList(new RequestHeaderQuery().setApiId(httpId));
         if(CollectionUtils.isNotEmpty(requestHeaderList)){
             httpApi.setHeaderList(requestHeaderList);
         }
 
         //获取查询参数的数据
-        List<QueryParam> queryParamList = queryParamService.findQueryParamList(new QueryParamQuery().setHttpId(httpId));
+        List<QueryParam> queryParamList = queryParamService.findQueryParamList(new QueryParamQuery().setApiId(httpId));
         if(CollectionUtils.isNotEmpty(queryParamList)){
             httpApi.setQueryList(queryParamList);
         }

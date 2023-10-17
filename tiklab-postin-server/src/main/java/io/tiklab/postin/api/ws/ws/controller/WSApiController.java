@@ -1,12 +1,10 @@
 package io.tiklab.postin.api.ws.ws.controller;
 
 import io.tiklab.core.Result;
-import io.tiklab.core.page.Pagination;
 import io.tiklab.postin.annotation.Api;
 import io.tiklab.postin.annotation.ApiMethod;
 import io.tiklab.postin.annotation.ApiParam;
 import io.tiklab.postin.api.ws.ws.model.WSApi;
-import io.tiklab.postin.api.ws.ws.model.WSApiQuery;
 import io.tiklab.postin.api.ws.ws.service.WSApiService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.util.List;
 
 
 /**
@@ -71,34 +68,6 @@ public class WSApiController {
         WSApi wsApi = wsApiService.findWSApi(id);
 
         return Result.ok(wsApi);
-    }
-
-    @RequestMapping(path="/findAllWSApi",method = RequestMethod.POST)
-    @ApiMethod(name = "findAllWSApi",desc = "查找所有接口")
-    public Result<List<WSApi>> findAllWSApi(){
-        List<WSApi> wsApiList = wsApiService.findAllWSApi();
-
-        return Result.ok(wsApiList);
-    }
-
-
-    @RequestMapping(path = "/findWSApiList",method = RequestMethod.POST)
-    @ApiMethod(name = "findWSApiList",desc = "根据查询对象查找接口列表")
-    @ApiParam(name = "wsApiQuery",desc = "查询对象",required = true)
-    public Result<List<WSApi>> findWSApiList(@RequestBody @Valid @NotNull WSApiQuery wsApiQuery){
-        List<WSApi> wsApiList = wsApiService.findWSApiList(wsApiQuery);
-
-        return Result.ok(wsApiList);
-    }
-
-
-    @RequestMapping(path = "/findWSApiPage",method = RequestMethod.POST)
-    @ApiMethod(name = "findWSApiPage",desc = "根据查询对象按分页查询接口列表")
-    @ApiParam(name = "wsApiQuery",desc = "查询对象",required = true)
-    public Result<Pagination<WSApi>> findWSApiPage(@RequestBody @Valid @NotNull WSApiQuery wsApiQuery){
-        Pagination<WSApi> pagination = wsApiService.findWSApiPage(wsApiQuery);
-
-        return Result.ok(pagination);
     }
 
 

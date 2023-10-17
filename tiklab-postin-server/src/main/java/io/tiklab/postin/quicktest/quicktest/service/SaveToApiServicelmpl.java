@@ -1,5 +1,13 @@
 package io.tiklab.postin.quicktest.quicktest.service;
 
+import io.tiklab.postin.api.apix.model.ApiRequest;
+import io.tiklab.postin.api.apix.model.QueryParam;
+import io.tiklab.postin.api.apix.model.RawParam;
+import io.tiklab.postin.api.apix.model.RequestHeader;
+import io.tiklab.postin.api.apix.service.ApiRequestService;
+import io.tiklab.postin.api.apix.service.QueryParamService;
+import io.tiklab.postin.api.apix.service.RawParamService;
+import io.tiklab.postin.api.apix.service.RequestHeaderService;
 import io.tiklab.postin.api.http.definition.model.*;
 import io.tiklab.postin.api.http.definition.service.*;
 import io.tiklab.postin.quicktest.model.SaveToApi;
@@ -46,7 +54,7 @@ public class SaveToApiServicelmpl implements SaveToApiService {
         List<RequestHeader> headerList = saveToApi.getHeaderList();
         if(headerList!=null){
            for(RequestHeader requestHeader : headerList){
-               requestHeader.setHttp(new HttpApi().setId(httpApiId));
+               requestHeader.setApiId(httpApiId);
                requestHeaderService.createRequestHeader(requestHeader);
            }
         }
@@ -55,7 +63,7 @@ public class SaveToApiServicelmpl implements SaveToApiService {
         List<QueryParam> queryList = saveToApi.getQueryList();
         if(queryList!=null){
             for(QueryParam queryParam:queryList){
-                queryParam.setHttp(new HttpApi().setId(httpApiId));
+                queryParam.setApiId(httpApiId);
                 queryParamService.createQueryParam(queryParam);
             }
         }
@@ -63,7 +71,7 @@ public class SaveToApiServicelmpl implements SaveToApiService {
         //由于创建接口的时候初始化了，所有这里只需要更新
         ApiRequest request = saveToApi.getRequest();
         request.setId(httpApiId);
-        request.setHttpId(httpApiId);
+        request.setApiId(httpApiId);
         apiRequestService.updateApiRequest(request);
 
 
@@ -89,7 +97,7 @@ public class SaveToApiServicelmpl implements SaveToApiService {
 
         RawParam raw = saveToApi.getRaw();
         if(raw!=null){
-            raw.setHttp(new HttpApi().setId(httpApiId));
+            raw.setApiId(httpApiId);
             raw.setId(httpApiId);
             rawParamService.createRawParam(raw);
         }

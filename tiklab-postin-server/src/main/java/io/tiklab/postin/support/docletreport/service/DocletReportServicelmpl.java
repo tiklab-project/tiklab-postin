@@ -1,13 +1,16 @@
 package io.tiklab.postin.support.docletreport.service;
 
 import com.alibaba.fastjson.JSONObject;
+import io.tiklab.postin.api.apix.model.ApiRequest;
+import io.tiklab.postin.api.apix.model.RawParam;
+import io.tiklab.postin.api.apix.service.ApiRequestService;
+import io.tiklab.postin.api.apix.service.RawParamService;
 import io.tiklab.postin.api.http.definition.model.*;
 import io.tiklab.postin.api.http.definition.service.*;
 import io.tiklab.postin.category.model.Category;
 import io.tiklab.postin.category.service.CategoryService;
 import io.tiklab.postin.support.docletreport.model.ApiReport;
 import io.tiklab.postin.support.docletreport.model.ModuleReport;
-import io.tiklab.postin.workspace.model.Workspace;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -127,7 +130,7 @@ public class DocletReportServicelmpl implements DocletReportService {
         //请求信息
         ApiRequest request = apiReport.getRequest();
         request.setId(apiId);
-        request.setHttpId(apiId);
+        request.setApiId(apiId);
         apiRequestService.updateApiRequest(apiReport.getRequest());
 
         //请求体
@@ -148,7 +151,7 @@ public class DocletReportServicelmpl implements DocletReportService {
                 case "json":
                 case "raw":
                     RawParam raw = apiReport.getRaw();
-                    raw.setHttp(httpApi);
+                    raw.setApiId(apiId);
                     rawParamService.createRawParam(raw);
                     break;
                 default:
@@ -182,7 +185,7 @@ public class DocletReportServicelmpl implements DocletReportService {
 
         ApiRequest request = apiReport.getRequest();
         request.setId(apiId);
-        request.setHttpId(apiId);
+        request.setApiId(apiId);
         apiRequestService.updateApiRequest(apiReport.getRequest());
 
         String bodyType = apiReport.getRequest().getBodyType();
@@ -214,7 +217,7 @@ public class DocletReportServicelmpl implements DocletReportService {
                 case "json":
                 case "raw":
                     RawParam raw = apiReport.getRaw();
-                    raw.setHttp(httpApi);
+                    raw.setApiId(apiId);
                     rawParamService.updateRawParam(raw);
                     break;
                 default:

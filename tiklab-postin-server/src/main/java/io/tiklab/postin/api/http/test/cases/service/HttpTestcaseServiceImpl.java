@@ -1,9 +1,9 @@
 package io.tiklab.postin.api.http.test.cases.service;
 
-import io.tiklab.postin.api.http.definition.model.ApiRequest;
-import io.tiklab.postin.api.http.definition.model.RawParam;
-import io.tiklab.postin.api.http.definition.service.ApiRequestService;
-import io.tiklab.postin.api.http.definition.service.RawParamService;
+import io.tiklab.postin.api.apix.model.ApiRequest;
+import io.tiklab.postin.api.apix.model.RawParam;
+import io.tiklab.postin.api.apix.service.ApiRequestService;
+import io.tiklab.postin.api.apix.service.RawParamService;
 import io.tiklab.postin.api.http.test.cases.dao.HttpTestcaseDao;
 import io.tiklab.postin.api.http.test.cases.entity.HttpTestcaseEntity;
 import io.tiklab.postin.api.http.test.cases.model.*;

@@ -3,6 +3,10 @@ package io.tiklab.postin.quicktest.model;
 import io.tiklab.core.BaseModel;
 import io.tiklab.postin.annotation.ApiModel;
 import io.tiklab.postin.annotation.ApiProperty;
+import io.tiklab.postin.api.apix.model.ApiRequest;
+import io.tiklab.postin.api.apix.model.QueryParam;
+import io.tiklab.postin.api.apix.model.RawParam;
+import io.tiklab.postin.api.apix.model.RequestHeader;
 import io.tiklab.postin.api.http.definition.model.*;
 
 import java.util.List;

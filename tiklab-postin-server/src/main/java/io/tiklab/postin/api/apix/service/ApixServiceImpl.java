@@ -13,6 +13,7 @@ import io.tiklab.core.page.PaginationBuilder;
 
 import io.tiklab.join.JoinTemplate;
 import io.tiklab.postin.api.http.definition.service.HttpApiService;
+import io.tiklab.postin.api.ws.ws.service.WSApiService;
 import io.tiklab.postin.common.LogUnit;
 import io.tiklab.postin.common.PostInUnit;
 
@@ -45,6 +46,9 @@ public class ApixServiceImpl implements ApixService {
 
     @Autowired
     HttpApiService httpApiService;
+
+    @Autowired
+    WSApiService wsApiService;
 
     @Autowired
     JoinTemplate joinTemplate;
@@ -160,7 +164,7 @@ public class ApixServiceImpl implements ApixService {
             //http协议的接口。id与apix的公共表相同
             httpApiService.deleteHttpApi(id);
         }else {
-
+            wsApiService.deleteWSApi(id);
         }
 
         //删除最近

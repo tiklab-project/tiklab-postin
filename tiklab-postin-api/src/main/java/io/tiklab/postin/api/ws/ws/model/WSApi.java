@@ -8,7 +8,9 @@ import io.tiklab.join.annotation.Join;
 import io.tiklab.join.annotation.JoinQuery;
 import io.tiklab.postin.annotation.ApiModel;
 import io.tiklab.postin.annotation.ApiProperty;
-import io.tiklab.postin.api.apix.model.Apix;
+import io.tiklab.postin.api.apix.model.*;
+
+import java.util.List;
 
 /**
  * ws 特有字段模型
@@ -18,9 +20,6 @@ import io.tiklab.postin.api.apix.model.Apix;
 @Mapper
 public class WSApi extends BaseModel {
 
-    @ApiProperty(name="id",desc="唯一ID")
-    private String id;
-
     @ApiProperty(name="apix",desc="所属接口公共定义")
     @Mappings({
             @Mapping(source = "apix.id",target = "apixId")
@@ -28,25 +27,22 @@ public class WSApi extends BaseModel {
     @JoinQuery(key = "id")
     private Apix apix;
 
-    @ApiProperty(name="path",desc="路径",required = true)
-    private String path;
 
-    public String getPath() {
-        return path;
-    }
+    @ApiProperty(name = "headerList",desc="请求头列表")
+    private List<RequestHeader> headerList;
 
-    public void setPath(String path) {
-        this.path = path;
-    }
+    @ApiProperty(name = "queryList",desc="查询参数列表")
+    private List<QueryParam> queryList;
 
-    public String getId() {
-        return id;
-    }
+    @ApiProperty(name = "request",desc="请求")
+    private ApiRequest request;
 
-    public WSApi setId(String id) {
-        this.id = id;
-        return this;
-    }
+    @ApiProperty(name = "jsonParam",desc="json")
+    private JsonParam jsonParam;
+
+    @ApiProperty(name = "raw",desc="raw")
+    private RawParam rawParam;
+
 
     public Apix getApix() {
         return apix;
@@ -56,5 +52,43 @@ public class WSApi extends BaseModel {
         this.apix = apix;
     }
 
+    public List<RequestHeader> getHeaderList() {
+        return headerList;
+    }
 
+    public void setHeaderList(List<RequestHeader> headerList) {
+        this.headerList = headerList;
+    }
+
+    public List<QueryParam> getQueryList() {
+        return queryList;
+    }
+
+    public void setQueryList(List<QueryParam> queryList) {
+        this.queryList = queryList;
+    }
+
+    public ApiRequest getRequest() {
+        return request;
+    }
+
+    public void setRequest(ApiRequest request) {
+        this.request = request;
+    }
+
+    public JsonParam getJsonParam() {
+        return jsonParam;
+    }
+
+    public void setJsonParam(JsonParam jsonParam) {
+        this.jsonParam = jsonParam;
+    }
+
+    public RawParam getRawParam() {
+        return rawParam;
+    }
+
+    public void setRawParam(RawParam rawParam) {
+        this.rawParam = rawParam;
+    }
 }

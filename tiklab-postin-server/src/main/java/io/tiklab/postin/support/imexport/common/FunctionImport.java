@@ -2,8 +2,8 @@ package io.tiklab.postin.support.imexport.common;
 
 import com.alibaba.fastjson.JSONObject;
 import io.tiklab.core.exception.ApplicationException;
-import io.tiklab.postin.api.apix.model.Apix;
-import io.tiklab.postin.api.apix.service.ApixService;
+import io.tiklab.postin.api.apix.model.*;
+import io.tiklab.postin.api.apix.service.*;
 import io.tiklab.postin.api.http.definition.model.*;
 import io.tiklab.postin.api.http.definition.service.*;
 import io.tiklab.postin.category.model.Category;
@@ -163,12 +163,9 @@ public class FunctionImport {
      * @param hVo
      */
     public void addHeader(HeaderParamImportVo hVo){
-        HttpApi httpApi = new HttpApi();
-        httpApi.setId(hVo.getMethodId());
-
         RequestHeader requestHeader = new RequestHeader();
 
-        requestHeader.setHttp(httpApi);
+        requestHeader.setApiId(hVo.getMethodId());
         requestHeader.setHeaderName(hVo.getName());
         requestHeader.setValue(hVo.getValue());
         requestHeader.setDesc(hVo.getDesc());
@@ -181,12 +178,9 @@ public class FunctionImport {
      * @param qVo
      */
     public void addQuery(QueryParamImportVo qVo){
-        HttpApi httpApi = new HttpApi();
-        httpApi.setId(qVo.getMethodId());
-
         QueryParam queryParam = new QueryParam();
 
-        queryParam.setHttp(httpApi);
+        queryParam.setApiId(qVo.getMethodId());
         queryParam.setParamName(qVo.getName());
         queryParam.setValue(qVo.getValue());
         queryParam.setDesc(qVo.getDesc());
@@ -204,7 +198,7 @@ public class FunctionImport {
 
         apiRequest.setId(methodId);
         apiRequest.setBodyType(requestBody);
-        apiRequest.setHttpId(methodId);
+        apiRequest.setApiId(methodId);
 
         apiRequestService.createApiRequest(apiRequest);
     }
@@ -257,19 +251,19 @@ public class FunctionImport {
     public String addJsonParam(JsonParamImportVo jVo){
 
 
-        JsonParam jsonParam = new JsonParam();
+//        JsonParam jsonParam = new JsonParam();
+//
+//        jsonParam.setParamName(jVo.getName());
+//        jsonParam.setValue(jVo.getValue());
+//        jsonParam.setDataType(jVo.getDataType());
+//        jsonParam.setRequired(jVo.getRequired());
+//        jsonParam.setDesc(jVo.getDesc());
+//        jsonParam.setHttpId(jVo.getMethodId());
+//        jsonParam.setParent(jVo.getParentId());
+//
+//        String parentid = jsonParamService.createJsonParam(jsonParam);
 
-        jsonParam.setParamName(jVo.getName());
-        jsonParam.setValue(jVo.getValue());
-        jsonParam.setDataType(jVo.getDataType());
-        jsonParam.setRequired(jVo.getRequired());
-        jsonParam.setDesc(jVo.getDesc());
-        jsonParam.setHttpId(jVo.getMethodId());
-        jsonParam.setParent(jVo.getParentId());
-
-        String parentid = jsonParamService.createJsonParam(jsonParam);
-
-        return parentid;
+        return null;
     }
 
     /**
@@ -279,15 +273,12 @@ public class FunctionImport {
      * @param rawData
      */
     public void addRaw(String methodId, String rawType, String rawData){
-        HttpApi rawMethod = new HttpApi();
-        rawMethod.setId(methodId);
-
         RawParam rawParam = new RawParam();
 
         rawParam.setRaw(rawData);
         rawParam.setType(rawType);
         rawParam.setId(methodId);
-        rawParam.setHttp(rawMethod);
+        rawParam.setApiId(methodId);
 
         rawParamService.createRawParam(rawParam);
     }

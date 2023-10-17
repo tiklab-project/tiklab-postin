@@ -4,8 +4,8 @@ package io.tiklab.postin.support.imexport.type;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import io.tiklab.core.exception.ApplicationException;
-import io.tiklab.postin.api.apix.model.Apix;
-import io.tiklab.postin.api.apix.service.ApixService;
+import io.tiklab.postin.api.apix.model.*;
+import io.tiklab.postin.api.apix.service.*;
 import io.tiklab.postin.api.http.definition.model.*;
 import io.tiklab.postin.api.http.definition.service.*;
 import io.tiklab.postin.category.model.Category;
@@ -230,7 +230,7 @@ public class PostmanImport {
 
                 RequestHeader requestHeader = new RequestHeader();
 
-                requestHeader.setHttp(new HttpApi().setId(methodId));
+                requestHeader.setApiId(methodId);
                 requestHeader.setHeaderName(headerObj.getString("key"));
                 requestHeader.setValue(headerObj.getString("value"));
                 requestHeader.setRequired(1);
@@ -249,7 +249,7 @@ public class PostmanImport {
                 JSONObject queryObj = query.getJSONObject(qi);
 
                 QueryParam queryParam = new QueryParam();
-                queryParam.setHttp(new HttpApi().setId(methodId));
+                queryParam.setApiId(methodId);
                 queryParam.setParamName(queryObj.getString("key"));
                 queryParam.setValue(queryObj.getString("value"));
                 queryParam.setRequired(1);
@@ -297,7 +297,7 @@ public class PostmanImport {
 
         apiRequest.setId(methodId);
         apiRequest.setBodyType(requestBody);
-        apiRequest.setHttpId(methodId);
+        apiRequest.setApiId(methodId);
 
         apiRequestService.updateApiRequest(apiRequest);
     }
@@ -374,7 +374,7 @@ public class PostmanImport {
             rawParam.setRaw(rawData);
             rawParam.setType(rawType);
             rawParam.setId(methodId);
-            rawParam.setHttp(new HttpApi().setId(methodId));
+            rawParam.setApiId(methodId);
 
             rawParamService.createRawParam(rawParam);
         }

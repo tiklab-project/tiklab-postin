@@ -1,6 +1,8 @@
 package io.tiklab.postin.support.docletreport.model;
 
 import io.tiklab.postin.annotation.ApiModel;
+import io.tiklab.postin.api.apix.model.ApiRequest;
+import io.tiklab.postin.api.apix.model.RawParam;
 import io.tiklab.postin.api.http.definition.model.*;
 
 import java.util.List;

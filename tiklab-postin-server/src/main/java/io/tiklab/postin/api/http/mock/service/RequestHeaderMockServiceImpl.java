@@ -2,8 +2,8 @@ package io.tiklab.postin.api.http.mock.service;
 
 import io.tiklab.dal.jpa.criterial.condition.DeleteCondition;
 import io.tiklab.dal.jpa.criterial.conditionbuilder.DeleteBuilders;
+import io.tiklab.join.JoinTemplate;
 import io.tiklab.postin.api.http.mock.dao.RequestHeaderMockDao;
-import io.tiklab.postin.api.http.mock.entity.MockEntity;
 import io.tiklab.postin.api.http.mock.entity.RequestHeaderMockEntity;
 import io.tiklab.postin.api.http.mock.model.RequestHeaderMock;
 import io.tiklab.postin.api.http.mock.model.RequestHeaderMockQuery;
@@ -11,7 +11,7 @@ import io.tiklab.postin.api.http.mock.model.RequestHeaderMockQuery;
 import io.tiklab.core.page.Pagination;
 import io.tiklab.beans.BeanMapper;
 import io.tiklab.core.page.PaginationBuilder;
-import io.tiklab.join.JoinTemplate;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,7 +1,7 @@
 package io.tiklab.postin.support.imexport.model;
 
 import io.tiklab.postin.annotation.ApiProperty;
-import io.tiklab.postin.api.http.definition.model.JsonParam;
+import io.tiklab.postin.api.apix.model.JsonParam;
 
 /**
  * 导入
