@@ -455,12 +455,12 @@
                         <artifactItem>
                             <groupId>io.tiklab</groupId>
                             <artifactId>tiklab-postin-exportpdf-plugin</artifactId>
-                            <version>1.0.0.3</version>
+                            <version>1.0.2-SNAPSHOT</version>
                         </artifactItem>
                         <artifactItem>
                             <groupId>io.tiklab</groupId>
                             <artifactId>tiklab-postin-version-plugin</artifactId>
-                            <version>1.0.0.3</version>
+                            <version>1.0.2-SNAPSHOT</version>
                         </artifactItem>
                     </artifactItems>
                     <includeTypes>jar</includeTypes>
