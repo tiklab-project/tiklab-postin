@@ -3,6 +3,7 @@ package io.tiklab.postin.api.apix.model;
 
 import io.tiklab.beans.annotation.Mapper;
 import io.tiklab.core.BaseModel;
+import io.tiklab.join.annotation.Join;
 import io.tiklab.postin.annotation.ApiModel;
 import io.tiklab.postin.annotation.ApiProperty;
 
@@ -10,6 +11,7 @@ import io.tiklab.postin.annotation.ApiProperty;
  * 接口定义中请求区的模型
  */
 @ApiModel
+@Join
 @Mapper
 public class ApiRequest extends BaseModel {
 

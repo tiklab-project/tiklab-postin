@@ -7,7 +7,9 @@ import io.tiklab.postin.api.apix.model.ApiRequest;
 import io.tiklab.postin.api.apix.model.QueryParam;
 import io.tiklab.postin.api.apix.model.RawParam;
 import io.tiklab.postin.api.apix.model.RequestHeader;
-import io.tiklab.postin.api.http.definition.model.*;
+import io.tiklab.postin.api.http.definition.model.FormParam;
+import io.tiklab.postin.api.http.definition.model.FormUrlencoded;
+import io.tiklab.postin.api.http.definition.model.HttpApi;
 
 import java.util.List;
 
