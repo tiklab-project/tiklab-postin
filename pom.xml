@@ -47,6 +47,9 @@
         <tiklab-upgrade.version>1.0.0.3</tiklab-upgrade.version>
         <tiklab-jdk.version>1.0.0.5</tiklab-jdk.version>
 
+        <tiklab-postin-exportpdf-plugin.version>1.0.2-SNAPSHOT</tiklab-postin-exportpdf-plugin.version>
+        <tiklab-postin-version-plugin.version>1.0.2-SNAPSHOT</tiklab-postin-version-plugin.version>
+
         <!--第三方-->
         <xdoclet.version>1.2.3</xdoclet.version>
         <maven-invoker.version>3.1.0</maven-invoker.version>
