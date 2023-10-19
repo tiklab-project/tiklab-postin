@@ -7,13 +7,13 @@
     <parent>
         <groupId>io.tiklab</groupId>
         <artifactId>tiklab-dependencies</artifactId>
-        <version>1.0.0.3</version>
+        <version>1.0.0</version>
     </parent>
     <groupId>io.tiklab</groupId>
     <artifactId>tiklab-postin</artifactId>
     <name>${project.artifactId}</name>
     <packaging>pom</packaging>
-    <version>1.0.2-SNAPSHOT</version>
+    <version>1.0.0</version>
 
     <modules>
         <module>tiklab-postin-annotation</module>
@@ -27,28 +27,28 @@
     <properties>
 
         <!--平台-->
-        <tiklab-core.version>1.0.0.3</tiklab-core.version>
-        <tiklab-dss.version>1.0.0.3</tiklab-dss.version>
-        <tiklab-dal.version>1.0.0.3</tiklab-dal.version>
-        <tiklab-rpc.version>1.0.0.3</tiklab-rpc.version>
-        <tiklab-dfs.version>1.0.0.3</tiklab-dfs.version>
-        <tiklab-dcs.version>1.0.0.3</tiklab-dcs.version>
-        <tiklab-toolkit.version>1.0.0.3</tiklab-toolkit.version>
-        <tiklab-gateway.version>1.0.0.3</tiklab-gateway.version>
-        <tiklab-plugin.version>1.0.0.3</tiklab-plugin.version>
-        <tiklab-user.version>1.0.0-SNAPSHOT</tiklab-user.version>
-        <tiklab-privilege.version>1.0.0-SNAPSHOT</tiklab-privilege.version>
-        <tiklab-eam.version>1.0.0-SNAPSHOT</tiklab-eam.version>
-        <tiklab-message.version>1.0.0-SNAPSHOT</tiklab-message.version>
-        <tiklab-security.version>1.0.0-SNAPSHOT</tiklab-security.version>
-        <tiklab-licence.version>1.0.0-SNAPSHOT</tiklab-licence.version>
-        <tiklab-todotask.version>1.0.0-SNAPSHOT</tiklab-todotask.version>
-        <tiklab-postgresql.version>1.0.0-SNAPSHOT</tiklab-postgresql.version>
-        <tiklab-upgrade.version>1.0.0.3</tiklab-upgrade.version>
-        <tiklab-jdk.version>1.0.0.5</tiklab-jdk.version>
+        <tiklab-core.version>1.0.0</tiklab-core.version>
+        <tiklab-dss.version>1.0.0</tiklab-dss.version>
+        <tiklab-dal.version>1.0.0</tiklab-dal.version>
+        <tiklab-rpc.version>1.0.0</tiklab-rpc.version>
+        <tiklab-dfs.version>1.0.0</tiklab-dfs.version>
+        <tiklab-dcs.version>1.0.0</tiklab-dcs.version>
+        <tiklab-toolkit.version>1.0.0</tiklab-toolkit.version>
+        <tiklab-gateway.version>1.0.0</tiklab-gateway.version>
+        <tiklab-plugin.version>1.0.0</tiklab-plugin.version>
+        <tiklab-user.version>1.0.0</tiklab-user.version>
+        <tiklab-privilege.version>1.0.0</tiklab-privilege.version>
+        <tiklab-eam.version>1.0.0</tiklab-eam.version>
+        <tiklab-message.version>1.0.0</tiklab-message.version>
+        <tiklab-security.version>1.0.0</tiklab-security.version>
+        <tiklab-licence.version>1.0.0</tiklab-licence.version>
+        <tiklab-todotask.version>1.0.0</tiklab-todotask.version>
+        <tiklab-postgresql.version>1.0.0</tiklab-postgresql.version>
+        <tiklab-upgrade.version>1.0.0</tiklab-upgrade.version>
+        <tiklab-jdk.version>1.0.0</tiklab-jdk.version>
 
-        <tiklab-postin-exportpdf-plugin.version>1.0.2-SNAPSHOT</tiklab-postin-exportpdf-plugin.version>
-        <tiklab-postin-version-plugin.version>1.0.2-SNAPSHOT</tiklab-postin-version-plugin.version>
+        <tiklab-postin-exportpdf-plugin.version>1.0.0</tiklab-postin-exportpdf-plugin.version>
+        <tiklab-postin-version-plugin.version>1.0.0</tiklab-postin-version-plugin.version>
 
         <!--第三方-->
         <xdoclet.version>1.2.3</xdoclet.version>
