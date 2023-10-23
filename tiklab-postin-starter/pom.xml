@@ -382,7 +382,8 @@
                             <descriptors>
                                 <descriptor>assembly/distribution-${assembly}.xml</descriptor>
                             </descriptors>
-                            <finalName>tiklab-postin-${version}-${timestamp}</finalName>
+<!--                            <finalName>tiklab-postin-${version}-${timestamp}</finalName>-->
+                            <finalName>tiklab-postin-${version}</finalName>
                             <appendAssemblyId>false</appendAssemblyId>
                         </configuration>
                         <phase>package</phase>
