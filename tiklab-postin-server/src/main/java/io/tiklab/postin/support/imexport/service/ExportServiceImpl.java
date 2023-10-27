@@ -185,12 +185,14 @@ public class ExportServiceImpl implements ExportService {
                         apiJson.put("protocolType", apix.getProtocolType());
                         apiJson.put("updateTime", apix.getUpdateTime());
                         apiJson.put("status",statusJson(apix.getStatus()));
-
-                        HttpApi httpApi = httpApiService.findHttpApi(apix.getId());
-                        apiJson.put("methodType", httpApi.getMethodType());
                         apiJson.put("path",apix.getPath());
-                        apiJson.put("request",requestJson(httpApi));
-                        apiJson.put("response",responseJson(httpApi.getId()));
+
+                        if("http".equals(apix.getProtocolType())){
+                            HttpApi httpApi = httpApiService.findHttpApi(apix.getId());
+                            apiJson.put("methodType", httpApi.getMethodType());
+                            apiJson.put("request",requestJson(httpApi));
+                            apiJson.put("response",responseJson(httpApi.getId()));
+                        }
 
                         apiList.add(apiJson);
                     }

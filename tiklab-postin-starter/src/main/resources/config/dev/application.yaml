@@ -57,7 +57,7 @@ licences:
   path: ${DATA_HOME}/licences
 
 base:
-  url: http://192.168.10.12:8090
+  url: http://192.168.10.21:8090
 
 file:
   path:
@@ -73,7 +73,7 @@ postin:
     package: io.tiklab
   report:
     workspaceId: 80c5a5b08417
-    server: http://192.168.10.3:8090
+    server: http://192.168.10.21:8090
 
 backups:
   dir:  /data/postin

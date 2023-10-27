@@ -12,6 +12,7 @@ import io.tiklab.postin.annotation.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -33,7 +34,8 @@ public class HttpApiController {
     @Autowired
     private HttpApiService httpApiService;
 
-
+    @Value("${base.url:null}")
+    String serverUrl;
 
     @RequestMapping(path="/createHttpApi",method = RequestMethod.POST)
     @ApiMethod(name = "createHttpApi",desc = "创建接口")
@@ -109,5 +111,11 @@ public class HttpApiController {
         return Result.ok(httpApiList);
     }
 
+    @RequestMapping(path = "/findServerUrl",method = RequestMethod.GET)
+    @ApiMethod(name = "findServerUrl",desc = "获取服务端地址")
+    public Result<String> findMockUrl(){
+
+        return Result.ok(serverUrl);
+    }
 
 }
