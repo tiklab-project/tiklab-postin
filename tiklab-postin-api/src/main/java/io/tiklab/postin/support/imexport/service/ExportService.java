@@ -6,9 +6,9 @@ import java.io.IOException;
 public interface ExportService {
 
 
-    public String generateHtml(String workspaceId) throws IOException;
+     String generateHtml(String workspaceId) throws IOException;
 
-    public String allJson(String workspaceId);
+     String allJson(String workspaceId);
 
 
 }

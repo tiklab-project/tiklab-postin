@@ -1,7 +1,5 @@
 package io.tiklab.postin.support.imexport.service;
 
-
-
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
@@ -10,12 +8,10 @@ import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import io.tiklab.core.exception.ApplicationException;
 import io.tiklab.postin.api.apix.model.*;
-import io.tiklab.postin.api.apix.service.ApiRequestService;
-import io.tiklab.postin.api.apix.service.QueryParamService;
-import io.tiklab.postin.api.apix.service.RawParamService;
-import io.tiklab.postin.api.apix.service.RequestHeaderService;
 import io.tiklab.postin.api.http.definition.model.*;
 import io.tiklab.postin.api.http.definition.service.*;
+import io.tiklab.postin.api.ws.ws.model.WSApi;
+import io.tiklab.postin.api.ws.ws.service.WSApiService;
 import io.tiklab.postin.category.model.Category;
 import io.tiklab.postin.category.model.CategoryQuery;
 import io.tiklab.postin.category.service.CategoryService;
@@ -50,32 +46,18 @@ public class ExportServiceImpl implements ExportService {
     HttpApiService httpApiService;
 
     @Autowired
-    RequestHeaderService requestHeaderService;
-
-    @Autowired
-    QueryParamService queryParamService;
-
-    @Autowired
-    ApiRequestService apiRequestService;
-
-    @Autowired
-    FormParamService formParamService;
-
-    @Autowired
-    FormUrlencodedService formUrlencodedService;
-
-    @Autowired
-    RawParamService rawParamService;
-
-    @Autowired
     ApiResponseService apiResponseService;
 
     @Autowired
     ResponseHeaderService responseHeaderService;
 
 
+    @Autowired
+    WSApiService wsApiService;
 
-
+    /**
+     * 构造函数
+     */
     public ExportServiceImpl() {
         // 初始化 FreeMarker 配置
         configuration = new Configuration(Configuration.VERSION_2_3_25);
@@ -111,11 +93,9 @@ public class ExportServiceImpl implements ExportService {
         return writer.toString();
     }
 
-
     /**
      * 总的json
-     * @param workspaceId
-     * @return
+     * 数据构造
      */
     @Override
     public String allJson(String workspaceId){
@@ -128,7 +108,6 @@ public class ExportServiceImpl implements ExportService {
 
         return allJson.toString();
     }
-
 
     /**
      * 获取空间项目的json
@@ -190,8 +169,13 @@ public class ExportServiceImpl implements ExportService {
                         if("http".equals(apix.getProtocolType())){
                             HttpApi httpApi = httpApiService.findHttpApi(apix.getId());
                             apiJson.put("methodType", httpApi.getMethodType());
-                            apiJson.put("request",requestJson(httpApi));
-                            apiJson.put("response",responseJson(httpApi.getId()));
+                            apiJson.put("request",httpRequestJson(httpApi));
+                            apiJson.put("response",httpResponseJson(httpApi.getId()));
+                        }
+
+                        if("ws".equals(apix.getProtocolType())){
+                            WSApi wsApi = wsApiService.findWSApi(apix.getId());
+                            apiJson.put("request",wsRequest(wsApi));
                         }
 
                         apiList.add(apiJson);
@@ -227,18 +211,18 @@ public class ExportServiceImpl implements ExportService {
     }
 
     /**
-     * 请求部分
+     * http请求部分
      */
-    private JSONObject requestJson(HttpApi httpApi){
+    private JSONObject httpRequestJson(HttpApi httpApi){
 
         ApiRequest apiRequest = httpApi.getRequest();
 
         //获取数据
         JSONObject json = new JSONObject();
         json.put("id",apiRequest.getId());
-        json.put("header",headerJson(httpApi));
-        json.put("query",queryJson(httpApi));
-        json.put("body",bodyJson(httpApi));
+        json.put("header",requestHeader(httpApi.getHeaderList()));
+        json.put("query",requestQuery(httpApi.getQueryList()));
+        json.put("body",httpBody(httpApi));
         json.put("preScript",apiRequest.getPreScript());
         json.put("afterScript",apiRequest.getAfterScript());
 
@@ -246,13 +230,15 @@ public class ExportServiceImpl implements ExportService {
     }
 
     /**
+     * http ws
      * header
+     * @param headerList
      */
-    private JSONArray headerJson(HttpApi httpApi){
+    private JSONArray requestHeader(List<RequestHeader> headerList){
         JSONArray headerArr = new JSONArray();
 
-        if(httpApi.getHeaderList()!=null&&httpApi.getHeaderList().size()>0){
-            for(RequestHeader requestHeader : httpApi.getHeaderList()){
+        if(headerList!=null&&headerList.size()>0){
+            for(RequestHeader requestHeader : headerList){
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put("name",requestHeader.getHeaderName());
                 jsonObject.put("value",requestHeader.getValue());
@@ -269,13 +255,15 @@ public class ExportServiceImpl implements ExportService {
     }
 
     /**
-     * query
+     * http ws
+     * Query
+     * @param queryList
      */
-    private JSONArray queryJson(HttpApi httpApi){
+    private JSONArray requestQuery(List<QueryParam> queryList){
         JSONArray queryArr = new JSONArray();
 
-        if(httpApi.getQueryList()!=null&&httpApi.getQueryList().size()>0){
-            for(QueryParam queryParam : httpApi.getQueryList()){
+        if(queryList!=null&&queryList.size()>0){
+            for(QueryParam queryParam : queryList){
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put("name",queryParam.getParamName());
                 jsonObject.put("value",queryParam.getValue());
@@ -291,11 +279,38 @@ public class ExportServiceImpl implements ExportService {
         return queryArr;
     }
 
+    /**
+     * http ws
+     * raw
+     */
+    private Object rawData(RawParam rawParam) {
+        JSONObject json = new JSONObject();
+
+        json.put("raw",rawParam.getRaw());
+        json.put("rawType",rawParam.getType());
+        json.put("id",rawParam.getId());
+
+        return json;
+    }
 
     /**
-     * 请求体的信息
+     * http ws
+     * json
      */
-    private JSONObject bodyJson(HttpApi httpApi){
+    private Object jsonData(JsonParam jsonParam) {
+        JSONObject json = new JSONObject();
+
+        json.put("jsonText",jsonParam.getJsonText());
+        json.put("id",jsonParam.getId());
+
+        return json;
+    }
+
+
+    /**
+     * http 请求体的信息
+     */
+    private JSONObject httpBody(HttpApi httpApi){
 
         String bodyType = httpApi.getRequest().getBodyType();
 
@@ -309,6 +324,9 @@ public class ExportServiceImpl implements ExportService {
             case "formUrlencoded":
                 json.put("formUrlencoded",formUrl(httpApi.getUrlencodedList()));
                 break;
+            case "json":
+                json.put("json",jsonData(httpApi.getJsonParam()));
+                break;
             case "raw":
                 json.put("raw",rawData(httpApi.getRawParam()));
                 break;
@@ -318,7 +336,7 @@ public class ExportServiceImpl implements ExportService {
     }
 
     /**
-     * form
+     * http form
      */
     private JSONArray formData(List<FormParam> formList){
         JSONArray formArr = new JSONArray();
@@ -342,7 +360,7 @@ public class ExportServiceImpl implements ExportService {
     }
 
     /**
-     * formUrlencoded
+     * http formUrlencoded
      */
     private Object formUrl(List<FormUrlencoded> formUrlList) {
         JSONArray formUrlJson = new JSONArray();
@@ -366,23 +384,9 @@ public class ExportServiceImpl implements ExportService {
     }
 
     /**
-     * raw
+     * http response
      */
-    private Object rawData(RawParam rawParam) {
-        JSONObject json = new JSONObject();
-
-        json.put("raw",rawParam.getRaw());
-        json.put("rawType",rawParam.getType());
-        json.put("id",rawParam.getId());
-
-        return json;
-    }
-
-    /**
-     * response
-     */
-
-    private JSONObject responseJson(String httpId){
+    private JSONObject httpResponseJson(String httpId){
         JSONObject json = new JSONObject();
 
         json.put("header",responseHeaderList(httpId));
@@ -391,7 +395,9 @@ public class ExportServiceImpl implements ExportService {
         return json;
     }
 
-
+    /**
+     * http response
+     */
     private JSONArray responseResultList(String httpId){
 
         List<ApiResponse> apiResponseList = apiResponseService.findApiResponseList(new ApiResponseQuery().setHttpId(httpId));
@@ -419,7 +425,7 @@ public class ExportServiceImpl implements ExportService {
     }
 
     /**
-     * 响应头
+     * http 响应头
      */
     private JSONArray responseHeaderList(String httpId){
         List<ResponseHeader> responseHeaderList = responseHeaderService.findResponseHeaderList(new ResponseHeaderQuery().setHttpId(httpId));
@@ -443,5 +449,37 @@ public class ExportServiceImpl implements ExportService {
         return array;
     }
 
+
+    /**
+     * ws
+     * @param wsApi
+     */
+    private JSONObject wsRequest(WSApi wsApi){
+        JSONObject wsRequestJson = new JSONObject();
+        wsRequestJson.put("header",requestHeader(wsApi.getHeaderList()));
+        wsRequestJson.put("query",requestQuery(wsApi.getQueryList()));
+        wsRequestJson.put("body",wsBody(wsApi));
+
+        return wsRequestJson;
+    }
+
+    /**
+     * ws body
+     */
+    private JSONObject wsBody(WSApi wsApi){
+        String bodyType = wsApi.getRequest().getBodyType();
+        JSONObject json = new JSONObject();
+        json.put("bodyType",bodyType);
+        switch (bodyType){
+            case "json":
+                json.put("json",jsonData(wsApi.getJsonParam()));
+                break;
+            case "raw":
+                json.put("raw",rawData(wsApi.getRawParam()));
+                break;
+        }
+
+        return json;
+    }
 
 }
