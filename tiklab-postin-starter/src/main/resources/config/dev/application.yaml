@@ -41,10 +41,10 @@ dfs:
 
 eas:
   embbed:
-    enable: true
-#  address: http://eas.dev.tiklab.net
-#  web:
-#    address: http://eas.dev.tiklab.net
+    enable: false
+  address: http://192.168.10.34:8080
+  web:
+    address: http://192.168.10.34:8080
 
 
 
