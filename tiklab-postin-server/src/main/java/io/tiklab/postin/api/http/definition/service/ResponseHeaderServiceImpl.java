@@ -54,7 +54,7 @@ public class ResponseHeaderServiceImpl implements ResponseHeaderService {
     @Override
     public void deleteAllResponseHeader(String id) {
         DeleteCondition deleteCondition = DeleteBuilders.createDelete(ResponseHeaderEntity.class)
-                .eq("apiId", id)
+                .eq("httpId", id)
                 .get();
         responseHeaderDao.deleteResponseHeaderList(deleteCondition);
     }

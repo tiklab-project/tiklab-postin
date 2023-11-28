@@ -54,7 +54,6 @@ public class RouteDispatchForJson {
             //构建请求entity
             RequestEntity<byte[]> requestEntity = this.buildRequestEntityForJson(request,httpRequest);
 
-
             //请求开始时间
             Instant startTime = Instant.now();
 

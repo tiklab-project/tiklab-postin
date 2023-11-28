@@ -46,6 +46,8 @@
         <tiklab-upgrade.version>1.0.0</tiklab-upgrade.version>
         <tiklab-jdk.version>1.0.0</tiklab-jdk.version>
         <tiklab-plugin.version>1.0.1-SNAPSHOT</tiklab-plugin.version>
+        <tiklab-openapi.version>1.0.0-SNAPSHOT</tiklab-openapi.version>
+
 
 
         <tiklab-postin-exportpdf-plugin.version>1.0.1-SNAPSHOT</tiklab-postin-exportpdf-plugin.version>
@@ -137,6 +139,11 @@
                 <groupId>io.tiklab</groupId>
                 <artifactId>tiklab-privilege-spring-boot-starter</artifactId>
                 <version>${tiklab-privilege.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.tiklab</groupId>
+                <artifactId>tiklab-openapi-spring-boot-starter</artifactId>
+                <version>${tiklab-openapi.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.tiklab</groupId>

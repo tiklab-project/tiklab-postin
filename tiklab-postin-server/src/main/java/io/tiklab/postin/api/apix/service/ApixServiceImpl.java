@@ -92,20 +92,20 @@ public class ApixServiceImpl implements ApixService {
 
 
         //日志
-        Map<String,String> map = new HashMap<>();
-        map.put("name",apix.getName());
-        map.put("id",apix.getId());
-        map.put("workspaceId",apix.getWorkspaceId());
-        if(postInUnit.getUser()==null){
-            map.put("user","admin");
-        }else {
-            map.put("user",postInUnit.getUser().getNickname());
-        }
-        map.put("mode","接口");
-        map.put("images","/images/log.png");
-        LoggingType oplogTypeOne = loggingTypeService.findOplogTypeOne(LOG_TYPE_CREATE_ID);
-        map.put("actionType",oplogTypeOne.getName());
-        logUnit.log(LOG_TYPE_CREATE_ID,"api",map);
+//        Map<String,String> map = new HashMap<>();
+//        map.put("name",apix.getName());
+//        map.put("id",apix.getId());
+//        map.put("workspaceId",apix.getWorkspaceId());
+//        if(postInUnit.getUser()==null){
+//            map.put("user","admin");
+//        }else {
+//            map.put("user",postInUnit.getUser().getNickname());
+//        }
+//        map.put("mode","接口");
+//        map.put("images","/images/log.png");
+//        LoggingType oplogTypeOne = loggingTypeService.findOplogTypeOne(LOG_TYPE_CREATE_ID);
+//        map.put("actionType",oplogTypeOne.getName());
+//        logUnit.log(LOG_TYPE_CREATE_ID,"api",map);
 
         //添加索引
 //        Apix entity = findApix(id);
