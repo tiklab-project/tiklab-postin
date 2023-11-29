@@ -9,7 +9,6 @@ import jdk.javadoc.doclet.*;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.*;
 import javax.lang.model.type.DeclaredType;
-import javax.lang.model.type.TypeMirror;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
@@ -180,7 +179,7 @@ public class CustomTagsHandler implements Doclet {
         apiJson.put("request",apiRequest);
 
         //通过路径md5 生成一个 id
-        String path = httpApiJson.getString("path");
+        String path = httpApiJson.getJSONObject("apix").getString("path");
         String apiId = DocletUtils.getIdByMd5(path);
         apiJson.put("apiId",apiId);
 
@@ -381,8 +380,8 @@ public class CustomTagsHandler implements Doclet {
                         methodJson.put("name",value);
                     } else if ("@pi.path".equals(key)) {
                         methodJson.put("path",value);
-                    } else if ("@pi.method".equals(key)) {
-                        methodJson.put("method",value);
+                    } else if ("@pi.methodType".equals(key)) {
+                        methodJson.put("methodType",value);
                     } else if ("@pi.request-type".equals(key)) {
                         methodJson.put("request-type",value);
                     }else if ("@pi.param".equals(key)) {

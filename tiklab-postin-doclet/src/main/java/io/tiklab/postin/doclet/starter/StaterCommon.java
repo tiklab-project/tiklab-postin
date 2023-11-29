@@ -20,7 +20,6 @@ public class StaterCommon {
      */
     public void staterFunction() throws IOException {
 
-
         // 创建 DocumentationTool 实例
         DocumentationTool documentationTool = ToolProvider.getSystemDocumentationTool();
         if (documentationTool == null) {return;}
@@ -47,22 +46,26 @@ public class StaterCommon {
             }
         }
 
-        if(javaFiles.size() > 0){
-            for (File javaFile : javaFiles) {
-                Iterable<? extends JavaFileObject> fileObjects = fileManager.getJavaFileObjects(javaFile);
-                compilationUnitsList.addAll((Collection<? extends JavaFileObject>) fileObjects);
+        try {
+            if(javaFiles.size() > 0){
+                for (File javaFile : javaFiles) {
+                    Iterable<? extends JavaFileObject> fileObjects = fileManager.getJavaFileObjects(javaFile);
+                    compilationUnitsList.addAll((Collection<? extends JavaFileObject>) fileObjects);
+                }
+            }else {
+                System.out.println("javaFile为空");
+                return;
             }
-        }else {
-            System.out.println("javaFile为空");
-            return;
+        }catch (Exception e){
+            System.out.println("------Error javaFile------"+e);
         }
+
 
         //编译文件不为空
         if(compilationUnitsList.size() == 0){
             System.out.println("Error --- 编译的文件为空");
             return;
         }
-
 
         // 创建 classpath 字符串
         StringBuilder classpathBuilder = new StringBuilder();
@@ -73,12 +76,14 @@ public class StaterCommon {
             return;
         }
 
-        //option配置 classpath
-        List<String> options = new ArrayList<>();
-        options.add("-classpath");
-        options.add(classpathBuilder.toString());
 
+        System.out.println("-----Doclet-DocumentationTask------");
         try {
+            //option配置 classpath
+            List<String> options = new ArrayList<>();
+            options.add("-classpath");
+            options.add(classpathBuilder.toString());
+
             // 创建 Doclet 实例
             CustomTagsHandler doclet = new CustomTagsHandler();
             // 创建 DocumentationTask 对象
@@ -165,6 +170,9 @@ public class StaterCommon {
             for (File jarFile : jarFiles) {
                 classpathBuilder.append(jarFile.getAbsolutePath()).append(File.pathSeparator);
             }
+
+            //自身的class
+            classpathBuilder.append(path+"/target/classes");
         }
     }
 

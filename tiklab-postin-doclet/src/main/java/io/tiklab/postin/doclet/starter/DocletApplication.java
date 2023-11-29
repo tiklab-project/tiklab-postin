@@ -25,23 +25,23 @@ public class DocletApplication  {
 
     public static void main(String[] args){
 
-//        String modulesPath="D:/a-dk-sever/tiklab-postin/tiklab-postin-api;D:/a-dk-sever/tiklab-postin/tiklab-postin-server";
-//        modulesPathArray = modulesPath.split(";");
-//        workspaceId="f5b82a695903";
-//        server="http://192.168.10.3:8090";
+        String modulesPath="D:\\a-dk-sever\\tiklab-teston\\tiklab-teston-api;D:\\a-dk-sever\\tiklab-teston\\tiklab-teston-server";
+        modulesPathArray = modulesPath.split(";");
+        workspaceId="578da3e297d4";
+        server="http://192.168.10.21:8090";
 
         try {
-            if(args.length < 3){
-                System.out.println("Error --- pom传入参数错误");
-                return;
-            }else {
-                String modulesPath=args[0];
-                modulesPathArray = modulesPath.split(";");
-                workspaceId=args[1];
-                server=args[2];
-            }
+//            if(args.length < 3){
+//                System.out.println("Error --- pom传入参数错误");
+//                return;
+//            }else {
+//                String modulesPath=args[0];
+//                modulesPathArray = modulesPath.split(";");
+//                workspaceId=args[1];
+//                server=args[2];
+//            }
 
-
+            System.out.println("-----exeMaven-------");
             //执行maven命令生成dependence依赖包
             exeMaven();
 
@@ -89,7 +89,7 @@ public class DocletApplication  {
 
 
         // 构造自定义类加载器
-        return new URLClassLoader(urls, DocletApplication.class.getClassLoader());
+        return new URLClassLoader(urls, Thread.currentThread().getContextClassLoader());
     }
 
     /**
@@ -111,17 +111,17 @@ public class DocletApplication  {
                 System.out.println("-------filePath-----: "+filePath);
 
                 //执行maven的命令
-                request.setGoals( Collections.singletonList( "dependency:copy-dependencies"));
+                request.setGoals(Collections.singletonList( "dependency:copy-dependencies"));
 
                 try {
                     Invoker invoker = new DefaultInvoker();
                     // 设置要执行的 MavenHome
-                invoker.setMavenHome(new File(System.getProperty("maven.home")));
-//                    invoker.setMavenHome(new File("D:/application/apache-maven-3.8.3"));
+//                    invoker.setMavenHome(new File(System.getProperty("maven.home")));
+                    invoker.setMavenHome(new File("D:/application/apache-maven-3.8.3"));
 
                     invoker.execute( request );
                 } catch (MavenInvocationException e) {
-                    System.out.println("Error --- 执行maven失败"+e);
+                    System.out.println("Error --- 执行maven失败: "+e);
                 }
             }
         }

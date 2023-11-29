@@ -24,7 +24,7 @@ import java.util.List;
  * 接口公共控制器
  */
 @RestController
-@RequestMapping("/apix")
+@RequestMapping("/apx")
 @Api(name = "ApixController",desc = "接口公共字段")
 public class ApixController {
 

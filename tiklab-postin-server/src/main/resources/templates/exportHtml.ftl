@@ -302,7 +302,7 @@
     </div>
 <script id="json-data">
        // 获取传入的 JSON 数据
-        let jsonData = {"projectInfo":{"projectIcon":"/images/pi1.png","projectName":"默认空间","projectId":"bd26c6ec5c6e"},"apiGroupList":[{"name":"test","id":"86e78329ea11"},{"name":"默认分组","id":"a8ead30da71c","nodeList":[{"path":"/passport/login/cd","request":{"query":[],"header":[],"id":"311e9e5fbbff4b8ba31946b6040dc8d4","body":{"bodyType":"none"}},"methodType":"get","response":{"result":[{"dataType":"json","name":"成功","id":"eef1f9b2fa89","httpCode":200,"jsonText":"{\"type\":\"object\",\"properties\":{\"fieldName\":{\"type\":\"string\"}}}"}],"header":[]},"name":"test23","updateTime":1698408532926,"id":"311e9e5fbbff4b8ba31946b6040dc8d4","protocolType":"http","status":{"color":"orange","name":"开发中","id":"developmentid","type":"system"}},{"path":"ws://192.168.10.14:8090","request":{"query":[],"header":[],"body":{"bodyType":"raw","raw":{"rawType":"text/plain","raw":"","id":"95470caad849"}}},"name":"wstest","updateTime":1697079627071,"id":"95470caad849","protocolType":"ws","status":{"color":"orange","name":"开发中","id":"developmentid","type":"system"}},{"path":"ws://192.168.10.21:8090/ws","request":{"query":[{"name":"tets","id":"6cfa3b8110d2","sort":0,"value":"@domain","required":0}],"header":[{"name":"accept","id":"18ccdb89a291","sort":0,"value":"test","required":1}],"body":{"bodyType":"json","json":{"id":"e788dcac2291","jsonText":"{\"type\":\"object\",\"properties\":{\"fieldName\":{\"type\":\"string\",\"mock\":{\"mock\":\"@name\"}}}}"}}},"name":"WebSocket1","updateTime":1697507326140,"id":"e788dcac2291","protocolType":"ws","status":{"color":"orange","name":"开发中","id":"developmentid","type":"system"}},{"path":"/passport/login","request":{"afterScript":"","query":[],"preScript":"","header":[],"id":"219512b6cb74","body":{"bodyType":"raw","raw":{"rawType":"application/json","raw":"{\"account\":\"18783894551\",\"password\":\"123456\"}","id":"219512b6cb74"}}},"methodType":"post","response":{"result":[{"dataType":"json","name":"成功","id":"219512b6cb78","httpCode":200,"jsonText":"{\"type\":\"object\",\"properties\":{}}"}],"header":[]},"name":"name12","updateTime":1698237658224,"id":"219512b6cb74","protocolType":"http","status":{"color":"orange","name":"开发中","id":"developmentid","type":"system"}}]}]}
+        let jsonData = {"projectInfo":{"projectIcon":"/images/pi1.png","projectName":"默认空间","projectId":"bd26c6ec5c6e"},"apiGroupList":[{"name":"test","id":"86e78329ea11"},{"name":"默认分组","id":"a8ead30da71c","nodeList":[{"path":"/passport/login/cd","request":{"query":[],"header":[],"id":"311e9e5fbbff4b8ba31946b6040dc8d4","body":{"bodyType":"none"}},"methodType":"get","response":{"result":[{"dataType":"json","name":"成功","id":"eef1f9b2fa89","httpCode":200,"jsonText":"{\"type\":\"object\",\"properties\":{\"fieldName\":{\"type\":\"string\"}}}"}],"header":[]},"name":"test23","updateTime":1698408532926,"id":"311e9e5fbbff4b8ba31946b6040dc8d4","protocolType":"http","status":{"color":"orange","name":"开发中","id":"developmentid","type":"system"}},{"path":"ws://192.168.10.14:8090","request":{"query":[],"header":[],"body":{"bodyType":"raw","raw":{"rawType":"text/plain","raw":"","id":"95470caad849"}}},"name":"wstest","updateTime":1697079627071,"id":"95470caad849","protocolType":"ws","status":{"color":"orange","name":"开发中","id":"developmentid","type":"system"}},{"path":"ws://192.168.10.21:8090/ws","request":{"query":[{"name":"tets","id":"6cfa3b8110d2","sort":0,"value":"@domain","required":0}],"header":[{"name":"accept","id":"18ccdb89a291","sort":0,"value":"test","required":1}],"body":{"bodyType":"json","json":{"id":"e788dcac2291","jsonText":"{\"type\":\"object\",\"properties\":{\"fieldName\":{\"type\":\"string\",\"mock\":{\"mock\":\"@name\"}}}}"}}},"name":"WebSocket1","updateTime":1697507326140,"id":"e788dcac2291","protocolType":"ws","status":{"color":"orange","name":"开发中","id":"developmentid","type":"system"}},{"path":"/passport/login","request":{"afterScriptUnit":"","query":[],"preScriptUnit":"","header":[],"id":"219512b6cb74","body":{"bodyType":"raw","raw":{"rawType":"application/json","raw":"{\"account\":\"18783894551\",\"password\":\"123456\"}","id":"219512b6cb74"}}},"methodType":"post","response":{"result":[{"dataType":"json","name":"成功","id":"219512b6cb78","httpCode":200,"jsonText":"{\"type\":\"object\",\"properties\":{}}"}],"header":[]},"name":"name12","updateTime":1698237658224,"id":"219512b6cb74","protocolType":"http","status":{"color":"orange","name":"开发中","id":"developmentid","type":"system"}}]}]}
 </script>
 <script >
 
@@ -656,7 +656,7 @@
     /**
      * 请求体
      */
-    const requestBody = (detailBox,node)=>{
+    const requestBodyUnit = (detailBox,node)=>{
         let body = node.request.body;
 
         if(node.protocolType==="http"){
@@ -667,10 +667,10 @@
                         createTable(detailBox,body.formdata)
                     }
                     break;
-                case "formUrlencoded":
-                    if(body.formUrlencoded!==null&&body.formUrlencoded.length>0){
+                case "formUrlencodedUnit":
+                    if(body.formUrlencodedUnit!==null&&body.formUrlencodedUnit.length>0){
                         addTitle(detailBox,"Form-Urlencoded")
-                        createTable(detailBox,body.formUrlencoded)
+                        createTable(detailBox,body.formUrlencodedUnit)
                     }
                     break;
                 case "json":
@@ -727,7 +727,7 @@
         //请求体
         if(request.body!==null){
             addTitle(detailBox,"请求体")
-            requestBody(detailBox,node)
+            requestBodyUnit(detailBox,node)
         }
 
     }

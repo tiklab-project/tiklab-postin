@@ -35,8 +35,8 @@ public class DocletReportServicelmpl implements DocletReportService {
     FormParamService formParamService;
 
     @Autowired
-    FormUrlencodedService formUrlencodedService
-            ;
+    FormUrlencodedService formUrlencodedService;
+
     @Autowired
     RawParamService rawParamService;
 

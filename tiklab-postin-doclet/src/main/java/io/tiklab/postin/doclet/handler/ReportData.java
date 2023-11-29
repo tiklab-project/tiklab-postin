@@ -22,11 +22,12 @@ public class ReportData {
         categoryJson.put("id",categoryId);
         apixJson.put("category",categoryJson);
         apixJson.put("name",methodJson.getString("name"));
-        apixJson.put("method",methodJson.getString("method"));
-        apixJson.put("protocol",classMap.get("protocol"));
+        apixJson.put("methodType",methodJson.getString("methodType"));
+        apixJson.put("protocolType",classMap.get("protocol"));
+        apixJson.put("path",methodJson.getString("path"));
         httpApiJson.put("apix",apixJson);
-        httpApiJson.put("path",methodJson.getString("path"));
-        httpApiJson.put("methodType",methodJson.getString("method"));
+//        httpApiJson.put("path",methodJson.getString("path"));
+        httpApiJson.put("methodType",methodJson.getString("methodType"));
 
         return httpApiJson;
     }
