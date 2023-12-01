@@ -57,8 +57,12 @@ public class ReportData {
 
         JSONArray params = methodJson.getJSONArray("params");
 
-        ArrayList<Object> arrayList = new ArrayList<>();
+        if(params==null){
+            System.out.println(methodJson.getString("path")+"--- maybe annotation definition error ");
+            return null;
+        }
 
+        ArrayList<Object> arrayList = new ArrayList<>();
         for(Object param:params){
             JSONObject paramJson = (JSONObject) param;
 
@@ -82,6 +86,11 @@ public class ReportData {
      */
     public static ArrayList<Object> getFormUrlList(JSONObject methodMap, String apiId) {
         JSONArray params = methodMap.getJSONArray("param");
+
+        if(params==null){
+            System.out.println(methodMap.getString("path")+"--- maybe annotation definition error");
+            return null;
+        }
 
         ArrayList<Object> arrayList = new ArrayList<>();
 

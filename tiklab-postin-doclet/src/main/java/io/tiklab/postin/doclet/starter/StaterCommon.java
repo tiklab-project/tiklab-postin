@@ -161,6 +161,12 @@ public class StaterCommon {
      */
     private void getClassPath( StringBuilder classpathBuilder){
         for (String path : DocletApplication.modulesPathArray) {
+            //自身的class
+            classpathBuilder.append(path+"/target/classes;");
+        }
+
+
+        for (String path : DocletApplication.modulesPathArray) {
             // 获取目录中的所有 JAR 文件路径
             File directory = new File(path+"/target/dependency");
             File[] jarFiles = directory.listFiles((dir, name) -> name.endsWith(".jar"));
@@ -170,9 +176,6 @@ public class StaterCommon {
             for (File jarFile : jarFiles) {
                 classpathBuilder.append(jarFile.getAbsolutePath()).append(File.pathSeparator);
             }
-
-            //自身的class
-            classpathBuilder.append(path+"/target/classes");
         }
     }
 

@@ -42,7 +42,7 @@
         <tiklab-security.version>1.0.0</tiklab-security.version>
         <tiklab-licence.version>1.0.0</tiklab-licence.version>
         <tiklab-todotask.version>1.0.0</tiklab-todotask.version>
-        <tiklab-postgresql.version>1.0.0</tiklab-postgresql.version>
+        <tiklab-postgresql.version>1.0.1-SNAPSHOT</tiklab-postgresql.version>
         <tiklab-upgrade.version>1.0.0</tiklab-upgrade.version>
         <tiklab-jdk.version>1.0.0</tiklab-jdk.version>
         <tiklab-plugin.version>1.0.1-SNAPSHOT</tiklab-plugin.version>

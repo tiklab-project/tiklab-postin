@@ -57,6 +57,7 @@ public class WorkspaceFollowController {
      * @pi.methodType:post
      * @pi.request-type:formdata
      * @pi.param: name=id;dataType=string;value=workspaceId;desc=当前删除的id
+     * @pi.param: name=id2;dataType=string;value=workspaceId2;desc=当前删除的id2
      */
     @RequestMapping(path="/deleteWorkspaceFollow",method = RequestMethod.POST)
     @ApiMethod(name = "deleteWorkspaceFollow",desc = "删除空间关注")

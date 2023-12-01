@@ -187,23 +187,28 @@ public class CustomTagsHandler implements Doclet {
             return methodJson;
         }
 
-        switch (methodJson.getString("request-type")){
-            case "formdata":
-                ArrayList<Object> formDataJsonList = ReportData.getFormDataJson(methodJson, apiId);
-                apiJson.put("formList",formDataJsonList);
-                break;
-            case "formUrlencoded":
-                ArrayList<Object> formUrlList = ReportData.getFormUrlList(methodJson, apiId);
-                apiJson.put("formUrlList",formUrlList);
-                break;
-            case "json":
-            case "raw":
-                JSONObject rawJson = ReportData.getRawJson(methodJson, apiId,method);
-                apiJson.put("raw",rawJson);
-                break;
-            default:
-                break;
+        if(methodJson.getString("request-type")==null){
+            System.out.println(methodJson.getString("path")+"--- maybe annotation definition error");
+        }else {
+            switch (methodJson.getString("request-type")){
+                case "formdata":
+                    ArrayList<Object> formDataJsonList = ReportData.getFormDataJson(methodJson, apiId);
+                    apiJson.put("formList",formDataJsonList);
+                    break;
+                case "formUrlencoded":
+                    ArrayList<Object> formUrlList = ReportData.getFormUrlList(methodJson, apiId);
+                    apiJson.put("formUrlList",formUrlList);
+                    break;
+                case "json":
+                case "raw":
+                    JSONObject rawJson = ReportData.getRawJson(methodJson, apiId,method);
+                    apiJson.put("raw",rawJson);
+                    break;
+                default:
+                    break;
+            }
         }
+
 
         //响应信息
         JSONObject responseJson = getResponseJson(method);

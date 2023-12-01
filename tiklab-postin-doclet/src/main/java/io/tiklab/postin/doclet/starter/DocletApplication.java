@@ -25,21 +25,21 @@ public class DocletApplication  {
 
     public static void main(String[] args){
 
-        String modulesPath="D:\\a-dk-sever\\tiklab-teston\\tiklab-teston-api;D:\\a-dk-sever\\tiklab-teston\\tiklab-teston-server";
-        modulesPathArray = modulesPath.split(";");
-        workspaceId="578da3e297d4";
-        server="http://192.168.10.21:8090";
+//        String modulesPath="D:\\a-backup\\tiklab-teamwire\\tiklab-teamwire-api;D:\\a-backup\\tiklab-teamwire\\tiklab-teamwire-server";
+//        modulesPathArray = modulesPath.split(";");
+//        workspaceId="f0da2e3e4e84";
+//        server="http://192.168.10.21:8090";
 
         try {
-//            if(args.length < 3){
-//                System.out.println("Error --- pom传入参数错误");
-//                return;
-//            }else {
-//                String modulesPath=args[0];
-//                modulesPathArray = modulesPath.split(";");
-//                workspaceId=args[1];
-//                server=args[2];
-//            }
+            if(args.length < 3){
+                System.out.println("Error --- pom传入参数错误");
+                return;
+            }else {
+                String modulesPath=args[0];
+                modulesPathArray = modulesPath.split(";");
+                workspaceId=args[1];
+                server=args[2];
+            }
 
             System.out.println("-----exeMaven-------");
             //执行maven命令生成dependence依赖包
@@ -116,8 +116,8 @@ public class DocletApplication  {
                 try {
                     Invoker invoker = new DefaultInvoker();
                     // 设置要执行的 MavenHome
-//                    invoker.setMavenHome(new File(System.getProperty("maven.home")));
-                    invoker.setMavenHome(new File("D:/application/apache-maven-3.8.3"));
+                    invoker.setMavenHome(new File(System.getProperty("maven.home")));
+//                    invoker.setMavenHome(new File("D:/application/apache-maven-3.8.3"));
 
                     invoker.execute( request );
                 } catch (MavenInvocationException e) {
