@@ -34,14 +34,14 @@
         <tiklab-dfs.version>1.0.0</tiklab-dfs.version>
         <tiklab-dcs.version>1.0.0</tiklab-dcs.version>
         <tiklab-toolkit.version>1.0.0</tiklab-toolkit.version>
-        <tiklab-gateway.version>1.0.0</tiklab-gateway.version>
-        <tiklab-user.version>1.0.0</tiklab-user.version>
-        <tiklab-privilege.version>1.0.0</tiklab-privilege.version>
-        <tiklab-eam.version>1.0.0</tiklab-eam.version>
-        <tiklab-message.version>1.0.0</tiklab-message.version>
-        <tiklab-security.version>1.0.0</tiklab-security.version>
-        <tiklab-licence.version>1.0.0</tiklab-licence.version>
-        <tiklab-todotask.version>1.0.0</tiklab-todotask.version>
+        <tiklab-gateway.version>1.0.1-SNAPSHOT</tiklab-gateway.version>
+        <tiklab-user.version>1.0.1-SNAPSHOT</tiklab-user.version>
+        <tiklab-privilege.version>1.0.1-SNAPSHOT</tiklab-privilege.version>
+        <tiklab-eam.version>1.0.1-SNAPSHOT</tiklab-eam.version>
+        <tiklab-message.version>1.0.1-SNAPSHOT</tiklab-message.version>
+        <tiklab-security.version>1.0.1-SNAPSHOT</tiklab-security.version>
+        <tiklab-licence.version>1.0.1-SNAPSHOT</tiklab-licence.version>
+        <tiklab-todotask.version>1.0.1-SNAPSHOT</tiklab-todotask.version>
         <tiklab-postgresql.version>1.0.1-SNAPSHOT</tiklab-postgresql.version>
         <tiklab-upgrade.version>1.0.0</tiklab-upgrade.version>
         <tiklab-jdk.version>1.0.0</tiklab-jdk.version>
