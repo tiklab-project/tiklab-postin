@@ -100,9 +100,15 @@ public class ApiRecentServiceImpl implements ApiRecentService {
 
         //第三层获取不到值，手动设置值
         if(apiRecentList!=null&&apiRecentList.size()>0){
-            for(ApiRecent apiRecent:apiRecentList){
+            for (int i = 0; i < Math.min(apiRecentList.size(), 10); i++) {
+                ApiRecent apiRecent = apiRecentList.get(i);
+
                 Apix apix = apixService.findApix(apiRecent.getApix().getId());
                 apiRecent.setApix(apix);
+
+                if(apiRecent.getWorkspace()==null){
+                    continue;
+                }
 
                 Workspace workspace = workspaceService.findWorkspace(apiRecent.getWorkspace().getId());
                 apiRecent.setWorkspace(workspace);

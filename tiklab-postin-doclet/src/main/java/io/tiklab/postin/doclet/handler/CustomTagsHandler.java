@@ -200,6 +200,7 @@ public class CustomTagsHandler implements Doclet {
                     apiJson.put("formUrlList",formUrlList);
                     break;
                 case "json":
+
                 case "raw":
                     JSONObject rawJson = ReportData.getRawJson(methodJson, apiId,method);
                     apiJson.put("raw",rawJson);

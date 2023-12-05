@@ -111,6 +111,33 @@ public class ReportData {
         return arrayList;
     }
 
+    public static JSONObject getJson(JSONObject methodMap, String apiId, ExecutableElement method) {
+        JSONObject json = new JSONObject();
+        //从内存中获取模型
+        //获取接口传入的参数
+        List<? extends VariableElement> parameters = method.getParameters();
+
+        //获取模型全称
+        String modelFullName = parameters.get(0).asType().toString();
+
+
+        JSONObject jsonObject;
+        if(CustomTagsHandler.modelMap.get(modelFullName)!=null){
+            jsonObject = CustomTagsHandler.modelMap.get(modelFullName);
+        }else {
+            jsonObject = DocletGetModel.loopModel(modelFullName,0);
+        }
+
+        String jsonText = "{}";
+        if(jsonObject!=null) {
+            jsonText = jsonObject.toJSONString();
+        }
+
+
+        return null;
+    }
+
+
     /**
      * 请求体
      * raw
@@ -118,10 +145,7 @@ public class ReportData {
     public static JSONObject getRawJson(JSONObject methodJson, String apiId, ExecutableElement method) {
         JSONObject rawJson = new JSONObject();
         rawJson.put("id",apiId);
-
-        JSONObject http = new JSONObject();
-        http.put("id",apiId);
-        rawJson.put("http",http);
+        rawJson.put("apiId",apiId);
 
         if("json".equals(methodJson.getString("request-type"))){
             //从内存中获取模型
