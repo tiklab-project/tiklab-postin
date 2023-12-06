@@ -3,8 +3,12 @@ package io.tiklab.postin.doclet.handler;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import io.tiklab.postin.doclet.common.DocletGetModel;
+import io.tiklab.postin.doclet.common.JsonSchemaGenerator;
+
 import javax.lang.model.element.ExecutableElement;
+import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
+import javax.lang.model.type.DeclaredType;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -111,8 +115,11 @@ public class ReportData {
         return arrayList;
     }
 
-    public static JSONObject getJson(JSONObject methodMap, String apiId, ExecutableElement method) {
+    public static JSONObject getJson(String apiId, ExecutableElement method) {
         JSONObject json = new JSONObject();
+        json.put("id",apiId);
+        json.put("apiId",apiId);
+
         //从内存中获取模型
         //获取接口传入的参数
         List<? extends VariableElement> parameters = method.getParameters();
@@ -121,11 +128,11 @@ public class ReportData {
         String modelFullName = parameters.get(0).asType().toString();
 
 
-        JSONObject jsonObject;
+        JSONObject jsonObject = null;
         if(CustomTagsHandler.modelMap.get(modelFullName)!=null){
             jsonObject = CustomTagsHandler.modelMap.get(modelFullName);
         }else {
-            jsonObject = DocletGetModel.loopModel(modelFullName,0);
+            jsonObject = JsonSchemaGenerator.generateJsonSchema(modelFullName);
         }
 
         String jsonText = "{}";
@@ -133,8 +140,9 @@ public class ReportData {
             jsonText = jsonObject.toJSONString();
         }
 
+        json.put("jsonText",jsonText);
 
-        return null;
+        return json;
     }
 
 
@@ -178,7 +186,69 @@ public class ReportData {
         return rawJson;
     }
 
+    /**
+     * 获取响应信息
+     * @param method
+     * @return
+     */
+    public static  JSONObject getResponseJson(ExecutableElement method) {
+        DeclaredType returnType = (DeclaredType) method.getReturnType();
+        TypeElement simpleName = (TypeElement) returnType.asElement();
+        JSONObject jsonData = DocletGetModel.loopModel(simpleName.toString(),0);
+
+        JSONObject jsonText = jsonToSchema(jsonData);
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("name","成功");
+        jsonObject.put("httpCode",200);
+        jsonObject.put("dataType","json");
+        jsonObject.put("jsonText",jsonText.toJSONString());
+
+        return jsonObject;
+    }
 
 
 
+    public static JSONObject jsonToSchema(JSONObject json) {
+        JSONObject schema = new JSONObject();
+//        schema.put("$schema", "http://json-schema.org/draft-04/schema#");
+        schema.put("type", "object");
+
+        JSONObject properties = new JSONObject();
+        for(String key : json.keySet()) {
+            Object value = json.get(key);
+
+            if(value instanceof JSONObject) {
+                // 对象类型,递归转换
+                properties.put(key, jsonToSchema((JSONObject)value));
+
+            } else {
+                // 基本类型
+                JSONObject propSchema = new JSONObject();
+                propSchema.put("type", getType(value));
+                properties.put(key, propSchema);
+            }
+        }
+
+        schema.put("properties", properties);
+
+        return schema;
+    }
+
+    private static String getType(Object value) {
+
+        if (JSONObject.class.equals(value.getClass())) {
+            return "object";
+        } else if (JSONArray.class.equals(value.getClass())) {
+            return "array";
+        } else if (Integer.class.equals(value.getClass()) || Long.class.equals(value.getClass())) {
+            return "integer";
+        } else if (Double.class.equals(value.getClass())) {
+            return "number";
+        } else if (Boolean.class.equals(value.getClass())) {
+            return "boolean";
+        }
+        return "string";
+
+    }
 }

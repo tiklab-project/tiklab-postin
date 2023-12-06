@@ -25,10 +25,10 @@ public class DocletApplication  {
 
     public static void main(String[] args){
 
-//        String modulesPath="D:\\a-backup\\tiklab-teamwire\\tiklab-teamwire-api;D:\\a-backup\\tiklab-teamwire\\tiklab-teamwire-server";
+//        String modulesPath="D:\\a-backup\\tiklab-matflow\\tiklab-matflow-api;D:\\a-backup\\tiklab-matflow\\tiklab-matflow-server";
 //        modulesPathArray = modulesPath.split(";");
-//        workspaceId="f0da2e3e4e84";
-//        server="http://192.168.10.21:8090";
+//        workspaceId="2c2dce1d2aeb";
+//        server="http://e.postin.tiklab.net";
 
         try {
             if(args.length < 3){

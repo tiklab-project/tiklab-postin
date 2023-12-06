@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import io.tiklab.postin.doclet.common.DocletGetModel;
 import io.tiklab.postin.doclet.common.DocletUtils;
+import io.tiklab.postin.doclet.common.JsonSchemaGenerator;
 import io.tiklab.postin.doclet.starter.DocletApplication;
 import jdk.javadoc.doclet.*;
 import javax.lang.model.SourceVersion;
@@ -200,7 +201,6 @@ public class CustomTagsHandler implements Doclet {
                     apiJson.put("formUrlList",formUrlList);
                     break;
                 case "json":
-
                 case "raw":
                     JSONObject rawJson = ReportData.getRawJson(methodJson, apiId,method);
                     apiJson.put("raw",rawJson);
@@ -212,83 +212,21 @@ public class CustomTagsHandler implements Doclet {
 
 
         //响应信息
-        JSONObject responseJson = getResponseJson(method);
+        JSONObject responseJson = ReportData.getResponseJson(method);
         apiJson.put("response",responseJson);
 
        return apiJson;
     }
 
-    /**
-     * 获取响应信息
-     * @param method
-     * @return
-     */
-    private JSONObject getResponseJson(ExecutableElement method) {
-        DeclaredType returnType = (DeclaredType) method.getReturnType();
-        TypeElement simpleName = (TypeElement) returnType.asElement();
-        JSONObject jsonData = DocletGetModel.loopModel(simpleName.toString(),0);
-
-        JSONObject jsonText = jsonToSchema(jsonData);
-
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("name","成功");
-        jsonObject.put("httpCode",200);
-        jsonObject.put("dataType","json");
-        jsonObject.put("jsonText",jsonText.toJSONString());
-
-        return jsonObject;
-    }
 
 
-    public JSONObject jsonToSchema(JSONObject json) {
-        JSONObject schema = new JSONObject();
-//        schema.put("$schema", "http://json-schema.org/draft-04/schema#");
-        schema.put("type", "object");
-
-        JSONObject properties = new JSONObject();
-        for(String key : json.keySet()) {
-            Object value = json.get(key);
-
-            if(value instanceof JSONObject) {
-                // 对象类型,递归转换
-                properties.put(key, jsonToSchema((JSONObject)value));
-
-            } else {
-                // 基本类型
-                JSONObject propSchema = new JSONObject();
-                propSchema.put("type", getType(value));
-                properties.put(key, propSchema);
-            }
-        }
-
-        schema.put("properties", properties);
-
-        return schema;
-    }
-
-    private String getType(Object value) {
-
-        if (JSONObject.class.equals(value.getClass())) {
-            return "object";
-        } else if (JSONArray.class.equals(value.getClass())) {
-            return "array";
-        } else if (Integer.class.equals(value.getClass()) || Long.class.equals(value.getClass())) {
-            return "integer";
-        } else if (Double.class.equals(value.getClass())) {
-            return "number";
-        } else if (Boolean.class.equals(value.getClass())) {
-            return "boolean";
-        }
-        return "string";
-
-    }
 
     /**
      * http发送请求公共方法
      */
     private void httpCommon(String categoryName,String jsonBody) {
         try {
-            String serverUrl = DocletApplication.server+ "/docletReport/moduleReport";
+            String serverUrl = DocletApplication.server+ "/api/docletReport/moduleReport";
             //请求接口
             URL url = new URL(serverUrl);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();

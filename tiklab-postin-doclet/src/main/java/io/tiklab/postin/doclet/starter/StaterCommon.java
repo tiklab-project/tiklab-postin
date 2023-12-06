@@ -132,8 +132,8 @@ public class StaterCommon {
                     getAllFilesInDirectory(file, javaFiles);
                 }
 
-                if (file.getName().endsWith("Controller.java")) {
-                    // 如果文件后缀为"Controller.java"，则添加到列表中
+                if (file.getName().endsWith(".java")) {
+                    // 如果文件后缀为".java"，则添加到列表中
                     javaFiles.add(file);
                 }
 
