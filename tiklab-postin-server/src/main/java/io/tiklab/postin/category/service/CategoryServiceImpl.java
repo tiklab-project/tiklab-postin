@@ -244,280 +244,94 @@ public class CategoryServiceImpl implements CategoryService {
         return PaginationBuilder.build(pagination,categoryList);
     }
 
+
     @Override
     public List<Category> findCategoryListTree(CategoryQuery categoryQuery) {
-        //查找所有符合条件列表
-        List<Category> matchCategoryList = findCategoryList(categoryQuery);
-
-        //查找并设置分类下面的接口
-        findCategoryMethodList(matchCategoryList);
-
-        List<Category> categories = packageResult(matchCategoryList);
-
-        return categories;
-    }
-
-    @Override
-    public List<Category> likeFindCategoryListTree(CategoryQuery categoryQuery){
-        List<Category> categories=null;
-        if (ObjectUtils.isEmpty(categoryQuery.getName())){
-            categories =  findCategoryListTree(categoryQuery);
-        } else {
-            ApixQuery apixQuery = new ApixQuery();
-            apixQuery.setName(categoryQuery.getName());
-
-
-            //查询出所有匹配的接口
-            List<Apix> apixList = apixService.findApixList(apixQuery);
-
-            if(CollectionUtils.isNotEmpty(apixList)){
-                //查询空间下所有目录，将name 设为null 不想模糊匹配目录
-                List<Category> categoryList = findCategoryList(categoryQuery.setName(null));
-
-                //查询目录下面的接口，并放到相应的目录下
-                List<Category> methodInCategoryList = findHttpApiInCategoryList(categoryList, apixList);
-
-                List<String> categoryParentByMethod = findCategoryParentByMethod(methodInCategoryList);
-
-                //满足条件的目录
-                List<Category> categoryMethods = findAllCategories(categoryParentByMethod, methodInCategoryList);
-
-                categories = packageResult(categoryMethods);
-            }
-        }
-
-//        List<Category> categories = findCategoryTree(categoryQuery);
-
-        return categories;
-    }
-
-
-    private List<Category> findCategoryTree(CategoryQuery categoryQuery){
-
-        List<Category> arrayList = new ArrayList<>();
-
 
         List<Category> categoryList = findCategoryList(categoryQuery);
+        if (ObjectUtils.isEmpty(categoryQuery.getName())){
+            ApixQuery apixQuery = new ApixQuery();
+            apixQuery.setWorkspaceId(categoryQuery.getWorkspaceId());
+            List<Apix> apixList = apixService.findApixList(apixQuery);
 
-        if(categoryList!=null&&categoryList.size()>0){
-            ArrayList<Category> topCategory = new ArrayList<>();
-            ArrayList<Category> hasParentCategory = new ArrayList<>();
+            return buildCategoryTree(categoryList, apixList);
+        }else {
+            ApixQuery apixQuery = new ApixQuery();
+            apixQuery.setWorkspaceId(categoryQuery.getWorkspaceId());
+            apixQuery.setName(categoryQuery.getName());
+            List<Apix> matchedApixList = apixService.findApixList(apixQuery);
 
-            for(Category category:categoryList){
-                if(category.getParent()!=null){
-                    hasParentCategory.add(category);
-                }else {
-                    topCategory.add(category);
+            // 将匹配到的 apixList 放在对应的 Category 下
+            for (Apix apix : matchedApixList) {
+                for (Category category : categoryList) {
+                    if (Objects.equals(category.getId(), apix.getCategory().getId())) {
+                        category.getNodeList().add(apix);
+                        break;
+                    }
                 }
             }
 
-            for(Category category:topCategory){
-                if(hasParentCategory!=null&&hasParentCategory.size()>0){
-                    List<Category> loop = loop(category.getId(), hasParentCategory);
-                    category.setChildren(loop);
-                }
-
-                List<Apix> apixList = apixService.findApixList(new ApixQuery().setCategoryId(category.getId()));
-                category.setNodeList(apixList);
-
-                arrayList.add(category);
-            }
+            // 构建带有树形结构的 Category List
+            return buildCategoryTreeWithStructure(categoryList);
 
         }
-
-        return arrayList;
-    }
-
-    private List<Category> loop(String parentId, List<Category> hasParentCategory){
-        ArrayList<Category> arrayList1 = new ArrayList<>();
-
-        for(Category childCategory:hasParentCategory){
-            List<Apix> apixList = apixService.findApixList(new ApixQuery().setCategoryId(childCategory.getId()));
-            childCategory.setNodeList(apixList);
-
-            if(Objects.equals(parentId, childCategory.getParent().getId())){
-
-                if(childCategory.getChildren()!=null&&childCategory.getChildren().size()>0){
-                    loop(childCategory.getId(),hasParentCategory);
-                }
-
-                arrayList1.add(childCategory);
-            }
-        }
-
-        return  arrayList1;
-    }
-
-    /**
-     * 查询符合条件的所有目录
-     * @param categoryParentByMethod
-     * @param methodInCategoryList
-     * @return
-     */
-    private List<Category>  findAllCategories(List<String> categoryParentByMethod, List<Category> methodInCategoryList) {
-        List<Category> categoryList = new ArrayList<>();
-        List<String> collect = categoryParentByMethod.stream().distinct().collect(Collectors.toList());
-        for (String categoryId:collect){
-            List<Category> cate = methodInCategoryList.stream().filter(category -> categoryId.equals(category.getId())).collect(Collectors.toList());
-            if (CollectionUtils.isNotEmpty(cate)){
-                Category category = cate.get(0);
-                categoryList.add(category);
-            }
-        }
-        return categoryList;
-
-    }
-
-    /**
-     * 通过接口，查询目录id，父级id
-     * @param methodInCategoryList
-     * @return
-     */
-    private List<String> findCategoryParentByMethod(List<Category> methodInCategoryList) {
-        List<String> categoryIdList = new ArrayList<>();
-
-        //
-        List<Category> collect = methodInCategoryList.stream().filter(a -> CollectionUtils.isNotEmpty(a.getNodeList())).collect(Collectors.toList());
-        for (Category category:collect){
-            Category parentCategory = category.getParent();
-            addParentCategoryId(categoryIdList,parentCategory);
-            categoryIdList.add(category.getId());
-        }
-        return categoryIdList;
     }
 
 
-    public void addParentCategoryId(List<String> categoryIdList,Category parentCategory){
-        if (parentCategory != null){
-            categoryIdList.add(parentCategory.getId());
-
-            if (parentCategory.getParent() != null){
-                addParentCategoryId( categoryIdList,parentCategory.getParent());
-            }
-        }
-    }
-
-    /**
-     * 封装目录返回结果
-     * @param matchCategoryList
-     * @return
-     */
-    public List<Category> packageResult(List<Category> matchCategoryList){
-        //查找第一级分类列表
-        List<Category> topCategoryList = findTopCategoryList(matchCategoryList);
-
-        //查找并设置子分类列表
-        if(topCategoryList != null){
-            for(Category topCategory:topCategoryList){
-                setChildren(matchCategoryList,topCategory);
-            }
-        }
-
-        return topCategoryList;
-    }
-    /**
-     * 查询目录下的接口，并放到相应的目录下面
-     * @param categoryList
-     * @param apixList
-     * @return
-     */
-    private List<Category> findHttpApiInCategoryList(List<Category> categoryList, List<Apix> apixList) {
-        ArrayList<Apix> arrayList = new ArrayList<>();
-        for (Apix apix : apixList) {
-            //去除带版本的api，因为跟随初始的api，没有设置apiUid的就是初始api
-            if(!ObjectUtils.isEmpty(apix.getApiUid())){
-                continue;
-            }
-            //通过初始api，查询下面所有版本，拿到最新版本的api
-            List<Apix> versionList = apixService.findApixList(new ApixQuery().setApiUid(apix.getId()));
-            if(CollectionUtils.isNotEmpty(versionList)){
-                Apix recentApi = versionList.get(0);
-                arrayList.add(recentApi);
-            }else {
-                arrayList.add(apix);
-            }
-        }
-
-        List<Category> collect = categoryList.stream().map(category -> {
-
-            List<Apix> apixes = arrayList.stream().filter(item -> category.getId().equals(item.getCategory().getId())).collect(Collectors.toList());
-
-            category.setNodeList(apixes);
-
-            return category;
-        }).collect(Collectors.toList());
-
-        return collect;
-    }
-
-
-    /**
-     * 查找第一级分类列表
-     * @param matchCategoryList
-     * @return
-     */
-    List<Category> findTopCategoryList(List<Category> matchCategoryList){
-        return matchCategoryList.stream()
-                .filter(category -> (category.getParent() == null || category.getParent().getId() == null))
-                .collect(Collectors.toList());
-    }
-
-    /**
-     * 查找分类列表下的接口
-     * @param matchCategoryList
-     * @return
-     */
-    List<Category> findCategoryMethodList(List<Category> matchCategoryList){
-
-        List<Category> categoryList = matchCategoryList.stream().map(category -> {
-
-            ArrayList<Apix> arrayList = new ArrayList<>();
-            List<Apix> apixList = apixService.findApixList(new ApixQuery().setCategoryId(category.getId()));
-            for (Apix apix : apixList) {
-                //去除带版本的api，因为跟随初始的api，没有设置apiUid的就是初始api
-                if(!ObjectUtils.isEmpty(apix.getApiUid())){
-                    continue;
-                }
-
-                //通过初始api，查询下面所有版本，拿到最新版本的api
-                List<Apix> versionList = apixService.findApixList(new ApixQuery().setApiUid(apix.getId()));
-                if(CollectionUtils.isNotEmpty(versionList)){
-                    Apix recentApi = versionList.get(0);
-                    arrayList.add(recentApi);
-                }else {
-                    arrayList.add(apix);
-                }
-
-            }
-
-            category.setNodeList(arrayList);
-
-            return category;
-        }).collect(Collectors.toList());
-
-        return  categoryList;
-    }
-
-    /**
-     * 查找并设置下级分类列表
-     * @param matchCategoryList
-     * @param parentCaegory
-     */
-    void setChildren(List<Category> matchCategoryList,Category parentCaegory){
-        List<Category> childCategoryList = matchCategoryList.stream()
-                .filter(category -> (category.getParent() != null && category.getParent().getId() != null && category.getParent().getId().equals(parentCaegory.getId())))
+    public List<Category> buildCategoryTree(List<Category> categoryList, List<Apix> apixList) {
+        List<Category> topList = categoryList.stream()
+                .filter(category -> category.getParent() == null || category.getParent().getId() == null)
                 .collect(Collectors.toList());
 
-        if(childCategoryList != null && childCategoryList.size() > 0){
-            parentCaegory.setChildren(childCategoryList);
-
-            for(Category category:childCategoryList){
-                setChildren(matchCategoryList,category);
-            }
+        for (Category topCategory : topList) {
+            buildCategoryNode(topCategory, categoryList, apixList,topList);
         }
+
+        return topList;
     }
 
+    private void buildCategoryNode(Category parentCategory, List<Category> categoryList, List<Apix> apixList, List<Category> topList) {
+        List<Category> children = categoryList.stream()
+                .filter(category -> !topList.contains(category) &&  parentCategory.getId().equals(category.getParent().getId()))
+                .collect(Collectors.toList());
 
+        for (Category child : children) {
+            buildCategoryNode(child, categoryList, apixList, topList);
+        }
+
+        List<Apix> nodeList = apixList.stream()
+                .filter(apix -> parentCategory.getId().equals(apix.getCategory().getId()))
+                .collect(Collectors.toList());
+
+        parentCategory.setChildren(children);
+        parentCategory.setNodeList(nodeList);
+    }
+
+    private List<Category> buildCategoryTreeWithStructure(List<Category> categoryList) {
+        Map<String, Category> categoryMap = new HashMap<>();
+        List<Category> result = new ArrayList<>();
+
+        // 将所有的 Category 放入 Map 中，以便后续快速查找
+        for (Category category : categoryList) {
+            categoryMap.put(category.getId(), category);
+        }
+
+        // 遍历 Category 列表，将每个 Category 放入其父节点的 children 列表中
+        for (Category category : categoryList) {
+            if (category.getParent() == null) {
+                // 如果没有父节点，则将其作为顶级节点添加到结果列表中
+                result.add(category);
+            } else {
+                // 如果有父节点，则找到父节点并添加到其 children 列表中
+                Category parent = categoryMap.get(category.getParent().getId());
+                if (parent != null) {
+                    parent.getChildren().add(category);
+                }
+            }
+        }
+
+        return result;
+    }
 
 
 }

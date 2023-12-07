@@ -103,7 +103,7 @@ public class FunctionImport {
      */
     private void delCategory(String workspaceId,String categoryId){
         CategoryQuery categoryQuery = new CategoryQuery().setWorkspaceId(workspaceId);
-        List<Category> categoryListTree = categoryService.findCategoryListTree(categoryQuery);
+        List<Category> categoryListTree = categoryService.findCategoryList(categoryQuery);
 
         for(Category category:categoryListTree){
             String categoryDataId = category.getId();

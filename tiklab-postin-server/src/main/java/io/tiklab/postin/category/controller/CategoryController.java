@@ -99,21 +99,12 @@ public class CategoryController {
     }
 
 
+
     @RequestMapping(path = "/findCategoryListTree",method = RequestMethod.POST)
-    @ApiMethod(name = "findCategoryListTree",desc = "根据查询对象查找分类列表树")
-    @ApiParam(name = "categoryQuery",desc = "查询对象",required = true)
-    public Result<List<Category>> findCategoryListTree(@RequestBody @Valid @NotNull CategoryQuery categoryQuery){
-        List<Category> categoryList = categoryService.findCategoryListTree(categoryQuery);
-
-        return Result.ok(categoryList);
-    }
-
-
-    @RequestMapping(path = "/likeFindCategoryListTree",method = RequestMethod.POST)
-    @ApiMethod(name = "likeFindCategoryListTree",desc = "根据查询对象模糊查找分类列表树")
+    @ApiMethod(name = "findCategoryListTree",desc = "根据查询对象模糊查找分类列表树")
     @ApiParam(name = "categoryQuery",desc = "查询对象",required = true)
     public Result<List<Category>> likeFindCategoryListTree(@RequestBody @Valid @NotNull CategoryQuery categoryQuery){
-        List<Category> categoryList = categoryService.likeFindCategoryListTree(categoryQuery);
+        List<Category> categoryList = categoryService.findCategoryListTree(categoryQuery);
 
         return Result.ok(categoryList);
     }
