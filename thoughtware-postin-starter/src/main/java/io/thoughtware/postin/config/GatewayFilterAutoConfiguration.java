@@ -18,10 +18,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class GatewayFilterAutoConfiguration{
 
-    @Value("${eas.address:null}")
+    @Value("${darth.address:null}")
     String authAddress;
 
-    @Value("${eas.embbed.enable:false}")
+    @Value("${darth.embbed.enable:false}")
     Boolean enableEam;
 
     //路由

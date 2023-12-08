@@ -41,10 +41,10 @@ dfs:
     bucket: ${app.name}
 
 
-eas:
+darth:
   embbed:
     enable: false
-  address:  http://eas-ce.thoughtware.net
+  address:  http://darth-ce.thoughtware.net
 
 #plugin 
 plugin:

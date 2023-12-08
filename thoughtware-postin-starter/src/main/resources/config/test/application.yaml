@@ -50,10 +50,10 @@ licences:
 base:
   url: http://postin-ce.test.thoughtware.net
 
-eas:
+darth:
   embbed:
     enable: true
-  address: http://eas-ce.test.thoughtware.net
+  address: http://darth-ce.test.thoughtware.net
 
 postgresql:
   database: postin
