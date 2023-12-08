@@ -1,0 +1,80 @@
+#application io.thoughtware.postin.config
+app:
+  name: postin
+spring:
+  profiles:
+    active: dev
+
+DATA_HOME: ${user.home}/thoughtware/${app.name}
+
+server:
+  port: 8090
+
+jdbc:
+  driverClassName: org.postgresql.Driver
+  url: jdbc:postgresql://172.10.1.10:5432/tiklab_postin?stringtype=unspecified
+  username: postgres
+  password: darth2020
+
+dcs:
+  server:
+    enabled: true
+    port: 5000
+    datapath: ${DATA_HOME}/data
+  client:
+    url: 127.0.0.1:5000
+    group: g1
+    database: dcs1
+    expire: 7200
+
+#dfs config
+dfs:
+  server:
+    #    enabled: true
+    #    mode:server
+    port: 4000
+    datapath: ${DATA_HOME}/files
+  client:
+    url: 172.10.1.11:4000
+    bucket: ${app.name}
+
+
+eas:
+  embbed:
+    enable: true
+  address: http://192.168.10.34:8080
+  web:
+    address: http://192.168.10.34:8080
+
+
+
+#plugin
+plugin:
+  path: ${DATA_HOME}/plugin
+
+#licences
+licences:
+  path: ${DATA_HOME}/licences
+
+base:
+  url: http://192.168.10.21:8090
+
+file:
+  path:
+homes:
+  address: http://192.168.10.7
+
+postgresql:
+  type: local
+
+postin:
+  enable: true
+  scan:
+    package: io.thoughtware
+  report:
+    workspaceId: 80c5a5b08417
+    server: http://192.168.10.21:8090
+
+backups:
+  dir:  /data/postin
+  time: 0 0 2 * * ?
