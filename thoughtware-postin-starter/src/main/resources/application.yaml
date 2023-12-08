@@ -18,7 +18,6 @@ jdbc:
   username: postgres
   password: darth2020
 
-
 #dcs
 dcs:
   server:
