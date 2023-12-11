@@ -84,25 +84,14 @@ public class ApixDao {
 
     /**
      * 查询总数
-     * @param apixQuery
+     * @param workspaceId
      * @return
      */
-    public int findApixNum(ApixQuery apixQuery) {
-        Integer size;
-        try {
-            String sql = "SELECT  \n" +
-                    "COUNT(*) AS cnt \n" +
-                    "FROM postin_apix \n" +
-                    "WHERE \"category_id\" = '"+apixQuery.getCategoryId()+"' \n" +
-                    "GROUP BY \"category_id\";";
-
-            size = jpaTemplate.getJdbcTemplate().queryForObject(sql, Integer.class);
-
-        }catch (Exception e){
-            size = 0;
-        }
+    public int findApixNum(String workspaceId) {
+        String apxSql = "Select count(1) as total from postin_apix where workspace_id = '" + workspaceId+ "'";
+        Integer apiTotal = jpaTemplate.getJdbcTemplate().queryForObject(apxSql, new Object[]{}, Integer.class);
         
-        return size;
+        return apiTotal;
     }
 
 

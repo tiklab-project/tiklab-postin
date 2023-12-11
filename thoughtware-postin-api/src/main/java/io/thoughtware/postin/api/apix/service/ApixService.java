@@ -44,10 +44,10 @@ public interface ApixService {
 
     /**
      * 查询接口总数
-     * @param apixQuery
+     * @param workspaceId
      * @return
      */
-    int findApixNum(ApixQuery apixQuery);
+    int findApixNum(String workspaceId);
 
     /**
     * 查找

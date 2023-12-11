@@ -201,8 +201,8 @@ public class ApixServiceImpl implements ApixService {
     }
 
     @Override
-    public int findApixNum(ApixQuery apixQuery) {
-        int apixNum = apixDao.findApixNum(apixQuery);
+    public int findApixNum(String workspaceId) {
+        int apixNum = apixDao.findApixNum(workspaceId);
         return apixNum;
     }
 

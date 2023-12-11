@@ -219,6 +219,12 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    public int findCategoryNum(String workspaceId) {
+        int categoryNum = categoryDao.findCategoryNum(workspaceId);
+        return categoryNum;
+    }
+
+    @Override
     public List<Category> findCategoryList(CategoryQuery categoryQuery) {
 
         List<CategoryEntity> categoryEntityList = categoryDao.findCategoryList(categoryQuery);

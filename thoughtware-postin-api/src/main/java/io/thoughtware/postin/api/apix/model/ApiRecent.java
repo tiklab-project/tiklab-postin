@@ -6,6 +6,7 @@ import io.thoughtware.beans.annotation.Mapping;
 import io.thoughtware.beans.annotation.Mappings;
 import io.thoughtware.core.BaseModel;
 import io.thoughtware.join.annotation.Join;
+import io.thoughtware.join.annotation.JoinQuery;
 import io.thoughtware.postin.annotation.ApiModel;
 import io.thoughtware.postin.annotation.ApiProperty;
 import io.thoughtware.postin.workspace.model.Workspace;
@@ -18,10 +19,6 @@ import io.thoughtware.user.user.model.User;
 @Join
 @Mapper
 public class ApiRecent extends BaseModel {
-    /**
-     * @pi.ddd
-     */
-    private String gsdgsddsd;
 
     @ApiProperty(name="id",desc="id")
     private String id;
@@ -30,6 +27,7 @@ public class ApiRecent extends BaseModel {
     @Mappings({
             @Mapping(source = "workspace.id",target = "workspaceId")
     })
+    @JoinQuery(key = "id")
     private Workspace workspace;
 
     @ApiProperty(name="user",desc="所属用户",eg="@selectOne")
@@ -42,6 +40,7 @@ public class ApiRecent extends BaseModel {
     @Mappings({
             @Mapping(source = "apix.id",target = "apixId")
     })
+    @JoinQuery(key = "id")
     private Apix apix;
 
     @ApiProperty(name="updateTime",desc="updateTime")

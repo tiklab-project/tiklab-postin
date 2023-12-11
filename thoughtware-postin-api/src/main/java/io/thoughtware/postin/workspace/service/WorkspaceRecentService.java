@@ -79,7 +79,7 @@ public interface WorkspaceRecentService {
     * @param workspaceRecentQuery
     * @return
     */
-    Pagination<WorkspaceRecent> findWorkspaceRecentPage(WorkspaceRecentQuery workspaceRecentQuery);
+    Pagination<Workspace> findWorkspaceRecentPage(WorkspaceRecentQuery workspaceRecentQuery);
 
     /**
      * 设置最近浏览的空间

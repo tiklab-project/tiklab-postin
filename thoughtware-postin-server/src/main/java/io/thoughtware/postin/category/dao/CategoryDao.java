@@ -72,6 +72,20 @@ public class CategoryDao{
     }
 
     /**
+     * 查询总数
+     * @param workspaceId
+     * @return
+     */
+    public int findCategoryNum(String workspaceId) {
+        String categorySql = "Select count(1) as total from postin_category where workspace_id = '" + workspaceId+ "'";
+        Integer categoryTotal = jpaTemplate.getJdbcTemplate().queryForObject(categorySql, new Object[]{}, Integer.class);
+
+        return categoryTotal;
+    }
+
+
+
+    /**
      * 根据查询对象查找分类列表
      * @param categoryQuery
      * @return

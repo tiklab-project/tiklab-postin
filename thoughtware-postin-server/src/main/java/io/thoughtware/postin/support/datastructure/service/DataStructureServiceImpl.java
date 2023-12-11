@@ -124,6 +124,12 @@ public class DataStructureServiceImpl implements DataStructureService {
     }
 
     @Override
+    public int findModelNum(String workspaceId) {
+        int modelNum = dataStructureDao.findModelNum(workspaceId);
+        return modelNum;
+    }
+
+    @Override
     public DataStructure findDataStructure(@NotNull String id) {
         DataStructure dataStructure = findOne(id);
 

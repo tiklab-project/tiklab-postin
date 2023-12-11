@@ -59,6 +59,14 @@ public interface CategoryService {
     List<Category> findAllCategory();
 
     /**
+     * 查询分组总数
+     * @param workspaceId
+     * @return
+     */
+    int findCategoryNum(String workspaceId);
+
+
+    /**
     * 查询列表分类
     * @param categoryQuery
     * @return

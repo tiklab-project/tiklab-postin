@@ -52,6 +52,16 @@ public interface DataStructureService {
     @FindList
     List<DataStructure> findList(List<String> idList);
 
+
+    /**
+     * 查询模型总数
+     * @param workspaceId
+     * @return
+     */
+    int findModelNum(String workspaceId);
+
+
+
     /**
     * 查找数据结构
     * @param id

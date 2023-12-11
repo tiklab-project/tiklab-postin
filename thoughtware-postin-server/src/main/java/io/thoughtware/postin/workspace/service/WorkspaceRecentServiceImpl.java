@@ -113,26 +113,15 @@ public class WorkspaceRecentServiceImpl implements WorkspaceRecentService {
             Workspace workspace = workspaceService.findWorkspace(workspaceId);
 
             //获取分组的总数
-            int categoryCount=0;
-            CategoryQuery categoryQuery = new CategoryQuery();
-            categoryQuery.setWorkspaceId(workspaceId);
-            List<Category> categoryList = categoryService.findCategoryList(categoryQuery);
-            categoryCount=categoryList.size();
-            workspace.setCategoryNum(categoryCount);
+            int categoryNum = categoryService.findCategoryNum(workspaceId);
+            workspace.setCategoryNum(categoryNum);
 
             //获取接口总数
-            int apiCount=0;
-            for(Category category :categoryList){
-                int apixNum = apixService.findApixNum(new ApixQuery().setCategoryId(category.getId()));
-                apiCount+=apixNum;
-            }
+            int apiCount= apixService.findApixNum(workspaceId);
             workspace.setApiNum(apiCount);
 
             workspaceList.add(workspace);
         }
-
-        joinTemplate.joinQuery(workspaceList);
-
 
         return workspaceList;
     }
@@ -147,14 +136,27 @@ public class WorkspaceRecentServiceImpl implements WorkspaceRecentService {
     }
 
     @Override
-    public Pagination<WorkspaceRecent> findWorkspaceRecentPage(WorkspaceRecentQuery workspaceRecentQuery) {
+    public Pagination<Workspace> findWorkspaceRecentPage(WorkspaceRecentQuery workspaceRecentQuery) {
         Pagination<WorkspaceRecentEntity>  pagination = workspaceRecentDao.findWorkspaceRecentPage(workspaceRecentQuery);
 
         List<WorkspaceRecent> workspaceRecentList = BeanMapper.mapList(pagination.getDataList(),WorkspaceRecent.class);
-
         joinTemplate.joinQuery(workspaceRecentList);
 
-        return PaginationBuilder.build(pagination,workspaceRecentList);
+        ArrayList<Workspace> workspaceList = new ArrayList<>();
+        for(WorkspaceRecent workspaceRecent:workspaceRecentList){
+            Workspace workspace = workspaceRecent.getWorkspace();
+
+            //获取分组的总数
+            int categoryNum = categoryService.findCategoryNum(workspace.getId());
+            workspace.setCategoryNum(categoryNum);
+
+            //获取接口总数
+            int apiCount= apixService.findApixNum(workspace.getId());
+            workspace.setApiNum(apiCount);
+            workspaceList.add(workspace);
+        }
+
+        return PaginationBuilder.build(pagination,workspaceList);
     }
 
     @Override

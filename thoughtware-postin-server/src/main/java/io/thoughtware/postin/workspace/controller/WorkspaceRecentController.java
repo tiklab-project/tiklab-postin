@@ -90,8 +90,8 @@ public class WorkspaceRecentController {
     @RequestMapping(path = "/findWorkspaceRecentPage",method = RequestMethod.POST)
     @ApiMethod(name = "findWorkspaceRecentPage",desc = "根据查询参数按分页查找最近访问空间")
     @ApiParam(name = "workspaceRecentQuery",desc = "workspaceRecentQuery",required = true)
-    public Result<Pagination<WorkspaceRecent>> findWorkspaceRecentPage(@RequestBody @Valid @NotNull WorkspaceRecentQuery workspaceRecentQuery){
-        Pagination<WorkspaceRecent> pagination = workspaceRecentService.findWorkspaceRecentPage(workspaceRecentQuery);
+    public Result<Pagination<Workspace>> findWorkspaceRecentPage(@RequestBody @Valid @NotNull WorkspaceRecentQuery workspaceRecentQuery){
+        Pagination<Workspace> pagination = workspaceRecentService.findWorkspaceRecentPage(workspaceRecentQuery);
 
         return Result.ok(pagination);
     }

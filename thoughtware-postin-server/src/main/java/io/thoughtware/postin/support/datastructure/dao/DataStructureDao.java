@@ -76,6 +76,19 @@ public class DataStructureDao{
     }
 
     /**
+     * 查询总数
+     * @param workspaceId
+     * @return
+     */
+    public int findModelNum(String workspaceId) {
+        String modelSql = "Select count(1) as total from postin_model where workspace_id = '" + workspaceId+ "'";
+        Integer modelTotal = jpaTemplate.getJdbcTemplate().queryForObject(modelSql, new Object[]{}, Integer.class);
+
+        return modelTotal;
+    }
+
+
+    /**
      * 根据查询对象查询数据结构
      * @param dataStructureQuery
      * @return
