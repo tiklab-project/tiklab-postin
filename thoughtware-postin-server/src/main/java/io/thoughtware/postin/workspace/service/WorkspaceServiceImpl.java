@@ -143,11 +143,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         Map<String,String> map = new HashMap<>();
         map.put("name",workspace.getWorkspaceName());
         map.put("workspaceId",workspaceId);
-        map.put("user",postInUnit.getUser().getNickname());
-        map.put("mode","空间");
-        map.put("images",workspace.getIconUrl());
-        LoggingType oplogTypeOne = loggingTypeService.findOplogTypeOne(LOG_TYPE_CREATE_ID);
-        map.put("actionType",oplogTypeOne.getName());
+        map.put("link","/workspace/overview/${workspaceId}");
         logUnit.log(LOG_TYPE_CREATE_ID,"workspace",map);
 
 
@@ -204,11 +200,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         Map<String,String> map = new HashMap<>();
         map.put("name",workspace.getWorkspaceName());
         map.put("workspaceId",workspace.getId());
-        map.put("user",postInUnit.getUser().getNickname());
-        map.put("mode","空间");
-        map.put("images",workspace.getIconUrl());
-        LoggingType oplogTypeOne = loggingTypeService.findOplogTypeOne(LOG_TYPE_UPDATE_ID);
-        map.put("actionType",oplogTypeOne.getName());
+        map.put("link","/workspace/overview/${workspaceId}");
         logUnit.log(LOG_TYPE_UPDATE_ID,"workspace",map);
 
         //更新索引

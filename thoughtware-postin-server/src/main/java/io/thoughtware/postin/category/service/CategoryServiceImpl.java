@@ -48,11 +48,6 @@ public class CategoryServiceImpl implements CategoryService {
     @Autowired
     JoinTemplate joinTemplate;
 
-    @Autowired
-    LogUnit logUnit;
-
-    @Autowired
-    PostInUnit postInUnit;
 
     @Override
     public String createCategory(@NotNull @Valid Category category) {
@@ -64,18 +59,6 @@ public class CategoryServiceImpl implements CategoryService {
         }
         String categoryId = categoryDao.createCategory(categoryEntity);
 
-        //日志
-//        Map<String,String> map = new HashMap<>();
-//        map.put("name",category.getName());
-//        map.put("id",categoryId);
-//        map.put("workspaceId",category.getWorkspace().getId());
-//        map.put("user",postInUnit.getUser().getNickname());
-//        map.put("mode","目录");
-//        map.put("images","/images/log.png");
-//        LoggingType oplogTypeOne = loggingTypeService.findOplogTypeOne(LOG_TYPE_CREATE_ID);
-//        map.put("actionType",oplogTypeOne.getName());
-//
-//        logUnit.log(LOG_TYPE_CREATE_ID,"category",map);
 
         return categoryId;
     }
@@ -86,36 +69,10 @@ public class CategoryServiceImpl implements CategoryService {
 
         categoryDao.updateCategory(categoryEntity);
 
-        //日志
-        String userId =LoginContext.getLoginId();
-        Map<String,String> map = new HashMap<>();
-        map.put("name",category.getName());
-        map.put("id",category.getId());
-        map.put("workspaceId",category.getWorkspace().getId());
-        map.put("user",postInUnit.getUser().getNickname());
-        map.put("mode","目录");
-        map.put("images","/images/log.png");
-        LoggingType oplogTypeOne = loggingTypeService.findOplogTypeOne(EnumTemplateConstant.LOG_TYPE_UPDATE_ID);
-        map.put("actionType",oplogTypeOne.getName());
-
-        logUnit.log(EnumTemplateConstant.LOG_TYPE_UPDATE_ID,"category",map);
     }
 
     @Override
     public void deleteCategory(@NotNull String id) {
-        Category category = findCategory(id);
-        //日志
-        Map<String,String> map = new HashMap<>();
-        map.put("name",category.getName());
-        map.put("workspaceId",category.getWorkspace().getId());
-        map.put("id",category.getId());
-        map.put("user",postInUnit.getUser().getNickname());
-        map.put("mode","目录");
-        map.put("images","/images/log.png");
-        LoggingType oplogTypeOne = loggingTypeService.findOplogTypeOne(EnumTemplateConstant.LOG_TYPE_DELETE_ID);
-        map.put("actionType",oplogTypeOne.getName());
-
-        logUnit.log(EnumTemplateConstant.LOG_TYPE_DELETE_ID,"category",map);
 
         //删除目录下的接口
         List<Apix> apixList = apixService.findApixList(new ApixQuery().setCategoryId(id));

@@ -137,22 +137,7 @@ public class ApixServiceImpl implements ApixService {
         //发送消息
 //        sendMessageForCreate(entity);
 
-        //日志
-        Map<String,String> map = new HashMap<>();
-        map.put("name",apix.getName());
-        map.put("id",apix.getId());
-        map.put("workspaceId",apix.getWorkspaceId());
-        if(postInUnit.getUser()==null){
-            map.put("user","admin");
-        }else {
-            map.put("user",postInUnit.getUser().getNickname());
-        }
-        map.put("mode","接口");
-        map.put("images","/images/log.png");
-        LoggingType oplogTypeOne = loggingTypeService.findOplogTypeOne(EnumTemplateConstant.LOG_TYPE_UPDATE_ID);
-        map.put("actionType",oplogTypeOne.getName());
 
-        logUnit.log(EnumTemplateConstant.LOG_TYPE_UPDATE_ID,"api",map);
     }
 
     @Override

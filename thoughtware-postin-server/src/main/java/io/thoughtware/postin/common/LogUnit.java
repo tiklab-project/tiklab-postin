@@ -27,25 +27,23 @@ public class LogUnit {
 
     public void log(String type, String module, Map<String,String> map){
 
-        User user = new User();
-        user.setId( LoginContext.getLoginId());
-
         Logging log = new Logging();
         LoggingType opLogType = new LoggingType();
         opLogType.setId(type);
         opLogType.setBgroup("postin");
-
         log.setActionType(opLogType);
-        log.setModule(module);
-        log.setLoggingTemplateId(EnumTemplateConstant.LOG_TEMPLATE_ID);
-        log.setCreateTime(new Timestamp(System.currentTimeMillis()));
-        log.setUser(user);
-        log.setBgroup("postin");
-        log.setContent(JSONObject.toJSONString(map));
-        log.setBaseUrl(baseUrl);
 
-        String contentStr = map.get("user")+map.get("actionType")+map.get("name");
-        log.setAbstractContent(contentStr);
+        User user = new User();
+        user.setId( LoginContext.getLoginId());
+        log.setUser(user);
+
+        log.setModule(module);
+        log.setAction(map.get("name"));
+
+        log.setLink(map.get("link"));
+        log.setBgroup("postin");
+        log.setData(JSONObject.toJSONString(map));
+        log.setBaseUrl(baseUrl);
 
         opLogByTemplService.createLog(log);
     }
