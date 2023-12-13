@@ -1,9 +1,5 @@
 package io.thoughtware.postin.category.service;
 
-import io.thoughtware.postin.common.EnumTemplateConstant;
-import io.thoughtware.postin.common.LogUnit;
-import io.thoughtware.postin.common.PostInUnit;
-import io.thoughtware.eam.common.context.LoginContext;
 import io.thoughtware.postin.api.apix.model.Apix;
 import io.thoughtware.postin.api.apix.model.ApixQuery;
 import io.thoughtware.postin.api.apix.service.ApixService;
@@ -16,7 +12,6 @@ import io.thoughtware.core.page.Pagination;
 import io.thoughtware.core.page.PaginationBuilder;
 import io.thoughtware.join.JoinTemplate;
 import io.thoughtware.rpc.annotation.Exporter;
-import io.thoughtware.security.logging.model.LoggingType;
 import io.thoughtware.security.logging.service.LoggingTypeService;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +22,7 @@ import org.springframework.util.StringUtils;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -209,8 +205,10 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public List<Category> findCategoryListTree(CategoryQuery categoryQuery) {
+        CategoryQuery newQuery = new CategoryQuery();
+        newQuery.setWorkspaceId(categoryQuery.getWorkspaceId());
+        List<Category> categoryList = findCategoryList(newQuery);
 
-        List<Category> categoryList = findCategoryList(categoryQuery);
         if (ObjectUtils.isEmpty(categoryQuery.getName())){
             ApixQuery apixQuery = new ApixQuery();
             apixQuery.setWorkspaceId(categoryQuery.getWorkspaceId());
@@ -223,23 +221,19 @@ public class CategoryServiceImpl implements CategoryService {
             apixQuery.setName(categoryQuery.getName());
             List<Apix> matchedApixList = apixService.findApixList(apixQuery);
 
-            // 将匹配到的 apixList 放在对应的 Category 下
-            for (Apix apix : matchedApixList) {
-                for (Category category : categoryList) {
-                    if (Objects.equals(category.getId(), apix.getCategory().getId())) {
-                        category.getNodeList().add(apix);
-                        break;
-                    }
-                }
-            }
-
             // 构建带有树形结构的 Category List
-            return buildCategoryTreeWithStructure(categoryList);
+            List<Category> categories = buildTree(categoryList,matchedApixList);
+            return categories;
 
         }
     }
 
-
+    /**
+     * 构造目录树
+     * @param categoryList
+     * @param apixList
+     * @return
+     */
     public List<Category> buildCategoryTree(List<Category> categoryList, List<Apix> apixList) {
         List<Category> topList = categoryList.stream()
                 .filter(category -> category.getParent() == null || category.getParent().getId() == null)
@@ -251,6 +245,7 @@ public class CategoryServiceImpl implements CategoryService {
 
         return topList;
     }
+
 
     private void buildCategoryNode(Category parentCategory, List<Category> categoryList, List<Apix> apixList, List<Category> topList) {
         List<Category> children = categoryList.stream()
@@ -269,31 +264,45 @@ public class CategoryServiceImpl implements CategoryService {
         parentCategory.setNodeList(nodeList);
     }
 
-    private List<Category> buildCategoryTreeWithStructure(List<Category> categoryList) {
-        Map<String, Category> categoryMap = new HashMap<>();
-        List<Category> result = new ArrayList<>();
 
-        // 将所有的 Category 放入 Map 中，以便后续快速查找
-        for (Category category : categoryList) {
-            categoryMap.put(category.getId(), category);
+    public List<Category> buildTree(List<Category> categories, List<Apix> apis) {
+
+        Map<String, Category> map = categories.stream()
+                .collect(Collectors.toMap(Category::getId, c -> c));
+
+        List<Category> roots = categories.stream()
+                .filter(c -> c.getParent() == null)
+                .collect(Collectors.toList());
+
+        buildTree(roots, map);
+
+        associateApis(roots, apis, map);
+
+        return roots;
+    }
+
+    private void buildTree(List<Category> nodes, Map<String, Category> map) {
+        for (Category node : nodes) {
+            List<Category> children = map.values().stream()
+                    .filter(c ->c.getParent()!=null&& Objects.equals(c.getParent().getId(), node.getId()))
+                    .collect(Collectors.toList());
+
+            node.setChildren(children);
+            buildTree(children, map);
         }
+    }
 
-        // 遍历 Category 列表，将每个 Category 放入其父节点的 children 列表中
-        for (Category category : categoryList) {
-            if (category.getParent() == null) {
-                // 如果没有父节点，则将其作为顶级节点添加到结果列表中
-                result.add(category);
-            } else {
-                // 如果有父节点，则找到父节点并添加到其 children 列表中
-                Category parent = categoryMap.get(category.getParent().getId());
-                if (parent != null) {
-                    parent.getChildren().add(category);
-                }
+    private void associateApis(List<Category> categories, List<Apix> apis, Map<String, Category> categoryMap) {
+
+        for (Apix api : apis) {
+            String categoryId = api.getCategory().getId();
+            Category category = categoryMap.get(categoryId);
+            if (category != null) {
+                category.getNodeList().add(api);
             }
         }
-
-        return result;
     }
+
 
 
 }

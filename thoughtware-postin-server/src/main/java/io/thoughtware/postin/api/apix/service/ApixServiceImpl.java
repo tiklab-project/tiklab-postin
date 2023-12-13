@@ -1,8 +1,5 @@
 package io.thoughtware.postin.api.apix.service;
 
-
-import io.thoughtware.postin.common.EnumTemplateConstant;
-import io.thoughtware.postin.common.LogUnit;
 import io.thoughtware.postin.common.PostInUnit;
 import io.thoughtware.postin.api.apix.dao.ApixDao;
 import io.thoughtware.postin.api.apix.entity.ApixEntity;
@@ -19,7 +16,6 @@ import io.thoughtware.postin.api.http.definition.service.HttpApiService;
 import io.thoughtware.postin.api.ws.ws.service.WSApiService;
 
 import io.thoughtware.rpc.annotation.Exporter;
-import io.thoughtware.security.logging.model.LoggingType;
 import io.thoughtware.security.logging.service.LoggingTypeService;
 import io.thoughtware.eam.common.context.LoginContext;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,9 +53,6 @@ public class ApixServiceImpl implements ApixService {
 
 //    @Autowired
 //    DssClient disClient;
-
-    @Autowired
-    LogUnit logUnit;
 
     @Autowired
     PostInUnit postInUnit;

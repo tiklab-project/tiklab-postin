@@ -1,12 +1,8 @@
 package io.thoughtware.postin.workspace.service;
 
-import com.alibaba.fastjson.JSONObject;
 import io.thoughtware.postin.workspace.dao.WorkspaceDao;
 import io.thoughtware.postin.workspace.entity.WorkspaceEntity;
 import io.thoughtware.eam.common.context.LoginContext;
-import io.thoughtware.message.message.model.SendMessageNotice;
-import io.thoughtware.message.message.service.SendMessageNoticeService;
-import io.thoughtware.postin.api.apix.service.ApixService;
 import io.thoughtware.postin.category.model.Category;
 import io.thoughtware.postin.category.model.CategoryQuery;
 import io.thoughtware.postin.category.service.CategoryService;
@@ -14,25 +10,19 @@ import io.thoughtware.postin.support.apistatus.service.ApiStatusService;
 import io.thoughtware.postin.support.datastructure.model.DataStructure;
 import io.thoughtware.postin.support.datastructure.model.DataStructureQuery;
 import io.thoughtware.postin.support.datastructure.service.DataStructureService;
-import io.thoughtware.postin.common.LogUnit;
 import io.thoughtware.postin.common.PostInUnit;
 import io.thoughtware.postin.support.environment.model.Environment;
 import io.thoughtware.postin.support.environment.service.EnvironmentService;
 import io.thoughtware.beans.BeanMapper;
 import io.thoughtware.core.page.Pagination;
 import io.thoughtware.core.page.PaginationBuilder;
-//import io.thoughtware.dss.client.DssClient;
 import io.thoughtware.join.JoinTemplate;
 import io.thoughtware.postin.workspace.model.*;
 import io.thoughtware.privilege.dmRole.service.DmRoleService;
 import io.thoughtware.rpc.annotation.Exporter;
-import io.thoughtware.security.logging.model.LoggingType;
-import io.thoughtware.security.logging.service.LoggingTypeService;
 import io.thoughtware.user.dmUser.model.DmUser;
 import io.thoughtware.user.dmUser.model.DmUserQuery;
 import io.thoughtware.user.dmUser.service.DmUserService;
-import io.thoughtware.user.user.model.User;
-import io.thoughtware.user.user.service.UserService;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -65,10 +55,6 @@ public class WorkspaceServiceImpl implements WorkspaceService {
     CategoryService categoryService;
 
     @Autowired
-    ApixService apixService;
-
-
-    @Autowired
     DataStructureService dataStructureService;
 
     @Autowired
@@ -86,20 +72,9 @@ public class WorkspaceServiceImpl implements WorkspaceService {
     @Autowired
     JoinTemplate joinTemplate;
 
-    @Autowired
-    LogUnit logUnit;
-
-    @Autowired
-    LoggingTypeService loggingTypeService;
-
-    @Autowired
-    SendMessageNoticeService sendMessageNoticeService;
 
 //    @Autowired
 //    DssClient disClient;
-
-    @Autowired
-    UserService userService;
 
     @Autowired
     PostInUnit postInUnit;
@@ -112,7 +87,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
     @Override
     public String createWorkspace(@NotNull @Valid Workspace workspace) throws Exception {
         String userId = LoginContext.getLoginId();
-        User userInfo = userService.findUser(userId);
+
 
         //创建项目
         WorkspaceEntity workspaceEntity = BeanMapper.map(workspace, WorkspaceEntity.class);
@@ -139,47 +114,15 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         environment.setUrl(mockUrl);
         environmentService.createEnvironment(environment);
 
-        //日志
+
         Map<String,String> map = new HashMap<>();
-        map.put("name",workspace.getWorkspaceName());
+        map.put("workspaceName",workspace.getWorkspaceName());
         map.put("workspaceId",workspaceId);
         map.put("link","/workspace/overview/${workspaceId}");
-        logUnit.log(LOG_TYPE_CREATE_ID,"workspace",map);
-
-
+        //日志
+        postInUnit.log(LOG_TYPE_CREATE_ID,"workspace",map);
         //消息
-        //站内信
-        SendMessageNotice messageDispatchNotice = new SendMessageNotice();
-        Map<String,String> site_mail_Map = new HashMap<>();
-        site_mail_Map.put("name",workspace.getWorkspaceName());
-        site_mail_Map.put("id",workspaceId);
-        site_mail_Map.put("userName",userInfo.getNickname());
-        site_mail_Map.put("images",workspace.getIconUrl());
-        String siteMailMsg = JSONObject.toJSONString(site_mail_Map);
-
-        messageDispatchNotice.setSiteData(siteMailMsg);
-
-        //邮箱
-        messageDispatchNotice.setEmailData(siteMailMsg);
-
-        //钉钉
-        Map<String,String> DD_MSGMap = new HashMap<>();
-        DD_MSGMap.put("name",workspace.getWorkspaceName());
-        DD_MSGMap.put("userName",userInfo.getNickname());
-        DD_MSGMap.put("images",workspace.getIconUrl());
-        messageDispatchNotice.setDingdingData(JSONObject.toJSONString(DD_MSGMap));
-
-        //企业微信
-        Map<String,String> WX_MSGMap = new HashMap<>();
-        WX_MSGMap.put("name",workspace.getWorkspaceName());
-        WX_MSGMap.put("userName",userInfo.getNickname());
-        messageDispatchNotice.setQywechatData(JSONObject.toJSONString(WX_MSGMap));
-
-        messageDispatchNotice.setId("MESSAGE_NOTICE_ID");
-        messageDispatchNotice.setBaseUrl(baseUrl);
-        sendMessageNoticeService.createMessageItem(messageDispatchNotice);
-
-
+        postInUnit.message(map);
 
 
         //添加索引
@@ -201,7 +144,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         map.put("name",workspace.getWorkspaceName());
         map.put("workspaceId",workspace.getId());
         map.put("link","/workspace/overview/${workspaceId}");
-        logUnit.log(LOG_TYPE_UPDATE_ID,"workspace",map);
+        postInUnit.log(LOG_TYPE_UPDATE_ID,"workspace",map);
 
         //更新索引
 //        Workspace entity = findWorkspace(workspace.getId());
@@ -210,19 +153,6 @@ public class WorkspaceServiceImpl implements WorkspaceService {
 
     @Override
     public void deleteWorkspace(@NotNull String id) {
-        Workspace workspace = findWorkspace(id);
-
-        //日志
-        Map<String,String> map = new HashMap<>();
-        map.put("name",workspace.getWorkspaceName());
-        map.put("workspaceId",workspace.getId());
-        map.put("user",postInUnit.getUser().getNickname());
-        map.put("mode","空间");
-        map.put("images",workspace.getIconUrl());
-        LoggingType oplogTypeOne = loggingTypeService.findOplogTypeOne(LOG_TYPE_DELETE_ID);
-        map.put("actionType",oplogTypeOne.getName());
-        logUnit.log(LOG_TYPE_DELETE_ID,"workspace",map);
-
 
         List<Category> categoryList = categoryService.findCategoryList(new CategoryQuery().setWorkspaceId(id));
         if(CollectionUtils.isNotEmpty(categoryList)){

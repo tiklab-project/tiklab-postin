@@ -41,14 +41,24 @@ public class PostInDalAutoConfiguration {
 
         });
         dsmConfig.newVersion("1.0.1", new String[]{
+                "oplog_1.0.1",
+                "message_1.0.1",
+                "todotask_1.0.1",
+
                 "postin_1.0.1",
                 "postin-platform_1.0.1",
 
         });
         dsmConfig.newVersion("1.0.2", new String[]{
                 "postin_1.0.2",
-        });
+                "postin-platform_1.0.2",
 
+                "oplog_1.0.2",
+                "message_1.0.2",
+        });
+        dsmConfig.newVersion("1.0.3", new String[]{
+                "message_1.0.3",
+        });
 
         return dsmConfig;
     }
