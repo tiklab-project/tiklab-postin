@@ -141,7 +141,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
 
         //日志
         Map<String,String> map = new HashMap<>();
-        map.put("name",workspace.getWorkspaceName());
+        map.put("workspaceName",workspace.getWorkspaceName());
         map.put("workspaceId",workspace.getId());
         map.put("link","/workspace/overview/${workspaceId}");
         postInUnit.log(LOG_TYPE_UPDATE_ID,"workspace",map);
