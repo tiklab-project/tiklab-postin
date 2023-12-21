@@ -19,10 +19,12 @@ import io.thoughtware.core.page.PaginationBuilder;
 import io.thoughtware.join.JoinTemplate;
 import io.thoughtware.postin.workspace.model.*;
 import io.thoughtware.privilege.dmRole.service.DmRoleService;
+import io.thoughtware.privilege.role.model.PatchUser;
 import io.thoughtware.rpc.annotation.Exporter;
 import io.thoughtware.user.dmUser.model.DmUser;
 import io.thoughtware.user.dmUser.model.DmUserQuery;
 import io.thoughtware.user.dmUser.service.DmUserService;
+import io.thoughtware.user.user.model.User;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -104,7 +106,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         categoryService.createCategory(category);
 
         //拉入创建人 关联权限
-        dmRoleService.initPatchDmRole(workspaceId,workspace.getUserList(), "postin");
+        initProjectDmRole(workspace.getUserList(),workspaceId);
 
         //初始化一个mock
         Environment environment = new Environment();
@@ -114,6 +116,9 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         environment.setUrl(mockUrl);
         environmentService.createEnvironment(environment);
 
+        for(PatchUser user:workspace.getUserList()){
+
+        }
 
         Map<String,String> map = new HashMap<>();
         map.put("workspaceName",workspace.getWorkspaceName());
@@ -123,6 +128,8 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         postInUnit.log(LOG_TYPE_CREATE_ID,"workspace",map);
         //消息
         postInUnit.message(map);
+
+
 
 
         //添加索引
@@ -332,6 +339,52 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         return workspaceFollowList.stream()
                 .map(workspaceFollow -> workspaceFollow.getWorkspace().getId())
                 .collect(Collectors.toList());
+    }
+
+
+    /**
+     * 创建项目权限
+     * @param userList
+     * @param workspaceId
+     */
+    public void initProjectDmRole(List<PatchUser> userList, String workspaceId) {
+        List<PatchUser> patchUsers = new ArrayList<>();
+
+        boolean has111111 = false;
+
+        for (PatchUser patchUserItem : userList) {
+            String masterId = patchUserItem.getId();
+
+            if (!masterId.equals("111111")) {
+                // 初始化创建者
+                PatchUser patchUser = new PatchUser();
+                DmUser dmUser = new DmUser();
+                dmUser.setDomainId(workspaceId);
+                User user = new User();
+                user.setId(masterId);
+                dmUser.setUser(user);
+                patchUser.setId(masterId);
+                patchUser.setAdminRole(true);
+                patchUsers.add(patchUser);
+            } else {
+                has111111 = true;
+            }
+        }
+
+        // 如果列表中没有 "111111"，再添加默认用户
+        if (!has111111) {
+            PatchUser patchUser1 = new PatchUser();
+            DmUser dmUser1 = new DmUser();
+            dmUser1.setDomainId(workspaceId);
+            User user1 = new User();
+            user1.setId("111111");
+            dmUser1.setUser(user1);
+            patchUser1.setId("111111");
+            patchUser1.setAdminRole(true);
+            patchUsers.add(patchUser1);
+        }
+
+        dmRoleService.initPatchDmRole(workspaceId, patchUsers, "posin");
     }
 
 }
