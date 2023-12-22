@@ -17,7 +17,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableScheduling
 @PropertySource(value = {"classpath:application.yaml"},factory = PropertyAndYamlSourceFactory.class)
 public class PostInApplication {
-
     public static final Logger logger = LoggerFactory.getLogger(PostInApplication.class);
 
     public static void main(String[] args) {
