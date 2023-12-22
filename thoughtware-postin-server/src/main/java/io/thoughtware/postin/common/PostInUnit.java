@@ -79,7 +79,7 @@ public class PostInUnit {
         sendMessageNotice.setLink(map.get("link"));
         sendMessageNotice.setAction(map.get("workspaceName"));
 
-        sendMessageNoticeService.createMessageItem(sendMessageNotice);
+        sendMessageNoticeService.sendMessageNotice(sendMessageNotice);
     }
 
 
