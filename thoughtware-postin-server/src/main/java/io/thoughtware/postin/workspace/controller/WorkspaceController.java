@@ -21,31 +21,24 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
-/**
- * 空间 控制器
- * @eo.api-type grpc
- * @eo.groupName test1111
- * @eo.path /workspace
- */
+
 @RestController
 @RequestMapping("/workspace")
 @Api(name = "WorkspaceController",desc = "空间管理")
 public class WorkspaceController {
 
+    /**
+     * logger
+     */
     private static Logger logger = LoggerFactory.getLogger(WorkspaceController.class);
 
+    /**
+     * workspaceService
+     */
     @Autowired
     private WorkspaceService workspaceService;
 
 
-    /**
-     * @eo.name 创建空间11
-     * @eo.url /createWorkspace
-     * @eo.method post
-     * @eo.request-type json
-     * @param workspace
-     * @return Result
-     */
     @RequestMapping(path="/createWorkspace",method = RequestMethod.POST)
     @ApiMethod(name = "createWorkspace",desc = "创建空间")
     @ApiParam(name = "workspace",desc = "空间DTO",required = true)
@@ -55,14 +48,6 @@ public class WorkspaceController {
         return Result.ok(id);
     }
 
-    /**
-     * @eo.name 更新空间111111
-     * @eo.url /updateWorkspace
-     * @eo.method post
-     * @eo.request-type json
-     * @param workspace
-     * @return Result
-     */
     @RequestMapping(path="/updateWorkspace",method = RequestMethod.POST)
     @ApiMethod(name = "updateWorkspace",desc = "更新空间")
     @ApiParam(name = "workspace",desc = "空间DTO",required = true)
@@ -72,14 +57,6 @@ public class WorkspaceController {
         return Result.ok();
     }
 
-    /**
-     * @eo.name 根据空间ID删除空间
-     * @eo.url /deleteWorkspace
-     * @eo.method post
-     * @eo.request-type formdata
-     * @param id
-     * @return Result
-     */
     @RequestMapping(path="/deleteWorkspace",method = RequestMethod.POST)
     @ApiMethod(name = "deleteWorkspace",desc = "根据空间ID删除空间")
     @ApiParam(name = "id",desc = "空间ID",required = true)
@@ -98,7 +75,6 @@ public class WorkspaceController {
         return Result.ok(workspace);
     }
 
-
     @RequestMapping(path="/findAllWorkspace",method = RequestMethod.POST)
     @ApiMethod(name = "findAllWorkspace",desc = "查找所有空间")
     public Result<List<Workspace>> findAllWorkspace(){
@@ -106,8 +82,6 @@ public class WorkspaceController {
 
         return Result.ok(workspaceList);
     }
-
-
 
     @RequestMapping(path = "/findWorkspaceList",method = RequestMethod.POST)
     @ApiMethod(name = "findWorkspaceList",desc = "根据查询对象查询空间列表")
@@ -118,7 +92,6 @@ public class WorkspaceController {
         return Result.ok(workspaceJoinList);
     }
 
-
     @RequestMapping(path = "/findWorkspacePage",method = RequestMethod.POST)
     @ApiMethod(name = "findWorkspacePage",desc = "根据查询对象按分页查询空间")
     @ApiParam(name = "workspaceQuery",desc = "查询对象",required = true)
@@ -127,7 +100,6 @@ public class WorkspaceController {
 
         return Result.ok(pagination);
     }
-
 
     @RequestMapping(path = "/findWorkspaceJoinList",method = RequestMethod.POST)
     @ApiMethod(name = "findWorkspaceJoinList",desc = "根据查询对象查询空间我参加的列表")
