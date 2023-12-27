@@ -442,40 +442,40 @@
             </plugin>
 
             <!--copy插件-->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <version>2.8</version>
-                <executions>
-                    <execution>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>copy</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <artifactItems>
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-dependency-plugin</artifactId>-->
+<!--                <version>2.8</version>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <phase>prepare-package</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>copy</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--                <configuration>-->
+<!--                    <artifactItems>-->
+<!--&lt;!&ndash;                        <artifactItem>&ndash;&gt;-->
+<!--&lt;!&ndash;                            <groupId>io.thoughtware</groupId>&ndash;&gt;-->
+<!--&lt;!&ndash;                            <artifactId>thoughtware-user-plugin-all</artifactId>&ndash;&gt;-->
+<!--&lt;!&ndash;                            <version>${project.version}</version>&ndash;&gt;-->
+<!--&lt;!&ndash;                        </artifactItem>&ndash;&gt;-->
 <!--                        <artifactItem>-->
 <!--                            <groupId>io.thoughtware</groupId>-->
-<!--                            <artifactId>thoughtware-user-plugin-all</artifactId>-->
-<!--                            <version>${project.version}</version>-->
+<!--                            <artifactId>thoughtware-postin-exportpdf-plugin</artifactId>-->
+<!--                            <version>${thoughtware-postin-exportpdf-plugin.version}</version>-->
 <!--                        </artifactItem>-->
-                        <artifactItem>
-                            <groupId>io.thoughtware</groupId>
-                            <artifactId>thoughtware-postin-exportpdf-plugin</artifactId>
-                            <version>${thoughtware-postin-exportpdf-plugin.version}</version>
-                        </artifactItem>
-                        <artifactItem>
-                            <groupId>io.thoughtware</groupId>
-                            <artifactId>thoughtware-postin-version-plugin</artifactId>
-                            <version>${thoughtware-postin-version-plugin.version}</version>
-                        </artifactItem>
-                    </artifactItems>
-                    <includeTypes>jar</includeTypes>
-                    <outputDirectory>${project.basedir}/plugin</outputDirectory>
-                </configuration>
-            </plugin>
+<!--                        <artifactItem>-->
+<!--                            <groupId>io.thoughtware</groupId>-->
+<!--                            <artifactId>thoughtware-postin-version-plugin</artifactId>-->
+<!--                            <version>${thoughtware-postin-version-plugin.version}</version>-->
+<!--                        </artifactItem>-->
+<!--                    </artifactItems>-->
+<!--                    <includeTypes>jar</includeTypes>-->
+<!--                    <outputDirectory>${project.basedir}/plugin</outputDirectory>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
 
         </plugins>
     </build>
