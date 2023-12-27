@@ -12,10 +12,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class PostInOpenApiAutoConfiguration {
 
-    @Value("${darth.address:null}")
+    @Value("${eas.address:null}")
     String authAddress;
 
-    @Value("${darth.embbed.enable:false}")
+    @Value("${eas.embbed.enable:false}")
     Boolean enableEam;
 
     //路由

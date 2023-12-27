@@ -39,7 +39,7 @@ dfs:
     bucket: ${app.name}
 
 
-darth:
+eas:
   embbed:
     enable: true
   address: http://192.168.10.34:8080

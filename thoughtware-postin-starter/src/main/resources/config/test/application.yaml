@@ -50,7 +50,7 @@ licences:
 base:
   url: http://postin-ce.test.thoughtware.net
 
-darth:
+eas:
   embbed:
     enable: true
   address: http://darth-ce.test.thoughtware.net
