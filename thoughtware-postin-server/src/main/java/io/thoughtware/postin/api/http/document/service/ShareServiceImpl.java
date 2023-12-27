@@ -1,9 +1,9 @@
 package io.thoughtware.postin.api.http.document.service;
 
-import io.thoughtware.beans.BeanMapper;
+import io.thoughtware.toolkit.beans.BeanMapper;
 import io.thoughtware.core.page.Pagination;
 import io.thoughtware.core.page.PaginationBuilder;
-import io.thoughtware.join.JoinTemplate;
+import io.thoughtware.toolkit.join.JoinTemplate;
 import io.thoughtware.postin.api.apix.model.Apix;
 import io.thoughtware.postin.api.apix.model.ApixQuery;
 import io.thoughtware.postin.api.apix.service.ApixService;

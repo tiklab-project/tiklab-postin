@@ -5,13 +5,13 @@ import io.thoughtware.postin.annotation.ApiProperty;
 import io.thoughtware.postin.api.http.definition.model.HttpApi;
 import io.thoughtware.postin.category.model.Category;
 import io.thoughtware.postin.support.apistatus.model.ApiStatus;
-import io.thoughtware.beans.annotation.Mapper;
-import io.thoughtware.beans.annotation.Mapping;
-import io.thoughtware.beans.annotation.Mappings;
+import io.thoughtware.toolkit.beans.annotation.Mapper;
+import io.thoughtware.toolkit.beans.annotation.Mapping;
+import io.thoughtware.toolkit.beans.annotation.Mappings;
 import io.thoughtware.core.BaseModel;
 
-import io.thoughtware.join.annotation.Join;
-import io.thoughtware.join.annotation.JoinQuery;
+import io.thoughtware.toolkit.join.annotation.Join;
+import io.thoughtware.toolkit.join.annotation.JoinQuery;
 import io.thoughtware.user.user.model.User;
 import com.fasterxml.jackson.annotation.JsonFormat;
 

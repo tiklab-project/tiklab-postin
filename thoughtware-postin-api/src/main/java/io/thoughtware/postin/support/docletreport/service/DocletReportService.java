@@ -1,7 +1,7 @@
 package io.thoughtware.postin.support.docletreport.service;
 
 
-import io.thoughtware.join.annotation.JoinProvider;
+import io.thoughtware.toolkit.join.annotation.JoinProvider;
 import io.thoughtware.postin.support.docletreport.model.ModuleReport;
 import io.thoughtware.postin.support.environment.model.Environment;
 import javax.validation.Valid;

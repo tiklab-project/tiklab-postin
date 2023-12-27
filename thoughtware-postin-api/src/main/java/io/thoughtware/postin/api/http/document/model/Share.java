@@ -1,7 +1,7 @@
 package io.thoughtware.postin.api.http.document.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import io.thoughtware.beans.annotation.Mapper;
+import io.thoughtware.toolkit.beans.annotation.Mapper;
 import io.thoughtware.core.BaseModel;
 import io.thoughtware.postin.annotation.ApiModel;
 import io.thoughtware.postin.annotation.ApiProperty;

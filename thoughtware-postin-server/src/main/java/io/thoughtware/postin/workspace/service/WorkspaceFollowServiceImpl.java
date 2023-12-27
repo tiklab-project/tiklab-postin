@@ -6,10 +6,10 @@ import io.thoughtware.postin.workspace.model.Workspace;
 import io.thoughtware.postin.workspace.model.WorkspaceFollow;
 import io.thoughtware.postin.workspace.model.WorkspaceFollowQuery;
 
-import io.thoughtware.beans.BeanMapper;
+import io.thoughtware.toolkit.beans.BeanMapper;
 import io.thoughtware.core.page.Pagination;
 import io.thoughtware.core.page.PaginationBuilder;
-import io.thoughtware.join.JoinTemplate;
+import io.thoughtware.toolkit.join.JoinTemplate;
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

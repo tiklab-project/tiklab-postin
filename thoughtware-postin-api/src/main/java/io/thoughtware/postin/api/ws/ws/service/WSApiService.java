@@ -1,6 +1,6 @@
 package io.thoughtware.postin.api.ws.ws.service;
 
-import io.thoughtware.join.annotation.JoinProvider;
+import io.thoughtware.toolkit.join.annotation.JoinProvider;
 import io.thoughtware.postin.api.ws.ws.model.WSApi;
 
 import javax.validation.Valid;

@@ -7,11 +7,11 @@ import io.thoughtware.postin.api.apix.model.ApiRecent;
 import io.thoughtware.postin.api.apix.model.ApiRecentQuery;
 import io.thoughtware.postin.api.apix.model.Apix;
 import io.thoughtware.postin.api.apix.model.ApixQuery;
-import io.thoughtware.beans.BeanMapper;
+import io.thoughtware.toolkit.beans.BeanMapper;
 import io.thoughtware.core.page.Pagination;
 import io.thoughtware.core.page.PaginationBuilder;
 
-import io.thoughtware.join.JoinTemplate;
+import io.thoughtware.toolkit.join.JoinTemplate;
 import io.thoughtware.postin.api.http.definition.service.HttpApiService;
 import io.thoughtware.postin.api.ws.ws.service.WSApiService;
 

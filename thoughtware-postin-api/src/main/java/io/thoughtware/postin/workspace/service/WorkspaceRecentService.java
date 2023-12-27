@@ -1,10 +1,10 @@
 package io.thoughtware.postin.workspace.service;
 
 
-import io.thoughtware.join.annotation.FindAll;
-import io.thoughtware.join.annotation.FindList;
-import io.thoughtware.join.annotation.FindOne;
-import io.thoughtware.join.annotation.JoinProvider;
+import io.thoughtware.toolkit.join.annotation.FindAll;
+import io.thoughtware.toolkit.join.annotation.FindList;
+import io.thoughtware.toolkit.join.annotation.FindOne;
+import io.thoughtware.toolkit.join.annotation.JoinProvider;
 import io.thoughtware.postin.workspace.model.Workspace;
 import io.thoughtware.postin.workspace.model.WorkspaceRecent;
 import io.thoughtware.postin.workspace.model.WorkspaceRecentQuery;

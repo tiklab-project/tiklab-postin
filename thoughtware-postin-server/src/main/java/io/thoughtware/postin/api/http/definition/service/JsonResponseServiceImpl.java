@@ -5,10 +5,10 @@ import io.thoughtware.postin.api.http.definition.entity.JsonResponseEntity;
 import io.thoughtware.postin.api.http.definition.entity.HttpApiEntity;
 import io.thoughtware.postin.api.http.definition.model.JsonResponse;
 import io.thoughtware.postin.api.http.definition.model.JsonResponseQuery;
-import io.thoughtware.beans.BeanMapper;
+import io.thoughtware.toolkit.beans.BeanMapper;
 import io.thoughtware.core.page.Pagination;
 import io.thoughtware.core.page.PaginationBuilder;
-import io.thoughtware.join.JoinTemplate;
+import io.thoughtware.toolkit.join.JoinTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

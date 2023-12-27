@@ -4,10 +4,10 @@ package io.thoughtware.postin.api.http.document.service;
 import io.thoughtware.postin.api.http.definition.model.HttpApi;
 import io.thoughtware.postin.category.model.Category;
 import io.thoughtware.core.page.Pagination;
-import io.thoughtware.join.annotation.FindAll;
-import io.thoughtware.join.annotation.FindList;
-import io.thoughtware.join.annotation.FindOne;
-import io.thoughtware.join.annotation.JoinProvider;
+import io.thoughtware.toolkit.join.annotation.FindAll;
+import io.thoughtware.toolkit.join.annotation.FindList;
+import io.thoughtware.toolkit.join.annotation.FindOne;
+import io.thoughtware.toolkit.join.annotation.JoinProvider;
 import io.thoughtware.postin.api.http.document.model.Share;
 import io.thoughtware.postin.api.http.document.model.ShareQuery;
 

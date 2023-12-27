@@ -47,7 +47,7 @@
         <thoughtware-jdk.version>1.0.0</thoughtware-jdk.version>
         <thoughtware-plugin.version>1.0.1-SNAPSHOT</thoughtware-plugin.version>
         <thoughtware-openapi.version>1.0.0-SNAPSHOT</thoughtware-openapi.version>
-
+        <thoughtware-dsm.version>1.0.0</thoughtware-dsm.version>
 
 
         <thoughtware-postin-exportpdf-plugin.version>1.0.1-SNAPSHOT</thoughtware-postin-exportpdf-plugin.version>
@@ -214,6 +214,11 @@
                 <groupId>io.thoughtware</groupId>
                 <artifactId>thoughtware-upgrade-starter</artifactId>
                 <version>${thoughtware-upgrade.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.thoughtware</groupId>
+                <artifactId>thoughtware-dsm-spring-boot-starter</artifactId>
+                <version>${thoughtware-dsm.version}</version>
             </dependency>
 
             <!--业务-->

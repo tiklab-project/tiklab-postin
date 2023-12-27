@@ -2,14 +2,14 @@ package io.thoughtware.postin.api.http.mock.service;
 
 import io.thoughtware.dal.jpa.criterial.condition.DeleteCondition;
 import io.thoughtware.dal.jpa.criterial.conditionbuilder.DeleteBuilders;
-import io.thoughtware.join.JoinTemplate;
+import io.thoughtware.toolkit.join.JoinTemplate;
 import io.thoughtware.postin.api.http.mock.dao.RequestHeaderMockDao;
 import io.thoughtware.postin.api.http.mock.entity.RequestHeaderMockEntity;
 import io.thoughtware.postin.api.http.mock.model.RequestHeaderMock;
 import io.thoughtware.postin.api.http.mock.model.RequestHeaderMockQuery;
 
 import io.thoughtware.core.page.Pagination;
-import io.thoughtware.beans.BeanMapper;
+import io.thoughtware.toolkit.beans.BeanMapper;
 import io.thoughtware.core.page.PaginationBuilder;
 
 import org.springframework.beans.factory.annotation.Autowired;

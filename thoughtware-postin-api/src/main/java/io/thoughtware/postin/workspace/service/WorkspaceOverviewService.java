@@ -1,7 +1,7 @@
 package io.thoughtware.postin.workspace.service;
 
 
-import io.thoughtware.join.annotation.JoinProvider;
+import io.thoughtware.toolkit.join.annotation.JoinProvider;
 import io.thoughtware.postin.workspace.model.WorkspaceTotal;
 
 import javax.validation.constraints.NotNull;
