@@ -43,7 +43,7 @@ dfs:
 eas:
   embbed:
     enable: false
-  address: http://eas-ce.demo.thoughtware.net
+  address: http://eas-ce.demo.thoughtware.cn
 
 #plugin 
 plugin:
@@ -54,7 +54,7 @@ licences:
   path: ${DATA_HOME}/licences
 
 base:
-  url: http://postin-ce.demo.thoughtware.net
+  url: http://postin-ce.demo.thoughtware.cn
 
 postgresql:
   database: postin

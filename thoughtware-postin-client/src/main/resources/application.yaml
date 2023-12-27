@@ -50,7 +50,7 @@ licences:
 application: postin
 
 file:
-  path: http://file.dev.thoughtware.net
+  path: http://file.dev.thoughtware.cn
 
 base:
   url: http://192.168.10.3:3000
@@ -58,9 +58,9 @@ base:
 eas:
   embbed:
     enable: true
-#  address: http://eas.dev.thoughtware.net
+#  address: http://eas.dev.thoughtware.cn
 #  web:
-#    address: http://eas.dev.thoughtware.net
+#    address: http://eas.dev.thoughtware.cn
 
 
 postgresql:

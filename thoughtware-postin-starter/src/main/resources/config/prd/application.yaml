@@ -44,7 +44,7 @@ dfs:
 eas:
   embbed:
     enable: false
-  address:  http://eas-ce.thoughtware.net
+  address:  http://eas-ce.thoughtware.cn
 
 #plugin 
 plugin:
@@ -55,7 +55,7 @@ licences:
   path: ${DATA_HOME}/licences
 
 base:
-  url:  http://postin-ce.thoughtware.net
+  url:  http://postin-ce.thoughtware.cn
 
 
 file:

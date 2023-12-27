@@ -1,6 +1,6 @@
 INSERT INTO  postin_workspace  ( id ,  workspace_name ,  description ,  user_id ,  visibility ,  icon_url ) VALUES ('bd26c6ec5c6e', '默认空间', NULL, '111111', 1, '/images/pi1.png');
 
--- INSERT INTO  postin_environment  VALUES ('f25d692b439b', 'test', 'http://postin-ce.thoughtware.net', '2022-7-28 06:07:28', NULL, 'bd26c6ec5c6e');
+-- INSERT INTO  postin_environment  VALUES ('f25d692b439b', 'test', 'http://postin-ce.thoughtware.cn', '2022-7-28 06:07:28', NULL, 'bd26c6ec5c6e');
 
 INSERT INTO  postin_category  ( id ,  name ,  workspace_id ,  parent_category_id ) VALUES ('86e78329ea11', 'test', 'bd26c6ec5c6e', NULL);
 INSERT INTO  postin_category  ( id ,  name ,  workspace_id ,  parent_category_id ) VALUES ('a8ead30da71c', '默认分组', 'bd26c6ec5c6e', NULL);
