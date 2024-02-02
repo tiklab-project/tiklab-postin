@@ -119,7 +119,7 @@
         </dependency>
         <dependency>
             <groupId>io.thoughtware</groupId>
-            <artifactId>thoughtware-upgrade-starter</artifactId>
+            <artifactId>thoughtware-install-starter</artifactId>
         </dependency>
 
     </dependencies>

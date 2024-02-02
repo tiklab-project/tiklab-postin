@@ -28,8 +28,6 @@ public class PostInDalAutoConfiguration {
                 "message_1.0.0",
                 //SecurityDsm
                 "oplog_1.0.0",
-                //TodoTaskDsm
-                "todotask_1.0.0",
 
                 "backups_1.0.0",
 
@@ -43,7 +41,7 @@ public class PostInDalAutoConfiguration {
         dsmConfig.newVersion("1.0.1", new String[]{
                 "oplog_1.0.1",
                 "message_1.0.1",
-                "todotask_1.0.1",
+                "apply-auth_1.0.1",
 
                 "postin_1.0.1",
                 "postin-platform_1.0.1",

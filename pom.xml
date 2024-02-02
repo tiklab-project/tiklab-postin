@@ -41,9 +41,8 @@
         <thoughtware-message.version>1.0.1-SNAPSHOT</thoughtware-message.version>
         <thoughtware-security.version>1.0.1-SNAPSHOT</thoughtware-security.version>
         <thoughtware-licence.version>1.0.1-SNAPSHOT</thoughtware-licence.version>
-        <thoughtware-todotask.version>1.0.1-SNAPSHOT</thoughtware-todotask.version>
         <thoughtware-postgresql.version>1.0.1-SNAPSHOT</thoughtware-postgresql.version>
-        <thoughtware-upgrade.version>1.0.0</thoughtware-upgrade.version>
+        <thoughtware-install.version>1.0.0</thoughtware-install.version>
         <thoughtware-jdk.version>1.0.0</thoughtware-jdk.version>
         <thoughtware-plugin.version>1.0.1-SNAPSHOT</thoughtware-plugin.version>
         <thoughtware-openapi.version>1.0.0-SNAPSHOT</thoughtware-openapi.version>
@@ -202,18 +201,13 @@
             </dependency>
             <dependency>
                 <groupId>io.thoughtware</groupId>
-                <artifactId>thoughtware-todotask-spring-boot-starter</artifactId>
-                <version>${thoughtware-todotask.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.thoughtware</groupId>
                 <artifactId>thoughtware-postgresql-starter</artifactId>
                 <version>${thoughtware-postgresql.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.thoughtware</groupId>
-                <artifactId>thoughtware-upgrade-starter</artifactId>
-                <version>${thoughtware-upgrade.version}</version>
+                <artifactId>thoughtware-install-starter</artifactId>
+                <version>${thoughtware-install.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.thoughtware</groupId>
