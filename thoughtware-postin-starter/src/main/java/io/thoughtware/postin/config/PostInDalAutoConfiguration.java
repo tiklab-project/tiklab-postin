@@ -42,6 +42,7 @@ public class PostInDalAutoConfiguration {
                 "oplog_1.0.1",
                 "message_1.0.1",
                 "apply-auth_1.0.1",
+                "privilege_1.0.1",
 
                 "postin_1.0.1",
                 "postin-platform_1.0.1",
