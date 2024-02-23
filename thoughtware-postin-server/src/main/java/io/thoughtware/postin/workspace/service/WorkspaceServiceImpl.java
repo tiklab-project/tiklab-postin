@@ -105,9 +105,6 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         category.setName("默认分组");
         categoryService.createCategory(category);
 
-        //拉入创建人 关联权限
-        initProjectDmRole(workspace.getUserList(),workspaceId);
-
         //初始化一个mock
         Environment environment = new Environment();
         environment.setWorkspaceId(workspaceId);
@@ -116,9 +113,8 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         environment.setUrl(mockUrl);
         environmentService.createEnvironment(environment);
 
-        for(PatchUser user:workspace.getUserList()){
-
-        }
+        //拉入创建人 关联权限
+        initProjectDmRole(workspace.getUserList(),workspaceId);
 
         Map<String,String> map = new HashMap<>();
         map.put("workspaceName",workspace.getWorkspaceName());
@@ -293,20 +289,27 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         ArrayList<Workspace> arrayList = new ArrayList<>();
 
         for(Workspace workspace : workspaceList){
-            //查询dmuser list
-            DmUserQuery dmUserQuery = new DmUserQuery();
-            dmUserQuery.setUserId(workspaceQuery.getUserId());
-            dmUserQuery.setDomainId(workspace.getId());
-            List<DmUser> dmUserList = dmUserService.findDmUserList(dmUserQuery);
 
-            if(dmUserList==null||dmUserList.size()==0){
-                continue;
-            }
 
-            for(DmUser dmUser : dmUserList){
-                //如果空间成员与当前人相同
-                if(Objects.equals(dmUser.getUser().getId(), workspaceQuery.getUserId())){
-                    arrayList.add(workspace);
+            //如果是公共：0，都能查看
+            if(workspace.getVisibility().equals(0)){
+                arrayList.add(workspace);
+            }else {
+                //查询dmuser list
+                DmUserQuery dmUserQuery = new DmUserQuery();
+                dmUserQuery.setUserId(workspaceQuery.getUserId());
+                dmUserQuery.setDomainId(workspace.getId());
+                List<DmUser> dmUserList = dmUserService.findDmUserList(dmUserQuery);
+
+                if(dmUserList==null||dmUserList.size()==0){
+                    continue;
+                }
+
+                for(DmUser dmUser : dmUserList){
+                    //如果空间成员与当前人相同
+                    if(Objects.equals(dmUser.getUser().getId(), workspaceQuery.getUserId())){
+                        arrayList.add(workspace);
+                    }
                 }
             }
         }
@@ -345,46 +348,64 @@ public class WorkspaceServiceImpl implements WorkspaceService {
     /**
      * 创建项目权限
      * @param userList
-     * @param workspaceId
+     * @param repositoryId
      */
-    public void initProjectDmRole(List<PatchUser> userList, String workspaceId) {
-        List<PatchUser> patchUsers = new ArrayList<>();
+    public void initProjectDmRole(List<PatchUser> userList, String repositoryId) {
+        String loginId = LoginContext.getLoginId();
 
-        boolean has111111 = false;
+        if (userList == null) {
+            userList = new ArrayList<>();
+        }
 
-        for (PatchUser patchUserItem : userList) {
-            String masterId = patchUserItem.getId();
+        Set<String> existingUserIds = new HashSet<>();
+        boolean foundLoginUser = false;
+        boolean foundAdmin = false;
 
-            if (!masterId.equals("111111")) {
-                // 初始化创建者
-                PatchUser patchUser = new PatchUser();
-                DmUser dmUser = new DmUser();
-                dmUser.setDomainId(workspaceId);
-                User user = new User();
-                user.setId(masterId);
-                dmUser.setUser(user);
-                patchUser.setId(masterId);
-                patchUser.setAdminRole(true);
-                patchUsers.add(patchUser);
-            } else {
-                has111111 = true;
+        // 遍历userList来更新当前用户或管理员的adminRole，同时收集已存在的用户ID
+        for (PatchUser user : userList) {
+            existingUserIds.add(user.getId());
+            // 如果用户是当前用户或管理员，确保其adminRole被设置为true
+            if (user.getId().equals(loginId) || "111111".equals(user.getId())) {
+                user.setAdminRole(true);
+                if (user.getId().equals(loginId)) {
+                    foundLoginUser = true;
+                }
+                if ("111111".equals(user.getId())) {
+                    foundAdmin = true;
+                }
             }
         }
 
-        // 如果列表中没有 "111111"，再添加默认用户
-        if (!has111111) {
-            PatchUser patchUser1 = new PatchUser();
-            DmUser dmUser1 = new DmUser();
-            dmUser1.setDomainId(workspaceId);
-            User user1 = new User();
-            user1.setId("111111");
-            dmUser1.setUser(user1);
-            patchUser1.setId("111111");
-            patchUser1.setAdminRole(true);
-            patchUsers.add(patchUser1);
+        // 如果当前用户未在列表中找到，将其添加为管理员
+        if (!foundLoginUser&&!"111111".equals(loginId)) {
+            userList.add(createPatchUser(loginId, repositoryId, true));
         }
 
-        dmRoleService.initPatchDmRole(workspaceId, patchUsers, "posin");
+        // 如果管理员未在列表中找到，将其添加为管理员
+        if (!foundAdmin) {
+            userList.add(createPatchUser("111111", repositoryId, true));
+        }
+
+        // 调用服务以初始化权限
+        dmRoleService.initPatchDmRole(repositoryId, userList, "teston");
     }
 
+    /**
+     * 创建一个新的PatchUser对象的辅助方法
+     * @param userId 用户ID
+     * @param repositoryId 仓库ID
+     * @param isAdmin 是否为管理员角色
+     * @return PatchUser对象
+     */
+    private PatchUser createPatchUser(String userId, String repositoryId, boolean isAdmin) {
+        PatchUser patchUser = new PatchUser();
+        DmUser dmUser = new DmUser();
+        dmUser.setDomainId(repositoryId);
+        User user = new User();
+        user.setId(userId);
+        dmUser.setUser(user);
+        patchUser.setId(userId);
+        patchUser.setAdminRole(isAdmin);
+        return patchUser;
+    }
 }
