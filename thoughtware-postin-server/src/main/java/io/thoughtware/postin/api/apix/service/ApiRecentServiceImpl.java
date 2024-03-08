@@ -1,5 +1,7 @@
 package io.thoughtware.postin.api.apix.service;
 
+import io.thoughtware.postin.node.model.Node;
+import io.thoughtware.postin.node.service.NodeService;
 import io.thoughtware.toolkit.beans.BeanMapper;
 import io.thoughtware.core.page.Pagination;
 import io.thoughtware.core.page.PaginationBuilder;
@@ -37,6 +39,9 @@ public class ApiRecentServiceImpl implements ApiRecentService {
 
     @Autowired
     JoinTemplate joinTemplate;
+
+    @Autowired
+    NodeService nodeService;
 
 
     @Override
@@ -102,6 +107,9 @@ public class ApiRecentServiceImpl implements ApiRecentService {
                 ApiRecent apiRecent = apiRecentList.get(i);
 
                 Apix apix = apixService.findApix(apiRecent.getApix().getId());
+                Node node = nodeService.findNode(apix.getId());
+                apix.setNode(node);
+
                 apiRecent.setApix(apix);
 
                 if(apiRecent.getWorkspace()==null){
@@ -122,10 +130,17 @@ public class ApiRecentServiceImpl implements ApiRecentService {
     @Override
     public Pagination<ApiRecent> findApiRecentPage(ApiRecentQuery apiRecentQuery) {
         Pagination<ApiRecentEntity>  pagination = apiRecentDao.findApiRecentPage(apiRecentQuery);
-
         List<ApiRecent> apiRecentList = BeanMapper.mapList(pagination.getDataList(),ApiRecent.class);
-
         joinTemplate.joinQuery(apiRecentList);
+
+        for(ApiRecent apiRecent:apiRecentList){
+
+            Apix apix = apiRecent.getApix();
+            Node node = nodeService.findNode(apix.getId());
+            apix.setNode(node);
+            apiRecent.setApix(apix);
+        }
+
 
         return PaginationBuilder.build(pagination,apiRecentList);
     }

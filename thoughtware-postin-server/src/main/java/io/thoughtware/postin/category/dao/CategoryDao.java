@@ -77,7 +77,7 @@ public class CategoryDao{
      * @return
      */
     public int findCategoryNum(String workspaceId) {
-        String categorySql = "Select count(1) as total from postin_category where workspace_id = '" + workspaceId+ "'";
+        String categorySql = "Select count(1) as total from postin_node where workspace_id = '" + workspaceId+ "' and type = 'category'";
         Integer categoryTotal = jpaTemplate.getJdbcTemplate().queryForObject(categorySql, new Object[]{}, Integer.class);
 
         return categoryTotal;
