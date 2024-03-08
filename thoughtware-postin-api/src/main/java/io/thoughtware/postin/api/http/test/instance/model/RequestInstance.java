@@ -2,6 +2,7 @@ package io.thoughtware.postin.api.http.test.instance.model;
 
 import io.thoughtware.postin.annotation.ApiModel;
 import io.thoughtware.postin.annotation.ApiProperty;
+import io.thoughtware.postin.api.http.test.cases.model.AssertCase;
 import io.thoughtware.toolkit.beans.annotation.Mapper;
 import io.thoughtware.toolkit.beans.annotation.Mapping;
 import io.thoughtware.toolkit.beans.annotation.Mappings;
@@ -10,6 +11,7 @@ import io.thoughtware.toolkit.join.annotation.Join;
 import io.thoughtware.user.user.model.User;
 
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 /**
  * http协议
@@ -50,6 +52,9 @@ public class RequestInstance extends BaseModel {
 
     @ApiProperty(name="afterScript",desc="请求参数")
     private java.lang.String afterScript;
+
+    @ApiProperty(name="asserts",desc="断言")
+    private List<AssertCase> assertList;
 
     public String getId() {
         return id;
@@ -122,5 +127,13 @@ public class RequestInstance extends BaseModel {
 
     public void setAfterScript(String afterScript) {
         this.afterScript = afterScript;
+    }
+
+    public List<AssertCase> getAssertList() {
+        return assertList;
+    }
+
+    public void setAssertList(List<AssertCase> assertList) {
+        this.assertList = assertList;
     }
 }

@@ -87,7 +87,7 @@ public class RouteDispatchForGET {
                 }
             }
         } catch (Exception e) {
-            throw new ApplicationException(e);
+            dataProcessCommon.buildErrorResponseHeader(response,e.getMessage());
         }
     }
 

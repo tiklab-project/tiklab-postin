@@ -50,13 +50,13 @@ public class RouteDispatchForJson {
      * @param httpRequest
      */
     public void dispatch(HttpServletRequest request, HttpServletResponse response, HttpRequest httpRequest){
+
         try {
             //构建请求entity
             RequestEntity<byte[]> requestEntity = this.buildRequestEntityForJson(request,httpRequest);
 
             //请求开始时间
             Instant startTime = Instant.now();
-
             //转发请求
             ResponseEntity<byte[]> responseEntity = restTemplate.exchange(requestEntity, byte[].class);
 
@@ -81,7 +81,7 @@ public class RouteDispatchForJson {
                 }
             }
         } catch (Exception e) {
-            throw new ApplicationException(e);
+            dataProcessCommon.buildErrorResponseHeader(response,e.getMessage());
         }
     }
 

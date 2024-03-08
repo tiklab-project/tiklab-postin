@@ -1,5 +1,6 @@
 package io.thoughtware.postin.workspace.service;
 
+import io.thoughtware.postin.api.http.test.instance.service.TestInstanceService;
 import io.thoughtware.postin.workspace.dao.WorkspaceDao;
 import io.thoughtware.postin.workspace.entity.WorkspaceEntity;
 import io.thoughtware.eam.common.context.LoginContext;
@@ -73,6 +74,9 @@ public class WorkspaceServiceImpl implements WorkspaceService {
 
     @Autowired
     JoinTemplate joinTemplate;
+
+    @Autowired
+    TestInstanceService testInstanceService;
 
 
 //    @Autowired
@@ -210,8 +214,11 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         //删除空间
         workspaceDao.deleteWorkspace(id);
 
+        testInstanceService.deleteAllTestInstance(id);
+
         //删除索引
 //        disClient.delete(Workspace.class,id);
+
     }
 
     @Override

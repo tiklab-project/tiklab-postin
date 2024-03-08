@@ -1,8 +1,8 @@
 package io.thoughtware.postin.support.sendrequest.dispatch;
 
-import io.thoughtware.core.exception.ApplicationException;
 import io.thoughtware.core.exception.SystemException;
 import io.thoughtware.postin.support.sendrequest.HttpRequest;
+import io.thoughtware.postin.support.sendrequest.util.DataProcessCommon;
 import io.thoughtware.postin.support.sendrequest.util.HttpMethodUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +32,8 @@ public class RouteDispatchForText {
     @Autowired
     HttpMethodUtils httpMethodUtils;
 
+    @Autowired
+    DataProcessCommon dataProcessCommon;
 
     public void dispatch(HttpServletRequest request, HttpServletResponse response, HttpRequest httpRequest){
 
@@ -73,7 +75,7 @@ public class RouteDispatchForText {
                 }
             }
         } catch (Exception e) {
-            throw new ApplicationException(e);
+            dataProcessCommon.buildErrorResponseHeader(response,e.getMessage());
         }
     }
 }

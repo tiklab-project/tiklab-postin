@@ -5,6 +5,7 @@ import io.thoughtware.postin.api.apix.service.*;
 import io.thoughtware.postin.api.http.definition.dao.HttpApiDao;
 import io.thoughtware.postin.api.http.definition.entity.HttpApiEntity;
 import io.thoughtware.postin.api.http.definition.model.*;
+import io.thoughtware.postin.common.MagicValue;
 import io.thoughtware.toolkit.beans.BeanMapper;
 import io.thoughtware.core.page.Pagination;
 import io.thoughtware.core.page.PaginationBuilder;
@@ -154,17 +155,21 @@ public class HttpApiServiceImpl implements HttpApiService {
         //删除query
         queryParamService.deleteAllQueryParam(httpId);
 
+        //删除请求
+        apiRequestService.deleteApiRequest(httpId);
+
         //删除formdata
         formParamService.deleteAllFormParam(httpId);
 
         //删除formurl
         formUrlencodedService.deleteAllFormUrlencoded(httpId);
 
+        //删除json
+        jsonParamService.deleteJsonParam(httpId);
+
         //删除raw
         rawParamService.deleteRawParam(httpId);
 
-        //删除请求
-        apiRequestService.deleteApiRequest(httpId);
 
         //删除响应部分
         List<ApiResponse> apiResponseList = apiResponseService.findApiResponseList(new ApiResponseQuery().setHttpId(httpId));
@@ -225,26 +230,26 @@ public class HttpApiServiceImpl implements HttpApiService {
         String bodyType = apiRequest.getBodyType();
 
         if(!ObjectUtils.isEmpty(bodyType)){
-            if("formdata".equals(bodyType)){
+            if(bodyType.equals(MagicValue.REQUEST_BODY_TYPE_FORMDATA)){
                 //获取formdata数据
                 List<FormParam> formParamList = formParamService.findFormParamList(new FormParamQuery().setHttpId(httpId));
                 if(CollectionUtils.isNotEmpty(formParamList)){
                     httpApi.setFormList(formParamList);
                 }
 
-            }else if("formUrlencoded".equals(bodyType)){
+            }else if(bodyType.equals(MagicValue.REQUEST_BODY_TYPE_FORM_URLENCODED)){
                 //获取formurlencoded数据
                 List<FormUrlencoded> formUrlencodedList = formUrlencodedService.findFormUrlencodedList(new FormUrlencodedQuery().setHttpId(httpId));
                 if(CollectionUtils.isNotEmpty(formUrlencodedList)){
                     httpApi.setUrlencodedList(formUrlencodedList);
                 }
             }
-            else if("json".equals(bodyType)){
+            else if(bodyType.equals(MagicValue.REQUEST_BODY_TYPE_JSON)){
                 //获取json数据
                 JsonParam jsonParam = jsonParamService.findJsonParam(httpId);
                 httpApi.setJsonParam(jsonParam);
             }
-            else if("raw".equals(bodyType)){
+            else if(bodyType.equals(MagicValue.REQUEST_BODY_TYPE_RAW)){
                 //获取raw数据
                 RawParam rawParam = rawParamService.findRawParam(httpId);
                 if(!ObjectUtils.isEmpty(rawParam)){

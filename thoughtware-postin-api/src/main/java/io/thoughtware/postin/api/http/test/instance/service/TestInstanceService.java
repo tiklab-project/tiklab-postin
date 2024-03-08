@@ -39,7 +39,7 @@ public interface TestInstanceService {
     */
     void deleteTestInstance(@NotNull String id);
 
-    void deleteAllTestInstance(@NotNull String userId);
+    void deleteAllTestInstance(@NotNull String workspaceId);
 
     @FindOne
     HttpInstance findOne(@NotNull String id);

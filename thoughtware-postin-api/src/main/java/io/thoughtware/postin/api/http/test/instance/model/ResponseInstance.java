@@ -35,6 +35,7 @@ public class ResponseInstance extends BaseModel {
     @ApiProperty(name="body",desc="请求参数")
     private java.lang.String body;
 
+
     public String getId() {
         return id;
     }
@@ -66,4 +67,5 @@ public class ResponseInstance extends BaseModel {
     public void setBody(String body) {
         this.body = body;
     }
+
 }

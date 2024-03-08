@@ -95,9 +95,10 @@ public class HttpInstanceServiceImpl implements TestInstanceService {
     }
 
     @Override
-    public void deleteAllTestInstance(String userId) {
+    public void deleteAllTestInstance(String workspaceId) {
         DeleteCondition deleteCondition = DeleteBuilders.createDelete(HttpInstanceEntity.class)
-                .eq("userId", userId)
+                .eq("workspaceId", workspaceId)
+                .eq("userId", LoginContext.getLoginId())
                 .get();
         httpInstanceDao.deleteAllTestInstance(deleteCondition);
     }

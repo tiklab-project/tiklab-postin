@@ -2,7 +2,6 @@ package io.thoughtware.postin.support.sendrequest.service;
 
 
 import io.thoughtware.postin.support.sendrequest.dispatch.*;
-import io.thoughtware.postin.support.sendrequest.dispatch.*;
 import io.thoughtware.postin.support.sendrequest.util.DataProcessCommon;
 import io.thoughtware.postin.support.sendrequest.HttpRequest;
 import org.springframework.beans.factory.annotation.Autowired;

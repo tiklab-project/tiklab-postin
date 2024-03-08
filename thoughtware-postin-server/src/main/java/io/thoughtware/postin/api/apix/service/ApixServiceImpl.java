@@ -1,5 +1,6 @@
 package io.thoughtware.postin.api.apix.service;
 
+import io.thoughtware.postin.common.MagicValue;
 import io.thoughtware.postin.common.PostInUnit;
 import io.thoughtware.postin.api.apix.dao.ApixDao;
 import io.thoughtware.postin.api.apix.entity.ApixEntity;
@@ -137,7 +138,7 @@ public class ApixServiceImpl implements ApixService {
     public void deleteApix(@NotNull String id) {
         ApixEntity apix = apixDao.findApix(id);
 
-        if(Objects.equals(apix.getProtocolType(), "http")){
+        if(Objects.equals(apix.getProtocolType(), MagicValue.PROTOCOL_TYPE_HTTP)){
             //http协议的接口。id与apix的公共表相同
             httpApiService.deleteHttpApi(id);
         }else {
@@ -149,7 +150,7 @@ public class ApixServiceImpl implements ApixService {
         apiRecentQuery.setApixId(id);
         List<ApiRecent> apiRecentList = apiRecentService.findApiRecentList(apiRecentQuery);
         for(ApiRecent apiRecent:apiRecentList){
-            if(apiRecent.getApix().getId()==id){
+            if(Objects.equals(apiRecent.getApix().getId(), id)){
                 apiRecentService.deleteApiRecent(id);
             }
         }

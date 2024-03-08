@@ -3,6 +3,7 @@ package io.thoughtware.postin.api.ws.ws.service;
 import io.thoughtware.postin.api.apix.model.*;
 import io.thoughtware.postin.api.apix.service.*;
 import io.thoughtware.postin.api.ws.ws.model.WSApi;
+import io.thoughtware.postin.common.MagicValue;
 import io.thoughtware.postin.support.apistatus.service.ApiStatusService;
 import io.thoughtware.rpc.annotation.Exporter;
 import io.thoughtware.user.user.service.UserService;
@@ -26,7 +27,6 @@ public class WSApiServiceImpl implements WSApiService {
     @Autowired
     ApixService apixService;
 
-
     @Autowired
     RequestHeaderService requestHeaderService;
 
@@ -36,30 +36,12 @@ public class WSApiServiceImpl implements WSApiService {
     @Autowired
     ApiRequestService apiRequestService;
 
-
     @Autowired
     JsonParamService jsonParamService;
 
     @Autowired
     RawParamService rawParamService;
-//
-//    @Autowired
-//    ResponseHeaderService responseHeaderService;
-//
-//    @Autowired
-//    ApiResponseService apiResponseService;
 
-//    @Autowired
-//    DssClient disClient;
-
-    @Autowired
-    ApiStatusService apiStatusService;
-
-    @Autowired
-    UserService userService;
-
-//    @Autowired
-//    MockService mockService;
 
     @Override
     public String createWSApi(@NotNull @Valid WSApi wsApi) {
@@ -80,17 +62,6 @@ public class WSApiServiceImpl implements WSApiService {
         rawParam.setType("text/plain");
         rawParam.setRaw("");
         rawParamService.createRawParam(rawParam);
-
-//
-//        //初始化一个返回结果 数据类型为json， 所以设置值为jsonSchema结构的值
-//        ApiResponse apiResponse = new ApiResponse();
-//        apiResponse.setId(id);
-//        apiResponse.setWSId(id);
-//        apiResponse.setWSCode(200);
-//        apiResponse.setName("成功");
-//        apiResponse.setDataType("json");
-//        apiResponse.setJsonText("{\"type\": \"object\",\"properties\": {}}");
-//        apiResponseService.createApiResponse(apiResponse);
 
 
         return  apiId;
@@ -121,22 +92,6 @@ public class WSApiServiceImpl implements WSApiService {
 
         jsonParamService.deleteJsonParam(wsId);
 
-//
-//        //删除响应部分
-//        List<ApiResponse> apiResponseList = apiResponseService.findApiResponseList(new ApiResponseQuery().setWSId(wsId));
-//        for(ApiResponse apiResponse: apiResponseList){
-//            apiResponseService.deleteApiResponse(apiResponse.getId());
-//        }
-//
-//        //删除响应头
-//        responseHeaderService.deleteAllResponseHeader(wsId);
-//
-//        //删除mock
-//        mockService.deleteAllMock(wsId);
-
-
-        //删除索引
-//        disClient.delete(WSApi.class,id);
     }
 
 
@@ -165,11 +120,11 @@ public class WSApiServiceImpl implements WSApiService {
         String bodyType = apiRequest.getBodyType();
 
         if(!ObjectUtils.isEmpty(bodyType)){
-            if("json".equals(bodyType)){
+            if(bodyType.equals(MagicValue.REQUEST_BODY_TYPE_JSON)){
                 //获取json数据
                 JsonParam jsonParam = jsonParamService.findJsonParam(id);
                 wsApi.setJsonParam(jsonParam);
-            } else if("raw".equals(bodyType)){
+            } else if(bodyType.equals(MagicValue.REQUEST_BODY_TYPE_RAW)){
                 //获取raw数据
                 RawParam rawParam = rawParamService.findRawParam(id);
                 if(!ObjectUtils.isEmpty(rawParam)){
@@ -177,21 +132,6 @@ public class WSApiServiceImpl implements WSApiService {
                 }
             }
         }
-//
-//        //获取响应里的参数
-//        //响应头
-//        List<ResponseHeader> responseHeaderList = responseHeaderService.findResponseHeaderList(new ResponseHeaderQuery().setWSId(wsId));
-//        if(CollectionUtils.isNotEmpty(responseHeaderList)){
-//            wsApi.setResponseHeaderList(responseHeaderList);
-//        }
-//
-//        //响应示例
-//        List<ApiResponse> apiResponseList = apiResponseService.findApiResponseList(new ApiResponseQuery().setWSId(wsId));
-//        if(CollectionUtils.isNotEmpty(apiResponseList)){
-//            wsApi.setResponseResultList(apiResponseList);
-//        }
-//
-
 
         return wsApi;
     }

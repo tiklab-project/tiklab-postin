@@ -113,10 +113,12 @@ public class MockServiceImpl implements MockService {
 
     @Override
     public void deleteAllMock(String httpId) {
-        DeleteCondition deleteCondition = DeleteBuilders.createDelete(MockEntity.class)
-                .eq("httpId", httpId)
-                .get();
-        mockDao.deleteMockList(deleteCondition);
+        MockQuery mockQuery = new MockQuery();
+        mockQuery.setHttpId(httpId);
+        List<Mock> mockList = findMockList(mockQuery);
+        for(Mock mock:mockList){
+            deleteMock(mock.getId());
+        }
     }
 
     @Override

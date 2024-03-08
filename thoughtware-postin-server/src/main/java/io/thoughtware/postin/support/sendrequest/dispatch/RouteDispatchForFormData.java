@@ -77,7 +77,7 @@ public class RouteDispatchForFormData {
             handleResponse(responseEntity, response, startTime);
 
         } catch (Exception e) {
-            handleException(e, response.getOutputStream());
+            dataProcessCommon.buildErrorResponseHeader(response,e.getMessage());
         }
     }
 

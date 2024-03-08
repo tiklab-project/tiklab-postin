@@ -31,6 +31,7 @@ public class DataProcessCommon {
         //网址中的参数
         String urlParameter=request.getQueryString();
 
+        // 解析 获取header url  method
         for (String pair : urlParameter.split("&")) {
             String[] keyValue = pair.split("=");
 
@@ -57,44 +58,11 @@ public class DataProcessCommon {
             }
         }
 
-//        List<String> headerNames = Collections.list(request.getHeaderNames());
-//
-//        for (String headerName : headerNames) {
-//            String headerNameLow = headerName.toLowerCase();
-//
-//            if(Objects.equals(headerNameLow,"pi-header")){
-//                List<String> headerValues = Collections.list(request.getHeaders(headerName));
-//                for (String headerValue : headerValues) {
-//                    for (String pair : headerValue.split(",")) {
-//                        String[] keyValue = pair.split("=");
-//                        headers.add(keyValue[0], keyValue[1]);
-//                    }
-//                }
-//            }
-//
-//
-//            if(Objects.equals(headerNameLow,"pi-url")){
-//                List<String> headerValues = Collections.list(request.getHeaders(headerName));
-//                for (String headerValue : headerValues) {
-//                    Url=headerValue;
-//                }
-//            }
-//
-//            if(Objects.equals(headerNameLow,"pi-method")){
-//                List<String> headerValues = Collections.list(request.getHeaders(headerName));
-//                for (String headerValue : headerValues) {
-//                    method=headerValue;
-//                }
-//            }
-//        }
-
 
         HttpRequest httpRequest = new HttpRequest();
-
         httpRequest.setHeaders(headers);
         httpRequest.setUrl(Url);
         httpRequest.setMethod(method);
-
 
         return httpRequest;
     }
@@ -110,11 +78,10 @@ public class DataProcessCommon {
         //把响应头返回回去
         HttpHeaders httpHeaders = responseEntity.getHeaders();
 
-        //获取状态码  如果存在 pi-mock-status 就设置 pi-mock-status 中的值
-
         String piBaseInfo;
         String piResHeader;
 
+        //获取状态码  如果存在 pi-mock-status 就设置 pi-mock-status 中的值
         //如果存在pi-mock-status 则 走了mock地址
         if(httpHeaders.containsKey("pi-mock-baseInfo")){
 
@@ -132,13 +99,12 @@ public class DataProcessCommon {
 
         }
 
-
-
         response.setHeader("pi-header",piResHeader);
         response.setHeader("pi-base",piBaseInfo);
-
-
     }
 
 
+    public void buildErrorResponseHeader(HttpServletResponse response, String message) {
+        response.setHeader("pi-error",message);
+    }
 }

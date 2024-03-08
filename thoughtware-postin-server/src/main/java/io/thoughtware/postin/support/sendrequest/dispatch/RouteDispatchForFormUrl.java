@@ -97,7 +97,7 @@ public class RouteDispatchForFormUrl {
                 outputStream.flush();
             }
         } catch (Exception e) {
-            throw new ApplicationException(e);
+            dataProcessCommon.buildErrorResponseHeader(response,e.getMessage());
         }
     }
 
