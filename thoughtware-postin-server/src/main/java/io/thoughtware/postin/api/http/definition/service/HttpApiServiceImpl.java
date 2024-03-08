@@ -6,6 +6,9 @@ import io.thoughtware.postin.api.http.definition.dao.HttpApiDao;
 import io.thoughtware.postin.api.http.definition.entity.HttpApiEntity;
 import io.thoughtware.postin.api.http.definition.model.*;
 import io.thoughtware.postin.common.MagicValue;
+import io.thoughtware.postin.common.PostInUnit;
+import io.thoughtware.postin.node.model.Node;
+import io.thoughtware.postin.node.service.NodeService;
 import io.thoughtware.toolkit.beans.BeanMapper;
 import io.thoughtware.core.page.Pagination;
 import io.thoughtware.core.page.PaginationBuilder;
@@ -25,7 +28,6 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * 定义
@@ -83,6 +85,11 @@ public class HttpApiServiceImpl implements HttpApiService {
     @Autowired
     MockService mockService;
 
+    @Autowired
+    PostInUnit postInUnit;
+
+    @Autowired
+    NodeService nodeService;
 
     @Override
     public String createHttpApi(@NotNull @Valid HttpApi httpApi) {
@@ -90,8 +97,7 @@ public class HttpApiServiceImpl implements HttpApiService {
 
         //如果没有id自动生成id
         if (ObjectUtils.isEmpty(httpApi.getId())) {
-            String uid = UUID.randomUUID().toString();
-            String id = uid.trim().replaceAll("-", "");
+            String id = postInUnit.generateId();
             httpApiEntity.setId(id);
         }
 
@@ -118,13 +124,17 @@ public class HttpApiServiceImpl implements HttpApiService {
         apiResponse.setJsonText("{\"type\": \"object\",\"properties\": {}}");
         apiResponseService.createApiResponse(apiResponse);
 
-
         //创建apix
         Apix apix = httpApi.getApix();
         apix.setId(id);
-        apix.setMethodType(httpApi.getMethodType());
+        apix.setProtocolType(MagicValue.PROTOCOL_TYPE_HTTP);
         apixService.createApix(apix);
 
+        Node node = httpApi.getNode();
+        node.setId(id);
+        node.setType(MagicValue.PROTOCOL_TYPE_HTTP);
+        node.setMethodType(httpApi.getMethodType());
+        nodeService.createNode(node);
 
         return  id;
     }
@@ -133,13 +143,10 @@ public class HttpApiServiceImpl implements HttpApiService {
     @Override
     public void updateHttpApi(@NotNull @Valid HttpApi httpApi) {
         HttpApiEntity httpApiEntity = BeanMapper.map(httpApi, HttpApiEntity.class);
-
-
         httpApiEntity.setApixId(httpApi.getId());
         httpApiDao.updateHttpApi(httpApiEntity);
 
         Apix apix = httpApi.getApix();
-        apix.setMethodType(httpApi.getMethodType());
         apixService.updateApix(apix);
 
     }
@@ -276,6 +283,9 @@ public class HttpApiServiceImpl implements HttpApiService {
         Apix apix = apixService.findApix(id);
         httpApi.setApix(apix);
 
+        Node node = nodeService.findNode(id);
+        httpApi.setNode(node);
+
         return httpApi;
     }
 
@@ -312,7 +322,7 @@ public class HttpApiServiceImpl implements HttpApiService {
 
                 //执行人
                 if(httpApi.getApix().getExecutor()!=null){
-                    User user = userService.findUser(httpApi.getApix().getCreateUser().getId());
+                    User user = userService.findUser(httpApi.getApix().getExecutor().getId());
                     httpApi.getApix().setExecutor(user);
                 }
 

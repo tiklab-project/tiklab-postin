@@ -3,6 +3,7 @@ package io.thoughtware.postin.api.http.definition.model;
 import io.thoughtware.postin.api.apix.model.*;
 import io.thoughtware.postin.annotation.ApiModel;
 import io.thoughtware.postin.annotation.ApiProperty;
+import io.thoughtware.postin.node.model.Node;
 import io.thoughtware.toolkit.beans.annotation.Mapper;
 import io.thoughtware.toolkit.beans.annotation.Mapping;
 import io.thoughtware.toolkit.beans.annotation.Mappings;
@@ -26,14 +27,17 @@ public class HttpApi extends BaseModel {
     @ApiProperty(name="id",desc="唯一ID")
     private java.lang.String id;
 
-    @ApiProperty(name="apix",desc="所属接口公共定义",eg="@selectOne",required = true)
+    @ApiProperty(name="apix",desc="所属接口公共定义")
     @Mappings({
             @Mapping(source = "apix.id",target = "apixId")
     })
     @JoinQuery(key = "id")
     private Apix apix;
 
-    @ApiProperty(name="methodType",desc="请求类型",required = true)
+    @ApiProperty(name="node",desc="所属公共定义")
+    private Node node;
+
+    @ApiProperty(name="methodType",desc="请求类型")
     private String methodType;
 
     @ApiProperty(name = "headerList",desc="请求头列表")
@@ -158,5 +162,13 @@ public class HttpApi extends BaseModel {
 
     public void setResponseResultList(List<ApiResponse> responseResultList) {
         this.responseResultList = responseResultList;
+    }
+
+    public Node getNode() {
+        return node;
+    }
+
+    public void setNode(Node node) {
+        this.node = node;
     }
 }

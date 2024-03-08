@@ -19,17 +19,17 @@ public class CategoryEntity implements Serializable {
     @Column(name = "id",length = 40)
     private String id;
 
-    //分类名称
-    @Column(name = "name",length = 64,notNull = true)
-    private String name;
-
-    //空间id
-    @Column(name = "workspace_id",length = 32)
-    private String workspaceId;
-
-    //所属上级
-    @Column(name = "parent_category_id",length = 32)
-    private String parentId;
+//    //分类名称
+//    @Column(name = "name",length = 64)
+//    private String name;
+//
+//    //空间id
+//    @Column(name = "workspace_id",length = 32)
+//    private String workspaceId;
+//
+//    //所属上级
+//    @Column(name = "parent_category_id",length = 32)
+//    private String parentId;
 
     public String getId() {
         return id;
@@ -39,27 +39,5 @@ public class CategoryEntity implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getWorkspaceId() {
-        return workspaceId;
-    }
-
-    public void setWorkspaceId(String workspaceId) {
-        this.workspaceId = workspaceId;
-    }
-
-    public String getParentId() {
-        return parentId;
-    }
-
-    public void setParentId(String parentId) {
-        this.parentId = parentId;
-    }
 }

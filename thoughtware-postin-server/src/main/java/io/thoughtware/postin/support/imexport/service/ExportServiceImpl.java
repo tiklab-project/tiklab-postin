@@ -153,40 +153,40 @@ public class ExportServiceImpl implements ExportService {
             for(Category category:categoryListTree){
                 JSONObject categoryNode = new JSONObject();
                 categoryNode.put("id",category.getId() );
-                categoryNode.put("name", category.getName());
+//                categoryNode.put("name", category.getName());
 
-                if(category.getNodeList()!=null&category.getNodeList().size()>0){
-                    JSONArray apiList = new JSONArray();
-                    for(Apix apix:category.getNodeList()){
-                        JSONObject apiJson = new JSONObject();
-                        apiJson.put("id",apix.getId());
-                        apiJson.put("name", apix.getName());
-                        apiJson.put("protocolType", apix.getProtocolType());
-                        apiJson.put("updateTime", apix.getUpdateTime());
-                        apiJson.put("status",statusJson(apix.getStatus()));
-                        apiJson.put("path",apix.getPath());
-
-                        if("http".equals(apix.getProtocolType())){
-                            HttpApi httpApi = httpApiService.findHttpApi(apix.getId());
-                            apiJson.put("methodType", httpApi.getMethodType());
-                            apiJson.put("request",httpRequestJson(httpApi));
-                            apiJson.put("response",httpResponseJson(httpApi.getId()));
-                        }
-
-                        if("ws".equals(apix.getProtocolType())){
-                            WSApi wsApi = wsApiService.findWSApi(apix.getId());
-                            apiJson.put("request",wsRequest(wsApi));
-                        }
-
-                        apiList.add(apiJson);
-                    }
-
-                    categoryNode.put("nodeList", apiList);
-                }
-
-                if(category.getChildren()!=null&&category.getChildren().size()>0){
-                    categoryNode.put("children", loopArr(category.getChildren()));
-                }
+//                if(category.getNodeList()!=null&category.getNodeList().size()>0){
+//                    JSONArray apiList = new JSONArray();
+//                    for(Apix apix:category.getNodeList()){
+//                        JSONObject apiJson = new JSONObject();
+//                        apiJson.put("id",apix.getId());
+//                        apiJson.put("name", apix.getName());
+//                        apiJson.put("protocolType", apix.getProtocolType());
+//                        apiJson.put("updateTime", apix.getUpdateTime());
+//                        apiJson.put("status",statusJson(apix.getStatus()));
+//                        apiJson.put("path",apix.getPath());
+//
+//                        if("http".equals(apix.getProtocolType())){
+//                            HttpApi httpApi = httpApiService.findHttpApi(apix.getId());
+//                            apiJson.put("methodType", httpApi.getMethodType());
+//                            apiJson.put("request",httpRequestJson(httpApi));
+//                            apiJson.put("response",httpResponseJson(httpApi.getId()));
+//                        }
+//
+//                        if("ws".equals(apix.getProtocolType())){
+//                            WSApi wsApi = wsApiService.findWSApi(apix.getId());
+//                            apiJson.put("request",wsRequest(wsApi));
+//                        }
+//
+//                        apiList.add(apiJson);
+//                    }
+//
+//                    categoryNode.put("nodeList", apiList);
+//                }
+//
+//                if(category.getChildren()!=null&&category.getChildren().size()>0){
+//                    categoryNode.put("children", loopArr(category.getChildren()));
+//                }
 
                 apiGroupList.add(categoryNode);
             }

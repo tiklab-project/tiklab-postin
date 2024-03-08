@@ -5,6 +5,7 @@ import io.thoughtware.core.BaseModel;
 import io.thoughtware.postin.annotation.ApiModel;
 import io.thoughtware.postin.annotation.ApiProperty;
 import io.thoughtware.postin.api.apix.model.Apix;
+import io.thoughtware.postin.category.model.Category;
 import io.thoughtware.postin.workspace.model.Workspace;
 import io.thoughtware.toolkit.beans.annotation.Mapper;
 import io.thoughtware.toolkit.beans.annotation.Mapping;
@@ -29,18 +30,20 @@ public class Node extends BaseModel {
     @ApiProperty(name = "id", desc = "唯一标识")
     private String id;
 
-    @NotNull
     @ApiProperty(name = "name", desc = "分类名称")
     private String name;
 
     @ApiProperty(name = "workspaceId", desc = "所属空间")
     private String workspaceId;
 
-    @ApiProperty(name = "parentId", desc = "上级分类")
+    @ApiProperty(name = "parentId", desc = "上级")
     private String parentId;
 
     @ApiProperty(name = "type", desc = "类型")
     private String type;
+
+    @ApiProperty(name="methodType",desc="请求类型")
+    private java.lang.String methodType;
 
     @ApiProperty(name = "treePath", desc = "")
     private String treePath;
@@ -69,6 +72,9 @@ public class Node extends BaseModel {
     @ApiProperty(name="updateTime",desc="更新时间")
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private java.sql.Timestamp updateTime;
+
+    @ApiProperty(name="children",desc="下级列表")
+    private List<Node> children = new ArrayList<>();
 
 
     public String getId() {
@@ -157,6 +163,22 @@ public class Node extends BaseModel {
 
     public void setUpdateTime(Timestamp updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public String getMethodType() {
+        return methodType;
+    }
+
+    public void setMethodType(String methodType) {
+        this.methodType = methodType;
+    }
+
+    public List<Node> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<Node> children) {
+        this.children = children;
     }
 }
 

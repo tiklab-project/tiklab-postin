@@ -79,5 +79,10 @@ public interface NodeService {
     */
     Pagination<Node> findNodePage(NodeQuery nodeQuery);
 
-
+    /**
+     * 构建树
+     * @param nodeQuery
+     * @return
+     */
+    List<Node> findNodeTree(NodeQuery nodeQuery);
 }

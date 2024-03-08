@@ -20,6 +20,7 @@ public class NodeQuery {
     @ApiProperty(name ="parentId",desc = "parentId ,精确匹配")
     private String parentId;
 
+
     @ApiProperty(name ="name",desc = "分类名称，模糊匹配")
     private String name;
 

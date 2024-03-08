@@ -9,6 +9,7 @@ import io.thoughtware.postin.api.http.definition.model.*;
 import io.thoughtware.postin.api.http.definition.service.*;
 import io.thoughtware.postin.category.model.Category;
 import io.thoughtware.postin.category.service.CategoryService;
+import io.thoughtware.postin.node.model.Node;
 import io.thoughtware.postin.support.docletreport.model.ApiReport;
 import io.thoughtware.postin.support.docletreport.model.ModuleReport;
 import org.slf4j.Logger;
@@ -46,7 +47,7 @@ public class DocletReportServicelmpl implements DocletReportService {
 
     @Override
     public String moduleReport(ModuleReport moduleReport) {
-        String workspaceId = moduleReport.getCategory().getWorkspace().getId();
+        String workspaceId = moduleReport.getCategory().getNode().getWorkspaceId();
         try {
             //创建分组
             categoryReport(moduleReport.getCategory());
@@ -124,7 +125,9 @@ public class DocletReportServicelmpl implements DocletReportService {
         //创建基础
         HttpApi httpApi = apiReport.getApiBase();
         httpApi.setId(apiId);
-        httpApi.getApix().setWorkspaceId(workspaceId);
+        Node node = new Node();
+        node.setWorkspaceId(workspaceId);
+        httpApi.setNode(node);
         httpApiService.createHttpApi(httpApi);
 
         //请求信息
@@ -180,7 +183,9 @@ public class DocletReportServicelmpl implements DocletReportService {
         HttpApi httpApi = apiReport.getApiBase();
         httpApi.setId(apiId);
         httpApi.getApix().setId(apiId);
-        httpApi.getApix().setWorkspaceId(workspaceId);
+        Node node = new Node();
+        node.setWorkspaceId(workspaceId);
+        httpApi.setNode(node);
         httpApiService.updateHttpApi(httpApi);
 
         ApiRequest request = apiReport.getRequest();

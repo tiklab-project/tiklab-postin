@@ -2,13 +2,18 @@ package io.thoughtware.postin.node.service;
 
 import io.thoughtware.core.page.Pagination;
 import io.thoughtware.core.page.PaginationBuilder;
+import io.thoughtware.eam.common.context.LoginContext;
 import io.thoughtware.postin.api.apix.service.ApixService;
+import io.thoughtware.postin.api.http.definition.service.HttpApiService;
+import io.thoughtware.postin.api.ws.ws.service.WSApiService;
+import io.thoughtware.postin.category.service.CategoryService;
+import io.thoughtware.postin.common.MagicValue;
+import io.thoughtware.postin.common.PostInUnit;
 import io.thoughtware.postin.node.dao.NodeDao;
 import io.thoughtware.postin.node.entity.NodeEntity;
 import io.thoughtware.postin.node.model.Node;
 import io.thoughtware.postin.node.model.NodeQuery;
 import io.thoughtware.rpc.annotation.Exporter;
-import io.thoughtware.security.logging.service.LoggingTypeService;
 import io.thoughtware.toolkit.beans.BeanMapper;
 import io.thoughtware.toolkit.join.JoinTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +22,7 @@ import org.springframework.util.StringUtils;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.sql.Timestamp;
 import java.util.*;
 
 /**
@@ -33,22 +39,37 @@ public class NodeServiceImpl implements NodeService {
     ApixService apixService;
 
     @Autowired
-    LoggingTypeService loggingTypeService;
+    HttpApiService httpApiService;
+
+    @Autowired
+    WSApiService wsApiService;
+
+    @Autowired
+    CategoryService categoryService;
 
     @Autowired
     JoinTemplate joinTemplate;
+
+    @Autowired
+    PostInUnit postInUnit;
 
 
     @Override
     public String createNode(@NotNull @Valid Node node) {
         NodeEntity nodeEntity = BeanMapper.map(node, NodeEntity.class);
         if (StringUtils.isEmpty(node.getId())) {
-            String uid = UUID.randomUUID().toString();
-            String id = uid.trim().replaceAll("-", "").substring(0, 12);;
+            String id = postInUnit.generateId();
             nodeEntity.setId(id);
         }
-        String nodeId = nodeDao.createNode(nodeEntity);
 
+        String userId = LoginContext.getLoginId();
+        nodeEntity.setCreateUser(userId);
+        nodeEntity.setUpdateUser(userId);
+
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        nodeEntity.setCreateTime(timestamp);
+        nodeEntity.setUpdateTime(timestamp);
+        String nodeId = nodeDao.createNode(nodeEntity);
 
         return nodeId;
     }
@@ -58,11 +79,38 @@ public class NodeServiceImpl implements NodeService {
         NodeEntity nodeEntity = BeanMapper.map(node, NodeEntity.class);
 
         nodeDao.updateNode(nodeEntity);
-
     }
 
     @Override
     public void deleteNode(@NotNull String id) {
+        Node node = findNode(id);
+
+        if (node == null) {
+            return;
+        }
+
+        // 递归删除子节点
+        if (node.getChildren() != null && !node.getChildren().isEmpty()) {
+            for (Node child : node.getChildren()) {
+                deleteNode(child.getId());
+            }
+        }
+
+
+        switch (node.getType()){
+            case MagicValue.CATEGORY:
+                categoryService.deleteCategory(id);
+                break;
+            case MagicValue.PROTOCOL_TYPE_HTTP:
+                apixService.deleteApix(id);
+                httpApiService.deleteHttpApi(id);
+                break;
+            case MagicValue.PROTOCOL_TYPE_WS:
+                apixService.deleteApix(id);
+                wsApiService.deleteWSApi(id);
+                break;
+        }
+
         nodeDao.deleteNode(id);
     }
 
@@ -115,7 +163,6 @@ public class NodeServiceImpl implements NodeService {
 
         List<Node> nodeList = BeanMapper.mapList(nodeEntityList,Node.class);
 
-
         joinTemplate.joinQuery(nodeList);
 
         return nodeList;
@@ -133,8 +180,39 @@ public class NodeServiceImpl implements NodeService {
         return PaginationBuilder.build(pagination,nodeList);
     }
 
+    @Override
+   public List<Node> findNodeTree(NodeQuery nodeQuery){
+       List<Node> nodeList = findNodeList(nodeQuery);
 
-   
+       Map<String, Node> nodeMap = new HashMap<>();
+       List<Node> roots = new ArrayList<>();
+
+       // 构建节点Map，并找到根节点
+       for (Node node : nodeList) {
+           nodeMap.put(node.getId(), node);
+           if (node.getParentId() == null) {
+               roots.add(node);
+           }
+       }
+
+       // 构建树
+       buildTree(roots, nodeMap);
+
+       return roots;
+   }
+
+    private void buildTree(List<Node> nodes, Map<String, Node> map) {
+        for (Node node : nodes) {
+            List<Node> children = new ArrayList<>();
+            for (Node child : map.values()) {
+                if (Objects.equals(child.getParentId(), node.getId())) {
+                    children.add(child);
+                }
+            }
+            node.setChildren(children);
+            buildTree(children, map);
+        }
+    }
 
 
 

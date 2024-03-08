@@ -8,6 +8,8 @@ import io.thoughtware.postin.api.apix.model.ApiRecent;
 import io.thoughtware.postin.api.apix.model.ApiRecentQuery;
 import io.thoughtware.postin.api.apix.model.Apix;
 import io.thoughtware.postin.api.apix.model.ApixQuery;
+import io.thoughtware.postin.node.model.Node;
+import io.thoughtware.postin.node.service.NodeService;
 import io.thoughtware.toolkit.beans.BeanMapper;
 import io.thoughtware.core.page.Pagination;
 import io.thoughtware.core.page.PaginationBuilder;
@@ -61,6 +63,9 @@ public class ApixServiceImpl implements ApixService {
     @Autowired
     LoggingTypeService loggingTypeService;
 
+    @Autowired
+    NodeService nodeService;
+
     @Override
     public String createApix(@NotNull @Valid Apix apix) {
         ApixEntity apixEntity = BeanMapper.map(apix, ApixEntity.class);
@@ -72,7 +77,7 @@ public class ApixServiceImpl implements ApixService {
             apixEntity.setId(id);
         }
 
-        //初始化项目成员
+
         String userId = LoginContext.getLoginId();
         apixEntity.setCreateUser(userId);
         apixEntity.setStatusId("developmentid");
@@ -116,13 +121,15 @@ public class ApixServiceImpl implements ApixService {
     @Override
     public void updateApix(@NotNull @Valid Apix apix) {
         ApixEntity apixEntity = BeanMapper.map(apix, ApixEntity.class);
-
         apixEntity.setUpdateTime(new Timestamp(System.currentTimeMillis()));
 
         String userId = LoginContext.getLoginId();
         apixEntity.setUpdateUser(userId);
 
         apixDao.updateApix(apixEntity);
+
+        Node node = apix.getNode();
+        nodeService.updateNode(node);
 
         //更新索引
 //        Apix entity = findApix(apix.getId());
@@ -136,14 +143,14 @@ public class ApixServiceImpl implements ApixService {
 
     @Override
     public void deleteApix(@NotNull String id) {
-        ApixEntity apix = apixDao.findApix(id);
+//        ApixEntity apix = apixDao.findApix(id);
 
-        if(Objects.equals(apix.getProtocolType(), MagicValue.PROTOCOL_TYPE_HTTP)){
-            //http协议的接口。id与apix的公共表相同
-            httpApiService.deleteHttpApi(id);
-        }else {
-            wsApiService.deleteWSApi(id);
-        }
+//        if(Objects.equals(apix.getProtocolType(), MagicValue.PROTOCOL_TYPE_HTTP)){
+//            //http协议的接口。id与apix的公共表相同
+//            httpApiService.deleteHttpApi(id);
+//        }else {
+//            wsApiService.deleteWSApi(id);
+//        }
 
         //删除最近
         ApiRecentQuery apiRecentQuery = new ApiRecentQuery();
@@ -188,8 +195,10 @@ public class ApixServiceImpl implements ApixService {
     @Override
     public Apix findApix(@NotNull String id) {
         Apix apix = findOne(id);
-
         joinTemplate.joinQuery(apix);
+
+        Node node = nodeService.findNode(id);
+        apix.setNode(node);
 
         return apix;
     }
@@ -213,16 +222,24 @@ public class ApixServiceImpl implements ApixService {
 
         joinTemplate.joinQuery(apixList);
 
+        for (Apix apix: apixList){
+            Node node = nodeService.findNode(apix.getId());
+            apix.setNode(node);
+        }
+
         return apixList;
     }
 
     @Override
     public Pagination<Apix> findApixPage(ApixQuery apixQuery) {
         Pagination<ApixEntity>  pagination = apixDao.findApixPage(apixQuery);
-
         List<Apix> apixList = BeanMapper.mapList(pagination.getDataList(), Apix.class);
-
         joinTemplate.joinQuery(apixList);
+
+        for (Apix apix: apixList){
+            Node node = nodeService.findNode(apix.getId());
+            apix.setNode(node);
+        }
 
         return PaginationBuilder.build(pagination, apixList);
     }

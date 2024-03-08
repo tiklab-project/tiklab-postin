@@ -7,6 +7,10 @@ import io.thoughtware.postin.category.dao.CategoryDao;
 import io.thoughtware.postin.category.entity.CategoryEntity;
 import io.thoughtware.postin.category.model.Category;
 import io.thoughtware.postin.category.model.CategoryQuery;
+import io.thoughtware.postin.common.MagicValue;
+import io.thoughtware.postin.common.PostInUnit;
+import io.thoughtware.postin.node.model.Node;
+import io.thoughtware.postin.node.service.NodeService;
 import io.thoughtware.toolkit.beans.BeanMapper;
 import io.thoughtware.core.page.Pagination;
 import io.thoughtware.core.page.PaginationBuilder;
@@ -39,32 +43,38 @@ public class CategoryServiceImpl implements CategoryService {
     ApixService apixService;
 
     @Autowired
-    LoggingTypeService loggingTypeService;
+    JoinTemplate joinTemplate;
 
     @Autowired
-    JoinTemplate joinTemplate;
+    NodeService nodeService;
+
+    @Autowired
+    PostInUnit postInUnit;
 
 
     @Override
     public String createCategory(@NotNull @Valid Category category) {
+        String id = postInUnit.generateId();
+
         CategoryEntity categoryEntity = BeanMapper.map(category, CategoryEntity.class);
-        if (StringUtils.isEmpty(category.getId())) {
-            String uid = UUID.randomUUID().toString();
-            String id = uid.trim().replaceAll("-", "").substring(0, 12);;
-            categoryEntity.setId(id);
-        }
+        categoryEntity.setId(id);
         String categoryId = categoryDao.createCategory(categoryEntity);
 
+        Node node = category.getNode();
+        node.setId(id);
+        node.setType(MagicValue.CATEGORY);
+        nodeService.createNode(node);
 
         return categoryId;
     }
 
     @Override
     public void updateCategory(@NotNull @Valid Category category) {
-        CategoryEntity categoryEntity = BeanMapper.map(category, CategoryEntity.class);
+//        CategoryEntity categoryEntity = BeanMapper.map(category, CategoryEntity.class);
+//        categoryDao.updateCategory(categoryEntity);
 
-        categoryDao.updateCategory(categoryEntity);
-
+        Node node = category.getNode();
+        nodeService.updateNode(node);
     }
 
     @Override
@@ -111,8 +121,10 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Category findCategory(@NotNull String id) {
         Category category = findOne(id);
-
         joinTemplate.joinQuery(category);
+
+        Node node = nodeService.findNode(id);
+        category.setNode(node);
 
         return category;
     }
@@ -135,7 +147,7 @@ public class CategoryServiceImpl implements CategoryService {
 
         //如果接口不为空，把详情set到公共apix里
         if(CollectionUtils.isNotEmpty(apixList)){
-            category.setNodeList(apixList);
+//            category.setNodeList(apixList);
         }
 
         //如果有子目录递归
@@ -148,7 +160,7 @@ public class CategoryServiceImpl implements CategoryService {
                 newCategoryList.addAll(categoryByCategory);
             }
 
-            category.setChildren(newCategoryList);
+//            category.setChildren(newCategoryList);
         }
 
 
@@ -236,7 +248,7 @@ public class CategoryServiceImpl implements CategoryService {
      */
     public List<Category> buildCategoryTree(List<Category> categoryList, List<Apix> apixList) {
         List<Category> topList = categoryList.stream()
-                .filter(category -> category.getParent() == null || category.getParent().getId() == null)
+//                .filter(category -> category.getParent() == null || category.getParent().getId() == null)
                 .collect(Collectors.toList());
 
         for (Category topCategory : topList) {
@@ -249,7 +261,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     private void buildCategoryNode(Category parentCategory, List<Category> categoryList, List<Apix> apixList, List<Category> topList) {
         List<Category> children = categoryList.stream()
-                .filter(category -> !topList.contains(category) &&  parentCategory.getId().equals(category.getParent().getId()))
+//                .filter(category -> !topList.contains(category) &&  parentCategory.getId().equals(category.getParent().getId()))
                 .collect(Collectors.toList());
 
         for (Category child : children) {
@@ -257,11 +269,11 @@ public class CategoryServiceImpl implements CategoryService {
         }
 
         List<Apix> nodeList = apixList.stream()
-                .filter(apix -> parentCategory.getId().equals(apix.getCategory().getId()))
+//                .filter(apix -> parentCategory.getId().equals(apix.getCategory().getId()))
                 .collect(Collectors.toList());
 
-        parentCategory.setChildren(children);
-        parentCategory.setNodeList(nodeList);
+//        parentCategory.setChildren(children);
+//        parentCategory.setNodeList(nodeList);
     }
 
 
@@ -271,7 +283,7 @@ public class CategoryServiceImpl implements CategoryService {
                 .collect(Collectors.toMap(Category::getId, c -> c));
 
         List<Category> roots = categories.stream()
-                .filter(c -> c.getParent() == null)
+//                .filter(c -> c.getParent() == null)
                 .collect(Collectors.toList());
 
         buildTree(roots, map);
@@ -284,10 +296,10 @@ public class CategoryServiceImpl implements CategoryService {
     private void buildTree(List<Category> nodes, Map<String, Category> map) {
         for (Category node : nodes) {
             List<Category> children = map.values().stream()
-                    .filter(c ->c.getParent()!=null&& Objects.equals(c.getParent().getId(), node.getId()))
+//                    .filter(c ->c.getParent()!=null&& Objects.equals(c.getParent().getId(), node.getId()))
                     .collect(Collectors.toList());
 
-            node.setChildren(children);
+//            node.setChildren(children);
             buildTree(children, map);
         }
     }
@@ -295,11 +307,11 @@ public class CategoryServiceImpl implements CategoryService {
     private void associateApis(List<Category> categories, List<Apix> apis, Map<String, Category> categoryMap) {
 
         for (Apix api : apis) {
-            String categoryId = api.getCategory().getId();
-            Category category = categoryMap.get(categoryId);
-            if (category != null) {
-                category.getNodeList().add(api);
-            }
+//            String categoryId = api.getCategory().getId();
+//            Category category = categoryMap.get(categoryId);
+//            if (category != null) {
+//                category.getNodeList().add(api);
+//            }
         }
     }
 

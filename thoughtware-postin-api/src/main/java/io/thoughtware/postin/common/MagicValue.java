@@ -2,6 +2,8 @@ package io.thoughtware.postin.common;
 
 public class MagicValue {
 
+    public static final String CATEGORY ="category";
+    // protocol type
     public static final String PROTOCOL_TYPE_HTTP ="http";
     public static final String PROTOCOL_TYPE_WS ="ws";
 

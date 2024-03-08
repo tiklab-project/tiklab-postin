@@ -39,9 +39,6 @@ public class RequestInstanceEntity implements Serializable {
     @Column(name = "after_script")
     private String afterScript;
 
-    @Column(name = "asserts")
-    private String asserts;
-
     public String getId() {
         return id;
     }
@@ -114,11 +111,4 @@ public class RequestInstanceEntity implements Serializable {
         this.afterScript = afterScript;
     }
 
-    public String getAsserts() {
-        return asserts;
-    }
-
-    public void setAsserts(String asserts) {
-        this.asserts = asserts;
-    }
 }

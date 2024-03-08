@@ -1,6 +1,7 @@
 package io.thoughtware.postin.workspace.service;
 
 import io.thoughtware.postin.api.http.test.instance.service.TestInstanceService;
+import io.thoughtware.postin.node.model.Node;
 import io.thoughtware.postin.workspace.dao.WorkspaceDao;
 import io.thoughtware.postin.workspace.entity.WorkspaceEntity;
 import io.thoughtware.eam.common.context.LoginContext;
@@ -103,10 +104,10 @@ public class WorkspaceServiceImpl implements WorkspaceService {
 
         //初始化默认分组
         Category category = new Category();
-        Workspace ws = new Workspace();
-        ws.setId(workspaceId);
-        category.setWorkspace(ws);
-        category.setName("默认分组");
+        Node node = new Node();
+        node.setWorkspaceId(workspaceId);
+        node.setName("默认分组");
+        category.setNode(node);
         categoryService.createCategory(category);
 
         //初始化一个mock

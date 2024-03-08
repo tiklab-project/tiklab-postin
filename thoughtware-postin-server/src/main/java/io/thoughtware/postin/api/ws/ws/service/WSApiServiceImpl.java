@@ -4,6 +4,8 @@ import io.thoughtware.postin.api.apix.model.*;
 import io.thoughtware.postin.api.apix.service.*;
 import io.thoughtware.postin.api.ws.ws.model.WSApi;
 import io.thoughtware.postin.common.MagicValue;
+import io.thoughtware.postin.node.model.Node;
+import io.thoughtware.postin.node.service.NodeService;
 import io.thoughtware.postin.support.apistatus.service.ApiStatusService;
 import io.thoughtware.rpc.annotation.Exporter;
 import io.thoughtware.user.user.service.UserService;
@@ -42,11 +44,20 @@ public class WSApiServiceImpl implements WSApiService {
     @Autowired
     RawParamService rawParamService;
 
+    @Autowired
+    NodeService nodeService;
 
     @Override
     public String createWSApi(@NotNull @Valid WSApi wsApi) {
 
-        String apiId = apixService.createApix(wsApi.getApix());
+        Apix apix = wsApi.getApix();
+        apix.setProtocolType(MagicValue.PROTOCOL_TYPE_WS);
+        String apiId = apixService.createApix(apix);
+
+        Node node = wsApi.getNode();
+        node.setId(apiId);
+        node.setType(MagicValue.PROTOCOL_TYPE_WS);
+        nodeService.createNode(node);
 
         //初始化请求响应中的类型
         ApiRequest apiRequest = new ApiRequest();
@@ -71,7 +82,10 @@ public class WSApiServiceImpl implements WSApiService {
     @Override
     public void updateWSApi(@NotNull @Valid WSApi wsApi) {
 
+        Apix apix = wsApi.getApix();
+        apixService.updateApix(apix);
 
+        nodeService.updateNode(wsApi.getNode());
     }
 
     @Override
@@ -101,6 +115,9 @@ public class WSApiServiceImpl implements WSApiService {
 
         Apix apix = apixService.findApix(id);
         wsApi.setApix(apix);
+
+        Node node = nodeService.findNode(id);
+        wsApi.setNode(node);
 
         //获取请求头中的数据
         List<RequestHeader> requestHeaderList = requestHeaderService.findRequestHeaderList(new RequestHeaderQuery().setApiId(id));

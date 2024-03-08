@@ -106,8 +106,6 @@ public class ApixDao {
                 .eq("protocolType", apixQuery.getProtocolType())
                 .eq("version", apixQuery.getVersion())
                 .eq("apiUid", apixQuery.getApiUid())
-                .eq("workspaceId",apixQuery.getWorkspaceId())
-                .like("name", apixQuery.getName())
                 .orders(apixQuery.getOrderParams())
                 .get();
         return jpaTemplate.findList(queryCondition, ApixEntity.class);
@@ -124,8 +122,6 @@ public class ApixDao {
                 .eq("protocolType", apixQuery.getProtocolType())
                 .eq("version", apixQuery.getVersion())
                 .eq("apiUid", apixQuery.getApiUid())
-                .eq("workspaceId",apixQuery.getWorkspaceId())
-                .like("name", apixQuery.getName())
                 .pagination(apixQuery.getPageParam())
                 .orders(apixQuery.getOrderParams())
                 .get();

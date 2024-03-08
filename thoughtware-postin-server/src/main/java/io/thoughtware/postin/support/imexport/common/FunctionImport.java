@@ -9,6 +9,7 @@ import io.thoughtware.postin.api.http.definition.service.*;
 import io.thoughtware.postin.category.model.Category;
 import io.thoughtware.postin.category.model.CategoryQuery;
 import io.thoughtware.postin.category.service.CategoryService;
+import io.thoughtware.postin.node.model.Node;
 import io.thoughtware.postin.support.imexport.model.*;
 import io.thoughtware.postin.workspace.model.Workspace;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -120,14 +121,13 @@ public class FunctionImport {
      * @param categoryName
      */
     public void addCategory(String workspaceId, String categoryId, String categoryName){
-        Workspace workspace = new Workspace();
-        workspace.setId(workspaceId);
-
         Category category = new Category();
-
         category.setId(categoryId);
-        category.setName(categoryName);
-        category.setWorkspace(workspace);
+        Node node = new Node();
+        node.setId(categoryId);
+        node.setName(categoryName);
+        node.setWorkspaceId(workspaceId);
+        category.setNode(node);
 
         categoryService.createCategory(category);
     }
@@ -142,7 +142,7 @@ public class FunctionImport {
 
         Apix apix = new Apix();
 
-        apix.setCategory(categoryID);
+//        apix.setCategory(categoryID);
 
 
         apixService.createApix(apix);

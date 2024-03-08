@@ -3,6 +3,7 @@ package io.thoughtware.postin.support.imexport.type;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import io.thoughtware.postin.node.model.Node;
 import io.thoughtware.postin.support.imexport.common.FunctionImport;
 import io.thoughtware.core.exception.ApplicationException;
 import io.thoughtware.postin.api.apix.model.*;
@@ -79,13 +80,12 @@ public class PostmanImport {
 //            String categoryId = info.getString("_postman_id").substring(0,12);
 
             //导入分组
-            Workspace workspace = new Workspace();
-            workspace.setId(workspaceId);
+
             Category category = new Category();
-
-            category.setName(categoryName);
-            category.setWorkspace(workspace);
-
+            Node node = new Node();
+            node.setWorkspaceId(workspaceId);
+            node.setName(categoryName);
+            category.setNode(node);
             categoryId = categoryService.createCategory(category);
 
 
@@ -174,14 +174,11 @@ public class PostmanImport {
         if(objItem.containsKey("item")){
             //先创建子目录
             Category category = new Category();
-            category.setName(name);
-
-            Category parent = new Category();
-            parent.setId(categoryId);
-            category.setParent(parent);
-            Workspace workspaceModel = new Workspace();
-            workspaceModel.setId(workspaceIds);
-            category.setWorkspace(workspaceModel);
+            Node node = new Node();
+            node.setName(name);
+            node.setParentId(categoryId);
+            node.setWorkspaceId(workspaceIds);
+            category.setNode(node);
             String categoryChildId = categoryService.createCategory(category);
 
             //遍历子目录下的每一项
@@ -204,15 +201,16 @@ public class PostmanImport {
         httpApi.setMethodType(method.toLowerCase());
 
         Apix apix = new Apix();
-        apix.setName(name);
         apix.setPath(path);
         apix.setDesc(desc);
-        apix.setWorkspaceId(workspaceIds);
-        Category category = new Category();
-        category.setId(categoryId);
-        apix.setCategory(category);
-
         httpApi.setApix(apix);
+
+        Node node = new Node();
+        node.setWorkspaceId(workspaceIds);
+        node.setName(name);
+        node.setParentId(categoryId);
+        httpApi.setNode(node);
+        
 
         String httpApiId = httpApiService.createHttpApi(httpApi);
 
