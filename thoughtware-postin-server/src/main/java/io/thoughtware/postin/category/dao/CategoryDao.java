@@ -92,10 +92,6 @@ public class CategoryDao{
      */
     public List<CategoryEntity> findCategoryList(CategoryQuery categoryQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(CategoryEntity.class)
-                .eq("workspaceId", categoryQuery.getWorkspaceId())
-                .eq("type",categoryQuery.getType())
-                .eq("parentId",categoryQuery.getParentId())
-                .like("name", categoryQuery.getName())
                 .orders(categoryQuery.getOrderParams())
                 .get();
         return jpaTemplate.findList(queryCondition, CategoryEntity.class);
@@ -108,10 +104,6 @@ public class CategoryDao{
      */
     public Pagination<CategoryEntity> findCategoryPage(CategoryQuery categoryQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(CategoryEntity.class)
-                .eq("workspaceId", categoryQuery.getWorkspaceId())
-                .eq("type",categoryQuery.getType())
-                .eq("parentId",categoryQuery.getParentId())
-                .like("name", categoryQuery.getName())
                 .pagination(categoryQuery.getPageParam())
                 .orders(categoryQuery.getOrderParams())
                 .get();

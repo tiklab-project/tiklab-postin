@@ -79,28 +79,8 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public void deleteCategory(@NotNull String id) {
-
-        //删除目录下的接口
-        List<Apix> apixList = apixService.findApixList(new ApixQuery().setCategoryId(id));
-        if (CollectionUtils.isNotEmpty(apixList)){
-            for (Apix apix : apixList){
-                apixService.deleteApix(apix.getId());
-            }
-        }
-
-        //删除子目录
-        CategoryQuery categoryQuery = new CategoryQuery();
-        categoryQuery.setParentId(id);
-        List<Category> categoryList = findCategoryList(categoryQuery);
-        if(categoryList!=null&categoryList.size()>0){
-            for(Category categoryChild:categoryList){
-                deleteCategory(categoryChild.getId());
-            }
-        }
-
         //删除目录
         categoryDao.deleteCategory(id);
-
     }
 
     @Override
@@ -137,7 +117,7 @@ public class CategoryServiceImpl implements CategoryService {
 
         //通过当前目录查询子目录
         CategoryQuery categoryQuery = new CategoryQuery();
-        categoryQuery.setParentId(category.getId());
+//        categoryQuery.setParentId(category.getId());
         List<Category> categoryList = findCategoryList(categoryQuery);
 
         //通过当前目录查询下面接口
@@ -217,27 +197,28 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public List<Category> findCategoryListTree(CategoryQuery categoryQuery) {
-        CategoryQuery newQuery = new CategoryQuery();
-        newQuery.setWorkspaceId(categoryQuery.getWorkspaceId());
-        List<Category> categoryList = findCategoryList(newQuery);
-
-        if (ObjectUtils.isEmpty(categoryQuery.getName())){
-            ApixQuery apixQuery = new ApixQuery();
-            apixQuery.setWorkspaceId(categoryQuery.getWorkspaceId());
-            List<Apix> apixList = apixService.findApixList(apixQuery);
-
-            return buildCategoryTree(categoryList, apixList);
-        }else {
-            ApixQuery apixQuery = new ApixQuery();
-            apixQuery.setWorkspaceId(categoryQuery.getWorkspaceId());
-            apixQuery.setName(categoryQuery.getName());
-            List<Apix> matchedApixList = apixService.findApixList(apixQuery);
-
-            // 构建带有树形结构的 Category List
-            List<Category> categories = buildTree(categoryList,matchedApixList);
-            return categories;
-
-        }
+//        CategoryQuery newQuery = new CategoryQuery();
+//        newQuery.setWorkspaceId(categoryQuery.getWorkspaceId());
+//        List<Category> categoryList = findCategoryList(newQuery);
+//
+//        if (ObjectUtils.isEmpty(categoryQuery.getName())){
+//            ApixQuery apixQuery = new ApixQuery();
+//            apixQuery.setWorkspaceId(categoryQuery.getWorkspaceId());
+//            List<Apix> apixList = apixService.findApixList(apixQuery);
+//
+//            return buildCategoryTree(categoryList, apixList);
+//        }else {
+//            ApixQuery apixQuery = new ApixQuery();
+//            apixQuery.setWorkspaceId(categoryQuery.getWorkspaceId());
+//            apixQuery.setName(categoryQuery.getName());
+//            List<Apix> matchedApixList = apixService.findApixList(apixQuery);
+//
+//            // 构建带有树形结构的 Category List
+//            List<Category> categories = buildTree(categoryList,matchedApixList);
+//            return categories;
+//
+//        }
+        return null;
     }
 
     /**

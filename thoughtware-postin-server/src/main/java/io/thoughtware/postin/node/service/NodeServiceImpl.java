@@ -132,10 +132,27 @@ public class NodeServiceImpl implements NodeService {
     @Override
     public Node findNode(@NotNull String id) {
         Node node = findOne(id);
-
         joinTemplate.joinQuery(node);
 
+        //递归查找子节点
+        List<Node> nodeList = findChildren(id);
+        if(!nodeList.isEmpty()){
+            node.setChildren(nodeList);
+
+            for(Node child:nodeList){
+                if(Objects.equals(child.getType(), MagicValue.CATEGORY)){
+                    findNode(child.getId());
+                }
+            }
+        }
+
         return node;
+    }
+
+    private List<Node> findChildren(String parentId) {
+        NodeQuery nodeQuery = new NodeQuery();
+        nodeQuery.setParentId(parentId);
+        return findNodeList(nodeQuery);
     }
 
 

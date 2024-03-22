@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.stream.Collectors;
 
 /**
@@ -22,7 +24,7 @@ public class DataProcessCommon {
      * @param request
      * @return
      */
-    public HttpRequest buildRequestInfo(HttpServletRequest request) {
+    public HttpRequest buildRequestInfo(HttpServletRequest request) throws UnsupportedEncodingException {
         HttpHeaders headers = new HttpHeaders();
         String Url = null;
         String method = null;
@@ -50,7 +52,13 @@ public class DataProcessCommon {
             }
 
             if (keyValue[0].equals("pi-url")) {
-                Url=keyValue[1];
+                // 找到pi-url的起始位置
+                int startIndex = urlParameter.indexOf("pi-url=") + "pi-url=".length();;
+                // 找到&pi-method=get的结束位置
+                int endIndex = urlParameter.indexOf("&pi-method");
+
+                String notProcessUrl = urlParameter.substring(startIndex, endIndex);
+                Url= URLDecoder.decode(notProcessUrl, "UTF-8");
             }
 
             if (keyValue[0].equals("pi-method")) {

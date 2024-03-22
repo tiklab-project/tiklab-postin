@@ -1,6 +1,7 @@
 package io.thoughtware.postin.support.sendrequest.service;
 
 
+import io.thoughtware.postin.common.MagicValue;
 import io.thoughtware.postin.support.sendrequest.dispatch.*;
 import io.thoughtware.postin.support.sendrequest.util.DataProcessCommon;
 import io.thoughtware.postin.support.sendrequest.HttpRequest;
@@ -54,12 +55,13 @@ public class SendRequestServlet extends HttpServlet {
         String method = httpRequest.getMethod().toLowerCase();
         HttpHeaders headers = httpRequest.getHeaders();
 
-        String contentType = headers.getContentType().toString();
+
 
         //get请求不需要content-type
-        if(method.equals("get")){
-            routeDispatchForGet.dispatch(request,response,httpRequest);
+        if(method.equals(MagicValue.API_METHOD_TYPE_GET)){
+            routeDispatchForGet.dispatch(response,httpRequest);
         }else {
+            String contentType = headers.getContentType().toString();
 
             if(contentType.contains("multipart/form-data")){
                 contentType = "multipart/form-data";

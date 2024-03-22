@@ -42,7 +42,7 @@ public class RouteDispatchForGET {
     /**
      * get
      * */
-    public void dispatch(HttpServletRequest request, HttpServletResponse response, HttpRequest httpRequest){
+    public void dispatch( HttpServletResponse response, HttpRequest httpRequest){
 
         try {
             //方法

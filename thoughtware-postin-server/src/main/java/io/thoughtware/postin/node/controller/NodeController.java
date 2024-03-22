@@ -41,6 +41,15 @@ public class NodeController {
         return Result.ok();
     }
 
+    @RequestMapping(path="/findNode",method = RequestMethod.POST)
+    @ApiMethod(name = "findNode",desc = "查找接口公共字段")
+    @ApiParam(name = "id",desc = "id",required = true)
+    public Result<Node> findNode(@NotNull String id){
+        Node node = nodeService.findNode(id);
+
+        return Result.ok(node);
+    }
+
     @RequestMapping(path = "/findNodeTree",method = RequestMethod.POST)
     @ApiMethod(name = "findNodeTree",desc = "根据查询对象模糊查找分类列表树")
     @ApiParam(name = "nodeQuery",desc = "查询对象",required = true)

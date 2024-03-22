@@ -9,7 +9,10 @@ import io.thoughtware.postin.api.http.definition.service.*;
 import io.thoughtware.postin.category.model.Category;
 import io.thoughtware.postin.category.model.CategoryQuery;
 import io.thoughtware.postin.category.service.CategoryService;
+import io.thoughtware.postin.common.MagicValue;
 import io.thoughtware.postin.node.model.Node;
+import io.thoughtware.postin.node.model.NodeQuery;
+import io.thoughtware.postin.node.service.NodeService;
 import io.thoughtware.postin.support.imexport.model.*;
 import io.thoughtware.postin.workspace.model.Workspace;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +32,9 @@ public class FunctionImport {
 
     @Autowired
     CategoryService categoryService;
+
+    @Autowired
+    NodeService nodeService;
 
     @Autowired
     ApixService apixService;
@@ -103,13 +109,14 @@ public class FunctionImport {
      * @param categoryId
      */
     private void delCategory(String workspaceId,String categoryId){
-        CategoryQuery categoryQuery = new CategoryQuery().setWorkspaceId(workspaceId);
-        List<Category> categoryListTree = categoryService.findCategoryList(categoryQuery);
-
-        for(Category category:categoryListTree){
-            String categoryDataId = category.getId();
-            if(categoryDataId.equals(categoryId)){
-                categoryService.deleteCategory(categoryId);
+        NodeQuery nodeQuery = new NodeQuery();
+        nodeQuery.setWorkspaceId(workspaceId);
+        nodeQuery.setType(MagicValue.CATEGORY);
+        List<Node> nodeList = nodeService.findNodeList(nodeQuery);
+        for(Node node:nodeList){
+            String nodeId = node.getId();
+            if(nodeId.equals(categoryId)) {
+                nodeService.deleteNode(node.getId());
             }
         }
     }

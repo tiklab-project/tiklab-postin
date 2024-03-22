@@ -11,6 +11,10 @@ import io.thoughtware.postin.api.http.mock.service.*;
 import io.thoughtware.postin.category.model.Category;
 import io.thoughtware.postin.category.model.CategoryQuery;
 import io.thoughtware.postin.category.service.CategoryService;
+import io.thoughtware.postin.common.MagicValue;
+import io.thoughtware.postin.node.model.Node;
+import io.thoughtware.postin.node.model.NodeQuery;
+import io.thoughtware.postin.node.service.NodeService;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.tomcat.util.http.fileupload.FileItem;
 import org.apache.tomcat.util.http.fileupload.RequestContext;
@@ -65,6 +69,9 @@ public class MockServletRequest {
     @Autowired
     MockServletResponse mockServletResponse;
 
+    @Autowired
+    NodeService nodeService;
+
 
     /**
      * 请求处理
@@ -84,7 +91,7 @@ public class MockServletRequest {
         }
 
         //获取接口id
-        String apiId = getMethodId(workspaceId,path,"http");
+        String apiId = getMethodId(workspaceId,path);
 
         mockOperate(request,response,apiId);
     }
@@ -141,28 +148,23 @@ public class MockServletRequest {
     }
 
     //获取methodId
-    public  String getMethodId(String workspaceId, String path,String protocolType){
-        CategoryQuery categoryQuery = new CategoryQuery().setWorkspaceId(workspaceId);
-        List<Category> categoryList = categoryService.findCategoryList(categoryQuery);
+    public  String getMethodId(String workspaceId, String path){
+        NodeQuery nodeQuery = new NodeQuery();
+        nodeQuery.setWorkspaceId(workspaceId);
+        nodeQuery.setType(MagicValue.PROTOCOL_TYPE_HTTP);
+        List<Node> nodeList = nodeService.findNodeList(nodeQuery);
+
         String httpApiId = null;
-        for (Category category:categoryList){
-
-            //查询所有定义
-            List<Apix> apixList = apixService.findApixList(new ApixQuery().setCategoryId(category.getId()));
-            if(CollectionUtils.isEmpty(apixList)){continue;}
-
-            //获取所有http定义
-            List<Apix> httpList = apixList.stream().filter(a -> protocolType.equals(a.getProtocolType())).collect(Collectors.toList());
-            if(CollectionUtils.isEmpty(httpList)){continue;}
-
-            //通过path找到相应的定义id
-            for(Apix apix : httpList){
+        if(!CollectionUtils.isEmpty(nodeList)){
+            for(Node node:nodeList){
+                Apix apix = apixService.findApix(node.getId());
                 if(path.equals(apix.getPath())){
-                    //apix 与 定义的id相同
                     httpApiId=apix.getId();
                 }
             }
         }
+
+
         return httpApiId;
     }
 

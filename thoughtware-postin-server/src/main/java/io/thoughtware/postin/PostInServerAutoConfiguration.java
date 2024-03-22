@@ -6,8 +6,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ComponentScan({"io.thoughtware.postin"})
 @ServletComponentScan({"io.thoughtware.postin"})
+@ComponentScan({"io.thoughtware.postin"})
 public class PostInServerAutoConfiguration {
 
 }

@@ -133,11 +133,12 @@ public class ExportServiceImpl implements ExportService {
      * @return
      */
     private JSONArray apiGroupList(String workspaceId){
-        List<Category> categoryListTree = categoryService.findCategoryListTree(new CategoryQuery().setWorkspaceId(workspaceId));
+//        List<Category> categoryListTree = categoryService.findCategoryListTree(new CategoryQuery().setWorkspaceId(workspaceId));
 
-        JSONArray list = loopArr(categoryListTree);
+//        JSONArray list = loopArr(categoryListTree);
 
-        return list;
+//        return list;
+        return null;
     }
 
 

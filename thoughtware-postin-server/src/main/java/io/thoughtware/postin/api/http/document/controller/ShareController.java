@@ -6,11 +6,13 @@ import io.thoughtware.postin.annotation.Api;
 import io.thoughtware.postin.annotation.ApiMethod;
 import io.thoughtware.postin.annotation.ApiParam;
 import io.thoughtware.postin.api.http.definition.model.HttpApi;
+import io.thoughtware.postin.api.ws.ws.model.WSApi;
 import io.thoughtware.postin.category.model.Category;
 import io.thoughtware.postin.api.http.document.model.Share;
 import io.thoughtware.postin.api.http.document.model.ShareQuery;
 import io.thoughtware.postin.api.http.document.service.ShareService;
 
+import io.thoughtware.postin.node.model.Node;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -107,8 +109,8 @@ public class ShareController {
 
     @RequestMapping(path="/findShareTree",method = RequestMethod.POST)
     @ApiMethod(name = "findShareTree",desc = "查找分享树形列表")
-    public Result<List<Category>> findShareTree(@NotNull String id){
-        List<Category> shareTree = shareService.findShareTree(id);
+    public Result<List<Node>> findShareTree(@NotNull String id){
+        List<Node> shareTree = shareService.findShareTree(id);
 
         return Result.ok(shareTree);
     }
@@ -128,6 +130,15 @@ public class ShareController {
         HttpApi httpApi = shareService.findHttpApi(id);
 
         return Result.ok(httpApi);
+    }
+
+    @RequestMapping(path="/findWSApi",method = RequestMethod.POST)
+    @ApiMethod(name = "findWSApi",desc = "查询接口")
+    @ApiParam(name = "id",desc = "id",required = true)
+    public Result<WSApi> findWSApi(@NotNull String id){
+        WSApi wsApi = shareService.findWSApi(id);
+
+        return Result.ok(wsApi);
     }
 
 

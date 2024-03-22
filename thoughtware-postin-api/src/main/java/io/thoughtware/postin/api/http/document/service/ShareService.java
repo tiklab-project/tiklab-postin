@@ -2,8 +2,10 @@ package io.thoughtware.postin.api.http.document.service;
 
 
 import io.thoughtware.postin.api.http.definition.model.HttpApi;
+import io.thoughtware.postin.api.ws.ws.model.WSApi;
 import io.thoughtware.postin.category.model.Category;
 import io.thoughtware.core.page.Pagination;
+import io.thoughtware.postin.node.model.Node;
 import io.thoughtware.toolkit.join.annotation.FindAll;
 import io.thoughtware.toolkit.join.annotation.FindList;
 import io.thoughtware.toolkit.join.annotation.FindOne;
@@ -84,7 +86,7 @@ public interface ShareService {
      * 通过shareId，查询里面targetId 构造左侧树
      * @return
      */
-    List<Category> findShareTree(String id);
+    List<Node> findShareTree(String id);
 
     /**
      * 通过shareId，查询里面targetId 构造左侧树
@@ -93,10 +95,16 @@ public interface ShareService {
     HashMap verify(Share share);
 
     /**
-     * id
+     * 包一层Http协议接口
      * @param id
      * @return
      */
     HttpApi findHttpApi(String id);
 
+    /**
+     * 包一层ws协议接口
+     * @param id
+     * @return
+     */
+    WSApi findWSApi(String id);
 }

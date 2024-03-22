@@ -2,6 +2,8 @@ package io.thoughtware.postin.workspace.service;
 
 import io.thoughtware.postin.api.http.test.instance.service.TestInstanceService;
 import io.thoughtware.postin.node.model.Node;
+import io.thoughtware.postin.node.model.NodeQuery;
+import io.thoughtware.postin.node.service.NodeService;
 import io.thoughtware.postin.workspace.dao.WorkspaceDao;
 import io.thoughtware.postin.workspace.entity.WorkspaceEntity;
 import io.thoughtware.eam.common.context.LoginContext;
@@ -54,6 +56,9 @@ public class WorkspaceServiceImpl implements WorkspaceService {
 
     @Autowired
     WorkspaceFollowService workspaceFollowService;
+
+    @Autowired
+    NodeService nodeService;
 
     @Autowired
     CategoryService categoryService;
@@ -161,13 +166,16 @@ public class WorkspaceServiceImpl implements WorkspaceService {
 
     @Override
     public void deleteWorkspace(@NotNull String id) {
-
-        List<Category> categoryList = categoryService.findCategoryList(new CategoryQuery().setWorkspaceId(id));
-        if(CollectionUtils.isNotEmpty(categoryList)){
-            for(Category category:categoryList){
-                categoryService.deleteCategory(category.getId());
+        NodeQuery nodeQuery = new NodeQuery();
+        nodeQuery.setWorkspaceId(id);
+        List<Node> nodeList = nodeService.findNodeList(nodeQuery);
+        if(CollectionUtils.isNotEmpty(nodeList)){
+            for (Node node : nodeList){
+                nodeService.deleteNode(node.getId());
             }
         }
+
+
         String loginId = LoginContext.getLoginId();
         //删除关注的
         WorkspaceFollowQuery workspaceFollowQuery = new WorkspaceFollowQuery();
