@@ -143,14 +143,6 @@ public class ApixServiceImpl implements ApixService {
 
     @Override
     public void deleteApix(@NotNull String id) {
-//        ApixEntity apix = apixDao.findApix(id);
-
-//        if(Objects.equals(apix.getProtocolType(), MagicValue.PROTOCOL_TYPE_HTTP)){
-//            //http协议的接口。id与apix的公共表相同
-//            httpApiService.deleteHttpApi(id);
-//        }else {
-//            wsApiService.deleteWSApi(id);
-//        }
 
         //删除最近
         ApiRecentQuery apiRecentQuery = new ApiRecentQuery();
