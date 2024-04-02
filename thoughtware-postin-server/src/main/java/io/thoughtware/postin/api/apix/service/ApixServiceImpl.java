@@ -1,13 +1,10 @@
 package io.thoughtware.postin.api.apix.service;
 
-import io.thoughtware.postin.common.MagicValue;
+import io.thoughtware.postin.api.apix.entity.ApiListEntity;
+import io.thoughtware.postin.api.apix.model.*;
 import io.thoughtware.postin.common.PostInUnit;
 import io.thoughtware.postin.api.apix.dao.ApixDao;
 import io.thoughtware.postin.api.apix.entity.ApixEntity;
-import io.thoughtware.postin.api.apix.model.ApiRecent;
-import io.thoughtware.postin.api.apix.model.ApiRecentQuery;
-import io.thoughtware.postin.api.apix.model.Apix;
-import io.thoughtware.postin.api.apix.model.ApixQuery;
 import io.thoughtware.postin.node.model.Node;
 import io.thoughtware.postin.node.service.NodeService;
 import io.thoughtware.toolkit.beans.BeanMapper;
@@ -27,9 +24,7 @@ import org.springframework.stereotype.Service;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -223,15 +218,12 @@ public class ApixServiceImpl implements ApixService {
     }
 
     @Override
-    public Pagination<Apix> findApixPage(ApixQuery apixQuery) {
-        Pagination<ApixEntity>  pagination = apixDao.findApixPage(apixQuery);
-        List<Apix> apixList = BeanMapper.mapList(pagination.getDataList(), Apix.class);
-        joinTemplate.joinQuery(apixList);
+    public Pagination<ApiList> findApixPage(ApixQuery apixQuery) {
 
-        for (Apix apix: apixList){
-            Node node = nodeService.findNode(apix.getId());
-            apix.setNode(node);
-        }
+        Pagination<ApiListEntity>  pagination = apixDao.findApiPage(apixQuery);
+
+        List<ApiList> apixList = BeanMapper.mapList(pagination.getDataList(), ApiList.class);
+        joinTemplate.joinQuery(apixList);
 
         return PaginationBuilder.build(pagination, apixList);
     }

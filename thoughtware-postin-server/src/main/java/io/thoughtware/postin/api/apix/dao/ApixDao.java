@@ -1,5 +1,6 @@
 package io.thoughtware.postin.api.apix.dao;
 
+import io.thoughtware.postin.api.apix.entity.ApiListEntity;
 import io.thoughtware.postin.api.apix.entity.ApixEntity;
 import io.thoughtware.postin.api.apix.model.ApixQuery;
 import io.thoughtware.core.page.Pagination;
@@ -111,22 +112,25 @@ public class ApixDao {
         return jpaTemplate.findList(queryCondition, ApixEntity.class);
     }
 
-    /**
-     * 带分页的List
-     * @param apixQuery
-     * @return
-     */
-    public Pagination<ApixEntity> findApixPage(ApixQuery apixQuery) {
-        QueryCondition queryCondition = QueryBuilders.createQuery(ApixEntity.class)
-                .eq("categoryId", apixQuery.getCategoryId())
-                .eq("protocolType", apixQuery.getProtocolType())
-                .eq("version", apixQuery.getVersion())
-                .eq("apiUid", apixQuery.getApiUid())
-                .pagination(apixQuery.getPageParam())
-                .orders(apixQuery.getOrderParams())
-                .get();
-        return jpaTemplate.findPage(queryCondition, ApixEntity.class);
+
+
+    public Pagination<ApiListEntity> findApiPage(ApixQuery apixQuery) {
+        String sql = "SELECT pn.name, pn.create_time, pa.protocol_type, pa.method_type,pa.executor_id,pa.path,pa.status_id\n" +
+                "FROM  postin_node pn\n" +
+                "JOIN  postin_apix pa\n" +
+                "ON pn.id = pa.id \n" +
+                "WHERE pn.parent_id = ? ";
+
+        if(apixQuery.getName()!=null){
+            sql += " AND pn.name LIKE '%"+apixQuery.getName()+"%'";
+        }
+
+
+        Object[] params = {apixQuery.getCategoryId()};
+        Pagination<ApiListEntity> page = jpaTemplate.getJdbcTemplate().findPage(sql, params, apixQuery.getPageParam(), new BeanPropertyRowMapper<>(ApiListEntity.class));
+        return page;
     }
+
 
 
 }

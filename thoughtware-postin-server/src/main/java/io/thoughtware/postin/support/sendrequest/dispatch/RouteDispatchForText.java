@@ -17,6 +17,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.Duration;
+import java.time.Instant;
 
 /**
  * raw 里面的各种类型
@@ -55,14 +57,25 @@ public class RouteDispatchForText {
             //构建请求entity
             HttpEntity<byte[]> entity = new HttpEntity<byte[]>(body, headers);
 
+            //请求开始时间
+            Instant startTime = Instant.now();
 
             //转发请求
             ResponseEntity<byte[]> responseEntity = restTemplate.exchange(dispatchUrl, httpMethod,entity,byte[].class);
 
+            //获取请求时间
+            Instant endTime = Instant.now();
+            Duration duration = Duration.between(startTime, endTime);
+            long millis = duration.toMillis();
+            String timeString = String.format("%d", millis);
+            int size = responseEntity.getBody().length;
+
+            dataProcessCommon.buildResponseHeader(responseEntity,response,timeString,size);
+
             //处理响应
             //response headers
-            HttpHeaders httpHeaders = responseEntity.getHeaders();
-            response.setContentType(httpHeaders.getContentType().toString());
+//            HttpHeaders httpHeaders = responseEntity.getHeaders();
+//            response.setContentType(httpHeaders.getContentType().toString());
 
             //response body
             if (responseEntity.hasBody()) {

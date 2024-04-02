@@ -2,6 +2,7 @@ package io.thoughtware.postin.api.apix.service;
 
 import io.thoughtware.core.page.Pagination;
 
+import io.thoughtware.postin.api.apix.model.ApiList;
 import io.thoughtware.postin.api.apix.model.Apix;
 import io.thoughtware.postin.api.apix.model.ApixQuery;
 import io.thoughtware.toolkit.join.annotation.FindAll;
@@ -75,6 +76,6 @@ public interface ApixService {
     * @param apixQuery
     * @return
     */
-    Pagination<Apix> findApixPage(ApixQuery apixQuery);
+    Pagination<ApiList> findApixPage(ApixQuery apixQuery);
 
 }

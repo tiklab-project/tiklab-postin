@@ -1,6 +1,7 @@
 package io.thoughtware.postin.api.apix.controller;
 
 import io.thoughtware.postin.annotation.Api;
+import io.thoughtware.postin.api.apix.model.ApiList;
 import io.thoughtware.postin.api.apix.model.Apix;
 import io.thoughtware.postin.api.apix.model.ApixQuery;
 import io.thoughtware.postin.api.apix.service.ApixService;
@@ -89,8 +90,8 @@ public class ApixController {
     @RequestMapping(path = "/findApixPage",method = RequestMethod.POST)
     @ApiMethod(name = "findApixPage",desc = "根据查询对象按分页查询接口公共列表")
     @ApiParam(name = "apixQuery",desc = "查询对象",required = true)
-    public Result<Pagination<Apix>> findApixPage(@RequestBody @Valid @NotNull ApixQuery apixQuery){
-        Pagination<Apix> pagination = apixService.findApixPage(apixQuery);
+    public Result<Pagination<ApiList>> findApixPage(@RequestBody @Valid @NotNull ApixQuery apixQuery){
+        Pagination<ApiList> pagination = apixService.findApixPage(apixQuery);
 
         return Result.ok(pagination);
     }

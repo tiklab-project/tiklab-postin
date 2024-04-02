@@ -1,6 +1,5 @@
 package io.thoughtware.postin.support.sendrequest.dispatch;
 
-import io.thoughtware.core.exception.ApplicationException;
 import io.thoughtware.core.exception.SystemException;
 import io.thoughtware.postin.support.sendrequest.util.DataProcessCommon;
 import io.thoughtware.postin.support.sendrequest.HttpRequest;
