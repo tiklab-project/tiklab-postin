@@ -41,10 +41,10 @@ dfs:
 
 eas:
   embbed:
-    enable: true
+    enable: false
   address: http://192.168.10.10:8080
   web:
-    address: http://192.168.10.13:8080
+    address: http://192.168.10.10:8080
 
 
 
