@@ -96,6 +96,10 @@
             <artifactId>thoughtware-dal-jpa</artifactId>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>io.thoughtware</groupId>
+            <artifactId>thoughtware-plugin-manager</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>commons-io</groupId>

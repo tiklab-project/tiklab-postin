@@ -191,6 +191,16 @@
             </dependency>
             <dependency>
                 <groupId>io.thoughtware</groupId>
+                <artifactId>thoughtware-plugin-manager</artifactId>
+                <version>${thoughtware-plugin.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.thoughtware</groupId>
+                <artifactId>thoughtware-licence-api</artifactId>
+                <version>${thoughtware-licence.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.thoughtware</groupId>
                 <artifactId>thoughtware-licence-spring-boot-starter</artifactId>
                 <version>${thoughtware-licence.version}</version>
             </dependency>
@@ -214,6 +224,7 @@
                 <artifactId>thoughtware-dsm-spring-boot-starter</artifactId>
                 <version>${thoughtware-dsm.version}</version>
             </dependency>
+
 
             <!--业务-->
             <dependency>

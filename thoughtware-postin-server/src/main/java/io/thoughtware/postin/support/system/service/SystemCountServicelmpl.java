@@ -1,7 +1,11 @@
 package io.thoughtware.postin.support.system.service;
 
+import io.thoughtware.licence.appauth.service.ApplyAuthService;
+import io.thoughtware.licence.licence.model.Version;
+import io.thoughtware.licence.licence.service.VersionService;
 import io.thoughtware.message.message.service.MessageNoticeService;
 import io.thoughtware.message.setting.service.MessageSendTypeService;
+import io.thoughtware.plugin.manager.service.PluginManagerService;
 import io.thoughtware.postin.support.system.model.SystemCount;
 import io.thoughtware.privilege.role.service.RoleService;
 import io.thoughtware.security.backups.service.BackupsDbService;
@@ -36,6 +40,8 @@ public class SystemCountServicelmpl implements SystemCountService {
     @Autowired
     MessageSendTypeService messageSendTypeService;
 
+    @Autowired
+    PluginManagerService pluginManagerService;
 
     @Autowired
     BackupsDbService backupsDbService;
@@ -50,7 +56,8 @@ public class SystemCountServicelmpl implements SystemCountService {
         Integer roleNumber = roleService.findRoleNumber();
         Integer noticeNumber = messageNoticeService.findNoticeNumber("postin");
         Integer sendTypeNumber = messageSendTypeService.findSendTypeNumber();
-
+//        Integer installPluginNumber = pluginManagerService.findInstallPluginNumber();
+//        String lastBackupsTime = backupsDbService.findLastBackupsTime();
 
         SystemCount systemCount = new SystemCount();
         systemCount.setUserCount(userNumber);
@@ -60,7 +67,8 @@ public class SystemCountServicelmpl implements SystemCountService {
         systemCount.setRoleCount(roleNumber);
         systemCount.setMsgNoticeCount(noticeNumber);
         systemCount.setMsgSendTypeCount(sendTypeNumber);
-
+//        systemCount.setInstallPluginCount(installPluginNumber);
+//        systemCount.setLastBackupTime(lastBackupsTime);
 
         return systemCount;
     }
