@@ -1,8 +1,5 @@
 package io.thoughtware.postin.support.system.service;
 
-import io.thoughtware.licence.appauth.service.ApplyAuthService;
-import io.thoughtware.licence.licence.model.Version;
-import io.thoughtware.licence.licence.service.VersionService;
 import io.thoughtware.message.message.service.MessageNoticeService;
 import io.thoughtware.message.setting.service.MessageSendTypeService;
 import io.thoughtware.plugin.manager.service.PluginManagerService;
