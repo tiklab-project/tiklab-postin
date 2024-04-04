@@ -37,13 +37,6 @@ public class SystemCountServicelmpl implements SystemCountService {
     @Autowired
     MessageSendTypeService messageSendTypeService;
 
-    @Autowired
-    PluginManagerService pluginManagerService;
-
-    @Autowired
-    BackupsDbService backupsDbService;
-
-
     @Override
     public SystemCount getSystemCount() {
         Integer userNumber = userService.findUserNumber();
@@ -53,8 +46,7 @@ public class SystemCountServicelmpl implements SystemCountService {
         Integer roleNumber = roleService.findRoleNumber();
         Integer noticeNumber = messageNoticeService.findNoticeNumber("postin");
         Integer sendTypeNumber = messageSendTypeService.findSendTypeNumber();
-//        Integer installPluginNumber = pluginManagerService.findInstallPluginNumber();
-//        String lastBackupsTime = backupsDbService.findLastBackupsTime();
+
 
         SystemCount systemCount = new SystemCount();
         systemCount.setUserCount(userNumber);
@@ -64,8 +56,6 @@ public class SystemCountServicelmpl implements SystemCountService {
         systemCount.setRoleCount(roleNumber);
         systemCount.setMsgNoticeCount(noticeNumber);
         systemCount.setMsgSendTypeCount(sendTypeNumber);
-//        systemCount.setInstallPluginCount(installPluginNumber);
-//        systemCount.setLastBackupTime(lastBackupsTime);
 
         return systemCount;
     }

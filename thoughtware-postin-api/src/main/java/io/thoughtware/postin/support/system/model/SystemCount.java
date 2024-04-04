@@ -20,8 +20,6 @@ public class SystemCount extends BaseModel {
     private Integer userDirCount;
     private Integer msgNoticeCount;
     private Integer msgSendTypeCount;
-    private Integer installPluginCount;
-    private String lastBackupTime;
 
 
     public Integer getUserCount() {
@@ -80,19 +78,4 @@ public class SystemCount extends BaseModel {
         this.msgSendTypeCount = msgSendTypeCount;
     }
 
-    public Integer getInstallPluginCount() {
-        return installPluginCount;
-    }
-
-    public void setInstallPluginCount(Integer installPluginCount) {
-        this.installPluginCount = installPluginCount;
-    }
-
-    public String getLastBackupTime() {
-        return lastBackupTime;
-    }
-
-    public void setLastBackupTime(String lastBackupTime) {
-        this.lastBackupTime = lastBackupTime;
-    }
 }
