@@ -369,49 +369,49 @@ public class WorkspaceServiceImpl implements WorkspaceService {
     /**
      * 创建项目权限
      * @param userList
-     * @param repositoryId
+     * @param workspaceId
      */
-    public void initProjectDmRole(List<PatchUser> userList, String repositoryId) {
+    public void initProjectDmRole(List<PatchUser> userList, String workspaceId) {
         String loginId = LoginContext.getLoginId();
 
-        if (userList == null) {
-            userList = new ArrayList<>();
-        }
-
-        //超级管理员
-        userList.add(createPatchUser(loginId, repositoryId, 2));
-        //管理员
+        // 获取系统超级管理员
         RoleUser roleAdmin = roleUserService.findUserRoleAdmin();
-        String systemAdminId = roleAdmin.getUser().getId();
-        userList.add(createPatchUser(systemAdminId, repositoryId, 1));
+        String id = roleAdmin.getUser().getId();
 
-        // 遍历userList来更新当前用户或管理员的adminRole，同时收集已存在的用户ID
-        for (PatchUser user : userList) {
-            if(!loginId.equals(user.getUserId())&&!systemAdminId.equals(user.getUserId())){
-                userList.add(createPatchUser(user.getUserId(), repositoryId, 0));
+        if (Objects.isNull(userList) || userList.isEmpty()){
+            dmRoleService.initDmRoles(workspaceId, loginId,2);
+            if (loginId.equals(id)){
+                return;
             }
+            dmRoleService.initDmRoles(workspaceId, id,1);
+        }else {
+            boolean isSuperAdmin = false;
+
+            for(PatchUser user:userList){
+                if(user.getUserId().equals(loginId)){
+                    user.setRoleType(2);
+                    isSuperAdmin=true;
+                }
+            }
+
+            if(!isSuperAdmin){
+                PatchUser patchUser = new PatchUser();
+                patchUser.setUserId(loginId);
+                patchUser.setRoleType(2);
+                userList.add(patchUser);
+            }
+
+            // 判断系统管理员是否在其中
+            List<PatchUser> list = userList.stream()
+                    .filter(patchUser -> patchUser.getUserId().equals(id))
+                    .toList();
+            if (list.isEmpty()){
+                PatchUser patchUser = new PatchUser(id);
+                userList.add(patchUser);
+            }
+            //关联权限
+            dmRoleService.initPatchDmRole(workspaceId,userList);
         }
-
-        // 调用服务以初始化权限
-        dmRoleService.initPatchDmRole(repositoryId, userList);
     }
 
-    /**
-     * 创建一个新的PatchUser对象的辅助方法
-     * @param userId 用户ID
-     * @param repositoryId 仓库ID
-     * @param roleType  0.默认角色，1：管理员角色 2：超级管理员
-     * @return PatchUser对象
-     */
-    private PatchUser createPatchUser(String userId, String repositoryId, Integer roleType) {
-        PatchUser patchUser = new PatchUser();
-        DmUser dmUser = new DmUser();
-        dmUser.setDomainId(repositoryId);
-        User user = new User();
-        user.setId(userId);
-        dmUser.setUser(user);
-        patchUser.setUserId(userId);
-        patchUser.setRoleType(roleType);
-        return patchUser;
-    }
 }
