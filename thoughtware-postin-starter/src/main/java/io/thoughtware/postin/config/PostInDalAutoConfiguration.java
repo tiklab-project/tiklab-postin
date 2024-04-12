@@ -52,6 +52,8 @@ public class PostInDalAutoConfiguration {
                 "postin_1.0.2",
                 "postin-platform_1.0.2",
 
+                "apply-auth_1.0.2",
+                "privilege_1.0.2",
                 "oplog_1.0.2",
                 "message_1.0.2",
         });
@@ -59,12 +61,16 @@ public class PostInDalAutoConfiguration {
                 "postin_1.0.3",
                 "postin-platform_1.0.3",
 
+                "oplog_1.0.3",
+                "apply-auth_1.0.3",
                 "message_1.0.3",
         });
         dsmConfig.newVersion("1.0.4", new String[]{
-                "message_1.0.4",
-                "oplog_1.0.4"
+                "postin-platform_1.0.4",
 
+                "message_1.0.4",
+                "oplog_1.0.4",
+                "apply-auth_1.0.4",
         });
         dsmConfig.newVersion("1.0.5", new String[]{
                 "message_1.0.5",

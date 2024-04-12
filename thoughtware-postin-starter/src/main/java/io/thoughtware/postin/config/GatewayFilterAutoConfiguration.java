@@ -86,6 +86,8 @@ public class GatewayFilterAutoConfiguration{
                         "/testInstance/findTestInstanceList",
                         "/appLink/findAppLinkList",
                         "/eam/auth/login",
+                        "/message/messageItem/syncUpdateMessage",
+                        "/message/messageItem/syncDeleteMessage",
 
                 })
                 .ignorePreUrls(new String[]{
