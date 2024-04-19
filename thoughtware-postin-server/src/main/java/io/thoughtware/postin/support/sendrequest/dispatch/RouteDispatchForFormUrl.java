@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -45,6 +46,9 @@ public class RouteDispatchForFormUrl {
      * formUrl请求的转发
      */
     public void dispatch(HttpServletRequest request, HttpServletResponse response, HttpRequest httpRequest) {
+        //请求开始时间
+        Instant startTime = Instant.now();
+
         try {
             //构建请求entity
             HttpEntity<MultiValueMap<String, String>> requestEntity = this.buildRequestEntityForFormUrl(request,httpRequest);
@@ -71,8 +75,6 @@ public class RouteDispatchForFormUrl {
                     .toString();
 
 
-            //请求开始时间
-            Instant startTime = Instant.now();
 
             //转发请求
             ResponseEntity<byte[]> responseEntity = restTemplate.exchange(requestUrl, httpMethod, requestEntity, byte[].class, params);
@@ -80,23 +82,16 @@ public class RouteDispatchForFormUrl {
 
             //处理响应
             //获取请求时间
-            Instant endTime = Instant.now();
-            Duration duration = Duration.between(startTime, endTime);
-            long millis = duration.toMillis();
-            String timeString = String.format("%d", millis);
+            String timeString = dataProcessCommon.getTime(startTime);
             int size = responseEntity.getBody().length;
 
             //响应头处理
-            dataProcessCommon.buildResponseHeader(responseEntity,response,timeString, size);
+            dataProcessCommon.buildResponse(responseEntity,response,timeString, size);
 
-
-            //response body
-            if (responseEntity.hasBody()) {
-                ServletOutputStream outputStream = response.getOutputStream();
-                outputStream.write(responseEntity.getBody());
-                outputStream.flush();
-            }
-        } catch (Exception e) {
+        }catch (HttpClientErrorException errorResponse) {
+            String timeString = dataProcessCommon.getTime(startTime);
+            dataProcessCommon.buildErrorResponse(errorResponse,response,timeString);
+        }catch (Exception e) {
             dataProcessCommon.buildErrorResponseHeader(response,e.getMessage());
         }
     }

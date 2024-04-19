@@ -31,6 +31,7 @@ import io.thoughtware.user.dmUser.model.DmUser;
 import io.thoughtware.user.dmUser.model.DmUserQuery;
 import io.thoughtware.user.dmUser.service.DmUserService;
 import io.thoughtware.user.user.model.User;
+import io.thoughtware.user.user.service.UserService;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -89,6 +90,9 @@ public class WorkspaceServiceImpl implements WorkspaceService {
     @Autowired
     RoleUserService roleUserService;
 
+    @Autowired
+    UserService userService;
+
 
 //    @Autowired
 //    DssClient disClient;
@@ -134,6 +138,8 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         Map<String,String> map = new HashMap<>();
         map.put("workspaceName",workspace.getWorkspaceName());
         map.put("workspaceId",workspaceId);
+        User user = userService.findUser(userId);
+        map.put("userName",user.getNickname());
         map.put("link","/workspace/overview/${workspaceId}");
         //日志
         postInUnit.log(LOG_TYPE_CREATE_ID,"workspace",map);

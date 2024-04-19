@@ -72,15 +72,7 @@ public class ApixServiceImpl implements ApixService {
             apixEntity.setId(id);
         }
 
-
-        String userId = LoginContext.getLoginId();
-        apixEntity.setCreateUser(userId);
         apixEntity.setStatusId("developmentid");
-
-        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        apixEntity.setCreateTime(timestamp);
-        apixEntity.setUpdateTime(timestamp);
-
         String id = apixDao.createApix(apixEntity);
 
 
@@ -116,14 +108,10 @@ public class ApixServiceImpl implements ApixService {
     @Override
     public void updateApix(@NotNull @Valid Apix apix) {
         ApixEntity apixEntity = BeanMapper.map(apix, ApixEntity.class);
-        apixEntity.setUpdateTime(new Timestamp(System.currentTimeMillis()));
-
-        String userId = LoginContext.getLoginId();
-        apixEntity.setUpdateUser(userId);
-
         apixDao.updateApix(apixEntity);
 
         Node node = apix.getNode();
+        node.setParentId(apix.getCategoryId());
         nodeService.updateNode(node);
 
         //更新索引

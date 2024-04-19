@@ -21,10 +21,6 @@ public class HttpApiEntity implements Serializable {
     @Column(name = "apix_id",length = 40)
     private String apixId;
 
-    //请求类型
-    @Column(name = "method_type",length = 32,notNull = true)
-    private String methodType;
-
 
     public String getId() {
         return id;
@@ -40,13 +36,5 @@ public class HttpApiEntity implements Serializable {
 
     public void setApixId(String apixId) {
         this.apixId = apixId;
-    }
-
-    public String getMethodType() {
-        return methodType;
-    }
-
-    public void setMethodType(String methodType) {
-        this.methodType = methodType;
     }
 }

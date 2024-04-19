@@ -133,7 +133,6 @@ public class HttpApiServiceImpl implements HttpApiService {
         Node node = httpApi.getNode();
         node.setId(id);
         node.setType(MagicValue.PROTOCOL_TYPE_HTTP);
-        node.setMethodType(httpApi.getMethodType());
         nodeService.createNode(node);
 
         return  id;
@@ -148,7 +147,6 @@ public class HttpApiServiceImpl implements HttpApiService {
 
         Apix apix = httpApi.getApix();
         apixService.updateApix(apix);
-
     }
 
     @Override

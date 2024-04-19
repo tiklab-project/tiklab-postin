@@ -1,14 +1,20 @@
 package io.thoughtware.postin.support.sendrequest.util;
 
+import io.thoughtware.core.exception.SystemException;
 import io.thoughtware.postin.support.sendrequest.HttpRequest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.HttpClientErrorException;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.stream.Collectors;
 
 /**
@@ -82,7 +88,7 @@ public class DataProcessCommon {
      * @param timeString
      * @param size
      */
-    public void buildResponseHeader(ResponseEntity<byte[]> responseEntity, HttpServletResponse response, String timeString, int size){
+    public void buildResponse(ResponseEntity<byte[]> responseEntity, HttpServletResponse response, String timeString, int size){
         //把响应头返回回去
         HttpHeaders httpHeaders = responseEntity.getHeaders();
 
@@ -109,10 +115,76 @@ public class DataProcessCommon {
 
         response.setHeader("pi-header",piResHeader);
         response.setHeader("pi-base",piBaseInfo);
+
+
+        //响应体
+        try {
+            ServletOutputStream outputStream = response.getOutputStream();
+            outputStream.write(responseEntity.getBody());
+            outputStream.flush();
+        } catch (IOException e) {
+            throw new SystemException(e);
+        }
     }
 
 
     public void buildErrorResponseHeader(HttpServletResponse response, String message) {
         response.setHeader("pi-error",message);
     }
+
+    public void buildErrorResponse(HttpClientErrorException errorResponse, HttpServletResponse response, String time) {
+        HttpHeaders httpHeaders = errorResponse.getResponseHeaders();
+
+        String piBaseInfo;
+        String piResHeader;
+
+        //获取状态码  如果存在 pi-mock-status 就设置 pi-mock-status 中的值
+        //如果存在pi-mock-status 则 走了mock地址
+        if(httpHeaders.containsKey("pi-mock-baseInfo")){
+
+            piBaseInfo=httpHeaders.getFirst("pi-mock-baseInfo");
+            piResHeader=httpHeaders.getFirst("pi-mock-header");
+
+        }else {
+            int statusCode=errorResponse.getRawStatusCode();
+            int size = errorResponse.getResponseBodyAsString().length();
+            piResHeader =  httpHeaders.entrySet()
+                    .stream()
+                    .map(entry -> entry.getKey() + ":" + String.join(",", "[" + String.join(",", entry.getValue()) + "]"))
+                    .collect(Collectors.joining(","));
+
+            piBaseInfo = String.format("statusCode=%d,time=%s,size=%d", statusCode, time,size);
+
+        }
+
+        response.setHeader("pi-header",piResHeader);
+        response.setHeader("pi-base",piBaseInfo);
+
+
+        //响应体
+        try (ServletOutputStream outputStream = response.getOutputStream()) {
+            outputStream.write(errorResponse.getResponseBodyAsString().getBytes());
+            outputStream.flush();
+        } catch (IOException e) {
+            throw new SystemException(e);
+        }
+    }
+
+
+    /**
+     * 获取响应时间
+     * @param startTime
+     * @return
+     */
+    public String getTime(Instant startTime){
+        Instant endTime = Instant.now();
+        Duration duration = Duration.between(startTime, endTime);
+        long millis = duration.toMillis();
+        String timeString = String.format("%d", millis);
+
+        return timeString;
+    }
+
+
+
 }

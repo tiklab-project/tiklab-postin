@@ -21,6 +21,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.ServletOutputStream;
@@ -54,7 +55,7 @@ public class RouteDispatchForFormData {
     public void dispatch(HttpServletRequest request, HttpServletResponse response, HttpRequest httpRequest) throws IOException {
 
         //请求开始时间
-        Instant startTime;
+        Instant startTime = Instant.now();
 
         try {
             //构建请求entity
@@ -67,44 +68,20 @@ public class RouteDispatchForFormData {
             //url
             String dispatchUrl = httpRequest.getUrl();
 
-            //请求开始时间
-            startTime = Instant.now();
-
             //转发请求
             ResponseEntity<byte[]> responseEntity = restTemplate.exchange(dispatchUrl, httpMethod,requestEntity,byte[].class);
 
             //处理响应
-            handleResponse(responseEntity, response, startTime);
+            String timeString = dataProcessCommon.getTime(startTime);
+            int size = responseEntity.getBody().length;
+            dataProcessCommon.buildResponse(responseEntity, response, timeString, size);
 
+        }catch (HttpClientErrorException errorResponse) {
+            String timeString = dataProcessCommon.getTime(startTime);
+            dataProcessCommon.buildErrorResponse(errorResponse,response,timeString);
         } catch (Exception e) {
             dataProcessCommon.buildErrorResponseHeader(response,e.getMessage());
         }
-    }
-
-    private void handleResponse(ResponseEntity<byte[]> responseEntity, HttpServletResponse response, Instant startTime) throws IOException {
-        //获取请求时间
-        Instant endTime = Instant.now();
-        Duration duration = Duration.between(startTime, endTime);
-        long millis = duration.toMillis();
-        String timeString = String.valueOf(millis);
-        int size = responseEntity.getBody().length;
-        dataProcessCommon.buildResponseHeader(responseEntity, response, timeString, size);
-
-        //response body
-        if (responseEntity.hasBody()) {
-            try (ServletOutputStream outputStream = response.getOutputStream()) {
-                outputStream.write(responseEntity.getBody());
-                outputStream.flush();
-            } catch (IOException e) {
-                throw new ApplicationException(e);
-            }
-        }
-    }
-
-    private void handleException(Exception e, ServletOutputStream outputStream) throws IOException {
-        String message = e.getMessage();
-        outputStream.write(message.getBytes());
-        outputStream.flush();
     }
 
 

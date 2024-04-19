@@ -198,7 +198,6 @@ public class PostmanImport {
     private  String addApi(String categoryId,String name,String path,String method,String desc){
 
         HttpApi httpApi = new HttpApi();
-        httpApi.setMethodType(method.toLowerCase());
 
         Apix apix = new Apix();
         apix.setPath(path);
@@ -209,6 +208,7 @@ public class PostmanImport {
         node.setWorkspaceId(workspaceIds);
         node.setName(name);
         node.setParentId(categoryId);
+        node.setMethodType(method.toLowerCase());
         httpApi.setNode(node);
         
 

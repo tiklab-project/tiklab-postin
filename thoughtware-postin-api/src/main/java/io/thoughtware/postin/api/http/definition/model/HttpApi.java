@@ -37,9 +37,6 @@ public class HttpApi extends BaseModel {
     @ApiProperty(name="node",desc="所属公共定义")
     private Node node;
 
-    @ApiProperty(name="methodType",desc="请求类型")
-    private String methodType;
-
     @ApiProperty(name = "headerList",desc="请求头列表")
     private List<RequestHeader> headerList;
 
@@ -66,14 +63,6 @@ public class HttpApi extends BaseModel {
 
     @ApiProperty(name = "responseResultList",desc="响应结果列表")
     private List<ApiResponse> responseResultList;
-
-    public String getMethodType() {
-        return methodType;
-    }
-
-    public void setMethodType(String methodType) {
-        this.methodType = methodType;
-    }
 
     public String getId() {
         return id;

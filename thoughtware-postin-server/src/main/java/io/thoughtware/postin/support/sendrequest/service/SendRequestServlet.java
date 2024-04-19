@@ -89,9 +89,6 @@ public class SendRequestServlet extends HttpServlet {
             }else {
                 routeDispatchForText.dispatch(request,response,httpRequest);
             }
-
-
-
         }
     }
 

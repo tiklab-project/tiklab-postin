@@ -13,8 +13,11 @@ import io.thoughtware.postin.api.http.definition.service.*;
 import io.thoughtware.postin.api.ws.ws.model.WSApi;
 import io.thoughtware.postin.api.ws.ws.service.WSApiService;
 import io.thoughtware.postin.category.model.Category;
-import io.thoughtware.postin.category.model.CategoryQuery;
 import io.thoughtware.postin.category.service.CategoryService;
+import io.thoughtware.postin.common.MagicValue;
+import io.thoughtware.postin.node.model.Node;
+import io.thoughtware.postin.node.model.NodeQuery;
+import io.thoughtware.postin.node.service.NodeService;
 import io.thoughtware.postin.support.apistatus.model.ApiStatus;
 import io.thoughtware.postin.workspace.model.Workspace;
 import io.thoughtware.postin.workspace.service.WorkspaceService;
@@ -41,6 +44,8 @@ public class ExportServiceImpl implements ExportService {
 
     @Autowired
     CategoryService categoryService;
+    @Autowired
+    NodeService nodeService;
 
     @Autowired
     HttpApiService httpApiService;
@@ -73,7 +78,6 @@ public class ExportServiceImpl implements ExportService {
         } catch (IOException e) {
             throw new ApplicationException("Error while loading template", e);
         }
-
     }
 
     @Override
@@ -133,12 +137,27 @@ public class ExportServiceImpl implements ExportService {
      * @return
      */
     private JSONArray apiGroupList(String workspaceId){
-//        List<Category> categoryListTree = categoryService.findCategoryListTree(new CategoryQuery().setWorkspaceId(workspaceId));
+        NodeQuery nodeQuery = new NodeQuery();
+        nodeQuery.setWorkspaceId(workspaceId);
+        List<Node> nodeTree = nodeService.findNodeTree(nodeQuery);
 
-//        JSONArray list = loopArr(categoryListTree);
+        JSONArray apiGroupList = new JSONArray();
 
-//        return list;
-        return null;
+        if(!Objects.isNull(nodeTree)&&!nodeTree.isEmpty()){
+            for(Node node:nodeTree){
+                JSONObject categoryNode = new JSONObject();
+                categoryNode.put("id",node.getId());
+                categoryNode.put("name", node.getName());
+                categoryNode.put("type", node.getType());
+
+                if(!node.getChildren().isEmpty()){
+                    categoryNode.put("children", loopArr(node.getChildren()));
+                }
+                apiGroupList.add(categoryNode);
+            }
+        }
+
+        return apiGroupList;
     }
 
 
@@ -147,52 +166,54 @@ public class ExportServiceImpl implements ExportService {
      * @param categoryListTree
      * @return
      */
-    private JSONArray loopArr(List<Category> categoryListTree){
+    private JSONArray loopArr(List<Node> categoryListTree){
         JSONArray apiGroupList = new JSONArray();
 
-        if(categoryListTree!=null&&categoryListTree.size()>0){
-            for(Category category:categoryListTree){
-                JSONObject categoryNode = new JSONObject();
-                categoryNode.put("id",category.getId() );
-//                categoryNode.put("name", category.getName());
+        for(Node node:categoryListTree){
+            JSONObject nodeJson = new JSONObject();
+            nodeJson.put("type",node.getType());
 
-//                if(category.getNodeList()!=null&category.getNodeList().size()>0){
-//                    JSONArray apiList = new JSONArray();
-//                    for(Apix apix:category.getNodeList()){
-//                        JSONObject apiJson = new JSONObject();
-//                        apiJson.put("id",apix.getId());
-//                        apiJson.put("name", apix.getName());
-//                        apiJson.put("protocolType", apix.getProtocolType());
-//                        apiJson.put("updateTime", apix.getUpdateTime());
-//                        apiJson.put("status",statusJson(apix.getStatus()));
-//                        apiJson.put("path",apix.getPath());
-//
-//                        if("http".equals(apix.getProtocolType())){
-//                            HttpApi httpApi = httpApiService.findHttpApi(apix.getId());
-//                            apiJson.put("methodType", httpApi.getMethodType());
-//                            apiJson.put("request",httpRequestJson(httpApi));
-//                            apiJson.put("response",httpResponseJson(httpApi.getId()));
-//                        }
-//
-//                        if("ws".equals(apix.getProtocolType())){
-//                            WSApi wsApi = wsApiService.findWSApi(apix.getId());
-//                            apiJson.put("request",wsRequest(wsApi));
-//                        }
-//
-//                        apiList.add(apiJson);
-//                    }
-//
-//                    categoryNode.put("nodeList", apiList);
-//                }
-//
-//                if(category.getChildren()!=null&&category.getChildren().size()>0){
-//                    categoryNode.put("children", loopArr(category.getChildren()));
-//                }
-
-                apiGroupList.add(categoryNode);
+            //目录
+            if(Objects.equals(node.getType(), MagicValue.CATEGORY)){
+                nodeJson.put("id",node.getId());
+                nodeJson.put("name", node.getName());
             }
 
+            //接口
+            if(MagicValue.PROTOCOL_TYPE_HTTP.equals(node.getType())
+                    ||MagicValue.PROTOCOL_TYPE_WS.equals(node.getType())){
 
+                nodeJson.put("id",node.getId());
+                nodeJson.put("name", node.getName());
+                nodeJson.put("updateTime", node.getUpdateTime());
+
+                //http
+                if(MagicValue.PROTOCOL_TYPE_HTTP.equals(node.getType())){
+                    HttpApi httpApi = httpApiService.findHttpApi(node.getId());
+                    nodeJson.put("methodType", node.getMethodType());
+                    nodeJson.put("protocolType", httpApi.getApix().getProtocolType());
+                    nodeJson.put("request",httpRequestJson(httpApi));
+                    nodeJson.put("response",httpResponseJson(httpApi.getId()));
+                    nodeJson.put("status",statusJson(httpApi.getApix().getStatus()));
+                    nodeJson.put("path",httpApi.getApix().getPath());
+                }
+
+                //ws
+                if(MagicValue.PROTOCOL_TYPE_WS.equals(node.getType())){
+                    WSApi wsApi = wsApiService.findWSApi(node.getId());
+                    nodeJson.put("request",wsRequest(wsApi));
+                    nodeJson.put("status",statusJson(wsApi.getApix().getStatus()));
+                    nodeJson.put("path",wsApi.getApix().getPath());
+                    nodeJson.put("protocolType", wsApi.getApix().getProtocolType());
+                }
+            }
+
+            if(!node.getChildren().isEmpty()){
+                JSONArray jsonArray = loopArr(node.getChildren());
+                nodeJson.put("children",jsonArray);
+            }
+
+            apiGroupList.add(nodeJson);
         }
 
         return apiGroupList;

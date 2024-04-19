@@ -77,6 +77,9 @@ public class NodeServiceImpl implements NodeService {
     @Override
     public void updateNode(@NotNull @Valid Node node) {
         NodeEntity nodeEntity = BeanMapper.map(node, NodeEntity.class);
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        nodeEntity.setUpdateTime(timestamp);
+        nodeEntity.setUpdateUser(LoginContext.getLoginId());
 
         nodeDao.updateNode(nodeEntity);
     }

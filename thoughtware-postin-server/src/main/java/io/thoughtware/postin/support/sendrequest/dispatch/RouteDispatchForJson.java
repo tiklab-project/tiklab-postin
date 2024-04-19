@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.util.MultiValueMap;
 import org.springframework.util.StreamUtils;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.ServletOutputStream;
@@ -49,37 +50,26 @@ public class RouteDispatchForJson {
      * @param httpRequest
      */
     public void dispatch(HttpServletRequest request, HttpServletResponse response, HttpRequest httpRequest){
-
+        //请求开始时间
+        Instant startTime = Instant.now();
         try {
             //构建请求entity
             RequestEntity<byte[]> requestEntity = this.buildRequestEntityForJson(request,httpRequest);
 
-            //请求开始时间
-            Instant startTime = Instant.now();
+
             //转发请求
             ResponseEntity<byte[]> responseEntity = restTemplate.exchange(requestEntity, byte[].class);
 
             //处理响应
             //获取请求时间
-            Instant endTime = Instant.now();
-            Duration duration = Duration.between(startTime, endTime);
-            long millis = duration.toMillis();
-            String timeString = String.format("%d", millis);
+            String timeString = dataProcessCommon.getTime(startTime);
             int size = responseEntity.getBody().length;
 
-            dataProcessCommon.buildResponseHeader(responseEntity,response,timeString,size);
-
-
-            if (responseEntity.hasBody()) {
-                try {
-                    ServletOutputStream outputStream = response.getOutputStream();
-                    outputStream.write(responseEntity.getBody());
-                    outputStream.flush();
-                } catch (IOException e) {
-                    throw new SystemException(e);
-                }
-            }
-        } catch (Exception e) {
+            dataProcessCommon.buildResponse(responseEntity,response,timeString,size);
+        }catch (HttpClientErrorException errorResponse) {
+            String timeString = dataProcessCommon.getTime(startTime);
+            dataProcessCommon.buildErrorResponse(errorResponse,response,timeString);
+        }catch (Exception e) {
             dataProcessCommon.buildErrorResponseHeader(response,e.getMessage());
         }
     }
@@ -112,5 +102,8 @@ public class RouteDispatchForJson {
         // 3、构造出RestTemplate能识别的RequestEntity
         return new RequestEntity<byte[]>(body, headers, httpMethod, new URI(url));
     }
+
+
+
 
 }

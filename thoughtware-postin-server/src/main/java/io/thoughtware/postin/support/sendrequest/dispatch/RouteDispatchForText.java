@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StreamUtils;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.ServletOutputStream;
@@ -38,6 +39,8 @@ public class RouteDispatchForText {
     DataProcessCommon dataProcessCommon;
 
     public void dispatch(HttpServletRequest request, HttpServletResponse response, HttpRequest httpRequest){
+        //请求开始时间
+        Instant startTime = Instant.now();
 
         try {
             //方法
@@ -57,36 +60,18 @@ public class RouteDispatchForText {
             //构建请求entity
             HttpEntity<byte[]> entity = new HttpEntity<byte[]>(body, headers);
 
-            //请求开始时间
-            Instant startTime = Instant.now();
-
             //转发请求
             ResponseEntity<byte[]> responseEntity = restTemplate.exchange(dispatchUrl, httpMethod,entity,byte[].class);
 
             //获取请求时间
-            Instant endTime = Instant.now();
-            Duration duration = Duration.between(startTime, endTime);
-            long millis = duration.toMillis();
-            String timeString = String.format("%d", millis);
+            String timeString = dataProcessCommon.getTime(startTime);
             int size = responseEntity.getBody().length;
 
-            dataProcessCommon.buildResponseHeader(responseEntity,response,timeString,size);
+            dataProcessCommon.buildResponse(responseEntity,response,timeString,size);
 
-            //处理响应
-            //response headers
-//            HttpHeaders httpHeaders = responseEntity.getHeaders();
-//            response.setContentType(httpHeaders.getContentType().toString());
-
-            //response body
-            if (responseEntity.hasBody()) {
-                try {
-                    ServletOutputStream outputStream = response.getOutputStream();
-                    outputStream.write(responseEntity.getBody());
-                    outputStream.flush();
-                } catch (IOException e) {
-                    throw new SystemException(e);
-                }
-            }
+        }catch (HttpClientErrorException errorResponse) {
+            String timeString = dataProcessCommon.getTime(startTime);
+            dataProcessCommon.buildErrorResponse(errorResponse,response,timeString);
         } catch (Exception e) {
             dataProcessCommon.buildErrorResponseHeader(response,e.getMessage());
         }

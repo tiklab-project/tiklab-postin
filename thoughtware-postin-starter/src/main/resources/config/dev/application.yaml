@@ -41,7 +41,7 @@ dfs:
 
 eas:
   embbed:
-    enable: false
+    enable: true
   address: http://192.168.10.10:8080
   web:
     address: http://192.168.10.10:8080
@@ -57,7 +57,7 @@ licences:
   path: ${DATA_HOME}/licences
 
 base:
-  url: http://192.168.10.21:8090
+  url: http://192.168.10.34:8090
 
 file:
   path:

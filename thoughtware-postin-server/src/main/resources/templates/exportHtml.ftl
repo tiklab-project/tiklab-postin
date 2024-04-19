@@ -301,8 +301,10 @@
       </div>
     </div>
 <script id="json-data">
-       // 获取传入的 JSON 数据
-        let jsonData = {"projectInfo":{"projectIcon":"/images/pi1.png","projectName":"默认空间","projectId":"bd26c6ec5c6e"},"apiGroupList":[{"name":"test","id":"86e78329ea11"},{"name":"默认分组","id":"a8ead30da71c","nodeList":[{"path":"/passport/login/cd","request":{"query":[],"header":[],"id":"311e9e5fbbff4b8ba31946b6040dc8d4","body":{"bodyType":"none"}},"methodType":"get","response":{"result":[{"dataType":"json","name":"成功","id":"eef1f9b2fa89","httpCode":200,"jsonText":"{\"type\":\"object\",\"properties\":{\"fieldName\":{\"type\":\"string\"}}}"}],"header":[]},"name":"test23","updateTime":1698408532926,"id":"311e9e5fbbff4b8ba31946b6040dc8d4","protocolType":"http","status":{"color":"orange","name":"开发中","id":"developmentid","type":"system"}},{"path":"ws://192.168.10.14:8090","request":{"query":[],"header":[],"body":{"bodyType":"raw","raw":{"rawType":"text/plain","raw":"","id":"95470caad849"}}},"name":"wstest","updateTime":1697079627071,"id":"95470caad849","protocolType":"ws","status":{"color":"orange","name":"开发中","id":"developmentid","type":"system"}},{"path":"ws://192.168.10.21:8090/ws","request":{"query":[{"name":"tets","id":"6cfa3b8110d2","sort":0,"value":"@domain","required":0}],"header":[{"name":"accept","id":"18ccdb89a291","sort":0,"value":"test","required":1}],"body":{"bodyType":"json","json":{"id":"e788dcac2291","jsonText":"{\"type\":\"object\",\"properties\":{\"fieldName\":{\"type\":\"string\",\"mock\":{\"mock\":\"@name\"}}}}"}}},"name":"WebSocket1","updateTime":1697507326140,"id":"e788dcac2291","protocolType":"ws","status":{"color":"orange","name":"开发中","id":"developmentid","type":"system"}},{"path":"/passport/login","request":{"afterScriptUnit":"","query":[],"preScriptUnit":"","header":[],"id":"219512b6cb74","body":{"bodyType":"raw","raw":{"rawType":"application/json","raw":"{\"account\":\"18783894551\",\"password\":\"123456\"}","id":"219512b6cb74"}}},"methodType":"post","response":{"result":[{"dataType":"json","name":"成功","id":"219512b6cb78","httpCode":200,"jsonText":"{\"type\":\"object\",\"properties\":{}}"}],"header":[]},"name":"name12","updateTime":1698237658224,"id":"219512b6cb74","protocolType":"http","status":{"color":"orange","name":"开发中","id":"developmentid","type":"system"}}]}]}
+    // 模拟数据
+    // let jsonData = {"projectInfo":{"projectIcon":"/images/pi1.png","projectName":"默认空间","projectId":"bd26c6ec5c6e"},"apiGroupList":[{"children":[{"request":{"query":[],"header":[],"body":{"bodyType":"raw","raw":{"rawType":"text/plain","raw":"","id":"288dfa644b6f"}}},"path":"ws://192.168.10.14","name":"45345","updateTime":1709911795045,"id":"288dfa644b6f","protocolType":"ws","type":"ws","status":{"color":"orange","name":"开发中","id":"developmentid","type":"system"}}],"name":"dfdfd666666666666666666666666666666666666666666666666666","id":"a3c789b21f3c","type":"category"},{"children":[{"children":[{"request":{"query":[],"header":[],"id":"727ae5133763","body":{"bodyType":"none"}},"path":"/passport/login/bb","methodType":"get","response":{"result":[{"dataType":"json","name":"成功","id":"0df30579cd3d","httpCode":200,"jsonText":"{\"type\": \"object\",\"properties\": {}}"}],"header":[]},"name":"app5555555555555555555","updateTime":1712130470000,"id":"727ae5133763","protocolType":"http","type":"http","status":{"color":"orange","name":"开发中","id":"developmentid","type":"system"}}],"name":"565465","id":"697fbadf75ce","type":"category"},{"request":{"query":[],"header":[],"id":"1012c5dee0d64d1a9150295ab534c8e2","body":{"bodyType":"json","json":{"id":"1012c5dee0d64d1a9150295ab534c8e2","jsonText":"{\"type\":\"object\",\"properties\":{\"fieldName\":{\"type\":\"string\"},\"fieldName1\":{\"type\":\"string\"}}}"}}},"path":"/config/createConfig","methodType":"post","response":{"result":[{"dataType":"json","name":"成功","id":"b99adc0c77bc","httpCode":200,"jsonText":"{\"type\":\"object\",\"properties\":{\"fieldName\":{\"type\":\"string\",\"mock\":{\"mock\":\"@name\"}},\"fieldName1\":{\"type\":\"string\",\"mock\":{\"mock\":\"@first\"}}}}"}],"header":[]},"name":"test","updateTime":1704679498000,"id":"1012c5dee0d64d1a9150295ab534c8e2","protocolType":"http","type":"http","status":{"color":"orange","name":"开发中","id":"developmentid","type":"system"}}],"name":"test","id":"86e78329ea11","type":"category"},{"children":[{"children":[{"children":[{"request":{"query":[],"header":[],"id":"a960bbb4775e4a228272c069bd7b8b15","body":{"bodyType":"none"}},"path":"/passport/login/aaaa","methodType":"get","response":{"result":[{"dataType":"json","name":"成功","id":"329d364fe3a3","httpCode":200,"jsonText":"{\"type\": \"object\",\"properties\": {}}"}],"header":[]},"name":"test","updateTime":1701926857000,"id":"a960bbb4775e4a228272c069bd7b8b15","protocolType":"http","type":"http","status":{"color":"orange","name":"开发中","id":"developmentid","type":"system"}}],"name":"test2","id":"ccf35c4282fb","type":"category"}],"name":"test","id":"dddd358e9699","type":"category"},{"request":{"query":[{"name":"tets","id":"6cfa3b8110d2","sort":0,"value":"@domain","required":0}],"header":[{"name":"accept","id":"18ccdb89a291","sort":0,"value":"test","required":1}],"body":{"bodyType":"json","json":{"id":"e788dcac2291","jsonText":"{\"type\":\"object\",\"properties\":{\"fieldName\":{\"type\":\"string\",\"mock\":{\"mock\":\"@name\"}},\"fieldName1\":{\"type\":\"string\"}},\"required\":[\"fieldName1\"]}"}}},"path":"ws://192.168.10.34:8090/ws","name":"WebSocket1766","updateTime":1697507326000,"id":"e788dcac2291","protocolType":"ws","type":"ws","status":{"color":"green","name":"已发布","id":"publishid","type":"system"}},{"request":{"afterScript":"","query":[],"preScript":"","header":[],"id":"219512b6cb74","body":{"bodyType":"json","json":{"id":"219512b6cb74","jsonText":"{\"type\":\"object\",\"properties\":{\"test\":{\"type\":\"object\",\"properties\":{\"fieldName\":{\"type\":\"string\",\"mock\":{\"mock\":\"@name\"}},\"fieldName1\":{\"type\":\"string\",\"mock\":{\"mock\":\"@ip\"}}},\"required\":[\"fieldName\",\"fieldName1\"]}},\"required\":[\"test\"]}"}}},"path":"/passport/login/aaa","methodType":"get","response":{"result":[{"dataType":"json","name":"成功","id":"219512b6cb78","httpCode":200,"jsonText":"{\"type\":\"object\",\"properties\":{\"fieldName\":{\"type\":\"string\",\"mock\":{\"mock\":\"@ip\"}},\"fieldName1\":{\"type\":\"string\",\"mock\":{\"mock\":\"@last\"}},\"test2\":{\"type\":\"object\",\"properties\":{\"fieldName\":{\"type\":\"string\"}},\"mock\":{\"mock\":\"@email\"},\"required\":[\"fieldName\"]}},\"required\":[\"root\"]}"},{"dataType":"raw","name":"erere","id":"48fabeb557df","httpCode":201}],"header":[]},"name":"name12444","updateTime":1713254346337,"id":"219512b6cb74","protocolType":"http","type":"http","status":{"color":"cyan","name":"测试","id":"testid","type":"system"}}],"name":"默认分组eeeeeeeeeeeeeeeeeeeeeeee","id":"a8ead30da71c","type":"category"}]}
+    // JSON 数据
+    let jsonData = ${jsonData}
 </script>
 <script >
 
@@ -413,12 +415,17 @@
          */
         const createDirectoryTree = (data, level = 1) => {
             data.forEach(function (group) {
+
                 // 创建目录树项
                 const listItem = document.createElement('li');
-                listItem.textContent = group.name;
-                listItem.classList.add('tree-li');
-                listItem.style.paddingLeft = (level * 20) + "px";// 添加左侧缩进样式
-                sidebarList.appendChild(listItem);
+                if(group.type==="category"){
+                    listItem.textContent = group.name;
+                    listItem.classList.add('tree-li');
+                    listItem.style.paddingLeft = (level * 20) + "px";// 添加左侧缩进样式
+                    sidebarList.appendChild(listItem);
+                }else {
+                    apiArr = [...apiArr,group]
+                }
 
                 if (group.children && group.children.length > 0) {
                     // 创建子目录树
@@ -434,10 +441,6 @@
                     });
                 }
 
-                if(group.nodeList&&group.nodeList.length>0){
-                    apiArr = [...apiArr,...group.nodeList]
-                }
-
                 // 添加点击事件，显示相应的 nodelist 内容
                 listItem.addEventListener('click', function () {
                     let detailContainer = document.getElementById("detailContainer")
@@ -445,7 +448,15 @@
                     detailContainer.style.display = 'none'
                     ulList.style.display = "block";
 
-                    showNodeList(group.nodeList, group.name);
+                    let apiList=[];
+
+                    group.children&&group.children.forEach(item=>{
+                        if(item.type!=="category"){
+                            apiList = [...apiList,item]
+                        }
+                    })
+
+                    showNodeList(apiList, group.name);
                 });
             });
         }

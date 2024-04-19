@@ -115,7 +115,7 @@ public class ApixDao {
 
 
     public Pagination<ApiListEntity> findApiPage(ApixQuery apixQuery) {
-        String sql = "SELECT pn.name, pn.create_time, pa.protocol_type, pa.method_type,pa.executor_id,pa.path,pa.status_id\n" +
+        String sql = "SELECT pn.id, pn.name, pn.create_time, pa.protocol_type, pa.method_type,pa.executor_id,pa.path,pa.status_id\n" +
                 "FROM  postin_node pn\n" +
                 "JOIN  postin_apix pa\n" +
                 "ON pn.id = pa.id \n" +

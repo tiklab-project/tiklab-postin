@@ -15,10 +15,6 @@ public class ApixEntity implements Serializable {
     @Column(name = "id",length = 40)
     private String id;
 
-    //接口名称
-    @Column(name = "name",length = 64)
-    private String name;
-
     //路径
     @Column(name = "path",length = 256,notNull = true)
     private String path;
@@ -30,26 +26,6 @@ public class ApixEntity implements Serializable {
     //协议类型
     @Column(name = "protocol_type",length = 32)
     private String protocolType;
-
-    //请求类型
-    @Column(name = "method_type",length = 32)
-    private String methodType;
-
-    //创建人
-    @Column(name = "create_user",length = 32 )
-    private String createUser;
-
-    //更新人
-    @Column(name = "update_user",length = 32 )
-    private String updateUser;
-
-    //创建时间
-    @Column(name = "create_time",length = 4)
-    private Timestamp createTime;
-
-    //更新时间
-    @Column(name = "update_time",length = 4)
-    private Timestamp updateTime;
 
     //状态
     @Column(name = "status_id",length = 8)
@@ -90,52 +66,12 @@ public class ApixEntity implements Serializable {
         this.categoryId = categoryId;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getPath() {
         return path;
     }
 
     public void setPath(String path) {
         this.path = path;
-    }
-
-    public String getCreateUser() {
-        return createUser;
-    }
-
-    public void setCreateUser(String createUser) {
-        this.createUser = createUser;
-    }
-
-    public String getUpdateUser() {
-        return updateUser;
-    }
-
-    public void setUpdateUser(String updateUser) {
-        this.updateUser = updateUser;
-    }
-
-    public Timestamp getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Timestamp createTime) {
-        this.createTime = createTime;
-    }
-
-    public Timestamp getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Timestamp updateTime) {
-        this.updateTime = updateTime;
     }
 
     public String getDesc() {
@@ -160,14 +96,6 @@ public class ApixEntity implements Serializable {
 
     public void setProtocolType(String protocolType) {
         this.protocolType = protocolType;
-    }
-
-    public String getMethodType() {
-        return methodType;
-    }
-
-    public void setMethodType(String methodType) {
-        this.methodType = methodType;
     }
 
     public String getStatusId() {
