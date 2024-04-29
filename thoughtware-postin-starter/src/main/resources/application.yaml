@@ -5,7 +5,7 @@ spring:
   config:
     import: optional:classpath:/config/${env:dev}/application.yaml
 
-DATA_HOME: /opt/thoughtware/postin/postin
+DATA_HOME:
 
 #web
 server:
@@ -21,7 +21,7 @@ jdbc:
 #dcs
 dcs:
   server:
-    enabled: false
+    enabled: true
     port: 5000
     datapath: ${DATA_HOME}/caches
   client:
@@ -61,12 +61,12 @@ eas:
 postgresql:
   database: thoughtware_postin
   embbed:
-    enable: false
-#  db:
-#    port: 5432
-#    username: postgres
-#    password: darth2020
-#    address: ${DATA_HOME}/postgresql
+    enable: true
+  db:
+    port: 5432
+    username: postgres
+    password: darth2020
+    address: ${DATA_HOME}/postgresql
 
 
 
