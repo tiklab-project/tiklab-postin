@@ -3,12 +3,20 @@
 DIRS=$(dirname "$PWD")
 
 APP_MAIN="io.thoughtware.postin.PostInApplication"
-JAVA_HOME="/usr/local/jdk-16.0.2"
+
 JDK_VERSION=jdk-16.0.2
-#判断是否自定义jdk
-if [ -e "${DIRS}/embbed/${JDK_VERSION}" ]; then
-      JAVA_HOME="${DIRS}/embbed/${JDK_VERSION}"
+PGSQL_VERSION=pgsql-10.23
+
+if [ -d "${DIRS}/embbed/${JDK_VERSION}" ]; then
+    echo "使用内嵌jdk"
+    JAVA_HOME="${DIRS}/embbed/${JDK_VERSION}"
+else
+    JAVA_HOME="/usr/local/jdk-17.0.7"
 fi
+
+echo "解压文件....."
+tar -xvf "${DIRS}/embbed/${PGSQL_VERSION}/${PGSQL_VERSION}.tar.gz" -C "${DIRS}/embbed"
+echo "解压完成....."
 
 find ${DIRS}/ -name '*.sh' | xargs dos2unix;
 
@@ -49,11 +57,8 @@ echo "CLASSPATH="$CLASSPATH
 echo "APP_HOME="$APP_HOME
 echo "APP_MAIN="$APP_MAIN
 
-#-------------------------------------------------------------------------------------------------------------
-#   程序开始
-#-------------------------------------------------------------------------------------------------------------
 
-APPLY=postin-ce
+APPLY=eas-ce
 
 enableApply(){
 
@@ -66,7 +71,7 @@ enableApply(){
       if [ ! -e "${applyserver}" ]; then
 cat << EOF >  ${applyserver}
 [Unit]
-Description=Start thoughtware Apply
+Description=Start Tiklab Apply
 After=network.target remote-fs.target nss-lookup.target
 
 [Service]
@@ -89,7 +94,7 @@ EOF
   else
 cat << EOF >  ${applyserver}
 [Unit]
-Description=Start thoughtware Apply
+Description=Start Tiklab Apply
 After=network.target remote-fs.target nss-lookup.target
 
 [Service]
@@ -108,6 +113,13 @@ fi
 }
 
 enableApply
+
+
+
+
+#-------------------------------------------------------------------------------------------------------------
+#   程序开始
+#-------------------------------------------------------------------------------------------------------------
 
 PID=0
 
@@ -132,7 +144,8 @@ startup(){
             mkdir "$APP_LOG"
         fi
 
-        nohup $JAVA_HOME/bin/java $JAVA_OPTS $CLASSPATH $APP_MAIN  > /dev/null 2>&1 &
+#        nohup $JAVA_HOME/bin/java $JAVA_OPTS $CLASSPATH $APP_MAIN  > info.log 2>&1 &
+        nohup $JAVA_HOME/bin/java $JAVA_OPTS $CLASSPATH $APP_MAIN > /dev/null 2>&1 &
 
         for i in $(seq 5)
         do
@@ -153,3 +166,4 @@ startup(){
 }
 
 startup
+
