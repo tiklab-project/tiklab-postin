@@ -54,6 +54,62 @@ valid_postgresql(){
 APP_HOME=${DIRS}
 export APP_HOME
 
+APPLY=postin
+
+enableApply(){
+
+      APPLYDIR="$PWD"
+
+      serverName=enable-${APPLY}.service
+
+      applyserver=/etc/systemd/system/${serverName}
+
+      if [ ! -e "${applyserver}" ]; then
+cat << EOF >  ${applyserver}
+[Unit]
+Description=Start Tiklab Apply
+After=network.target remote-fs.target nss-lookup.target
+
+[Service]
+EOF
+
+echo Environment=\"DIR=${APPLYDIR}\" >> ${applyserver}
+
+cat << EOF >> ${applyserver}
+ExecStart=/bin/bash -c 'cd "\$DIR"; sh startup.sh'
+Type=forking
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+  touch ${applyserver}
+  chmod 644 ${applyserver}
+  systemctl enable ${serverName}
+
+  else
+cat << EOF >  ${applyserver}
+[Unit]
+Description=Start Tiklab Apply
+After=network.target remote-fs.target nss-lookup.target
+
+[Service]
+EOF
+
+echo Environment=\"DIR=${APPLYDIR}\" >> ${applyserver}
+cat << EOF >> ${applyserver}
+ExecStart=/bin/bash -c 'cd "\$DIR"; sh startup.sh'
+Type=forking
+
+[Install]
+WantedBy=multi-user.target
+EOF
+fi
+
+}
+
+enableApply
+
 JAVA_OPTS=""
 add_javaOpts(){
   APP_CONFIG=${DIRS}/conf/application.yaml
