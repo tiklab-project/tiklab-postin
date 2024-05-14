@@ -18,7 +18,7 @@
         <fileSet>
             <directory>${basedir}/src/main/resources/${yaml-type}</directory>
             <includes>
-                <include>*.yaml</include>
+                <include>application.yaml</include>
             </includes>
             <outputDirectory>/conf</outputDirectory>
         </fileSet>
@@ -32,23 +32,13 @@
         <fileSet>
             <directory>${basedir}</directory>
             <includes>
-                <include>Dockerfile</include>
-            </includes>
-            <outputDirectory>/</outputDirectory>
-        </fileSet>
-        <fileSet>
-            <directory>${basedir}</directory>
-            <includes>
                 <include>version</include>
             </includes>
             <outputDirectory>/</outputDirectory>
         </fileSet>
         <fileSet>
-            <directory>${basedir}/bin</directory>
+            <directory>${basedir}/bin/${systemType}</directory>
             <fileMode>755</fileMode>
-            <includes>
-                <include>*_mac.sh</include>
-            </includes>
             <outputDirectory>/bin</outputDirectory>
         </fileSet>
         <fileSet>
