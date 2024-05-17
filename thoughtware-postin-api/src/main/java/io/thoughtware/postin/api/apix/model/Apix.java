@@ -28,6 +28,9 @@ public class Apix extends BaseModel{
     @ApiProperty(name="categoryId",desc="categoryId")
     private String categoryId;
 
+    @ApiProperty(name="workspaceId",desc="workspaceId")
+    private String workspaceId;
+
     @ApiProperty(name="protocolType",desc="协议类型",required = true)
     private java.lang.String protocolType;
 
@@ -77,6 +80,14 @@ public class Apix extends BaseModel{
 
     public void setCategoryId(String categoryId) {
         this.categoryId = categoryId;
+    }
+
+    public String getWorkspaceId() {
+        return workspaceId;
+    }
+
+    public void setWorkspaceId(String workspaceId) {
+        this.workspaceId = workspaceId;
     }
 
     public String getPath() {

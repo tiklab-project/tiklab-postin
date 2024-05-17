@@ -49,12 +49,12 @@ public class WSApiServiceImpl implements WSApiService {
 
     @Override
     public String createWSApi(@NotNull @Valid WSApi wsApi) {
-
+        Node node = wsApi.getNode();
         Apix apix = wsApi.getApix();
         apix.setProtocolType(MagicValue.PROTOCOL_TYPE_WS);
+        apix.setWorkspaceId(node.getWorkspaceId());
         String apiId = apixService.createApix(apix);
 
-        Node node = wsApi.getNode();
         node.setId(apiId);
         node.setType(MagicValue.PROTOCOL_TYPE_WS);
         nodeService.createNode(node);

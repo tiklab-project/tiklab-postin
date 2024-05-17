@@ -30,7 +30,7 @@ public class ApixQuery implements Serializable {
     private String version;
 
     @ApiProperty(name ="orderParams",desc = "排序参数")
-    private List<Order> orderParams = OrderBuilders.instance().desc("createTime").get();
+    private List<Order> orderParams = OrderBuilders.instance().desc("id").get();
 
     @ApiProperty(name ="pageParam",desc = "分页参数")
     private Page pageParam = new Page();

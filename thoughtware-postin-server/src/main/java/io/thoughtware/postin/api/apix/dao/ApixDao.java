@@ -107,6 +107,7 @@ public class ApixDao {
                 .eq("protocolType", apixQuery.getProtocolType())
                 .eq("version", apixQuery.getVersion())
                 .eq("apiUid", apixQuery.getApiUid())
+                .eq("workspaceId", apixQuery.getWorkspaceId())
                 .orders(apixQuery.getOrderParams())
                 .get();
         return jpaTemplate.findList(queryCondition, ApixEntity.class);
@@ -115,7 +116,7 @@ public class ApixDao {
 
 
     public Pagination<ApiListEntity> findApiPage(ApixQuery apixQuery) {
-        String sql = "SELECT pn.id, pn.name, pn.create_time, pa.protocol_type, pa.method_type,pa.executor_id,pa.path,pa.status_id\n" +
+        String sql = "SELECT pn.id, pn.name, pn.create_time, pa.protocol_type, pn.method_type,pa.executor_id,pa.path,pa.status_id\n" +
                 "FROM  postin_node pn\n" +
                 "JOIN  postin_apix pa\n" +
                 "ON pn.id = pa.id \n" +

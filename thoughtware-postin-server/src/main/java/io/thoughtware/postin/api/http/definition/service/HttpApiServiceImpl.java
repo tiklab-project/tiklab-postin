@@ -124,13 +124,16 @@ public class HttpApiServiceImpl implements HttpApiService {
         apiResponse.setJsonText("{\"type\": \"object\",\"properties\": {}}");
         apiResponseService.createApiResponse(apiResponse);
 
+
+        Node node = httpApi.getNode();
+
         //创建apix
         Apix apix = httpApi.getApix();
         apix.setId(id);
         apix.setProtocolType(MagicValue.PROTOCOL_TYPE_HTTP);
+        apix.setWorkspaceId(node.getWorkspaceId());
         apixService.createApix(apix);
 
-        Node node = httpApi.getNode();
         node.setId(id);
         node.setType(MagicValue.PROTOCOL_TYPE_HTTP);
         nodeService.createNode(node);
