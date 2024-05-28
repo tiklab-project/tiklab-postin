@@ -59,7 +59,7 @@ eas:
   embbed:
     enable: true
 #  address: http://eas.dev.thoughtware.cn
-#  io.thoughtware.teston.web:
+#  web:
 #    address: http://eas.dev.thoughtware.cn
 
 
