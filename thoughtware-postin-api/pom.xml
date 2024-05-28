@@ -15,7 +15,7 @@
     <dependencies>
         <dependency>
             <groupId>org.springframework</groupId>
-            <artifactId>spring-web</artifactId>
+            <artifactId>spring-io.thoughtware.teston.web</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>

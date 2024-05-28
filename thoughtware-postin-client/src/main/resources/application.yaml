@@ -16,7 +16,7 @@ postin:
 
 DATA_HOME: ${user.home}/thoughtware/${app.name}
 
-#web io.thoughtware.postin.config
+#io.thoughtware.teston.web io.thoughtware.postin.config
 server:
   port: 8080
 
@@ -59,7 +59,7 @@ eas:
   embbed:
     enable: true
 #  address: http://eas.dev.thoughtware.cn
-#  web:
+#  io.thoughtware.teston.web:
 #    address: http://eas.dev.thoughtware.cn
 
 

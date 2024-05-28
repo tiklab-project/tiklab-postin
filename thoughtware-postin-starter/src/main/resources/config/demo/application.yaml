@@ -8,7 +8,7 @@ spring:
 
 DATA_HOME: /opt/thoughtware/postin/postin
 
-#web 
+#io.thoughtware.teston.web
 server:
   port: 8080
 
