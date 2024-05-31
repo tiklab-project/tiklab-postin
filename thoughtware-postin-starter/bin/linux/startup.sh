@@ -8,29 +8,30 @@ YAML=${DIRS}/conf/application.yaml
 create_home(){
 
   data_home=$(awk -F': ' '/DATA_HOME:/ {print $2}' "${YAML}")
-  echo "DATA_HOME: ${data_home}"
+  #echo "DATA_HOME: ${data_home}"
 
   # 创建目录及其上级目录(如果不存在)
   mkdir -p "${data_home}"
 
   # 检查目录是否创建成功
-   if [ -d "${data_home}" ]; then
-     echo "data ${data_home} initialized successfully！"
-   else
-     echo "================================================================================================================"
-     echo "data ${data_home} initialized Failed!"
-     echo "请更改文件${YAML}中的DATA_HOME字段，配置应用可以访问的地址,请不要配置与程序相同的目录！"
-     echo "${APP_MAIN} start [failed]"
-     echo "================================================================================================================"
-     exit 1
-   fi
+  if [ -d "${data_home}" ]; then
+    echo "DATA_HOME: ${data_home}"
+    #echo "data ${data_home} initialized successfully！"
+  else
+    echo "================================================================================================================"
+    echo "data ${data_home} initialized Failed!"
+    echo "请更改文件${YAML}中的DATA_HOME字段，配置应用可以访问的地址,请不要配置与程序相同的目录！"
+    echo "${APP_MAIN} start [failed]"
+    echo "================================================================================================================"
+    exit 1
+  fi
 
 }
 
 JDK_VERSION=jdk-16.0.2
 valid_jdk(){
   if [ -d "${DIRS}/embbed/${JDK_VERSION}" ]; then
-      echo "user embbed jdk ${JAVA_HOME}"
+      #echo "user embbed jdk ${JAVA_HOME}"
       JAVA_HOME="${DIRS}/embbed/${JDK_VERSION}"
   else
       echo "Unable to find embbed jdk!"
@@ -41,12 +42,12 @@ valid_jdk(){
 PGSQL_VERSION=pgsql-10.23
 valid_postgresql(){
   if [ -d "${DIRS}/embbed/${PGSQL_VERSION}/bin" ]; then
-      echo "user embbed postgresql exist"
+      #echo "user embbed postgresql exist"
       rm -rf ${DIRS}/embbed/${PGSQL_VERSION}/${PGSQL_VERSION}.tar.gz
   else
-      echo "unzip postgresql file ....."
+      #echo "unzip postgresql file ....."
       tar -xzf "${DIRS}/embbed/${PGSQL_VERSION}/${PGSQL_VERSION}.tar.gz" -C "${DIRS}/embbed"
-      echo "unzip postgresql success!"
+      #echo "unzip postgresql success!"
       rm -rf ${DIRS}/embbed/${PGSQL_VERSION}/${PGSQL_VERSION}.tar.gz
   fi
 }
@@ -54,7 +55,7 @@ valid_postgresql(){
 APP_HOME=${DIRS}
 export APP_HOME
 
-APPLY=postin
+APPLY=eas-ee
 
 enableApply(){
 
@@ -145,7 +146,7 @@ pg_port(){
         exit
     }' "${YAML}")
 
-   echo "PostgreSQL start Port: ${db_port}"
+   #echo "PostgreSQL start Port: ${db_port}"
 }
 
 PID=0
@@ -158,23 +159,25 @@ getPID(){
     fi
 }
 
+STAR_STATUS=0
+
 startup(){
     getPID
     echo "================================================================================================================"
     if [ $PID -ne 0 ]; then
         echo "$APP_MAIN already started(PID=$PID)"
         echo "================================================================================================================"
+        exit 0
     else
-        echo "starting $APP_MAIN"
+        echo -n "starting $APP_MAIN"
         if [ ! -d "$APP_LOG" ]; then
             mkdir "$APP_LOG"
         fi
 
-#        nohup $JAVA_HOME/bin/java $JAVA_OPTS $CLASSPATH $APP_MAIN  > info.log 2>&1 &
+#       nohup $JAVA_HOME/bin/java $JAVA_OPTS $CLASSPATH $APP_MAIN  > info.log 2>&1 &
         nohup $JAVA_HOME/bin/java $JAVA_OPTS $CLASSPATH $APP_MAIN > /dev/null 2>&1 &
 
         for i in $(seq 5); do
-            printf "."
             sleep 0.8
         done
 
@@ -182,10 +185,31 @@ startup(){
 
         if [ $PID -ne 0 ]; then
             echo "(PID=$PID)...[success]"
-            output
         else
             echo "[failed]"
-            echo "================================================================================================================"
+            STAR_STATUS=1
+        fi
+
+        # shellcheck disable=SC2039
+        echo -n "find pgsql status"
+        # shellcheck disable=SC2034
+        for i in $(seq 8); do
+                # shellcheck disable=SC2039
+                echo -n "."
+                sleep 0.8
+            done
+
+
+        pids=$(netstat -antp | grep "${db_port}" | grep "/postgres" | grep -v "postgres: po"  | awk '{print $7}' | cut -d'/' -f1)
+        # shellcheck disable=SC2039
+         if [ "${pids}" != "" ]; then
+
+            unique_pids=$(echo "${pids}" | awk '!seen[$0]++')
+            echo "starting pgsql (PID=$unique_pids)...[success]"
+        else
+            kill -9 $PID
+            echo "starting pgsql [failed]"
+            STAR_STATUS=1
         fi
     fi
 }
@@ -204,7 +228,7 @@ output(){
       print $2
       exit
   }' "${YAML}")
-  echo "DCS Server Port: ${dcs_port}"
+  #echo "DCS Server Port: ${dcs_port}"
 
   server_port=$(awk -F": *" '/^server:/ {
       inf=1
@@ -214,26 +238,42 @@ output(){
       print $2
       exit
   }' "${YAML}")
-  echo "Apply Server Port: ${server_port}"
+ # echo "Apply Server Port: ${server_port}"
 
- echo "PostgreSQL start Port: ${db_port}"
+ #echo "PostgreSQL start Port: ${db_port}"
+
 
   ip_address=$(ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1' | head -n 1)
-  echo "====================================点击以下连接即可访问================================================="
+  echo "====================================点击以下连接即可访问==========================================================="
   echo "http://${ip_address}:${server_port}"
   echo "================================================================================================================"
-
 }
 
 start(){
+  pg_port
   create_home
   valid_jdk
   valid_postgresql
   add_javaOpts
   add_classpath
 
-  find ${DIRS}/ -name '*.sh' | xargs dos2unix;
+  # shellcheck disable=SC2038
+  find ${DIRS}/ -name '*.sh' | xargs dos2unix > /dev/null 2>&1
   startup
 }
 
 start
+
+if [ $STAR_STATUS -ne 0 ]; then
+    echo "启动失败,具体错误信息请查看:${DIRS}/logs/app.log文件"
+else
+    output
+fi
+
+
+
+
+
+
+
+

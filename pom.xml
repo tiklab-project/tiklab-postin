@@ -42,7 +42,7 @@
         <thoughtware-security.version>1.0.1-SNAPSHOT</thoughtware-security.version>
         <thoughtware-licence.version>1.0.1-SNAPSHOT</thoughtware-licence.version>
         <thoughtware-postgresql.version>1.0.2-SNAPSHOT</thoughtware-postgresql.version>
-        <thoughtware-install.version>1.0.1-SNAPSHOT</thoughtware-install.version>
+        <thoughtware-install.version>1.0.2-SNAPSHOT</thoughtware-install.version>
         <thoughtware-jdk.version>1.0.1-SNAPSHOT</thoughtware-jdk.version>
         <thoughtware-plugin.version>1.0.1-SNAPSHOT</thoughtware-plugin.version>
         <thoughtware-openapi.version>1.0.0-SNAPSHOT</thoughtware-openapi.version>

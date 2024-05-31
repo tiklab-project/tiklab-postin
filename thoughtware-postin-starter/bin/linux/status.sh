@@ -2,7 +2,7 @@
 
 DIRS=$(dirname "$PWD")
 APP_MAIN="io.thoughtware.postin.PostInApplication"
-
+YAML=${DIRS}/conf/application.yaml
 JDK_VERSION=jdk-16.0.2
 valid_jdk(){
   if [ -d "${DIRS}/embbed/${JDK_VERSION}" ]; then
@@ -24,18 +24,6 @@ getPID(){
     fi
 }
 
-status(){
-    getPID
-    echo "================================================================================================================"
-    if [ $PID -ne 0 ]; then
-        echo "$APP_MAIN is running(PID=$PID)"
-        pgsql
-        echo "================================================================================================================"
-    else
-        echo "$APP_MAIN is not running"
-        echo "================================================================================================================"
-    fi
-}
 
 db_port=0
 pg_port(){
@@ -52,11 +40,12 @@ pg_port(){
         exit
     }' "${YAML}")
 
-   echo "PostgreSQL start Port: ${db_port}"
+   #echo "PostgreSQL start Port: ${db_port}"
 }
 
 db_enable="false"
 pg_enable(){
+
     db_enable=$(awk -F": *" '/^postgresql:/ {
         inf=1
         next
@@ -70,27 +59,38 @@ pg_enable(){
         exit
     }' "${YAML}")
 
-   echo "PostgreSQL embbed enable: ${db_enable}"
+   #echo "PostgreSQL embbed enable: ${db_enable}"
 }
 
 pgsql(){
   pg_enable
+  pg_port
   if [ "${db_enable}" = "true" ]; then
-       pg_port
-        if [ ${db_port} -ne 0 ]; then
+        if [ "${db_port}" = "0" ]; then
             echo "find pgsql port error "
             exit 1
         fi
 
-        result=$(netstat -tuln | grep ":${db_port}")
+        pids=$(netstat -antp | grep "${db_port}" | grep "/postgres" | grep -v "postgres: po"  | awk '{print $7}' | cut -d'/' -f1)
         # shellcheck disable=SC2039
-        if [[ -n "$result" ]]; then
-            pids=$(echo "$result" | awk '{print $7}' | awk -F'/' '{print $1}')
-            echo "pgsql is running(PID=$pids)"
+        if [[ -n ${pids} ]]; then
+            unique_pids=$(echo "${pids}" | awk '!seen[$0]++')
+            echo "pgsql is running(PID=${unique_pids})"
         fi
   fi
-
-
 }
+
+status(){
+    getPID
+    echo "================================================================================================================"
+    if [ $PID -ne 0 ]; then
+        echo "$APP_MAIN is running(PID=$PID)"
+        pgsql
+    else
+        echo "$APP_MAIN is not running"
+    fi
+    echo "================================================================================================================"
+}
+
 
 status
