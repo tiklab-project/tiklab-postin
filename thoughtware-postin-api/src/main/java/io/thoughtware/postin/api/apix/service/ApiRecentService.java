@@ -38,6 +38,12 @@ public interface ApiRecentService {
     */
     void deleteApiRecent(@NotNull String id);
 
+    /**
+     * 通过apiId删除最近访问接口
+     * @param apiId
+     */
+    void deleteApiRecentByApiId(@NotNull String apiId);
+
     @FindOne
     ApiRecent findOne(@NotNull String id);
 
@@ -73,10 +79,5 @@ public interface ApiRecentService {
     */
     Pagination<ApiRecent> findApiRecentPage(ApiRecentQuery ApiRecentQuery);
 
-    /**
-     * 设置最近浏览的接口
-     * @param ApiRecent
-     */
-    void apiRecent(@NotNull @Valid ApiRecent ApiRecent);
 
 }

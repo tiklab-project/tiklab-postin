@@ -3,6 +3,7 @@ package io.thoughtware.postin.node.service;
 import io.thoughtware.core.page.Pagination;
 import io.thoughtware.core.page.PaginationBuilder;
 import io.thoughtware.eam.common.context.LoginContext;
+import io.thoughtware.postin.api.apix.service.ApiRecentService;
 import io.thoughtware.postin.api.apix.service.ApixService;
 import io.thoughtware.postin.api.http.definition.service.HttpApiService;
 import io.thoughtware.postin.api.ws.ws.service.WSApiService;
@@ -52,6 +53,9 @@ public class NodeServiceImpl implements NodeService {
 
     @Autowired
     PostInUnit postInUnit;
+
+    @Autowired
+    ApiRecentService apiRecentService;
 
 
     @Override
@@ -107,10 +111,12 @@ public class NodeServiceImpl implements NodeService {
             case MagicValue.PROTOCOL_TYPE_HTTP:
                 apixService.deleteApix(id);
                 httpApiService.deleteHttpApi(id);
+                apiRecentService.deleteApiRecentByApiId(id);
                 break;
             case MagicValue.PROTOCOL_TYPE_WS:
                 apixService.deleteApix(id);
                 wsApiService.deleteWSApi(id);
+                apiRecentService.deleteApiRecentByApiId(id);
                 break;
         }
 

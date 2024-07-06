@@ -1,5 +1,6 @@
 package io.thoughtware.postin.api.apix.service;
 
+import io.thoughtware.eam.common.context.LoginContext;
 import io.thoughtware.postin.node.model.Node;
 import io.thoughtware.postin.node.service.NodeService;
 import io.thoughtware.toolkit.beans.BeanMapper;
@@ -47,7 +48,8 @@ public class ApiRecentServiceImpl implements ApiRecentService {
     @Override
     public String createApiRecent(@NotNull @Valid ApiRecent apiRecent) {
         ApiRecentEntity apiRecentEntity = BeanMapper.map(apiRecent, ApiRecentEntity.class);
-
+        apiRecentEntity.setUpdateTime(new Timestamp(System.currentTimeMillis()));
+        apiRecentEntity.setUserId(LoginContext.getLoginId());
         return apiRecentDao.createApiRecent(apiRecentEntity);
     }
 
@@ -61,6 +63,18 @@ public class ApiRecentServiceImpl implements ApiRecentService {
     @Override
     public void deleteApiRecent(@NotNull String id) {
         apiRecentDao.deleteApiRecent(id);
+    }
+
+    @Override
+    public void deleteApiRecentByApiId(String apiId) {
+        ApiRecentQuery apiRecentQuery = new ApiRecentQuery();
+        apiRecentQuery.setApixId(apiId);
+        List<ApiRecent> apiRecentList = findApiRecentList(apiRecentQuery);
+        if(apiRecentList != null && apiRecentList.size() > 0){
+            for(ApiRecent apiRecent:apiRecentList){
+                deleteApiRecent(apiRecent.getId());
+            }
+        }
     }
 
     @Override
@@ -145,29 +159,6 @@ public class ApiRecentServiceImpl implements ApiRecentService {
         return PaginationBuilder.build(pagination,apiRecentList);
     }
 
-    @Override
-    public void apiRecent(ApiRecent apiRecent) {
-
-        ApiRecentQuery apiRecentQuery = new ApiRecentQuery();
-        apiRecentQuery.setUserId(apiRecent.getUser().getId());
-        apiRecentQuery.setApixId(apiRecent.getApix().getId());
-
-        //查询相应的最近访问
-        List<ApiRecentEntity> apiRecentEntityList = apiRecentDao.findApiRecentList(apiRecentQuery);
-        List<ApiRecent> apiRecentList = BeanMapper.mapList(apiRecentEntityList,ApiRecent.class);
-
-        //更新最近一条
-        if(apiRecentList!=null&&apiRecentList.size()>0){
-            ApiRecent recent = apiRecentList.get(0);
-
-            apiRecent.setId(recent.getId());
-            apiRecent.setUpdateTime(new Timestamp(System.currentTimeMillis()));
-            updateApiRecent(apiRecent);
-        }else {
-            apiRecent.setUpdateTime(new Timestamp(System.currentTimeMillis()));
-            createApiRecent(apiRecent);
-        }
-    }
 
 
 }

@@ -114,37 +114,28 @@ public class MockServletRequest {
             return;
         }
 
-        Integer allValidationFail = 0;
-        for(Mock mock:mockList){
+        for (Mock mock : mockList) {
             String mockId = mock.getId();
             int enabled = mock.getEnable();
-            //启用：1, 停用：0
-            if(enabled == 1){
+            // 启用：1, 停用：0
+            if (enabled == 1) {
+                // 获取 Header 状态
+                boolean headerStatus = getHeaderStatus(mockId, request);
+                // 获取 Query 状态
+                boolean queryStatus = getQueryStatus(mockId, request);
+                // 获取 Body 状态
+                boolean bodyStatus = getRequestTypeStatus(mockId, request);
 
-                //获取Header状态
-                boolean headerStatus = getHeaderStatus( mockId, request);
-
-                //获取query状态
-                boolean queryStatus = getQueryStatus( mockId, request);
-
-                //获取body状态
-                boolean bodyStatus = getRequestTypeStatus(mockId,request);
-
-                //如果都匹配返回数据
-                if(headerStatus&&queryStatus&&bodyStatus){
-                    mockServletResponse.actResponse(mockId,response);
-                }else {
-                    ++allValidationFail;
+                // 如果都匹配返回数据
+                if (headerStatus && queryStatus && bodyStatus) {
+                    mockServletResponse.actResponse(mockId, response);
+                    return; // 匹配成功后直接返回
                 }
-            }else {
-                ++allValidationFail;
             }
         }
 
-        //所有都不匹配，走接口定义中默认的响应
-        if(allValidationFail==mockList.size()){
-            mockServletResponse.definitionResponse(response,apiId);
-        }
+        // 所有都不匹配，走接口定义中默认的响应
+        mockServletResponse.definitionResponse(response, apiId);
     }
 
     //获取methodId
