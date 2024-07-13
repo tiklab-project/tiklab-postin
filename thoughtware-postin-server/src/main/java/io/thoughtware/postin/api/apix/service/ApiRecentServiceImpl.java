@@ -14,6 +14,7 @@ import io.thoughtware.postin.api.apix.model.ApiRecentQuery;
 import io.thoughtware.postin.api.apix.model.Apix;
 import io.thoughtware.postin.workspace.model.Workspace;
 import io.thoughtware.postin.workspace.service.WorkspaceService;
+import io.thoughtware.user.user.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -47,6 +48,9 @@ public class ApiRecentServiceImpl implements ApiRecentService {
 
     @Override
     public String createApiRecent(@NotNull @Valid ApiRecent apiRecent) {
+        User user = new User();
+        user.setId(LoginContext.getLoginId());
+        apiRecent.setUser(user);
         ApiRecentEntity apiRecentEntity = BeanMapper.map(apiRecent, ApiRecentEntity.class);
         apiRecentEntity.setUpdateTime(new Timestamp(System.currentTimeMillis()));
         apiRecentEntity.setUserId(LoginContext.getLoginId());
@@ -112,6 +116,7 @@ public class ApiRecentServiceImpl implements ApiRecentService {
 
     @Override
     public List<ApiRecent> findApiRecentList(ApiRecentQuery apiRecentQuery) {
+
         List<ApiRecentEntity> apiRecentEntityList = apiRecentDao.findApiRecentList(apiRecentQuery);
         List<ApiRecent> apiRecentList = BeanMapper.mapList(apiRecentEntityList,ApiRecent.class);
 
@@ -143,6 +148,7 @@ public class ApiRecentServiceImpl implements ApiRecentService {
 
     @Override
     public Pagination<ApiRecent> findApiRecentPage(ApiRecentQuery apiRecentQuery) {
+        apiRecentQuery.setUserId(LoginContext.getLoginId());
         Pagination<ApiRecentEntity>  pagination = apiRecentDao.findApiRecentPage(apiRecentQuery);
         List<ApiRecent> apiRecentList = BeanMapper.mapList(pagination.getDataList(),ApiRecent.class);
         joinTemplate.joinQuery(apiRecentList);
@@ -157,6 +163,30 @@ public class ApiRecentServiceImpl implements ApiRecentService {
 
 
         return PaginationBuilder.build(pagination,apiRecentList);
+    }
+
+    @Override
+    public void apiRecent(ApiRecent apiRecent) {
+
+        ApiRecentQuery apiRecentQuery = new ApiRecentQuery();
+        apiRecentQuery.setUserId(LoginContext.getLoginId());
+        apiRecentQuery.setApixId(apiRecent.getApix().getId());
+
+        //查询相应的最近访问
+        List<ApiRecentEntity> apiRecentEntityList = apiRecentDao.findApiRecentList(apiRecentQuery);
+        List<ApiRecent> apiRecentList = BeanMapper.mapList(apiRecentEntityList,ApiRecent.class);
+
+        //更新最近一条
+        if(apiRecentList!=null&&apiRecentList.size()>0){
+            ApiRecent recent = apiRecentList.get(0);
+
+            apiRecent.setId(recent.getId());
+            apiRecent.setUpdateTime(new Timestamp(System.currentTimeMillis()));
+            updateApiRecent(apiRecent);
+        }else {
+            apiRecent.setUpdateTime(new Timestamp(System.currentTimeMillis()));
+            createApiRecent(apiRecent);
+        }
     }
 
 

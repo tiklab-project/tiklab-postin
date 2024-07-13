@@ -1,6 +1,7 @@
 package io.thoughtware.postin.node.controller;
 
 import io.thoughtware.core.Result;
+import io.thoughtware.core.page.Pagination;
 import io.thoughtware.postin.annotation.Api;
 import io.thoughtware.postin.annotation.ApiMethod;
 import io.thoughtware.postin.annotation.ApiParam;
@@ -49,6 +50,16 @@ public class NodeController {
 
         return Result.ok(node);
     }
+
+    @RequestMapping(path = "/findNodePage",method = RequestMethod.POST)
+    @ApiMethod(name = "findNodePage",desc = "根据查询对象模糊查找分类列表树")
+    @ApiParam(name = "nodeQuery",desc = "查询对象",required = true)
+    public Result<Pagination<Node>> findNodePage(@RequestBody @Valid @NotNull NodeQuery nodeQueryQuery){
+        Pagination<Node> nodePage = nodeService.findNodePage(nodeQueryQuery);
+
+        return Result.ok(nodePage);
+    }
+
 
     @RequestMapping(path = "/findNodeTree",method = RequestMethod.POST)
     @ApiMethod(name = "findNodeTree",desc = "根据查询对象模糊查找分类列表树")

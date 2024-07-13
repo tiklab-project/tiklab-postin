@@ -80,4 +80,6 @@ public interface ApiRecentService {
     Pagination<ApiRecent> findApiRecentPage(ApiRecentQuery ApiRecentQuery);
 
 
+    void apiRecent(ApiRecent apiRecent);
+
 }

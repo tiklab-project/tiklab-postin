@@ -96,6 +96,7 @@ public class NodeDao {
                 .eq("type",nodeQuery.getType())
                 .eq("parentId",nodeQuery.getParentId())
                 .like("name", nodeQuery.getName())
+                .in("type", nodeQuery.getApiTypeList())
                 .orders(nodeQuery.getOrderParams())
                 .get();
         return jpaTemplate.findList(queryCondition, NodeEntity.class);
@@ -112,6 +113,7 @@ public class NodeDao {
                 .eq("type",nodeQuery.getType())
                 .eq("parentId",nodeQuery.getParentId())
                 .like("name", nodeQuery.getName())
+                .in("type", nodeQuery.getApiTypeList())
                 .pagination(nodeQuery.getPageParam())
                 .orders(nodeQuery.getOrderParams())
                 .get();

@@ -87,15 +87,6 @@ public class JsonParamDSController {
         return Result.ok(jsonParamDSList);
     }
 
-    @RequestMapping(path = "/findJsonParamDSListTree",method = RequestMethod.POST)
-    @ApiMethod(name = "findJsonParamDSList",desc = "通过查询对象 查询json 类型的数据结构内容树")
-    @ApiParam(name = "jsonParamDSQuery",desc = "jsonParamDSQuery",required = true)
-    public Result<List<JsonParamDS>> findJsonParamDSListTree(@RequestBody @Valid @NotNull JsonParamDSQuery jsonParamDSQuery){
-        List<JsonParamDS> jsonParamDSList = jsonParamDSService.findJsonParamDSListTree(jsonParamDSQuery);
-
-        return Result.ok(jsonParamDSList);
-    }
-
     @RequestMapping(path = "/findJsonParamDSPage",method = RequestMethod.POST)
     @ApiMethod(name = "findJsonParamDSPage",desc = "通过查询对象分页查询json 类型的数据结构内容")
     @ApiParam(name = "jsonParamDSQuery",desc = "jsonParamDSQuery",required = true)

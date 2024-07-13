@@ -150,10 +150,12 @@ public class DataStructureServiceImpl implements DataStructureService {
     @Override
     public List<DataStructure> findDataStructureList(DataStructureQuery dataStructureQuery) {
         List<DataStructureEntity> dataStructureEntityList = dataStructureDao.findDataStructureList(dataStructureQuery);
-
         List<DataStructure> dataStructureList = BeanMapper.mapList(dataStructureEntityList,DataStructure.class);
-
         joinTemplate.joinQuery(dataStructureList);
+
+        if(dataStructureQuery.getIsNotIncludeId()!=null){
+            dataStructureList.removeIf(dataStructure -> dataStructure.getId().equals(dataStructureQuery.getIsNotIncludeId()));
+        }
 
         return dataStructureList;
     }

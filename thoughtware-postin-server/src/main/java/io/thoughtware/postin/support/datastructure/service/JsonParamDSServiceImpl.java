@@ -110,54 +110,5 @@ public class JsonParamDSServiceImpl implements JsonParamDSService {
         return PaginationBuilder.build(pagination,jsonParamDSList);
     }
 
-    @Override
-    public List<JsonParamDS> findJsonParamDSListTree(JsonParamDSQuery jsonParamDSQuery) {
-
-//        List<JsonParamDS> jsonParamDSList = this.findJsonParamDSList(jsonParamDSQuery);
-//
-//        //查寻一级数据
-//        List<JsonParamDS> topJsonParamList = findTopJsonParamList(jsonParamDSList);
-//
-//        //设置下级列表
-//        //设置下级节点列表
-//        if(topJsonParamList != null && topJsonParamList.size() > 0){
-//            for(JsonParamDS topJsonParam:topJsonParamList){
-//                setChildren(jsonParamDSList,topJsonParam);
-//            }
-//        }
-//        return topJsonParamList;
-        return null;
-    }
-
-    /**
-     * 查找第一级参数列表
-     * @param jsonParamDSList
-     * @return
-     */
-//    List<JsonParamDS> findTopJsonParamList(List<JsonParamDS> jsonParamDSList) {
-//        List<JsonParamDS> jsonParamList = jsonParamDSList.stream()
-//                .filter(jsonParam -> (ObjectUtils.isEmpty(jsonParam.getParent()) || ObjectUtils.isEmpty(jsonParam.getParent().getId()) ))
-//                .collect(Collectors.toList());
-//        return jsonParamList;
-//    }
-
-    /**
-     * 设置下级节点列表
-     * @param matchJsonParamList
-     * @param parentJsonParam
-     */
-//    void setChildren(List<JsonParamDS> matchJsonParamList,JsonParamDS parentJsonParam){
-//        List<JsonParamDS> childList = matchJsonParamList.stream()
-//                .filter(jsonParam -> (jsonParam.getParent() != null && jsonParam.getParent().getId() != null && jsonParam.getParent().getId().equals(parentJsonParam.getId())))
-//                .collect(Collectors.toList());
-//
-//        if(childList != null && childList.size() > 0){
-//            parentJsonParam.setChildren(childList);
-//
-//            //设置下级节点列表
-//            for(JsonParamDS childJsonParam:childList){
-//                setChildren(matchJsonParamList,childJsonParam);
-//            }
-//        }
-//    }
 }
+

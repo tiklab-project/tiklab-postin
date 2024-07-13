@@ -88,9 +88,6 @@ public class Workspace extends BaseModel {
 
     private Integer isFollow;
     private List<PatchUser> userList;
-    private Integer categoryNum;
-    private Integer apiNum;
-
 
     public java.lang.String getId() {
         return id;
@@ -152,21 +149,5 @@ public class Workspace extends BaseModel {
 
     public void setUserList(List<PatchUser> userList) {
         this.userList = userList;
-    }
-
-    public Integer getCategoryNum() {
-        return categoryNum;
-    }
-
-    public void setCategoryNum(Integer categoryNum) {
-        this.categoryNum = categoryNum;
-    }
-
-    public Integer getApiNum() {
-        return apiNum;
-    }
-
-    public void setApiNum(Integer apiNum) {
-        this.apiNum = apiNum;
     }
 }

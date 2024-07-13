@@ -49,9 +49,9 @@ public class JsonGenerator {
             }
             return (T) jsonObject;
         } else if ("array".equals(type)) {
-            JSONObject itemsSchema = schema.getJSONObject("items");
+            JSONObject itemsSchema = schema.getJSONObject("properties").getJSONObject("ITEMS");
             JSONArray array = new JSONArray();
-            int length = faker.random().nextInt(10) + 1;
+            int length = faker.random().nextInt(5) + 1;
             for (int i = 0; i < length; i++) {
                 array.add(generateData(itemsSchema));
             }

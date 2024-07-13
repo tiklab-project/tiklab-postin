@@ -5,6 +5,8 @@ import io.thoughtware.core.BaseModel;
 import io.thoughtware.postin.annotation.ApiModel;
 import io.thoughtware.postin.annotation.ApiProperty;
 import io.thoughtware.postin.api.apix.model.Apix;
+import io.thoughtware.postin.api.http.definition.model.HttpApi;
+import io.thoughtware.postin.api.ws.ws.model.WSApi;
 import io.thoughtware.postin.category.model.Category;
 import io.thoughtware.postin.workspace.model.Workspace;
 import io.thoughtware.toolkit.beans.annotation.Mapper;
@@ -34,7 +36,11 @@ public class Node extends BaseModel {
     private String name;
 
     @ApiProperty(name = "workspaceId", desc = "所属空间")
-    private String workspaceId;
+    @Mappings({
+            @Mapping(source = "workspace.id",target = "workspaceId")
+    })
+    @JoinQuery(key = "id")
+    private Workspace workspace;
 
     @ApiProperty(name = "parentId", desc = "上级")
     private String parentId;
@@ -93,12 +99,12 @@ public class Node extends BaseModel {
         this.name = name;
     }
 
-    public String getWorkspaceId() {
-        return workspaceId;
+    public Workspace getWorkspace() {
+        return workspace;
     }
 
-    public void setWorkspaceId(String workspaceId) {
-        this.workspaceId = workspaceId;
+    public void setWorkspace(Workspace workspace) {
+        this.workspace = workspace;
     }
 
     public String getParentId() {

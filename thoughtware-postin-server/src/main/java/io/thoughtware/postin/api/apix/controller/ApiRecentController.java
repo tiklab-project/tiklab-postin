@@ -96,4 +96,13 @@ public class ApiRecentController {
         return Result.ok(pagination);
     }
 
+    @RequestMapping(path="/apiRecent",method = RequestMethod.POST)
+    @ApiMethod(name = "apiRecent",desc = "最近访问接口")
+    @ApiParam(name = "apiRecent",desc = "apiRecent",required = true)
+    public Result<Void> apiRecent(@RequestBody @NotNull @Valid ApiRecent apiRecent){
+        apiRecentService.apiRecent(apiRecent);
+
+        return Result.ok();
+    }
+
 }

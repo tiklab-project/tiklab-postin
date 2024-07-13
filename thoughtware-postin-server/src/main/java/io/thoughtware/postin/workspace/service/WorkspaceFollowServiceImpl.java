@@ -1,5 +1,6 @@
 package io.thoughtware.postin.workspace.service;
 
+import io.thoughtware.eam.common.context.LoginContext;
 import io.thoughtware.postin.workspace.dao.WorkspaceFollowDao;
 import io.thoughtware.postin.workspace.entity.WorkspaceFollowEntity;
 import io.thoughtware.postin.workspace.model.Workspace;
@@ -103,6 +104,7 @@ public class WorkspaceFollowServiceImpl implements WorkspaceFollowService {
 
     @Override
     public List<WorkspaceFollow> findWorkspaceFollowList(WorkspaceFollowQuery workspaceFollowQuery) {
+        workspaceFollowQuery.setUserId(LoginContext.getLoginId());
         List<WorkspaceFollowEntity> workspaceFollowEntityList = workspaceFollowDao.findWorkspaceFollowList(workspaceFollowQuery);
 
         List<WorkspaceFollow> workspaceFollowList = BeanMapper.mapList(workspaceFollowEntityList,WorkspaceFollow.class);

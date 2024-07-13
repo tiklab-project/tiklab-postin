@@ -15,7 +15,7 @@ import java.io.Serializable;
 public class WorkspaceEntity implements Serializable {
 
     @Id
-     @GeneratorValue(length = 12)
+    @GeneratorValue(length = 12)
     @Column(name = "id",length = 32)
     private String id;
 

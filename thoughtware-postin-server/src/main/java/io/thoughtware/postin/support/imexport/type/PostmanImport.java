@@ -83,7 +83,9 @@ public class PostmanImport {
 
             Category category = new Category();
             Node node = new Node();
-            node.setWorkspaceId(workspaceId);
+            Workspace workspace1 = new Workspace();
+            workspace1.setId(workspaceId);
+            node.setWorkspace(workspace1);
             node.setName(categoryName);
             category.setNode(node);
             categoryId = categoryService.createCategory(category);
@@ -177,7 +179,9 @@ public class PostmanImport {
             Node node = new Node();
             node.setName(name);
             node.setParentId(categoryId);
-            node.setWorkspaceId(workspaceIds);
+            Workspace workspace1 = new Workspace();
+            workspace1.setId(workspaceIds);
+            node.setWorkspace(workspace1);
             category.setNode(node);
             String categoryChildId = categoryService.createCategory(category);
 
@@ -205,7 +209,9 @@ public class PostmanImport {
         httpApi.setApix(apix);
 
         Node node = new Node();
-        node.setWorkspaceId(workspaceIds);
+        Workspace workspace1 = new Workspace();
+        workspace1.setId(workspaceIds);
+        node.setWorkspace(workspace1);
         node.setName(name);
         node.setParentId(categoryId);
         node.setMethodType(method.toLowerCase());

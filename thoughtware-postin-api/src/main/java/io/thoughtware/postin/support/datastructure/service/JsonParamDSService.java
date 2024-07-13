@@ -70,10 +70,4 @@ public interface JsonParamDSService {
     */
     Pagination<JsonParamDS> findJsonParamDSPage(JsonParamDSQuery jsonParamDSQuery);
 
-    /**
-     * 查询json数据结构树
-     * @param jsonParamDSQuery
-     * @return
-     */
-    List<JsonParamDS> findJsonParamDSListTree(JsonParamDSQuery jsonParamDSQuery);
 }

@@ -1,5 +1,6 @@
 package io.thoughtware.postin.workspace.service;
 
+import io.thoughtware.eam.common.context.LoginContext;
 import io.thoughtware.postin.api.apix.model.Apix;
 import io.thoughtware.postin.api.apix.model.ApixQuery;
 import io.thoughtware.postin.api.apix.service.ApixService;
@@ -102,28 +103,25 @@ public class WorkspaceRecentServiceImpl implements WorkspaceRecentService {
     }
 
     @Override
-    public List<Workspace> findWorkspaceRecentList(WorkspaceRecentQuery workspaceRecentQuery) {
+    public List<WorkspaceRecent> findWorkspaceRecentList(WorkspaceRecentQuery workspaceRecentQuery) {
+        workspaceRecentQuery.setUserId(LoginContext.getLoginId());
         List<WorkspaceRecentEntity> workspaceRecentEntityList = workspaceRecentDao.findWorkspaceRecentList(workspaceRecentQuery);
         List<WorkspaceRecent> workspaceRecentList = BeanMapper.mapList(workspaceRecentEntityList,WorkspaceRecent.class);
 
         //通过最近访问里面的空间id，查询到空间，添加到list里
-        ArrayList<Workspace> workspaceList = new ArrayList<>();
         for(WorkspaceRecent workspaceRecent:workspaceRecentList){
             String workspaceId = workspaceRecent.getWorkspace().getId();
-            Workspace workspace = workspaceService.findWorkspace(workspaceId);
 
             //获取分组的总数
             int categoryNum = categoryService.findCategoryNum(workspaceId);
-            workspace.setCategoryNum(categoryNum);
+            workspaceRecent.setCategoryNum(categoryNum);
 
             //获取接口总数
             int apiCount= apixService.findApixNum(workspaceId);
-            workspace.setApiNum(apiCount);
-
-            workspaceList.add(workspace);
+            workspaceRecent.setApiNum(apiCount);
         }
 
-        return workspaceList;
+        return workspaceRecentList;
     }
 
     @Override
@@ -136,27 +134,25 @@ public class WorkspaceRecentServiceImpl implements WorkspaceRecentService {
     }
 
     @Override
-    public Pagination<Workspace> findWorkspaceRecentPage(WorkspaceRecentQuery workspaceRecentQuery) {
+    public Pagination<WorkspaceRecent> findWorkspaceRecentPage(WorkspaceRecentQuery workspaceRecentQuery) {
         Pagination<WorkspaceRecentEntity>  pagination = workspaceRecentDao.findWorkspaceRecentPage(workspaceRecentQuery);
 
         List<WorkspaceRecent> workspaceRecentList = BeanMapper.mapList(pagination.getDataList(),WorkspaceRecent.class);
         joinTemplate.joinQuery(workspaceRecentList);
 
-        ArrayList<Workspace> workspaceList = new ArrayList<>();
         for(WorkspaceRecent workspaceRecent:workspaceRecentList){
             Workspace workspace = workspaceRecent.getWorkspace();
 
             //获取分组的总数
             int categoryNum = categoryService.findCategoryNum(workspace.getId());
-            workspace.setCategoryNum(categoryNum);
+            workspaceRecent.setCategoryNum(categoryNum);
 
             //获取接口总数
             int apiCount= apixService.findApixNum(workspace.getId());
-            workspace.setApiNum(apiCount);
-            workspaceList.add(workspace);
+            workspaceRecent.setApiNum(apiCount);
         }
 
-        return PaginationBuilder.build(pagination,workspaceList);
+        return PaginationBuilder.build(pagination,workspaceRecentList);
     }
 
     @Override

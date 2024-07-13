@@ -133,7 +133,9 @@ public class FunctionImport {
         Node node = new Node();
         node.setId(categoryId);
         node.setName(categoryName);
-        node.setWorkspaceId(workspaceId);
+        Workspace workspace1 = new Workspace();
+        workspace1.setId(workspaceId);
+        node.setWorkspace(workspace1);
         category.setNode(node);
 
         categoryService.createCategory(category);

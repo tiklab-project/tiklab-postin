@@ -3,6 +3,7 @@ package io.thoughtware.postin.node.service;
 import io.thoughtware.core.page.Pagination;
 import io.thoughtware.core.page.PaginationBuilder;
 import io.thoughtware.eam.common.context.LoginContext;
+import io.thoughtware.postin.api.apix.model.Apix;
 import io.thoughtware.postin.api.apix.service.ApiRecentService;
 import io.thoughtware.postin.api.apix.service.ApixService;
 import io.thoughtware.postin.api.http.definition.service.HttpApiService;
@@ -196,13 +197,9 @@ public class NodeServiceImpl implements NodeService {
 
     @Override
     public Pagination<Node> findNodePage(NodeQuery nodeQuery) {
-
         Pagination<NodeEntity>  pagination = nodeDao.findNodePage(nodeQuery);
-
         List<Node> nodeList = BeanMapper.mapList(pagination.getDataList(),Node.class);
-
         joinTemplate.joinQuery(nodeList);
-
         return PaginationBuilder.build(pagination,nodeList);
     }
 

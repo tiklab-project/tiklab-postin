@@ -9,6 +9,7 @@ import io.thoughtware.postin.common.MagicValue;
 import io.thoughtware.postin.common.PostInUnit;
 import io.thoughtware.postin.node.model.Node;
 import io.thoughtware.postin.node.service.NodeService;
+import io.thoughtware.postin.workspace.model.Workspace;
 import io.thoughtware.toolkit.beans.BeanMapper;
 import io.thoughtware.core.page.Pagination;
 import io.thoughtware.core.page.PaginationBuilder;
@@ -131,7 +132,7 @@ public class HttpApiServiceImpl implements HttpApiService {
         Apix apix = httpApi.getApix();
         apix.setId(id);
         apix.setProtocolType(MagicValue.PROTOCOL_TYPE_HTTP);
-        apix.setWorkspaceId(node.getWorkspaceId());
+        apix.setWorkspaceId(node.getWorkspace().getId());
         apixService.createApix(apix);
 
         node.setId(id);

@@ -14,12 +14,11 @@ public class NodeQuery {
     @ApiProperty(name ="workspaceId",desc = "空间ID，精确匹配")
     private String workspaceId;
 
-    @ApiProperty(name ="type",desc = "type:quick，api ,精确匹配")
+    @ApiProperty(name ="type",desc = "type:category,http,ws ")
     private String type;
 
     @ApiProperty(name ="parentId",desc = "parentId ,精确匹配")
     private String parentId;
-
 
     @ApiProperty(name ="name",desc = "分类名称，模糊匹配")
     private String name;
@@ -29,6 +28,9 @@ public class NodeQuery {
 
     @ApiProperty(name ="pageParam",desc = "分页参数")
     private Page pageParam = new Page();
+
+    @ApiProperty(name = "apiTypeList", desc = "所有接口的类型")
+    private String[] apiTypeList;
 
     public String getWorkspaceId() {
         return workspaceId;
@@ -76,5 +78,13 @@ public class NodeQuery {
 
     public void setPageParam(Page pageParam) {
         this.pageParam = pageParam;
+    }
+
+    public String[] getApiTypeList() {
+        return apiTypeList;
+    }
+
+    public void setApiTypeList(String[] apiTypeList) {
+        this.apiTypeList = apiTypeList;
     }
 }

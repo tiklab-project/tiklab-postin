@@ -7,6 +7,7 @@ import io.thoughtware.postin.common.MagicValue;
 import io.thoughtware.postin.node.model.Node;
 import io.thoughtware.postin.node.service.NodeService;
 import io.thoughtware.postin.support.apistatus.service.ApiStatusService;
+import io.thoughtware.postin.workspace.model.Workspace;
 import io.thoughtware.rpc.annotation.Exporter;
 import io.thoughtware.user.user.service.UserService;
 import org.apache.commons.collections.CollectionUtils;
@@ -52,7 +53,7 @@ public class WSApiServiceImpl implements WSApiService {
         Node node = wsApi.getNode();
         Apix apix = wsApi.getApix();
         apix.setProtocolType(MagicValue.PROTOCOL_TYPE_WS);
-        apix.setWorkspaceId(node.getWorkspaceId());
+        apix.setWorkspaceId(node.getWorkspace().getId());
         String apiId = apixService.createApix(apix);
 
         node.setId(apiId);

@@ -12,6 +12,7 @@ import io.thoughtware.postin.category.service.CategoryService;
 import io.thoughtware.postin.node.model.Node;
 import io.thoughtware.postin.support.docletreport.model.ApiReport;
 import io.thoughtware.postin.support.docletreport.model.ModuleReport;
+import io.thoughtware.postin.workspace.model.Workspace;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +48,7 @@ public class DocletReportServicelmpl implements DocletReportService {
 
     @Override
     public String moduleReport(ModuleReport moduleReport) {
-        String workspaceId = moduleReport.getCategory().getNode().getWorkspaceId();
+        String workspaceId = moduleReport.getCategory().getNode().getWorkspace().getId();
         try {
             //创建分组
             categoryReport(moduleReport.getCategory());
@@ -126,7 +127,9 @@ public class DocletReportServicelmpl implements DocletReportService {
         HttpApi httpApi = apiReport.getApiBase();
         httpApi.setId(apiId);
         Node node = new Node();
-        node.setWorkspaceId(workspaceId);
+        Workspace workspace1 = new Workspace();
+        workspace1.setId(workspaceId);
+        node.setWorkspace(workspace1);
         httpApi.setNode(node);
         httpApiService.createHttpApi(httpApi);
 
@@ -184,7 +187,9 @@ public class DocletReportServicelmpl implements DocletReportService {
         httpApi.setId(apiId);
         httpApi.getApix().setId(apiId);
         Node node = new Node();
-        node.setWorkspaceId(workspaceId);
+        Workspace workspace1 = new Workspace();
+        workspace1.setId(workspaceId);
+        node.setWorkspace(workspace1);
         httpApi.setNode(node);
         httpApiService.updateHttpApi(httpApi);
 

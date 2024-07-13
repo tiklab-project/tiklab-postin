@@ -40,6 +40,10 @@ public class WorkspaceRecent extends BaseModel {
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private java.sql.Timestamp updateTime;
 
+    private Integer categoryNum;
+    private Integer apiNum;
+
+
     public java.lang.String getId() {
         return id;
     }
@@ -70,5 +74,21 @@ public class WorkspaceRecent extends BaseModel {
 
     public void setUpdateTime(java.sql.Timestamp updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public Integer getCategoryNum() {
+        return categoryNum;
+    }
+
+    public void setCategoryNum(Integer categoryNum) {
+        this.categoryNum = categoryNum;
+    }
+
+    public Integer getApiNum() {
+        return apiNum;
+    }
+
+    public void setApiNum(Integer apiNum) {
+        this.apiNum = apiNum;
     }
 }

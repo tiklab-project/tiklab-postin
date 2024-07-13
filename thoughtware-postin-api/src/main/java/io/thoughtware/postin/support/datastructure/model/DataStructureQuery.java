@@ -26,6 +26,9 @@ public class DataStructureQuery {
     @ApiProperty(name ="dataType",desc = "数据类型")
     private String dataType;
 
+    @ApiProperty(name ="isNotIncludeId",desc = "不包含当前的id")
+    private  String isNotIncludeId;
+
 
     public String getWorkspaceId() {
         return workspaceId;
@@ -67,5 +70,13 @@ public class DataStructureQuery {
 
     public void setDataType(String dataType) {
         this.dataType = dataType;
+    }
+
+    public String getIsNotIncludeId() {
+        return isNotIncludeId;
+    }
+
+    public void setIsNotIncludeId(String isNotIncludeId) {
+        this.isNotIncludeId = isNotIncludeId;
     }
 }
