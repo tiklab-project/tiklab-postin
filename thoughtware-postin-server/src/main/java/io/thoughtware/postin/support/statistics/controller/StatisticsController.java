@@ -36,14 +36,14 @@ public class StatisticsController {
     private StatisticsService statisticsService;
 
     @RequestMapping(path="/getApiStatusStatistics",method = RequestMethod.POST)
-    public Result<List<Map<String, Object>>> createEnvironment(){
+    public Result<List<Map<String, Object>>> getApiStatusStatistics(){
         List<Map<String, Object>> apiStatusStatistics = statisticsService.getApiStatusStatistics();
 
         return Result.ok(apiStatusStatistics);
     }
 
     @RequestMapping(path="/getApiNewCreateStatistics",method = RequestMethod.POST)
-    public Result<List<Map<String, Object>>> createEnvironment(@RequestBody @NotNull @Valid ApiNewCreateStatisticsModel apiNewCreateStatisticsModel){
+    public Result<List<Map<String, Object>>> getApiNewCreateStatistics(@RequestBody @NotNull @Valid ApiNewCreateStatisticsModel apiNewCreateStatisticsModel){
         List<Map<String, Object>> apiStatusStatistics = statisticsService.getApiNewCreateStatistics(apiNewCreateStatisticsModel);
 
         return Result.ok(apiStatusStatistics);
