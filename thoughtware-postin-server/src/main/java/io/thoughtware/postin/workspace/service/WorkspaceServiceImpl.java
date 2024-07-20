@@ -272,9 +272,9 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         return BeanMapper.mapList(workspaceEntityList,Workspace.class);
     }
 
+
     @Override
     public List<Workspace> findWorkspaceList(WorkspaceQuery workspaceQuery) {
-        workspaceQuery.setUserId(LoginContext.getLoginId());
         List<WorkspaceEntity> workspaceEntityList = workspaceDao.findWorkspaceList(workspaceQuery);
         List<Workspace> workspaceList = BeanMapper.mapList(workspaceEntityList, Workspace.class);
 
@@ -308,7 +308,6 @@ public class WorkspaceServiceImpl implements WorkspaceService {
 
     @Override
     public List<Workspace> findWorkspaceJoinList(WorkspaceQuery workspaceQuery) {
-        workspaceQuery.setUserId(LoginContext.getLoginId());
 
         //查询空间列表
         WorkspaceQuery processQuery = new WorkspaceQuery();
@@ -320,6 +319,8 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         ArrayList<Workspace> arrayList = new ArrayList<>();
 
         for(Workspace workspace : workspaceList){
+
+
             //如果是公共：0，都能查看
             if(workspace.getVisibility().equals(0)){
                 arrayList.add(workspace);

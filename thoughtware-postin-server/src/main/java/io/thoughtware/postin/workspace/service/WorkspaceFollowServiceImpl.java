@@ -104,7 +104,6 @@ public class WorkspaceFollowServiceImpl implements WorkspaceFollowService {
 
     @Override
     public List<WorkspaceFollow> findWorkspaceFollowList(WorkspaceFollowQuery workspaceFollowQuery) {
-        workspaceFollowQuery.setUserId(LoginContext.getLoginId());
         List<WorkspaceFollowEntity> workspaceFollowEntityList = workspaceFollowDao.findWorkspaceFollowList(workspaceFollowQuery);
 
         List<WorkspaceFollow> workspaceFollowList = BeanMapper.mapList(workspaceFollowEntityList,WorkspaceFollow.class);
