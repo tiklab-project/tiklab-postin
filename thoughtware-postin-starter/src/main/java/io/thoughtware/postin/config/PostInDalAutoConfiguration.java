@@ -39,13 +39,13 @@ public class PostInDalAutoConfiguration {
 
         });
         dsmConfig.newVersion("1.0.1", new String[]{
-                "postin_1.0.1",
-                "postin-platform_1.0.1",
-
+                "privilege_1.0.1",
                 "oplog_1.0.1",
                 "message_1.0.1",
                 "apply-auth_1.0.1",
-                "privilege_1.0.1",
+
+                "postin_1.0.1",
+                "postin-platform_1.0.1",
         });
         dsmConfig.newVersion("1.0.2", new String[]{
                 "postin_1.0.2",
@@ -66,12 +66,15 @@ public class PostInDalAutoConfiguration {
                 "privilege_1.0.3"
         });
         dsmConfig.newVersion("1.0.4", new String[]{
-                "postin-platform_1.0.4",
-                "postin_1.0.4",
-
+                "privilege_1.0.4" ,
                 "message_1.0.4",
                 "oplog_1.0.4",
                 "apply-auth_1.0.4",
+
+                "postin-platform_1.0.4",
+                "postin_1.0.4",
+
+
         });
         dsmConfig.newVersion("1.0.5", new String[]{
                 "message_1.0.5",
@@ -86,7 +89,7 @@ public class PostInDalAutoConfiguration {
                 "message_1.0.8",
         });
         dsmConfig.newVersion("1.1.0", new String[]{
-                "teston_1.1.0",
+                "user_1.1.0",
         });
         dsmConfig.newVersion("1.1.1", new String[]{
                 "user_1.1.1",
