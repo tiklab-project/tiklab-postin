@@ -204,39 +204,69 @@ public class NodeServiceImpl implements NodeService {
     }
 
     @Override
-   public List<Node> findNodeTree(NodeQuery nodeQuery){
-       List<Node> nodeList = findNodeList(nodeQuery);
+    public List<Node> findNodeTree(NodeQuery nodeQuery) {
+        List<Node> nodeList = findNodeList(nodeQuery);
 
-       Map<String, Node> nodeMap = new HashMap<>();
-       List<Node> roots = new ArrayList<>();
+        Map<String, Node> nodeMap = new HashMap<>();
+        Map<String, List<Node>> childrenMap = new HashMap<>();
+        Set<String> processedIds = new HashSet<>();
+        List<Node> roots = new ArrayList<>();
 
-       // 构建节点Map，并找到根节点
-       for (Node node : nodeList) {
-           nodeMap.put(node.getId(), node);
-           if (node.getParentId() == null) {
-               roots.add(node);
-           }
-       }
+        // 首先将所有节点添加到 nodeMap
+        for (Node node : nodeList) {
+            nodeMap.put(node.getId(), node);
+        }
 
-       // 构建树
-       buildTree(roots, nodeMap);
+        // 处理每个节点，包括查找缺失的父节点
+        for (Node node : nodeList) {
+            processNode(node, nodeMap, childrenMap, processedIds, roots);
+        }
 
-       return roots;
-   }
+        // 构建树结构
+        for (Node root : roots) {
+            buildTree(root, childrenMap);
+        }
 
-    private void buildTree(List<Node> nodes, Map<String, Node> map) {
-        for (Node node : nodes) {
-            List<Node> children = new ArrayList<>();
-            for (Node child : map.values()) {
-                if (Objects.equals(child.getParentId(), node.getId())) {
-                    children.add(child);
+        return roots;
+    }
+
+    private void processNode(Node node, Map<String, Node> nodeMap, Map<String, List<Node>> childrenMap,
+                             Set<String> processedIds, List<Node> roots) {
+        if (processedIds.contains(node.getId())) {
+            return;  // 避免重复处理
+        }
+        processedIds.add(node.getId());
+
+        String parentId = node.getParentId();
+        if (parentId == null) {
+            roots.add(node);
+        } else {
+            Node parent = nodeMap.get(parentId);
+            if (parent == null) {
+                parent = findOne(parentId);
+                if (parent != null) {
+                    nodeMap.put(parent.getId(), parent);
+                    processNode(parent, nodeMap, childrenMap, processedIds, roots);
+                } else {
+                    // 如果父节点不存在，将当前节点作为根节点
+                    roots.add(node);
                 }
             }
-            node.setChildren(children);
-            buildTree(children, map);
+            if (parent != null) {
+                childrenMap.computeIfAbsent(parentId, k -> new ArrayList<>()).add(node);
+            }
         }
     }
 
+    private void buildTree(Node node, Map<String, List<Node>> childrenMap) {
+        List<Node> children = childrenMap.get(node.getId());
+        if (children != null) {
+            node.setChildren(children);
+            for (Node child : children) {
+                buildTree(child, childrenMap);
+            }
+        }
+    }
 
 
 }
