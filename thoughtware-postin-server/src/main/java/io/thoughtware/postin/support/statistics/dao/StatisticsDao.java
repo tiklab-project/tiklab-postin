@@ -1,16 +1,14 @@
 package io.thoughtware.postin.support.statistics.dao;
 
 import io.thoughtware.dal.jpa.JpaTemplate;
-import io.thoughtware.postin.support.statistics.model.ApiNewCreateStatisticsModel;
-import org.apache.commons.lang.time.DateUtils;
+import io.thoughtware.postin.support.statistics.model.ApiStatisticsModel;
+import io.thoughtware.postin.workspace.model.Workspace;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDate;
 import java.util.*;
-import java.util.stream.Collectors;
 
 
 /**
@@ -28,22 +26,32 @@ public class StatisticsDao {
      * 获取所有状态（去重）
      * @return
      */
-    public List<Map<String, Object>> getStatusList() {
-        String sql = "SELECT s.name, COUNT(p.id) AS count " +
-                "FROM postin_apix p " +
-                "JOIN postin_api_status s ON p.status_id = s.id " +
-                "GROUP BY s.name";
+    public List<Map<String, Object>> getStatusList(ApiStatisticsModel apiStatisticsModel) {
+        String workspaceId = apiStatisticsModel.getWorkspaceId();
+        String sql = "SELECT s.id, s.name, COALESCE(COUNT(p.id), 0) AS count " +
+                "FROM postin_api_status s " +
+                "LEFT JOIN postin_apix p ON p.status_id = s.id";
 
+        if (workspaceId != null && !workspaceId.isEmpty()) {
+            sql += " AND p.workspace_id = ?";
+        }
 
-        List<Map<String, Object>> maps = jpaTemplate.getJdbcTemplate().queryForList(sql);
+        sql += " GROUP BY s.id, s.name";
+
+        // 根据是否传递 workspaceId 来决定查询参数
+        List<Map<String, Object>> maps;
+        if (workspaceId != null && !workspaceId.isEmpty()) {
+            maps = jpaTemplate.getJdbcTemplate().queryForList(sql, workspaceId);
+        } else {
+            maps = jpaTemplate.getJdbcTemplate().queryForList(sql);
+        }
 
         return maps;
     }
 
-    public List<Map<String, Object>> getApiNewCreateStatistics(ApiNewCreateStatisticsModel apiNewCreateStatisticsModel) {
-        Date startTime = apiNewCreateStatisticsModel.getStartTime();
-        Date endTime = apiNewCreateStatisticsModel.getEndTime();
-
+    public List<Map<String, Object>> getApiNewCreateStatistics(ApiStatisticsModel apiStatisticsModel) {
+        Date startTime = apiStatisticsModel.getStartTime();
+        Date endTime = apiStatisticsModel.getEndTime();
 
         // 构造 SQL 查询
         String sql =

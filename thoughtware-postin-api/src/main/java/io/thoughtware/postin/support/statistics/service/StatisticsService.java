@@ -1,7 +1,6 @@
 package io.thoughtware.postin.support.statistics.service;
 
-import io.thoughtware.postin.support.statistics.model.ApiNewCreateStatisticsModel;
-import io.thoughtware.postin.support.statistics.model.ApiStatusStatisticsModel;
+import io.thoughtware.postin.support.statistics.model.ApiStatisticsModel;
 
 import java.util.List;
 import java.util.Map;
@@ -14,12 +13,12 @@ public interface StatisticsService {
      * 接口状态的统计信息
      * @return
      */
-    List<Map<String, Object>> getApiStatusStatistics();
+    Map<String, Object> getApiStatusStatistics(ApiStatisticsModel apiStatisticsModel);
 
     /**
      * 接口新增的统计信息
      * @return
      */
-    List<Map<String, Object>>  getApiNewCreateStatistics(ApiNewCreateStatisticsModel apiNewCreateStatisticsModel);
+    List<Map<String, Object>>  getApiNewCreateStatistics(ApiStatisticsModel apiStatisticsModel);
 
 }

@@ -1,15 +1,10 @@
 package io.thoughtware.postin.support.statistics.controller;
 
 import io.thoughtware.core.Result;
-import io.thoughtware.core.page.Pagination;
-import io.thoughtware.postin.annotation.Api;
-import io.thoughtware.postin.annotation.ApiMethod;
-import io.thoughtware.postin.annotation.ApiParam;
-import io.thoughtware.postin.support.environment.model.Environment;
-import io.thoughtware.postin.support.environment.model.EnvironmentQuery;
-import io.thoughtware.postin.support.environment.service.EnvironmentService;
-import io.thoughtware.postin.support.statistics.model.ApiNewCreateStatisticsModel;
+import io.thoughtware.postin.support.statistics.model.ApiStatisticsModel;
+import io.thoughtware.postin.support.statistics.model.StatisticsTrendQuery;
 import io.thoughtware.postin.support.statistics.service.StatisticsService;
+import io.thoughtware.postin.support.statistics.service.StatisticsTrendService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,20 +30,28 @@ public class StatisticsController {
     @Autowired
     private StatisticsService statisticsService;
 
+    @Autowired
+    private StatisticsTrendService statisticsTrendService;
+
     @RequestMapping(path="/getApiStatusStatistics",method = RequestMethod.POST)
-    public Result<List<Map<String, Object>>> getApiStatusStatistics(){
-        List<Map<String, Object>> apiStatusStatistics = statisticsService.getApiStatusStatistics();
+    public Result<Map<String, Object>> getApiStatusStatistics(@RequestBody @NotNull @Valid ApiStatisticsModel apiStatisticsModel){
+        Map<String, Object> apiStatusStatistics = statisticsService.getApiStatusStatistics(apiStatisticsModel);
 
         return Result.ok(apiStatusStatistics);
     }
 
     @RequestMapping(path="/getApiNewCreateStatistics",method = RequestMethod.POST)
-    public Result<List<Map<String, Object>>> getApiNewCreateStatistics(@RequestBody @NotNull @Valid ApiNewCreateStatisticsModel apiNewCreateStatisticsModel){
-        List<Map<String, Object>> apiStatusStatistics = statisticsService.getApiNewCreateStatistics(apiNewCreateStatisticsModel);
+    public Result<List<Map<String, Object>>> getApiNewCreateStatistics(@RequestBody @NotNull @Valid ApiStatisticsModel apiStatisticsModel){
+        List<Map<String, Object>> apiStatusStatistics = statisticsService.getApiNewCreateStatistics(apiStatisticsModel);
 
         return Result.ok(apiStatusStatistics);
     }
 
+    @RequestMapping(path="/getStatisticsTrend",method = RequestMethod.POST)
+    public Result<List<Map<String, Object>>> getStatisticsTrend(@RequestBody @NotNull @Valid StatisticsTrendQuery statisticsTrendQuery){
+        List<Map<String, Object>> statisticsCaseTrend = statisticsTrendService.getStatisticsTrend(statisticsTrendQuery);
 
+        return Result.ok(statisticsCaseTrend);
+    }
 
 }

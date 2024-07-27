@@ -12,14 +12,23 @@ import java.util.Date;
  */
 @ApiModel
 @Join
-public class ApiNewCreateStatisticsModel extends BaseModel {
+public class ApiStatisticsModel extends BaseModel {
 
+    private String workspaceId;
 
     @ApiProperty(name="startTime",desc="开始时间")
     private java.util.Date startTime;
 
     @ApiProperty(name="endTime",desc="结束时间")
     private java.util.Date endTime;
+
+    public String getWorkspaceId() {
+        return workspaceId;
+    }
+
+    public void setWorkspaceId(String workspaceId) {
+        this.workspaceId = workspaceId;
+    }
 
     public Date getStartTime() {
         return startTime;

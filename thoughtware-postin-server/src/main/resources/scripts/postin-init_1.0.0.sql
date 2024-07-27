@@ -33,10 +33,12 @@ INSERT INTO  postin_http_mock_request_json  VALUES ('9624d52f1e82', '4dbfdd774c9
 INSERT INTO  postin_http_mock_response  ( id ,  mock_id ,  http_code ,  body_type ) VALUES ('4dbfdd774c95', '4dbfdd774c95', '400','json');
 INSERT INTO  postin_http_mock_response_result  VALUES ('4dbfdd774c95', '4dbfdd774c95', '{"status":"error"}');
 
-INSERT INTO  postin_api_status  ( id ,  color ,  name ,  type ,  workspace_id ) VALUES ('completeid', 'lime', '完成', 'system', NULL);
+INSERT INTO  postin_api_status  ( id ,  color ,  name ,  type ,  workspace_id ) VALUES ('publishid', 'green', '已发布', 'system', NULL);
 INSERT INTO  postin_api_status  ( id ,  color ,  name ,  type ,  workspace_id ) VALUES ('designId', 'purple', '设计中', 'system', NULL);
 INSERT INTO  postin_api_status  ( id ,  color ,  name ,  type ,  workspace_id ) VALUES ('developmentid', 'orange', '开发中', 'system', NULL);
-INSERT INTO  postin_api_status  ( id ,  color ,  name ,  type ,  workspace_id ) VALUES ('maintainid', 'red', '维护', 'system', NULL);
-INSERT INTO  postin_api_status  ( id ,  color ,  name ,  type ,  workspace_id ) VALUES ('publishid', 'green', '已发布', 'system', NULL);
 INSERT INTO  postin_api_status  ( id ,  color ,  name ,  type ,  workspace_id ) VALUES ('testid', 'cyan', '测试', 'system', NULL);
+INSERT INTO  postin_api_status  ( id ,  color ,  name ,  type ,  workspace_id ) VALUES ('completeid', 'lime', '完成', 'system', NULL);
+INSERT INTO  postin_api_status  ( id ,  color ,  name ,  type ,  workspace_id ) VALUES ('maintainid', 'red', '维护', 'system', NULL);
+
+
 
