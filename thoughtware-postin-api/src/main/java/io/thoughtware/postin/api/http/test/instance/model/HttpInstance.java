@@ -48,7 +48,7 @@ public class HttpInstance extends BaseModel {
 
     @ApiProperty(name="createTime",desc="创建时间")
     //@IndexField
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
+    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
     private Timestamp createTime;
 
     @ApiProperty(name="statusCode",desc="状态码")

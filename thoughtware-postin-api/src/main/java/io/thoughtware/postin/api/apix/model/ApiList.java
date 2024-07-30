@@ -38,7 +38,7 @@ public class ApiList extends BaseModel{
     @ApiProperty(name="desc",desc="描述")
     private String desc;
 
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
+    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
     private java.sql.Timestamp createTime;
 
     @Mappings({
