@@ -17,8 +17,9 @@ import org.springframework.stereotype.Service;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
-import java.util.Comparator;
-import java.util.List;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -168,33 +169,56 @@ public class HttpInstanceServiceImpl implements TestInstanceService {
     @Override
     public List<HttpInstance> findTestInstanceList(HttpInstanceQuery httpInstanceQuery) {
         List<HttpInstanceEntity> httpInstanceEntityList = httpInstanceDao.findTestInstanceList(httpInstanceQuery);
-
         List<HttpInstance> httpInstanceList = BeanMapper.mapList(httpInstanceEntityList, HttpInstance.class);
-
-        httpInstanceList.sort(Comparator.comparing(HttpInstance::getCreateTime,Comparator.reverseOrder()));
-
+//        httpInstanceList.sort(Comparator.comparing(HttpInstance::getCreateTime,Comparator.reverseOrder()));
         joinTemplate.joinQuery(httpInstanceList);
 
         List<HttpInstance> httpInstances = httpInstanceList.stream().map(httpInstance -> {
             RequestInstance requestInstance = requestInstanceService.findRequestInstance(httpInstance.getId());
             httpInstance.setRequestInstance(requestInstance);
-
             return httpInstance;
         }).collect(Collectors.toList());
+
 
         return httpInstances;
     }
 
+
+
     @Override
-    public Pagination<HttpInstance> findTestInstancePage(HttpInstanceQuery httpInstanceQuery) {
+    public HashMap<String, List<HttpInstance>> findTestInstanceGroupByCreateTime(HttpInstanceQuery httpInstanceQuery) {
+        List<HttpInstance> testInstanceList = findTestInstanceList(httpInstanceQuery);
 
-        Pagination<HttpInstanceEntity>  pagination = httpInstanceDao.findTestInstancePage(httpInstanceQuery);
+        // 创建一个 HashMap 用于将相同创建时间的实例分组
+        HashMap<String, List<HttpInstance>> groupedByCreateTime = new HashMap<>();
 
-        List<HttpInstance> httpInstanceList = BeanMapper.mapList(pagination.getDataList(), HttpInstance.class);
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-        joinTemplate.joinQuery(httpInstanceList);
+        for (HttpInstance httpInstance : testInstanceList) {
+            // 将 Timestamp 转换为 LocalDateTime，然后获取 LocalDate
+            LocalDate createDate = httpInstance.getCreateTime().toLocalDateTime().toLocalDate();
+            String createTimeKey = createDate.format(dateFormatter); // 格式化为字符串
 
-        return PaginationBuilder.build(pagination, httpInstanceList);
+            // 如果 HashMap 中不存在该键，初始化一个新的列表
+            if (!groupedByCreateTime.containsKey(createTimeKey)) {
+                groupedByCreateTime.put(createTimeKey, new ArrayList<>());
+            }
+
+            // 将当前 HttpInstance 添加到对应的列表中
+            groupedByCreateTime.get(createTimeKey).add(httpInstance);
+        }
+
+        // 对 HashMap 按日期键降序排序
+        LinkedHashMap<String, List<HttpInstance>> sortedGroupedByCreateTime = groupedByCreateTime.entrySet().stream()
+                .sorted(Map.Entry.<String, List<HttpInstance>>comparingByKey().reversed())
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        (e1, e2) -> e1, // 合并函数（在这里不需要）
+                        LinkedHashMap::new // 保持插入顺序
+                ));
+
+        return sortedGroupedByCreateTime;
     }
 
 

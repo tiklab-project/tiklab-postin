@@ -86,6 +86,7 @@ public class HttpInstanceDao {
             sql = sql + " AND pir.URL like '"+"%"+ httpInstanceQuery.getUrl() +"%"+"'";
         }
 
+        sql = sql + " ORDER BY pi.create_time asc;";
 
         return jpaTemplate.getJdbcTemplate().query(sql , new BeanPropertyRowMapper(HttpInstanceEntity.class));
     }

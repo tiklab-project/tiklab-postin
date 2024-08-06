@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -99,11 +100,11 @@ public class HttpInstanceController {
     }
 
 
-    @RequestMapping(path = "/findTestInstancePage",method = RequestMethod.POST)
-    @ApiMethod(name = "findTestInstancePage",desc = "findTestInstancePage")
+    @RequestMapping(path = "/findTestInstanceGroupByCreateTime",method = RequestMethod.POST)
+    @ApiMethod(name = "findTestInstanceGroupByCreateTime",desc = "findTestInstanceGroupByCreateTime")
     @ApiParam(name = "httpInstanceQuery",desc = "httpInstanceQuery",required = true)
-    public Result<Pagination<HttpInstance>> findTestInstancePage(@RequestBody @Valid @NotNull HttpInstanceQuery httpInstanceQuery){
-        Pagination<HttpInstance> pagination = testInstanceService.findTestInstancePage(httpInstanceQuery);
+    public Result<HashMap<String, List<HttpInstance>>> findTestInstanceGroupByCreateTime(@RequestBody @Valid @NotNull HttpInstanceQuery httpInstanceQuery){
+        HashMap<String, List<HttpInstance>> pagination = testInstanceService.findTestInstanceGroupByCreateTime(httpInstanceQuery);
 
         return Result.ok(pagination);
     }

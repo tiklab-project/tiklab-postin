@@ -10,6 +10,7 @@ import io.thoughtware.toolkit.join.annotation.JoinProvider;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -74,7 +75,7 @@ public interface TestInstanceService {
     * @param httpInstanceQuery
     * @return
     */
-    Pagination<HttpInstance> findTestInstancePage(HttpInstanceQuery httpInstanceQuery);
+    HashMap<String, List<HttpInstance>>  findTestInstanceGroupByCreateTime(HttpInstanceQuery httpInstanceQuery);
 
 
 }
