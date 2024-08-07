@@ -214,7 +214,7 @@ public class HttpInstanceServiceImpl implements TestInstanceService {
                 .collect(Collectors.toMap(
                         Map.Entry::getKey,
                         Map.Entry::getValue,
-                        (e1, e2) -> e1, // 合并函数（在这里不需要）
+                        (e1, e2) -> e1,
                         LinkedHashMap::new // 保持插入顺序
                 ));
 
