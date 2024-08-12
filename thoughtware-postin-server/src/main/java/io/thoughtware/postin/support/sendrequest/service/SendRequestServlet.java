@@ -7,6 +7,8 @@ import io.thoughtware.postin.support.sendrequest.util.DataProcessCommon;
 import io.thoughtware.postin.support.sendrequest.HttpRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -38,6 +40,13 @@ public class SendRequestServlet extends HttpServlet {
     @Autowired
     RouteDispatchForText routeDispatchForText;
 
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        super.doGet(req, resp);
+
+        System.out.println("doGet");
+    }
 
     /**
      * 获取post请求 根据不同的media类型进行转发
