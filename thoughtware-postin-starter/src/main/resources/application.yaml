@@ -53,7 +53,7 @@ licences:
 base:
   url: http://
 
-eas:
+soular:
   embbed:
     enable: true
 #  address:

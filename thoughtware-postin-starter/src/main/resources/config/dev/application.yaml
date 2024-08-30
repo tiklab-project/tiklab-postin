@@ -39,7 +39,7 @@ dfs:
     bucket: ${app.name}
 
 
-eas:
+soular:
   embbed:
     enable: true
   address: http://192.168.10.15:8080

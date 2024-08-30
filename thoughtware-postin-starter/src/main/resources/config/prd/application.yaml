@@ -41,7 +41,7 @@ dfs:
     bucket: ${app.name}
 
 
-eas:
+soular:
   embbed:
     enable: false
   address:  http://eas-ce.thoughtware.cn

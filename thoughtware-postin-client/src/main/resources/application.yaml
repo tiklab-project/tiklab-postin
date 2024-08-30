@@ -55,12 +55,12 @@ file:
 base:
   url: http://192.168.10.3:3000
 
-eas:
+soular:
   embbed:
     enable: true
-#  address: http://eas.dev.thoughtware.cn
+#  address: http://soular.dev.thoughtware.cn
 #  web:
-#    address: http://eas.dev.thoughtware.cn
+#    address: http://soular.dev.thoughtware.cn
 
 
 postgresql:
