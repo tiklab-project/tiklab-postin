@@ -61,7 +61,6 @@ public class PostmanImport {
     @Autowired
     JsonResponseService jsonResponseService;
 
-
     private String workspaceIds;
 
     private String categoryId;

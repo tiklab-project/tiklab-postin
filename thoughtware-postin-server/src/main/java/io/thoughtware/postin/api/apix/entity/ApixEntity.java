@@ -24,18 +24,18 @@ public class ApixEntity implements Serializable {
     private String categoryId;
 
     //协议类型
-    @Column(name = "protocol_type",length = 32)
+    @Column(name = "protocol_type")
     private String protocolType;
 
     //状态
-    @Column(name = "status_id",length = 8)
+    @Column(name = "status_id")
     private String statusId;
 
     //负责人
-    @Column(name = "executor_id",length = 32 )
+    @Column(name = "executor_id")
     private String executor;
 
-    @Column(name = "description",length = 256)
+    @Column(name = "description")
     private String desc;
 
     //所属空间

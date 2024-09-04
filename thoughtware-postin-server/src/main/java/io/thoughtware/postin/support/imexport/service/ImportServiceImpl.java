@@ -29,6 +29,11 @@ public class ImportServiceImpl implements ImportService {
     }
 
     @Override
+    public void importSwagger2(String workspaceId, InputStream stream) throws IOException {
+
+    }
+
+    @Override
     public void importReport( String workspaceId, InputStream stream) throws IOException {
         reportImport.analysisReportData(workspaceId,stream);
     }

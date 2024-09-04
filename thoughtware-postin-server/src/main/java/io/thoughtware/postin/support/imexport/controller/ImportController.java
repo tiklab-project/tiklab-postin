@@ -1,11 +1,8 @@
 package io.thoughtware.postin.support.imexport.controller;
 
-import io.thoughtware.postin.annotation.Api;
-import io.thoughtware.postin.annotation.ApiMethod;
-import io.thoughtware.postin.annotation.ApiParam;
+import io.thoughtware.core.exception.ApplicationException;
 import io.thoughtware.postin.support.imexport.service.ImportService;
 import io.thoughtware.core.Result;
-import io.thoughtware.core.exception.SystemException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +21,6 @@ import java.io.InputStream;
  */
 @RestController
 @RequestMapping("/port")
-@Api(name = "PortController",desc = "导入导出管理")
 public class ImportController {
 
     private static Logger logger = LoggerFactory.getLogger(ImportController.class);
@@ -33,8 +29,6 @@ public class ImportController {
     ImportService importService;
 
     @RequestMapping(path = "/importPostman",method = RequestMethod.POST)
-    @ApiMethod(name = "importPostman",desc = "导入数据")
-    @ApiParam(name = "workspaceId")
     public Result<Void> importPostman(@NotNull  String workspaceId,@RequestParam("file") MultipartFile file ){
         try {
             if(file!=null){
@@ -42,15 +36,13 @@ public class ImportController {
                 importService.importPostman(workspaceId,inputStream);
             }
         } catch (IOException e) {
-            throw new SystemException(e);
+            throw new ApplicationException(e);
         }
 
         return Result.ok();
     }
 
     @RequestMapping(path = "/importReport",method = RequestMethod.POST)
-    @ApiMethod(name = "importReport",desc = "导入数据")
-    @ApiParam(name = "workspaceId")
     public Result<Void> importReport(@NotNull String workspaceId,@RequestParam("file") MultipartFile file ){
         try {
             if(file!=null){
@@ -58,11 +50,26 @@ public class ImportController {
                 importService.importReport(workspaceId,inputStream);
             }
         } catch (IOException e) {
-            throw new SystemException(e);
+            throw new ApplicationException(e);
         }
 
         return Result.ok();
     }
+
+    @RequestMapping(path = "/importSwagger2",method = RequestMethod.POST)
+    public Result<Void> importSwagger2(@NotNull  String workspaceId,@RequestParam("file") MultipartFile file ){
+        try {
+            if(file!=null){
+                InputStream inputStream = file.getInputStream();
+                importService.importSwagger2(workspaceId,inputStream);
+            }
+        } catch (IOException e) {
+            throw new ApplicationException(e);
+        }
+
+        return Result.ok();
+    }
+
 
 
     @RequestMapping(path = "/getDoc",method = RequestMethod.POST)
