@@ -1,6 +1,7 @@
 package io.thoughtware.postin.support.imexport.common;
 
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.parser.Feature;
 import io.thoughtware.core.exception.ApplicationException;
 import io.thoughtware.postin.api.apix.model.*;
 import io.thoughtware.postin.api.apix.service.*;
@@ -82,7 +83,7 @@ public class FunctionImport {
                 sb.append(temp);
             }
             String jsonString = sb.toString();
-             jsonObject = JSONObject.parseObject(jsonString);
+            jsonObject = JSONObject.parseObject(jsonString, Feature.DisableSpecialKeyDetect);
         }catch (Exception e){
             throw new ApplicationException("Error while reading the file",e);
         }

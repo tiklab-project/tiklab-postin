@@ -7,21 +7,14 @@ import java.io.InputStream;
 public interface ImportService {
 
     /**
-     * postman导入
+     * 数据导入
      * @param workspaceId
      * @param stream
+     * @param type
      * @throws IOException
      */
-    void importPostman( String workspaceId, InputStream stream) throws IOException;
+    void importData(String workspaceId, InputStream stream, String type) throws IOException;
 
-
-    /**
-     * postman导入
-     * @param workspaceId
-     * @param stream
-     * @throws IOException
-     */
-    void importSwagger2( String workspaceId, InputStream stream) throws IOException;
 
     /**
      * report导入

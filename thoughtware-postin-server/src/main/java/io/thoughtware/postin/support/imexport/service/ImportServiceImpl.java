@@ -1,8 +1,9 @@
 package io.thoughtware.postin.support.imexport.service;
 
+import io.thoughtware.postin.support.imexport.type.OpenApi3Import;
 import io.thoughtware.postin.support.imexport.type.PostmanImport;
 import io.thoughtware.postin.support.imexport.type.ReportImport;
-import io.thoughtware.postin.workspace.model.WorkspaceFollow;
+import io.thoughtware.postin.support.imexport.type.Swagger2Import;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,15 +24,30 @@ public class ImportServiceImpl implements ImportService {
     @Autowired
     ReportImport reportImport;
 
-    @Override
-    public void importPostman( String workspaceId, InputStream stream) throws IOException {
-        postmanImport.analysisPostmanData(workspaceId,stream);
-    }
+    @Autowired
+    Swagger2Import swagger2Import;
+
+    @Autowired
+    OpenApi3Import api3Import;
 
     @Override
-    public void importSwagger2(String workspaceId, InputStream stream) throws IOException {
+    public void importData(String workspaceId, InputStream stream, String type) throws IOException {
+        switch (type){
+            case "postman":
+                postmanImport.analysisPostmanData(workspaceId,stream);
+                break;
+            case "swagger2":
+                swagger2Import.analysisSwagger2(workspaceId,stream);
+                break;
+            case "openapi3":
+                api3Import.analysisOpenApi3(workspaceId,stream);
+                break;
+            default:
+                break;
 
+        }
     }
+
 
     @Override
     public void importReport( String workspaceId, InputStream stream) throws IOException {

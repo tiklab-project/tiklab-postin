@@ -6,7 +6,10 @@ import com.alibaba.fastjson.JSONObject;
 import io.thoughtware.core.exception.ApplicationException;
 import io.thoughtware.postin.api.apix.model.*;
 import io.thoughtware.postin.api.apix.service.*;
-import io.thoughtware.postin.api.http.definition.model.*;
+import io.thoughtware.postin.api.http.definition.model.ApiResponse;
+import io.thoughtware.postin.api.http.definition.model.FormParam;
+import io.thoughtware.postin.api.http.definition.model.FormUrlencoded;
+import io.thoughtware.postin.api.http.definition.model.HttpApi;
 import io.thoughtware.postin.api.http.definition.service.*;
 import io.thoughtware.postin.category.model.Category;
 import io.thoughtware.postin.category.service.CategoryService;
@@ -22,10 +25,10 @@ import java.util.HashMap;
 import java.util.Set;
 
 /**
- * swagger2 导入
+ * OpenApi3 导入
  */
 @Component
-public class Swagger2Import {
+public class OpenApi3Import {
 
     @Autowired
     FunctionImport functionImport;
@@ -68,9 +71,9 @@ public class Swagger2Import {
 
 
     /**
-     * swagger2解析
+     * OpenApi3解析
      */
-    public void analysisSwagger2( String workspaceId, InputStream stream) {
+    public void analysisOpenApi3( String workspaceId, InputStream stream) {
         workspaceIds =workspaceId;
         try{
             JSONObject allJson =functionImport.getJsonData(stream);
@@ -291,6 +294,7 @@ public class Swagger2Import {
         formUrlencodedService.createFormUrlencoded(formUrlencoded);
     }
 
+
     /**
      *  解析 raw
      */
@@ -355,7 +359,7 @@ public class Swagger2Import {
                         processSchema = jsonArray.toJSONString();
                         break;
                     default:
-                         processSchema = new JSONObject().toJSONString();
+                        processSchema = new JSONObject().toJSONString();
                         break;
                 }
             }else {
@@ -447,10 +451,8 @@ public class Swagger2Import {
      * @return
      */
     private JSONObject getModelByName(String ref, JSONObject definitions) {
-
         String definitionName = ref.substring(ref.lastIndexOf('/') + 1);
         JSONObject definitionObj = definitions.getJSONObject(definitionName);
         return definitionObj;
     }
-
 }

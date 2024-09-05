@@ -28,12 +28,12 @@ public class ImportController {
     @Autowired
     ImportService importService;
 
-    @RequestMapping(path = "/importPostman",method = RequestMethod.POST)
-    public Result<Void> importPostman(@NotNull  String workspaceId,@RequestParam("file") MultipartFile file ){
+    @RequestMapping(path = "/importData",method = RequestMethod.POST)
+    public Result<Void> importData(@NotNull String workspaceId,@RequestParam("file") MultipartFile file,@NotNull String type ){
         try {
             if(file!=null){
                 InputStream inputStream = file.getInputStream();
-                importService.importPostman(workspaceId,inputStream);
+                importService.importData(workspaceId,inputStream,type);
             }
         } catch (IOException e) {
             throw new ApplicationException(e);
@@ -58,14 +58,14 @@ public class ImportController {
 
     @RequestMapping(path = "/importSwagger2",method = RequestMethod.POST)
     public Result<Void> importSwagger2(@NotNull  String workspaceId,@RequestParam("file") MultipartFile file ){
-        try {
-            if(file!=null){
-                InputStream inputStream = file.getInputStream();
-                importService.importSwagger2(workspaceId,inputStream);
-            }
-        } catch (IOException e) {
-            throw new ApplicationException(e);
-        }
+//        try {
+//            if(file!=null){
+//                InputStream inputStream = file.getInputStream();
+//                importService.importSwagger2(workspaceId,inputStream);
+//            }
+//        } catch (IOException e) {
+//            throw new ApplicationException(e);
+//        }
 
         return Result.ok();
     }
