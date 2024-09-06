@@ -63,18 +63,13 @@ public class OpenApi3Import {
     @Autowired
     ApiResponseService apiResponseService;
 
-    @Autowired
-    JsonResponseService jsonResponseService;
-
-
-    private String workspaceIds;
 
 
     /**
      * OpenApi3解析
      */
     public void analysisOpenApi3( String workspaceId, InputStream stream) {
-        workspaceIds =workspaceId;
+
         try{
             JSONObject allJson =functionImport.getJsonData(stream);
 
@@ -99,7 +94,7 @@ public class OpenApi3Import {
                 categoryIdAndTag.put(categoryName,categoryId);
             }
 
-            analysisData(allJson,categoryIdAndTag);
+            analysisData(allJson,categoryIdAndTag,workspaceId);
         }catch (Exception e){
             throw new ApplicationException("解析失败",e);
         }
@@ -108,7 +103,7 @@ public class OpenApi3Import {
     /**
      *  解析数据
      */
-    private void analysisData(JSONObject allJson, HashMap<String, String> categoryIdAndTag){
+    private void analysisData(JSONObject allJson, HashMap<String, String> categoryIdAndTag,String workspaceId){
         JSONObject paths = allJson.getJSONObject("paths");
 
         //path
@@ -122,15 +117,20 @@ public class OpenApi3Import {
                 JSONObject methodInfo = apiInfo.getJSONObject(methodKey);
                 //接口名
                 String name = methodInfo.getString("summary");
+
                 //描述
-                String desc = methodInfo.getString("description");
+                String desc = "";
+                if (methodInfo.containsKey("description") && methodInfo.getString("description") != null) {
+                    desc = methodInfo.getString("description");
+                }
+
 
                 String path = key;
                 String method = methodKey;
                 String tag = methodInfo.getJSONArray("tags").getString(0);
                 String categoryId = categoryIdAndTag.get(tag);
                 //创建接口
-                String apiId = addApi(categoryId, name, path, method, desc);
+                String apiId = addApi(workspaceId,categoryId, name, path, method, desc);
 
                 //解析请求参数
                 analysisRequest(methodInfo,apiId,allJson);
@@ -145,7 +145,14 @@ public class OpenApi3Import {
     /**
      * 添加接口
      */
-    private String addApi(String categoryId,String name,String path,String method,String desc){
+    private String addApi(
+            String workspaceId,
+            String categoryId,
+            String name,
+            String path,
+            String method,
+            String desc
+    ){
         HttpApi httpApi = new HttpApi();
 
         Apix apix = new Apix();
@@ -155,7 +162,7 @@ public class OpenApi3Import {
 
         Node node = new Node();
         Workspace workspace1 = new Workspace();
-        workspace1.setId(workspaceIds);
+        workspace1.setId(workspaceId);
         node.setWorkspace(workspace1);
         node.setName(name);
         node.setParentId(categoryId);
@@ -174,37 +181,56 @@ public class OpenApi3Import {
      * @param allJson
      */
     private void analysisRequest(JSONObject methodInfo, String apiId, JSONObject allJson){
-        //请求类型
-        String mimeType;
-        if(methodInfo.containsKey("consumes")){
-             mimeType = methodInfo.getJSONArray("consumes").getString(0);
-        }else {
-             mimeType = "none";
-        }
-        addRequest(mimeType,apiId);
+        // parameters
+        if(methodInfo.containsKey("parameters")){
+            JSONArray parameters = methodInfo.getJSONArray("parameters");
+            for (int i = 0; i < parameters.size(); i++) {
+                JSONObject parameter = parameters.getJSONObject(i);
 
-        JSONArray parameters = methodInfo.getJSONArray("parameters");
-        for (int i = 0; i < parameters.size(); i++) {
-            JSONObject parameter = parameters.getJSONObject(i);
+                String in = parameter.getString("in");
+                switch (in){
+                    case "path":
+                        break;
+                    case "query":
+                        addQuery(parameter,apiId);
+                        break;
+                    case "header":
+                        addHeader(parameter,apiId);
+                        break;
 
-            String in = parameter.getString("in");
-            switch (in){
-                case "path":
-                    break;
-                case "query":
-                    addQuery(parameter,apiId);
-                    break;
-                case "body":
-                    addRaw(parameter,apiId,mimeType,allJson);
-                    break;
-                case "header":
-                    addHeader(parameter,apiId);
-                    break;
-                case "formData":
-                    addFormData(parameter,apiId);
-                    break;
+                }
             }
+        }
 
+
+        //requestBody
+        if(methodInfo.containsKey("requestBody")){
+            JSONObject requestBody = methodInfo.getJSONObject("requestBody");
+            if(requestBody.containsKey("content")){
+
+                JSONObject content = requestBody.getJSONObject("content");
+
+                if(content.keySet().size()==0){
+                    addRequest("none",apiId);
+                    return;
+                }
+
+                for (String mediaType : content.keySet()) {
+                    addRequest(mediaType,apiId);
+
+                    switch (mediaType){
+                        case "application/x-www-form-urlencoded":
+                            addFormUrlencoded(content.getJSONObject(mediaType),apiId,allJson);
+                            break;
+                        case "multipart/form-data":
+                            addFormData(content.getJSONObject(mediaType),apiId);
+                            break;
+                        default:
+                            addRaw(content.getJSONObject(mediaType),apiId,mediaType,allJson);
+                            break;
+                    }
+                }
+            }
         }
     }
 
@@ -216,7 +242,9 @@ public class OpenApi3Import {
             requestHeader.setApiId(methodId);
             requestHeader.setHeaderName(headerObj.getString("name"));
             requestHeader.setRequired(headerObj.getBoolean("required")?1:0);
-            requestHeader.setDesc(headerObj.getString("description"));
+            if(headerObj.containsKey("description")){
+                requestHeader.setDesc(headerObj.getString("description"));
+            }
 
             requestHeaderService.createRequestHeader(requestHeader);
 
@@ -226,27 +254,30 @@ public class OpenApi3Import {
      * 创建query参数
      */
     private void addQuery(JSONObject queryObj, String methodId){
-            QueryParam queryParam = new QueryParam();
-            queryParam.setApiId(methodId);
-            queryParam.setParamName(queryObj.getString("name"));
-            queryParam.setRequired(queryObj.getBoolean("required")?1:0);
+        QueryParam queryParam = new QueryParam();
+        queryParam.setApiId(methodId);
+        queryParam.setParamName(queryObj.getString("name"));
+        queryParam.setRequired(queryObj.getBoolean("required")?1:0);
+        if(queryObj.containsKey("description")) {
             queryParam.setDesc(queryObj.getString("description"));
+        }
 
-            queryParamService.createQueryParam(queryParam);
-
+        queryParamService.createQueryParam(queryParam);
     }
 
     /**
      * 导入请求参数
-     * @param consumes
+     * @param mediaType
      * @param methodId
      */
-    public void addRequest(String consumes,String methodId){
+    public void addRequest(String mediaType,String methodId){
         String bodyType;
-        switch (consumes){
+        switch (mediaType){
             case "multipart/form-data":
-            case "application/x-www-form-urlencoded":
                 bodyType= MagicValue.REQUEST_BODY_TYPE_FORMDATA;
+                break;
+            case "application/x-www-form-urlencoded":
+                bodyType = MagicValue.REQUEST_BODY_TYPE_FORM_URLENCODED;
                 break;
             default:
                 bodyType= "raw";
@@ -266,32 +297,83 @@ public class OpenApi3Import {
      * @param methodId
      */
     private void addFormData(JSONObject formParamObj, String methodId){
-        FormParam formParams = new FormParam();
+        JSONObject schema = formParamObj.getJSONObject("schema");
 
-        formParams.setHttp(new HttpApi().setId(methodId));
-        formParams.setParamName(formParamObj.getString("name"));
-        formParams.setRequired(formParamObj.getBoolean("required")?1:0);
-        formParams.setDataType(formParamObj.getString("type"));
-        formParams.setDesc(formParamObj.getString("description"));
+        if (schema != null && schema.containsKey("properties")) {
+            JSONObject properties = schema.getJSONObject("properties");
 
-        formParamService.createFormParam(formParams);
+            for (String key : properties.keySet()) {
+                JSONObject field = properties.getJSONObject(key);
+
+                FormParam formParams = new FormParam();
+
+                formParams.setHttp(new HttpApi().setId(methodId));
+                formParams.setParamName(key); // 设置参数名称
+
+                // 检查并设置字段类型
+                if (field.containsKey("type")) {
+                    formParams.setDataType(field.getString("type"));
+                } else {
+                    formParams.setDataType("string"); // 默认设置为 "string"
+                }
+
+                // 检查并设置是否必填
+                if (field.containsKey("required")) {
+                    formParams.setRequired(field.getBoolean("required") ? 1 : 0);
+                } else {
+                    formParams.setRequired(0); // 默认为非必填
+                }
+
+                // 检查并设置字段描述
+                if (field.containsKey("description")) {
+                    formParams.setDesc(field.getString("description"));
+                } else {
+                    formParams.setDesc(""); // 如果没有描述，设置为空字符串
+                }
+
+                formParamService.createFormParam(formParams);
+            }
+        }
     }
 
     /**
      * 解析formurl
      * @param urlencodedObj
      * @param methodId
+     * @param allJson
      */
-    private void addFormUrlencoded(JSONObject urlencodedObj, String methodId){
-        FormUrlencoded formUrlencoded = new FormUrlencoded();
+    private void addFormUrlencoded(JSONObject urlencodedObj, String methodId, JSONObject allJson) {
+        JSONObject schema = urlencodedObj.getJSONObject("schema");
 
-        formUrlencoded.setHttp(new HttpApi().setId(methodId));
-        formUrlencoded.setParamName(urlencodedObj.getString("name"));
-        formUrlencoded.setDataType(urlencodedObj.getString("type"));
-        formUrlencoded.setRequired(urlencodedObj.getBoolean("required")?1:0);
-        formUrlencoded.setDesc(urlencodedObj.getString("description"));
+        if (schema != null && schema.containsKey("properties")) {
+            JSONObject properties = schema.getJSONObject("properties");
 
-        formUrlencodedService.createFormUrlencoded(formUrlencoded);
+            for (String key : properties.keySet()) {
+                JSONObject field = properties.getJSONObject(key);
+
+                FormUrlencoded formUrlencoded = new FormUrlencoded();
+
+                formUrlencoded.setHttp(new HttpApi().setId(methodId));
+                formUrlencoded.setParamName(key); // 设置参数名称
+                formUrlencoded.setDataType(field.getString("type")); // 获取字段的类型
+
+                // 检查并设置是否必填
+                if (field.containsKey("required")) {
+                    formUrlencoded.setRequired(field.getBoolean("required") ? 1 : 0);
+                } else {
+                    formUrlencoded.setRequired(0); // 默认为非必填
+                }
+
+                // 检查并设置字段描述
+                if (field.containsKey("description")) {
+                    formUrlencoded.setDesc(field.getString("description"));
+                } else {
+                    formUrlencoded.setDesc(""); // 如果没有描述，设置为空字符串
+                }
+
+                formUrlencodedService.createFormUrlencoded(formUrlencoded);
+            }
+        }
     }
 
 
@@ -319,7 +401,6 @@ public class OpenApi3Import {
         JSONObject responses = methodInfo.getJSONObject("responses");
         for (String key : responses.keySet()) {
             JSONObject responseItem = responses.getJSONObject(key);
-
             ApiResponse apiResponse = new ApiResponse();
             apiResponse.setName(key);
             apiResponse.setId(apiId);
@@ -328,12 +409,24 @@ public class OpenApi3Import {
                 apiResponse.setHttpCode(200);
             }else {
                 apiResponse.setHttpCode(Integer.parseInt(key));
-
             }
-            String txt = processSchema(responseItem, allJson);
-            apiResponse.setRawText(txt);
-            apiResponse.setDataType("raw");
-            apiResponseService.createApiResponse(apiResponse);
+
+            if(responseItem.containsKey("content")){
+                JSONObject content = responseItem.getJSONObject("content");
+
+                // 获取 content 的第一个 mediaType
+                String firstMediaType = content.keySet().iterator().next();
+
+                // 获取第一个 mediaType 对应的 schema
+                JSONObject firstSchema = content.getJSONObject(firstMediaType).getJSONObject("schema");
+                String txt = processSchema(firstSchema, allJson);
+
+                // 设置并保存 API 响应
+                apiResponse.setRawText(txt);
+                apiResponse.setDataType("raw");
+                apiResponseService.createApiResponse(apiResponse);
+            }
+
         }
 
     }
@@ -378,11 +471,11 @@ public class OpenApi3Import {
     /**
      * 递归方法，将定义对象转换为 JSON
      */
-    private JSONObject convertDefinitionToJSON(JSONObject definition, JSONObject definitions) {
+    private JSONObject convertDefinitionToJSON(JSONObject schema, JSONObject definitions) {
         JSONObject jsonObject = new JSONObject();
 
-        if (definition.containsKey("properties")) {
-            JSONObject properties = definition.getJSONObject("properties");
+        if (schema.containsKey("properties")) {
+            JSONObject properties = schema.getJSONObject("properties");
             for (String key : properties.keySet()) {
                 JSONObject property = properties.getJSONObject(key);
 
