@@ -48,12 +48,12 @@ licences:
   path: ${DATA_HOME}/licences
 
 base:
-  url: http://postin-ce.test.thoughtware.cn
+  url: http://postin-ce.test.tiklab.net
 
 soular:
   embbed:
     enable: true
-  address: http://darth-ce.test.thoughtware.cn
+  address: http://darth-ce.test.tiklab.net
 
 postgresql:
   database: postin

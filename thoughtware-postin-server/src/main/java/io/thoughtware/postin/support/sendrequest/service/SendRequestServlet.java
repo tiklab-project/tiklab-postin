@@ -8,7 +8,6 @@ import io.thoughtware.postin.support.sendrequest.HttpRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -40,14 +39,6 @@ public class SendRequestServlet extends HttpServlet {
     @Autowired
     RouteDispatchForText routeDispatchForText;
 
-
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doGet(req, resp);
-
-        System.out.println("doGet");
-    }
-
     /**
      * 获取post请求 根据不同的media类型进行转发
      * @param request
@@ -60,48 +51,102 @@ public class SendRequestServlet extends HttpServlet {
 
         //解析头部数据，pi-header,pi-url,pi-method
         HttpRequest httpRequest = dataProcessCommon.buildRequestInfo(request);
-
         String method = httpRequest.getMethod().toLowerCase();
-        HttpHeaders headers = httpRequest.getHeaders();
-
 
         //get请求不需要content-type
-        if(method.equals(MagicValue.API_METHOD_TYPE_GET)){
-            routeDispatchForGet.dispatch(response,httpRequest);
-        }else {
-            if(headers.getContentType()!=null){
-                String contentType = headers.getContentType().toString();
+        switch (method){
+            case MagicValue.API_METHOD_TYPE_GET:
+                routeDispatchForGet.dispatch(response,httpRequest);
+                break;
+            case MagicValue.API_METHOD_TYPE_POST:
+            case MagicValue.API_METHOD_TYPE_PUT:
+                postAndPutFn(request,response,httpRequest);
+                break;
+            case MagicValue.API_METHOD_TYPE_DELETE:
+                break;
+            case MagicValue.API_METHOD_TYPE_PATCH:
+                break;
+            default:
+                break;
 
-                if(contentType.contains("multipart/form-data")){
-                    contentType = "multipart/form-data";
-                }
-
-                switch (contentType){
-                    case "multipart/form-data":
-                        routeDispatchForFormData.dispatch(request,response,httpRequest);
-                        break;
-                    case "application/x-www-form-urlencoded":
-                        routeDispatchForFormUrl.dispatch(request,response,httpRequest);
-                        break;
-                    case "application/json":
-                        routeDispatchForJson.dispatch(request,response,httpRequest);
-                        break;
-                    case "text/plain":
-                    case "application/javascript":
-                    case "text/xml":
-                    case "text/html":
-                        routeDispatchForText.dispatch(request,response,httpRequest);
-                        break;
-                    default:
-                        break;
-                }
-            }else {
-                routeDispatchForText.dispatch(request,response,httpRequest);
-            }
         }
+
+//        if(method.equals(MagicValue.API_METHOD_TYPE_GET)){
+//            routeDispatchForGet.dispatch(response,httpRequest);
+//        }else {
+//            if(headers.getContentType()!=null){
+//                String contentType = headers.getContentType().toString();
+//
+//                if(contentType.contains("multipart/form-data")){
+//                    contentType = "multipart/form-data";
+//                }
+//
+//
+//                switch (contentType){
+//                    case "multipart/form-data":
+//                        routeDispatchForFormData.dispatch(request,response,httpRequest);
+//                        break;
+//                    case "application/x-www-form-urlencoded":
+//                        routeDispatchForFormUrl.dispatch(request,response,httpRequest);
+//                        break;
+//                    case "application/json":
+//                        routeDispatchForJson.dispatch(request,response,httpRequest);
+//                        break;
+//                    case "text/plain":
+//                    case "application/javascript":
+//                    case "text/xml":
+//                    case "text/html":
+//                        routeDispatchForText.dispatch(request,response,httpRequest);
+//                        break;
+//                    default:
+//                        break;
+//                }
+//            }else {
+//                routeDispatchForText.dispatch(request,response,httpRequest);
+//            }
+//        }
     }
 
+    /**
+     * post 请求
+     * @param request
+     * @param response
+     * @param httpRequest
+     * @throws IOException
+     */
+    private void postAndPutFn(HttpServletRequest request, HttpServletResponse response,HttpRequest httpRequest) throws IOException {
+        HttpHeaders headers = httpRequest.getHeaders();
 
+        if(headers.getContentType()!=null){
+            String contentType = headers.getContentType().toString();
+
+            if(contentType.contains("multipart/form-data")){
+                contentType = "multipart/form-data";
+            }
+
+            switch (contentType){
+                case "multipart/form-data":
+                    routeDispatchForFormData.dispatch(request,response,httpRequest);
+                    break;
+                case "application/x-www-form-urlencoded":
+                    routeDispatchForFormUrl.dispatch(request,response,httpRequest);
+                    break;
+                case "application/json":
+                    routeDispatchForJson.dispatch(request,response,httpRequest);
+                    break;
+                case "text/plain":
+                case "application/javascript":
+                case "text/xml":
+                case "text/html":
+                    routeDispatchForText.dispatch(request,response,httpRequest);
+                    break;
+                default:
+                    break;
+            }
+        }else {
+            routeDispatchForText.dispatch(request,response,httpRequest);
+        }
+    }
 
 
 

@@ -44,7 +44,7 @@ dfs:
 soular:
   embbed:
     enable: false
-  address:  http://eas-ce.thoughtware.cn
+  address:  http://eas-ce.tiklab.net
 
 #plugin 
 plugin:
@@ -55,7 +55,7 @@ licences:
   path: ${DATA_HOME}/licences
 
 base:
-  url:  http://postin-ce.thoughtware.cn
+  url:  http://postin-ce.tiklab.net
 
 
 file:

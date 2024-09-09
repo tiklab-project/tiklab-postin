@@ -28,7 +28,7 @@ public class DocletApplication  {
 //        String modulesPath="D:\\a-backup\\thoughtware-matflow\\thoughtware-matflow-api;D:\\a-backup\\thoughtware-matflow\\thoughtware-matflow-server";
 //        modulesPathArray = modulesPath.split(";");
 //        workspaceId="2c2dce1d2aeb";
-//        server="http://e.postin.thoughtware.cn";
+//        server="http://e.postin.tiklab.net";
 
         try {
             if(args.length < 3){
