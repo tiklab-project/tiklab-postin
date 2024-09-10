@@ -37,7 +37,11 @@ public class SendRequestServlet extends HttpServlet {
     RouteDispatchForFormUrl routeDispatchForFormUrl;
 
     @Autowired
+    DeleteRequest deleteRequest;
+
+    @Autowired
     RouteDispatchForText routeDispatchForText;
+
 
     /**
      * 获取post请求 根据不同的media类型进行转发
@@ -62,6 +66,8 @@ public class SendRequestServlet extends HttpServlet {
             case MagicValue.API_METHOD_TYPE_PUT:
                 postAndPutFn(request,response,httpRequest);
             case MagicValue.API_METHOD_TYPE_DELETE:
+                deleteRequest.dispatch(response,httpRequest);
+                break;
             case MagicValue.API_METHOD_TYPE_PATCH:
                 postAndPutFn(request,response,httpRequest);
                 break;
