@@ -75,41 +75,6 @@ public class SendRequestServlet extends HttpServlet {
                 break;
 
         }
-
-//        if(method.equals(MagicValue.API_METHOD_TYPE_GET)){
-//            routeDispatchForGet.dispatch(response,httpRequest);
-//        }else {
-//            if(headers.getContentType()!=null){
-//                String contentType = headers.getContentType().toString();
-//
-//                if(contentType.contains("multipart/form-data")){
-//                    contentType = "multipart/form-data";
-//                }
-//
-//
-//                switch (contentType){
-//                    case "multipart/form-data":
-//                        routeDispatchForFormData.dispatch(request,response,httpRequest);
-//                        break;
-//                    case "application/x-www-form-urlencoded":
-//                        routeDispatchForFormUrl.dispatch(request,response,httpRequest);
-//                        break;
-//                    case "application/json":
-//                        routeDispatchForJson.dispatch(request,response,httpRequest);
-//                        break;
-//                    case "text/plain":
-//                    case "application/javascript":
-//                    case "text/xml":
-//                    case "text/html":
-//                        routeDispatchForText.dispatch(request,response,httpRequest);
-//                        break;
-//                    default:
-//                        break;
-//                }
-//            }else {
-//                routeDispatchForText.dispatch(request,response,httpRequest);
-//            }
-//        }
     }
 
     /**
