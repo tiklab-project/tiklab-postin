@@ -92,6 +92,8 @@ public class PostInDalAutoConfiguration {
                 "message_1.0.7",
         });
         dsmConfig.newVersion("1.0.8", new String[]{
+                "postin_1.0.8",
+
                 "message_1.0.8",
         });
         dsmConfig.newVersion("1.1.0", new String[]{

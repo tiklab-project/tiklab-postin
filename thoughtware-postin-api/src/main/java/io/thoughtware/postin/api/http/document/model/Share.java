@@ -1,10 +1,16 @@
 package io.thoughtware.postin.api.http.document.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.thoughtware.postin.node.model.Node;
+import io.thoughtware.postin.workspace.model.Workspace;
 import io.thoughtware.toolkit.beans.annotation.Mapper;
 import io.thoughtware.core.BaseModel;
 import io.thoughtware.postin.annotation.ApiModel;
 import io.thoughtware.postin.annotation.ApiProperty;
+import io.thoughtware.toolkit.beans.annotation.Mapping;
+import io.thoughtware.toolkit.beans.annotation.Mappings;
+import io.thoughtware.toolkit.join.annotation.Join;
+import io.thoughtware.toolkit.join.annotation.JoinQuery;
 
 import javax.validation.constraints.NotNull;
 
@@ -13,10 +19,14 @@ import javax.validation.constraints.NotNull;
  */
 @ApiModel
 @Mapper
+@Join
 public class Share extends BaseModel {
 
     @ApiProperty(name="id",desc="id")
     private java.lang.String id;
+
+    @ApiProperty(name="workspaceId",desc="所属空间")
+    private String workspaceId;
 
     @ApiProperty(name="code",desc="前端生成一个code，用于set Id")
     private java.lang.String code;
@@ -24,6 +34,13 @@ public class Share extends BaseModel {
     @NotNull
     @ApiProperty(name="targetId",desc="接口或目录 ID",required = true)
     private java.lang.String targetId;
+
+    @ApiProperty(name="targetId",desc="接口或目录 ID",required = true)
+    @Mappings({
+            @Mapping(source = "node.id",target = "targetId")
+    })
+    @JoinQuery(key = "id")
+    private Node node;
 
     @NotNull
     @ApiProperty(name="targetType",desc="接口，目录",required = true)
@@ -52,6 +69,14 @@ public class Share extends BaseModel {
         this.id = id;
     }
 
+    public String getWorkspaceId() {
+        return workspaceId;
+    }
+
+    public void setWorkspaceId(String workspaceId) {
+        this.workspaceId = workspaceId;
+    }
+
     public String getCode() {
         return code;
     }
@@ -70,6 +95,14 @@ public class Share extends BaseModel {
 
     public String getTargetType() {
         return targetType;
+    }
+
+    public Node getNode() {
+        return node;
+    }
+
+    public void setNode(Node node) {
+        this.node = node;
     }
 
     public void setTargetType(String targetType) {

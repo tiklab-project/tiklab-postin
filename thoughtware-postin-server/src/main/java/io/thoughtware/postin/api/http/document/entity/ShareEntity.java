@@ -17,20 +17,24 @@ public class ShareEntity implements Serializable {
     @Column(name = "id",length = 32)
     private String id;
 
+    // 所属空间
+    @Column(name = "workspace_id")
+    private String workspaceId;
+
     //目标id
-    @Column(name = "target_Id",length = 32,notNull = true)
+    @Column(name = "target_Id")
     private String targetId;
 
     //目标类型  接口或目录
-    @Column(name = "target_type",length = 32,notNull = true)
+    @Column(name = "target_type")
     private String targetType;
 
     //是否可见
-    @Column(name = "visibility",length = 8,notNull = true)
+    @Column(name = "visibility")
     private Integer visibility;
 
     //密码
-    @Column(name = "password",length = 32)
+    @Column(name = "password")
     private String password;
 
     //创建时间
@@ -48,6 +52,14 @@ public class ShareEntity implements Serializable {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getWorkspaceId() {
+        return workspaceId;
+    }
+
+    public void setWorkspaceId(String workspaceId) {
+        this.workspaceId = workspaceId;
     }
 
     public String getTargetId() {

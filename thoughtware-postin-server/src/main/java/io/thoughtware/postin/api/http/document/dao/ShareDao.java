@@ -1,11 +1,14 @@
 package io.thoughtware.postin.api.http.document.dao;
 
+import io.thoughtware.dal.jpa.criterial.condition.QueryCondition;
+import io.thoughtware.dal.jpa.criterial.conditionbuilder.QueryBuilders;
 import io.thoughtware.postin.api.http.document.entity.ShareEntity;
 import io.thoughtware.core.page.Pagination;
 import io.thoughtware.dal.jpa.JpaTemplate;
 import io.thoughtware.dal.jpa.criterial.condition.DeleteCondition;
 import io.thoughtware.postin.api.http.document.model.ShareQuery;
 
+import io.thoughtware.postin.support.environment.entity.EnvironmentEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,7 +83,12 @@ public class ShareDao{
     }
 
     public Pagination<ShareEntity> findSharePage(ShareQuery shareQuery) {
-
-        return jpaTemplate.findPage(shareQuery,ShareEntity.class);
+        QueryCondition queryCondition = QueryBuilders.createQuery(ShareEntity.class)
+                .eq("workspaceId",shareQuery.getWorkspaceId())
+                .eq("targetType",shareQuery.getTargetType())
+                .pagination(shareQuery.getPageParam())
+                .orders(shareQuery.getOrderParams())
+                .get();
+        return jpaTemplate.findPage(queryCondition,ShareEntity.class);
     }
 }
