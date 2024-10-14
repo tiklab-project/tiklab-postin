@@ -5,52 +5,51 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>io.thoughtware</groupId>
-        <artifactId>thoughtware-dependencies</artifactId>
-        <version>1.0.0</version>
+        <groupId>io.tiklab</groupId>
+        <artifactId>tiklab-dependencies</artifactId>
+        <version>1.0.2</version>
     </parent>
-    <groupId>io.thoughtware</groupId>
-    <artifactId>thoughtware-postin</artifactId>
+    <groupId>io.tiklab</groupId>
+    <artifactId>tiklab-postin</artifactId>
     <name>${project.artifactId}</name>
     <packaging>pom</packaging>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0.2</version>
 
     <modules>
-        <module>thoughtware-postin-annotation</module>
-        <module>thoughtware-postin-api</module>
-        <module>thoughtware-postin-client</module>
-        <module>thoughtware-postin-server</module>
-        <module>thoughtware-postin-starter</module>
-        <module>thoughtware-postin-doclet</module>
+        <module>tiklab-postin-annotation</module>
+        <module>tiklab-postin-api</module>
+        <module>tiklab-postin-client</module>
+        <module>tiklab-postin-server</module>
+        <module>tiklab-postin-starter</module>
+        <module>tiklab-postin-doclet</module>
     </modules>
 
     <properties>
 
         <!--平台-->
-        <thoughtware-core.version>1.0.0</thoughtware-core.version>
-        <thoughtware-dss.version>1.0.0</thoughtware-dss.version>
-        <thoughtware-dal.version>1.0.0</thoughtware-dal.version>
-        <thoughtware-rpc.version>1.0.0</thoughtware-rpc.version>
-        <thoughtware-dfs.version>1.0.0</thoughtware-dfs.version>
-        <thoughtware-dcs.version>1.0.0</thoughtware-dcs.version>
-        <thoughtware-toolkit.version>1.0.0</thoughtware-toolkit.version>
-        <thoughtware-gateway.version>1.0.1-SNAPSHOT</thoughtware-gateway.version>
-        <thoughtware-user.version>1.0.1-SNAPSHOT</thoughtware-user.version>
-        <thoughtware-privilege.version>1.0.1-SNAPSHOT</thoughtware-privilege.version>
-        <thoughtware-eam.version>1.0.1-SNAPSHOT</thoughtware-eam.version>
-        <thoughtware-message.version>1.0.1-SNAPSHOT</thoughtware-message.version>
-        <thoughtware-security.version>1.0.1-SNAPSHOT</thoughtware-security.version>
-        <thoughtware-licence.version>1.0.1-SNAPSHOT</thoughtware-licence.version>
-        <thoughtware-postgresql.version>1.0.3-SNAPSHOT</thoughtware-postgresql.version>
-        <thoughtware-install.version>1.0.2-SNAPSHOT</thoughtware-install.version>
-        <thoughtware-jdk.version>1.0.1-SNAPSHOT</thoughtware-jdk.version>
-        <thoughtware-plugin.version>1.0.1-SNAPSHOT</thoughtware-plugin.version>
-        <thoughtware-openapi.version>1.0.0-SNAPSHOT</thoughtware-openapi.version>
-        <thoughtware-dsm.version>1.0.0</thoughtware-dsm.version>
+        <tiklab-core.version>1.0.2</tiklab-core.version>
+        <tiklab-dss.version>1.0.2</tiklab-dss.version>
+        <tiklab-dal.version>1.0.2</tiklab-dal.version>
+        <tiklab-rpc.version>1.0.2</tiklab-rpc.version>
+        <tiklab-dfs.version>1.0.2</tiklab-dfs.version>
+        <tiklab-dcs.version>1.0.2</tiklab-dcs.version>
+        <tiklab-toolkit.version>1.0.2</tiklab-toolkit.version>
+        <tiklab-gateway.version>1.0.2</tiklab-gateway.version>
+        <tiklab-user.version>1.0.2</tiklab-user.version>
+        <tiklab-privilege.version>1.0.2</tiklab-privilege.version>
+        <tiklab-eam.version>1.0.2</tiklab-eam.version>
+        <tiklab-message.version>1.0.2</tiklab-message.version>
+        <tiklab-security.version>1.0.2</tiklab-security.version>
+        <tiklab-licence.version>1.0.2</tiklab-licence.version>
+        <tiklab-postgresql.version>1.0.2</tiklab-postgresql.version>
+        <tiklab-install.version>1.0.2</tiklab-install.version>
+        <tiklab-jdk.version>1.0.2</tiklab-jdk.version>
+        <tiklab-openapi.version>1.0.2</tiklab-openapi.version>
+        <tiklab-dsm.version>1.0.2</tiklab-dsm.version>
 
 
-        <thoughtware-postin-exportpdf-plugin.version>1.0.1-SNAPSHOT</thoughtware-postin-exportpdf-plugin.version>
-        <thoughtware-postin-version-plugin.version>1.0.1-SNAPSHOT</thoughtware-postin-version-plugin.version>
+        <tiklab-postin-exportpdf-plugin.version>1.0.1-SNAPSHOT</tiklab-postin-exportpdf-plugin.version>
+        <tiklab-postin-version-plugin.version>1.0.1-SNAPSHOT</tiklab-postin-version-plugin.version>
 
         <!--第三方-->
         <xdoclet.version>1.2.3</xdoclet.version>
@@ -65,186 +64,182 @@
         <dependencies>
             <!--平台-->
             <dependency>
-                <groupId>io.thoughtware</groupId>
-                <artifactId>thoughtware-core</artifactId>
-                <version>${thoughtware-core.version}</version>
+                <groupId>io.tiklab</groupId>
+                <artifactId>tiklab-core</artifactId>
+                <version>${tiklab-core.version}</version>
             </dependency>
             <dependency>
-                <groupId>io.thoughtware</groupId>
-                <artifactId>thoughtware-dss-annotation</artifactId>
-                <version>${thoughtware-dss.version}</version>
+                <groupId>io.tiklab</groupId>
+                <artifactId>tiklab-dss-annotation</artifactId>
+                <version>${tiklab-dss.version}</version>
             </dependency>
             <dependency>
-                <groupId>io.thoughtware</groupId>
-                <artifactId>thoughtware-dss-common</artifactId>
-                <version>${thoughtware-dss.version}</version>
+                <groupId>io.tiklab</groupId>
+                <artifactId>tiklab-dss-common</artifactId>
+                <version>${tiklab-dss.version}</version>
             </dependency>
             <dependency>
-                <groupId>io.thoughtware</groupId>
-                <artifactId>thoughtware-dss-client</artifactId>
-                <version>${thoughtware-dss.version}</version>
+                <groupId>io.tiklab</groupId>
+                <artifactId>tiklab-dss-client</artifactId>
+                <version>${tiklab-dss.version}</version>
             </dependency>
             <dependency>
-                <groupId>io.thoughtware</groupId>
-                <artifactId>thoughtware-user-api</artifactId>
-                <version>${thoughtware-user.version}</version>
+                <groupId>io.tiklab</groupId>
+                <artifactId>tiklab-user-api</artifactId>
+                <version>${tiklab-user.version}</version>
             </dependency>
             <dependency>
-                <groupId>io.thoughtware</groupId>
-                <artifactId>thoughtware-user-spring-boot-starter</artifactId>
-                <version>${thoughtware-user.version}</version>
+                <groupId>io.tiklab</groupId>
+                <artifactId>tiklab-user-spring-boot-starter</artifactId>
+                <version>${tiklab-user.version}</version>
             </dependency>
             <dependency>
-                <groupId>io.thoughtware</groupId>
-                <artifactId>thoughtware-dal-jpa</artifactId>
-                <version>${thoughtware-dal.version}</version>
+                <groupId>io.tiklab</groupId>
+                <artifactId>tiklab-dal-jpa</artifactId>
+                <version>${tiklab-dal.version}</version>
             </dependency>
             <dependency>
-                <groupId>io.thoughtware</groupId>
-                <artifactId>thoughtware-dal-spring-boot-starter</artifactId>
-                <version>${thoughtware-dal.version}</version>
+                <groupId>io.tiklab</groupId>
+                <artifactId>tiklab-dal-spring-boot-starter</artifactId>
+                <version>${tiklab-dal.version}</version>
             </dependency>
             <dependency>
-                <groupId>io.thoughtware</groupId>
-                <artifactId>thoughtware-rpc-annotation</artifactId>
-                <version>${thoughtware-rpc.version}</version>
+                <groupId>io.tiklab</groupId>
+                <artifactId>tiklab-rpc-annotation</artifactId>
+                <version>${tiklab-rpc.version}</version>
             </dependency>
             <dependency>
-                <groupId>io.thoughtware</groupId>
-                <artifactId>thoughtware-rpc-spring-boot-starter</artifactId>
-                <version>${thoughtware-rpc.version}</version>
+                <groupId>io.tiklab</groupId>
+                <artifactId>tiklab-rpc-spring-boot-starter</artifactId>
+                <version>${tiklab-rpc.version}</version>
             </dependency>
             <dependency>
-                <groupId>io.thoughtware</groupId>
-                <artifactId>thoughtware-dfs-spring-boot-starter</artifactId>
-                <version>${thoughtware-dfs.version}</version>
+                <groupId>io.tiklab</groupId>
+                <artifactId>tiklab-dfs-spring-boot-starter</artifactId>
+                <version>${tiklab-dfs.version}</version>
             </dependency>
             <dependency>
-                <groupId>io.thoughtware</groupId>
-                <artifactId>thoughtware-dcs-spring-boot-starter</artifactId>
-                <version>${thoughtware-dcs.version}</version>
+                <groupId>io.tiklab</groupId>
+                <artifactId>tiklab-dcs-spring-boot-starter</artifactId>
+                <version>${tiklab-dcs.version}</version>
             </dependency>
             <dependency>
-                <groupId>io.thoughtware</groupId>
-                <artifactId>thoughtware-dss-spring-boot-starter</artifactId>
-                <version>${thoughtware-dss.version}</version>
+                <groupId>io.tiklab</groupId>
+                <artifactId>tiklab-dss-spring-boot-starter</artifactId>
+                <version>${tiklab-dss.version}</version>
             </dependency>
             <dependency>
-                <groupId>io.thoughtware</groupId>
-                <artifactId>thoughtware-privilege-api</artifactId>
-                <version>${thoughtware-privilege.version}</version>
+                <groupId>io.tiklab</groupId>
+                <artifactId>tiklab-privilege-api</artifactId>
+                <version>${tiklab-privilege.version}</version>
             </dependency>
             <dependency>
-                <groupId>io.thoughtware</groupId>
-                <artifactId>thoughtware-privilege-spring-boot-starter</artifactId>
-                <version>${thoughtware-privilege.version}</version>
+                <groupId>io.tiklab</groupId>
+                <artifactId>tiklab-privilege-spring-boot-starter</artifactId>
+                <version>${tiklab-privilege.version}</version>
             </dependency>
             <dependency>
-                <groupId>io.thoughtware</groupId>
-                <artifactId>thoughtware-openapi-spring-boot-starter</artifactId>
-                <version>${thoughtware-openapi.version}</version>
+                <groupId>io.tiklab</groupId>
+                <artifactId>tiklab-openapi-spring-boot-starter</artifactId>
+                <version>${tiklab-openapi.version}</version>
             </dependency>
             <dependency>
-                <groupId>io.thoughtware</groupId>
-                <artifactId>thoughtware-eam-api</artifactId>
-                <version>${thoughtware-eam.version}</version>
+                <groupId>io.tiklab</groupId>
+                <artifactId>tiklab-eam-api</artifactId>
+                <version>${tiklab-eam.version}</version>
             </dependency>
             <dependency>
-                <groupId>io.thoughtware</groupId>
-                <artifactId>thoughtware-eam-spring-boot-starter</artifactId>
-                <version>${thoughtware-eam.version}</version>
+                <groupId>io.tiklab</groupId>
+                <artifactId>tiklab-eam-spring-boot-starter</artifactId>
+                <version>${tiklab-eam.version}</version>
             </dependency>
             <dependency>
-                <groupId>io.thoughtware</groupId>
-                <artifactId>thoughtware-message-api</artifactId>
-                <version>${thoughtware-message.version}</version>
+                <groupId>io.tiklab</groupId>
+                <artifactId>tiklab-message-api</artifactId>
+                <version>${tiklab-message.version}</version>
             </dependency>
             <dependency>
-                <groupId>io.thoughtware</groupId>
-                <artifactId>thoughtware-message-spring-boot-starter</artifactId>
-                <version>${thoughtware-message.version}</version>
+                <groupId>io.tiklab</groupId>
+                <artifactId>tiklab-message-spring-boot-starter</artifactId>
+                <version>${tiklab-message.version}</version>
             </dependency>
             <dependency>
-                <groupId>io.thoughtware</groupId>
-                <artifactId>thoughtware-security-api</artifactId>
-                <version>${thoughtware-security.version}</version>
+                <groupId>io.tiklab</groupId>
+                <artifactId>tiklab-security-api</artifactId>
+                <version>${tiklab-security.version}</version>
             </dependency>
             <dependency>
-                <groupId>io.thoughtware</groupId>
-                <artifactId>thoughtware-security-spring-boot-starter</artifactId>
-                <version>${thoughtware-security.version}</version>
+                <groupId>io.tiklab</groupId>
+                <artifactId>tiklab-security-spring-boot-starter</artifactId>
+                <version>${tiklab-security.version}</version>
             </dependency>
             <dependency>
-                <groupId>io.thoughtware</groupId>
-                <artifactId>thoughtware-toolkit-core</artifactId>
-                <version>${thoughtware-toolkit.version}</version>
+                <groupId>io.tiklab</groupId>
+                <artifactId>tiklab-toolkit-core</artifactId>
+                <version>${tiklab-toolkit.version}</version>
             </dependency>
             <dependency>
-                <groupId>io.thoughtware</groupId>
-                <artifactId>thoughtware-toolkit-spring-boot-starter</artifactId>
-                <version>${thoughtware-toolkit.version}</version>
+                <groupId>io.tiklab</groupId>
+                <artifactId>tiklab-toolkit-spring-boot-starter</artifactId>
+                <version>${tiklab-toolkit.version}</version>
             </dependency>
             <dependency>
-                <groupId>io.thoughtware</groupId>
-                <artifactId>thoughtware-plugin-spring-boot-starter</artifactId>
-                <version>${thoughtware-plugin.version}</version>
+                <groupId>io.tiklab</groupId>
+                <artifactId>tiklab-plugin-spring-boot-starter</artifactId>
+                <version>${tiklab-plugin.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.tiklab</groupId>
+                <artifactId>tiklab-licence-api</artifactId>
+                <version>${tiklab-licence.version}</version>
             </dependency>
             <dependency>
-                <groupId>io.thoughtware</groupId>
-                <artifactId>thoughtware-plugin-manager</artifactId>
-                <version>${thoughtware-plugin.version}</version>
+                <groupId>io.tiklab</groupId>
+                <artifactId>tiklab-licence-spring-boot-starter</artifactId>
+                <version>${tiklab-licence.version}</version>
             </dependency>
             <dependency>
-                <groupId>io.thoughtware</groupId>
-                <artifactId>thoughtware-licence-api</artifactId>
-                <version>${thoughtware-licence.version}</version>
+                <groupId>io.tiklab</groupId>
+                <artifactId>tiklab-gateway-spring-boot-starter</artifactId>
+                <version>${tiklab-gateway.version}</version>
             </dependency>
             <dependency>
-                <groupId>io.thoughtware</groupId>
-                <artifactId>thoughtware-licence-spring-boot-starter</artifactId>
-                <version>${thoughtware-licence.version}</version>
+                <groupId>io.tiklab</groupId>
+                <artifactId>tiklab-postgresql-starter</artifactId>
+                <version>${tiklab-postgresql.version}</version>
             </dependency>
             <dependency>
-                <groupId>io.thoughtware</groupId>
-                <artifactId>thoughtware-gateway-spring-boot-starter</artifactId>
-                <version>${thoughtware-gateway.version}</version>
+                <groupId>io.tiklab</groupId>
+                <artifactId>tiklab-install-starter</artifactId>
+                <version>${tiklab-install.version}</version>
             </dependency>
             <dependency>
-                <groupId>io.thoughtware</groupId>
-                <artifactId>thoughtware-postgresql-starter</artifactId>
-                <version>${thoughtware-postgresql.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.thoughtware</groupId>
-                <artifactId>thoughtware-install-starter</artifactId>
-                <version>${thoughtware-install.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.thoughtware</groupId>
-                <artifactId>thoughtware-dsm-spring-boot-starter</artifactId>
-                <version>${thoughtware-dsm.version}</version>
+                <groupId>io.tiklab</groupId>
+                <artifactId>tiklab-dsm-spring-boot-starter</artifactId>
+                <version>${tiklab-dsm.version}</version>
             </dependency>
 
 
             <!--业务-->
             <dependency>
-                <groupId>io.thoughtware</groupId>
-                <artifactId>thoughtware-postin-annotation</artifactId>
+                <groupId>io.tiklab</groupId>
+                <artifactId>tiklab-postin-annotation</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>io.thoughtware</groupId>
-                <artifactId>thoughtware-postin-client</artifactId>
+                <groupId>io.tiklab</groupId>
+                <artifactId>tiklab-postin-client</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>io.thoughtware</groupId>
-                <artifactId>thoughtware-postin-api</artifactId>
+                <groupId>io.tiklab</groupId>
+                <artifactId>tiklab-postin-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>io.thoughtware</groupId>
-                <artifactId>thoughtware-postin-server</artifactId>
+                <groupId>io.tiklab</groupId>
+                <artifactId>tiklab-postin-server</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
