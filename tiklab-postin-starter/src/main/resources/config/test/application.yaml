@@ -7,7 +7,7 @@ spring:
 
 DATA_HOME: /opt/tiklab/postin/postin
 
-#io.thoughtware.teston.web
+#io.tiklab.teston.web
 server:
   port: 8080
 

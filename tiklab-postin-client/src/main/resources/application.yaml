@@ -1,4 +1,4 @@
-#application io.thoughtware.postin.config
+#application io.tiklab.postin.config
 app:
   name: postin
 spring:
@@ -7,24 +7,24 @@ spring:
 
 postin:
   scan:
-    package: io.thoughtware
+    package: io.tiklab
   report:
     workspaceId: c51c82d60d12
     server: http://192.168.10.3:8090
 
 
 
-DATA_HOME: ${user.home}/thoughtware/${app.name}
+DATA_HOME: ${user.home}/tiklab/${app.name}
 
-#io.thoughtware.teston.web io.thoughtware.postin.config
+#io.tiklab.teston.web io.tiklab.postin.config
 server:
   port: 8080
 
-#dal io.thoughtware.postin.config
+#dal io.tiklab.postin.config
 #jdbc:
 #  driverClassName: com.mysql.cj.jdbc.Driver
 ##  172.10.1.10
-#  url: jdbc:mysql://172.10.1.10:3306/thoughtware_postin?characterEncoding=utf8&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+#  url: jdbc:mysql://172.10.1.10:3306/tiklab_postin?characterEncoding=utf8&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
 #  username: root
 #  password: darth2020
 jdbc:
@@ -64,7 +64,7 @@ soular:
 
 
 postgresql:
-  database: thoughtware_postin
+  database: tiklab_postin
   embbed:
     enable: false
 

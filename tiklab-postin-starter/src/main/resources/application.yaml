@@ -14,7 +14,7 @@ server:
 #dal
 jdbc:
   driverClassName: org.postgresql.Driver
-  url: jdbc:postgresql://localhost:5432/thoughtware_postin?stringtype=unspecified
+  url: jdbc:postgresql://localhost:5432/tiklab_postin?stringtype=unspecified
   username: postgres
   password: darth2020
 
@@ -59,7 +59,7 @@ soular:
 #  address:
 
 postgresql:
-  database: thoughtware_postin
+  database: tiklab_postin
   embbed:
     enable: true
   db:
