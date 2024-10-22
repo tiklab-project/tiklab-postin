@@ -385,42 +385,45 @@ public class WorkspaceServiceImpl implements WorkspaceService {
 
         // 获取系统超级管理员
         RoleUser roleAdmin = roleUserService.findUserRoleAdmin();
-        String id = roleAdmin.getUser().getId();
+        String adminId = roleAdmin.getUser().getId();
 
-        if (Objects.isNull(userList) || userList.isEmpty()){
-            dmRoleService.initDmRoles(workspaceId, loginId,2);
-            if (loginId.equals(id)){
-                return;
+        // 使用 Set 来跟踪用户 ID
+        Set<String> userIdSet = userList != null ? userList.stream().map(PatchUser::getUserId).collect(Collectors.toSet()) : new HashSet<>();
+
+        if (userIdSet.isEmpty()) {
+            // 初始化用户列表并添加管理员和当前用户
+            userList = new ArrayList<>();
+            userList.add(createPatchUser(adminId, 2));
+            if (!loginId.equals(adminId)) {
+                userList.add(createPatchUser(loginId, 1));
             }
-            dmRoleService.initDmRoles(workspaceId, id,1);
-        }else {
-            boolean isSuperAdmin = false;
-
-            for(PatchUser user:userList){
-                if(user.getUserId().equals(loginId)){
-                    user.setRoleType(2);
-                    isSuperAdmin=true;
+        } else {
+            // 设置当前用户角色
+            userList.forEach(user -> {
+                if (user.getUserId().equals(loginId)) {
+                    user.setRoleType(1);
                 }
-            }
+                if (user.getUserId().equals(adminId)) {
+                    user.setRoleType(2);
+                }
+            });
 
-            if(!isSuperAdmin){
-                PatchUser patchUser = new PatchUser();
-                patchUser.setUserId(loginId);
-                patchUser.setRoleType(2);
-                userList.add(patchUser);
+            // 如果超级管理员不在列表中，添加
+            if (!userIdSet.contains(adminId)) {
+                userList.add(createPatchUser(adminId, 2));
             }
-
-            // 判断系统管理员是否在其中
-            List<PatchUser> list = userList.stream()
-                    .filter(patchUser -> patchUser.getUserId().equals(id))
-                    .toList();
-            if (list.isEmpty()){
-                PatchUser patchUser = new PatchUser(id);
-                userList.add(patchUser);
-            }
-            //关联权限
-            dmRoleService.initPatchDmRole(workspaceId,userList);
         }
+
+        // 关联权限
+        dmRoleService.initPatchDmRole(workspaceId, userList);
+    }
+
+    // 工具方法：创建 PatchUser
+    private PatchUser createPatchUser(String userId, int roleType) {
+        PatchUser user = new PatchUser();
+        user.setUserId(userId);
+        user.setRoleType(roleType);
+        return user;
     }
 
 }
