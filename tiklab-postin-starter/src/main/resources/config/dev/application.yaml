@@ -42,9 +42,9 @@ dfs:
 soular:
   embbed:
     enable: true
-  address: http://192.168.10.15:8080
+  address: http://192.168.10.42:8080
   web:
-    address: http://192.168.10.15:8080
+    address: http://192.168.10.42:8080
 
 
 
