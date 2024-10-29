@@ -20,6 +20,7 @@ import org.apache.tomcat.util.http.fileupload.FileItem;
 import org.apache.tomcat.util.http.fileupload.RequestContext;
 import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+import org.apache.tomcat.util.http.fileupload.servlet.ServletRequestContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
@@ -178,7 +179,8 @@ public class MockServletRequest {
             DiskFileItemFactory factory = new DiskFileItemFactory();
             ServletFileUpload servletFileUpload = new ServletFileUpload(factory);
             servletFileUpload.setHeaderEncoding("UTF-8");
-            List<FileItem> fileItems = servletFileUpload.parseRequest((RequestContext) request);
+            // 使用 ServletRequestContext 适配 HttpServletRequest
+            List<FileItem> fileItems = servletFileUpload.parseRequest(new ServletRequestContext(request));
 
             if(CollectionUtils.isNotEmpty(fileItems)){
                 for(FileItem item :fileItems){
@@ -295,7 +297,7 @@ public class MockServletRequest {
 
         boolean bodyStatus;
 
-        if("formdata".equals(bodyType)){
+        if("form".equals(bodyType)){
             bodyStatus = getFormStatus(mockId,request);
         }else {
             bodyStatus = getJsonStatus(mockId,request);

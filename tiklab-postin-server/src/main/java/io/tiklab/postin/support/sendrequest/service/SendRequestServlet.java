@@ -65,6 +65,7 @@ public class SendRequestServlet extends HttpServlet {
             case MagicValue.API_METHOD_TYPE_POST:
             case MagicValue.API_METHOD_TYPE_PUT:
                 postAndPutFn(request,response,httpRequest);
+                break;
             case MagicValue.API_METHOD_TYPE_DELETE:
                 deleteRequest.dispatch(response,httpRequest);
                 break;
