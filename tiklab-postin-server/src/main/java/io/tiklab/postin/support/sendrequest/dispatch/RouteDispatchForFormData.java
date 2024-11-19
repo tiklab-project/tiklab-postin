@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -30,6 +31,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
+import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.List;
@@ -115,22 +117,26 @@ public class RouteDispatchForFormData {
         // 创建一个MultiValueMap对象，用于存储请求参数
         MultiValueMap<String, Object> formData = new LinkedMultiValueMap<>();
 
-        // 遍历上传的参数
+
         for (FileItem item : items) {
-            // 如果是普通表单参数
             if (item.isFormField()) {
+                // 普通表单字段
                 String fieldName = item.getFieldName();
-                String fieldValue = item.getString();
+                String fieldValue = item.getString(StandardCharsets.UTF_8.name());
                 formData.add(fieldName, fieldValue);
             } else {
+                // 文件表单字段
                 String fieldName = item.getFieldName();
                 String fileName = item.getName();
-                // 获取上传的文件名
+
                 if (StringUtils.isNotEmpty(fileName)) {
-                    // 获取文件的输入流
-                    InputStream inputStream = item.getInputStream();
-                    // 添加文件参数
-                    ByteArrayResource resource = new ByteArrayResource(IOUtils.toByteArray(inputStream));
+                    byte[] fileBytes = IOUtils.toByteArray(item.getInputStream());
+                    ByteArrayResource resource = new ByteArrayResource(fileBytes) {
+                        @Override
+                        public String getFilename() {
+                            return fileName;
+                        }
+                    };
                     formData.add(fieldName, resource);
                 }
             }
