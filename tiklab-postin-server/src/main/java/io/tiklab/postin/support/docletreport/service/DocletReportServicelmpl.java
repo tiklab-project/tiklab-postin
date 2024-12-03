@@ -10,6 +10,7 @@ import io.tiklab.postin.api.http.definition.service.*;
 import io.tiklab.postin.category.model.Category;
 import io.tiklab.postin.category.service.CategoryService;
 import io.tiklab.postin.node.model.Node;
+import io.tiklab.postin.node.service.NodeService;
 import io.tiklab.postin.support.docletreport.model.ApiReport;
 import io.tiklab.postin.support.docletreport.model.ModuleReport;
 import io.tiklab.postin.workspace.model.Workspace;
@@ -26,6 +27,9 @@ public class DocletReportServicelmpl implements DocletReportService {
 
     @Autowired
     CategoryService categoryService;
+
+    @Autowired
+    NodeService nodeService;
 
     @Autowired
     HttpApiService httpApiService;
@@ -56,6 +60,7 @@ public class DocletReportServicelmpl implements DocletReportService {
             return "category create error";
         }
 
+
         JSONObject jsonObject = new JSONObject();
 
         int add=0;
@@ -73,7 +78,7 @@ public class DocletReportServicelmpl implements DocletReportService {
         for (ApiReport apiReportData: moduleReport.getModuleMethodList()){
             try {
                 String apiId = apiReportData.getApiId();
-                HttpApi isExistApi = httpApiService.findOne(apiId);
+                Node isExistApi = nodeService.findOne(apiId);
                 if(isExistApi==null){
                     createApi(apiReportData,workspaceId);
                     ++add;
@@ -104,10 +109,8 @@ public class DocletReportServicelmpl implements DocletReportService {
         //如果查询不到分组，新建分组
         Category isExistCategory = categoryService.findCategory(id);
         if(isExistCategory==null){
-            category.setId(id);
             categoryService.createCategory(category);
         }else {
-            category.setId(id);
             categoryService.updateCategory(category);
         }
 
@@ -126,7 +129,7 @@ public class DocletReportServicelmpl implements DocletReportService {
         //创建基础
         HttpApi httpApi = apiReport.getApiBase();
         httpApi.setId(apiId);
-        Node node = new Node();
+        Node node = httpApi.getNode();
         Workspace workspace1 = new Workspace();
         workspace1.setId(workspaceId);
         node.setWorkspace(workspace1);

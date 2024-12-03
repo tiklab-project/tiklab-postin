@@ -53,12 +53,17 @@ public class CategoryServiceImpl implements CategoryService {
     public String createCategory(@NotNull @Valid Category category) {
         String id = postInUnit.generateId();
 
+        if(category.getId()==null){
+            category.setId(id);
+        }
+
         CategoryEntity categoryEntity = BeanMapper.map(category, CategoryEntity.class);
-        categoryEntity.setId(id);
         String categoryId = categoryDao.createCategory(categoryEntity);
 
         Node node = category.getNode();
-        node.setId(id);
+        if(node.getId()==null){
+            node.setId(categoryId);
+        }
         node.setType(MagicValue.CATEGORY);
         nodeService.createNode(node);
 
@@ -100,8 +105,10 @@ public class CategoryServiceImpl implements CategoryService {
         Category category = findOne(id);
         joinTemplate.joinQuery(category);
 
-        Node node = nodeService.findNode(id);
-        category.setNode(node);
+        if(category!=null){
+            Node node = nodeService.findNode(id);
+            category.setNode(node);
+        }
 
         return category;
     }

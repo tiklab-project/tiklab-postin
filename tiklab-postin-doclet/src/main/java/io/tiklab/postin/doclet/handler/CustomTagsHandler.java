@@ -150,11 +150,15 @@ public class CustomTagsHandler implements Doclet {
      */
     private JSONObject getCategoryJson(Map<String, String> classMap, String categoryId){
 
-        JSONObject categoryJson = new JSONObject();
+        JSONObject nodeJson = new JSONObject();
+        nodeJson.put("id",categoryId);
+        nodeJson.put("name",classMap.get("groupName"));
         JSONObject workspaceJson = new JSONObject();
         workspaceJson.put("id", DocletApplication.workspaceId);
-        categoryJson.put("workspace",workspaceJson);
-        categoryJson.put("name",classMap.get("groupName"));
+        nodeJson.put("workspace",workspaceJson);
+
+        JSONObject categoryJson = new JSONObject();
+        categoryJson.put("node",nodeJson);
         categoryJson.put("id",categoryId);
 
         return categoryJson;

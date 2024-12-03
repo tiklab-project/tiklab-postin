@@ -20,18 +20,20 @@ public class ReportData {
      */
     public static JSONObject getHttpApiJson(JSONObject methodJson, Map<String, String> classMap, String categoryId){
 
-        JSONObject httpApiJson = new JSONObject();
         JSONObject apixJson = new JSONObject();
-        JSONObject categoryJson = new JSONObject();
-        categoryJson.put("id",categoryId);
-        apixJson.put("category",categoryJson);
-        apixJson.put("name",methodJson.getString("name"));
-        apixJson.put("methodType",methodJson.getString("methodType"));
+        apixJson.put("categoryId",categoryId);
         apixJson.put("protocolType",classMap.get("protocol"));
         apixJson.put("path",methodJson.getString("path"));
+
+        JSONObject nodeJson = new JSONObject();
+        nodeJson.put("methodType",methodJson.getString("methodType"));
+        nodeJson.put("name",methodJson.getString("name"));
+        nodeJson.put("parentId",categoryId);
+
+        JSONObject httpApiJson = new JSONObject();
         httpApiJson.put("apix",apixJson);
-//        httpApiJson.put("path",methodJson.getString("path"));
-        httpApiJson.put("methodType",methodJson.getString("methodType"));
+        httpApiJson.put("path",methodJson.getString("path"));
+        httpApiJson.put("node",nodeJson);
 
         return httpApiJson;
     }
