@@ -88,6 +88,7 @@ public class GatewayFilterAutoConfiguration{
                         "/eam/auth/login",
                         "/message/messageItem/syncUpdateMessage",
                         "/message/messageItem/syncDeleteMessage",
+                        "/init/install/findStatus"
 
                 })
                 .ignorePreUrls(new String[]{
