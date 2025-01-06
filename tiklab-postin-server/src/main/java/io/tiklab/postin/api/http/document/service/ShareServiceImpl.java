@@ -1,5 +1,8 @@
 package io.tiklab.postin.api.http.document.service;
 
+import io.tiklab.dal.jpa.criterial.condition.DeleteCondition;
+import io.tiklab.dal.jpa.criterial.conditionbuilder.DeleteBuilders;
+import io.tiklab.postin.api.apix.entity.QueryParamEntity;
 import io.tiklab.postin.api.ws.ws.model.WSApi;
 import io.tiklab.postin.api.ws.ws.service.WSApiService;
 import io.tiklab.postin.node.model.Node;
@@ -81,6 +84,14 @@ public class ShareServiceImpl implements ShareService {
     @Override
     public void deleteShare(@NotNull String id) {
         shareDao.deleteShare(id);
+    }
+
+    @Override
+    public void deleteShareByApiId(String apiId) {
+        DeleteCondition deleteCondition = DeleteBuilders.createDelete(ShareEntity.class)
+                .eq("targetId", apiId)
+                .get();
+        shareDao.deleteShare(deleteCondition);
     }
 
     @Override

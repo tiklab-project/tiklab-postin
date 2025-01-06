@@ -14,6 +14,7 @@ import io.tiklab.postin.api.http.mock.service.ResponseHeaderMockService;
 import io.tiklab.postin.api.http.mock.service.ResponseMockService;
 import io.tiklab.postin.api.http.mock.service.ResponseResultMockService;
 import io.tiklab.core.exception.ApplicationException;
+import io.tiklab.postin.common.ErrorCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -223,7 +224,7 @@ public class MockServletResponse {
             ServletOutputStream servletOutputStream = response.getOutputStream();
             servletOutputStream.write(bodyData.getBytes("UTF-8"));
         }catch (Exception e){
-            throw new ApplicationException("set response body error :"+e);
+            throw new ApplicationException(ErrorCode.EXECUTE_ERROR,"set response body error :"+e.getMessage());
         }
 
     }

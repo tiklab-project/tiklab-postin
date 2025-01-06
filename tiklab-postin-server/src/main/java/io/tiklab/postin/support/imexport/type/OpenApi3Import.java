@@ -13,6 +13,7 @@ import io.tiklab.postin.api.http.definition.model.HttpApi;
 import io.tiklab.postin.api.http.definition.service.*;
 import io.tiklab.postin.category.model.Category;
 import io.tiklab.postin.category.service.CategoryService;
+import io.tiklab.postin.common.ErrorCode;
 import io.tiklab.postin.common.MagicValue;
 import io.tiklab.postin.node.model.Node;
 import io.tiklab.postin.support.imexport.common.FunctionImport;
@@ -96,7 +97,7 @@ public class OpenApi3Import {
 
             analysisData(allJson,categoryIdAndTag,workspaceId);
         }catch (Exception e){
-            throw new ApplicationException("解析失败",e);
+            throw new ApplicationException(ErrorCode.IMPORT_ERROR,e.getMessage());
         }
     }
 

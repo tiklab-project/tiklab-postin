@@ -52,6 +52,8 @@ public class ShareDao{
         jpaTemplate.delete(ShareEntity.class,id);
     }
 
+
+
     public void deleteShare(DeleteCondition deleteCondition){
         jpaTemplate.delete(deleteCondition);
     }

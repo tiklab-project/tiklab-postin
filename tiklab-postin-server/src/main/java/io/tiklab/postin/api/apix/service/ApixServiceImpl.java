@@ -2,6 +2,7 @@ package io.tiklab.postin.api.apix.service;
 
 import io.tiklab.postin.api.apix.entity.ApiListEntity;
 import io.tiklab.postin.api.apix.model.*;
+import io.tiklab.postin.api.http.document.service.ShareService;
 import io.tiklab.postin.common.PostInUnit;
 import io.tiklab.postin.api.apix.dao.ApixDao;
 import io.tiklab.postin.api.apix.entity.ApixEntity;
@@ -60,6 +61,9 @@ public class ApixServiceImpl implements ApixService {
 
     @Autowired
     NodeService nodeService;
+
+    @Autowired
+    ShareService shareService;
 
     @Override
     public String createApix(@NotNull @Valid Apix apix) {
@@ -140,6 +144,9 @@ public class ApixServiceImpl implements ApixService {
 
         //删除接口
         apixDao.deleteApix(id);
+
+        //删除分享
+        shareService.deleteShareByApiId(id);
 
         //删除索引
 //        disClient.delete(Apix.class,id);

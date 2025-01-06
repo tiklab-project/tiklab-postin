@@ -1,6 +1,7 @@
 package io.tiklab.postin.support.imexport.controller;
 
 import io.tiklab.core.exception.ApplicationException;
+import io.tiklab.postin.common.ErrorCode;
 import io.tiklab.postin.support.imexport.service.ImportService;
 import io.tiklab.core.Result;
 import org.slf4j.Logger;
@@ -36,7 +37,7 @@ public class ImportController {
                 importService.importData(workspaceId,inputStream,type);
             }
         } catch (IOException e) {
-            throw new ApplicationException(e);
+            throw new ApplicationException(ErrorCode.IMPORT_ERROR,e.getMessage());
         }
 
         return Result.ok();
@@ -50,7 +51,7 @@ public class ImportController {
                 importService.importReport(workspaceId,inputStream);
             }
         } catch (IOException e) {
-            throw new ApplicationException(e);
+            throw new ApplicationException(ErrorCode.IMPORT_ERROR,e.getMessage());
         }
 
         return Result.ok();

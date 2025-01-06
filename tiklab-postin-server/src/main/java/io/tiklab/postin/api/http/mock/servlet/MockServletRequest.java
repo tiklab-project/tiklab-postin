@@ -11,6 +11,7 @@ import io.tiklab.postin.api.http.mock.service.*;
 import io.tiklab.postin.category.model.Category;
 import io.tiklab.postin.category.model.CategoryQuery;
 import io.tiklab.postin.category.service.CategoryService;
+import io.tiklab.postin.common.ErrorCode;
 import io.tiklab.postin.common.MagicValue;
 import io.tiklab.postin.node.model.Node;
 import io.tiklab.postin.node.model.NodeQuery;
@@ -194,7 +195,7 @@ public class MockServletRequest {
                 }
             }
         } catch (IOException e) {
-            throw new ApplicationException(e);
+            throw new ApplicationException(ErrorCode.NOT_FIND_CODE,e.getMessage());
         }
         return formdataList;
     }

@@ -1,6 +1,8 @@
 package io.tiklab.postin.support.sendrequest.util;
 
+import io.tiklab.core.exception.ApplicationException;
 import io.tiklab.core.exception.SystemException;
+import io.tiklab.postin.common.ErrorCode;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +32,7 @@ public class HttpMethodUtils {
         }else if("trace".equals(method)){
             return HttpMethod.TRACE;
         }else{
-            throw new SystemException("not support http method type:" + method);
+            throw new ApplicationException(ErrorCode.NOT_FIND_CODE,"not support http method type:" + method);
         }
     }
 }

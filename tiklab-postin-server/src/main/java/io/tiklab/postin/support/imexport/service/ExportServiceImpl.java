@@ -14,6 +14,7 @@ import io.tiklab.postin.api.ws.ws.model.WSApi;
 import io.tiklab.postin.api.ws.ws.service.WSApiService;
 import io.tiklab.postin.category.model.Category;
 import io.tiklab.postin.category.service.CategoryService;
+import io.tiklab.postin.common.ErrorCode;
 import io.tiklab.postin.common.MagicValue;
 import io.tiklab.postin.node.model.Node;
 import io.tiklab.postin.node.model.NodeQuery;
@@ -76,7 +77,7 @@ public class ExportServiceImpl implements ExportService {
 
             template = new Template("exportHtml.ftl", tplReader, configuration);
         } catch (IOException e) {
-            throw new ApplicationException("Error while loading template", e);
+            throw new ApplicationException(ErrorCode.EXPORT_ERROR,"Error while generating HTML :"+e.getMessage());
         }
     }
 
@@ -91,7 +92,7 @@ public class ExportServiceImpl implements ExportService {
             dataModel.put("jsonData", data);
             template.process(dataModel, writer);
         } catch (TemplateException | IOException e) {
-            throw new ApplicationException("Error while generating HTML", e);
+            throw new ApplicationException(ErrorCode.EXPORT_ERROR,"Error while generating HTML :"+e.getMessage());
         }
 
         return writer.toString();

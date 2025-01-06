@@ -3,6 +3,7 @@ package io.tiklab.postin.support.imexport.type;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import io.tiklab.postin.common.ErrorCode;
 import io.tiklab.postin.node.model.Node;
 import io.tiklab.postin.support.imexport.common.FunctionImport;
 import io.tiklab.core.exception.ApplicationException;
@@ -92,7 +93,7 @@ public class PostmanImport {
 
             analysisData(jsonObject,categoryId);
         }catch (Exception e){
-            throw new ApplicationException("解析失败",e);
+            throw new ApplicationException(ErrorCode.IMPORT_ERROR,e.getMessage());
         }
 
     }

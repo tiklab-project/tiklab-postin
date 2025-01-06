@@ -42,6 +42,13 @@ public interface ShareService {
     * @param id
     */
     void deleteShare(@NotNull String id);
+
+    /**
+     * 通过apiId删除分享
+     * @param apiId
+     */
+    void deleteShareByApiId(String apiId);
+
     @FindOne
     Share findOne(@NotNull String id);
     @FindList
