@@ -7,9 +7,9 @@ spring:
 
 DATA_HOME:
 
-#io.tiklab.teston.web
+#
 server:
-  port: 8080
+  port: 8300
 
 #dal
 jdbc:
