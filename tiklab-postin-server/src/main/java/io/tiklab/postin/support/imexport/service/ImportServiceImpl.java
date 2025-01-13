@@ -1,9 +1,9 @@
 package io.tiklab.postin.support.imexport.service;
 
-import io.tiklab.postin.support.imexport.type.OpenApi3Import;
-import io.tiklab.postin.support.imexport.type.PostmanImport;
+import io.tiklab.postin.support.imexport.type.openapi.OpenApi;
+import io.tiklab.postin.support.imexport.type.postman.PostmanImport;
 import io.tiklab.postin.support.imexport.type.ReportImport;
-import io.tiklab.postin.support.imexport.type.Swagger2Import;
+import io.tiklab.postin.support.imexport.type.swagger.Swagger2Import;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +28,7 @@ public class ImportServiceImpl implements ImportService {
     Swagger2Import swagger2Import;
 
     @Autowired
-    OpenApi3Import api3Import;
+    OpenApi api3Import;
 
     @Override
     public void importData(String workspaceId, InputStream stream, String type) throws IOException {
@@ -40,7 +40,7 @@ public class ImportServiceImpl implements ImportService {
                 swagger2Import.analysisSwagger2(workspaceId,stream);
                 break;
             case "openapi3":
-                api3Import.analysisOpenApi3(workspaceId,stream);
+                api3Import.analysisOpenApi(workspaceId,stream);
                 break;
             default:
                 break;

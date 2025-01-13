@@ -1,4 +1,4 @@
-package io.tiklab.postin.support.imexport.type;
+package io.tiklab.postin.support.imexport.type.swagger;
 
 
 import com.alibaba.fastjson.JSONArray;
@@ -6,10 +6,7 @@ import com.alibaba.fastjson.JSONObject;
 import io.tiklab.core.exception.ApplicationException;
 import io.tiklab.postin.api.apix.model.*;
 import io.tiklab.postin.api.apix.service.*;
-import io.tiklab.postin.api.http.definition.model.ApiResponse;
-import io.tiklab.postin.api.http.definition.model.FormParam;
-import io.tiklab.postin.api.http.definition.model.FormUrlencoded;
-import io.tiklab.postin.api.http.definition.model.HttpApi;
+import io.tiklab.postin.api.http.definition.model.*;
 import io.tiklab.postin.api.http.definition.service.*;
 import io.tiklab.postin.category.model.Category;
 import io.tiklab.postin.category.service.CategoryService;
@@ -26,10 +23,10 @@ import java.util.HashMap;
 import java.util.Set;
 
 /**
- * OpenApi3 导入
+ * swagger2 导入
  */
 @Component
-public class OpenApi3Import {
+public class Swagger2Import {
 
     @Autowired
     FunctionImport functionImport;
@@ -64,13 +61,18 @@ public class OpenApi3Import {
     @Autowired
     ApiResponseService apiResponseService;
 
+    @Autowired
+    JsonResponseService jsonResponseService;
+
+
+    private String workspaceIds;
 
 
     /**
-     * OpenApi3解析
+     * swagger2解析
      */
-    public void analysisOpenApi3( String workspaceId, InputStream stream) {
-
+    public void analysisSwagger2( String workspaceId, InputStream stream) {
+        workspaceIds =workspaceId;
         try{
             JSONObject allJson =functionImport.getJsonData(stream);
 
@@ -95,7 +97,7 @@ public class OpenApi3Import {
                 categoryIdAndTag.put(categoryName,categoryId);
             }
 
-            analysisData(allJson,categoryIdAndTag,workspaceId);
+            analysisData(allJson,categoryIdAndTag);
         }catch (Exception e){
             throw new ApplicationException(ErrorCode.IMPORT_ERROR,e.getMessage());
         }
@@ -104,7 +106,7 @@ public class OpenApi3Import {
     /**
      *  解析数据
      */
-    private void analysisData(JSONObject allJson, HashMap<String, String> categoryIdAndTag,String workspaceId){
+    private void analysisData(JSONObject allJson, HashMap<String, String> categoryIdAndTag){
         JSONObject paths = allJson.getJSONObject("paths");
 
         //path
@@ -118,20 +120,15 @@ public class OpenApi3Import {
                 JSONObject methodInfo = apiInfo.getJSONObject(methodKey);
                 //接口名
                 String name = methodInfo.getString("summary");
-
                 //描述
-                String desc = "";
-                if (methodInfo.containsKey("description") && methodInfo.getString("description") != null) {
-                    desc = methodInfo.getString("description");
-                }
-
+                String desc = methodInfo.getString("description");
 
                 String path = key;
                 String method = methodKey;
                 String tag = methodInfo.getJSONArray("tags").getString(0);
                 String categoryId = categoryIdAndTag.get(tag);
                 //创建接口
-                String apiId = addApi(workspaceId,categoryId, name, path, method, desc);
+                String apiId = addApi(categoryId, name, path, method, desc);
 
                 //解析请求参数
                 analysisRequest(methodInfo,apiId,allJson);
@@ -146,14 +143,7 @@ public class OpenApi3Import {
     /**
      * 添加接口
      */
-    private String addApi(
-            String workspaceId,
-            String categoryId,
-            String name,
-            String path,
-            String method,
-            String desc
-    ){
+    private String addApi(String categoryId,String name,String path,String method,String desc){
         HttpApi httpApi = new HttpApi();
 
         Apix apix = new Apix();
@@ -163,7 +153,7 @@ public class OpenApi3Import {
 
         Node node = new Node();
         Workspace workspace1 = new Workspace();
-        workspace1.setId(workspaceId);
+        workspace1.setId(workspaceIds);
         node.setWorkspace(workspace1);
         node.setName(name);
         node.setParentId(categoryId);
@@ -182,56 +172,37 @@ public class OpenApi3Import {
      * @param allJson
      */
     private void analysisRequest(JSONObject methodInfo, String apiId, JSONObject allJson){
-        // parameters
-        if(methodInfo.containsKey("parameters")){
-            JSONArray parameters = methodInfo.getJSONArray("parameters");
-            for (int i = 0; i < parameters.size(); i++) {
-                JSONObject parameter = parameters.getJSONObject(i);
-
-                String in = parameter.getString("in");
-                switch (in){
-                    case "path":
-                        break;
-                    case "query":
-                        addQuery(parameter,apiId);
-                        break;
-                    case "header":
-                        addHeader(parameter,apiId);
-                        break;
-
-                }
-            }
+        //请求类型
+        String mimeType;
+        if(methodInfo.containsKey("consumes")){
+             mimeType = methodInfo.getJSONArray("consumes").getString(0);
+        }else {
+             mimeType = "none";
         }
+        addRequest(mimeType,apiId);
 
+        JSONArray parameters = methodInfo.getJSONArray("parameters");
+        for (int i = 0; i < parameters.size(); i++) {
+            JSONObject parameter = parameters.getJSONObject(i);
 
-        //requestBody
-        if(methodInfo.containsKey("requestBody")){
-            JSONObject requestBody = methodInfo.getJSONObject("requestBody");
-            if(requestBody.containsKey("content")){
-
-                JSONObject content = requestBody.getJSONObject("content");
-
-                if(content.keySet().size()==0){
-                    addRequest("none",apiId);
-                    return;
-                }
-
-                for (String mediaType : content.keySet()) {
-                    addRequest(mediaType,apiId);
-
-                    switch (mediaType){
-                        case "application/x-www-form-urlencoded":
-                            addFormUrlencoded(content.getJSONObject(mediaType),apiId,allJson);
-                            break;
-                        case "multipart/form-data":
-                            addFormData(content.getJSONObject(mediaType),apiId);
-                            break;
-                        default:
-                            addRaw(content.getJSONObject(mediaType),apiId,mediaType,allJson);
-                            break;
-                    }
-                }
+            String in = parameter.getString("in");
+            switch (in){
+                case "path":
+                    break;
+                case "query":
+                    addQuery(parameter,apiId);
+                    break;
+                case "body":
+                    addRaw(parameter,apiId,mimeType,allJson);
+                    break;
+                case "header":
+                    addHeader(parameter,apiId);
+                    break;
+                case "formData":
+                    addFormData(parameter,apiId);
+                    break;
             }
+
         }
     }
 
@@ -243,9 +214,7 @@ public class OpenApi3Import {
             requestHeader.setApiId(methodId);
             requestHeader.setHeaderName(headerObj.getString("name"));
             requestHeader.setRequired(headerObj.getBoolean("required")?1:0);
-            if(headerObj.containsKey("description")){
-                requestHeader.setDesc(headerObj.getString("description"));
-            }
+            requestHeader.setDesc(headerObj.getString("description"));
 
             requestHeaderService.createRequestHeader(requestHeader);
 
@@ -255,30 +224,27 @@ public class OpenApi3Import {
      * 创建query参数
      */
     private void addQuery(JSONObject queryObj, String methodId){
-        QueryParam queryParam = new QueryParam();
-        queryParam.setApiId(methodId);
-        queryParam.setParamName(queryObj.getString("name"));
-        queryParam.setRequired(queryObj.getBoolean("required")?1:0);
-        if(queryObj.containsKey("description")) {
+            QueryParam queryParam = new QueryParam();
+            queryParam.setApiId(methodId);
+            queryParam.setParamName(queryObj.getString("name"));
+            queryParam.setRequired(queryObj.getBoolean("required")?1:0);
             queryParam.setDesc(queryObj.getString("description"));
-        }
 
-        queryParamService.createQueryParam(queryParam);
+            queryParamService.createQueryParam(queryParam);
+
     }
 
     /**
      * 导入请求参数
-     * @param mediaType
+     * @param consumes
      * @param methodId
      */
-    public void addRequest(String mediaType,String methodId){
+    public void addRequest(String consumes,String methodId){
         String bodyType;
-        switch (mediaType){
+        switch (consumes){
             case "multipart/form-data":
-                bodyType= MagicValue.REQUEST_BODY_TYPE_FORMDATA;
-                break;
             case "application/x-www-form-urlencoded":
-                bodyType = MagicValue.REQUEST_BODY_TYPE_FORM_URLENCODED;
+                bodyType= MagicValue.REQUEST_BODY_TYPE_FORMDATA;
                 break;
             default:
                 bodyType= "raw";
@@ -298,85 +264,33 @@ public class OpenApi3Import {
      * @param methodId
      */
     private void addFormData(JSONObject formParamObj, String methodId){
-        JSONObject schema = formParamObj.getJSONObject("schema");
+        FormParam formParams = new FormParam();
 
-        if (schema != null && schema.containsKey("properties")) {
-            JSONObject properties = schema.getJSONObject("properties");
+        formParams.setHttp(new HttpApi().setId(methodId));
+        formParams.setParamName(formParamObj.getString("name"));
+        formParams.setRequired(formParamObj.getBoolean("required")?1:0);
+        formParams.setDataType(formParamObj.getString("type"));
+        formParams.setDesc(formParamObj.getString("description"));
 
-            for (String key : properties.keySet()) {
-                JSONObject field = properties.getJSONObject(key);
-
-                FormParam formParams = new FormParam();
-
-                formParams.setHttp(new HttpApi().setId(methodId));
-                formParams.setParamName(key); // 设置参数名称
-
-                // 检查并设置字段类型
-                if (field.containsKey("type")) {
-                    formParams.setDataType(field.getString("type"));
-                } else {
-                    formParams.setDataType("string"); // 默认设置为 "string"
-                }
-
-                // 检查并设置是否必填
-                if (field.containsKey("required")) {
-                    formParams.setRequired(field.getBoolean("required") ? 1 : 0);
-                } else {
-                    formParams.setRequired(0); // 默认为非必填
-                }
-
-                // 检查并设置字段描述
-                if (field.containsKey("description")) {
-                    formParams.setDesc(field.getString("description"));
-                } else {
-                    formParams.setDesc(""); // 如果没有描述，设置为空字符串
-                }
-
-                formParamService.createFormParam(formParams);
-            }
-        }
+        formParamService.createFormParam(formParams);
     }
 
     /**
      * 解析formurl
      * @param urlencodedObj
      * @param methodId
-     * @param allJson
      */
-    private void addFormUrlencoded(JSONObject urlencodedObj, String methodId, JSONObject allJson) {
-        JSONObject schema = urlencodedObj.getJSONObject("schema");
+    private void addFormUrlencoded(JSONObject urlencodedObj, String methodId){
+        FormUrlencoded formUrlencoded = new FormUrlencoded();
 
-        if (schema != null && schema.containsKey("properties")) {
-            JSONObject properties = schema.getJSONObject("properties");
+        formUrlencoded.setHttp(new HttpApi().setId(methodId));
+        formUrlencoded.setParamName(urlencodedObj.getString("name"));
+        formUrlencoded.setDataType(urlencodedObj.getString("type"));
+        formUrlencoded.setRequired(urlencodedObj.getBoolean("required")?1:0);
+        formUrlencoded.setDesc(urlencodedObj.getString("description"));
 
-            for (String key : properties.keySet()) {
-                JSONObject field = properties.getJSONObject(key);
-
-                FormUrlencoded formUrlencoded = new FormUrlencoded();
-
-                formUrlencoded.setHttp(new HttpApi().setId(methodId));
-                formUrlencoded.setParamName(key); // 设置参数名称
-                formUrlencoded.setDataType(field.getString("type")); // 获取字段的类型
-
-                // 检查并设置是否必填
-                if (field.containsKey("required")) {
-                    formUrlencoded.setRequired(field.getBoolean("required") ? 1 : 0);
-                } else {
-                    formUrlencoded.setRequired(0); // 默认为非必填
-                }
-
-                // 检查并设置字段描述
-                if (field.containsKey("description")) {
-                    formUrlencoded.setDesc(field.getString("description"));
-                } else {
-                    formUrlencoded.setDesc(""); // 如果没有描述，设置为空字符串
-                }
-
-                formUrlencodedService.createFormUrlencoded(formUrlencoded);
-            }
-        }
+        formUrlencodedService.createFormUrlencoded(formUrlencoded);
     }
-
 
     /**
      *  解析 raw
@@ -402,6 +316,7 @@ public class OpenApi3Import {
         JSONObject responses = methodInfo.getJSONObject("responses");
         for (String key : responses.keySet()) {
             JSONObject responseItem = responses.getJSONObject(key);
+
             ApiResponse apiResponse = new ApiResponse();
             apiResponse.setName(key);
             apiResponse.setId(apiId);
@@ -410,24 +325,12 @@ public class OpenApi3Import {
                 apiResponse.setHttpCode(200);
             }else {
                 apiResponse.setHttpCode(Integer.parseInt(key));
+
             }
-
-            if(responseItem.containsKey("content")){
-                JSONObject content = responseItem.getJSONObject("content");
-
-                // 获取 content 的第一个 mediaType
-                String firstMediaType = content.keySet().iterator().next();
-
-                // 获取第一个 mediaType 对应的 schema
-                JSONObject firstSchema = content.getJSONObject(firstMediaType).getJSONObject("schema");
-                String txt = processSchema(firstSchema, allJson);
-
-                // 设置并保存 API 响应
-                apiResponse.setRawText(txt);
-                apiResponse.setDataType("raw");
-                apiResponseService.createApiResponse(apiResponse);
-            }
-
+            String txt = processSchema(responseItem, allJson);
+            apiResponse.setRawText(txt);
+            apiResponse.setDataType("raw");
+            apiResponseService.createApiResponse(apiResponse);
         }
 
     }
@@ -453,7 +356,7 @@ public class OpenApi3Import {
                         processSchema = jsonArray.toJSONString();
                         break;
                     default:
-                        processSchema = new JSONObject().toJSONString();
+                         processSchema = new JSONObject().toJSONString();
                         break;
                 }
             }else {
@@ -472,11 +375,11 @@ public class OpenApi3Import {
     /**
      * 递归方法，将定义对象转换为 JSON
      */
-    private JSONObject convertDefinitionToJSON(JSONObject schema, JSONObject definitions) {
+    private JSONObject convertDefinitionToJSON(JSONObject definition, JSONObject definitions) {
         JSONObject jsonObject = new JSONObject();
 
-        if (schema.containsKey("properties")) {
-            JSONObject properties = schema.getJSONObject("properties");
+        if (definition.containsKey("properties")) {
+            JSONObject properties = definition.getJSONObject("properties");
             for (String key : properties.keySet()) {
                 JSONObject property = properties.getJSONObject(key);
 
@@ -545,8 +448,10 @@ public class OpenApi3Import {
      * @return
      */
     private JSONObject getModelByName(String ref, JSONObject definitions) {
+
         String definitionName = ref.substring(ref.lastIndexOf('/') + 1);
         JSONObject definitionObj = definitions.getJSONObject(definitionName);
         return definitionObj;
     }
+
 }

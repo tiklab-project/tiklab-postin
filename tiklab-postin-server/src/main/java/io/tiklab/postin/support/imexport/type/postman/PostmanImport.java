@@ -1,4 +1,4 @@
-package io.tiklab.postin.support.imexport.type;
+package io.tiklab.postin.support.imexport.type.postman;
 
 
 import com.alibaba.fastjson.JSONArray;
