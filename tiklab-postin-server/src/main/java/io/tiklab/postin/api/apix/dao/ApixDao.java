@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -116,22 +117,31 @@ public class ApixDao {
 
 
     public Pagination<ApiListEntity> findApiPage(ApixQuery apixQuery) {
-        String sql = "SELECT pn.id, pn.name, pn.create_time, pa.protocol_type, pn.method_type,pa.executor_id,pa.path,pa.status_id\n" +
-                "FROM  postin_node pn\n" +
-                "JOIN  postin_apix pa\n" +
-                "ON pn.id = pa.id \n" +
-                "WHERE pn.parent_id = ? ";
+        StringBuilder sqlBuilder = new StringBuilder();
+        sqlBuilder.append("SELECT pn.id, pn.name, pn.create_time, pa.protocol_type, pn.method_type, pa.executor_id, pa.path, pa.status_id ");
+        sqlBuilder.append("FROM postin_node pn ");
+        sqlBuilder.append("JOIN postin_apix pa ON pn.id = pa.id ");
+        sqlBuilder.append("WHERE pn.parent_id = ? ");
 
-        if(apixQuery.getName()!=null){
-            sql += " AND pn.name LIKE '%"+apixQuery.getName()+"%'";
+        List<Object> params = new ArrayList<>();
+        params.add(apixQuery.getCategoryId());
+
+        if (apixQuery.getName() != null) {
+            sqlBuilder.append(" AND pn.name LIKE ? ");
+            params.add("%" + apixQuery.getName() + "%");
         }
 
+        String sql = sqlBuilder.toString();
 
-        Object[] params = {apixQuery.getCategoryId()};
-        Pagination<ApiListEntity> page = jpaTemplate.getJdbcTemplate().findPage(sql, params, apixQuery.getPageParam(), new BeanPropertyRowMapper<>(ApiListEntity.class));
+        Pagination<ApiListEntity> page = jpaTemplate.getJdbcTemplate().findPage(
+                sql,
+                params.toArray(),
+                apixQuery.getPageParam(),
+                new BeanPropertyRowMapper<>(ApiListEntity.class)
+        );
+
         return page;
     }
-
 
 
 }
