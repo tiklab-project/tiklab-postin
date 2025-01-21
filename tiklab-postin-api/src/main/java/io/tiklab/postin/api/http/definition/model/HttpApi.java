@@ -43,6 +43,9 @@ public class HttpApi extends BaseModel {
     @ApiProperty(name = "queryList",desc="查询参数列表")
     private List<QueryParam> queryList;
 
+    @ApiProperty(name = "pathList",desc="路径参数列表")
+    private List<PathParam> pathList;
+
     @ApiProperty(name = "request",desc="请求")
     private ApiRequest request;
 
@@ -99,6 +102,14 @@ public class HttpApi extends BaseModel {
 
     public ApiRequest getRequest() {
         return request;
+    }
+
+    public List<PathParam> getPathList() {
+        return pathList;
+    }
+
+    public void setPathList(List<PathParam> pathList) {
+        this.pathList = pathList;
     }
 
     public void setRequest(ApiRequest request) {

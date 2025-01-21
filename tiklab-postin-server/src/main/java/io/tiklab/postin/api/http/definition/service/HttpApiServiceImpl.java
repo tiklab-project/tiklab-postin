@@ -54,6 +54,9 @@ public class HttpApiServiceImpl implements HttpApiService {
     QueryParamService queryParamService;
 
     @Autowired
+    PathParamService pathParamService;
+
+    @Autowired
     ApiRequestService apiRequestService;
 
     @Autowired
@@ -231,6 +234,14 @@ public class HttpApiServiceImpl implements HttpApiService {
         List<QueryParam> queryParamList = queryParamService.findQueryParamList(new QueryParamQuery().setApiId(httpId));
         if(CollectionUtils.isNotEmpty(queryParamList)){
             httpApi.setQueryList(queryParamList);
+        }
+
+        //获取路径参数的数据
+        PathParamQuery pathParamQuery = new PathParamQuery();
+        pathParamQuery.setApiId(httpId);
+        List<PathParam> pathParamList = pathParamService.findPathParamList(pathParamQuery);
+        if(CollectionUtils.isNotEmpty(pathParamList)){
+            httpApi.setPathList(pathParamList);
         }
 
         //获取请求体的类型
