@@ -8,14 +8,8 @@ import io.tiklab.postin.api.apix.service.ApiRequestService;
 import io.tiklab.postin.api.apix.service.QueryParamService;
 import io.tiklab.postin.api.apix.service.RawParamService;
 import io.tiklab.postin.api.apix.service.RequestHeaderService;
-import io.tiklab.postin.api.http.definition.model.ApiResponse;
-import io.tiklab.postin.api.http.definition.model.FormParam;
-import io.tiklab.postin.api.http.definition.model.FormUrlencoded;
-import io.tiklab.postin.api.http.definition.model.HttpApi;
-import io.tiklab.postin.api.http.definition.service.ApiResponseService;
-import io.tiklab.postin.api.http.definition.service.FormParamService;
-import io.tiklab.postin.api.http.definition.service.FormUrlencodedService;
-import io.tiklab.postin.api.http.definition.service.HttpApiService;
+import io.tiklab.postin.api.http.definition.model.*;
+import io.tiklab.postin.api.http.definition.service.*;
 import io.tiklab.postin.category.model.Category;
 import io.tiklab.postin.category.service.CategoryService;
 import io.tiklab.postin.common.ErrorCode;
@@ -61,6 +55,9 @@ public class OpenApi30XImport implements OpenApiProcessor {
     QueryParamService queryParamService;
 
     @Autowired
+    PathParamService pathParamService;
+
+    @Autowired
     ApiRequestService apiRequestService;
 
     @Autowired
@@ -97,7 +94,7 @@ public class OpenApi30XImport implements OpenApiProcessor {
             JSONArray tags = allJson.getJSONArray("tags");
             if (tags == null || tags.isEmpty()) {
                 // 创建一个默认分组
-                String defaultCategoryName = "Openapi";
+                String defaultCategoryName = openApiCommonFn.DEFAULT_CATEGORY_NAME;
 
                 Category category = new Category();
                 Node node = new Node();
@@ -143,25 +140,25 @@ public class OpenApi30XImport implements OpenApiProcessor {
         try {
             JSONObject paths = allJson.getJSONObject("paths");
             //path
-            for (String path : paths.keySet()) {
-                JSONObject apiInfo = paths.getJSONObject(path);
+            Set<String> keys = paths.keySet();
+            for (String key : keys) {
+                JSONObject apiInfo = paths.getJSONObject(key);
 
                 // 请求类型
                 Set<String> methodKeys = apiInfo.keySet();
-
-                // 检查是否有方法定义
-                if (methodKeys.isEmpty()) {
-                    continue;
-                }
-
                 for (String methodKey : methodKeys) {
                     JSONObject methodInfo = apiInfo.getJSONObject(methodKey);
                     //接口名
                     String name = methodInfo.getString("summary");
 
                     //描述
-                    String desc = openApiCommonFn.getDescription(methodInfo, "");
+                    String desc = "";
+                    if (methodInfo.containsKey("description") && methodInfo.getString("description") != null) {
+                        desc = methodInfo.getString("description");
+                    }
 
+
+                    String path = key;
                     String method = methodKey;
 
                     String tag;
@@ -174,13 +171,15 @@ public class OpenApi30XImport implements OpenApiProcessor {
 
 
                     String categoryId = categoryIdAndTag.get(tag);
-                    //创建接口
+                    //创建基础数据
                     String apiId = addApi(workspaceId,categoryId, name, path, method, desc);
+
                     //解析请求参数
                     analysisRequest(methodInfo,apiId,allJson);
 
                     //解析响应参数
                     analysisResponse(methodInfo,apiId,allJson);
+
                 }
             }
         }catch (Exception e){
@@ -208,6 +207,7 @@ public class OpenApi30XImport implements OpenApiProcessor {
         Apix apix = new Apix();
         apix.setPath(path);
         apix.setDesc(desc);
+        apix.setCategoryId(categoryId);
         httpApi.setApix(apix);
 
         Node node = new Node();
@@ -240,6 +240,7 @@ public class OpenApi30XImport implements OpenApiProcessor {
                 String in = parameter.getString("in");
                 switch (in){
                     case "path":
+                        addPath(parameter,apiId);
                         break;
                     case "query":
                         addQuery(parameter,apiId);
@@ -314,6 +315,63 @@ public class OpenApi30XImport implements OpenApiProcessor {
 
         queryParamService.createQueryParam(queryParam);
     }
+
+
+    private void addPath(JSONObject pathObj, String methodId) {
+        // 健壮性检查
+        if (pathObj == null || methodId == null) {
+            throw new ApplicationException(ErrorCode.IMPORT_ERROR,"Path object or method ID cannot be null");
+        }
+
+        // 创建 PathParam 对象
+        PathParam pathParam = new PathParam();
+        pathParam.setApiId(methodId);
+
+        // 设置 name
+        if (pathObj.containsKey("name")) {
+            pathParam.setName(pathObj.getString("name"));
+        } else {
+            throw new IllegalArgumentException("Path parameter must have a 'name' field");
+        }
+
+        // 设置 required
+        if (pathObj.containsKey("required")) {
+            pathParam.setRequired(pathObj.getBoolean("required") ? 1 : 0);
+        } else {
+            throw new IllegalArgumentException("Path parameter must have a 'required' field");
+        }
+
+        // 设置 schema
+        if (pathObj.containsKey("schema")) {
+            JSONObject schema = pathObj.getJSONObject("schema");
+
+            // 设置 dataType
+            if (schema.containsKey("type")) {
+                pathParam.setDataType(schema.getString("type"));
+            } else {
+                throw new IllegalArgumentException("Schema must have a 'type' field");
+            }
+
+            // 设置 value (example)
+            if (schema.containsKey("example")) {
+                pathParam.setValue(schema.getString("example"));
+            } else {
+                pathParam.setValue("");
+            }
+
+
+        } else {
+            throw new ApplicationException(ErrorCode.IMPORT_ERROR,"Path parameter must have a 'schema' field");
+        }
+
+        // 设置 description（可选）
+        if (pathObj.containsKey("description")) {
+            pathParam.setDesc(pathObj.getString("description"));
+        }
+
+        pathParamService.createPathParam(pathParam);
+    }
+
 
     /**
      * 导入请求参数

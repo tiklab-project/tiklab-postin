@@ -8,14 +8,8 @@ import io.tiklab.postin.api.apix.service.ApiRequestService;
 import io.tiklab.postin.api.apix.service.QueryParamService;
 import io.tiklab.postin.api.apix.service.RawParamService;
 import io.tiklab.postin.api.apix.service.RequestHeaderService;
-import io.tiklab.postin.api.http.definition.model.ApiResponse;
-import io.tiklab.postin.api.http.definition.model.FormParam;
-import io.tiklab.postin.api.http.definition.model.FormUrlencoded;
-import io.tiklab.postin.api.http.definition.model.HttpApi;
-import io.tiklab.postin.api.http.definition.service.ApiResponseService;
-import io.tiklab.postin.api.http.definition.service.FormParamService;
-import io.tiklab.postin.api.http.definition.service.FormUrlencodedService;
-import io.tiklab.postin.api.http.definition.service.HttpApiService;
+import io.tiklab.postin.api.http.definition.model.*;
+import io.tiklab.postin.api.http.definition.service.*;
 import io.tiklab.postin.category.model.Category;
 import io.tiklab.postin.category.service.CategoryService;
 import io.tiklab.postin.common.ErrorCode;
@@ -60,6 +54,10 @@ public class OpenApi31XImport implements OpenApiProcessor {
 
     @Autowired
     QueryParamService queryParamService;
+
+    @Autowired
+    PathParamService pathParamService;
+
 
     @Autowired
     ApiRequestService apiRequestService;
@@ -209,6 +207,7 @@ public class OpenApi31XImport implements OpenApiProcessor {
         Apix apix = new Apix();
         apix.setPath(path);
         apix.setDesc(desc);
+        apix.setCategoryId(categoryId);
         httpApi.setApix(apix);
 
         Node node = new Node();
@@ -241,6 +240,7 @@ public class OpenApi31XImport implements OpenApiProcessor {
                 String in = parameter.getString("in");
                 switch (in){
                     case "path":
+                        addPath(parameter,apiId);
                         break;
                     case "query":
                         addQuery(parameter,apiId);
@@ -315,6 +315,63 @@ public class OpenApi31XImport implements OpenApiProcessor {
 
         queryParamService.createQueryParam(queryParam);
     }
+
+
+    private void addPath(JSONObject pathObj, String methodId) {
+        // 健壮性检查
+        if (pathObj == null || methodId == null) {
+            throw new ApplicationException(ErrorCode.IMPORT_ERROR,"Path object or method ID cannot be null");
+        }
+
+        // 创建 PathParam 对象
+        PathParam pathParam = new PathParam();
+        pathParam.setApiId(methodId);
+
+        // 设置 name
+        if (pathObj.containsKey("name")) {
+            pathParam.setName(pathObj.getString("name"));
+        } else {
+            throw new IllegalArgumentException("Path parameter must have a 'name' field");
+        }
+
+        // 设置 required
+        if (pathObj.containsKey("required")) {
+            pathParam.setRequired(pathObj.getBoolean("required") ? 1 : 0);
+        } else {
+            throw new IllegalArgumentException("Path parameter must have a 'required' field");
+        }
+
+        // 设置 schema
+        if (pathObj.containsKey("schema")) {
+            JSONObject schema = pathObj.getJSONObject("schema");
+
+            // 设置 dataType
+            if (schema.containsKey("type")) {
+                pathParam.setDataType(schema.getString("type"));
+            } else {
+                throw new IllegalArgumentException("Schema must have a 'type' field");
+            }
+
+            // 设置 value (example)
+            if (schema.containsKey("example")) {
+                pathParam.setValue(schema.getString("example"));
+            } else {
+                pathParam.setValue("");
+            }
+
+
+        } else {
+            throw new ApplicationException(ErrorCode.IMPORT_ERROR,"Path parameter must have a 'schema' field");
+        }
+
+        // 设置 description（可选）
+        if (pathObj.containsKey("description")) {
+            pathParam.setDesc(pathObj.getString("description"));
+        }
+
+        pathParamService.createPathParam(pathParam);
+    }
+
 
     /**
      * 导入请求参数
