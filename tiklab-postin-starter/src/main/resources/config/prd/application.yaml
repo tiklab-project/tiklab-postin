@@ -1,21 +1,31 @@
-#application io.tiklab.postin.config
 app:
   name: postin
 spring:
   profiles:
     active: prd
 
-DATA_HOME: /opt/tiklab/postin/postin
-
-#io.tiklab.teston.web
 server:
   port: 8080
+
+APP_HOME: ${user.home}
+DATA_HOME: /opt/tiklab/tiklab-postin
 
 jdbc:
   driverClassName: org.postgresql.Driver
   url: jdbc:postgresql://172.13.1.13:5432/tiklab_postin?stringtype=unspecified
   username: postgres
   password: darth2020
+
+postgresql:
+  database: tiklab_postin
+  embbed:
+    enable: false
+  db:
+    port: 5432
+    username: postgres
+    password: darth2020
+    address: ${DATA_HOME}/postgresql
+
 
 #dcs 
 dcs:
@@ -29,26 +39,10 @@ dcs:
     database: dcs1
     expire: 7200
 
-#dfs config
-dfs:
-  server:
-    #    enabled: true
-    #    mode:server
-    port: 4000
-    datapath: ${DATA_HOME}/files
-  client:
-    url: 172.10.1.11:4000
-    bucket: ${app.name}
-
-
 soular:
   embbed:
     enable: false
   address:  http://eas-ce.tiklab.net
-
-#plugin 
-plugin:
-  path: ${DATA_HOME}/plugin
 
 #licences 
 licences:
@@ -56,12 +50,6 @@ licences:
 
 base:
   url:  http://postin-ce.tiklab.net
-
-
-file:
-  path:
-homes:
-  address: http://192.168.10.7
 
 backups:
   dir:  /data/postin
