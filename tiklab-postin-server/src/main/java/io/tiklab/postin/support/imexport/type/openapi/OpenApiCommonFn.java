@@ -49,126 +49,23 @@ public class OpenApiCommonFn {
         }
     }
 
-//    /**
-//     * jsonSchema 转换为json
-//     * @param parameter
-//     * @param allJson
-//     * @return
-//     */
-//    public String processSchema(JSONObject parameter, JSONObject allJson) {
-//        String processSchema = "";
-//
-//        if(parameter.containsKey("schema")){
-//            JSONObject schema = parameter.getJSONObject("schema");
-//
-//            JSONObject definitions = allJson.getJSONObject("definitions");
-//
-//            String type = schema.getString("type");
-//            if(type != null){
-//                switch (type){
-//                    case "array":
-//                        JSONObject items = schema.getJSONObject("items");
-//                        String itemsRef = items.getString("$ref");
-//                        JSONObject itemsDefinitionObj = getModelByName(itemsRef,definitions);
-//                        JSONObject itemsJson = convertDefinitionToJSON(itemsDefinitionObj, definitions);
-//                        JSONArray jsonArray = new JSONArray();
-//                        jsonArray.add(itemsJson);
-//                        processSchema = jsonArray.toJSONString();
-//                        break;
-//                    default:
-//                        processSchema = new JSONObject().toJSONString();
-//                        break;
-//                }
-//            }else {
-//                String ref = schema.getString("$ref");
-//                JSONObject definitionObj = getModelByName(ref,definitions);
-//                JSONObject jsonObject = convertDefinitionToJSON(definitionObj, definitions);
-//                processSchema = jsonObject.toJSONString();
-//            }
-//        }else {
-//            processSchema = new JSONObject().toJSONString();
-//        }
-//        return processSchema;
-//    }
-//
-//    /**
-//     * 递归方法，将定义对象转换为 JSON
-//     */
-//    private JSONObject convertDefinitionToJSON(JSONObject schema, JSONObject definitions) {
-//        JSONObject jsonObject = new JSONObject();
-//
-//        if (schema.containsKey("properties")) {
-//            JSONObject properties = schema.getJSONObject("properties");
-//            for (String key : properties.keySet()) {
-//                JSONObject property = properties.getJSONObject(key);
-//
-//                if (property.containsKey("type")) {
-//                    String type = property.getString("type");
-//
-//                    if ("object".equals(type) && property.containsKey("$ref")) {
-//                        String ref = property.getString("$ref");
-//                        String refDefinitionName = ref.substring(ref.lastIndexOf('/') + 1);
-//
-//                        if (definitions.containsKey(refDefinitionName)) {
-//                            JSONObject refDefinition = definitions.getJSONObject(refDefinitionName);
-//                            jsonObject.put(key, convertDefinitionToJSON(refDefinition, definitions));
-//                        } else {
-//                            jsonObject.put(key, new JSONObject()); // 如果引用不存在，使用空对象
-//                        }
-//                    } else if ("array".equals(type) && property.containsKey("items")) {
-//                        JSONObject items = property.getJSONObject("items");
-//                        if (items.containsKey("$ref")) {
-//                            String ref = items.getString("$ref");
-//                            String refDefinitionName = ref.substring(ref.lastIndexOf('/') + 1);
-//
-//                            if (definitions.containsKey(refDefinitionName)) {
-//                                JSONObject refDefinition = definitions.getJSONObject(refDefinitionName);
-//                                jsonObject.put(key, new JSONArray().fluentAdd(convertDefinitionToJSON(refDefinition, definitions)));
-//                            } else {
-//                                jsonObject.put(key, new JSONArray()); // 如果引用不存在，使用空数组
-//                            }
-//                        } else {
-//                            jsonObject.put(key, new JSONArray());
-//                        }
-//                    } else {
-//                        jsonObject.put(key, getDefaultValueForType(type));
-//                    }
-//                }
-//            }
-//        }
-//
-//        return jsonObject;
-//    }
-//
-//    // 获取默认值的方法，根据类型返回默认值
-//    private Object getDefaultValueForType(String type) {
-//        switch (type) {
-//            case "integer":
-//                return 0;
-//            case "number":
-//                return 0.0;
-//            case "string":
-//                return "";
-//            case "boolean":
-//                return false;
-//            case "array":
-//                return new JSONArray();
-//            case "object":
-//                return new JSONObject();
-//            default:
-//                return null;
-//        }
-//    }
-//
-//    /**
-//     * 通过$ref 获取对应的模型
-//     * @param ref
-//     * @param definitions
-//     * @return
-//     */
-//    private JSONObject getModelByName(String ref, JSONObject definitions) {
-//        String definitionName = ref.substring(ref.lastIndexOf('/') + 1);
-//        JSONObject definitionObj = definitions.getJSONObject(definitionName);
-//        return definitionObj;
-//    }
+
+    public JSONObject resolveRef(String ref, JSONObject allJson) {
+        if (!ref.startsWith("#/")) {
+            throw new IllegalArgumentException("Invalid reference: " + ref);
+        }
+
+        // 解析路径，例如 #/components/schemas/User
+        String[] paths = ref.substring(2).split("/");
+        JSONObject current = allJson;
+        for (String path : paths) {
+            if (!current.containsKey(path)) {
+                throw new IllegalArgumentException("Reference path not found: " + ref);
+            }
+            current = current.getJSONObject(path);
+        }
+        return current;
+    }
+
+
 }

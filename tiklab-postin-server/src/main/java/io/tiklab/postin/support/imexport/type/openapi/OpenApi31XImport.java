@@ -237,6 +237,11 @@ public class OpenApi31XImport implements OpenApiProcessor {
             for (int i = 0; i < parameters.size(); i++) {
                 JSONObject parameter = parameters.getJSONObject(i);
 
+                // 解析 $ref
+                if (parameter.containsKey("$ref")) {
+                    parameter = openApiCommonFn.resolveRef(parameter.getString("$ref"), allJson);
+                }
+
                 String in = parameter.getString("in");
                 switch (in){
                     case "path":
@@ -257,6 +262,13 @@ public class OpenApi31XImport implements OpenApiProcessor {
         //requestBody
         if(methodInfo.containsKey("requestBody")){
             JSONObject requestBody = methodInfo.getJSONObject("requestBody");
+
+            // 解析 $ref
+            if (requestBody.containsKey("$ref")) {
+                requestBody = openApiCommonFn.resolveRef(requestBody.getString("$ref"), allJson);
+            }
+
+
             if(requestBody.containsKey("content")){
 
                 JSONObject content = requestBody.getJSONObject("content");
@@ -510,6 +522,12 @@ public class OpenApi31XImport implements OpenApiProcessor {
         JSONObject responses = methodInfo.getJSONObject("responses");
         for (String statusCode : responses.keySet()) {
             JSONObject responseItem = responses.getJSONObject(statusCode);
+
+            // 解析 $ref
+            if (responseItem.containsKey("$ref")) {
+                responseItem = openApiCommonFn.resolveRef(responseItem.getString("$ref"), allJson);
+            }
+
             ApiResponse apiResponse = new ApiResponse();
             apiResponse.setName(statusCode);
             apiResponse.setId(apiId);
