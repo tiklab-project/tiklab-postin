@@ -19,14 +19,14 @@ import java.io.Serializable;
 public class JsonParamEntity implements Serializable {
 
     @Id
-    @Column(name = "id",length = 40)
+    @Column(name = "id")
     private String id;
 
     //所属接口
-    @Column(name = "api_id",length = 40)
+    @Column(name = "api_id")
     private String apiId;
 
-    @Column(name = "json_text",length = 2048)
+    @Column(name = "json_text")
     private String jsonText;
 
 

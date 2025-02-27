@@ -17,19 +17,19 @@ import java.io.Serializable;
 public class RawParamEntity implements Serializable {
 
     @Id
-    @Column(name = "id",length = 40)
+    @Column(name = "id")
     private String id;
 
     //所属接口
-    @Column(name = "api_id",length = 40)
+    @Column(name = "api_id")
     private String apiId;
 
     //raw文本
-    @Column(name = "raw",length = 2048,notNull = true)
+    @Column(name = "raw")
     private String raw;
 
     //媒体类型 如: application/json
-    @Column(name = "type",length = 32,notNull = true)
+    @Column(name = "type")
     private String type;
 
     public String getId() {

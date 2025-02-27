@@ -2,8 +2,10 @@ package io.tiklab.postin.support.docletreport.service;
 
 import com.alibaba.fastjson.JSONObject;
 import io.tiklab.postin.api.apix.model.ApiRequest;
+import io.tiklab.postin.api.apix.model.JsonParam;
 import io.tiklab.postin.api.apix.model.RawParam;
 import io.tiklab.postin.api.apix.service.ApiRequestService;
+import io.tiklab.postin.api.apix.service.JsonParamService;
 import io.tiklab.postin.api.apix.service.RawParamService;
 import io.tiklab.postin.api.http.definition.model.*;
 import io.tiklab.postin.api.http.definition.service.*;
@@ -42,6 +44,9 @@ public class DocletReportServicelmpl implements DocletReportService {
 
     @Autowired
     FormUrlencodedService formUrlencodedService;
+
+    @Autowired
+    JsonParamService jsonParamService;
 
     @Autowired
     RawParamService rawParamService;
@@ -158,9 +163,11 @@ public class DocletReportServicelmpl implements DocletReportService {
                         formUrlencodedService.createFormUrlencoded(formUrlencoded);
                     }
                 case "json":
+                    JsonParam json = apiReport.getJson();
+                    jsonParamService.updateJsonParam(json);
+                    break;
                 case "raw":
                     RawParam raw = apiReport.getRaw();
-                    raw.setApiId(apiId);
                     rawParamService.createRawParam(raw);
                     break;
                 default:

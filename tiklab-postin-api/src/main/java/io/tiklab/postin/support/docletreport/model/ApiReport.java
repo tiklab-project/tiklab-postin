@@ -2,6 +2,7 @@ package io.tiklab.postin.support.docletreport.model;
 
 import io.tiklab.postin.annotation.ApiModel;
 import io.tiklab.postin.api.apix.model.ApiRequest;
+import io.tiklab.postin.api.apix.model.JsonParam;
 import io.tiklab.postin.api.apix.model.RawParam;
 import io.tiklab.postin.api.http.definition.model.ApiResponse;
 import io.tiklab.postin.api.http.definition.model.FormParam;
@@ -23,6 +24,8 @@ public class ApiReport {
     private List<FormParam> formList;
 
     private List<FormUrlencoded> formUrlList;
+
+    private JsonParam json;
 
     private RawParam raw;
 
@@ -66,6 +69,14 @@ public class ApiReport {
 
     public void setFormUrlList(List<FormUrlencoded> formUrlList) {
         this.formUrlList = formUrlList;
+    }
+
+    public JsonParam getJson() {
+        return json;
+    }
+
+    public void setJson(JsonParam json) {
+        this.json = json;
     }
 
     public RawParam getRaw() {
