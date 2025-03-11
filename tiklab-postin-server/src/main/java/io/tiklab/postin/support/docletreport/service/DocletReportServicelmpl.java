@@ -196,10 +196,7 @@ public class DocletReportServicelmpl implements DocletReportService {
         HttpApi httpApi = apiReport.getApiBase();
         httpApi.setId(apiId);
         httpApi.getApix().setId(apiId);
-        Node node = new Node();
-        Workspace workspace1 = new Workspace();
-        workspace1.setId(workspaceId);
-        node.setWorkspace(workspace1);
+        Node node = httpApi.getNode();
         httpApi.setNode(node);
         httpApiService.updateHttpApi(httpApi);
 
@@ -235,6 +232,10 @@ public class DocletReportServicelmpl implements DocletReportService {
                         formUrlencodedService.createFormUrlencoded(formUrlencoded);
                     }
                 case "json":
+                    JsonParam json = apiReport.getJson();
+                    json.setId(apiId);
+                    jsonParamService.updateJsonParam(json);
+                    break;
                 case "raw":
                     RawParam raw = apiReport.getRaw();
                     raw.setApiId(apiId);

@@ -23,6 +23,7 @@ import java.util.List;
 /**
  * @pi.protocol: http
  * @pi.groupName: 空间关注
+ * @pi.path:/workspaceFollow
  */
 @RestController
 @RequestMapping("/workspaceFollow")
@@ -36,10 +37,10 @@ public class WorkspaceFollowController {
 
     /**
      * @pi.name:创建空间关注123
-     * @pi.path:/workspaceFollow/createWorkspaceFollow
+     * @pi.url:/createWorkspaceFollow
      * @pi.methodType:post
      * @pi.request-type:json
-     * @pi.param: model=WorkspaceFollow
+     * @pi.param: model=io.tiklab.postin.workspace.model.WorkspaceFollow
      */
     @RequestMapping(path="/createWorkspaceFollow",method = RequestMethod.POST)
     @ApiMethod(name = "createWorkspaceFollow",desc = "创建空间关注")
@@ -53,7 +54,7 @@ public class WorkspaceFollowController {
 
     /**
      * @pi.name:删除空间关注123
-     * @pi.path:/workspaceFollow/deleteWorkspaceFollow
+     * @pi.url:/deleteWorkspaceFollow
      * @pi.methodType:post
      * @pi.request-type:formdata
      * @pi.param: name=id;dataType=string;value=workspaceId;desc=当前删除的id
@@ -70,10 +71,10 @@ public class WorkspaceFollowController {
 
     /**
      * @pi.name:更新空间关注2
-     * @pi.path:/workspaceFollow/updateWorkspaceFollow
+     * @pi.url:/updateWorkspaceFollow
      * @pi.methodType:post
      * @pi.request-type:json
-     * @pi.param: model=WorkspaceFollow
+     * @pi.param: model=io.tiklab.postin.workspace.model.WorkspaceFollow
      */
     @RequestMapping(path="/updateWorkspaceFollow",method = RequestMethod.POST)
     @ApiMethod(name = "updateWorkspaceFollow",desc = "更新空间关注")
@@ -86,7 +87,7 @@ public class WorkspaceFollowController {
 
     /**
      * @pi.name:根据id查询空间关注3
-     * @pi.path:/workspaceFollow/findWorkspaceFollow
+     * @pi.url:/findWorkspaceFollow
      * @pi.methodType:post
      * @pi.request-type:formdata
      * @pi.param: name=id;dataType=string;value=workspaceId;
@@ -102,7 +103,7 @@ public class WorkspaceFollowController {
 
     /**
      * @pi.name:查询所有空间关注3
-     * @pi.path:/workspaceFollow/findAllWorkspaceFollow
+     * @pi.url:/findAllWorkspaceFollow
      * @pi.methodType:post
      * @pi.request-type:none
      */
@@ -116,10 +117,10 @@ public class WorkspaceFollowController {
 
     /**
      * @pi.name:根据查询参数查找空间关注2
-     * @pi.path:/workspaceFollow/findWorkspaceFollowList
+     * @pi.url:/findWorkspaceFollowList
      * @pi.methodType:post
      * @pi.request-type:json
-     * @pi.param: model=WorkspaceFollowQuery
+     * @pi.param: model=io.tiklab.postin.workspace.model.WorkspaceFollowQuery
      */
     @RequestMapping(path = "/findWorkspaceFollowList",method = RequestMethod.POST)
     @ApiMethod(name = "findWorkspaceFollowList",desc = "根据查询参数查找空间关注")
@@ -132,10 +133,10 @@ public class WorkspaceFollowController {
 
     /**
      * @pi.name:根据查询参数按分页查找空间关注
-     * @pi.path:/workspaceFollow/findWorkspaceFollowPage
+     * @pi.url:/findWorkspaceFollowPage
      * @pi.methodType:post
      * @pi.request-type:json
-     * @pi.param: model=WorkspaceFollowQuery
+     * @pi.param: model=io.tiklab.postin.workspace.model.WorkspaceFollowQuery
      */
     @RequestMapping(path = "/findWorkspaceFollowPage",method = RequestMethod.POST)
     @ApiMethod(name = "findWorkspaceFollowPage",desc = "根据查询参数按分页查找空间关注")

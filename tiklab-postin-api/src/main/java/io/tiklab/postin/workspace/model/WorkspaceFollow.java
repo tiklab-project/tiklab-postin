@@ -21,9 +21,6 @@ import io.tiklab.user.user.model.User;
 @Mapper
 public class WorkspaceFollow extends BaseModel {
 
-    private int a;
-
-
     /**
      * @pi.name: id
      * @pi.dataType:string
