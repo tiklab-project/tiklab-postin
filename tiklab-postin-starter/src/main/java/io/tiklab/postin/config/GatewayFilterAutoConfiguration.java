@@ -112,7 +112,9 @@ public class GatewayFilterAutoConfiguration{
                         "/mockx",
                         "/sql",
                         "/port",
-                        "/docletReport"
+                        "/docletReport",
+                        "/openapi/doc"
+
                 })
                 .get();
     }

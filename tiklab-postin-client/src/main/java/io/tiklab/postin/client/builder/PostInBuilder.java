@@ -22,10 +22,10 @@ import java.util.*;
 @Service
 public class PostInBuilder {
 
-    @Value("${postin.report.workspaceId}")
+    @Value("${postin.report.workspaceId:bd26c6ec5c6e}")
     private String workspaceId;
 
-    @Value("${postin.report.server}")
+    @Value("${postin.report.server:http://192.168.10.17:8090}")
     private String server;
 
     private static Logger logger = LoggerFactory.getLogger(PostInBuilder.class);
@@ -54,14 +54,13 @@ public class PostInBuilder {
         return apiMetaList;
     }
 
-    public void build(){
+    public JSONArray build(){
         List<ApiMeta> apiMetaList = scanPackage(scanPackage);
 
         ApiMetaContext.setApiMetaList(apiMetaList);
 
-        //所有controller
+       //通过注解获取元数据信息
         Map<String,ApiMeta> apiMetaMap = new HashMap<>();
-
         if(apiMetaList != null){
             for(ApiMeta apiMeta:apiMetaList){
                 apiMetaMap.put(apiMeta.getName(),apiMeta);
@@ -69,8 +68,9 @@ public class PostInBuilder {
             ApiMetaContext.setApiMetaMap(apiMetaMap);
         }
 
-        //上报信息
-        reportData(apiMetaMap);
+
+        JSONArray allModule = generateTree(apiMetaMap);
+        return allModule;
 
 
 //        //写入文本
@@ -89,11 +89,76 @@ public class PostInBuilder {
     }
 
 
+    private JSONArray generateTree(Map<String, ApiMeta> apiMetaMap){
+
+        JSONArray treeArray = new JSONArray();
+
+
+        //循环一次就是一个模块，模块下有接口
+        for (Map.Entry<String, ApiMeta> entry : apiMetaMap.entrySet()) {
+
+
+            ApiMeta controllerMap = entry.getValue();
+            String categoryName = controllerMap.getName();
+            String classFullName = controllerMap.getCls().getPackage().getName();
+
+            //获取分组id
+            String categoryId = getIdByMd5(categoryName+classFullName);
+
+            //构造树形父级分组
+            JSONObject categoryJson = new JSONObject();
+            categoryJson.put("id",categoryId);
+            categoryJson.put("name",categoryName);
+            categoryJson.put("parentId",null);
+            categoryJson.put("type","category");
+            categoryJson.put("workspaceId",workspaceId);
+
+            JSONArray children = new JSONArray();
+            for(ApiMethodMeta apiMethodMeta:controllerMap.getApiMethodMetaList()){
+                //通过路径md5 生成一个 id
+                String path = apiMethodMeta.getPath();
+                String apiId = getIdByMd5(path);
+
+                if(apiId==null){continue;}
+
+                JSONObject apiJson = new JSONObject();
+                apiJson.put("id",apiId);
+                apiJson.put("name",apiMethodMeta.getName());
+                apiJson.put("parentId",categoryId);
+                apiJson.put("type","http");
+                apiJson.put("methodType",apiMethodMeta.getRequestType().toLowerCase());
+
+                JSONObject apiRequest = getApiRequest(apiMethodMeta);
+                apiJson.put("request",apiRequest);
+
+
+
+
+
+//                JSONObject apiResponse = getApiResponse(apiMethodMeta);
+//                apiJson.put("response",apiResponse);
+
+
+
+                children.add(apiJson);
+            }
+
+            categoryJson.put("children",children);
+            treeArray.add(categoryJson);
+        }
+
+        return treeArray;
+
+    }
+
+
     /**
      * 上报信息
      * @param apiMetaMap
      */
-    private void reportData(Map<String, ApiMeta> apiMetaMap){
+    private HashMap reportData(Map<String, ApiMeta> apiMetaMap){
+        HashMap<Object, Object> allModule = new HashMap<>();
+
         // 使用entrySet()方法遍历HashMap的键值对
         for (Map.Entry<String, ApiMeta> entry : apiMetaMap.entrySet()) {
             JSONObject moduleJson = new JSONObject();
@@ -114,7 +179,7 @@ public class PostInBuilder {
                 String path = apiMethodMeta.getPath();
                 String apiId = getIdByMd5(path);
 
-                if(apiId==null){return;}
+                if(apiId==null){continue;}
 
                 JSONObject apiJson = new JSONObject();
                 apiJson.put("apiId",apiId);
@@ -143,9 +208,14 @@ public class PostInBuilder {
 
             moduleJson.put("moduleMethodList",moduleMethodList);
 
-            httpCommon(categoryName,moduleJson.toJSONString());
+            String aPackage = controllerMap.getCls().getPackage().getName();
+            allModule.put(aPackage,moduleJson);
+
+//            httpCommon(categoryName,moduleJson.toJSONString());
 
         }
+
+        return allModule;
     }
 
 

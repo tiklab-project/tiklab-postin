@@ -54,8 +54,8 @@ public class NodeController {
     @RequestMapping(path = "/findNodePage",method = RequestMethod.POST)
     @ApiMethod(name = "findNodePage",desc = "根据查询对象模糊查找分类列表树")
     @ApiParam(name = "nodeQuery",desc = "查询对象",required = true)
-    public Result<Pagination<Node>> findNodePage(@RequestBody @Valid @NotNull NodeQuery nodeQueryQuery){
-        Pagination<Node> nodePage = nodeService.findNodePage(nodeQueryQuery);
+    public Result<Pagination<Node>> findNodePage(@RequestBody @Valid @NotNull NodeQuery nodeQuery){
+        Pagination<Node> nodePage = nodeService.findNodePage(nodeQuery);
 
         return Result.ok(nodePage);
     }
@@ -64,8 +64,8 @@ public class NodeController {
     @RequestMapping(path = "/findNodeTree",method = RequestMethod.POST)
     @ApiMethod(name = "findNodeTree",desc = "根据查询对象模糊查找分类列表树")
     @ApiParam(name = "nodeQuery",desc = "查询对象",required = true)
-    public Result<List<Node>> findNodeTree(@RequestBody @Valid @NotNull NodeQuery nodeQueryQuery){
-        List<Node> nodeTree = nodeService.findNodeTree(nodeQueryQuery);
+    public Result<List<Node>> findNodeTree(@RequestBody @Valid @NotNull NodeQuery nodeQuery){
+        List<Node> nodeTree = nodeService.findNodeTree(nodeQuery);
 
         return Result.ok(nodeTree);
     }
