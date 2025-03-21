@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.HashMap;
 import java.util.Objects;
 
-@Profile({"local","dev"})
+//@Profile({"local","dev"})
 @Configuration
 @ComponentScan({"io.tiklab.postin"})
 public class PostInClientAutoConfiguration {

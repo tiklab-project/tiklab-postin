@@ -69,7 +69,8 @@ public class PostInBuilder {
         }
 
 
-        JSONArray allModule = generateTree(apiMetaMap);
+        GenerateOpenApi generateOpenApi = new GenerateOpenApi();
+        JSONArray allModule = generateOpenApi.generateTree(apiMetaMap);
         return allModule;
 
 
@@ -89,67 +90,6 @@ public class PostInBuilder {
     }
 
 
-    private JSONArray generateTree(Map<String, ApiMeta> apiMetaMap){
-
-        JSONArray treeArray = new JSONArray();
-
-
-        //循环一次就是一个模块，模块下有接口
-        for (Map.Entry<String, ApiMeta> entry : apiMetaMap.entrySet()) {
-
-
-            ApiMeta controllerMap = entry.getValue();
-            String categoryName = controllerMap.getName();
-            String classFullName = controllerMap.getCls().getPackage().getName();
-
-            //获取分组id
-            String categoryId = getIdByMd5(categoryName+classFullName);
-
-            //构造树形父级分组
-            JSONObject categoryJson = new JSONObject();
-            categoryJson.put("id",categoryId);
-            categoryJson.put("name",categoryName);
-            categoryJson.put("parentId",null);
-            categoryJson.put("type","category");
-            categoryJson.put("workspaceId",workspaceId);
-
-            JSONArray children = new JSONArray();
-            for(ApiMethodMeta apiMethodMeta:controllerMap.getApiMethodMetaList()){
-                //通过路径md5 生成一个 id
-                String path = apiMethodMeta.getPath();
-                String apiId = getIdByMd5(path);
-
-                if(apiId==null){continue;}
-
-                JSONObject apiJson = new JSONObject();
-                apiJson.put("id",apiId);
-                apiJson.put("name",apiMethodMeta.getName());
-                apiJson.put("parentId",categoryId);
-                apiJson.put("type","http");
-                apiJson.put("methodType",apiMethodMeta.getRequestType().toLowerCase());
-
-                JSONObject apiRequest = getApiRequest(apiMethodMeta);
-                apiJson.put("request",apiRequest);
-
-
-
-
-
-//                JSONObject apiResponse = getApiResponse(apiMethodMeta);
-//                apiJson.put("response",apiResponse);
-
-
-
-                children.add(apiJson);
-            }
-
-            categoryJson.put("children",children);
-            treeArray.add(categoryJson);
-        }
-
-        return treeArray;
-
-    }
 
 
     /**
@@ -271,6 +211,7 @@ public class PostInBuilder {
 
         if("json".equals(bodyType)){
             apiRequest.put("bodyType","raw");
+
         }
 
         //这里获取的bodyTyp为form-data字符串，postin为formdata
