@@ -2,6 +2,7 @@ package io.tiklab.postin.support.docletreport.service;
 
 import com.alibaba.fastjson.JSONObject;
 import io.tiklab.postin.api.apix.model.ApiRequest;
+import io.tiklab.postin.api.apix.model.Apix;
 import io.tiklab.postin.api.apix.model.JsonParam;
 import io.tiklab.postin.api.apix.model.RawParam;
 import io.tiklab.postin.api.apix.service.ApiRequestService;
@@ -197,7 +198,8 @@ public class DocletReportServicelmpl implements DocletReportService {
         httpApi.setId(apiId);
         httpApi.getApix().setId(apiId);
         Node node = httpApi.getNode();
-        httpApi.setNode(node);
+        Apix apix = httpApi.getApix();
+        apix.setNode(node);
         httpApiService.updateHttpApi(httpApi);
 
         ApiRequest request = apiReport.getRequest();

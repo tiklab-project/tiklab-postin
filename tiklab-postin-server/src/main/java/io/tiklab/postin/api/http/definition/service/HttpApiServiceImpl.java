@@ -153,7 +153,7 @@ public class HttpApiServiceImpl implements HttpApiService {
         httpApiDao.updateHttpApi(httpApiEntity);
 
         Apix apix = httpApi.getApix();
-        apix.setNode(httpApi.getNode());
+        apix.setNode(apix.getNode());
         apixService.updateApix(apix);
     }
 
