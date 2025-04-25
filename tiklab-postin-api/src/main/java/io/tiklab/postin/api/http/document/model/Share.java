@@ -36,11 +36,10 @@ public class Share extends BaseModel {
     private java.lang.String targetId;
 
     @ApiProperty(name="targetId",desc="接口或目录 ID",required = true)
-    @Mappings({
-            @Mapping(source = "node.id",target = "targetId")
-    })
-    @JoinQuery(key = "id")
     private Node node;
+
+    @ApiProperty(name="targetId",desc="空间 ID",required = true)
+    private Workspace workspace;
 
     @NotNull
     @ApiProperty(name="targetType",desc="接口，目录",required = true)
@@ -136,5 +135,13 @@ public class Share extends BaseModel {
 
     public void setUpdateTime(java.sql.Timestamp updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public Workspace getWorkspace() {
+        return workspace;
+    }
+
+    public void setWorkspace(Workspace workspace) {
+        this.workspace = workspace;
     }
 }

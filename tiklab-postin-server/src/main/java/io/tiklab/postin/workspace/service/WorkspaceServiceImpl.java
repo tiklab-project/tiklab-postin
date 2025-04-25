@@ -4,6 +4,8 @@ import io.tiklab.postin.api.http.test.instance.service.TestInstanceService;
 import io.tiklab.postin.node.model.Node;
 import io.tiklab.postin.node.model.NodeQuery;
 import io.tiklab.postin.node.service.NodeService;
+import io.tiklab.postin.support.environment.model.EnvServer;
+import io.tiklab.postin.support.environment.service.EnvServerService;
 import io.tiklab.postin.workspace.dao.WorkspaceDao;
 import io.tiklab.postin.workspace.entity.WorkspaceEntity;
 import io.tiklab.eam.common.context.LoginContext;
@@ -76,6 +78,9 @@ public class WorkspaceServiceImpl implements WorkspaceService {
     EnvironmentService environmentService;
 
     @Autowired
+    EnvServerService envServerService;
+
+    @Autowired
     DmUserService dmUserService;
 
     @Autowired
@@ -130,9 +135,12 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         Environment environment = new Environment();
         environment.setWorkspaceId(workspaceId);
         environment.setName("Mock");
-        String mockUrl = baseUrl+"/mockx/"+workspaceId;
-        environment.setUrl(mockUrl);
-        environmentService.createEnvironment(environment);
+        String envId = environmentService.createEnvironment(environment);
+        EnvServer envServer = new EnvServer();
+        envServer.setEnvId(envId);
+        envServer.setName("默认服务");
+        envServer.setUrl(baseUrl+"/mockx/"+workspaceId);
+        envServerService.createEnvServer(envServer);
 
         //拉入创建人 关联权限
         initProjectDmRole(workspace.getUserList(),workspaceId);

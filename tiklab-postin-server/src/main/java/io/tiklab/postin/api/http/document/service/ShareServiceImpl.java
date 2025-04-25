@@ -8,6 +8,8 @@ import io.tiklab.postin.api.ws.ws.service.WSApiService;
 import io.tiklab.postin.node.model.Node;
 import io.tiklab.postin.node.model.NodeQuery;
 import io.tiklab.postin.node.service.NodeService;
+import io.tiklab.postin.workspace.model.Workspace;
+import io.tiklab.postin.workspace.service.WorkspaceService;
 import io.tiklab.toolkit.beans.BeanMapper;
 import io.tiklab.core.page.Pagination;
 import io.tiklab.core.page.PaginationBuilder;
@@ -44,6 +46,9 @@ public class ShareServiceImpl implements ShareService {
 
     @Autowired
     ShareDao shareDao;
+
+    @Autowired
+    WorkspaceService workspaceService;
 
     @Autowired
     CategoryService categoryService;
@@ -125,7 +130,6 @@ public class ShareServiceImpl implements ShareService {
 
         List<Share> shareList =  BeanMapper.mapList(shareEntityList,Share.class);
 
-        joinTemplate.joinQuery(shareList);
 
         return shareList;
     }
@@ -147,7 +151,17 @@ public class ShareServiceImpl implements ShareService {
 
         List<Share> shareList = BeanMapper.mapList(pagination.getDataList(),Share.class);
 
-        joinTemplate.joinQuery(shareList);
+        if(CollectionUtils.isNotEmpty(shareList)){
+            for (Share share : shareList){
+                if(Objects.equals(share.getTargetType(), "workspace")){
+                    Workspace workspace = workspaceService.findWorkspace(share.getTargetId());
+                    share.setWorkspace(workspace);
+                }else {
+                    Node node = nodeService.findNode(share.getTargetId());
+                    share.setNode(node);
+                }
+            }
+        }
 
         return PaginationBuilder.build(pagination,shareList);
     }

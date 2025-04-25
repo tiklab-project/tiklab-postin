@@ -19,20 +19,16 @@ import java.util.Date;
 public class EnvironmentEntity implements Serializable {
 
     @Id
-     @GeneratorValue(length = 12)
-    @Column(name = "id",length = 32)
+    @GeneratorValue(length = 12)
+    @Column(name = "id")
     private String id;
 
-    @Column(name="workspace_id",length = 32)
+    @Column(name="workspace_id")
     private String workspaceId;
 
     // 名称
     @Column(name = "name",length = 64,notNull = true)
     private String name;
-
-    // 环境url
-    @Column(name = "url",length = 256,notNull = true)
-    private String url;
 
     // 创建时间
     @Column(name = "create_time")
@@ -64,14 +60,6 @@ public class EnvironmentEntity implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
     }
 
     public Date getCreateTime() {

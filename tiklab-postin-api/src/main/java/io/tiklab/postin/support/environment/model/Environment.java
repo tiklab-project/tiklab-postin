@@ -28,10 +28,6 @@ public class Environment extends BaseModel {
     @ApiProperty(name="name",desc="环境名称",required = true)
     private java.lang.String name;
 
-    @NotNull
-    @ApiProperty(name="url",desc="环境地址",required = true)
-    private java.lang.String url;
-
     @ApiProperty(name="createTime",desc="创建时间")
     @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
     private java.util.Date createTime;
@@ -53,13 +49,6 @@ public class Environment extends BaseModel {
 
     public void setName(java.lang.String name) {
         this.name = name;
-    }
-    public java.lang.String getUrl() {
-        return url;
-    }
-
-    public void setUrl(java.lang.String url) {
-        this.url = url;
     }
 
     public String getWorkspaceId() {
