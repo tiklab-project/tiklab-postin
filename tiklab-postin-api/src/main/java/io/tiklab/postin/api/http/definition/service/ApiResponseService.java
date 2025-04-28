@@ -38,6 +38,13 @@ public interface ApiResponseService {
     void deleteApiResponse(@NotNull String id);
 
     /**
+     * 通过httpId删除所有响应体
+     * @param id
+     */
+    void deleteAllApiResponse(@NotNull String id);
+
+
+    /**
     * 查找接口定义中响应区
     * @param id
     * @return

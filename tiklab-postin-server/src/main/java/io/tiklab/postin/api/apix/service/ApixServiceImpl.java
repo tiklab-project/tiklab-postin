@@ -2,6 +2,7 @@ package io.tiklab.postin.api.apix.service;
 
 import io.tiklab.postin.api.apix.entity.ApiListEntity;
 import io.tiklab.postin.api.apix.model.*;
+import io.tiklab.postin.api.http.definition.service.*;
 import io.tiklab.postin.api.http.document.service.ShareService;
 import io.tiklab.postin.common.PostInUnit;
 import io.tiklab.postin.api.apix.dao.ApixDao;
@@ -14,17 +15,15 @@ import io.tiklab.core.page.Pagination;
 import io.tiklab.core.page.PaginationBuilder;
 
 import io.tiklab.toolkit.join.JoinTemplate;
-import io.tiklab.postin.api.http.definition.service.HttpApiService;
 import io.tiklab.postin.api.ws.ws.service.WSApiService;
 
 import io.tiklab.rpc.annotation.Exporter;
-import io.tiklab.eam.common.context.LoginContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -64,6 +63,11 @@ public class ApixServiceImpl implements ApixService {
 
     @Autowired
     ShareService shareService;
+
+    @Autowired
+    CopyCurrentApiUtil copyCurrentApiUtil;
+    @Autowired
+    CoverApiUtil coverApiUtil;
 
     @Override
     public String createApix(@NotNull @Valid Apix apix) {
@@ -221,6 +225,19 @@ public class ApixServiceImpl implements ApixService {
         joinTemplate.joinQuery(apixList);
 
         return PaginationBuilder.build(pagination, apixList);
+    }
+
+    @Override
+    public String copyCurrentApi(String apiId) {
+        String newApiId = copyCurrentApiUtil.copyCurrentApi(apiId);
+
+        return newApiId;
+    }
+
+    @Override
+    public void coverApi(String willCoverApiId,String originApiId) {
+        coverApiUtil.coverApi(willCoverApiId, originApiId);
+
     }
 
 

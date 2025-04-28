@@ -122,6 +122,7 @@ public class ApixDao {
         sqlBuilder.append("FROM postin_node pn ");
         sqlBuilder.append("JOIN postin_apix pa ON pn.id = pa.id ");
         sqlBuilder.append("WHERE pn.parent_id = ? ");
+        sqlBuilder.append("AND pa.version_id IS NULL ");
 
         List<Object> params = new ArrayList<>();
         params.add(apixQuery.getCategoryId());

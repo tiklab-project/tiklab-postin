@@ -78,4 +78,17 @@ public interface ApixService {
     */
     Pagination<ApiList> findApixPage(ApixQuery apixQuery);
 
+    /**
+    * 复制当前接口
+    * @param apiId
+    */
+    String copyCurrentApi(String apiId);
+
+    /**
+     * 覆盖接口
+     * @param willCoverApiId 当前接口，会被覆盖
+     * @param originApiId 通过id获取到接口信息, 然后覆盖当前接口
+     */
+    void coverApi(String willCoverApiId,String originApiId);
+
 }

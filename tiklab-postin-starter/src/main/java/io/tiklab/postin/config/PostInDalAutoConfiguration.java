@@ -108,6 +108,7 @@ public class PostInDalAutoConfiguration {
                 "user_1.1.0"
         });
         dsmConfig.newVersion("1.1.1", new String[]{
+                "postin_1.1.1",
                 "user_1.1.1",
         });
         return dsmConfig;

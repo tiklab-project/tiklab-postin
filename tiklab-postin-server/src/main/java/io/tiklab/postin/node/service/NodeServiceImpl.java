@@ -207,18 +207,36 @@ public class NodeServiceImpl implements NodeService {
     public List<Node> findNodeTree(NodeQuery nodeQuery) {
         List<Node> nodeList = findNodeList(nodeQuery);
 
+        List<Node> nodesNotWithVersions = new ArrayList<>();
+
+        if (nodeList == null || nodeList.isEmpty()) {
+            return nodesNotWithVersions; // 返回空列表
+        }
+
+        for (Node node : nodeList) {
+            if (Objects.equals(node.getType(), MagicValue.CATEGORY)) {
+                continue;
+            }
+
+            Apix apix = apixService.findApix(node.getId());
+            if (apix != null && apix.getVersionId() == null) {
+                nodesNotWithVersions.add(node);
+            }
+        }
+
+
         Map<String, Node> nodeMap = new HashMap<>();
         Map<String, List<Node>> childrenMap = new HashMap<>();
         Set<String> processedIds = new HashSet<>();
         List<Node> roots = new ArrayList<>();
 
         // 首先将所有节点添加到 nodeMap
-        for (Node node : nodeList) {
+        for (Node node : nodesNotWithVersions) {
             nodeMap.put(node.getId(), node);
         }
 
         // 处理每个节点，包括查找缺失的父节点
-        for (Node node : nodeList) {
+        for (Node node : nodesNotWithVersions) {
             processNode(node, nodeMap, childrenMap, processedIds, roots);
         }
 

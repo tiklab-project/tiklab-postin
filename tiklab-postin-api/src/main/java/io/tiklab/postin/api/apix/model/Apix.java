@@ -54,11 +54,9 @@ public class Apix extends BaseModel{
     @ApiProperty(name="desc",desc="描述")
     private java.lang.String desc;
 
-    @ApiProperty(name="version",desc="版本")
-    private java.lang.String version;
+    @ApiProperty(name="versionId",desc="版本Id")
+    private java.lang.String versionId;
 
-    @ApiProperty(name="apiUid",desc="绑定api的id")
-    private java.lang.String apiUid;
 
     @ApiProperty(name="httpApi",desc="httpApi")
     private HttpApi httpApi;
@@ -122,20 +120,12 @@ public class Apix extends BaseModel{
         this.executor = executor;
     }
 
-    public String getVersion() {
-        return version;
+    public String getVersionId() {
+        return versionId;
     }
 
-    public void setVersion(String version) {
-        this.version = version;
-    }
-
-    public String getApiUid() {
-        return apiUid;
-    }
-
-    public void setApiUid(String apiUid) {
-        this.apiUid = apiUid;
+    public void setVersionId(String versionId) {
+        this.versionId = versionId;
     }
 
     public String getProtocolType() {

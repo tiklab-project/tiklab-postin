@@ -14,6 +14,8 @@ public class MagicValue {
     public static final String API_METHOD_TYPE_DELETE = "delete";
     public static final String API_METHOD_TYPE_PATCH = "patch";
 
+    // request body type
+    public static final String REQUEST_BODY_TYPE_NONE="none";
     public static final String REQUEST_BODY_TYPE_FORMDATA="formdata";
     public static final String REQUEST_BODY_TYPE_FORM_URLENCODED="formUrlencoded";
     public static final String REQUEST_BODY_TYPE_JSON="json";

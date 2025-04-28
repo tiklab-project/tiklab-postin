@@ -43,12 +43,8 @@ public class ApixEntity implements Serializable {
     private String workspaceId;
 
     //版本号
-    @Column(name = "version",length = 32)
-    private String version;
-
-    //所属接口id
-    @Column(name = "api_uid",length = 32)
-    private String apiUid;
+    @Column(name = "version_id",length = 32)
+    private String versionId;
 
     public String getId() {
         return id;
@@ -114,20 +110,14 @@ public class ApixEntity implements Serializable {
         this.executor = executor;
     }
 
-    public String getVersion() {
-        return version;
+
+    public String getVersionId() {
+        return versionId;
     }
 
-    public void setVersion(String version) {
-        this.version = version;
+    public void setVersionId(String versionId) {
+        this.versionId = versionId;
     }
 
-    public String getApiUid() {
-        return apiUid;
-    }
-
-    public void setApiUid(String apiUid) {
-        this.apiUid = apiUid;
-    }
 
 }

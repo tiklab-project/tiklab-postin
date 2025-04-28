@@ -1,5 +1,8 @@
 package io.tiklab.postin.api.http.definition.service;
 
+import io.tiklab.dal.jpa.criterial.condition.DeleteCondition;
+import io.tiklab.dal.jpa.criterial.conditionbuilder.DeleteBuilders;
+import io.tiklab.postin.api.apix.entity.RequestHeaderEntity;
 import io.tiklab.postin.api.http.definition.dao.ApiResponseDao;
 import io.tiklab.postin.api.http.definition.entity.ApiResponseEntity;
 import io.tiklab.postin.api.http.definition.model.ApiResponse;
@@ -49,6 +52,14 @@ public class ApiResponseServiceImpl implements ApiResponseService {
     @Override
     public void deleteApiResponse(@NotNull String id) {
         apiResponseDao.deleteApiResponse(id);
+    }
+
+    @Override
+    public void deleteAllApiResponse(String id) {
+        DeleteCondition deleteCondition = DeleteBuilders.createDelete(ApiResponseEntity.class)
+                .eq("httpId", id)
+                .get();
+        apiResponseDao.deleteApiResponseList(deleteCondition);
     }
 
     @Override

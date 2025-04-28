@@ -168,6 +168,8 @@ public class HttpApiServiceImpl implements HttpApiService {
         //删除query
         queryParamService.deleteAllQueryParam(httpId);
 
+        pathParamService.deleteAllPathParam(httpId);
+
         //删除请求
         apiRequestService.deleteApiRequest(httpId);
 
@@ -367,10 +369,6 @@ public class HttpApiServiceImpl implements HttpApiService {
 
         if(CollectionUtils.isNotEmpty(apixList)){
             for (Apix apix : apixList) {
-                //去除带版本的api，因为跟随初始的api，没有设置apiUid的就是初始api
-                if(!ObjectUtils.isEmpty(apix.getApiUid())){
-                    continue;
-                }
 
                 //通过初始api，查询下面所有版本，拿到最新版本的api
                 List<Apix> versionList = apixService.findApixList(new ApixQuery().setApiUid(apix.getId()));
