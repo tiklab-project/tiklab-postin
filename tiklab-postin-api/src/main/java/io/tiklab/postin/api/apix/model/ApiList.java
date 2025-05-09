@@ -13,9 +13,8 @@ import io.tiklab.user.user.model.User;
 
 import java.sql.Timestamp;
 
-
+@Mapper(targetName = "io.tiklab.postin.api.apix.entity.ApiListEntity")
 @Join
-@Mapper
 public class ApiList extends BaseModel{
     private String id;
     private String name;

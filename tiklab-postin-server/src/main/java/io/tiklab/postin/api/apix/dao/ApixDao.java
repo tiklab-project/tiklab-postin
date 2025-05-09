@@ -8,6 +8,8 @@ import io.tiklab.dal.jpa.JpaTemplate;
 import io.tiklab.dal.jpa.criterial.condition.DeleteCondition;
 import io.tiklab.dal.jpa.criterial.condition.QueryCondition;
 import io.tiklab.dal.jpa.criterial.conditionbuilder.QueryBuilders;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 接口公共数据访问
@@ -116,32 +119,53 @@ public class ApixDao {
 
 
 
-    public Pagination<ApiListEntity> findApiPage(ApixQuery apixQuery) {
-        StringBuilder sqlBuilder = new StringBuilder();
-        sqlBuilder.append("SELECT pn.id, pn.name, pn.create_time, pa.protocol_type, pn.method_type, pa.executor_id, pa.path, pa.status_id ");
-        sqlBuilder.append("FROM postin_node pn ");
-        sqlBuilder.append("JOIN postin_apix pa ON pn.id = pa.id ");
-        sqlBuilder.append("WHERE pn.parent_id = ? ");
-        sqlBuilder.append("AND pa.version_id IS NULL ");
+    public Pagination<ApiListEntity> findApiPage(ApixQuery q) {
+        // 基础 SQL
+        StringBuilder sql = new StringBuilder()
+                .append("SELECT pn.id, pn.name, pn.create_time, ")
+                .append("       pa.protocol_type, pn.method_type, ")
+                .append("       pa.executor_id, pa.path, pa.status_id ")
+                .append("FROM postin_node pn ")
+                .append("JOIN postin_apix pa ON pn.id = pa.id ")
+                .append("LEFT JOIN postin_category pc ON pn.parent_id = pc.id ")
+                .append("WHERE pa.version_id IS NULL ");
 
         List<Object> params = new ArrayList<>();
-        params.add(apixQuery.getCategoryId());
 
-        if (apixQuery.getName() != null) {
-            sqlBuilder.append(" AND pn.name LIKE ? ");
-            params.add("%" + apixQuery.getName() + "%");
+        // 1）categoryId 或 workspaceId（二选一）
+        if (q.getCategoryId() != null) {
+            sql.append("AND pn.parent_id = ? ");
+            params.add(q.getCategoryId());
+        } else if (q.getWorkspaceId() != null) {
+            sql.append("AND pa.workspace_id = ? ");
+            params.add(q.getWorkspaceId());
+        } else {
+            throw new IllegalArgumentException("categoryId 和 workspaceId 不能同时为空");
         }
 
-        String sql = sqlBuilder.toString();
+        // 2）名称模糊搜索
+        if (StringUtils.isNotBlank(q.getName())) {
+            sql.append("AND pn.name LIKE ? ");
+            params.add("%" + q.getName().trim() + "%");
+        }
 
-        Pagination<ApiListEntity> page = jpaTemplate.getJdbcTemplate().findPage(
-                sql,
+        // 3）剔除已有的 IDs（NOT IN）
+        if (CollectionUtils.isNotEmpty(q.getExcludeIds())) {
+            // 生成 ?,?,? 占位
+            String placeholders = q.getExcludeIds().stream()
+                    .map(id -> "?")
+                    .collect(Collectors.joining(", "));
+            sql.append("AND pn.id NOT IN (").append(placeholders).append(") ");
+            params.addAll(q.getExcludeIds());
+        }
+
+        // 执行分页查询
+        return jpaTemplate.getJdbcTemplate().findPage(
+                sql.toString(),
                 params.toArray(),
-                apixQuery.getPageParam(),
+                q.getPageParam(),
                 new BeanPropertyRowMapper<>(ApiListEntity.class)
         );
-
-        return page;
     }
 
 

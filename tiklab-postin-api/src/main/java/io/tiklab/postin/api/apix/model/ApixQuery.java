@@ -7,6 +7,7 @@ import io.tiklab.core.order.OrderBuilders;
 import io.tiklab.core.page.Page;
 
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.List;
 
 @ApiModel
@@ -34,6 +35,8 @@ public class ApixQuery implements Serializable {
 
     @ApiProperty(name ="pageParam",desc = "分页参数")
     private Page pageParam = new Page();
+
+    private List<String> excludeIds;
 
     public String getCategoryId() {
         return categoryId;
@@ -99,5 +102,13 @@ public class ApixQuery implements Serializable {
 
     public void setVersion(String version) {
         this.version = version;
+    }
+
+    public List<String> getExcludeIds() {
+        return excludeIds;
+    }
+
+    public void setExcludeIds(List<String> excludeIds) {
+        this.excludeIds = excludeIds;
     }
 }

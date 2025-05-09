@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 接口环境 数据访问
+ * 统计 数据访问
  */
 @Repository
 public class StatisticsTrendDao {

@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
-* 接口环境 服务接口
+* 接口趋势 服务接口
 */
 @JoinProvider(model = StatisticsTrend.class)
 public interface StatisticsTrendService {
@@ -35,7 +35,7 @@ public interface StatisticsTrendService {
     List<StatisticsTrend> findList(List<String> idList);
 
     /**
-    * 查找所有接口环境
+    * 查找所有接口趋势
     * @return
     */
     @FindAll

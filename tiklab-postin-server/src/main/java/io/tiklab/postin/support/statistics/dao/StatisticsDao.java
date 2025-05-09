@@ -12,7 +12,7 @@ import java.util.*;
 
 
 /**
- * 环境 数据访问
+ * 统计 数据访问
  */
 @Repository
 public class StatisticsDao {
@@ -27,27 +27,32 @@ public class StatisticsDao {
      * @return
      */
     public List<Map<String, Object>> getStatusList(ApiStatisticsModel apiStatisticsModel) {
+        // 1. 构建基础 SQL：只统计 postin_apix.version_id 为空的记录
+        StringBuilder sql = new StringBuilder()
+                .append("SELECT s.id, s.name, COUNT(p.id) AS count ")
+                .append("FROM postin_api_status s ")
+                // 在 JOIN 条件中增加 version_id IS NULL，确保只连接未发布/无版本的 API
+                .append("LEFT JOIN postin_apix p ")
+                .append("  ON p.status_id = s.id ")
+                .append("  AND p.version_id IS NULL ");
+
+        // 2. 根据是否传入 workspaceId 动态追加条件
+        List<Object> params = new ArrayList<>();
         String workspaceId = apiStatisticsModel.getWorkspaceId();
-        String sql = "SELECT s.id, s.name, COALESCE(COUNT(p.id), 0) AS count " +
-                "FROM postin_api_status s " +
-                "LEFT JOIN postin_apix p ON p.status_id = s.id";
-
-        if (workspaceId != null && !workspaceId.isEmpty()) {
-            sql += " AND p.workspace_id = ?";
+        if (workspaceId != null && !workspaceId.isBlank()) {
+            sql.append(" AND p.workspace_id = ? ");
+            params.add(workspaceId);
         }
 
-        sql += " GROUP BY s.id, s.name";
+        // 3. 完成分组
+        sql.append("GROUP BY s.id, s.name");
 
-        // 根据是否传递 workspaceId 来决定查询参数
-        List<Map<String, Object>> maps;
-        if (workspaceId != null && !workspaceId.isEmpty()) {
-            maps = jpaTemplate.getJdbcTemplate().queryForList(sql, workspaceId);
-        } else {
-            maps = jpaTemplate.getJdbcTemplate().queryForList(sql);
-        }
-
-        return maps;
+        // 4. 执行查询
+        return params.isEmpty()
+                ? jpaTemplate.getJdbcTemplate().queryForList(sql.toString())
+                : jpaTemplate.getJdbcTemplate().queryForList(sql.toString(), params.toArray());
     }
+
 
     public List<Map<String, Object>> getApiNewCreateStatistics(ApiStatisticsModel apiStatisticsModel) {
         Date startTime = apiStatisticsModel.getStartTime();

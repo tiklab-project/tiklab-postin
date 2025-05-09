@@ -205,84 +205,92 @@ public class NodeServiceImpl implements NodeService {
 
     @Override
     public List<Node> findNodeTree(NodeQuery nodeQuery) {
+        // 1. 查询所有节点
         List<Node> nodeList = findNodeList(nodeQuery);
-
-        List<Node> nodesNotWithVersions = new ArrayList<>();
-
         if (nodeList == null || nodeList.isEmpty()) {
-            return nodesNotWithVersions; // 返回空列表
+            return Collections.emptyList();
         }
 
+        // 2. 过滤出：所有目录节点 + 无版本的普通节点
+        List<Node> nodesToProcess = new ArrayList<>();
         for (Node node : nodeList) {
-            if (Objects.equals(node.getType(), MagicValue.CATEGORY)) {
-                continue;
-            }
-
-            Apix apix = apixService.findApix(node.getId());
-            if (apix != null && apix.getVersionId() == null) {
-                nodesNotWithVersions.add(node);
+            if (MagicValue.CATEGORY.equals(node.getType())) {
+                // 目录节点一律保留，哪怕没有子节点
+                nodesToProcess.add(node);
+            } else {
+                // 普通节点，只保留无版本的
+                Apix apix = apixService.findApix(node.getId());
+                if (apix != null && apix.getVersionId() == null) {
+                    nodesToProcess.add(node);
+                }
             }
         }
 
+        // 3. 构建快速查找 & 组织关系容器
+        Map<String, Node>        nodeMap     = new HashMap<>();
+        Map<String, List<Node>>  childrenMap = new HashMap<>();
+        Set<String>              processed   = new HashSet<>();
+        List<Node>               roots       = new ArrayList<>();
 
-        Map<String, Node> nodeMap = new HashMap<>();
-        Map<String, List<Node>> childrenMap = new HashMap<>();
-        Set<String> processedIds = new HashSet<>();
-        List<Node> roots = new ArrayList<>();
-
-        // 首先将所有节点添加到 nodeMap
-        for (Node node : nodesNotWithVersions) {
+        // 3.1 全部放入 map
+        for (Node node : nodesToProcess) {
             nodeMap.put(node.getId(), node);
         }
-
-        // 处理每个节点，包括查找缺失的父节点
-        for (Node node : nodesNotWithVersions) {
-            processNode(node, nodeMap, childrenMap, processedIds, roots);
+        // 3.2 递归处理每个节点，补齐父节点并收集根列表
+        for (Node node : nodesToProcess) {
+            processNode(node, nodeMap, childrenMap, processed, roots);
         }
 
-        // 构建树结构
+        // 4. 构建树形结构，确保每个 node.children 至少是空列表
         for (Node root : roots) {
             buildTree(root, childrenMap);
         }
-
         return roots;
     }
 
-    private void processNode(Node node, Map<String, Node> nodeMap, Map<String, List<Node>> childrenMap,
-                             Set<String> processedIds, List<Node> roots) {
-        if (processedIds.contains(node.getId())) {
-            return;  // 避免重复处理
+    private void processNode(Node node,
+                             Map<String, Node> nodeMap,
+                             Map<String, List<Node>> childrenMap,
+                             Set<String> processed,
+                             List<Node> roots) {
+        if (!processed.add(node.getId())) {
+            return;  // 已处理过，直接返回
         }
-        processedIds.add(node.getId());
 
         String parentId = node.getParentId();
         if (parentId == null) {
+            // 无父 ID，直接作为根节点
             roots.add(node);
         } else {
             Node parent = nodeMap.get(parentId);
             if (parent == null) {
+                // 父节点不在缓存中，尝试查询
                 parent = findOne(parentId);
                 if (parent != null) {
                     nodeMap.put(parent.getId(), parent);
-                    processNode(parent, nodeMap, childrenMap, processedIds, roots);
+                    processNode(parent, nodeMap, childrenMap, processed, roots);
                 } else {
-                    // 如果父节点不存在，将当前节点作为根节点
+                    // 父节点真不存在，也当作根节点
                     roots.add(node);
                 }
             }
             if (parent != null) {
-                childrenMap.computeIfAbsent(parentId, k -> new ArrayList<>()).add(node);
+                // 建立 parent → child 关联
+                childrenMap
+                        .computeIfAbsent(parentId, k -> new ArrayList<>())
+                        .add(node);
             }
         }
     }
 
     private void buildTree(Node node, Map<String, List<Node>> childrenMap) {
-        List<Node> children = childrenMap.get(node.getId());
-        if (children != null) {
-            node.setChildren(children);
-            for (Node child : children) {
-                buildTree(child, childrenMap);
-            }
+        // 即使没有子节点，也要设置成空列表，保证前端展示
+        List<Node> children = childrenMap.getOrDefault(node.getId(), Collections.emptyList());
+        node.setChildren(children);
+
+        // 递归构造下级
+        for (Node child : children) {
+            buildTree(child, childrenMap);
         }
     }
 
