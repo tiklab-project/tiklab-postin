@@ -227,10 +227,10 @@ public class NodeServiceImpl implements NodeService {
         }
 
         // 3. 构建快速查找 & 组织关系容器
-        Map<String, Node>        nodeMap     = new HashMap<>();
+        Map<String, Node>   nodeMap  = new HashMap<>();
         Map<String, List<Node>>  childrenMap = new HashMap<>();
-        Set<String>              processed   = new HashSet<>();
-        List<Node>               roots       = new ArrayList<>();
+        Set<String>  processed = new HashSet<>();
+        List<Node>   roots   = new ArrayList<>();
 
         // 3.1 全部放入 map
         for (Node node : nodesToProcess) {
