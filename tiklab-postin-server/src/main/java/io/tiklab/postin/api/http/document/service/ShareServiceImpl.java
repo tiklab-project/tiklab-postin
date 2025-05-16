@@ -2,7 +2,8 @@ package io.tiklab.postin.api.http.document.service;
 
 import io.tiklab.dal.jpa.criterial.condition.DeleteCondition;
 import io.tiklab.dal.jpa.criterial.conditionbuilder.DeleteBuilders;
-import io.tiklab.postin.api.apix.entity.QueryParamEntity;
+import io.tiklab.postin.api.http.document.model.ShareNode;
+import io.tiklab.postin.api.http.document.model.ShareNodeQuery;
 import io.tiklab.postin.api.ws.ws.model.WSApi;
 import io.tiklab.postin.api.ws.ws.service.WSApiService;
 import io.tiklab.postin.node.model.Node;
@@ -14,15 +15,11 @@ import io.tiklab.toolkit.beans.BeanMapper;
 import io.tiklab.core.page.Pagination;
 import io.tiklab.core.page.PaginationBuilder;
 import io.tiklab.toolkit.join.JoinTemplate;
-import io.tiklab.postin.api.apix.model.Apix;
-import io.tiklab.postin.api.apix.model.ApixQuery;
 import io.tiklab.postin.api.apix.service.ApixService;
 import io.tiklab.postin.api.http.definition.model.HttpApi;
 import io.tiklab.postin.api.http.definition.service.HttpApiService;
 import io.tiklab.postin.api.http.document.dao.ShareDao;
 import io.tiklab.postin.api.http.document.entity.ShareEntity;
-import io.tiklab.postin.category.model.Category;
-import io.tiklab.postin.category.model.CategoryQuery;
 import io.tiklab.postin.category.service.CategoryService;
 import io.tiklab.postin.api.http.document.model.Share;
 import io.tiklab.postin.api.http.document.model.ShareQuery;
@@ -36,7 +33,6 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
 * 分享 服务
@@ -68,12 +64,26 @@ public class ShareServiceImpl implements ShareService {
     @Autowired
     WSApiService wsApiService;
 
+    @Autowired
+    ShareNodeService shareNodeService;
+
     @Override
     public String createShare(@NotNull @Valid Share share) {
         ShareEntity shareEntity = BeanMapper.map(share, ShareEntity.class);
         shareEntity.setId(share.getCode());
         shareEntity.setCreateTime(new Timestamp(System.currentTimeMillis()));
 
+        if(!share.getTargetType().equals("workspace")){
+            List<String> nodeIds = share.getNodeIds();
+            if(CollectionUtils.isNotEmpty(nodeIds)){
+                for (String nodeId : nodeIds){
+                    ShareNode shareNode = new ShareNode();
+                    shareNode.setNodeId(nodeId);
+                    shareNode.setShareId(shareEntity.getId());
+                    shareNodeService.createShareNode(shareNode);
+                }
+            }
+        }
 
         return shareDao.createShare(shareEntity);
     }
@@ -89,6 +99,8 @@ public class ShareServiceImpl implements ShareService {
     @Override
     public void deleteShare(@NotNull String id) {
         shareDao.deleteShare(id);
+        // 删除关联的nodeIds
+        shareNodeService.deleteShareNodeByApiId(id);
     }
 
     @Override
@@ -120,6 +132,10 @@ public class ShareServiceImpl implements ShareService {
         Share share = findOne(id);
 
         joinTemplate.joinQuery(share);
+        List<String> nodeIds = getNodeIds(id);
+        if(CollectionUtils.isNotEmpty(nodeIds)){
+            share.setNodeIds(nodeIds);
+        }
 
         return share;
     }
@@ -151,19 +167,20 @@ public class ShareServiceImpl implements ShareService {
 
         List<Share> shareList = BeanMapper.mapList(pagination.getDataList(),Share.class);
 
-        if(CollectionUtils.isNotEmpty(shareList)){
-            for (Share share : shareList){
-                if(Objects.equals(share.getTargetType(), "workspace")){
-                    Workspace workspace = workspaceService.findWorkspace(share.getTargetId());
-                    share.setWorkspace(workspace);
-                }else {
-                    Node node = nodeService.findNode(share.getTargetId());
-                    share.setNode(node);
-                }
+        return PaginationBuilder.build(pagination,shareList);
+    }
+
+    private List<String> getNodeIds(String shareId){
+        List<String> nodeIds = new ArrayList<>();
+        ShareNodeQuery shareNodeQuery = new ShareNodeQuery();
+        shareNodeQuery.setShareId(shareId);
+        List<ShareNode> shareNodeList = shareNodeService.findShareNodeList(shareNodeQuery);
+        if(CollectionUtils.isNotEmpty(shareNodeList)){
+            for (ShareNode shareNode : shareNodeList){
+                nodeIds.add(shareNode.getNodeId());
             }
         }
-
-        return PaginationBuilder.build(pagination,shareList);
+        return nodeIds;
     }
 
     @Override
@@ -198,24 +215,62 @@ public class ShareServiceImpl implements ShareService {
     public List<Node> findShareTree(String id) {
         //通过分享id 查询 targetId
         Share share = findShare(id);
-        String targetId = share.getTargetId();
 
         switch (share.getTargetType()){
             case "workspace":
-                return findNodeByWorkspace(targetId);
+                return findNodeByWorkspace(share.getTargetId());
             case "category":
-                return findNodeByCategory(targetId);
+                return findNodeByCategory(share.getTargetId());
             case "api":
-                Node nodeByApi = findNodeByApi(targetId);
+                Node nodeByApi = findNodeByApi(share.getTargetId());
                 ArrayList<Node> arrayList = new ArrayList<>();
                 arrayList.add(nodeByApi);
                 return arrayList;
+            case "custom":
+                List<String> nodeIds = share.getNodeIds();
+                return findNodeByCustom(nodeIds);
             default:
                 break;
         }
 
         return null;
     }
+
+
+    /**
+     * 根据一组 nodeIds 构建节点树列表，
+     * 内部复用 findNodeByApi 构造每棵树，并对相同根合并子节点。
+     */
+    private List<Node> findNodeByCustom(List<String> nodeIds) {
+        // 用于按根节点 ID 去重，并合并子节点
+        Map<String, Node> rootMap = new LinkedHashMap<>();
+
+        for (String id : nodeIds) {
+            // 拿到以该 id 为叶子的那棵树
+            Node treeRoot = findNodeByApi(id);
+            if (treeRoot == null) {
+                continue;
+            }
+
+            String rootId = treeRoot.getId();
+            // 如果已经有相同根，则把树的直接子节点合并进去
+            if (rootMap.containsKey(rootId)) {
+                Node existing = rootMap.get(rootId);
+                if (treeRoot.getChildren() != null) {
+                    if (existing.getChildren() == null) {
+                        existing.setChildren(new ArrayList<>());
+                    }
+                    existing.getChildren().addAll(treeRoot.getChildren());
+                }
+            } else {
+                // 第一次见到这个根，直接放进去
+                rootMap.put(rootId, treeRoot);
+            }
+        }
+
+        return new ArrayList<>(rootMap.values());
+    }
+
 
 
     /**
@@ -245,7 +300,11 @@ public class ShareServiceImpl implements ShareService {
         return arrayList;
     }
 
-
+    /**
+     * 通过api 查询的树形列表
+     * @param targetId
+     * @return
+     */
     private Node findNodeByApi(String targetId) {
         Node node = nodeService.findNode(targetId);
         if (node == null) {
@@ -267,6 +326,7 @@ public class ShareServiceImpl implements ShareService {
         parentNode.getChildren().add(node);
         return parentNode;
     }
+
     /**
      * 接口 根据类型匹配
      * @param id

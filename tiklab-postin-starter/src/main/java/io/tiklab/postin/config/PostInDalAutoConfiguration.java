@@ -111,6 +111,12 @@ public class PostInDalAutoConfiguration {
                 "postin_1.1.1",
                 "user_1.1.1",
         });
+        dsmConfig.newVersion("1.1.2", new String[]{
+                "postin_1.1.2"
+        });
+        dsmConfig.newVersion("1.1.3", new String[]{
+                "postin_1.1.3"
+        });
         return dsmConfig;
     }
 }

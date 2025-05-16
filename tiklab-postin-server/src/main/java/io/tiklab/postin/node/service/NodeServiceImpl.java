@@ -205,43 +205,28 @@ public class NodeServiceImpl implements NodeService {
 
     @Override
     public List<Node> findNodeTree(NodeQuery nodeQuery) {
-        // 1. 查询所有节点
+        //  查询所有节点
         List<Node> nodeList = findNodeList(nodeQuery);
         if (nodeList == null || nodeList.isEmpty()) {
             return Collections.emptyList();
         }
 
-        // 2. 过滤出：所有目录节点 + 无版本的普通节点
-        List<Node> nodesToProcess = new ArrayList<>();
-        for (Node node : nodeList) {
-            if (MagicValue.CATEGORY.equals(node.getType())) {
-                // 目录节点一律保留，哪怕没有子节点
-                nodesToProcess.add(node);
-            } else {
-                // 普通节点，只保留无版本的
-                Apix apix = apixService.findApix(node.getId());
-                if (apix != null && apix.getVersionId() == null) {
-                    nodesToProcess.add(node);
-                }
-            }
-        }
-
-        // 3. 构建快速查找 & 组织关系容器
+        // 构建快速查找 & 组织关系容器
         Map<String, Node>   nodeMap  = new HashMap<>();
         Map<String, List<Node>>  childrenMap = new HashMap<>();
         Set<String>  processed = new HashSet<>();
         List<Node>   roots   = new ArrayList<>();
 
-        // 3.1 全部放入 map
-        for (Node node : nodesToProcess) {
+        // 全部放入 map
+        for (Node node : nodeList) {
             nodeMap.put(node.getId(), node);
         }
-        // 3.2 递归处理每个节点，补齐父节点并收集根列表
-        for (Node node : nodesToProcess) {
+        // 递归处理每个节点，补齐父节点并收集根列表
+        for (Node node : nodeList) {
             processNode(node, nodeMap, childrenMap, processed, roots);
         }
 
-        // 4. 构建树形结构，确保每个 node.children 至少是空列表
+        // 构建树形结构，确保每个 node.children 至少是空列表
         for (Node root : roots) {
             buildTree(root, childrenMap);
         }

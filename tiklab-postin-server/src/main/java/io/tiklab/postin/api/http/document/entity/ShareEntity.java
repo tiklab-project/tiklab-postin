@@ -17,6 +17,9 @@ public class ShareEntity implements Serializable {
     @Column(name = "id",length = 32)
     private String id;
 
+    @Column(name = "name")
+    private String name;
+
     // 所属空间
     @Column(name = "workspace_id")
     private String workspaceId;
@@ -60,6 +63,14 @@ public class ShareEntity implements Serializable {
 
     public void setWorkspaceId(String workspaceId) {
         this.workspaceId = workspaceId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getTargetId() {

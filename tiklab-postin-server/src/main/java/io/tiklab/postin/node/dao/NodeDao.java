@@ -4,6 +4,7 @@ import io.tiklab.core.page.Pagination;
 import io.tiklab.dal.jpa.JpaTemplate;
 import io.tiklab.dal.jpa.criterial.condition.QueryCondition;
 import io.tiklab.dal.jpa.criterial.conditionbuilder.QueryBuilders;
+import io.tiklab.postin.api.apix.entity.ApixEntity;
 import io.tiklab.postin.node.entity.NodeEntity;
 import io.tiklab.postin.node.model.NodeQuery;
 import org.slf4j.Logger;
@@ -91,16 +92,28 @@ public class NodeDao {
      * @return
      */
     public List<NodeEntity> findNodeList(NodeQuery nodeQuery) {
-        QueryCondition queryCondition = QueryBuilders.createQuery(NodeEntity.class)
-                .eq("workspaceId", nodeQuery.getWorkspaceId())
-                .eq("type",nodeQuery.getType())
-                .eq("parentId",nodeQuery.getParentId())
-                .like("name", nodeQuery.getName())
-//                .in("type", nodeQuery.getApiTypeList())
+        QueryCondition qc = QueryBuilders
+                .createQuery(NodeEntity.class, "node")
+                // 先 join 并过滤 apix.versionId IS NULL
+                .leftJoin(
+                        ApixEntity.class,
+                        "apix",
+                        "apix.id=node.id"
+                )
+                .isNull("apix.versionId")
+
+                // 带别名的字段条件，避免歧义
+                .eq("node.workspaceId", nodeQuery.getWorkspaceId())
+                .eq("node.type",        nodeQuery.getType())
+                .eq("node.parentId",    nodeQuery.getParentId())
+                .like("node.name",      nodeQuery.getName())
                 .orders(nodeQuery.getOrderParams())
                 .get();
-        return jpaTemplate.findList(queryCondition, NodeEntity.class);
+
+        return jpaTemplate.findList(qc, NodeEntity.class);
     }
+
+
 
     /**
      * 根据查询对象查找分类列表树

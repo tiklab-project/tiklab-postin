@@ -13,6 +13,7 @@ import io.tiklab.toolkit.join.annotation.Join;
 import io.tiklab.toolkit.join.annotation.JoinQuery;
 
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 /**
  * 接口文档分享模型
@@ -28,11 +29,13 @@ public class Share extends BaseModel {
     @ApiProperty(name="workspaceId",desc="所属空间")
     private String workspaceId;
 
+    @ApiProperty(name="name",desc="名称")
+    private java.lang.String name;
+
     @ApiProperty(name="code",desc="前端生成一个code，用于set Id")
     private java.lang.String code;
 
-    @NotNull
-    @ApiProperty(name="targetId",desc="接口或目录 ID",required = true)
+    @ApiProperty(name="targetId",desc="接口或目录 ID")
     private java.lang.String targetId;
 
     @ApiProperty(name="targetId",desc="接口或目录 ID",required = true)
@@ -59,6 +62,17 @@ public class Share extends BaseModel {
     @ApiProperty(name="updateTime",desc="更新时间")
     @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
     private java.sql.Timestamp updateTime;
+
+    @ApiProperty(name="nodeIds",desc="节点ID")
+    private List<String> nodeIds;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public java.lang.String getId() {
         return id;
@@ -143,5 +157,13 @@ public class Share extends BaseModel {
 
     public void setWorkspace(Workspace workspace) {
         this.workspace = workspace;
+    }
+
+    public List<String> getNodeIds() {
+        return nodeIds;
+    }
+
+    public void setNodeIds(List<String> nodeIds) {
+        this.nodeIds = nodeIds;
     }
 }
