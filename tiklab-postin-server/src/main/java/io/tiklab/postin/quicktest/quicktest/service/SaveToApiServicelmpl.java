@@ -15,6 +15,7 @@ import io.tiklab.postin.quicktest.service.SaveToApiService;
 import io.tiklab.rpc.annotation.Exporter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -23,89 +24,130 @@ import java.util.List;
 public class SaveToApiServicelmpl implements SaveToApiService {
 
     @Autowired
-    HttpApiService httpApiService;
+    private HttpApiService httpApiService;
 
     @Autowired
-    RequestHeaderService requestHeaderService;
+    private RequestHeaderService requestHeaderService;
 
     @Autowired
-    QueryParamService queryParamService;
+    private QueryParamService queryParamService;
 
     @Autowired
-    ApiRequestService apiRequestService;
+    private ApiRequestService apiRequestService;
 
     @Autowired
-    FormParamService formParamService;
+    private FormParamService formParamService;
 
     @Autowired
-    FormUrlencodedService formUrlencodedService;
+    private FormUrlencodedService formUrlencodedService;
 
     @Autowired
-    RawParamService rawParamService;
+    private RawParamService rawParamService;
 
     @Override
+    @Transactional
     public String saveToApi(SaveToApi saveToApi) {
+        try {
+            // 创建接口并获取ID
+            String httpApiId = httpApiService.createHttpApi(saveToApi.getHttpApi());
 
+            // 处理请求头
+            processRequestHeaders(saveToApi.getHeaderList(), httpApiId);
 
-        //创建接口
-        String httpApiId = httpApiService.createHttpApi(saveToApi.getHttpApi());
+            // 处理查询参数
+            processQueryParams(saveToApi.getQueryList(), httpApiId);
 
-        //创建请求头
-        List<RequestHeader> headerList = saveToApi.getHeaderList();
-        if(headerList!=null){
-           for(RequestHeader requestHeader : headerList){
-               requestHeader.setApiId(httpApiId);
-               requestHeaderService.createRequestHeader(requestHeader);
-           }
+            // 更新API请求（由于创建接口时已初始化）
+            updateApiRequest(saveToApi.getRequest(), httpApiId);
+
+            //  处理表单参数
+            processFormParams(saveToApi.getFormList(), httpApiId);
+
+            // 处理表单URL编码参数
+            processFormUrlEncodedParams(saveToApi.getFormUrlList(), httpApiId);
+
+            // 处理原始参数
+            processRawParam(saveToApi.getRaw(), httpApiId);
+
+            return httpApiId;
+        } catch (Exception e) {
+            throw new RuntimeException("保存API过程中发生错误: " + e.getMessage(), e);
         }
-
-        //创建查询参数
-        List<QueryParam> queryList = saveToApi.getQueryList();
-        if(queryList!=null){
-            for(QueryParam queryParam:queryList){
-                queryParam.setApiId(httpApiId);
-                queryParamService.createQueryParam(queryParam);
-            }
-        }
-
-        //由于创建接口的时候初始化了，所有这里只需要更新
-        ApiRequest request = saveToApi.getRequest();
-        request.setId(httpApiId);
-        request.setApiId(httpApiId);
-        apiRequestService.updateApiRequest(request);
-
-
-
-        //form
-        List<FormParam> formList = saveToApi.getFormList();
-        if(formList!=null){
-            for(FormParam formParam:formList){
-                formParam.setHttp(new HttpApi().setId(httpApiId));
-                formParamService.createFormParam(formParam);
-            }
-        }
-
-
-        //formurl
-        List<FormUrlencoded> formUrlList = saveToApi.getFormUrlList();
-        if(formUrlList!=null){
-            for(FormUrlencoded formUrlencoded:formUrlList){
-                formUrlencoded.setHttp(new HttpApi().setId(httpApiId));
-                formUrlencodedService.createFormUrlencoded(formUrlencoded);
-            }
-        }
-
-        RawParam raw = saveToApi.getRaw();
-        if(raw!=null){
-            raw.setApiId(httpApiId);
-            raw.setId(httpApiId);
-            rawParamService.createRawParam(raw);
-        }
-
-
-        return httpApiId;
     }
 
+    private void processRequestHeaders(List<RequestHeader> headers, String apiId) {
+        if (isEmpty(headers)) {
+            return;
+        }
 
+        headers.forEach(header -> {
+            header.setApiId(apiId);
+            requestHeaderService.createRequestHeader(header);
+        });
+    }
 
+    private void processQueryParams(List<QueryParam> queryParams, String apiId) {
+        if (isEmpty(queryParams)) {
+            return;
+        }
+
+        queryParams.forEach(param -> {
+            param.setApiId(apiId);
+            queryParamService.createQueryParam(param);
+        });
+    }
+
+    private void updateApiRequest(ApiRequest request, String apiId) {
+        if (request == null) {
+            return;
+        }
+
+        request.setId(apiId);
+        request.setApiId(apiId);
+        apiRequestService.updateApiRequest(request);
+    }
+
+    private void processFormParams(List<FormParam> formParams, String apiId) {
+        if (isEmpty(formParams)) {
+            return;
+        }
+
+        HttpApi httpApi = new HttpApi().setId(apiId);
+        formParams.forEach(param -> {
+            param.setHttp(httpApi);
+            if(param.getDataType()==null){
+                param.setDataType("text");
+            }
+            formParamService.createFormParam(param);
+        });
+    }
+
+    private void processFormUrlEncodedParams(List<FormUrlencoded> formUrlParams, String apiId) {
+        if (isEmpty(formUrlParams)) {
+            return;
+        }
+
+        HttpApi httpApi = new HttpApi().setId(apiId);
+        formUrlParams.forEach(param -> {
+            param.setHttp(httpApi);
+            if(param.getDataType()==null){
+                param.setDataType("string");
+            }
+            formUrlencodedService.createFormUrlencoded(param);
+        });
+    }
+
+    private void processRawParam(RawParam rawParam, String apiId) {
+        if (rawParam == null || rawParam.getRaw() == null) {
+            return;
+        }
+
+        rawParam.setApiId(apiId);
+        rawParam.setId(apiId);
+        rawParamService.createRawParam(rawParam);
+    }
+
+    private <T> boolean isEmpty(List<T> list) {
+        return list == null || list.isEmpty();
+    }
 }
