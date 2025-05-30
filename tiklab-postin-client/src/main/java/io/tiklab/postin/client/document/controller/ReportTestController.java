@@ -16,11 +16,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/report")
-@Api(name = "report",desc = "report")
+//@Api(name = "report",desc = "report")
 public class ReportTestController {
 
     @RequestMapping(path = "/reportTest",method = RequestMethod.POST)
-    @ApiMethod(name = "report",desc = "report")
+//    @ApiMethod(name = "report",desc = "report")
     public Result<Void> report(String test) throws FileNotFoundException {
         List<ApiMeta> apiMetaList =  ApiMetaContext.getApiMetaList();
         String data = JSON.toJSONString(apiMetaList);

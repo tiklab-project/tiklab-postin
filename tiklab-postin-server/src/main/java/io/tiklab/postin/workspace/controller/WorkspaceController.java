@@ -24,7 +24,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/workspace")
-@Api(name = "WorkspaceController",desc = "空间管理")
+@Api(name = "空间管理",desc = "空间管理")
 public class WorkspaceController {
 
     /**
@@ -40,8 +40,8 @@ public class WorkspaceController {
 
 
     @RequestMapping(path="/createWorkspace",method = RequestMethod.POST)
-    @ApiMethod(name = "createWorkspace",desc = "创建空间")
-    @ApiParam(name = "workspace",desc = "空间DTO",required = true)
+//    @ApiMethod(name = "createWorkspace",desc = "创建空间")
+//     @ApiParam(name = "workspace",desc = "空间DTO",required = true)
     public Result<String> createWorkspace(@RequestBody @NotNull @Valid @ApiParam Workspace workspace) throws Exception {
         String id = workspaceService.createWorkspace(workspace);
 
@@ -49,8 +49,8 @@ public class WorkspaceController {
     }
 
     @RequestMapping(path="/updateWorkspace",method = RequestMethod.POST)
-    @ApiMethod(name = "updateWorkspace",desc = "更新空间")
-    @ApiParam(name = "workspace",desc = "空间DTO",required = true)
+//    @ApiMethod(name = "updateWorkspace",desc = "更新空间")
+//     @ApiParam(name = "workspace",desc = "空间DTO",required = true)
     public Result<Void> updateWorkspace(@RequestBody @NotNull @Valid @ApiParam Workspace workspace){
         workspaceService.updateWorkspace(workspace);
 
@@ -58,8 +58,8 @@ public class WorkspaceController {
     }
 
     @RequestMapping(path="/deleteWorkspace",method = RequestMethod.POST)
-    @ApiMethod(name = "deleteWorkspace",desc = "根据空间ID删除空间")
-    @ApiParam(name = "id",desc = "空间ID",required = true)
+//    @ApiMethod(name = "deleteWorkspace",desc = "根据空间ID删除空间")
+//     @ApiParam(name = "id",desc = "空间ID",required = true)
     public Result<Void> deleteWorkspace(@NotNull String id){
         workspaceService.deleteWorkspace(id);
 
@@ -67,8 +67,8 @@ public class WorkspaceController {
     }
 
     @RequestMapping(path="/findWorkspace",method = RequestMethod.POST)
-    @ApiMethod(name = "findWorkspace",desc = "根据空间ID查找空间")
-    @ApiParam(name = "id",desc = "空间ID",required = true)
+    @ApiMethod(name = "根据空间ID查找空间",desc = "根据空间ID查找空间")
+     @ApiParam(name = "id",desc = "空间ID",required = true)
     public Result<Workspace> findWorkspace(@NotNull String id){
         Workspace workspace = workspaceService.findWorkspace(id);
 
@@ -76,7 +76,7 @@ public class WorkspaceController {
     }
 
     @RequestMapping(path="/findAllWorkspace",method = RequestMethod.POST)
-    @ApiMethod(name = "findAllWorkspace",desc = "查找所有空间")
+//    @ApiMethod(name = "findAllWorkspace",desc = "查找所有空间")
     public Result<List<Workspace>> findAllWorkspace(){
         List<Workspace> workspaceList = workspaceService.findAllWorkspace();
 
@@ -84,7 +84,7 @@ public class WorkspaceController {
     }
 
     @RequestMapping(path = "/findWorkspaceList",method = RequestMethod.POST)
-    @ApiMethod(name = "findWorkspaceList",desc = "根据查询对象查询空间列表")
+    @ApiMethod(name = "根据查询对象查询空间列表",desc = "根据查询对象查询空间列表")
     @ApiParam(name = "workspaceQuery",desc = "查询对象",required = true)
     public Result<List<Workspace>> findWorkspaceList(@RequestBody @Valid @NotNull WorkspaceQuery workspaceQuery){
         List<Workspace> workspaceJoinList = workspaceService.findWorkspaceList(workspaceQuery);
@@ -93,8 +93,8 @@ public class WorkspaceController {
     }
 
     @RequestMapping(path = "/findWorkspacePage",method = RequestMethod.POST)
-    @ApiMethod(name = "findWorkspacePage",desc = "根据查询对象按分页查询空间")
-    @ApiParam(name = "workspaceQuery",desc = "查询对象",required = true)
+//    @ApiMethod(name = "findWorkspacePage",desc = "根据查询对象按分页查询空间")
+//     @ApiParam(name = "workspaceQuery",desc = "查询对象",required = true)
     public Result<Pagination<Workspace>> findWorkspacePage(@RequestBody @Valid @NotNull WorkspaceQuery workspaceQuery){
         Pagination<Workspace> pagination = workspaceService.findWorkspacePage(workspaceQuery);
 
@@ -102,8 +102,8 @@ public class WorkspaceController {
     }
 
     @RequestMapping(path = "/findWorkspaceJoinList",method = RequestMethod.POST)
-    @ApiMethod(name = "findWorkspaceJoinList",desc = "根据查询对象查询空间我参加的列表")
-    @ApiParam(name = "workspaceQuery",desc = "查询对象",required = true)
+//    @ApiMethod(name = "findWorkspaceJoinList",desc = "根据查询对象查询空间我参加的列表")
+//     @ApiParam(name = "workspaceQuery",desc = "查询对象",required = true)
     public Result<List<Workspace>> findWorkspaceJoinList(@RequestBody @Valid @NotNull WorkspaceQuery workspaceQuery){
         List<Workspace> workspaceList = workspaceService.findWorkspaceJoinList(workspaceQuery);
 

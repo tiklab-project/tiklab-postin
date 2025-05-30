@@ -27,7 +27,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/responseHeaderMock")
-@Api(name = "ResponseHeaderMockController",desc = "接口mock-响应头部管理")
+//@Api(name = "ResponseHeaderMockController",desc = "接口mock-响应头部管理")
 public class ResponseHeaderMockController {
 
     private static Logger logger = LoggerFactory.getLogger(ResponseHeaderMockController.class);
@@ -36,8 +36,8 @@ public class ResponseHeaderMockController {
     private ResponseHeaderMockService responseHeaderMockService;
 
     @RequestMapping(path="/createResponseHeaderMock",method = RequestMethod.POST)
-    @ApiMethod(name = "createResponseHeaderMock",desc = "创建响应头")
-    @ApiParam(name = "responseHeaderMock",desc = "responseHeaderMock",required = true)
+//    @ApiMethod(name = "createResponseHeaderMock",desc = "创建响应头")
+//    @ApiParam(name = "responseHeaderMock",desc = "responseHeaderMock",required = true)
     public Result<String> createResponseHeaderMock(@RequestBody @NotNull @Valid ResponseHeaderMock responseHeaderMock){
         String id = responseHeaderMockService.createResponseHeaderMock(responseHeaderMock);
 
@@ -45,8 +45,8 @@ public class ResponseHeaderMockController {
     }
 
     @RequestMapping(path="/updateResponseHeaderMock",method = RequestMethod.POST)
-    @ApiMethod(name = "updateResponseHeaderMock",desc = "更新响应头")
-    @ApiParam(name = "responseHeaderMock",desc = "responseHeaderMock",required = true)
+//    @ApiMethod(name = "updateResponseHeaderMock",desc = "更新响应头")
+//    @ApiParam(name = "responseHeaderMock",desc = "responseHeaderMock",required = true)
     public Result<Void> updateResponseHeaderMock(@RequestBody @NotNull @Valid ResponseHeaderMock responseHeaderMock){
         responseHeaderMockService.updateResponseHeaderMock(responseHeaderMock);
 
@@ -54,8 +54,8 @@ public class ResponseHeaderMockController {
     }
 
     @RequestMapping(path="/deleteResponseHeaderMock",method = RequestMethod.POST)
-    @ApiMethod(name = "deleteResponseHeaderMock",desc = "删除响应头")
-    @ApiParam(name = "id",desc = "id",required = true)
+//    @ApiMethod(name = "deleteResponseHeaderMock",desc = "删除响应头")
+//    @ApiParam(name = "id",desc = "id",required = true)
     public Result<Void> deleteResponseHeaderMock(@NotNull String id){
         responseHeaderMockService.deleteResponseHeaderMock(id);
 
@@ -63,8 +63,8 @@ public class ResponseHeaderMockController {
     }
 
     @RequestMapping(path="/findResponseHeaderMock",method = RequestMethod.POST)
-    @ApiMethod(name = "findResponseHeaderMock",desc = "根据id查询响应头")
-    @ApiParam(name = "id",desc = "id",required = true)
+//    @ApiMethod(name = "findResponseHeaderMock",desc = "根据id查询响应头")
+//    @ApiParam(name = "id",desc = "id",required = true)
     public Result<ResponseHeaderMock> findResponseHeaderMock(@NotNull String id){
         ResponseHeaderMock responseHeaderMock = responseHeaderMockService.findResponseHeaderMock(id);
 
@@ -72,7 +72,7 @@ public class ResponseHeaderMockController {
     }
 
     @RequestMapping(path="/findAllResponseHeaderMock",method = RequestMethod.POST)
-    @ApiMethod(name = "findAllResponseHeaderMock",desc = "查询所有响应头")
+//    @ApiMethod(name = "findAllResponseHeaderMock",desc = "查询所有响应头")
     public Result<List<ResponseHeaderMock>> findAllResponseHeaderMock(){
         List<ResponseHeaderMock> responseHeaderMockList = responseHeaderMockService.findAllResponseHeaderMock();
 
@@ -81,8 +81,8 @@ public class ResponseHeaderMockController {
 
 
     @RequestMapping(path = "/findResponseHeaderMockList",method = RequestMethod.POST)
-    @ApiMethod(name = "findResponseHeaderMockList",desc = "根据查询参数查找响应头")
-    @ApiParam(name = "responseHeaderMockQuery",desc = "responseHeaderMockQuery",required = true)
+//    @ApiMethod(name = "findResponseHeaderMockList",desc = "根据查询参数查找响应头")
+//    @ApiParam(name = "responseHeaderMockQuery",desc = "responseHeaderMockQuery",required = true)
     public Result<List<ResponseHeaderMock>> findResponseHeaderMockList(@RequestBody @Valid @NotNull ResponseHeaderMockQuery responseHeaderMockQuery){
         List<ResponseHeaderMock> responseHeaderMockList = responseHeaderMockService.findResponseHeaderMockList(responseHeaderMockQuery);
 
@@ -91,8 +91,8 @@ public class ResponseHeaderMockController {
 
 
     @RequestMapping(path = "/findResponseHeaderMockPage",method = RequestMethod.POST)
-    @ApiMethod(name = "findResponseHeaderMockPage",desc = "根据查询参数按分页查找响应头")
-    @ApiParam(name = "responseHeaderMockQuery",desc = "responseHeaderMockQuery",required = true)
+//    @ApiMethod(name = "findResponseHeaderMockPage",desc = "根据查询参数按分页查找响应头")
+//    @ApiParam(name = "responseHeaderMockQuery",desc = "responseHeaderMockQuery",required = true)
     public Result<Pagination<ResponseHeaderMock>> findResponseHeaderMockPage(@RequestBody @Valid @NotNull ResponseHeaderMockQuery responseHeaderMockQuery){
         Pagination<ResponseHeaderMock> pagination = responseHeaderMockService.findResponseHeaderMockPage(responseHeaderMockQuery);
 

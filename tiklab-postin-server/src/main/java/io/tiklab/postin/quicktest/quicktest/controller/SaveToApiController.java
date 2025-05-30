@@ -19,7 +19,7 @@ import javax.validation.constraints.NotNull;
 
 @RestController
 @RequestMapping("/quickTest")
-@Api(name = "SaveToApiController",desc = "保存为接口")
+//@Api(name = "SaveToApiController",desc = "保存为接口")
 public class SaveToApiController {
     private static Logger logger = LoggerFactory.getLogger(SaveToApiController.class);
 
@@ -28,8 +28,8 @@ public class SaveToApiController {
 
 
     @RequestMapping(path="/saveToApi",method = RequestMethod.POST)
-    @ApiMethod(name = "saveToApi",desc = "保存为接口")
-    @ApiParam(name = "saveToApi",desc = "保存为接口",required = true)
+//    @ApiMethod(name = "saveToApi",desc = "保存为接口")
+//    @ApiParam(name = "saveToApi",desc = "保存为接口",required = true)
     public Result<String> createWorkspace(@RequestBody @NotNull @Valid @ApiParam SaveToApi saveToApi) throws Exception {
         String id = saveToApiService.saveToApi(saveToApi);
 

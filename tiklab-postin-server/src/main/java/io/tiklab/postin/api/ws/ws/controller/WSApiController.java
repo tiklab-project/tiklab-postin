@@ -23,7 +23,7 @@ import javax.validation.constraints.NotNull;
  */
 @RestController
 @RequestMapping("/ws")
-@Api(name = "WSApiController",desc = "接口管理")
+//@Api(name = "WSApiController",desc = "接口管理")
 public class WSApiController {
 
     private static Logger logger = LoggerFactory.getLogger(WSApiController.class);
@@ -34,7 +34,7 @@ public class WSApiController {
 
 
     @RequestMapping(path="/createWSApi",method = RequestMethod.POST)
-    @ApiMethod(name = "createWSApi",desc = "创建接口")
+//    @ApiMethod(name = "createWSApi",desc = "创建接口")
     @ApiParam(name = "wsApi",desc = "接口DTO",required = true)
     public Result<String> createWSApi(@RequestBody @NotNull @Valid WSApi wsApi){
 
@@ -44,7 +44,7 @@ public class WSApiController {
     }
 
     @RequestMapping(path="/updateWSApi",method = RequestMethod.POST)
-    @ApiMethod(name = "updateWSApi",desc = "更新接口")
+//    @ApiMethod(name = "updateWSApi",desc = "更新接口")
     @ApiParam(name = "wsApi",desc = "接口DTO",required = true)
     public Result<Void> updateWSApi(@RequestBody @NotNull WSApi wsApi){
         wsApiService.updateWSApi(wsApi);
@@ -53,7 +53,7 @@ public class WSApiController {
     }
 
     @RequestMapping(path="/deleteWSApi",method = RequestMethod.POST)
-    @ApiMethod(name = "deleteWSApi",desc = "根据接口ID删除接口")
+//    @ApiMethod(name = "deleteWSApi",desc = "根据接口ID删除接口")
     @ApiParam(name = "id",desc = "接口ID",required = true)
     public Result<Void> deleteWSApi(@NotNull String id){
         wsApiService.deleteWSApi(id);
@@ -62,7 +62,7 @@ public class WSApiController {
     }
 
     @RequestMapping(path="/findWSApi",method = RequestMethod.POST)
-    @ApiMethod(name = "findWSApi",desc = "根据接口ID查找接口")
+//    @ApiMethod(name = "findWSApi",desc = "根据接口ID查找接口")
     @ApiParam(name = "id",desc = "接口ID",required = true)
     public Result<WSApi> findWSApi(@NotNull String id){
         WSApi wsApi = wsApiService.findWSApi(id);

@@ -26,7 +26,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/pathParam")
-@Api(name = "PathParamController",desc = "请求头管理")
+//@Api(name = "PathParamController",desc = "请求头管理")
 public class PathParamController {
 
     private static Logger logger = LoggerFactory.getLogger(PathParamController.class);
@@ -35,8 +35,8 @@ public class PathParamController {
     private PathParamService pathParamService;
 
     @RequestMapping(path="/createPathParam",method = RequestMethod.POST)
-    @ApiMethod(name = "createPathParam",desc = "创建请求头")
-    @ApiParam(name = "pathParam",desc = "请求头DTO",required = true)
+//    @ApiMethod(name = "createPathParam",desc = "创建请求头")
+//    @ApiParam(name = "pathParam",desc = "请求头DTO",required = true)
     public Result<String> createPathParam(@RequestBody @NotNull @Valid PathParam pathParam){
         String id = pathParamService.createPathParam(pathParam);
 
@@ -44,8 +44,8 @@ public class PathParamController {
     }
 
     @RequestMapping(path="/updatePathParam",method = RequestMethod.POST)
-    @ApiMethod(name = "updatePathParam",desc = "更新请求头")
-    @ApiParam(name = "pathParam",desc = "请求头DTO",required = true)
+//    @ApiMethod(name = "updatePathParam",desc = "更新请求头")
+//    @ApiParam(name = "pathParam",desc = "请求头DTO",required = true)
     public Result<Void> updatePathParam(@RequestBody @NotNull @Valid PathParam pathParam){
         pathParamService.updatePathParam(pathParam);
 
@@ -53,8 +53,8 @@ public class PathParamController {
     }
 
     @RequestMapping(path="/deletePathParam",method = RequestMethod.POST)
-    @ApiMethod(name = "deletePathParam",desc = "根据ID删除请求头")
-    @ApiParam(name = "id",desc = "唯一标识",required = true)
+//    @ApiMethod(name = "deletePathParam",desc = "根据ID删除请求头")
+//    @ApiParam(name = "id",desc = "唯一标识",required = true)
     public Result<Void> deletePathParam(@NotNull String id){
         pathParamService.deletePathParam(id);
 
@@ -62,8 +62,8 @@ public class PathParamController {
     }
 
     @RequestMapping(path="/findPathParam",method = RequestMethod.POST)
-    @ApiMethod(name = "findPathParam",desc = "根据ID查找请求头")
-    @ApiParam(name = "id",desc = "唯一标识",required = true)
+//    @ApiMethod(name = "findPathParam",desc = "根据ID查找请求头")
+//    @ApiParam(name = "id",desc = "唯一标识",required = true)
     public Result<PathParam> findPathParam(@NotNull String id){
         PathParam pathParam = pathParamService.findPathParam(id);
 
@@ -71,7 +71,7 @@ public class PathParamController {
     }
 
     @RequestMapping(path="/findAllPathParam",method = RequestMethod.POST)
-    @ApiMethod(name = "findAllPathParam",desc = "查找所有请求头列表")
+//    @ApiMethod(name = "findAllPathParam",desc = "查找所有请求头列表")
     public Result<List<PathParam>> findAllPathParam(){
         List<PathParam> pathParamList = pathParamService.findAllPathParam();
 
@@ -80,8 +80,8 @@ public class PathParamController {
 
 
     @RequestMapping(path = "/findPathParamList",method = RequestMethod.POST)
-    @ApiMethod(name = "findPathParamList",desc = "根据查询对象查询请求头列表")
-    @ApiParam(name = "pathParamQuery",desc = "查询对象",required = true)
+//    @ApiMethod(name = "findPathParamList",desc = "根据查询对象查询请求头列表")
+//    @ApiParam(name = "pathParamQuery",desc = "查询对象",required = true)
     public Result<List<PathParam>> findPathParamList(@RequestBody @Valid @NotNull PathParamQuery pathParamQuery){
         List<PathParam> pathParamList = pathParamService.findPathParamList(pathParamQuery);
 
@@ -90,8 +90,8 @@ public class PathParamController {
 
 
     @RequestMapping(path = "/findPathParamPage",method = RequestMethod.POST)
-    @ApiMethod(name = "findPathParamPage",desc = "根据查询对象按分页查询请求头列表")
-    @ApiParam(name = "pathParamQuery",desc = "查询对象",required = true)
+//    @ApiMethod(name = "findPathParamPage",desc = "根据查询对象按分页查询请求头列表")
+//    @ApiParam(name = "pathParamQuery",desc = "查询对象",required = true)
     public Result<Pagination<PathParam>> findPathParamPage(@RequestBody @Valid @NotNull PathParamQuery pathParamQuery){
         Pagination<PathParam> pagination = pathParamService.findPathParamPage(pathParamQuery);
 

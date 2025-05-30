@@ -28,7 +28,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/formParam")
-@Api(name = "FormParamController",desc = "form参数管理")
+//@Api(name = "FormParamController",desc = "form参数管理")
 public class FormParamController {
 
     private static Logger logger = LoggerFactory.getLogger(FormParamController.class);
@@ -37,8 +37,8 @@ public class FormParamController {
     private FormParamService formParamService;
 
     @RequestMapping(path="/createFormParam",method = RequestMethod.POST)
-    @ApiMethod(name = "createFormParam",desc = "创建form-data参数")
-    @ApiParam(name = "formParam",desc = "formParam",required = true)
+//    @ApiMethod(name = "createFormParam",desc = "创建form-data参数")
+//    @ApiParam(name = "formParam",desc = "formParam",required = true)
     public Result<String> createFormParam(@RequestBody @NotNull @Valid FormParam formParam){
         String id = formParamService.createFormParam(formParam);
 
@@ -46,8 +46,8 @@ public class FormParamController {
     }
 
     @RequestMapping(path="/updateFormParam",method = RequestMethod.POST)
-    @ApiMethod(name = "updateFormParam",desc = "更新form-data参数")
-    @ApiParam(name = "formParam",desc = "formParam",required = true)
+//    @ApiMethod(name = "updateFormParam",desc = "更新form-data参数")
+//    @ApiParam(name = "formParam",desc = "formParam",required = true)
     public Result<Void> updateFormParam(@RequestBody @NotNull @Valid FormParam formParam){
         formParamService.updateFormParam(formParam);
 
@@ -55,8 +55,8 @@ public class FormParamController {
     }
 
     @RequestMapping(path="/deleteFormParam",method = RequestMethod.POST)
-    @ApiMethod(name = "deleteFormParam",desc = "删除form-data参数")
-    @ApiParam(name = "id",desc = "id",required = true)
+//    @ApiMethod(name = "deleteFormParam",desc = "删除form-data参数")
+//    @ApiParam(name = "id",desc = "id",required = true)
     public Result<Void> deleteFormParam(@NotNull String id){
         formParamService.deleteFormParam(id);
 
@@ -64,8 +64,8 @@ public class FormParamController {
     }
 
     @RequestMapping(path="/findFormParam",method = RequestMethod.POST)
-    @ApiMethod(name = "findFormParam",desc = "根据id查找form-data参数")
-    @ApiParam(name = "id",desc = "id",required = true)
+//    @ApiMethod(name = "findFormParam",desc = "根据id查找form-data参数")
+//    @ApiParam(name = "id",desc = "id",required = true)
     public Result<FormParam> findFormParam(@NotNull String id){
         FormParam formParam = formParamService.findFormParam(id);
 
@@ -73,7 +73,7 @@ public class FormParamController {
     }
 
     @RequestMapping(path="/findAllFormParam",method = RequestMethod.POST)
-    @ApiMethod(name = "findAllFormParam",desc = "查找所有form-data参数")
+//    @ApiMethod(name = "findAllFormParam",desc = "查找所有form-data参数")
     public Result<List<FormParam>> findAllFormParam(){
         List<FormParam> formParamList = formParamService.findAllFormParam();
 
@@ -82,8 +82,8 @@ public class FormParamController {
 
 
     @RequestMapping(path = "/findFormParamList",method = RequestMethod.POST)
-    @ApiMethod(name = "findFormParamList",desc = "根据查询参数查找form-data参数")
-    @ApiParam(name = "formParamQuery",desc = "formParamQuery",required = true)
+//    @ApiMethod(name = "findFormParamList",desc = "根据查询参数查找form-data参数")
+//    @ApiParam(name = "formParamQuery",desc = "formParamQuery",required = true)
     public Result<List<FormParam>> findFormParamList(@RequestBody @Valid @NotNull FormParamQuery formParamQuery){
         List<FormParam> formParamList = formParamService.findFormParamList(formParamQuery);
 
@@ -92,8 +92,8 @@ public class FormParamController {
 
 
     @RequestMapping(path = "/findFormParamPage",method = RequestMethod.POST)
-    @ApiMethod(name = "findFormParamPage",desc = "根据查询参数按分页查找form-data参数")
-    @ApiParam(name = "formParamQuery",desc = "formParamQuery",required = true)
+//    @ApiMethod(name = "findFormParamPage",desc = "根据查询参数按分页查找form-data参数")
+//    @ApiParam(name = "formParamQuery",desc = "formParamQuery",required = true)
     public Result<Pagination<FormParam>> findFormParamPage(@RequestBody @Valid @NotNull FormParamQuery formParamQuery){
         Pagination<FormParam> pagination = formParamService.findFormParamPage(formParamQuery);
 

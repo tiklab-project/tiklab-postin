@@ -16,15 +16,15 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/sql")
-@Api(name = "UpdateSqlController",desc = "更新sql管理")
+//@Api(name = "UpdateSqlController",desc = "更新sql管理")
 public class UpdateSqlController {
 
     @Autowired
     UpdateSqlService updateSqlService;
 
     @RequestMapping(path="/updateSql",method = RequestMethod.POST)
-    @ApiMethod(name = "updateSql",desc = "更新sql")
-    @ApiParam(name = "updateSql",desc = "updateSql")
+//    @ApiMethod(name = "updateSql",desc = "更新sql")
+//    @ApiParam(name = "updateSql",desc = "updateSql")
     public Result<Void> updateSql(){
         updateSqlService.updateSql();
 

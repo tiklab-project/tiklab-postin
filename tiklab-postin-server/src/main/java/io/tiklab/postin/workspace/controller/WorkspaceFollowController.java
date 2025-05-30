@@ -27,7 +27,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/workspaceFollow")
-@Api(name = "WorkspaceFollowController",desc = "WorkspaceFollowController")
+//@Api(name = "WorkspaceFollowController",desc = "WorkspaceFollowController")
 public class WorkspaceFollowController {
 
     private static Logger logger = LoggerFactory.getLogger(WorkspaceFollowController.class);
@@ -43,8 +43,8 @@ public class WorkspaceFollowController {
      * @pi.param: model=io.tiklab.postin.workspace.model.WorkspaceFollow
      */
     @RequestMapping(path="/createWorkspaceFollow",method = RequestMethod.POST)
-    @ApiMethod(name = "createWorkspaceFollow",desc = "创建空间关注")
-    @ApiParam(name = "workspaceFollow",desc = "workspaceFollow",required = true)
+//    @ApiMethod(name = "createWorkspaceFollow",desc = "创建空间关注")
+//     @ApiParam(name = "workspaceFollow",desc = "workspaceFollow",required = true)
     public Result<String> createWorkspaceFollow(@RequestBody @NotNull @Valid WorkspaceFollow workspaceFollow){
         String id = workspaceFollowService.createWorkspaceFollow(workspaceFollow);
 
@@ -61,8 +61,8 @@ public class WorkspaceFollowController {
      * @pi.param: name=id2;dataType=string;value=workspaceId2;desc=当前删除的id2
      */
     @RequestMapping(path="/deleteWorkspaceFollow",method = RequestMethod.POST)
-    @ApiMethod(name = "deleteWorkspaceFollow",desc = "删除空间关注")
-    @ApiParam(name = "id",desc = "id",required = true)
+//    @ApiMethod(name = "deleteWorkspaceFollow",desc = "删除空间关注")
+//     @ApiParam(name = "id",desc = "id",required = true)
     public Result<Void> deleteWorkspaceFollow(@NotNull String id){
         workspaceFollowService.deleteWorkspaceFollow(id);
 
@@ -77,8 +77,8 @@ public class WorkspaceFollowController {
      * @pi.param: model=io.tiklab.postin.workspace.model.WorkspaceFollow
      */
     @RequestMapping(path="/updateWorkspaceFollow",method = RequestMethod.POST)
-    @ApiMethod(name = "updateWorkspaceFollow",desc = "更新空间关注")
-    @ApiParam(name = "workspaceFollow",desc = "workspaceFollow",required = true)
+//    @ApiMethod(name = "updateWorkspaceFollow",desc = "更新空间关注")
+//     @ApiParam(name = "workspaceFollow",desc = "workspaceFollow",required = true)
     public Result<Void> updateWorkspaceFollow(@RequestBody @NotNull @Valid WorkspaceFollow workspaceFollow){
         workspaceFollowService.updateWorkspaceFollow(workspaceFollow);
 
@@ -93,8 +93,8 @@ public class WorkspaceFollowController {
      * @pi.param: name=id;dataType=string;value=workspaceId;
      */
     @RequestMapping(path="/findWorkspaceFollow",method = RequestMethod.POST)
-    @ApiMethod(name = "findWorkspaceFollow",desc = "根据id查询空间关注")
-    @ApiParam(name = "id",desc = "id",required = true)
+//    @ApiMethod(name = "findWorkspaceFollow",desc = "根据id查询空间关注")
+//     @ApiParam(name = "id",desc = "id",required = true)
     public Result<WorkspaceFollow> findWorkspaceFollow(@NotNull String id){
         WorkspaceFollow workspaceFollow = workspaceFollowService.findWorkspaceFollow(id);
 
@@ -108,7 +108,7 @@ public class WorkspaceFollowController {
      * @pi.request-type:none
      */
     @RequestMapping(path="/findAllWorkspaceFollow",method = RequestMethod.POST)
-    @ApiMethod(name = "findAllWorkspaceFollow",desc = "查询所有空间关注")
+//    @ApiMethod(name = "findAllWorkspaceFollow",desc = "查询所有空间关注")
     public Result<List<WorkspaceFollow>> findAllWorkspaceFollow(){
         List<WorkspaceFollow> workspaceFollowList = workspaceFollowService.findAllWorkspaceFollow();
 
@@ -123,8 +123,8 @@ public class WorkspaceFollowController {
      * @pi.param: model=io.tiklab.postin.workspace.model.WorkspaceFollowQuery
      */
     @RequestMapping(path = "/findWorkspaceFollowList",method = RequestMethod.POST)
-    @ApiMethod(name = "findWorkspaceFollowList",desc = "根据查询参数查找空间关注")
-    @ApiParam(name = "workspaceFollowQuery",desc = "workspaceFollowQuery",required = true)
+//    @ApiMethod(name = "findWorkspaceFollowList",desc = "根据查询参数查找空间关注")
+//     @ApiParam(name = "workspaceFollowQuery",desc = "workspaceFollowQuery",required = true)
     public Result<List<WorkspaceFollow>> findWorkspaceFollowList(@RequestBody @Valid @NotNull WorkspaceFollowQuery workspaceFollowQuery){
         List<WorkspaceFollow> workspaceFollowList = workspaceFollowService.findWorkspaceFollowList(workspaceFollowQuery);
 
@@ -139,8 +139,8 @@ public class WorkspaceFollowController {
      * @pi.param: model=io.tiklab.postin.workspace.model.WorkspaceFollowQuery
      */
     @RequestMapping(path = "/findWorkspaceFollowPage",method = RequestMethod.POST)
-    @ApiMethod(name = "findWorkspaceFollowPage",desc = "根据查询参数按分页查找空间关注")
-    @ApiParam(name = "workspaceFollowQuery",desc = "workspaceFollowQuery",required = true)
+//    @ApiMethod(name = "findWorkspaceFollowPage",desc = "根据查询参数按分页查找空间关注")
+//     @ApiParam(name = "workspaceFollowQuery",desc = "workspaceFollowQuery",required = true)
     public Result<Pagination<WorkspaceFollow>> findWorkspaceFollowPage(@RequestBody @Valid @NotNull WorkspaceFollowQuery workspaceFollowQuery){
         Pagination<WorkspaceFollow> pagination = workspaceFollowService.findWorkspaceFollowPage(workspaceFollowQuery);
 

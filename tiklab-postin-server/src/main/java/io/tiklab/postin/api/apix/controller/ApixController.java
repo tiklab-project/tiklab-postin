@@ -26,7 +26,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/apx")
-@Api(name = "ApixController",desc = "接口公共字段")
+@Api(name = "接口",desc = "接口公共字段")
 public class ApixController {
 
     private static Logger logger = LoggerFactory.getLogger(ApixController.class);
@@ -35,8 +35,8 @@ public class ApixController {
     private ApixService apixService;
 
     @RequestMapping(path="/createApix",method = RequestMethod.POST)
-    @ApiMethod(name = "createApix",desc = "创建接口公共字段")
-    @ApiParam(name = "apix",desc = "apix",required = true)
+//    @ApiMethod(name = "createApix",desc = "创建接口公共字段")
+//    @ApiParam(name = "apix",desc = "apix",required = true)
     public Result<String> createApix(@RequestBody @NotNull @Valid Apix apix){
         String id = apixService.createApix(apix);
 
@@ -44,8 +44,8 @@ public class ApixController {
     }
 
     @RequestMapping(path="/updateApix",method = RequestMethod.POST)
-    @ApiMethod(name = "updateApix",desc = "更新接口公共字段")
-    @ApiParam(name = "apix",desc = "apix",required = true)
+//    @ApiMethod(name = "updateApix",desc = "更新接口公共字段")
+//    @ApiParam(name = "apix",desc = "apix",required = true)
     public Result<Void> updateApix(@RequestBody @NotNull @Valid Apix apix){
         apixService.updateApix(apix);
 
@@ -53,8 +53,8 @@ public class ApixController {
     }
 
     @RequestMapping(path="/deleteApix",method = RequestMethod.POST)
-    @ApiMethod(name = "deleteApix",desc = "删除接口公共字段")
-    @ApiParam(name = "id",desc = "id",required = true)
+//    @ApiMethod(name = "deleteApix",desc = "删除接口公共字段")
+//    @ApiParam(name = "id",desc = "id",required = true)
     public Result<Void> deleteApix(@NotNull String id){
         apixService.deleteApix(id);
 
@@ -62,8 +62,8 @@ public class ApixController {
     }
 
     @RequestMapping(path="/findApix",method = RequestMethod.POST)
-    @ApiMethod(name = "findApix",desc = "根据接口公共字段ID查找接口公共字段")
-    @ApiParam(name = "id",desc = "id",required = true)
+//    @ApiMethod(name = "findApix",desc = "根据接口公共字段ID查找接口公共字段")
+//    @ApiParam(name = "id",desc = "id",required = true)
     public Result<Apix> findApix(@NotNull String id){
         Apix apix = apixService.findApix(id);
 
@@ -71,7 +71,7 @@ public class ApixController {
     }
 
     @RequestMapping(path="/findAllApix",method = RequestMethod.POST)
-    @ApiMethod(name = "findAllApix",desc = "查找所有接口公共")
+//    @ApiMethod(name = "findAllApix",desc = "查找所有接口公共")
     public Result<List<Apix>> findAllApix(){
         List<Apix> apixList = apixService.findAllApix();
 
@@ -79,7 +79,7 @@ public class ApixController {
     }
 
     @RequestMapping(path = "/findApixList",method = RequestMethod.POST)
-    @ApiMethod(name = "findApixList",desc = "根据查询对象查找接口公共列表")
+    @ApiMethod(name = "查找接口公共列表",desc = "根据查询对象查找接口公共列表")
     @ApiParam(name = "apixQuery",desc = "查询对象",required = true)
     public Result<List<Apix>> findApixList(@RequestBody @Valid @NotNull ApixQuery apixQuery){
         List<Apix> apixList = apixService.findApixList(apixQuery);
@@ -88,8 +88,8 @@ public class ApixController {
     }
 
     @RequestMapping(path = "/findApixPage",method = RequestMethod.POST)
-    @ApiMethod(name = "findApixPage",desc = "根据查询对象按分页查询接口公共列表")
-    @ApiParam(name = "apixQuery",desc = "查询对象",required = true)
+//    @ApiMethod(name = "findApixPage",desc = "根据查询对象按分页查询接口公共列表")
+//    @ApiParam(name = "apixQuery",desc = "查询对象",required = true)
     public Result<Pagination<ApiList>> findApixPage(@RequestBody @Valid @NotNull ApixQuery apixQuery){
         Pagination<ApiList> pagination = apixService.findApixPage(apixQuery);
 

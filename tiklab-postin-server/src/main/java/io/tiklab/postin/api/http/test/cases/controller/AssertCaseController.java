@@ -27,7 +27,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/assertCase")
-@Api(name = "AssertCaseController",desc = "接口用例-断言管理")
+//@Api(name = "AssertCaseController",desc = "接口用例-断言管理")
 public class AssertCaseController {
 
     private static Logger logger = LoggerFactory.getLogger(AssertCaseController.class);
@@ -36,8 +36,8 @@ public class AssertCaseController {
     private AssertCaseService assertCaseService;
 
     @RequestMapping(path="/createAssertCase",method = RequestMethod.POST)
-    @ApiMethod(name = "createAssertCase",desc = "createAssertCase")
-    @ApiParam(name = "assertCase",desc = "assertCase",required = true)
+//    @ApiMethod(name = "createAssertCase",desc = "createAssertCase")
+//    @ApiParam(name = "assertCase",desc = "assertCase",required = true)
     public Result<String> createAssertCase(@RequestBody @NotNull @Valid AssertCase assertCase){
         String id = assertCaseService.createAssertCase(assertCase);
 
@@ -45,8 +45,8 @@ public class AssertCaseController {
     }
 
     @RequestMapping(path="/updateAssertCase",method = RequestMethod.POST)
-    @ApiMethod(name = "updateAssertCase",desc = "updateAssertCase")
-    @ApiParam(name = "assertCase",desc = "assertCase",required = true)
+//    @ApiMethod(name = "updateAssertCase",desc = "updateAssertCase")
+//    @ApiParam(name = "assertCase",desc = "assertCase",required = true)
     public Result<Void> updateAssertCase(@RequestBody @NotNull @Valid AssertCase assertCase){
         assertCaseService.updateAssertCase(assertCase);
 
@@ -54,8 +54,8 @@ public class AssertCaseController {
     }
 
     @RequestMapping(path="/deleteAssertCase",method = RequestMethod.POST)
-    @ApiMethod(name = "deleteAssertCase",desc = "deleteAssertCase")
-    @ApiParam(name = "id",desc = "id",required = true)
+//    @ApiMethod(name = "deleteAssertCase",desc = "deleteAssertCase")
+//    @ApiParam(name = "id",desc = "id",required = true)
     public Result<Void> deleteAssertCase(@NotNull String id){
         assertCaseService.deleteAssertCase(id);
 
@@ -63,8 +63,8 @@ public class AssertCaseController {
     }
 
     @RequestMapping(path="/findAssertCase",method = RequestMethod.POST)
-    @ApiMethod(name = "findAssertCase",desc = "findAssertCase")
-    @ApiParam(name = "id",desc = "id",required = true)
+//    @ApiMethod(name = "findAssertCase",desc = "findAssertCase")
+//    @ApiParam(name = "id",desc = "id",required = true)
     public Result<AssertCase> findAssertCase(@NotNull String id){
         AssertCase assertCase = assertCaseService.findAssertCase(id);
 
@@ -72,7 +72,7 @@ public class AssertCaseController {
     }
 
     @RequestMapping(path="/findAllAssertCase",method = RequestMethod.POST)
-    @ApiMethod(name = "findAllAssertCase",desc = "findAllAssertCase")
+//    @ApiMethod(name = "findAllAssertCase",desc = "findAllAssertCase")
     public Result<List<AssertCase>> findAllAssertCase(){
         List<AssertCase> assertCaseList = assertCaseService.findAllAssertCase();
 
@@ -81,8 +81,8 @@ public class AssertCaseController {
 
 
     @RequestMapping(path = "/findAssertCaseList",method = RequestMethod.POST)
-    @ApiMethod(name = "findAssertCaseList",desc = "findAssertCaseList")
-    @ApiParam(name = "assertCaseQuery",desc = "assertCaseQuery",required = true)
+//    @ApiMethod(name = "findAssertCaseList",desc = "findAssertCaseList")
+//    @ApiParam(name = "assertCaseQuery",desc = "assertCaseQuery",required = true)
     public Result<List<AssertCase>> findAssertCaseList(@RequestBody @Valid @NotNull AssertCaseQuery assertCaseQuery){
         List<AssertCase> assertCaseList = assertCaseService.findAssertCaseList(assertCaseQuery);
 
@@ -91,8 +91,8 @@ public class AssertCaseController {
 
 
     @RequestMapping(path = "/findAssertCasePage",method = RequestMethod.POST)
-    @ApiMethod(name = "findAssertCasePage",desc = "findAssertCasePage")
-    @ApiParam(name = "assertCaseQuery",desc = "assertCaseQuery",required = true)
+//    @ApiMethod(name = "findAssertCasePage",desc = "findAssertCasePage")
+//    @ApiParam(name = "assertCaseQuery",desc = "assertCaseQuery",required = true)
     public Result<Pagination<AssertCase>> findAssertCasePage(@RequestBody @Valid @NotNull AssertCaseQuery assertCaseQuery){
         Pagination<AssertCase> pagination = assertCaseService.findAssertCasePage(assertCaseQuery);
 

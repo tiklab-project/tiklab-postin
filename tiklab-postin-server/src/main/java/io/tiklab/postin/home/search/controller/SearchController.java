@@ -28,7 +28,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/search")
-@Api(name = "SearchController",desc = "搜索管理")
+//@Api(name = "SearchController",desc = "搜索管理")
 public class SearchController {
 
     private static Logger logger = LoggerFactory.getLogger(SearchController.class);
@@ -48,8 +48,8 @@ public class SearchController {
 
 
     @RequestMapping(path="/get",method = RequestMethod.POST)
-    @ApiMethod(name = "get",desc = "根据ID查找")
-    @ApiParam(name = "id",desc = "id",required = true)
+//    @ApiMethod(name = "get",desc = "根据ID查找")
+//    @ApiParam(name = "id",desc = "id",required = true)
     public Result<Map<String,Object>> get(@NotNull String id){
         Map<String,Object> map = searchService.findOne(Apix.class,id);
 
@@ -58,8 +58,8 @@ public class SearchController {
 
 
     @RequestMapping(path="/searchForTop",method = RequestMethod.POST)
-    @ApiMethod(name = "searchForTop",desc = "根据关键字搜索")
-    @ApiParam(name = "keyword",desc = "关键字",required = true)
+//    @ApiMethod(name = "searchForTop",desc = "根据关键字搜索")
+//    @ApiParam(name = "keyword",desc = "关键字",required = true)
     public Result<AllTopResponse> searchForTop(@NotNull String keyword){
         AllTopResponse allTopResponse = new AllTopResponse();
 
@@ -80,8 +80,8 @@ public class SearchController {
 
 
     @RequestMapping(path="/searchForCount",method = RequestMethod.POST)
-    @ApiMethod(name = "searchForCount",desc = "统计搜索结果")
-    @ApiParam(name = "keyword",desc = "关键字",required = true)
+//    @ApiMethod(name = "searchForCount",desc = "统计搜索结果")
+//    @ApiParam(name = "keyword",desc = "关键字",required = true)
     public Result<AllCountResponse> searchForCount(@NotNull String keyword){
         AllCountResponse allCountResponse = new AllCountResponse();
 
@@ -98,8 +98,8 @@ public class SearchController {
 
 
     @RequestMapping(path="/searchForPage",method = RequestMethod.POST)
-    @ApiMethod(name = "searchForPage",desc = "按索引名称、关键字分页搜索")
-    @ApiParam(name = "pageRequest",desc = "分页搜索条件",required = true)
+//    @ApiMethod(name = "searchForPage",desc = "按索引名称、关键字分页搜索")
+//    @ApiParam(name = "pageRequest",desc = "分页搜索条件",required = true)
     public Result<PageResponse> searchForPage(@RequestBody @Valid @NotNull PageRequest pageRequest){
         String index = pageRequest.getIndex();
         Class entityClass = getEntityClass(index);

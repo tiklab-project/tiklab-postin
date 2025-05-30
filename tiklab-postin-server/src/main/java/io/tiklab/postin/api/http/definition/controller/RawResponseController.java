@@ -27,7 +27,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/rawResponse")
-@Api(name = "RawResponseController",desc = "Raw自定义文本响应结果管理")
+//@Api(name = "RawResponseController",desc = "Raw自定义文本响应结果管理")
 public class RawResponseController {
 
     private static Logger logger = LoggerFactory.getLogger(RawResponseController.class);
@@ -36,8 +36,8 @@ public class RawResponseController {
     private RawResponseService rawResponseService;
 
     @RequestMapping(path="/createRawResponse",method = RequestMethod.POST)
-    @ApiMethod(name = "createRawResponse",desc = "创建raw")
-    @ApiParam(name = "rawResponse",desc = "rawResponse",required = true)
+//    @ApiMethod(name = "createRawResponse",desc = "创建raw")
+//    @ApiParam(name = "rawResponse",desc = "rawResponse",required = true)
     public Result<String> createRawResponse(@RequestBody @NotNull @Valid RawResponse rawResponse){
         String id = rawResponseService.createRawResponse(rawResponse);
 
@@ -45,8 +45,8 @@ public class RawResponseController {
     }
 
     @RequestMapping(path="/updateRawResponse",method = RequestMethod.POST)
-    @ApiMethod(name = "updateRawResponse",desc = "更新raw")
-    @ApiParam(name = "rawResponse",desc = "rawResponse",required = true)
+//    @ApiMethod(name = "updateRawResponse",desc = "更新raw")
+//    @ApiParam(name = "rawResponse",desc = "rawResponse",required = true)
     public Result<Void> updateRawResponse(@RequestBody @NotNull @Valid RawResponse rawResponse){
         rawResponseService.updateRawResponse(rawResponse);
 
@@ -54,8 +54,8 @@ public class RawResponseController {
     }
 
     @RequestMapping(path="/deleteRawResponse",method = RequestMethod.POST)
-    @ApiMethod(name = "deleteRawResponse",desc = "删除raw")
-    @ApiParam(name = "id",desc = "id",required = true)
+//    @ApiMethod(name = "deleteRawResponse",desc = "删除raw")
+//    @ApiParam(name = "id",desc = "id",required = true)
     public Result<Void> deleteRawResponse(@NotNull String id){
         rawResponseService.deleteRawResponse(id);
 
@@ -63,8 +63,8 @@ public class RawResponseController {
     }
 
     @RequestMapping(path="/findRawResponse",method = RequestMethod.POST)
-    @ApiMethod(name = "findRawResponse",desc = "根据id查找raw")
-    @ApiParam(name = "id",desc = "id",required = true)
+//    @ApiMethod(name = "findRawResponse",desc = "根据id查找raw")
+//    @ApiParam(name = "id",desc = "id",required = true)
     public Result<RawResponse> findRawResponse(@NotNull String id){
         RawResponse rawResponse = rawResponseService.findRawResponse(id);
 
@@ -72,7 +72,7 @@ public class RawResponseController {
     }
 
     @RequestMapping(path="/findAllRawResponse",method = RequestMethod.POST)
-    @ApiMethod(name = "findAllRawResponse",desc = "查找所有raw")
+//    @ApiMethod(name = "findAllRawResponse",desc = "查找所有raw")
     public Result<List<RawResponse>> findAllRawResponse(){
         List<RawResponse> rawResponseList = rawResponseService.findAllRawResponse();
 
@@ -81,8 +81,8 @@ public class RawResponseController {
 
 
     @RequestMapping(path = "/findRawResponseList",method = RequestMethod.POST)
-    @ApiMethod(name = "findRawResponseList",desc = "根据查询参数查找raw列表")
-    @ApiParam(name = "rawResponseQuery",desc = "rawResponseQuery",required = true)
+//    @ApiMethod(name = "findRawResponseList",desc = "根据查询参数查找raw列表")
+//    @ApiParam(name = "rawResponseQuery",desc = "rawResponseQuery",required = true)
     public Result<List<RawResponse>> findRawResponseList(@RequestBody @Valid @NotNull RawResponseQuery rawResponseQuery){
         List<RawResponse> rawResponseList = rawResponseService.findRawResponseList(rawResponseQuery);
 
@@ -91,8 +91,8 @@ public class RawResponseController {
 
 
     @RequestMapping(path = "/findRawResponsePage",method = RequestMethod.POST)
-    @ApiMethod(name = "findRawResponsePage",desc = "根据查询参数按分页查找raw列表")
-    @ApiParam(name = "rawResponseQuery",desc = "rawResponseQuery",required = true)
+//    @ApiMethod(name = "findRawResponsePage",desc = "根据查询参数按分页查找raw列表")
+//    @ApiParam(name = "rawResponseQuery",desc = "rawResponseQuery",required = true)
     public Result<Pagination<RawResponse>> findRawResponsePage(@RequestBody @Valid @NotNull RawResponseQuery rawResponseQuery){
         Pagination<RawResponse> pagination = rawResponseService.findRawResponsePage(rawResponseQuery);
 

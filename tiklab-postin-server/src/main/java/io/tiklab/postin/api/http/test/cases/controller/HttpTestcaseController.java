@@ -27,7 +27,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/testcase")
-@Api(name = "TestcaseController",desc = "接口用例管理")
+//@Api(name = "TestcaseController",desc = "接口用例管理")
 public class HttpTestcaseController {
 
     private static Logger logger = LoggerFactory.getLogger(HttpTestcaseController.class);
@@ -36,8 +36,8 @@ public class HttpTestcaseController {
     private HttpTestcaseService httpTestcaseService;
 
     @RequestMapping(path="/createTestcase",method = RequestMethod.POST)
-    @ApiMethod(name = "createTestcase",desc = "创建测试用例")
-    @ApiParam(name = "httpTestcase",desc = "httpTestcase",required = true)
+//    @ApiMethod(name = "createTestcase",desc = "创建测试用例")
+//    @ApiParam(name = "httpTestcase",desc = "httpTestcase",required = true)
     public Result<String> createTestcase(@RequestBody @NotNull @Valid HttpTestcase httpTestcase){
         String id = httpTestcaseService.createTestcase(httpTestcase);
 
@@ -45,8 +45,8 @@ public class HttpTestcaseController {
     }
 
     @RequestMapping(path="/createTestcaseWithNest",method = RequestMethod.POST)
-    @ApiMethod(name = "createTestcaseWithNest",desc = "创建测试用例，级联保存从、子表数据")
-    @ApiParam(name = "httpTestcase",desc = "httpTestcase",required = true)
+//    @ApiMethod(name = "createTestcaseWithNest",desc = "创建测试用例，级联保存从、子表数据")
+//    @ApiParam(name = "httpTestcase",desc = "httpTestcase",required = true)
     public Result<String> createTestcaseWithNest(@RequestBody @NotNull @Valid HttpTestcase httpTestcase){
         String id = httpTestcaseService.createTestcaseWithNest(httpTestcase);
 
@@ -54,8 +54,8 @@ public class HttpTestcaseController {
     }
 
     @RequestMapping(path="/updateTestcase",method = RequestMethod.POST)
-    @ApiMethod(name = "updateTestcase",desc = "updateTestcase")
-    @ApiParam(name = "httpTestcase",desc = "httpTestcase",required = true)
+//    @ApiMethod(name = "updateTestcase",desc = "updateTestcase")
+//    @ApiParam(name = "httpTestcase",desc = "httpTestcase",required = true)
     public Result<Void> updateTestcase(@RequestBody @NotNull @Valid HttpTestcase httpTestcase){
         httpTestcaseService.updateTestcase(httpTestcase);
 
@@ -63,8 +63,8 @@ public class HttpTestcaseController {
     }
 
     @RequestMapping(path="/deleteTestcase",method = RequestMethod.POST)
-    @ApiMethod(name = "deleteTestcase",desc = "deleteTestcase")
-    @ApiParam(name = "id",desc = "id",required = true)
+//    @ApiMethod(name = "deleteTestcase",desc = "deleteTestcase")
+//    @ApiParam(name = "id",desc = "id",required = true)
     public Result<Void> deleteTestcase(@NotNull String id){
         httpTestcaseService.deleteTestcase(id);
 
@@ -72,8 +72,8 @@ public class HttpTestcaseController {
     }
 
     @RequestMapping(path="/findTestcase",method = RequestMethod.POST)
-    @ApiMethod(name = "findTestcase",desc = "findTestcase")
-    @ApiParam(name = "id",desc = "id",required = true)
+//    @ApiMethod(name = "findTestcase",desc = "findTestcase")
+//    @ApiParam(name = "id",desc = "id",required = true)
     public Result<HttpTestcase> findTestcase(@NotNull String id){
         HttpTestcase httpTestcase = httpTestcaseService.findTestcase(id);
 
@@ -81,7 +81,7 @@ public class HttpTestcaseController {
     }
 
     @RequestMapping(path="/findAllTestcase",method = RequestMethod.POST)
-    @ApiMethod(name = "findAllTestcase",desc = "findAllTestcase")
+//    @ApiMethod(name = "findAllTestcase",desc = "findAllTestcase")
     public Result<List<HttpTestcase>> findAllTestcase(){
         List<HttpTestcase> httpTestcaseList = httpTestcaseService.findAllTestcase();
 
@@ -90,8 +90,8 @@ public class HttpTestcaseController {
 
 
     @RequestMapping(path = "/findTestcaseList",method = RequestMethod.POST)
-    @ApiMethod(name = "findTestcaseList",desc = "findTestcaseList")
-    @ApiParam(name = "httpTestcaseQuery",desc = "httpTestcaseQuery",required = true)
+//    @ApiMethod(name = "findTestcaseList",desc = "findTestcaseList")
+//    @ApiParam(name = "httpTestcaseQuery",desc = "httpTestcaseQuery",required = true)
     public Result<List<HttpTestcase>> findTestcaseList(@RequestBody @Valid @NotNull HttpTestcaseQuery httpTestcaseQuery){
         List<HttpTestcase> httpTestcaseList = httpTestcaseService.findTestcaseList(httpTestcaseQuery);
 
@@ -100,8 +100,8 @@ public class HttpTestcaseController {
 
 
     @RequestMapping(path = "/findTestcasePage",method = RequestMethod.POST)
-    @ApiMethod(name = "findTestcasePage",desc = "findTestcasePage")
-    @ApiParam(name = "httpTestcaseQuery",desc = "httpTestcaseQuery",required = true)
+//    @ApiMethod(name = "findTestcasePage",desc = "findTestcasePage")
+//    @ApiParam(name = "httpTestcaseQuery",desc = "httpTestcaseQuery",required = true)
     public Result<Pagination<HttpTestcase>> findTestcasePage(@RequestBody @Valid @NotNull HttpTestcaseQuery httpTestcaseQuery){
         Pagination<HttpTestcase> pagination = httpTestcaseService.findTestcasePage(httpTestcaseQuery);
 

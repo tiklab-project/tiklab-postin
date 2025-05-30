@@ -25,7 +25,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/binaryParamCase")
-@Api(name = "BinaryParamCaseController",desc = "BinaryParamCaseController")
+//@Api(name = "BinaryParamCaseController",desc = "BinaryParamCaseController")
 public class BinaryParamCaseController {
 
     private static Logger logger = LoggerFactory.getLogger(BinaryParamCaseController.class);
@@ -34,8 +34,8 @@ public class BinaryParamCaseController {
     private BinaryParamCaseService binaryParamCaseService;
 
     @RequestMapping(path="/createBinaryParamCase",method = RequestMethod.POST)
-    @ApiMethod(name = "createBinaryParamCase",desc = "createBinaryParamCase")
-    @ApiParam(name = "binaryParamCase",desc = "binaryParamCase",required = true)
+//    @ApiMethod(name = "createBinaryParamCase",desc = "createBinaryParamCase")
+//    @ApiParam(name = "binaryParamCase",desc = "binaryParamCase",required = true)
     public Result<String> createBinaryParamCase(@RequestBody @NotNull @Valid BinaryParamCase binaryParamCase){
         String id = binaryParamCaseService.createBinaryParamCase(binaryParamCase);
 
@@ -43,8 +43,8 @@ public class BinaryParamCaseController {
     }
 
     @RequestMapping(path="/updateBinaryParamCase",method = RequestMethod.POST)
-    @ApiMethod(name = "updateBinaryParamCase",desc = "updateBinaryParamCase")
-    @ApiParam(name = "binaryParamCase",desc = "binaryParamCase",required = true)
+//    @ApiMethod(name = "updateBinaryParamCase",desc = "updateBinaryParamCase")
+//    @ApiParam(name = "binaryParamCase",desc = "binaryParamCase",required = true)
     public Result<Void> updateBinaryParamCase(@RequestBody @NotNull @Valid BinaryParamCase binaryParamCase){
         binaryParamCaseService.updateBinaryParamCase(binaryParamCase);
 
@@ -52,8 +52,8 @@ public class BinaryParamCaseController {
     }
 
     @RequestMapping(path="/deleteBinaryParamCase",method = RequestMethod.POST)
-    @ApiMethod(name = "deleteBinaryParamCase",desc = "deleteBinaryParamCase")
-    @ApiParam(name = "id",desc = "id",required = true)
+//    @ApiMethod(name = "deleteBinaryParamCase",desc = "deleteBinaryParamCase")
+//    @ApiParam(name = "id",desc = "id",required = true)
     public Result<Void> deleteBinaryParamCase(@NotNull String id){
         binaryParamCaseService.deleteBinaryParamCase(id);
 
@@ -61,8 +61,8 @@ public class BinaryParamCaseController {
     }
 
     @RequestMapping(path="/findBinaryParamCase",method = RequestMethod.POST)
-    @ApiMethod(name = "findBinaryParamCase",desc = "findBinaryParamCase")
-    @ApiParam(name = "id",desc = "id",required = true)
+//    @ApiMethod(name = "findBinaryParamCase",desc = "findBinaryParamCase")
+//    @ApiParam(name = "id",desc = "id",required = true)
     public Result<BinaryParamCase> findBinaryParamCase(@NotNull String id){
         BinaryParamCase binaryParamCase = binaryParamCaseService.findBinaryParamCase(id);
 
@@ -70,7 +70,7 @@ public class BinaryParamCaseController {
     }
 
     @RequestMapping(path="/findAllBinaryParamCase",method = RequestMethod.POST)
-    @ApiMethod(name = "findAllBinaryParamCase",desc = "findAllBinaryParamCase")
+//    @ApiMethod(name = "findAllBinaryParamCase",desc = "findAllBinaryParamCase")
     public Result<List<BinaryParamCase>> findAllBinaryParamCase(){
         List<BinaryParamCase> binaryParamCaseList = binaryParamCaseService.findAllBinaryParamCase();
 
@@ -78,8 +78,8 @@ public class BinaryParamCaseController {
     }
 
     @RequestMapping(path = "/findBinaryParamCaseList",method = RequestMethod.POST)
-    @ApiMethod(name = "findBinaryParamCaseList",desc = "findBinaryParamCaseList")
-    @ApiParam(name = "binaryParamCaseQuery",desc = "binaryParamCaseQuery",required = true)
+//    @ApiMethod(name = "findBinaryParamCaseList",desc = "findBinaryParamCaseList")
+//    @ApiParam(name = "binaryParamCaseQuery",desc = "binaryParamCaseQuery",required = true)
     public Result<List<BinaryParamCase>> findBinaryParamCaseList(@RequestBody @Valid @NotNull BinaryParamCaseQuery binaryParamCaseQuery){
         List<BinaryParamCase> binaryParamCaseList = binaryParamCaseService.findBinaryParamCaseList(binaryParamCaseQuery);
 
@@ -87,8 +87,8 @@ public class BinaryParamCaseController {
     }
 
     @RequestMapping(path = "/findBinaryParamCasePage",method = RequestMethod.POST)
-    @ApiMethod(name = "findBinaryParamCasePage",desc = "findBinaryParamCasePage")
-    @ApiParam(name = "binaryParamCaseQuery",desc = "binaryParamCaseQuery",required = true)
+//    @ApiMethod(name = "findBinaryParamCasePage",desc = "findBinaryParamCasePage")
+//    @ApiParam(name = "binaryParamCaseQuery",desc = "binaryParamCaseQuery",required = true)
     public Result<Pagination<BinaryParamCase>> findBinaryParamCasePage(@RequestBody @Valid @NotNull BinaryParamCaseQuery binaryParamCaseQuery){
         Pagination<BinaryParamCase> pagination = binaryParamCaseService.findBinaryParamCasePage(binaryParamCaseQuery);
 
@@ -96,8 +96,8 @@ public class BinaryParamCaseController {
     }
 
     @RequestMapping(path="/findBinaryParamCaseByte",method = RequestMethod.POST)
-    @ApiMethod(name = "findBinaryParamCaseByte",desc = "findBinaryParamCaseByte")
-    @ApiParam(name = "binaryParamCaseQuery",desc = "binaryParamCaseQuery",required = true)
+//    @ApiMethod(name = "findBinaryParamCaseByte",desc = "findBinaryParamCaseByte")
+//    @ApiParam(name = "binaryParamCaseQuery",desc = "binaryParamCaseQuery",required = true)
     public Result<BinaryParamCase> findBinaryParamCaseByte(@RequestBody @Valid @NotNull BinaryParamCaseQuery binaryParamCaseQuery){
 
         String a = binaryParamCaseService.findBinaryParamCaseByte(binaryParamCaseQuery);

@@ -20,7 +20,7 @@ import javax.validation.constraints.NotNull;
  */
 @RestController
 @RequestMapping("/workspace")
-@Api(name = "WorkspaceController",desc = "空间管理")
+//@Api(name = "WorkspaceController",desc = "空间管理")
 public class WorkspaceOverviewController {
 
     private static Logger logger = LoggerFactory.getLogger(WorkspaceOverviewController.class);
@@ -30,8 +30,8 @@ public class WorkspaceOverviewController {
 
 
     @RequestMapping(path="/findWorkspaceTotal",method = RequestMethod.POST)
-    @ApiMethod(name = "findWorkspaceTotal",desc = "根据空间ID查找单个空间中概要")
-    @ApiParam(name = "id",desc = "空间ID",required = true)
+//    @ApiMethod(name = "findWorkspaceTotal",desc = "根据空间ID查找单个空间中概要")
+//     @ApiParam(name = "id",desc = "空间ID",required = true)
     public Result<WorkspaceTotal> findWorkspaceTotal(@NotNull String id){
         WorkspaceTotal workspace = workspaceOverviewService.findWorkspaceOverview(id);
 

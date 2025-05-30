@@ -25,7 +25,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/requestCase")
-@Api(name = "RequestCaseController",desc = "RequestCaseController")
+//@Api(name = "RequestCaseController",desc = "RequestCaseController")
 public class RequestCaseController {
 
     private static Logger logger = LoggerFactory.getLogger(RequestCaseController.class);
@@ -34,8 +34,8 @@ public class RequestCaseController {
     private RequestCaseService requestCaseService;
 
     @RequestMapping(path="/createRequestCase",method = RequestMethod.POST)
-    @ApiMethod(name = "createRequestCase",desc = "createRequestCase")
-    @ApiParam(name = "requestCase",desc = "requestCase",required = true)
+//    @ApiMethod(name = "createRequestCase",desc = "createRequestCase")
+//    @ApiParam(name = "requestCase",desc = "requestCase",required = true)
     public Result<String> createRequestCase(@RequestBody @NotNull @Valid RequestCase requestCase){
         String id = requestCaseService.createRequestCase(requestCase);
 
@@ -43,8 +43,8 @@ public class RequestCaseController {
     }
 
     @RequestMapping(path="/updateRequestCase",method = RequestMethod.POST)
-    @ApiMethod(name = "updateRequestCase",desc = "updateRequestCase")
-    @ApiParam(name = "requestCase",desc = "requestCase",required = true)
+//    @ApiMethod(name = "updateRequestCase",desc = "updateRequestCase")
+//    @ApiParam(name = "requestCase",desc = "requestCase",required = true)
     public Result<Void> updateRequestCase(@RequestBody @NotNull @Valid RequestCase requestCase){
         requestCaseService.updateRequestCase(requestCase);
 
@@ -52,8 +52,8 @@ public class RequestCaseController {
     }
 
     @RequestMapping(path="/deleteRequestCase",method = RequestMethod.POST)
-    @ApiMethod(name = "deleteRequestCase",desc = "deleteRequestCase")
-    @ApiParam(name = "id",desc = "id",required = true)
+//    @ApiMethod(name = "deleteRequestCase",desc = "deleteRequestCase")
+//    @ApiParam(name = "id",desc = "id",required = true)
     public Result<Void> deleteRequestCase(@NotNull String id){
         requestCaseService.deleteRequestCase(id);
 
@@ -61,8 +61,8 @@ public class RequestCaseController {
     }
 
     @RequestMapping(path="/findRequestCase",method = RequestMethod.POST)
-    @ApiMethod(name = "findRequestCase",desc = "findRequestCase")
-    @ApiParam(name = "id",desc = "id",required = true)
+//    @ApiMethod(name = "findRequestCase",desc = "findRequestCase")
+//    @ApiParam(name = "id",desc = "id",required = true)
     public Result<RequestCase> findRequestCase(@NotNull String id){
         RequestCase requestCase = requestCaseService.findRequestCase(id);
 
@@ -70,7 +70,7 @@ public class RequestCaseController {
     }
 
     @RequestMapping(path="/findAllRequestCase",method = RequestMethod.POST)
-    @ApiMethod(name = "findAllRequestCase",desc = "findAllRequestCase")
+//    @ApiMethod(name = "findAllRequestCase",desc = "findAllRequestCase")
     public Result<List<RequestCase>> findAllRequestCase(){
         List<RequestCase> requestCaseList = requestCaseService.findAllRequestCase();
 
@@ -78,8 +78,8 @@ public class RequestCaseController {
     }
 
     @RequestMapping(path = "/findRequestCaseList",method = RequestMethod.POST)
-    @ApiMethod(name = "findRequestCaseList",desc = "findRequestCaseList")
-    @ApiParam(name = "requestCaseQuery",desc = "requestCaseQuery",required = true)
+//    @ApiMethod(name = "findRequestCaseList",desc = "findRequestCaseList")
+//    @ApiParam(name = "requestCaseQuery",desc = "requestCaseQuery",required = true)
     public Result<List<RequestCase>> findRequestCaseList(@RequestBody @Valid @NotNull RequestCaseQuery requestCaseQuery){
         List<RequestCase> requestCaseList = requestCaseService.findRequestCaseList(requestCaseQuery);
 
@@ -87,8 +87,8 @@ public class RequestCaseController {
     }
 
     @RequestMapping(path = "/findRequestCasePage",method = RequestMethod.POST)
-    @ApiMethod(name = "findRequestCasePage",desc = "findRequestCasePage")
-    @ApiParam(name = "requestCaseQuery",desc = "requestCaseQuery",required = true)
+//    @ApiMethod(name = "findRequestCasePage",desc = "findRequestCasePage")
+//    @ApiParam(name = "requestCaseQuery",desc = "requestCaseQuery",required = true)
     public Result<Pagination<RequestCase>> findRequestCasePage(@RequestBody @Valid @NotNull RequestCaseQuery requestCaseQuery){
         Pagination<RequestCase> pagination = requestCaseService.findRequestCasePage(requestCaseQuery);
 

@@ -25,7 +25,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/apiRequest")
-@Api(name = "ApiRequestController",desc = "Http接口定义中的请求")
+//@Api(name = "ApiRequestController",desc = "Http接口定义中的请求")
 public class ApiRequestController {
 
     private static Logger logger = LoggerFactory.getLogger(ApiRequestController.class);
@@ -34,8 +34,8 @@ public class ApiRequestController {
     private ApiRequestService apiRequestService;
 
     @RequestMapping(path="/createApiRequest",method = RequestMethod.POST)
-    @ApiMethod(name = "createApiRequest",desc = "创建定义请求")
-    @ApiParam(name = "apiRequest",desc = "apiRequest",required = true)
+//    @ApiMethod(name = "createApiRequest",desc = "创建定义请求")
+//    @ApiParam(name = "apiRequest",desc = "apiRequest",required = true)
     public Result<String> createApiRequest(@RequestBody @NotNull @Valid ApiRequest apiRequest){
         String id = apiRequestService.createApiRequest(apiRequest);
 
@@ -43,8 +43,8 @@ public class ApiRequestController {
     }
 
     @RequestMapping(path="/updateApiRequest",method = RequestMethod.POST)
-    @ApiMethod(name = "updateApiRequest",desc = "更新定义请求")
-    @ApiParam(name = "apiRequest",desc = "apiRequest",required = true)
+//    @ApiMethod(name = "updateApiRequest",desc = "更新定义请求")
+//    @ApiParam(name = "apiRequest",desc = "apiRequest",required = true)
     public Result<Void> updateApiRequest(@RequestBody @NotNull @Valid ApiRequest apiRequest){
         apiRequestService.updateApiRequest(apiRequest);
 
@@ -52,8 +52,8 @@ public class ApiRequestController {
     }
 
     @RequestMapping(path="/deleteApiRequest",method = RequestMethod.POST)
-    @ApiMethod(name = "deleteApiRequest",desc = "删除定义请求")
-    @ApiParam(name = "id",desc = "id",required = true)
+//    @ApiMethod(name = "deleteApiRequest",desc = "删除定义请求")
+//    @ApiParam(name = "id",desc = "id",required = true)
     public Result<Void> deleteApiRequest(@NotNull String id){
         apiRequestService.deleteApiRequest(id);
 
@@ -61,8 +61,8 @@ public class ApiRequestController {
     }
 
     @RequestMapping(path="/findApiRequest",method = RequestMethod.POST)
-    @ApiMethod(name = "findApiRequest",desc = "通过id查询定义请求")
-    @ApiParam(name = "id",desc = "id",required = true)
+//    @ApiMethod(name = "findApiRequest",desc = "通过id查询定义请求")
+//    @ApiParam(name = "id",desc = "id",required = true)
     public Result<ApiRequest> findApiRequest(@NotNull String id){
         ApiRequest apiRequest = apiRequestService.findApiRequest(id);
 
@@ -70,7 +70,7 @@ public class ApiRequestController {
     }
 
     @RequestMapping(path="/findAllApiRequest",method = RequestMethod.POST)
-    @ApiMethod(name = "findAllApiRequest",desc = "查询所有定义请求")
+//    @ApiMethod(name = "findAllApiRequest",desc = "查询所有定义请求")
     public Result<List<ApiRequest>> findAllApiRequest(){
         List<ApiRequest> apiRequestList = apiRequestService.findAllApiRequest();
 
@@ -78,8 +78,8 @@ public class ApiRequestController {
     }
 
     @RequestMapping(path = "/findApiRequestList",method = RequestMethod.POST)
-    @ApiMethod(name = "findApiRequestList",desc = "根据查询对象查询定义请求")
-    @ApiParam(name = "apiRequestQuery",desc = "apiRequestQuery",required = true)
+//    @ApiMethod(name = "findApiRequestList",desc = "根据查询对象查询定义请求")
+//    @ApiParam(name = "apiRequestQuery",desc = "apiRequestQuery",required = true)
     public Result<List<ApiRequest>> findApiRequestList(@RequestBody @Valid @NotNull ApiRequestQuery apiRequestQuery){
         List<ApiRequest> apiRequestList = apiRequestService.findApiRequestList(apiRequestQuery);
 
@@ -87,8 +87,8 @@ public class ApiRequestController {
     }
 
     @RequestMapping(path = "/findApiRequestPage",method = RequestMethod.POST)
-    @ApiMethod(name = "findApiRequestPage",desc = "根据查询对象按分页查找定义请求")
-    @ApiParam(name = "apiRequestQuery",desc = "apiRequestQuery",required = true)
+//    @ApiMethod(name = "findApiRequestPage",desc = "根据查询对象按分页查找定义请求")
+//    @ApiParam(name = "apiRequestQuery",desc = "apiRequestQuery",required = true)
     public Result<Pagination<ApiRequest>> findApiRequestPage(@RequestBody @Valid @NotNull ApiRequestQuery apiRequestQuery){
         Pagination<ApiRequest> pagination = apiRequestService.findApiRequestPage(apiRequestQuery);
 

@@ -26,7 +26,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/binaryParam")
-@Api(name = "BinaryParamController",desc = "binary参数管理")
+//@Api(name = "BinaryParamController",desc = "binary参数管理")
 public class BinaryParamController {
 
     private static Logger logger = LoggerFactory.getLogger(BinaryParamController.class);
@@ -35,8 +35,8 @@ public class BinaryParamController {
     private BinaryParamService binaryParamService;
 
     @RequestMapping(path="/createBinaryParam",method = RequestMethod.POST)
-    @ApiMethod(name = "createBinaryParam",desc = "createBinaryParam")
-    @ApiParam(name = "binaryParam",desc = "binaryParam",required = true)
+//    @ApiMethod(name = "createBinaryParam",desc = "createBinaryParam")
+//    @ApiParam(name = "binaryParam",desc = "binaryParam",required = true)
     public Result<String> createBinaryParam(@RequestBody @NotNull @Valid BinaryParam binaryParam){
         String id = binaryParamService.createBinaryParam(binaryParam);
 
@@ -44,8 +44,8 @@ public class BinaryParamController {
     }
 
     @RequestMapping(path="/updateBinaryParam",method = RequestMethod.POST)
-    @ApiMethod(name = "updateBinaryParam",desc = "updateBinaryParam")
-    @ApiParam(name = "binaryParam",desc = "binaryParam",required = true)
+//    @ApiMethod(name = "updateBinaryParam",desc = "updateBinaryParam")
+//    @ApiParam(name = "binaryParam",desc = "binaryParam",required = true)
     public Result<Void> updateBinaryParam(@RequestBody @NotNull @Valid BinaryParam binaryParam){
         binaryParamService.updateBinaryParam(binaryParam);
 
@@ -53,8 +53,8 @@ public class BinaryParamController {
     }
 
     @RequestMapping(path="/deleteBinaryParam",method = RequestMethod.POST)
-    @ApiMethod(name = "deleteBinaryParam",desc = "deleteBinaryParam")
-    @ApiParam(name = "id",desc = "id",required = true)
+//    @ApiMethod(name = "deleteBinaryParam",desc = "deleteBinaryParam")
+//    @ApiParam(name = "id",desc = "id",required = true)
     public Result<Void> deleteBinaryParam(@NotNull String id){
         binaryParamService.deleteBinaryParam(id);
 
@@ -62,8 +62,8 @@ public class BinaryParamController {
     }
 
     @RequestMapping(path="/findBinaryParam",method = RequestMethod.POST)
-    @ApiMethod(name = "findBinaryParam",desc = "findBinaryParam")
-    @ApiParam(name = "id",desc = "id",required = true)
+//    @ApiMethod(name = "findBinaryParam",desc = "findBinaryParam")
+//    @ApiParam(name = "id",desc = "id",required = true)
     public Result<BinaryParam> findBinaryParam(@NotNull String id){
         BinaryParam binaryParam = binaryParamService.findBinaryParam(id);
 
@@ -71,7 +71,7 @@ public class BinaryParamController {
     }
 
     @RequestMapping(path="/findAllBinaryParam",method = RequestMethod.POST)
-    @ApiMethod(name = "findAllBinaryParam",desc = "findAllBinaryParam")
+//    @ApiMethod(name = "findAllBinaryParam",desc = "findAllBinaryParam")
     public Result<List<BinaryParam>> findAllBinaryParam(){
         List<BinaryParam> binaryParamList = binaryParamService.findAllBinaryParam();
 
@@ -79,8 +79,8 @@ public class BinaryParamController {
     }
 
     @RequestMapping(path = "/findBinaryParamList",method = RequestMethod.POST)
-    @ApiMethod(name = "findBinaryParamList",desc = "findBinaryParamList")
-    @ApiParam(name = "binaryParamQuery",desc = "binaryParamQuery",required = true)
+//    @ApiMethod(name = "findBinaryParamList",desc = "findBinaryParamList")
+//    @ApiParam(name = "binaryParamQuery",desc = "binaryParamQuery",required = true)
     public Result<List<BinaryParam>> findBinaryParamList(@RequestBody @Valid @NotNull BinaryParamQuery binaryParamQuery){
         List<BinaryParam> binaryParamList = binaryParamService.findBinaryParamList(binaryParamQuery);
 
@@ -88,8 +88,8 @@ public class BinaryParamController {
     }
 
     @RequestMapping(path = "/findBinaryParamPage",method = RequestMethod.POST)
-    @ApiMethod(name = "findBinaryParamPage",desc = "findBinaryParamPage")
-    @ApiParam(name = "binaryParamQuery",desc = "binaryParamQuery",required = true)
+//    @ApiMethod(name = "findBinaryParamPage",desc = "findBinaryParamPage")
+//    @ApiParam(name = "binaryParamQuery",desc = "binaryParamQuery",required = true)
     public Result<Pagination<BinaryParam>> findBinaryParamPage(@RequestBody @Valid @NotNull BinaryParamQuery binaryParamQuery){
         Pagination<BinaryParam> pagination = binaryParamService.findBinaryParamPage(binaryParamQuery);
 
@@ -97,8 +97,8 @@ public class BinaryParamController {
     }
 
     @RequestMapping(path="/findBinaryParamByte",method = RequestMethod.POST)
-    @ApiMethod(name = "findBinaryParamByte",desc = "findBinaryParamCaseByte")
-    @ApiParam(name = "binaryParamQuery",desc = "binaryParamQuery",required = true)
+//    @ApiMethod(name = "findBinaryParamByte",desc = "findBinaryParamCaseByte")
+//    @ApiParam(name = "binaryParamQuery",desc = "binaryParamQuery",required = true)
     public Result<BinaryParamCase> findBinaryParamCaseByte(@RequestBody @Valid @NotNull BinaryParamQuery binaryParamQuery){
 
         String a = binaryParamService.findBinaryParamByte(binaryParamQuery);

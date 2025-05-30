@@ -27,7 +27,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/requestInstance")
-@Api(name = "RequestInstanceController",desc = "测试实例-请求管理")
+//@Api(name = "RequestInstanceController",desc = "测试实例-请求管理")
 public class RequestInstanceController {
 
     private static Logger logger = LoggerFactory.getLogger(RequestInstanceController.class);
@@ -36,8 +36,8 @@ public class RequestInstanceController {
     private RequestInstanceService requestInstanceService;
 
     @RequestMapping(path="/createRequestInstance",method = RequestMethod.POST)
-    @ApiMethod(name = "createRequestInstance",desc = "createRequestInstance")
-    @ApiParam(name = "requestInstance",desc = "requestInstance",required = true)
+//    @ApiMethod(name = "createRequestInstance",desc = "createRequestInstance")
+//    @ApiParam(name = "requestInstance",desc = "requestInstance",required = true)
     public Result<String> createRequestInstance(@RequestBody @NotNull @Valid RequestInstance requestInstance){
         String id = requestInstanceService.createRequestInstance(requestInstance);
 
@@ -45,8 +45,8 @@ public class RequestInstanceController {
     }
 
     @RequestMapping(path="/updateRequestInstance",method = RequestMethod.POST)
-    @ApiMethod(name = "updateRequestInstance",desc = "updateRequestInstance")
-    @ApiParam(name = "requestInstance",desc = "requestInstance",required = true)
+//    @ApiMethod(name = "updateRequestInstance",desc = "updateRequestInstance")
+//    @ApiParam(name = "requestInstance",desc = "requestInstance",required = true)
     public Result<Void> updateRequestInstance(@RequestBody @NotNull @Valid RequestInstance requestInstance){
         requestInstanceService.updateRequestInstance(requestInstance);
 
@@ -54,8 +54,8 @@ public class RequestInstanceController {
     }
 
     @RequestMapping(path="/deleteRequestInstance",method = RequestMethod.POST)
-    @ApiMethod(name = "deleteRequestInstance",desc = "deleteRequestInstance")
-    @ApiParam(name = "id",desc = "id",required = true)
+//    @ApiMethod(name = "deleteRequestInstance",desc = "deleteRequestInstance")
+//    @ApiParam(name = "id",desc = "id",required = true)
     public Result<Void> deleteRequestInstance(@NotNull String id){
         requestInstanceService.deleteRequestInstance(id);
 
@@ -63,8 +63,8 @@ public class RequestInstanceController {
     }
 
     @RequestMapping(path="/findRequestInstance",method = RequestMethod.POST)
-    @ApiMethod(name = "findRequestInstance",desc = "findRequestInstance")
-    @ApiParam(name = "id",desc = "id",required = true)
+//    @ApiMethod(name = "findRequestInstance",desc = "findRequestInstance")
+//    @ApiParam(name = "id",desc = "id",required = true)
     public Result<RequestInstance> findRequestInstance(@NotNull String id){
         RequestInstance requestInstance = requestInstanceService.findRequestInstance(id);
 
@@ -72,7 +72,7 @@ public class RequestInstanceController {
     }
 
     @RequestMapping(path="/findAllRequestInstance",method = RequestMethod.POST)
-    @ApiMethod(name = "findAllRequestInstance",desc = "findAllRequestInstance")
+//    @ApiMethod(name = "findAllRequestInstance",desc = "findAllRequestInstance")
     public Result<List<RequestInstance>> findAllRequestInstance(){
         List<RequestInstance> requestInstanceList = requestInstanceService.findAllRequestInstance();
 
@@ -81,8 +81,8 @@ public class RequestInstanceController {
 
 
     @RequestMapping(path = "/findRequestInstanceList",method = RequestMethod.POST)
-    @ApiMethod(name = "findRequestInstanceList",desc = "findRequestInstanceList")
-    @ApiParam(name = "requestInstanceQuery",desc = "requestInstanceQuery",required = true)
+//    @ApiMethod(name = "findRequestInstanceList",desc = "findRequestInstanceList")
+//    @ApiParam(name = "requestInstanceQuery",desc = "requestInstanceQuery",required = true)
     public Result<List<RequestInstance>> findRequestInstanceList(@RequestBody @Valid @NotNull RequestInstanceQuery requestInstanceQuery){
         List<RequestInstance> requestInstanceList = requestInstanceService.findRequestInstanceList(requestInstanceQuery);
 
@@ -91,8 +91,8 @@ public class RequestInstanceController {
 
 
     @RequestMapping(path = "/findRequestInstancePage",method = RequestMethod.POST)
-    @ApiMethod(name = "findRequestInstancePage",desc = "findRequestInstancePage")
-    @ApiParam(name = "requestInstanceQuery",desc = "requestInstanceQuery",required = true)
+//    @ApiMethod(name = "findRequestInstancePage",desc = "findRequestInstancePage")
+//    @ApiParam(name = "requestInstanceQuery",desc = "requestInstanceQuery",required = true)
     public Result<Pagination<RequestInstance>> findRequestInstancePage(@RequestBody @Valid @NotNull RequestInstanceQuery requestInstanceQuery){
         Pagination<RequestInstance> pagination = requestInstanceService.findRequestInstancePage(requestInstanceQuery);
 

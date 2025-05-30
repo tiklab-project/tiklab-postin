@@ -25,7 +25,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/apiStatus")
-@Api(name = "ApiStatusController",desc = "ApiStatusController")
+//@Api(name = "ApiStatusController",desc = "ApiStatusController")
 public class ApiStatusController {
 
     private static Logger logger = LoggerFactory.getLogger(ApiStatusController.class);
@@ -34,8 +34,8 @@ public class ApiStatusController {
     private ApiStatusService apiStatusService;
 
     @RequestMapping(path="/createApiStatus",method = RequestMethod.POST)
-    @ApiMethod(name = "createApiStatus",desc = "创建接口状态")
-    @ApiParam(name = "apiStatus",desc = "apiStatus",required = true)
+//    @ApiMethod(name = "createApiStatus",desc = "创建接口状态")
+//    @ApiParam(name = "apiStatus",desc = "apiStatus",required = true)
     public Result<String> createApiStatus(@RequestBody @NotNull @Valid ApiStatus apiStatus){
         String id = apiStatusService.createApiStatus(apiStatus);
 
@@ -43,8 +43,8 @@ public class ApiStatusController {
     }
 
     @RequestMapping(path="/updateApiStatus",method = RequestMethod.POST)
-    @ApiMethod(name = "updateApiStatus",desc = "更新接口状态")
-    @ApiParam(name = "apiStatus",desc = "apiStatus",required = true)
+//    @ApiMethod(name = "updateApiStatus",desc = "更新接口状态")
+//    @ApiParam(name = "apiStatus",desc = "apiStatus",required = true)
     public Result<Void> updateApiStatus(@RequestBody @NotNull @Valid ApiStatus apiStatus){
         apiStatusService.updateApiStatus(apiStatus);
 
@@ -52,8 +52,8 @@ public class ApiStatusController {
     }
 
     @RequestMapping(path="/deleteApiStatus",method = RequestMethod.POST)
-    @ApiMethod(name = "deleteApiStatus",desc = "删除接口状态")
-    @ApiParam(name = "id",desc = "id",required = true)
+//    @ApiMethod(name = "deleteApiStatus",desc = "删除接口状态")
+//    @ApiParam(name = "id",desc = "id",required = true)
     public Result<Void> deleteApiStatus(@NotNull String id){
         apiStatusService.deleteApiStatus(id);
 
@@ -61,8 +61,8 @@ public class ApiStatusController {
     }
 
     @RequestMapping(path="/findApiStatus",method = RequestMethod.POST)
-    @ApiMethod(name = "findApiStatus",desc = "根据id查找接口状态")
-    @ApiParam(name = "id",desc = "id",required = true)
+//    @ApiMethod(name = "findApiStatus",desc = "根据id查找接口状态")
+//    @ApiParam(name = "id",desc = "id",required = true)
     public Result<ApiStatus> findApiStatus(@NotNull String id){
         ApiStatus apiStatus = apiStatusService.findApiStatus(id);
 
@@ -70,7 +70,7 @@ public class ApiStatusController {
     }
 
     @RequestMapping(path="/findAllApiStatus",method = RequestMethod.POST)
-    @ApiMethod(name = "findAllApiStatus",desc = "查找所有接口状态")
+//    @ApiMethod(name = "findAllApiStatus",desc = "查找所有接口状态")
     public Result<List<ApiStatus>> findAllApiStatus(){
         List<ApiStatus> apiStatusList = apiStatusService.findAllApiStatus();
 
@@ -78,8 +78,8 @@ public class ApiStatusController {
     }
 
     @RequestMapping(path = "/findApiStatusList",method = RequestMethod.POST)
-    @ApiMethod(name = "findApiStatusList",desc = "根据查询参数查找接口状态")
-    @ApiParam(name = "apiStatusQuery",desc = "apiStatusQuery",required = true)
+//    @ApiMethod(name = "findApiStatusList",desc = "根据查询参数查找接口状态")
+//    @ApiParam(name = "apiStatusQuery",desc = "apiStatusQuery",required = true)
     public Result<List<ApiStatus>> findApiStatusList(@RequestBody @Valid @NotNull ApiStatusQuery apiStatusQuery){
         List<ApiStatus> apiStatusList = apiStatusService.findApiStatusList(apiStatusQuery);
 
@@ -87,8 +87,8 @@ public class ApiStatusController {
     }
 
     @RequestMapping(path = "/findApiStatusPage",method = RequestMethod.POST)
-    @ApiMethod(name = "findApiStatusPage",desc = "根据查询参数按分页查找接口状态")
-    @ApiParam(name = "apiStatusQuery",desc = "apiStatusQuery",required = true)
+//    @ApiMethod(name = "findApiStatusPage",desc = "根据查询参数按分页查找接口状态")
+//    @ApiParam(name = "apiStatusQuery",desc = "apiStatusQuery",required = true)
     public Result<Pagination<ApiStatus>> findApiStatusPage(@RequestBody @Valid @NotNull ApiStatusQuery apiStatusQuery){
         Pagination<ApiStatus> pagination = apiStatusService.findApiStatusPage(apiStatusQuery);
 

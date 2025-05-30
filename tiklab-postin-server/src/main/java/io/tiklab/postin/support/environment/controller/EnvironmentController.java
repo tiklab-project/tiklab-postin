@@ -25,7 +25,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/environment")
-@Api(name = "EnvironmentController",desc = "环境管理")
+//@Api(name = "EnvironmentController",desc = "环境管理")
 public class EnvironmentController {
 
     private static Logger logger = LoggerFactory.getLogger(EnvironmentController.class);
@@ -34,8 +34,8 @@ public class EnvironmentController {
     private EnvironmentService environmentService;
 
     @RequestMapping(path="/createEnvironment",method = RequestMethod.POST)
-    @ApiMethod(name = "createEnvironment",desc = "创建环境")
-    @ApiParam(name = "environment",desc = "environment",required = true)
+//    @ApiMethod(name = "createEnvironment",desc = "创建环境")
+//    @ApiParam(name = "environment",desc = "environment",required = true)
     public Result<String> createEnvironment(@RequestBody @NotNull @Valid Environment environment){
         String id = environmentService.createEnvironment(environment);
 
@@ -43,8 +43,8 @@ public class EnvironmentController {
     }
 
     @RequestMapping(path="/updateEnvironment",method = RequestMethod.POST)
-    @ApiMethod(name = "updateEnvironment",desc = "更新环境")
-    @ApiParam(name = "environment",desc = "environment",required = true)
+//    @ApiMethod(name = "updateEnvironment",desc = "更新环境")
+//    @ApiParam(name = "environment",desc = "environment",required = true)
     public Result<Void> updateEnvironment(@RequestBody @NotNull @Valid Environment environment){
         environmentService.updateEnvironment(environment);
 
@@ -52,8 +52,8 @@ public class EnvironmentController {
     }
 
     @RequestMapping(path="/deleteEnvironment",method = RequestMethod.POST)
-    @ApiMethod(name = "deleteEnvironment",desc = "删除环境")
-    @ApiParam(name = "id",desc = "id",required = true)
+//    @ApiMethod(name = "deleteEnvironment",desc = "删除环境")
+//    @ApiParam(name = "id",desc = "id",required = true)
     public Result<Void> deleteEnvironment(@NotNull String id){
         environmentService.deleteEnvironment(id);
 
@@ -62,8 +62,8 @@ public class EnvironmentController {
 
 
     @RequestMapping(path="/findEnvironment",method = RequestMethod.POST)
-    @ApiMethod(name = "findEnvironment",desc = "通过id查找环境")
-    @ApiParam(name = "id",desc = "id",required = true)
+//    @ApiMethod(name = "findEnvironment",desc = "通过id查找环境")
+//    @ApiParam(name = "id",desc = "id",required = true)
     public Result<Environment> findEnvironment(@NotNull String id){
         Environment environment = environmentService.findEnvironment(id);
 
@@ -71,7 +71,7 @@ public class EnvironmentController {
     }
 
     @RequestMapping(path="/findAllEnvironment",method = RequestMethod.POST)
-    @ApiMethod(name = "findAllEnvironment",desc = "查找所有环境")
+//    @ApiMethod(name = "findAllEnvironment",desc = "查找所有环境")
     public Result<List<Environment>> findAllEnvironment(){
         List<Environment> environmentList = environmentService.findAllEnvironment();
 
@@ -80,8 +80,8 @@ public class EnvironmentController {
 
 
     @RequestMapping(path = "/findEnvironmentList",method = RequestMethod.POST)
-    @ApiMethod(name = "findEnvironmentList",desc = "根据查询参数查找环境")
-    @ApiParam(name = "environmentQuery",desc = "environmentQuery",required = true)
+//    @ApiMethod(name = "findEnvironmentList",desc = "根据查询参数查找环境")
+//    @ApiParam(name = "environmentQuery",desc = "environmentQuery",required = true)
     public Result<List<Environment>> findEnvironmentList(@RequestBody @Valid @NotNull EnvironmentQuery environmentQuery){
         List<Environment> environmentList = environmentService.findEnvironmentList(environmentQuery);
 
@@ -90,8 +90,8 @@ public class EnvironmentController {
 
 
     @RequestMapping(path = "/findEnvironmentPage",method = RequestMethod.POST)
-    @ApiMethod(name = "findEnvironmentPage",desc = "根据查询参数按分页查找环境")
-    @ApiParam(name = "environmentQuery",desc = "environmentQuery",required = true)
+//    @ApiMethod(name = "findEnvironmentPage",desc = "根据查询参数按分页查找环境")
+//    @ApiParam(name = "environmentQuery",desc = "environmentQuery",required = true)
     public Result<Pagination<Environment>> findEnvironmentPage(@RequestBody @Valid @NotNull EnvironmentQuery environmentQuery){
         Pagination<Environment> pagination = environmentService.findEnvironmentPage(environmentQuery);
 

@@ -26,7 +26,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/apiRecent")
-@Api(name = "ApiRecentController",desc = "ApiRecentController")
+//@Api(name = "ApiRecentController",desc = "ApiRecentController")
 public class ApiRecentController {
 
     private static Logger logger = LoggerFactory.getLogger(ApiRecentController.class);
@@ -35,8 +35,8 @@ public class ApiRecentController {
     private ApiRecentService apiRecentService;
 
     @RequestMapping(path="/createApiRecent",method = RequestMethod.POST)
-    @ApiMethod(name = "createApiRecent",desc = "创建最近访问接口")
-    @ApiParam(name = "apiRecent",desc = "apiRecent",required = true)
+//    @ApiMethod(name = "createApiRecent",desc = "创建最近访问接口")
+//    @ApiParam(name = "apiRecent",desc = "apiRecent",required = true)
     public Result<String> createApiRecent(@RequestBody @NotNull @Valid ApiRecent apiRecent){
         String id = apiRecentService.createApiRecent(apiRecent);
 
@@ -44,8 +44,8 @@ public class ApiRecentController {
     }
 
     @RequestMapping(path="/updateApiRecent",method = RequestMethod.POST)
-    @ApiMethod(name = "updateApiRecent",desc = "更新最近访问接口")
-    @ApiParam(name = "apiRecent",desc = "apiRecent",required = true)
+//    @ApiMethod(name = "updateApiRecent",desc = "更新最近访问接口")
+//    @ApiParam(name = "apiRecent",desc = "apiRecent",required = true)
     public Result<Void> updateApiRecent(@RequestBody @NotNull @Valid ApiRecent apiRecent){
         apiRecentService.updateApiRecent(apiRecent);
 
@@ -53,8 +53,8 @@ public class ApiRecentController {
     }
 
     @RequestMapping(path="/deleteApiRecent",method = RequestMethod.POST)
-    @ApiMethod(name = "deleteApiRecent",desc = "删除最近访问接口")
-    @ApiParam(name = "id",desc = "id",required = true)
+//    @ApiMethod(name = "deleteApiRecent",desc = "删除最近访问接口")
+//    @ApiParam(name = "id",desc = "id",required = true)
     public Result<Void> deleteApiRecent(@NotNull String id){
         apiRecentService.deleteApiRecent(id);
 
@@ -62,8 +62,8 @@ public class ApiRecentController {
     }
 
     @RequestMapping(path="/findApiRecent",method = RequestMethod.POST)
-    @ApiMethod(name = "findApiRecent",desc = "通过id查找最近访问接口")
-    @ApiParam(name = "id",desc = "id",required = true)
+//    @ApiMethod(name = "findApiRecent",desc = "通过id查找最近访问接口")
+//    @ApiParam(name = "id",desc = "id",required = true)
     public Result<ApiRecent> findApiRecent(@NotNull String id){
         ApiRecent apiRecent = apiRecentService.findApiRecent(id);
 
@@ -71,7 +71,7 @@ public class ApiRecentController {
     }
 
     @RequestMapping(path="/findAllApiRecent",method = RequestMethod.POST)
-    @ApiMethod(name = "findAllApiRecent",desc = "查找所有最近访问接口")
+//    @ApiMethod(name = "findAllApiRecent",desc = "查找所有最近访问接口")
     public Result<List<ApiRecent>> findAllApiRecent(){
         List<ApiRecent> apiRecentList = apiRecentService.findAllApiRecent();
 
@@ -79,8 +79,8 @@ public class ApiRecentController {
     }
 
     @RequestMapping(path = "/findApiRecentList",method = RequestMethod.POST)
-    @ApiMethod(name = "findApiRecentList",desc = "根据查询参数查找最近访问接口")
-    @ApiParam(name = "apiRecentQuery",desc = "apiRecentQuery",required = true)
+//    @ApiMethod(name = "findApiRecentList",desc = "根据查询参数查找最近访问接口")
+//    @ApiParam(name = "apiRecentQuery",desc = "apiRecentQuery",required = true)
     public Result<List<ApiRecent>> findApiRecentList(@RequestBody @Valid @NotNull ApiRecentQuery apiRecentQuery){
         List<ApiRecent> apiRecentList = apiRecentService.findApiRecentList(apiRecentQuery);
 
@@ -88,8 +88,8 @@ public class ApiRecentController {
     }
 
     @RequestMapping(path = "/findApiRecentPage",method = RequestMethod.POST)
-    @ApiMethod(name = "findApiRecentPage",desc = "根据查询参数按分页查找最近访问接口")
-    @ApiParam(name = "apiRecentQuery",desc = "apiRecentQuery",required = true)
+//    @ApiMethod(name = "findApiRecentPage",desc = "根据查询参数按分页查找最近访问接口")
+//    @ApiParam(name = "apiRecentQuery",desc = "apiRecentQuery",required = true)
     public Result<Pagination<ApiRecent>> findApiRecentPage(@RequestBody @Valid @NotNull ApiRecentQuery apiRecentQuery){
         Pagination<ApiRecent> pagination = apiRecentService.findApiRecentPage(apiRecentQuery);
 
@@ -97,8 +97,8 @@ public class ApiRecentController {
     }
 
     @RequestMapping(path="/apiRecent",method = RequestMethod.POST)
-    @ApiMethod(name = "apiRecent",desc = "最近访问接口")
-    @ApiParam(name = "apiRecent",desc = "apiRecent",required = true)
+//    @ApiMethod(name = "apiRecent",desc = "最近访问接口")
+//    @ApiParam(name = "apiRecent",desc = "apiRecent",required = true)
     public Result<Void> apiRecent(@RequestBody @NotNull @Valid ApiRecent apiRecent){
         apiRecentService.apiRecent(apiRecent);
 

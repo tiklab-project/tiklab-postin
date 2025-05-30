@@ -27,7 +27,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/jsonResponse")
-@Api(name = "JsonResponseController",desc = "json响应结果管理")
+//@Api(name = "JsonResponseController",desc = "json响应结果管理")
 public class JsonResponseController {
 
     private static Logger logger = LoggerFactory.getLogger(JsonResponseController.class);
@@ -36,8 +36,8 @@ public class JsonResponseController {
     private JsonResponseService jsonResponseService;
 
     @RequestMapping(path="/createJsonResponse",method = RequestMethod.POST)
-    @ApiMethod(name = "createJsonResponse",desc = "创建json响应结果")
-    @ApiParam(name = "jsonResponse",desc = "json响应结果DTO",required = true)
+//    @ApiMethod(name = "createJsonResponse",desc = "创建json响应结果")
+//    @ApiParam(name = "jsonResponse",desc = "json响应结果DTO",required = true)
     public Result<String> createJsonResponse(@RequestBody @NotNull @Valid JsonResponse jsonResponse){
         String id = jsonResponseService.createJsonResponse(jsonResponse);
 
@@ -45,8 +45,8 @@ public class JsonResponseController {
     }
 
     @RequestMapping(path="/updateJsonResponse",method = RequestMethod.POST)
-    @ApiMethod(name = "updateJsonResponse",desc = "更新json响应结果")
-    @ApiParam(name = "jsonResponse",desc = "json响应结果DTO",required = true)
+//    @ApiMethod(name = "updateJsonResponse",desc = "更新json响应结果")
+//    @ApiParam(name = "jsonResponse",desc = "json响应结果DTO",required = true)
     public Result<Void> updateJsonResponse(@RequestBody @NotNull @Valid JsonResponse jsonResponse){
         jsonResponseService.updateJsonResponse(jsonResponse);
 
@@ -54,8 +54,8 @@ public class JsonResponseController {
     }
 
     @RequestMapping(path="/deleteJsonResponse",method = RequestMethod.POST)
-    @ApiMethod(name = "deleteJsonResponse",desc = "根据ID删除json响应结果")
-    @ApiParam(name = "id",desc = "唯一ID",required = true)
+//    @ApiMethod(name = "deleteJsonResponse",desc = "根据ID删除json响应结果")
+//    @ApiParam(name = "id",desc = "唯一ID",required = true)
     public Result<Void> deleteJsonResponse(@NotNull String id){
         jsonResponseService.deleteJsonResponse(id);
 
@@ -63,8 +63,8 @@ public class JsonResponseController {
     }
 
     @RequestMapping(path="/findJsonResponse",method = RequestMethod.POST)
-    @ApiMethod(name = "findJsonResponse",desc = "根据ID查找json响应结果")
-    @ApiParam(name = "id",desc = "唯一ID",required = true)
+//    @ApiMethod(name = "findJsonResponse",desc = "根据ID查找json响应结果")
+//    @ApiParam(name = "id",desc = "唯一ID",required = true)
     public Result<JsonResponse> findJsonResponse(@NotNull String id){
         JsonResponse jsonResponse = jsonResponseService.findJsonResponse(id);
 
@@ -72,7 +72,7 @@ public class JsonResponseController {
     }
 
     @RequestMapping(path="/findAllJsonResponse",method = RequestMethod.POST)
-    @ApiMethod(name = "findAllJsonResponse",desc = "查找所有json响应结果")
+//    @ApiMethod(name = "findAllJsonResponse",desc = "查找所有json响应结果")
     public Result<List<JsonResponse>> findAllJsonResponse(){
         List<JsonResponse> jsonResponseList = jsonResponseService.findAllJsonResponse();
 
@@ -81,8 +81,8 @@ public class JsonResponseController {
 
 
     @RequestMapping(path = "/findJsonResponseList",method = RequestMethod.POST)
-    @ApiMethod(name = "findJsonResponseList",desc = "根据查询对象查询json响应结果列表")
-    @ApiParam(name = "jsonResponseQuery",desc = "查询对象",required = true)
+//    @ApiMethod(name = "findJsonResponseList",desc = "根据查询对象查询json响应结果列表")
+//    @ApiParam(name = "jsonResponseQuery",desc = "查询对象",required = true)
     public Result<List<JsonResponse>> findJsonResponseList(@RequestBody @Valid @NotNull JsonResponseQuery jsonResponseQuery){
         List<JsonResponse> jsonResponseList = jsonResponseService.findJsonResponseList(jsonResponseQuery);
 
@@ -91,8 +91,8 @@ public class JsonResponseController {
 
 
     @RequestMapping(path = "/findJsonResponsePage",method = RequestMethod.POST)
-    @ApiMethod(name = "findJsonResponsePage",desc = "根据查询对象按分页查询json响应结果列表")
-    @ApiParam(name = "jsonResponseQuery",desc = "查询对象",required = true)
+//    @ApiMethod(name = "findJsonResponsePage",desc = "根据查询对象按分页查询json响应结果列表")
+//    @ApiParam(name = "jsonResponseQuery",desc = "查询对象",required = true)
     public Result<Pagination<JsonResponse>> findJsonResponsePage(@RequestBody @Valid @NotNull JsonResponseQuery jsonResponseQuery){
         Pagination<JsonResponse> pagination = jsonResponseService.findJsonResponsePage(jsonResponseQuery);
 
@@ -101,8 +101,8 @@ public class JsonResponseController {
 
 
     @RequestMapping(path = "/findJsonResponseListTree",method = RequestMethod.POST)
-    @ApiMethod(name = "findJsonResponseListTree",desc = "根据查询对象查询json响应结果列表树")
-    @ApiParam(name = "jsonResponseQuery",desc = "查询对象",required = true)
+//    @ApiMethod(name = "findJsonResponseListTree",desc = "根据查询对象查询json响应结果列表树")
+//    @ApiParam(name = "jsonResponseQuery",desc = "查询对象",required = true)
     public Result<List<JsonResponse>> findJsonResponseListTree(@RequestBody @Valid @NotNull JsonResponseQuery jsonResponseQuery){
         List<JsonResponse> jsonResponseList = jsonResponseService.findJsonResponseListTree(jsonResponseQuery);
 

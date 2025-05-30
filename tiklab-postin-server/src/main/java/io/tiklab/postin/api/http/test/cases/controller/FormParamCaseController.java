@@ -27,7 +27,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/formParamCase")
-@Api(name = "FormParamCaseController",desc = "接口用例-form参数管理")
+//@Api(name = "FormParamCaseController",desc = "接口用例-form参数管理")
 public class FormParamCaseController {
 
     private static Logger logger = LoggerFactory.getLogger(FormParamCaseController.class);
@@ -36,8 +36,8 @@ public class FormParamCaseController {
     private FormParamCaseService formParamCaseService;
 
     @RequestMapping(path="/createFormParamCase",method = RequestMethod.POST)
-    @ApiMethod(name = "createFormParamCase",desc = "createFormParamCase")
-    @ApiParam(name = "formParamCase",desc = "formParamCase",required = true)
+//    @ApiMethod(name = "createFormParamCase",desc = "createFormParamCase")
+//    @ApiParam(name = "formParamCase",desc = "formParamCase",required = true)
     public Result<String> createFormParamCase(@RequestBody @NotNull @Valid FormParamCase formParamCase){
         String id = formParamCaseService.createFormParamCase(formParamCase);
 
@@ -45,8 +45,8 @@ public class FormParamCaseController {
     }
 
     @RequestMapping(path="/updateFormParamCase",method = RequestMethod.POST)
-    @ApiMethod(name = "updateFormParamCase",desc = "updateFormParamCase")
-    @ApiParam(name = "formParamCase",desc = "formParamCase",required = true)
+//    @ApiMethod(name = "updateFormParamCase",desc = "updateFormParamCase")
+//    @ApiParam(name = "formParamCase",desc = "formParamCase",required = true)
     public Result<Void> updateFormParamCase(@RequestBody @NotNull @Valid FormParamCase formParamCase){
         formParamCaseService.updateFormParamCase(formParamCase);
 
@@ -54,8 +54,8 @@ public class FormParamCaseController {
     }
 
     @RequestMapping(path="/deleteFormParamCase",method = RequestMethod.POST)
-    @ApiMethod(name = "deleteFormParamCase",desc = "deleteFormParamCase")
-    @ApiParam(name = "id",desc = "id",required = true)
+//    @ApiMethod(name = "deleteFormParamCase",desc = "deleteFormParamCase")
+//    @ApiParam(name = "id",desc = "id",required = true)
     public Result<Void> deleteFormParamCase(@NotNull String id){
         formParamCaseService.deleteFormParamCase(id);
 
@@ -63,8 +63,8 @@ public class FormParamCaseController {
     }
 
     @RequestMapping(path="/findFormParamCase",method = RequestMethod.POST)
-    @ApiMethod(name = "findFormParamCase",desc = "findFormParamCase")
-    @ApiParam(name = "id",desc = "id",required = true)
+//    @ApiMethod(name = "findFormParamCase",desc = "findFormParamCase")
+//    @ApiParam(name = "id",desc = "id",required = true)
     public Result<FormParamCase> findFormParamCase(@NotNull String id){
         FormParamCase formParamCase = formParamCaseService.findFormParamCase(id);
 
@@ -72,7 +72,7 @@ public class FormParamCaseController {
     }
 
     @RequestMapping(path="/findAllFormParamCase",method = RequestMethod.POST)
-    @ApiMethod(name = "findAllFormParamCase",desc = "findAllFormParamCase")
+//    @ApiMethod(name = "findAllFormParamCase",desc = "findAllFormParamCase")
     public Result<List<FormParamCase>> findAllFormParamCase(){
         List<FormParamCase> formParamCaseList = formParamCaseService.findAllFormParamCase();
 
@@ -81,8 +81,8 @@ public class FormParamCaseController {
 
 
     @RequestMapping(path = "/findFormParamCaseList",method = RequestMethod.POST)
-    @ApiMethod(name = "findFormParamCaseList",desc = "findFormParamCaseList")
-    @ApiParam(name = "formParamCaseQuery",desc = "formParamCaseQuery",required = true)
+//    @ApiMethod(name = "findFormParamCaseList",desc = "findFormParamCaseList")
+//    @ApiParam(name = "formParamCaseQuery",desc = "formParamCaseQuery",required = true)
     public Result<List<FormParamCase>> findFormParamCaseList(@RequestBody @Valid @NotNull FormParamCaseQuery formParamCaseQuery){
         List<FormParamCase> formParamCaseList = formParamCaseService.findFormParamCaseList(formParamCaseQuery);
 
@@ -91,8 +91,8 @@ public class FormParamCaseController {
 
 
     @RequestMapping(path = "/findFormParamCasePage",method = RequestMethod.POST)
-    @ApiMethod(name = "findFormParamCasePage",desc = "findFormParamCasePage")
-    @ApiParam(name = "formParamCaseQuery",desc = "formParamCaseQuery",required = true)
+//    @ApiMethod(name = "findFormParamCasePage",desc = "findFormParamCasePage")
+//    @ApiParam(name = "formParamCaseQuery",desc = "formParamCaseQuery",required = true)
     public Result<Pagination<FormParamCase>> findFormParamCasePage(@RequestBody @Valid @NotNull FormParamCaseQuery formParamCaseQuery){
         Pagination<FormParamCase> pagination = formParamCaseService.findFormParamCasePage(formParamCaseQuery);
 

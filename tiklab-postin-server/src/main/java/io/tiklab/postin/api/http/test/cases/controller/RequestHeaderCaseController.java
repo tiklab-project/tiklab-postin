@@ -27,7 +27,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/requestHeaderCase")
-@Api(name = "RequestHeaderCaseController",desc = "接口用例-请求头管理")
+//@Api(name = "RequestHeaderCaseController",desc = "接口用例-请求头管理")
 public class RequestHeaderCaseController {
 
     private static Logger logger = LoggerFactory.getLogger(RequestHeaderCaseController.class);
@@ -36,8 +36,8 @@ public class RequestHeaderCaseController {
     private RequestHeaderCaseService requestHeaderCaseService;
 
     @RequestMapping(path="/createRequestHeaderCase",method = RequestMethod.POST)
-    @ApiMethod(name = "createRequestHeaderCase",desc = "createRequestHeaderCase")
-    @ApiParam(name = "requestHeaderCase",desc = "requestHeaderCase",required = true)
+//    @ApiMethod(name = "createRequestHeaderCase",desc = "createRequestHeaderCase")
+//    @ApiParam(name = "requestHeaderCase",desc = "requestHeaderCase",required = true)
     public Result<String> createRequestHeaderCase(@RequestBody @NotNull @Valid RequestHeaderCase requestHeaderCase){
         String id = requestHeaderCaseService.createRequestHeaderCase(requestHeaderCase);
 
@@ -45,8 +45,8 @@ public class RequestHeaderCaseController {
     }
 
     @RequestMapping(path="/updateRequestHeaderCase",method = RequestMethod.POST)
-    @ApiMethod(name = "updateRequestHeaderCase",desc = "updateRequestHeaderCase")
-    @ApiParam(name = "requestHeaderCase",desc = "requestHeaderCase",required = true)
+//    @ApiMethod(name = "updateRequestHeaderCase",desc = "updateRequestHeaderCase")
+//    @ApiParam(name = "requestHeaderCase",desc = "requestHeaderCase",required = true)
     public Result<Void> updateRequestHeaderCase(@RequestBody @NotNull @Valid RequestHeaderCase requestHeaderCase){
         requestHeaderCaseService.updateRequestHeaderCase(requestHeaderCase);
 
@@ -54,8 +54,8 @@ public class RequestHeaderCaseController {
     }
 
     @RequestMapping(path="/deleteRequestHeaderCase",method = RequestMethod.POST)
-    @ApiMethod(name = "deleteRequestHeaderCase",desc = "deleteRequestHeaderCase")
-    @ApiParam(name = "id",desc = "id",required = true)
+//    @ApiMethod(name = "deleteRequestHeaderCase",desc = "deleteRequestHeaderCase")
+//    @ApiParam(name = "id",desc = "id",required = true)
     public Result<Void> deleteRequestHeaderCase(@NotNull String id){
         requestHeaderCaseService.deleteRequestHeaderCase(id);
 
@@ -63,8 +63,8 @@ public class RequestHeaderCaseController {
     }
 
     @RequestMapping(path="/findRequestHeaderCase",method = RequestMethod.POST)
-    @ApiMethod(name = "findRequestHeaderCase",desc = "findRequestHeaderCase")
-    @ApiParam(name = "id",desc = "id",required = true)
+//    @ApiMethod(name = "findRequestHeaderCase",desc = "findRequestHeaderCase")
+//    @ApiParam(name = "id",desc = "id",required = true)
     public Result<RequestHeaderCase> findRequestHeaderCase(@NotNull String id){
         RequestHeaderCase requestHeaderCase = requestHeaderCaseService.findRequestHeaderCase(id);
 
@@ -72,7 +72,7 @@ public class RequestHeaderCaseController {
     }
 
     @RequestMapping(path="/findAllRequestHeaderCase",method = RequestMethod.POST)
-    @ApiMethod(name = "findAllRequestHeaderCase",desc = "findAllRequestHeaderCase")
+//    @ApiMethod(name = "findAllRequestHeaderCase",desc = "findAllRequestHeaderCase")
     public Result<List<RequestHeaderCase>> findAllRequestHeaderCase(){
         List<RequestHeaderCase> requestHeaderCaseList = requestHeaderCaseService.findAllRequestHeaderCase();
 
@@ -81,8 +81,8 @@ public class RequestHeaderCaseController {
 
 
     @RequestMapping(path = "/findRequestHeaderCaseList",method = RequestMethod.POST)
-    @ApiMethod(name = "findRequestHeaderCaseList",desc = "findRequestHeaderCaseList")
-    @ApiParam(name = "requestHeaderCaseQuery",desc = "requestHeaderCaseQuery",required = true)
+//    @ApiMethod(name = "findRequestHeaderCaseList",desc = "findRequestHeaderCaseList")
+//    @ApiParam(name = "requestHeaderCaseQuery",desc = "requestHeaderCaseQuery",required = true)
     public Result<List<RequestHeaderCase>> findRequestHeaderCaseList(@RequestBody @Valid @NotNull RequestHeaderCaseQuery requestHeaderCaseQuery){
         List<RequestHeaderCase> requestHeaderCaseList = requestHeaderCaseService.findRequestHeaderCaseList(requestHeaderCaseQuery);
 
@@ -91,8 +91,8 @@ public class RequestHeaderCaseController {
 
 
     @RequestMapping(path = "/findRequestHeaderCasePage",method = RequestMethod.POST)
-    @ApiMethod(name = "findRequestHeaderCasePage",desc = "findRequestHeaderCasePage")
-    @ApiParam(name = "requestHeaderCaseQuery",desc = "requestHeaderCaseQuery",required = true)
+//    @ApiMethod(name = "findRequestHeaderCasePage",desc = "findRequestHeaderCasePage")
+//    @ApiParam(name = "requestHeaderCaseQuery",desc = "requestHeaderCaseQuery",required = true)
     public Result<Pagination<RequestHeaderCase>> findRequestHeaderCasePage(@RequestBody @Valid @NotNull RequestHeaderCaseQuery requestHeaderCaseQuery){
         Pagination<RequestHeaderCase> pagination = requestHeaderCaseService.findRequestHeaderCasePage(requestHeaderCaseQuery);
 

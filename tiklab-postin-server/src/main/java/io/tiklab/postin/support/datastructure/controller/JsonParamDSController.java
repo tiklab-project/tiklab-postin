@@ -25,7 +25,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/jsonParamDS")
-@Api(name = "JsonParamDSController",desc = "json 类型的数据结构内容管理")
+//@Api(name = "JsonParamDSController",desc = "json 类型的数据结构内容管理")
 public class JsonParamDSController {
 
     private static Logger logger = LoggerFactory.getLogger(JsonParamDSController.class);
@@ -34,8 +34,8 @@ public class JsonParamDSController {
     private JsonParamDSService jsonParamDSService;
 
     @RequestMapping(path="/createJsonParamDS",method = RequestMethod.POST)
-    @ApiMethod(name = "createJsonParamDS",desc = "添加json 类型的数据结构内容")
-    @ApiParam(name = "jsonParamDS",desc = "添加对象",required = true)
+//    @ApiMethod(name = "createJsonParamDS",desc = "添加json 类型的数据结构内容")
+//    @ApiParam(name = "jsonParamDS",desc = "添加对象",required = true)
     public Result<String> createJsonParamDS(@RequestBody @NotNull @Valid JsonParamDS jsonParamDS){
         String id = jsonParamDSService.createJsonParamDS(jsonParamDS);
 
@@ -43,8 +43,8 @@ public class JsonParamDSController {
     }
 
     @RequestMapping(path="/updateJsonParamDS",method = RequestMethod.POST)
-    @ApiMethod(name = "updateJsonParamDS",desc = "修改json 类型的数据结构内容")
-    @ApiParam(name = "jsonParamDS",desc = "修改对象",required = true)
+//    @ApiMethod(name = "updateJsonParamDS",desc = "修改json 类型的数据结构内容")
+//    @ApiParam(name = "jsonParamDS",desc = "修改对象",required = true)
     public Result<Void> updateJsonParamDS(@RequestBody @NotNull @Valid JsonParamDS jsonParamDS){
         jsonParamDSService.updateJsonParamDS(jsonParamDS);
 
@@ -52,8 +52,8 @@ public class JsonParamDSController {
     }
 
     @RequestMapping(path="/deleteJsonParamDS",method = RequestMethod.POST)
-    @ApiMethod(name = "deleteJsonParamDS",desc = "删除json 类型的数据结构内容")
-    @ApiParam(name = "id",desc = "id",required = true)
+//    @ApiMethod(name = "deleteJsonParamDS",desc = "删除json 类型的数据结构内容")
+//    @ApiParam(name = "id",desc = "id",required = true)
     public Result<Void> deleteJsonParamDS(@NotNull String id){
         jsonParamDSService.deleteJsonParamDS(id);
 
@@ -62,8 +62,8 @@ public class JsonParamDSController {
 
 
     @RequestMapping(path="/findJsonParamDS",method = RequestMethod.POST)
-    @ApiMethod(name = "findJsonParamDS",desc = "通过id查询json 类型的数据结构内容")
-    @ApiParam(name = "id",desc = "id",required = true)
+//    @ApiMethod(name = "findJsonParamDS",desc = "通过id查询json 类型的数据结构内容")
+//    @ApiParam(name = "id",desc = "id",required = true)
     public Result<JsonParamDS> findJsonParamDS(@NotNull String id){
         JsonParamDS jsonParamDS = jsonParamDSService.findJsonParamDS(id);
 
@@ -71,7 +71,7 @@ public class JsonParamDSController {
     }
 
     @RequestMapping(path="/findAllJsonParamDS",method = RequestMethod.POST)
-    @ApiMethod(name = "findAllJsonParamDS",desc = "查询所有json 类型的数据结构内容")
+//    @ApiMethod(name = "findAllJsonParamDS",desc = "查询所有json 类型的数据结构内容")
     public Result<List<JsonParamDS>> findAllJsonParamDS(){
         List<JsonParamDS> jsonParamDSList = jsonParamDSService.findAllJsonParamDS();
 
@@ -79,8 +79,8 @@ public class JsonParamDSController {
     }
 
     @RequestMapping(path = "/findJsonParamDSList",method = RequestMethod.POST)
-    @ApiMethod(name = "findJsonParamDSList",desc = "通过查询对象 查询json 类型的数据结构内容")
-    @ApiParam(name = "jsonParamDSQuery",desc = "jsonParamDSQuery",required = true)
+//    @ApiMethod(name = "findJsonParamDSList",desc = "通过查询对象 查询json 类型的数据结构内容")
+//    @ApiParam(name = "jsonParamDSQuery",desc = "jsonParamDSQuery",required = true)
     public Result<List<JsonParamDS>> findJsonParamDSList(@RequestBody @Valid @NotNull JsonParamDSQuery jsonParamDSQuery){
         List<JsonParamDS> jsonParamDSList = jsonParamDSService.findJsonParamDSList(jsonParamDSQuery);
 
@@ -88,8 +88,8 @@ public class JsonParamDSController {
     }
 
     @RequestMapping(path = "/findJsonParamDSPage",method = RequestMethod.POST)
-    @ApiMethod(name = "findJsonParamDSPage",desc = "通过查询对象分页查询json 类型的数据结构内容")
-    @ApiParam(name = "jsonParamDSQuery",desc = "jsonParamDSQuery",required = true)
+//    @ApiMethod(name = "findJsonParamDSPage",desc = "通过查询对象分页查询json 类型的数据结构内容")
+//    @ApiParam(name = "jsonParamDSQuery",desc = "jsonParamDSQuery",required = true)
     public Result<Pagination<JsonParamDS>> findJsonParamDSPage(@RequestBody @Valid @NotNull JsonParamDSQuery jsonParamDSQuery){
         Pagination<JsonParamDS> pagination = jsonParamDSService.findJsonParamDSPage(jsonParamDSQuery);
 

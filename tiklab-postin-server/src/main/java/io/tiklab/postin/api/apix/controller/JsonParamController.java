@@ -27,7 +27,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/jsonParam")
-@Api(name = "JsonParamController",desc = "json请求参数管理")
+//@Api(name = "JsonParamController",desc = "json请求参数管理")
 public class JsonParamController {
 
     private static Logger logger = LoggerFactory.getLogger(JsonParamController.class);
@@ -36,8 +36,8 @@ public class JsonParamController {
     private JsonParamService jsonParamService;
 
     @RequestMapping(path="/createJsonParam",method = RequestMethod.POST)
-    @ApiMethod(name = "createJsonParam",desc = "创建json请求参数")
-    @ApiParam(name = "jsonParam",desc = "json请求参数DTO",required = true)
+//    @ApiMethod(name = "createJsonParam",desc = "创建json请求参数")
+//    @ApiParam(name = "jsonParam",desc = "json请求参数DTO",required = true)
     public Result<String> createJsonParam(@RequestBody @NotNull @Valid JsonParam jsonParam){
         String id = jsonParamService.createJsonParam(jsonParam);
 
@@ -45,8 +45,8 @@ public class JsonParamController {
     }
 
     @RequestMapping(path="/updateJsonParam",method = RequestMethod.POST)
-    @ApiMethod(name = "updateJsonParam",desc = "更新json请求参数")
-    @ApiParam(name = "jsonParam",desc = "json请求参数DTO",required = true)
+//    @ApiMethod(name = "updateJsonParam",desc = "更新json请求参数")
+//    @ApiParam(name = "jsonParam",desc = "json请求参数DTO",required = true)
     public Result<Void> updateJsonParam(@RequestBody @NotNull @Valid JsonParam jsonParam){
         jsonParamService.updateJsonParam(jsonParam);
 
@@ -54,8 +54,8 @@ public class JsonParamController {
     }
 
     @RequestMapping(path="/deleteJsonParam",method = RequestMethod.POST)
-    @ApiMethod(name = "deleteJsonParam",desc = "根据ID删除json请求参数")
-    @ApiParam(name = "id",desc = "json请求参数ID",required = true)
+//    @ApiMethod(name = "deleteJsonParam",desc = "根据ID删除json请求参数")
+//    @ApiParam(name = "id",desc = "json请求参数ID",required = true)
     public Result<Void> deleteJsonParam(@NotNull String id){
         jsonParamService.deleteJsonParam(id);
 
@@ -63,8 +63,8 @@ public class JsonParamController {
     }
 
     @RequestMapping(path="/findJsonParam",method = RequestMethod.POST)
-    @ApiMethod(name = "findJsonParam",desc = "根据ID查找json请求参数")
-    @ApiParam(name = "id",desc = "json请求参数ID",required = true)
+//    @ApiMethod(name = "findJsonParam",desc = "根据ID查找json请求参数")
+//    @ApiParam(name = "id",desc = "json请求参数ID",required = true)
     public Result<JsonParam> findJsonParam(@NotNull String id){
         JsonParam jsonParam = jsonParamService.findJsonParam(id);
 
@@ -72,7 +72,7 @@ public class JsonParamController {
     }
 
     @RequestMapping(path="/findAllJsonParam",method = RequestMethod.POST)
-    @ApiMethod(name = "findAllJsonParam",desc = "查找所有json请求参数")
+//    @ApiMethod(name = "findAllJsonParam",desc = "查找所有json请求参数")
     public Result<List<JsonParam>> findAllJsonParam(){
         List<JsonParam> jsonParamList = jsonParamService.findAllJsonParam();
 
@@ -81,8 +81,8 @@ public class JsonParamController {
 
 
     @RequestMapping(path = "/findJsonParamList",method = RequestMethod.POST)
-    @ApiMethod(name = "findJsonParamList",desc = "根据查询对象查找json请求参数列表")
-    @ApiParam(name = "jsonParamQuery",desc = "查询对象",required = true)
+//    @ApiMethod(name = "findJsonParamList",desc = "根据查询对象查找json请求参数列表")
+//    @ApiParam(name = "jsonParamQuery",desc = "查询对象",required = true)
     public Result<List<JsonParam>> findJsonParamList(@RequestBody @Valid @NotNull JsonParamQuery jsonParamQuery){
         List<JsonParam> jsonParamList = jsonParamService.findJsonParamList(jsonParamQuery);
 
@@ -91,8 +91,8 @@ public class JsonParamController {
 
 
     @RequestMapping(path = "/findJsonParamPage",method = RequestMethod.POST)
-    @ApiMethod(name = "findJsonParamPage",desc = "根据查询对象按分页查找json请求参数列表")
-    @ApiParam(name = "jsonParamQuery",desc = "查询对象",required = true)
+//    @ApiMethod(name = "findJsonParamPage",desc = "根据查询对象按分页查找json请求参数列表")
+//    @ApiParam(name = "jsonParamQuery",desc = "查询对象",required = true)
     public Result<Pagination<JsonParam>> findJsonParamPage(@RequestBody @Valid @NotNull JsonParamQuery jsonParamQuery){
         Pagination<JsonParam> pagination = jsonParamService.findJsonParamPage(jsonParamQuery);
 

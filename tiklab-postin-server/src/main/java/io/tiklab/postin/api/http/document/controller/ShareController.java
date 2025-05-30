@@ -28,7 +28,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/share")
-@Api(name = "ShareController",desc = "分享文档控制器")
+//@Api(name = "ShareController",desc = "分享文档控制器")
 public class ShareController {
 
     private static Logger logger = LoggerFactory.getLogger(ShareController.class);
@@ -37,8 +37,8 @@ public class ShareController {
     private ShareService shareService;
 
     @RequestMapping(path="/createShare",method = RequestMethod.POST)
-    @ApiMethod(name = "createShare",desc = "创建分享")
-    @ApiParam(name = "share",desc = "share",required = true)
+//    @ApiMethod(name = "createShare",desc = "创建分享")
+//    @ApiParam(name = "share",desc = "share",required = true)
     public Result<String> createShare(@RequestBody @NotNull @Valid Share share){
         String id = shareService.createShare(share);
 
@@ -46,8 +46,8 @@ public class ShareController {
     }
 
     @RequestMapping(path="/updateShare",method = RequestMethod.POST)
-    @ApiMethod(name = "updateShare",desc = "更新分享")
-    @ApiParam(name = "share",desc = "share",required = true)
+//    @ApiMethod(name = "updateShare",desc = "更新分享")
+//    @ApiParam(name = "share",desc = "share",required = true)
     public Result<Void> updateShare(@RequestBody @NotNull @Valid Share share){
         shareService.updateShare(share);
 
@@ -55,8 +55,8 @@ public class ShareController {
     }
 
     @RequestMapping(path="/deleteShare",method = RequestMethod.POST)
-    @ApiMethod(name = "deleteShare",desc = "删除分享")
-    @ApiParam(name = "id",desc = "id",required = true)
+//    @ApiMethod(name = "deleteShare",desc = "删除分享")
+//    @ApiParam(name = "id",desc = "id",required = true)
     public Result<Void> deleteShare(@NotNull String id){
         shareService.deleteShare(id);
 
@@ -64,8 +64,8 @@ public class ShareController {
     }
 
     @RequestMapping(path="/findShare",method = RequestMethod.POST)
-    @ApiMethod(name = "findShare",desc = "通过id查找分享")
-    @ApiParam(name = "id",desc = "id",required = true)
+//    @ApiMethod(name = "findShare",desc = "通过id查找分享")
+//    @ApiParam(name = "id",desc = "id",required = true)
     public Result<Share> findShare(@NotNull String id){
         Share share = shareService.findShare(id);
 
@@ -73,7 +73,7 @@ public class ShareController {
     }
 
     @RequestMapping(path="/findAllShare",method = RequestMethod.POST)
-    @ApiMethod(name = "findAllShare",desc = "查找所有分享")
+//    @ApiMethod(name = "findAllShare",desc = "查找所有分享")
     public Result<List<Share>> findAllShare(){
         List<Share> shareList = shareService.findAllShare();
 
@@ -81,8 +81,8 @@ public class ShareController {
     }
 
     @RequestMapping(path = "/findShareList",method = RequestMethod.POST)
-    @ApiMethod(name = "findShareList",desc = "根据查询参数查找分享列表")
-    @ApiParam(name = "shareQuery",desc = "shareQuery",required = true)
+//    @ApiMethod(name = "findShareList",desc = "根据查询参数查找分享列表")
+//    @ApiParam(name = "shareQuery",desc = "shareQuery",required = true)
     public Result<List<Share>> findShareList(@RequestBody @Valid @NotNull ShareQuery shareQuery){
         List<Share> shareList = shareService.findShareList(shareQuery);
 
@@ -90,8 +90,8 @@ public class ShareController {
     }
 
     @RequestMapping(path = "/findSharePage",method = RequestMethod.POST)
-    @ApiMethod(name = "findSharePage",desc = "根据查询参数按分页查找列表")
-    @ApiParam(name = "shareQuery",desc = "shareQuery",required = true)
+//    @ApiMethod(name = "findSharePage",desc = "根据查询参数按分页查找列表")
+//    @ApiParam(name = "shareQuery",desc = "shareQuery",required = true)
     public Result<Pagination<Share>> findSharePage(@RequestBody @Valid @NotNull ShareQuery shareQuery){
         Pagination<Share> pagination = shareService.findSharePage(shareQuery);
 
@@ -100,7 +100,7 @@ public class ShareController {
 
 
     @RequestMapping(path="/{id}",method = RequestMethod.GET)
-    @ApiMethod(name = "findShareByUrlId",desc = "根据url地址栏中地址查询分享")
+//    @ApiMethod(name = "findShareByUrlId",desc = "根据url地址栏中地址查询分享")
     public Result<Share> findShareByUrlId(@PathVariable String id){
         Share shareByUrlId = shareService.findShareByUrlId(id);
 
@@ -108,7 +108,7 @@ public class ShareController {
     }
 
     @RequestMapping(path="/findShareTree",method = RequestMethod.POST)
-    @ApiMethod(name = "findShareTree",desc = "查找分享树形列表")
+//    @ApiMethod(name = "findShareTree",desc = "查找分享树形列表")
     public Result<List<Node>> findShareTree(@NotNull String id){
         List<Node> shareTree = shareService.findShareTree(id);
 
@@ -116,7 +116,7 @@ public class ShareController {
     }
 
     @RequestMapping(path="/verify",method = RequestMethod.POST)
-    @ApiMethod(name = "verify",desc = "校验是否需要密码")
+//    @ApiMethod(name = "verify",desc = "校验是否需要密码")
     public Result<HashMap> verify(@RequestBody @NotNull Share share){
         HashMap verify = shareService.verify(share);
 
@@ -124,8 +124,8 @@ public class ShareController {
     }
 
     @RequestMapping(path="/findHttpApi",method = RequestMethod.POST)
-    @ApiMethod(name = "findHttpApi",desc = "查询接口")
-    @ApiParam(name = "id",desc = "id",required = true)
+//    @ApiMethod(name = "findHttpApi",desc = "查询接口")
+//    @ApiParam(name = "id",desc = "id",required = true)
     public Result<HttpApi> findHttpApi(@NotNull String id){
         HttpApi httpApi = shareService.findHttpApi(id);
 
@@ -133,8 +133,8 @@ public class ShareController {
     }
 
     @RequestMapping(path="/findWSApi",method = RequestMethod.POST)
-    @ApiMethod(name = "findWSApi",desc = "查询接口")
-    @ApiParam(name = "id",desc = "id",required = true)
+//    @ApiMethod(name = "findWSApi",desc = "查询接口")
+//    @ApiParam(name = "id",desc = "id",required = true)
     public Result<WSApi> findWSApi(@NotNull String id){
         WSApi wsApi = shareService.findWSApi(id);
 

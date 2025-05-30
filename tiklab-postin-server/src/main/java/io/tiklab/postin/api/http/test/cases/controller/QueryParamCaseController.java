@@ -27,7 +27,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/queryParamCase")
-@Api(name = "QueryParamCaseController",desc = "接口用例-查询参数管理")
+//@Api(name = "QueryParamCaseController",desc = "接口用例-查询参数管理")
 public class QueryParamCaseController {
 
     private static Logger logger = LoggerFactory.getLogger(QueryParamCaseController.class);
@@ -36,8 +36,8 @@ public class QueryParamCaseController {
     private QueryParamCaseService queryParamCaseService;
 
     @RequestMapping(path="/createQueryParamCase",method = RequestMethod.POST)
-    @ApiMethod(name = "createQueryParamCase",desc = "createQueryParamCase")
-    @ApiParam(name = "queryParamCase",desc = "queryParamCase",required = true)
+//    @ApiMethod(name = "createQueryParamCase",desc = "createQueryParamCase")
+//    @ApiParam(name = "queryParamCase",desc = "queryParamCase",required = true)
     public Result<String> createQueryParamCase(@RequestBody @NotNull @Valid QueryParamCase queryParamCase){
         String id = queryParamCaseService.createQueryParamCase(queryParamCase);
 
@@ -45,8 +45,8 @@ public class QueryParamCaseController {
     }
 
     @RequestMapping(path="/updateQueryParamCase",method = RequestMethod.POST)
-    @ApiMethod(name = "updateQueryParamCase",desc = "updateQueryParamCase")
-    @ApiParam(name = "queryParamCase",desc = "queryParamCase",required = true)
+//    @ApiMethod(name = "updateQueryParamCase",desc = "updateQueryParamCase")
+//    @ApiParam(name = "queryParamCase",desc = "queryParamCase",required = true)
     public Result<Void> updateQueryParamCase(@RequestBody @NotNull @Valid QueryParamCase queryParamCase){
         queryParamCaseService.updateQueryParamCase(queryParamCase);
 
@@ -54,8 +54,8 @@ public class QueryParamCaseController {
     }
 
     @RequestMapping(path="/deleteQueryParamCase",method = RequestMethod.POST)
-    @ApiMethod(name = "deleteQueryParamCase",desc = "deleteQueryParamCase")
-    @ApiParam(name = "id",desc = "id",required = true)
+//    @ApiMethod(name = "deleteQueryParamCase",desc = "deleteQueryParamCase")
+//    @ApiParam(name = "id",desc = "id",required = true)
     public Result<Void> deleteQueryParamCase(@NotNull String id){
         queryParamCaseService.deleteQueryParamCase(id);
 
@@ -63,8 +63,8 @@ public class QueryParamCaseController {
     }
 
     @RequestMapping(path="/findQueryParamCase",method = RequestMethod.POST)
-    @ApiMethod(name = "findQueryParamCase",desc = "findQueryParamCase")
-    @ApiParam(name = "id",desc = "id",required = true)
+//    @ApiMethod(name = "findQueryParamCase",desc = "findQueryParamCase")
+//    @ApiParam(name = "id",desc = "id",required = true)
     public Result<QueryParamCase> findQueryParamCase(@NotNull String id){
         QueryParamCase queryParamCase = queryParamCaseService.findQueryParamCase(id);
 
@@ -72,7 +72,7 @@ public class QueryParamCaseController {
     }
 
     @RequestMapping(path="/findAllQueryParamCase",method = RequestMethod.POST)
-    @ApiMethod(name = "findAllQueryParamCase",desc = "findAllQueryParamCase")
+//    @ApiMethod(name = "findAllQueryParamCase",desc = "findAllQueryParamCase")
     public Result<List<QueryParamCase>> findAllQueryParamCase(){
         List<QueryParamCase> queryParamCaseList = queryParamCaseService.findAllQueryParamCase();
 
@@ -81,8 +81,8 @@ public class QueryParamCaseController {
 
 
     @RequestMapping(path = "/findQueryParamCaseList",method = RequestMethod.POST)
-    @ApiMethod(name = "findQueryParamCaseList",desc = "findQueryParamCaseList")
-    @ApiParam(name = "queryParamCaseQuery",desc = "queryParamCaseQuery",required = true)
+//    @ApiMethod(name = "findQueryParamCaseList",desc = "findQueryParamCaseList")
+//    @ApiParam(name = "queryParamCaseQuery",desc = "queryParamCaseQuery",required = true)
     public Result<List<QueryParamCase>> findQueryParamCaseList(@RequestBody @Valid @NotNull QueryParamCaseQuery queryParamCaseQuery){
         List<QueryParamCase> queryParamCaseList = queryParamCaseService.findQueryParamCaseList(queryParamCaseQuery);
 
@@ -91,8 +91,8 @@ public class QueryParamCaseController {
 
 
     @RequestMapping(path = "/findQueryParamCasePage",method = RequestMethod.POST)
-    @ApiMethod(name = "findQueryParamCasePage",desc = "findQueryParamCasePage")
-    @ApiParam(name = "queryParamCaseQuery",desc = "queryParamCaseQuery",required = true)
+//    @ApiMethod(name = "findQueryParamCasePage",desc = "findQueryParamCasePage")
+//    @ApiParam(name = "queryParamCaseQuery",desc = "queryParamCaseQuery",required = true)
     public Result<Pagination<QueryParamCase>> findQueryParamCasePage(@RequestBody @Valid @NotNull QueryParamCaseQuery queryParamCaseQuery){
         Pagination<QueryParamCase> pagination = queryParamCaseService.findQueryParamCasePage(queryParamCaseQuery);
 

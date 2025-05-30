@@ -25,7 +25,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/formUrlencodedCase")
-@Api(name = "FormUrlencodedCaseController",desc = "接口用例-x-www-formUrlencoded参数管理")
+//@Api(name = "FormUrlencodedCaseController",desc = "接口用例-x-www-formUrlencoded参数管理")
 public class FormUrlencodedCaseController {
 
     private static Logger logger = LoggerFactory.getLogger(FormUrlencodedCaseController.class);
@@ -34,8 +34,8 @@ public class FormUrlencodedCaseController {
     private FormUrlencodedCaseService formUrlencodedCaseService;
 
     @RequestMapping(path="/createFormUrlencodedCase",method = RequestMethod.POST)
-    @ApiMethod(name = "createFormUrlencodedCase",desc = "createFormUrlencodedCase")
-    @ApiParam(name = "formUrlencodedCase",desc = "formUrlencodedCase",required = true)
+//    @ApiMethod(name = "createFormUrlencodedCase",desc = "createFormUrlencodedCase")
+//    @ApiParam(name = "formUrlencodedCase",desc = "formUrlencodedCase",required = true)
     public Result<String> createFormUrlencodedCase(@RequestBody @NotNull @Valid FormUrlencodedCase formUrlencodedCase){
         String id = formUrlencodedCaseService.createFormUrlencodedCase(formUrlencodedCase);
 
@@ -43,8 +43,8 @@ public class FormUrlencodedCaseController {
     }
 
     @RequestMapping(path="/updateFormUrlencodedCase",method = RequestMethod.POST)
-    @ApiMethod(name = "updateFormUrlencodedCase",desc = "updateFormUrlencodedCase")
-    @ApiParam(name = "formUrlencodedCase",desc = "formUrlencodedCase",required = true)
+//    @ApiMethod(name = "updateFormUrlencodedCase",desc = "updateFormUrlencodedCase")
+//    @ApiParam(name = "formUrlencodedCase",desc = "formUrlencodedCase",required = true)
     public Result<Void> updateFormUrlencodedCase(@RequestBody @NotNull @Valid FormUrlencodedCase formUrlencodedCase){
         formUrlencodedCaseService.updateFormUrlencodedCase(formUrlencodedCase);
 
@@ -52,8 +52,8 @@ public class FormUrlencodedCaseController {
     }
 
     @RequestMapping(path="/deleteFormUrlencodedCase",method = RequestMethod.POST)
-    @ApiMethod(name = "deleteFormUrlencodedCase",desc = "deleteFormUrlencodedCase")
-    @ApiParam(name = "id",desc = "id",required = true)
+//    @ApiMethod(name = "deleteFormUrlencodedCase",desc = "deleteFormUrlencodedCase")
+//    @ApiParam(name = "id",desc = "id",required = true)
     public Result<Void> deleteFormUrlencodedCase(@NotNull String id){
         formUrlencodedCaseService.deleteFormUrlencodedCase(id);
 
@@ -61,8 +61,8 @@ public class FormUrlencodedCaseController {
     }
 
     @RequestMapping(path="/findFormUrlencodedCase",method = RequestMethod.POST)
-    @ApiMethod(name = "findFormUrlencodedCase",desc = "findFormUrlencodedCase")
-    @ApiParam(name = "id",desc = "id",required = true)
+//    @ApiMethod(name = "findFormUrlencodedCase",desc = "findFormUrlencodedCase")
+//    @ApiParam(name = "id",desc = "id",required = true)
     public Result<FormUrlencodedCase> findFormUrlencodedCase(@NotNull String id){
         FormUrlencodedCase formUrlencodedCase = formUrlencodedCaseService.findFormUrlencodedCase(id);
 
@@ -70,7 +70,7 @@ public class FormUrlencodedCaseController {
     }
 
     @RequestMapping(path="/findAllFormUrlencodedCase",method = RequestMethod.POST)
-    @ApiMethod(name = "findAllFormUrlencodedCase",desc = "findAllFormUrlencodedCase")
+//    @ApiMethod(name = "findAllFormUrlencodedCase",desc = "findAllFormUrlencodedCase")
     public Result<List<FormUrlencodedCase>> findAllFormUrlencodedCase(){
         List<FormUrlencodedCase> formUrlencodedCaseList = formUrlencodedCaseService.findAllFormUrlencodedCase();
 
@@ -78,8 +78,8 @@ public class FormUrlencodedCaseController {
     }
 
     @RequestMapping(path = "/findFormUrlencodedCaseList",method = RequestMethod.POST)
-    @ApiMethod(name = "findFormUrlencodedCaseList",desc = "findFormUrlencodedCaseList")
-    @ApiParam(name = "formUrlencodedCaseQuery",desc = "formUrlencodedCaseQuery",required = true)
+//    @ApiMethod(name = "findFormUrlencodedCaseList",desc = "findFormUrlencodedCaseList")
+//    @ApiParam(name = "formUrlencodedCaseQuery",desc = "formUrlencodedCaseQuery",required = true)
     public Result<List<FormUrlencodedCase>> findFormUrlencodedCaseList(@RequestBody @Valid @NotNull FormUrlencodedCaseQuery formUrlencodedCaseQuery){
         List<FormUrlencodedCase> formUrlencodedCaseList = formUrlencodedCaseService.findFormUrlencodedCaseList(formUrlencodedCaseQuery);
 
@@ -87,8 +87,8 @@ public class FormUrlencodedCaseController {
     }
 
     @RequestMapping(path = "/findFormUrlencodedCasePage",method = RequestMethod.POST)
-    @ApiMethod(name = "findFormUrlencodedCasePage",desc = "findFormUrlencodedCasePage")
-    @ApiParam(name = "formUrlencodedCaseQuery",desc = "formUrlencodedCaseQuery",required = true)
+//    @ApiMethod(name = "findFormUrlencodedCasePage",desc = "findFormUrlencodedCasePage")
+//    @ApiParam(name = "formUrlencodedCaseQuery",desc = "formUrlencodedCaseQuery",required = true)
     public Result<Pagination<FormUrlencodedCase>> findFormUrlencodedCasePage(@RequestBody @Valid @NotNull FormUrlencodedCaseQuery formUrlencodedCaseQuery){
         Pagination<FormUrlencodedCase> pagination = formUrlencodedCaseService.findFormUrlencodedCasePage(formUrlencodedCaseQuery);
 

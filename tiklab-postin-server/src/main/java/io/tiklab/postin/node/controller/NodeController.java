@@ -25,7 +25,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/node")
-@Api(name = "NodeController",desc = "接口公共字段")
+//@Api(name = "NodeController",desc = "接口公共字段")
 public class NodeController {
 
     private static Logger logger = LoggerFactory.getLogger(NodeController.class);
@@ -34,8 +34,8 @@ public class NodeController {
     private NodeService nodeService;
 
     @RequestMapping(path="/deleteNode",method = RequestMethod.POST)
-    @ApiMethod(name = "deleteNode",desc = "删除接口公共字段")
-    @ApiParam(name = "id",desc = "id",required = true)
+//    @ApiMethod(name = "deleteNode",desc = "删除接口公共字段")
+//    @ApiParam(name = "id",desc = "id",required = true)
     public Result<Void> deleteNode(@NotNull String id){
         nodeService.deleteNode(id);
 
@@ -43,8 +43,8 @@ public class NodeController {
     }
 
     @RequestMapping(path="/findNode",method = RequestMethod.POST)
-    @ApiMethod(name = "findNode",desc = "查找接口公共字段")
-    @ApiParam(name = "id",desc = "id",required = true)
+//    @ApiMethod(name = "findNode",desc = "查找接口公共字段")
+//    @ApiParam(name = "id",desc = "id",required = true)
     public Result<Node> findNode(@NotNull String id){
         Node node = nodeService.findNode(id);
 
@@ -52,8 +52,8 @@ public class NodeController {
     }
 
     @RequestMapping(path = "/findNodePage",method = RequestMethod.POST)
-    @ApiMethod(name = "findNodePage",desc = "根据查询对象模糊查找分类列表树")
-    @ApiParam(name = "nodeQuery",desc = "查询对象",required = true)
+//    @ApiMethod(name = "findNodePage",desc = "根据查询对象模糊查找分类列表树")
+//    @ApiParam(name = "nodeQuery",desc = "查询对象",required = true)
     public Result<Pagination<Node>> findNodePage(@RequestBody @Valid @NotNull NodeQuery nodeQuery){
         Pagination<Node> nodePage = nodeService.findNodePage(nodeQuery);
 
@@ -62,8 +62,8 @@ public class NodeController {
 
 
     @RequestMapping(path = "/findNodeTree",method = RequestMethod.POST)
-    @ApiMethod(name = "findNodeTree",desc = "根据查询对象模糊查找分类列表树")
-    @ApiParam(name = "nodeQuery",desc = "查询对象",required = true)
+//    @ApiMethod(name = "findNodeTree",desc = "根据查询对象模糊查找分类列表树")
+//    @ApiParam(name = "nodeQuery",desc = "查询对象",required = true)
     public Result<List<Node>> findNodeTree(@RequestBody @Valid @NotNull NodeQuery nodeQuery){
         List<Node> nodeTree = nodeService.findNodeTree(nodeQuery);
 
