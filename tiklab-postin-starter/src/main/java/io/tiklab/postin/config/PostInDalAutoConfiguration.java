@@ -15,6 +15,7 @@ public class PostInDalAutoConfiguration {
         DsmConfig dsmConfig = DsmConfigBuilder.instance();
         //1.0.0
         dsmConfig.newVersion("1.0.0", new String[]{
+                "openapi_1.0.0",
                 //PrivilegeDsm
                 "privilege_1.0.0",
                 //UserDsm
