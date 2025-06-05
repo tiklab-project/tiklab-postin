@@ -1,7 +1,7 @@
 package io.tiklab.postin;
 
 import io.tiklab.postin.annotation.EnablePostIn;
-import io.tiklab.core.property.PropertyAndYamlSourceFactory;
+import io.tiklab.toolkit.property.PropertyAndYamlSourceFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;

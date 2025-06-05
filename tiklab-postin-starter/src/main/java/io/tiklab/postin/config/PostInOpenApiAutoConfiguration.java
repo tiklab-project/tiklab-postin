@@ -1,35 +1,25 @@
 package io.tiklab.postin.config;
 
-import io.tiklab.openapi.router.Router;
-import io.tiklab.openapi.router.RouterBuilder;
-import io.tiklab.openapi.router.config.RouterConfig;
-import io.tiklab.openapi.router.config.RouterConfigBuilder;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
+import io.tiklab.openapi.config.AllowConfig;
+import io.tiklab.openapi.config.AllowConfigBuilder;
+import io.tiklab.openapi.config.OpenApiConfig;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class PostInOpenApiAutoConfiguration {
 
-    @Value("${soular.address:null}")
-    String authAddress;
+    @Bean
+    OpenApiConfig openApiConfig(AllowConfig allowConfig){
+        OpenApiConfig openApiConfig = new OpenApiConfig();
+        openApiConfig.setAllowConfig(allowConfig);
 
-    @Value("${soular.embbed.enable:false}")
-    Boolean enableEam;
-
-    @Value("${server.port}")
-    Integer port;
-
-    //路由
-    @Bean("routerForOpenApi")
-    Router router(@Qualifier("routerConfigForOpenApi") RouterConfig routerConfig){
-        return RouterBuilder.newRouter(routerConfig);
+        return openApiConfig;
     }
 
-    //路由配置
-    @Bean("routerConfigForOpenApi")
-    RouterConfig routerConfig(){
+    //开放许可配置
+    @Bean
+    AllowConfig routerConfig(){
         String[] s =  new String[]{
                 "/apx/findApixList",
                 "/http/findHttpApi",
@@ -37,9 +27,8 @@ public class PostInOpenApiAutoConfiguration {
                 "/workspace/findWorkspaceList"
         };
 
-        return RouterConfigBuilder.instance()
-                .preRoute(s, authAddress)
-                .route(s, "http://localhost:"+port)
+        return AllowConfigBuilder.instance()
+                .allowUrls(s)
                 .get();
     }
 }

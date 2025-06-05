@@ -47,6 +47,10 @@
             <groupId>io.tiklab</groupId>
             <artifactId>tiklab-postin-annotation</artifactId>
         </dependency>
+        <dependency>
+            <groupId>io.tiklab</groupId>
+            <artifactId>tiklab-toolkit-core</artifactId>
+        </dependency>
 
     </dependencies>
 
