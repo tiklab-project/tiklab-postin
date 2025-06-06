@@ -1,15 +1,40 @@
 package io.tiklab.postin.support.imexport.type.openapi;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+
 import io.tiklab.core.exception.ApplicationException;
-import io.tiklab.postin.api.apix.model.*;
+import io.tiklab.postin.api.apix.model.ApiRequest;
+import io.tiklab.postin.api.apix.model.Apix;
+import io.tiklab.postin.api.apix.model.JsonParam;
+import io.tiklab.postin.api.apix.model.QueryParam;
+import io.tiklab.postin.api.apix.model.RawParam;
+import io.tiklab.postin.api.apix.model.RequestHeader;
 import io.tiklab.postin.api.apix.service.ApiRequestService;
+import io.tiklab.postin.api.apix.service.JsonParamService;
 import io.tiklab.postin.api.apix.service.QueryParamService;
 import io.tiklab.postin.api.apix.service.RawParamService;
 import io.tiklab.postin.api.apix.service.RequestHeaderService;
-import io.tiklab.postin.api.http.definition.model.*;
-import io.tiklab.postin.api.http.definition.service.*;
+import io.tiklab.postin.api.http.definition.model.ApiResponse;
+import io.tiklab.postin.api.http.definition.model.FormParam;
+import io.tiklab.postin.api.http.definition.model.FormUrlencoded;
+import io.tiklab.postin.api.http.definition.model.HttpApi;
+import io.tiklab.postin.api.http.definition.model.PathParam;
+import io.tiklab.postin.api.http.definition.service.ApiResponseService;
+import io.tiklab.postin.api.http.definition.service.FormParamService;
+import io.tiklab.postin.api.http.definition.service.FormUrlencodedService;
+import io.tiklab.postin.api.http.definition.service.HttpApiService;
+import io.tiklab.postin.api.http.definition.service.PathParamService;
 import io.tiklab.postin.category.model.Category;
 import io.tiklab.postin.category.service.CategoryService;
 import io.tiklab.postin.common.ErrorCode;
@@ -18,21 +43,12 @@ import io.tiklab.postin.node.model.Node;
 import io.tiklab.postin.support.imexport.common.FunctionImport;
 import io.tiklab.postin.support.imexport.service.OpenApiProcessor;
 import io.tiklab.postin.workspace.model.Workspace;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
 
 /**
  * OpenAPI 3.0.x 版本的具体处理器
  */
 @Component
-public class OpenApi30XImport implements OpenApiProcessor {
+public class OpenApi30XImport extends AbstractOpenApiImport implements OpenApiProcessor {
 
     private static Logger logger = LoggerFactory.getLogger(OpenApi30XImport.class);
 
@@ -65,6 +81,9 @@ public class OpenApi30XImport implements OpenApiProcessor {
 
     @Autowired
     FormUrlencodedService formUrlencodedService;
+
+    @Autowired
+    JsonParamService jsonParamService;
 
     @Autowired
     RawParamService rawParamService;
@@ -187,10 +206,8 @@ public class OpenApi30XImport implements OpenApiProcessor {
         }
     }
 
-    /**
-     * 添加接口
-     */
-    private String addApi(
+    @Override
+    protected String addApi(
             String workspaceId,
             String categoryId,
             String name,
@@ -220,13 +237,8 @@ public class OpenApi30XImport implements OpenApiProcessor {
         return httpApiId;
     }
 
-    /**
-     * 解析请求参数
-     * @param methodInfo
-     * @param apiId
-     * @param allJson
-     */
-    private void analysisRequest(JSONObject methodInfo, String apiId, JSONObject allJson){
+    @Override
+    protected void analysisRequest(JSONObject methodInfo, String apiId, JSONObject allJson) {
         // parameters
         if(methodInfo.containsKey("parameters")){
             JSONArray parameters = methodInfo.getJSONArray("parameters");
@@ -284,6 +296,9 @@ public class OpenApi30XImport implements OpenApiProcessor {
                         case "multipart/form-data":
                             addFormData(content.getJSONObject(mediaType),apiId);
                             break;
+                        case "application/json":
+                            addJson(content.getJSONObject(mediaType),apiId,allJson);
+                            break;
                         default:
                             addRaw(content.getJSONObject(mediaType),apiId,mediaType,allJson);
                             break;
@@ -294,10 +309,8 @@ public class OpenApi30XImport implements OpenApiProcessor {
     }
 
 
-    /**
-     * 解析请求头 header
-     */
-    private void addHeader(JSONObject headerObj, String methodId){
+    @Override
+    protected void addHeader(JSONObject headerObj, String methodId) {
         RequestHeader requestHeader = new RequestHeader();
         requestHeader.setApiId(methodId);
         requestHeader.setHeaderName(headerObj.getString("name"));
@@ -307,13 +320,10 @@ public class OpenApi30XImport implements OpenApiProcessor {
         }
 
         requestHeaderService.createRequestHeader(requestHeader);
-
     }
 
-    /**
-     * 创建query参数
-     */
-    private void addQuery(JSONObject queryObj, String methodId){
+    @Override
+    protected void addQuery(JSONObject queryObj, String methodId) {
         QueryParam queryParam = new QueryParam();
         queryParam.setApiId(methodId);
         queryParam.setParamName(queryObj.getString("name"));
@@ -326,7 +336,7 @@ public class OpenApi30XImport implements OpenApiProcessor {
     }
 
 
-    private void addPath(JSONObject pathObj, String methodId) {
+    public void addPath(JSONObject pathObj, String methodId) {
         // 健壮性检查
         if (pathObj == null || methodId == null) {
             throw new ApplicationException(ErrorCode.IMPORT_ERROR,"Path object or method ID cannot be null");
@@ -396,8 +406,11 @@ public class OpenApi30XImport implements OpenApiProcessor {
             case "application/x-www-form-urlencoded":
                 bodyType = MagicValue.REQUEST_BODY_TYPE_FORM_URLENCODED;
                 break;
+            case "application/json":
+                bodyType = MagicValue.REQUEST_BODY_TYPE_JSON;
+                break;
             default:
-                bodyType= "raw";
+                bodyType= MagicValue.REQUEST_BODY_TYPE_RAW;
         }
 
         ApiRequest apiRequest = new ApiRequest();
@@ -493,11 +506,101 @@ public class OpenApi30XImport implements OpenApiProcessor {
         }
     }
 
-
     /**
-     *  解析 raw
+     * 处理JSON类型的请求体
+     * @param bodyObj 请求体对象
+     * @param apiId API ID
+     * @param allJson 完整的OpenAPI文档
      */
-    private void addRaw(JSONObject bodyObj, String apiId, String rawType, JSONObject allJson){
+    private void addJson(JSONObject bodyObj, String apiId, JSONObject allJson) {
+        try {
+            // 获取schema
+            JSONObject schema = bodyObj.getJSONObject("schema");
+            if (schema == null) {
+                // 如果没有schema，创建一个空的object schema
+                schema = new JSONObject();
+                schema.put("type", "object");
+                schema.put("properties", new JSONObject());
+            }
+
+            // 处理$ref引用
+            if (schema.containsKey("$ref")) {
+                schema = openApiCommonFn.resolveRef(schema.getString("$ref"), allJson);
+            }
+
+            // 构建正确的schema格式
+            JSONObject jsonSchema = new JSONObject();
+            jsonSchema.put("type", "object");
+            
+            // 获取properties
+            JSONObject properties = new JSONObject();
+            if (schema.containsKey("properties")) {
+                JSONObject schemaProperties = schema.getJSONObject("properties");
+                for (String key : schemaProperties.keySet()) {
+                    JSONObject property = schemaProperties.getJSONObject(key);
+                    
+                    // 处理属性的$ref引用
+                    if (property.containsKey("$ref")) {
+                        property = openApiCommonFn.resolveRef(property.getString("$ref"), allJson);
+                    }
+                    
+                    JSONObject propertySchema = new JSONObject();
+                    
+                    // 设置类型
+                    if (property.containsKey("type")) {
+                        propertySchema.put("type", property.getString("type"));
+                    } else {
+                        propertySchema.put("type", "string");
+                    }
+                    
+                    // 设置描述
+                    if (property.containsKey("description")) {
+                        propertySchema.put("description", property.getString("description"));
+                    }
+                    
+                    // 设置是否必填
+                    if (property.containsKey("required")) {
+                        propertySchema.put("required", property.getBoolean("required"));
+                    }
+                    
+                    // 处理3.0的nullable
+                    if (property.containsKey("nullable") && property.getBoolean("nullable")) {
+                        propertySchema.put("nullable", true);
+                    }
+                    
+                    // 处理数组类型
+                    if ("array".equals(propertySchema.getString("type")) && property.containsKey("items")) {
+                        JSONObject items = property.getJSONObject("items");
+                        if (items.containsKey("$ref")) {
+                            items = openApiCommonFn.resolveRef(items.getString("$ref"), allJson);
+                        }
+                        propertySchema.put("items", items);
+                    }
+                    
+                    properties.put(key, propertySchema);
+                }
+            }
+            
+            jsonSchema.put("properties", properties);
+            
+            // 创建JsonParam对象
+            JsonParam jsonParam = new JsonParam();
+            jsonParam.setApiId(apiId);
+            jsonParam.setId(apiId);
+            jsonParam.setJsonText(jsonSchema.toJSONString());
+            
+            // 保存JSON参数
+            jsonParamService.updateJsonParam(jsonParam);
+            
+        } catch (Exception e) {
+            logger.error("处理JSON请求体时发生错误: {}", e.getMessage(), e);
+            throw new ApplicationException(ErrorCode.IMPORT_ERROR, "处理JSON请求体失败: " + e.getMessage());
+        }
+    }
+
+
+    @Override
+    protected void addRaw(JSONObject bodyObj, String apiId, String rawType, JSONObject allJson) {
         String txt = processSchema(bodyObj, allJson);
         RawParam rawParam = new RawParam();
         rawParam.setRaw(txt);
@@ -516,7 +619,7 @@ public class OpenApi30XImport implements OpenApiProcessor {
      * @param apiId
      * @param allJson
      */
-    private void analysisResponse(JSONObject methodInfo, String apiId, JSONObject allJson) {
+    public void analysisResponse(JSONObject methodInfo, String apiId, JSONObject allJson) {
         JSONObject responses = methodInfo.getJSONObject("responses");
         for (String statusCode : responses.keySet()) {
             JSONObject responseItem = responses.getJSONObject(statusCode);
@@ -555,10 +658,8 @@ public class OpenApi30XImport implements OpenApiProcessor {
     }
 
 
-    /**
-     * 处理schema并转换为JSON
-     */
-    public String processSchema(JSONObject parameter, JSONObject allJson) {
+    @Override
+    protected String processSchema(JSONObject parameter, JSONObject allJson) {
         if (!parameter.containsKey("schema")) {
             return new JSONObject().toJSONString();
         }
@@ -570,10 +671,8 @@ public class OpenApi30XImport implements OpenApiProcessor {
         return result.toString();
     }
 
-    /**
-     * 获取components/schemas
-     */
-    private JSONObject getDefinitions(JSONObject allJson) {
+    @Override
+    protected JSONObject getDefinitions(JSONObject allJson) {
         if (allJson.containsKey("components") &&
                 allJson.getJSONObject("components").containsKey("schemas")) {
             return allJson.getJSONObject("components").getJSONObject("schemas");
@@ -581,10 +680,8 @@ public class OpenApi30XImport implements OpenApiProcessor {
         return new JSONObject();
     }
 
-    /**
-     * 处理Schema对象
-     */
-    private Object processSchemaObject(JSONObject schema, JSONObject definitions) {
+    @Override
+    protected Object processSchemaObject(JSONObject schema, JSONObject definitions) {
         // 处理引用
         if (schema.containsKey("$ref")) {
             return processReference(schema.getString("$ref"), definitions);
@@ -602,10 +699,8 @@ public class OpenApi30XImport implements OpenApiProcessor {
         return processTypeSchema(mainType, schema, definitions);
     }
 
-    /**
-     * 获取schema的类型列表
-     */
-    private List<String> getSchemaTypes(JSONObject schema) {
+    @Override
+    protected List<String> getSchemaTypes(JSONObject schema) {
         List<String> types = new ArrayList<>();
 
         if (schema.containsKey("type")) {
@@ -623,10 +718,8 @@ public class OpenApi30XImport implements OpenApiProcessor {
         return types;
     }
 
-    /**
-     * 根据类型处理schema
-     */
-    private Object processTypeSchema(String type, JSONObject schema, JSONObject definitions) {
+    @Override
+    protected Object processTypeSchema(String type, JSONObject schema, JSONObject definitions) {
         switch (type) {
             case "object":
                 return processObjectSchema(schema, definitions);
@@ -637,10 +730,8 @@ public class OpenApi30XImport implements OpenApiProcessor {
         }
     }
 
-    /**
-     * 处理对象类型的schema
-     */
-    private JSONObject processObjectSchema(JSONObject schema, JSONObject definitions) {
+    @Override
+    protected JSONObject processObjectSchema(JSONObject schema, JSONObject definitions) {
         JSONObject result = new JSONObject();
 
         if (!schema.containsKey("properties")) {
@@ -656,10 +747,8 @@ public class OpenApi30XImport implements OpenApiProcessor {
         return result;
     }
 
-    /**
-     * 处理数组类型的schema
-     */
-    private JSONArray processArraySchema(JSONObject schema, JSONObject definitions) {
+    @Override
+    protected JSONArray processArraySchema(JSONObject schema, JSONObject definitions) {
         JSONArray result = new JSONArray();
 
         if (!schema.containsKey("items")) {
@@ -672,10 +761,8 @@ public class OpenApi30XImport implements OpenApiProcessor {
         return result;
     }
 
-    /**
-     * 处理引用
-     */
-    private Object processReference(String ref, JSONObject definitions) {
+    @Override
+    protected Object processReference(String ref, JSONObject definitions) {
         String definitionName = ref.substring(ref.lastIndexOf('/') + 1);
         if (!definitions.containsKey(definitionName)) {
             return new JSONObject();

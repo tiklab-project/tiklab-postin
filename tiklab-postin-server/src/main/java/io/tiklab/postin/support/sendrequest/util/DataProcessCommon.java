@@ -41,34 +41,27 @@ public class DataProcessCommon {
 
         // 解析 获取header url  method
         for (String pair : urlParameter.split("&")) {
-            String[] keyValue = pair.split("=");
+            String[] keyValue = pair.split("=", 2); // 限制只分成两个
 
+            if (keyValue.length < 2) continue;
 
             if (keyValue[0].equals("pi-header")) {
                 String headerValue = keyValue[1];
 
-                // Split header value into smaller key-value pairs
                 for (String headerPair : headerValue.split(",")) {
-                    String[] headerKeyValue = headerPair.split(":");
-                    String headerKey = headerKeyValue[0];
-                    String headersValue = headerKeyValue[1];
-
-                    headers.add(headerKey, headersValue);
+                    String[] headerKeyValue = headerPair.split(":", 2); // 同样防止值中含 ":"
+                    if (headerKeyValue.length == 2) {
+                        headers.add(headerKeyValue[0], headerKeyValue[1]);
+                    }
                 }
             }
 
             if (keyValue[0].equals("pi-url")) {
-                // 找到pi-url的起始位置
-                int startIndex = urlParameter.indexOf("pi-url=") + "pi-url=".length();;
-                // 找到&pi-method=get的结束位置
-                int endIndex = urlParameter.indexOf("&pi-method");
-
-                String notProcessUrl = urlParameter.substring(startIndex, endIndex);
-                Url= URLDecoder.decode(notProcessUrl, "UTF-8");
+                Url = URLDecoder.decode(keyValue[1], "UTF-8");
             }
 
             if (keyValue[0].equals("pi-method")) {
-                method=keyValue[1];
+                method = keyValue[1];
             }
         }
 

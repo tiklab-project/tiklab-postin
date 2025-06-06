@@ -57,25 +57,6 @@ public class ImportServiceImpl implements ImportService {
     @Override
     public void getDoc(){
 
-
-
-    }
-
-    // 获取方法头部的注释
-    private static String getJavadocComment(TypeElement typeElement, ExecutableElement method) {
-//        Elements elementUtils = // 获取 Elements 的方法，请自行实现
-//                Types typeUtils = // 获取 Types 的方法，请自行实现
-//                SourceVersion sourceVersion = // 获取 SourceVersion 的方法，请自行实现
-
-        // 获取方法的起始位置和结束位置
-//        long startPosition = method.getStartPosition();
-//        long endPosition = startPosition + elementUtils.getDocComment(method);
-
-        // 获取方法头部的注释内容
-//        String source = typeElement.getEnclosingElement().toString();
-//        String javadocComment = source.substring((int) startPosition, (int) endPosition);
-
-        return null;
     }
 
 
