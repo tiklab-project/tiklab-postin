@@ -205,79 +205,72 @@ public class NodeServiceImpl implements NodeService {
 
     @Override
     public List<Node> findNodeTree(NodeQuery nodeQuery) {
-        //  查询所有节点
-        List<Node> nodeList = findNodeList(nodeQuery);
-        if (nodeList == null || nodeList.isEmpty()) {
+
+        // 获取构建树所需的所有节点
+        List<Node> allNodes = findNodeList(nodeQuery);
+        if (allNodes == null || allNodes.isEmpty()) {
             return Collections.emptyList();
         }
 
-        // 构建快速查找 & 组织关系容器
-        Map<String, Node>   nodeMap  = new HashMap<>();
-        Map<String, List<Node>>  childrenMap = new HashMap<>();
-        Set<String>  processed = new HashSet<>();
-        List<Node>   roots   = new ArrayList<>();
-
-        // 全部放入 map
-        for (Node node : nodeList) {
+        // 构建ID到节点的快速查找Map，并初始化每个节点的子节点列表
+        Map<String, Node> nodeMap = new HashMap<>(allNodes.size());
+        for (Node node : allNodes) {
+            node.setChildren(new ArrayList<>());
             nodeMap.put(node.getId(), node);
         }
-        // 递归处理每个节点，补齐父节点并收集根列表
-        for (Node node : nodeList) {
-            processNode(node, nodeMap, childrenMap, processed, roots);
+
+        // 构建树形结构
+        List<Node> roots = new ArrayList<>();
+        for (Node node : allNodes) {
+            String parentId = node.getParentId();
+            // 尝试获取父节点
+            Node parentNode = (parentId != null) ? nodeMap.get(parentId) : null;
+
+            if (parentNode != null) {
+                // 如果找到父节点，则将当前节点加入父节点的子列表中
+                parentNode.getChildren().add(node);
+            } else {
+                // 如果没有父ID或父节点不在当前列表中，则视为根节点
+                roots.add(node);
+            }
         }
 
-        // 构建树形结构，确保每个 node.children 至少是空列表
+        // 对根节点列表排序
+        sortNodeList(roots);
         for (Node root : roots) {
-            buildTree(root, childrenMap);
+            // 递归排序所有子节点
+            sortChildrenRecursively(root);
         }
+
         return roots;
     }
 
-    private void processNode(Node node,
-                             Map<String, Node> nodeMap,
-                             Map<String, List<Node>> childrenMap,
-                             Set<String> processed,
-                             List<Node> roots) {
-        if (!processed.add(node.getId())) {
-            return;  // 已处理过，直接返回
+    /**
+     * 递归地对指定节点的所有子孙节点进行排序。
+     *
+     * @param node 当前节点
+     */
+    private void sortChildrenRecursively(Node node) {
+        if (node == null || node.getChildren() == null || node.getChildren().isEmpty()) {
+            return;
         }
 
-        String parentId = node.getParentId();
-        if (parentId == null) {
-            // 无父 ID，直接作为根节点
-            roots.add(node);
-        } else {
-            Node parent = nodeMap.get(parentId);
-            if (parent == null) {
-                // 父节点不在缓存中，尝试查询
-                parent = findOne(parentId);
-                if (parent != null) {
-                    nodeMap.put(parent.getId(), parent);
-                    processNode(parent, nodeMap, childrenMap, processed, roots);
-                } else {
-                    // 父节点真不存在，也当作根节点
-                    roots.add(node);
-                }
-            }
-            if (parent != null) {
-                // 建立 parent → child 关联
-                childrenMap
-                        .computeIfAbsent(parentId, k -> new ArrayList<>())
-                        .add(node);
-            }
+        // 对当前节点的直接子节点进行排序
+        sortNodeList(node.getChildren());
+
+        // 递归处理所有子节点
+        for (Node child : node.getChildren()) {
+            sortChildrenRecursively(child);
         }
     }
 
-    private void buildTree(Node node, Map<String, List<Node>> childrenMap) {
-        // 即使没有子节点，也要设置成空列表，保证前端展示
-        List<Node> children = childrenMap.getOrDefault(node.getId(), Collections.emptyList());
-        node.setChildren(children);
-
-        // 递归构造下级
-        for (Node child : children) {
-            buildTree(child, childrenMap);
-        }
+    /**
+     * 对节点列表进行排序，目录（category）优先。
+     *
+     * @param nodes 待排序的节点列表
+     */
+    private void sortNodeList(List<Node> nodes) {
+        nodes.sort(Comparator.comparingInt(node -> "category".equals(node.getType()) ? 0 : 1));
     }
-
 
 }
