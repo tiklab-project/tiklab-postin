@@ -1,13 +1,13 @@
-package io.tiklab.postin.client.builder;
+package io.tiklab.postin.client.openapi;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import io.tiklab.postin.client.model.ApiMeta;
 import io.tiklab.postin.client.model.ApiMethodMeta;
 import io.tiklab.postin.client.model.ApiParamMeta;
-import io.tiklab.postin.client.model.ApiPropertyMeta;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
@@ -15,12 +15,16 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
+@Component
 public class GenerateOpenApi {
     @Value("${postin.report.workspaceId:bd26c6ec5c6e}")
     private String workspaceId;
 
     @Value("${postin.report.server:http://192.168.10.17:8090}")
     private String server;
+
+    @Autowired
+    ProcessParamConfig processParamConfig;
 
     // 用于避免循环引用（如果需要）
     private Set<String> processedTypes = new HashSet<>();
@@ -62,6 +66,10 @@ public class GenerateOpenApi {
                 apiJson.put("apix",generateApixModel(apiMethodMeta, apiId, categoryId));
                 JSONObject node = generateNode(apiMethodMeta, apiId, categoryId);
                 apiJson.put("node",node);
+
+                JSONArray headers = generateHeaders(apiId);
+                apiJson.put("headerList",headers);
+
                 JSONObject apiRequest = generateApiRequest(apiMethodMeta,apiId);
                 apiJson.put("request",apiRequest);
 
@@ -101,7 +109,9 @@ public class GenerateOpenApi {
         apix.put("id",apiId);
         apix.put("name",apiMethodMeta.getName());
         apix.put("protocolType","http");
-        apix.put("path",apiMethodMeta.getPath());
+
+        String prePath = processParamConfig.getPrePath();
+        apix.put("path",prePath+apiMethodMeta.getPath());
         apix.put("categoryId",categoryId);
         return apix;
     }
@@ -143,6 +153,22 @@ public class GenerateOpenApi {
         }
 
         return apiRequest;
+    }
+
+    public JSONArray generateHeaders(String apiId){
+        HashMap<String, String> headers = processParamConfig.getHeaders();
+
+        JSONArray headerList = new JSONArray();
+        for(Map.Entry<String, String> entry:headers.entrySet()){
+            JSONObject header = new JSONObject();
+            header.put("id",entry.getKey());
+            header.put("apiId",apiId);
+            header.put("headerName",entry.getKey());
+            header.put("required",1);
+            header.put("desc",entry.getValue());
+            headerList.add(header);
+        }
+        return headerList;
     }
 
     /**

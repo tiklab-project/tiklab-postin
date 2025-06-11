@@ -4,10 +4,12 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import io.tiklab.postin.client.model.ApiMeta;
 import io.tiklab.postin.client.model.ApiParamMeta;
+import io.tiklab.postin.client.openapi.GenerateOpenApi;
 import io.tiklab.postin.client.parser.ApiParser;
 import io.tiklab.postin.client.model.ApiMethodMeta;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import java.io.*;
@@ -27,6 +29,9 @@ public class PostInBuilder {
 
     @Value("${postin.report.server:http://192.168.10.17:8090}")
     private String server;
+
+    @Autowired
+    private GenerateOpenApi generateOpenApi;
 
     private static Logger logger = LoggerFactory.getLogger(PostInBuilder.class);
 
@@ -68,8 +73,6 @@ public class PostInBuilder {
             ApiMetaContext.setApiMetaMap(apiMetaMap);
         }
 
-
-        GenerateOpenApi generateOpenApi = new GenerateOpenApi();
         JSONArray allModule = generateOpenApi.generateTree(apiMetaMap);
         return allModule;
 

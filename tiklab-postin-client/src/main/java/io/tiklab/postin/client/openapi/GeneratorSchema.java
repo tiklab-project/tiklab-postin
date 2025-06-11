@@ -1,4 +1,4 @@
-package io.tiklab.postin.client.builder;
+package io.tiklab.postin.client.openapi;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
