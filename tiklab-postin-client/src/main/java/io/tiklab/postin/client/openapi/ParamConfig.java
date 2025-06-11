@@ -2,7 +2,7 @@ package io.tiklab.postin.client.openapi;
 
 import java.util.HashMap;
 
-public class ProcessParamConfig {
+public class ParamConfig {
 
     private String prePath;
 

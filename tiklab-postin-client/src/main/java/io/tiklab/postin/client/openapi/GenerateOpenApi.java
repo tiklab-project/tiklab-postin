@@ -24,7 +24,7 @@ public class GenerateOpenApi {
     private String server;
 
     @Autowired
-    ProcessParamConfig processParamConfig;
+    ParamConfig paramConfig;
 
     // 用于避免循环引用（如果需要）
     private Set<String> processedTypes = new HashSet<>();
@@ -110,7 +110,7 @@ public class GenerateOpenApi {
         apix.put("name",apiMethodMeta.getName());
         apix.put("protocolType","http");
 
-        String prePath = processParamConfig.getPrePath();
+        String prePath = paramConfig.getPrePath();
         apix.put("path",prePath+apiMethodMeta.getPath());
         apix.put("categoryId",categoryId);
         return apix;
@@ -156,7 +156,7 @@ public class GenerateOpenApi {
     }
 
     public JSONArray generateHeaders(String apiId){
-        HashMap<String, String> headers = processParamConfig.getHeaders();
+        HashMap<String, String> headers = paramConfig.getHeaders();
 
         JSONArray headerList = new JSONArray();
         for(Map.Entry<String, String> entry:headers.entrySet()){
