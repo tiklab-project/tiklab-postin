@@ -27,11 +27,10 @@ public class PostInClientAutoConfiguration {
         headers.put("accessToken","设置的apiKey");
 
         return ParamConfigBuilder.instance()
-                .setScanPackage("io.tiklab.postin")
-                .prePath("/api") //设置额外的前缀
-                .setHeaders(headers)
+                .setScanPackage("io.tiklab.postin") //设置扫描的包路径
+                .prePath("/api")             //设置额外的前缀
+                .setHeaders(headers)               //设置请求头
                 .get();
     }
-
 
 }
