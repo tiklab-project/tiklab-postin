@@ -27,6 +27,7 @@ public class PostInClientAutoConfiguration {
         headers.put("accessToken","设置的apiKey");
 
         return ParamConfigBuilder.instance()
+                .setScanPackage("io.tiklab.postin")
                 .prePath("/api") //设置额外的前缀
                 .setHeaders(headers)
                 .get();

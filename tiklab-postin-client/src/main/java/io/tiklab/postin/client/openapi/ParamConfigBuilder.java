@@ -22,6 +22,11 @@ public class ParamConfigBuilder {
         return paramConfigBuilder;
     }
 
+    public ParamConfigBuilder setScanPackage(String scanPackage){
+        paramConfig.setScanPackage(scanPackage);
+        return paramConfigBuilder;
+    }
+
     public ParamConfig get(){
         return paramConfig;
     }

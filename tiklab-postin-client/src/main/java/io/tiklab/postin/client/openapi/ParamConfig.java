@@ -8,6 +8,8 @@ public class ParamConfig {
 
     private HashMap<String,String> headers = new HashMap<>();
 
+    private String scanPackage;
+
     public String getPrePath() {
         return prePath;
     }
@@ -22,5 +24,13 @@ public class ParamConfig {
 
     public void setHeaders(HashMap<String, String> headers) {
         this.headers = headers;
+    }
+
+    public String getScanPackage() {
+        return scanPackage;
+    }
+
+    public void setScanPackage(String scanPackage) {
+        this.scanPackage = scanPackage;
     }
 }
