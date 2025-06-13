@@ -70,22 +70,21 @@
             <groupId>io.tiklab</groupId>
             <artifactId>tiklab-security-spring-boot-starter</artifactId>
         </dependency>
-
         <dependency>
             <groupId>io.tiklab</groupId>
             <artifactId>tiklab-privilege-spring-boot-starter</artifactId>
         </dependency>
         <dependency>
             <groupId>io.tiklab</groupId>
-            <artifactId>tiklab-postgresql-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.tiklab</groupId>
-            <artifactId>tiklab-install-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.tiklab</groupId>
             <artifactId>tiklab-dsm-spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.tiklab</groupId>
+            <artifactId>tiklab-postgresql-spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.tiklab</groupId>
+            <artifactId>tiklab-install-spring-boot-starter</artifactId>
         </dependency>
 
 

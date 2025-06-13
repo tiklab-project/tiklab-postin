@@ -10,7 +10,7 @@ import io.tiklab.gateway.boot.starter.annotation.EnableGateway;
 import io.tiklab.licence.boot.starter.annotation.EnableLicenceServer;
 import io.tiklab.messsage.boot.starter.annotation.EnableMessageServer;
 import io.tiklab.openapi.boot.starter.annotation.EnableOpenApi;
-import io.tiklab.postgresql.EnablePostgresql;
+import io.tiklab.postgresql.spring.boot.starter.EnablePostgresql;
 import io.tiklab.postin.EnablePostInServer;
 import io.tiklab.postin.client.EnablePostInClient;
 import io.tiklab.privilege.boot.starter.annotation.EnablePrivilegeServer;

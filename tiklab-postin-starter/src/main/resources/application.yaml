@@ -48,8 +48,4 @@ auth:
 external:
   url: http://
 
-#backups:
-#  dir:  /data/postin
-#  time: 0 0 2 * * ?
-
 

@@ -55,8 +55,4 @@ auth:
 external:
   url: http://192.168.10.34:8090
 
-#数据库备份
-#backups:
-#  dir:  /data/postin
-#  time: 0 0 2 * * ?
 
