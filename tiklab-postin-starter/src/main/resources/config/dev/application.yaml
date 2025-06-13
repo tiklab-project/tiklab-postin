@@ -8,7 +8,6 @@ spring:
 server:
   port: 8090
 
-APP_HOME: ${user.home}
 DATA_HOME: ${user.home}/tiklab/tiklab-${app.name}
 
 #db
@@ -48,31 +47,16 @@ dcs:
     expire: 7200
 
 #soular统一登录配置
-soular:
-  embbed:
-    enable: true
-  address: http://192.168.10.42:8080
-  web:
-    address: http://192.168.10.42:8080
+auth:
+  type: local #(local:本地登录  soular:统一登录)
+  soular:
+    address: http://192.168.10.15:8080
 
-#licences
-licences:
-  path: ${DATA_HOME}/licences
-
-base:
+external:
   url: http://192.168.10.34:8090
 
 #数据库备份
-backups:
-  dir:  /data/postin
-  time: 0 0 2 * * ?
-
-
-#postin:
-#  enable: true
-#  scan:
-#    package: io.tiklab
-#  report:
-#    workspaceId: 80c5a5b08417
-#    server: http://192.168.10.21:8090
+#backups:
+#  dir:  /data/postin
+#  time: 0 0 2 * * ?
 

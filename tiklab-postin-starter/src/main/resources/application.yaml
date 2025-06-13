@@ -39,21 +39,17 @@ dcs:
     database: dcs1
     expire: 7200
 
-soular:
-  embbed:
-    enable: true
-#  address:
+#soular统一登录配置
+auth:
+  type: local #(local:本地登录  soular:统一登录)
+  soular:
+    address: http://192.168.10.15:8080
 
-
-#licences
-licences:
-  path: ${DATA_HOME}/licences
-
-base:
+external:
   url: http://
 
-backups:
-  dir:  /data/postin
-  time: 0 0 2 * * ?
+#backups:
+#  dir:  /data/postin
+#  time: 0 0 2 * * ?
 
 
