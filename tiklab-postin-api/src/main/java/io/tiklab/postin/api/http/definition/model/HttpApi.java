@@ -11,7 +11,7 @@ import io.tiklab.core.BaseModel;
 
 
 import io.tiklab.toolkit.join.annotation.Join;
-import io.tiklab.toolkit.join.annotation.JoinQuery;
+import io.tiklab.toolkit.join.annotation.JoinField;
 import io.tiklab.postin.api.apix.model.*;
 
 import java.util.List;
@@ -31,7 +31,7 @@ public class HttpApi extends BaseModel {
     @Mappings({
             @Mapping(source = "apix.id",target = "apixId")
     })
-    @JoinQuery(key = "id")
+    @JoinField(key = "id")
     private Apix apix;
 
     @ApiProperty(name="node",desc="所属公共定义")

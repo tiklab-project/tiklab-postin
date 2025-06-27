@@ -9,7 +9,7 @@ import io.tiklab.toolkit.beans.annotation.Mapper;
 import io.tiklab.toolkit.beans.annotation.Mapping;
 import io.tiklab.toolkit.beans.annotation.Mappings;
 import io.tiklab.core.BaseModel;
-import io.tiklab.toolkit.join.annotation.JoinQuery;
+import io.tiklab.toolkit.join.annotation.JoinField;
 import io.tiklab.user.user.model.User;
 
 import javax.validation.constraints.NotNull;
@@ -29,7 +29,7 @@ public class DataStructure extends BaseModel{
     @Mappings({
             @Mapping(source = "workspace.id",target = "workspaceId")
     })
-    @JoinQuery(key = "id")
+    @JoinField(key = "id")
     private Workspace workspace;
 
     @NotNull
@@ -46,7 +46,7 @@ public class DataStructure extends BaseModel{
     @Mappings({
             @Mapping(source = "createUser.id",target = "createUser")
     })
-    @JoinQuery(key = "id")
+    @JoinField(key = "id")
     private User createUser;
 
     @ApiProperty(name="createTime",desc="创建时间")

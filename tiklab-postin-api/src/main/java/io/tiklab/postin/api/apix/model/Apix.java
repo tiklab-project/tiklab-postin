@@ -12,7 +12,7 @@ import io.tiklab.toolkit.beans.annotation.Mappings;
 import io.tiklab.core.BaseModel;
 
 import io.tiklab.toolkit.join.annotation.Join;
-import io.tiklab.toolkit.join.annotation.JoinQuery;
+import io.tiklab.toolkit.join.annotation.JoinField;
 import io.tiklab.user.user.model.User;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -41,14 +41,14 @@ public class Apix extends BaseModel{
     @Mappings({
             @Mapping(source = "status.id",target = "statusId")
     })
-    @JoinQuery(key = "id")
+    @JoinField(key = "id")
     private ApiStatus status;
 
     @ApiProperty(name="executor",desc="责任人")
     @Mappings({
             @Mapping(source = "executor.id",target = "executor")
     })
-    @JoinQuery(key = "id")
+    @JoinField(key = "id")
     private User executor;
 
     @ApiProperty(name="desc",desc="描述")

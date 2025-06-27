@@ -7,7 +7,7 @@ import io.tiklab.toolkit.beans.annotation.Mapping;
 import io.tiklab.toolkit.beans.annotation.Mappings;
 import io.tiklab.core.BaseModel;
 import io.tiklab.toolkit.join.annotation.Join;
-import io.tiklab.toolkit.join.annotation.JoinQuery;
+import io.tiklab.toolkit.join.annotation.JoinField;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.tiklab.user.user.model.User;
 
@@ -26,14 +26,14 @@ public class WorkspaceRecent extends BaseModel {
     @Mappings({
             @Mapping(source = "workspace.id",target = "workspaceId")
     })
-    @JoinQuery(key = "id")
+    @JoinField(key = "id")
     private Workspace workspace;
 
     @ApiProperty(name="user",desc="所属用户",eg="@selectOne")
     @Mappings({
             @Mapping(source = "user.id",target = "userId")
     })
-    @JoinQuery(key = "id")
+    @JoinField(key = "id")
     private User user;
 
     @ApiProperty(name="updateTime",desc="updateTime")

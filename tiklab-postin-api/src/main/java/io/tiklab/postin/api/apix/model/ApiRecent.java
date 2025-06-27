@@ -6,7 +6,7 @@ import io.tiklab.toolkit.beans.annotation.Mapping;
 import io.tiklab.toolkit.beans.annotation.Mappings;
 import io.tiklab.core.BaseModel;
 import io.tiklab.toolkit.join.annotation.Join;
-import io.tiklab.toolkit.join.annotation.JoinQuery;
+import io.tiklab.toolkit.join.annotation.JoinField;
 import io.tiklab.postin.annotation.ApiModel;
 import io.tiklab.postin.annotation.ApiProperty;
 import io.tiklab.postin.workspace.model.Workspace;
@@ -27,7 +27,7 @@ public class ApiRecent extends BaseModel {
     @Mappings({
             @Mapping(source = "workspace.id",target = "workspaceId")
     })
-    @JoinQuery(key = "id")
+    @JoinField(key = "id")
     private Workspace workspace;
 
     @ApiProperty(name="user",desc="所属用户",eg="@selectOne")
@@ -40,7 +40,7 @@ public class ApiRecent extends BaseModel {
     @Mappings({
             @Mapping(source = "apix.id",target = "apixId")
     })
-    @JoinQuery(key = "id")
+    @JoinField(key = "id")
     private Apix apix;
 
     @ApiProperty(name="updateTime",desc="updateTime")

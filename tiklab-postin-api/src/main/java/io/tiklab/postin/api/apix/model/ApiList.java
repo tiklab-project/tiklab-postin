@@ -8,7 +8,7 @@ import io.tiklab.toolkit.beans.annotation.Mapper;
 import io.tiklab.toolkit.beans.annotation.Mapping;
 import io.tiklab.toolkit.beans.annotation.Mappings;
 import io.tiklab.toolkit.join.annotation.Join;
-import io.tiklab.toolkit.join.annotation.JoinQuery;
+import io.tiklab.toolkit.join.annotation.JoinField;
 import io.tiklab.user.user.model.User;
 
 import java.sql.Timestamp;
@@ -25,13 +25,13 @@ public class ApiList extends BaseModel{
     @Mappings({
             @Mapping(source = "status.id",target = "statusId")
     })
-    @JoinQuery(key = "id")
+    @JoinField(key = "id")
     private ApiStatus status;
 
     @Mappings({
             @Mapping(source = "executor.id",target = "executor")
     })
-    @JoinQuery(key = "id")
+    @JoinField(key = "id")
     private User executor;
 
     @ApiProperty(name="desc",desc="描述")
@@ -43,7 +43,7 @@ public class ApiList extends BaseModel{
     @Mappings({
             @Mapping(source = "createUser.id",target = "createUser")
     })
-    @JoinQuery(key = "id")
+    @JoinField(key = "id")
     private User createUser;
 
     public String getId() {

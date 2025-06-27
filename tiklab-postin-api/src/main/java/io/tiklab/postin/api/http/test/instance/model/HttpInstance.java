@@ -9,7 +9,7 @@ import io.tiklab.toolkit.beans.annotation.Mappings;
 import io.tiklab.core.BaseModel;
 
 import io.tiklab.toolkit.join.annotation.Join;
-import io.tiklab.toolkit.join.annotation.JoinQuery;
+import io.tiklab.toolkit.join.annotation.JoinField;
 import io.tiklab.user.user.model.User;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -34,7 +34,7 @@ public class HttpInstance extends BaseModel {
     @Mappings({
             @Mapping(source = "httpCase.id",target = "httpCaseId")
     })
-    @JoinQuery(key = "id")
+    @JoinField(key = "id")
     private HttpTestcase httpCase;
 
     @ApiProperty(name="workspaceId",desc="空间ID")

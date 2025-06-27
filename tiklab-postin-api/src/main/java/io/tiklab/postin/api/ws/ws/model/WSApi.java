@@ -7,7 +7,7 @@ import io.tiklab.toolkit.beans.annotation.Mapping;
 import io.tiklab.toolkit.beans.annotation.Mappings;
 import io.tiklab.core.BaseModel;
 import io.tiklab.toolkit.join.annotation.Join;
-import io.tiklab.toolkit.join.annotation.JoinQuery;
+import io.tiklab.toolkit.join.annotation.JoinField;
 import io.tiklab.postin.annotation.ApiModel;
 import io.tiklab.postin.annotation.ApiProperty;
 import io.tiklab.postin.api.apix.model.*;
@@ -26,14 +26,14 @@ public class WSApi extends BaseModel {
     @Mappings({
             @Mapping(source = "apix.id",target = "apixId")
     })
-    @JoinQuery(key = "id")
+    @JoinField(key = "id")
     private Apix apix;
 
     @ApiProperty(name="node",desc="所属公共定义")
     @Mappings({
             @Mapping(source = "node.id",target = "nodeId")
     })
-    @JoinQuery(key = "id")
+    @JoinField(key = "id")
     private Node node;
 
     @ApiProperty(name = "headerList",desc="请求头列表")

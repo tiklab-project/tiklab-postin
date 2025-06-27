@@ -3,7 +3,7 @@ package io.tiklab.postin.workspace.model;
 import io.tiklab.toolkit.beans.annotation.Mapping;
 import io.tiklab.toolkit.beans.annotation.Mappings;
 import io.tiklab.toolkit.join.annotation.Join;
-import io.tiklab.toolkit.join.annotation.JoinQuery;
+import io.tiklab.toolkit.join.annotation.JoinField;
 import io.tiklab.postin.annotation.ApiModel;
 import io.tiklab.postin.annotation.ApiProperty;
 import io.tiklab.toolkit.beans.annotation.Mapper;
@@ -40,7 +40,7 @@ public class WorkspaceFollow extends BaseModel {
     @Mappings({
             @Mapping(source = "workspace.id",target = "workspaceId")
     })
-    @JoinQuery(key = "id")
+    @JoinField(key = "id")
     private Workspace workspace;
 
     /**
@@ -51,7 +51,7 @@ public class WorkspaceFollow extends BaseModel {
     @Mappings({
             @Mapping(source = "user.id",target = "userId")
     })
-    @JoinQuery(key = "id")
+    @JoinField(key = "id")
     private User user;
 
 

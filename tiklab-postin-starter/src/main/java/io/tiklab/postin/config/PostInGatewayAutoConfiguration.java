@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
 
 
 @Configuration
-public class GatewayFilterAutoConfiguration{
+public class PostInGatewayAutoConfiguration {
 
     @Value("${soular.address:null}")
     String authAddress;

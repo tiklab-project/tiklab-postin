@@ -10,7 +10,7 @@ import io.tiklab.toolkit.beans.annotation.Mapper;
 import io.tiklab.toolkit.beans.annotation.Mapping;
 import io.tiklab.toolkit.beans.annotation.Mappings;
 import io.tiklab.toolkit.join.annotation.Join;
-import io.tiklab.toolkit.join.annotation.JoinQuery;
+import io.tiklab.toolkit.join.annotation.JoinField;
 
 import java.sql.Timestamp;
 
@@ -30,21 +30,21 @@ public class ReviewApis extends BaseModel{
     @Mappings({
             @Mapping(source = "review.id",target = "reviewId")
     })
-    @JoinQuery(key = "id")
+    @JoinField(key = "id")
     private Review review;
 
     @ApiProperty(name="apiId",desc="接口id")
     @Mappings({
             @Mapping(source = "apix.id",target = "apiId")
     })
-    @JoinQuery(key = "id")
+    @JoinField(key = "id")
     private Apix apix;
 
     @ApiProperty(name="apiId",desc="接口id")
     @Mappings({
             @Mapping(source = "node.id",target = "apiId")
     })
-    @JoinQuery(key = "id")
+    @JoinField(key = "id")
     private Node node;
 
     @ApiProperty(name="result",desc="评审结果 1 通过   2未通过  3建议")

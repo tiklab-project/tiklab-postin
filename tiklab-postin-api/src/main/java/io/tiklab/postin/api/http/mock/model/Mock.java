@@ -1,7 +1,7 @@
 package io.tiklab.postin.api.http.mock.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import io.tiklab.toolkit.join.annotation.JoinQuery;
+import io.tiklab.toolkit.join.annotation.JoinField;
 import io.tiklab.postin.annotation.ApiModel;
 import io.tiklab.postin.annotation.ApiProperty;
 import io.tiklab.postin.api.http.definition.model.HttpApi;
@@ -44,7 +44,7 @@ public class Mock extends BaseModel {
     @Mappings({
             @Mapping(source = "createUser.id",target = "createUser")
     })
-    @JoinQuery(key = "id")
+    @JoinField(key = "id")
     private User createUser;
 
     @ApiProperty(name="createTime",desc="创建时间")

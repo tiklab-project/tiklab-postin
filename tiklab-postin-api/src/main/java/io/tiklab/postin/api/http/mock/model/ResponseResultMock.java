@@ -7,7 +7,7 @@ import io.tiklab.toolkit.beans.annotation.Mapping;
 import io.tiklab.toolkit.beans.annotation.Mappings;
 import io.tiklab.core.BaseModel;
 import io.tiklab.toolkit.join.annotation.Join;
-import io.tiklab.toolkit.join.annotation.JoinQuery;
+import io.tiklab.toolkit.join.annotation.JoinField;
 
 import javax.validation.constraints.NotNull;
 
@@ -28,7 +28,7 @@ public class ResponseResultMock extends BaseModel {
     @Mappings({
             @Mapping(source = "mock.id",target = "mockId")
     })
-    @JoinQuery(key = "id")
+    @JoinField(key = "id")
     private Mock mock;
 
     @ApiProperty(name="result",desc="预期返回结果")
