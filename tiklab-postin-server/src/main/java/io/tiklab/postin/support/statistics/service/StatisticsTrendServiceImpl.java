@@ -77,7 +77,6 @@ public class StatisticsTrendServiceImpl implements StatisticsTrendService {
 
         List<StatisticsTrend> statisticsCaseTrendList =  BeanMapper.mapList(statisticsCaseTrendEntityList,StatisticsTrend.class);
 
-        joinTemplate.joinQuery(statisticsCaseTrendList);
 
         return statisticsCaseTrendList;
     }

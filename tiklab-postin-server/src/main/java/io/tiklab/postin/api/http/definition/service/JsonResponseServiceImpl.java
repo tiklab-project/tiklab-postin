@@ -56,7 +56,9 @@ public class JsonResponseServiceImpl implements JsonResponseService {
 
         JsonResponse jsonResponse = BeanMapper.map(jsonResponseEntity, JsonResponse.class);
 
-        joinTemplate.joinQuery(jsonResponse);
+        joinTemplate.joinQuery(jsonResponse,new String[]{
+                "parent"
+        });
 
         return jsonResponse;
     }
@@ -67,7 +69,9 @@ public class JsonResponseServiceImpl implements JsonResponseService {
 
         List<JsonResponse> jsonResponseList = BeanMapper.mapList(jsonResponseEntityList, JsonResponse.class);
 
-        joinTemplate.joinQuery(jsonResponseList);
+        joinTemplate.joinQuery(jsonResponseList,new String[]{
+                "parent"
+        });
 
         return jsonResponseList;
     }
@@ -78,7 +82,9 @@ public class JsonResponseServiceImpl implements JsonResponseService {
 
         List<JsonResponse> jsonResponseList = BeanMapper.mapList(jsonResponseEntityList, JsonResponse.class);
 
-        joinTemplate.joinQuery(jsonResponseList);
+        joinTemplate.joinQuery(jsonResponseList,new String[]{
+                "parent"
+        });
 
         return jsonResponseList;
     }
@@ -90,7 +96,9 @@ public class JsonResponseServiceImpl implements JsonResponseService {
 
         List<JsonResponse> jsonResponseList = BeanMapper.mapList(pagination.getDataList(), JsonResponse.class);
 
-        joinTemplate.joinQuery(jsonResponseList);
+        joinTemplate.joinQuery(jsonResponseList,new String[]{
+                "parent"
+        });
 
         return PaginationBuilder.build(pagination, jsonResponseList);
     }

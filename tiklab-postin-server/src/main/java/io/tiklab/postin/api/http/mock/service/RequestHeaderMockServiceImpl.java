@@ -65,7 +65,9 @@ public class RequestHeaderMockServiceImpl implements RequestHeaderMockService {
 
         RequestHeaderMock requestHeaderMock = BeanMapper.map(requestHeaderMockEntity, RequestHeaderMock.class);
 
-        joinTemplate.joinQuery(requestHeaderMock);
+        joinTemplate.joinQuery(requestHeaderMock,new String[]{
+                "mock"
+        });
 
         return requestHeaderMock;
     }
@@ -76,7 +78,9 @@ public class RequestHeaderMockServiceImpl implements RequestHeaderMockService {
 
         List<RequestHeaderMock> requestHeaderMockList =  BeanMapper.mapList(requestHeaderMockEntityList,RequestHeaderMock.class);
 
-        joinTemplate.joinQuery(requestHeaderMockList);
+        joinTemplate.joinQuery(requestHeaderMockList,new String[]{
+                "mock"
+        });
 
         return requestHeaderMockList;
     }
@@ -87,7 +91,9 @@ public class RequestHeaderMockServiceImpl implements RequestHeaderMockService {
 
         List<RequestHeaderMock> requestHeaderMockList = BeanMapper.mapList(requestHeaderMockEntityList,RequestHeaderMock.class);
 
-        joinTemplate.joinQuery(requestHeaderMockList);
+        joinTemplate.joinQuery(requestHeaderMockList,new String[]{
+                "mock"
+        });
 
         return requestHeaderMockList;
     }
@@ -99,7 +105,9 @@ public class RequestHeaderMockServiceImpl implements RequestHeaderMockService {
 
         List<RequestHeaderMock> requestHeaderMockList = BeanMapper.mapList(pagination.getDataList(),RequestHeaderMock.class);
 
-        joinTemplate.joinQuery(requestHeaderMockList);
+        joinTemplate.joinQuery(requestHeaderMockList,new String[]{
+                "mock"
+        });
 
         return PaginationBuilder.build(pagination,requestHeaderMockList);
     }

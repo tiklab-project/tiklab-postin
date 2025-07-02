@@ -87,7 +87,10 @@ public class WorkspaceRecentServiceImpl implements WorkspaceRecentService {
     public WorkspaceRecent findWorkspaceRecent(@NotNull String id) {
         WorkspaceRecent workspaceRecent = findOne(id);
 
-        joinTemplate.joinQuery(workspaceRecent);
+        joinTemplate.joinQuery(workspaceRecent,new String[]{
+                "workspace",
+                "user"
+        });
 
         return workspaceRecent;
     }
@@ -97,7 +100,10 @@ public class WorkspaceRecentServiceImpl implements WorkspaceRecentService {
         List<WorkspaceRecentEntity> workspaceRecentEntityList =  workspaceRecentDao.findAllWorkspaceRecent();
         List<WorkspaceRecent> workspaceRecentList =  BeanMapper.mapList(workspaceRecentEntityList,WorkspaceRecent.class);
 
-        joinTemplate.joinQuery(workspaceRecentList);
+        joinTemplate.joinQuery(workspaceRecentList,new String[]{
+                "workspace",
+                "user"
+        });
 
         return workspaceRecentList;
     }
@@ -128,7 +134,10 @@ public class WorkspaceRecentServiceImpl implements WorkspaceRecentService {
     public List<WorkspaceRecent> findRecentList(WorkspaceRecentQuery workspaceRecentQuery) {
         List<WorkspaceRecentEntity> workspaceRecentEntityList = workspaceRecentDao.findWorkspaceRecentList(workspaceRecentQuery);
         List<WorkspaceRecent> workspaceRecentList = BeanMapper.mapList(workspaceRecentEntityList,WorkspaceRecent.class);
-        joinTemplate.joinQuery(workspaceRecentList);
+        joinTemplate.joinQuery(workspaceRecentList,new String[]{
+                "workspace",
+                "user"
+        });
 
         return workspaceRecentList;
     }
@@ -138,7 +147,10 @@ public class WorkspaceRecentServiceImpl implements WorkspaceRecentService {
         Pagination<WorkspaceRecentEntity>  pagination = workspaceRecentDao.findWorkspaceRecentPage(workspaceRecentQuery);
 
         List<WorkspaceRecent> workspaceRecentList = BeanMapper.mapList(pagination.getDataList(),WorkspaceRecent.class);
-        joinTemplate.joinQuery(workspaceRecentList);
+        joinTemplate.joinQuery(workspaceRecentList,new String[]{
+                "workspace",
+                "user"
+        });
 
         for(WorkspaceRecent workspaceRecent:workspaceRecentList){
             Workspace workspace = workspaceRecent.getWorkspace();

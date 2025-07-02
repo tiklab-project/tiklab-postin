@@ -63,7 +63,9 @@ public class FormParamMockServiceImpl implements FormParamMockService {
 
         FormParamMock formParamMock = BeanMapper.map(formParamMockEntity, FormParamMock.class);
 
-        joinTemplate.joinQuery(formParamMock);
+        joinTemplate.joinQuery(formParamMock,new String[]{
+                "mock"
+        });
 
         return formParamMock;
     }
@@ -74,7 +76,9 @@ public class FormParamMockServiceImpl implements FormParamMockService {
 
         List<FormParamMock> formParamMockList =  BeanMapper.mapList(formParamMockEntityList,FormParamMock.class);
 
-        joinTemplate.joinQuery(formParamMockList);
+        joinTemplate.joinQuery(formParamMockList,new String[]{
+                "mock"
+        });
 
         return formParamMockList;
     }
@@ -85,7 +89,9 @@ public class FormParamMockServiceImpl implements FormParamMockService {
 
         List<FormParamMock> formParamMockList = BeanMapper.mapList(formParamMockEntityList,FormParamMock.class);
 
-        joinTemplate.joinQuery(formParamMockList);
+        joinTemplate.joinQuery(formParamMockList,new String[]{
+                "mock"
+        });
 
         return formParamMockList;
     }
@@ -97,7 +103,9 @@ public class FormParamMockServiceImpl implements FormParamMockService {
 
         List<FormParamMock> formParamMockList = BeanMapper.mapList(pagination.getDataList(),FormParamMock.class);
 
-        joinTemplate.joinQuery(formParamMockList);
+        joinTemplate.joinQuery(formParamMockList,new String[]{
+                "mock"
+        });
 
         return PaginationBuilder.build(pagination,formParamMockList);
     }

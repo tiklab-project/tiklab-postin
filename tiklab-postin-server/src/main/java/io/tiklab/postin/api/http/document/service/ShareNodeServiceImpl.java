@@ -77,7 +77,6 @@ public class ShareNodeServiceImpl implements ShareNodeService {
     public ShareNode findShareNode(@NotNull String id) {
         ShareNode shareNode = findOne(id);
 
-        joinTemplate.joinQuery(shareNode);
 
         return shareNode;
     }
@@ -88,7 +87,6 @@ public class ShareNodeServiceImpl implements ShareNodeService {
 
         List<ShareNode> shareNodeList =  BeanMapper.mapList(shareNodeEntityList,ShareNode.class);
 
-        joinTemplate.joinQuery(shareNodeList);
         return shareNodeList;
     }
 
@@ -98,7 +96,6 @@ public class ShareNodeServiceImpl implements ShareNodeService {
 
         List<ShareNode> shareNodeList = BeanMapper.mapList(shareNodeEntityList,ShareNode.class);
 
-        joinTemplate.joinQuery(shareNodeList);
 
         return shareNodeList;
     }
@@ -108,8 +105,6 @@ public class ShareNodeServiceImpl implements ShareNodeService {
         Pagination<ShareNodeEntity>  pagination = shareNodeDao.findShareNodePage(shareNodeQuery);
 
         List<ShareNode> shareNodeList = BeanMapper.mapList(pagination.getDataList(),ShareNode.class);
-
-        joinTemplate.joinQuery(shareNodeList);
 
         return PaginationBuilder.build(pagination,shareNodeList);
     }

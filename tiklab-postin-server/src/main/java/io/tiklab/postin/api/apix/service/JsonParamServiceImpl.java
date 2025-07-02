@@ -1,6 +1,5 @@
 package io.tiklab.postin.api.apix.service;
 
-import io.tiklab.postin.api.apix.service.JsonParamService;
 import io.tiklab.postin.api.apix.dao.JsonParamDao;
 import io.tiklab.postin.api.apix.entity.JsonParamEntity;
 import io.tiklab.postin.api.apix.model.JsonParam;

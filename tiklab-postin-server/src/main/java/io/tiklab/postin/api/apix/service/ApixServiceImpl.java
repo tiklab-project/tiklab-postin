@@ -181,7 +181,10 @@ public class ApixServiceImpl implements ApixService {
     @Override
     public Apix findApix(@NotNull String id) {
         Apix apix = findOne(id);
-        joinTemplate.joinQuery(apix);
+        joinTemplate.joinQuery(apix,new String[]{
+                "status",
+                "executor"
+        });
 
         Node node = nodeService.findNode(id);
         apix.setNode(node);
@@ -195,7 +198,10 @@ public class ApixServiceImpl implements ApixService {
 
         List<Apix> apixList =  BeanMapper.mapList(apixEntityList, Apix.class);
 
-        joinTemplate.joinQuery(apixList);
+        joinTemplate.joinQuery(apixList,new String[]{
+                "status",
+                "executor"
+        });
 
         return apixList;
     }
@@ -206,7 +212,10 @@ public class ApixServiceImpl implements ApixService {
 
         List<Apix> apixList = BeanMapper.mapList(apixEntityList, Apix.class);
 
-        joinTemplate.joinQuery(apixList);
+        joinTemplate.joinQuery(apixList,new String[]{
+                "status",
+                "executor"
+        });
 
         for (Apix apix: apixList){
             Node node = nodeService.findNode(apix.getId());
@@ -222,7 +231,10 @@ public class ApixServiceImpl implements ApixService {
         Pagination<ApiListEntity>  pagination = apixDao.findApiPage(apixQuery);
 
         List<ApiList> apixList = BeanMapper.mapList(pagination.getDataList(), ApiList.class);
-        joinTemplate.joinQuery(apixList);
+        joinTemplate.joinQuery(apixList,new String[]{
+                "status",
+                "executor"
+        });
 
         return PaginationBuilder.build(pagination, apixList);
     }

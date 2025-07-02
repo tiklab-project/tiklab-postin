@@ -67,7 +67,9 @@ public class FormParamServiceImpl implements FormParamService {
 
         FormParam formParam = BeanMapper.map(formParamEntity, FormParam.class);
 
-        joinTemplate.joinQuery(formParam);
+        joinTemplate.joinQuery(formParam,new String[]{
+                "http"
+        });
 
         return formParam;
     }
@@ -78,7 +80,9 @@ public class FormParamServiceImpl implements FormParamService {
 
         List<FormParam> formParamList = BeanMapper.mapList(formParamEntityList,FormParam.class);
 
-        joinTemplate.joinQuery(formParamList);
+        joinTemplate.joinQuery(formParamList,new String[]{
+                "http"
+        });
 
         return formParamList;
     }
@@ -89,7 +93,9 @@ public class FormParamServiceImpl implements FormParamService {
 
         List<FormParam> formParamList = BeanMapper.mapList(formParamEntityList,FormParam.class);
 
-        joinTemplate.joinQuery(formParamList);
+        joinTemplate.joinQuery(formParamList,new String[]{
+                "http"
+        });
 
         return formParamList;
     }
@@ -101,7 +107,9 @@ public class FormParamServiceImpl implements FormParamService {
 
         List<FormParam> formParamList = BeanMapper.mapList(pagination.getDataList(),FormParam.class);
 
-        joinTemplate.joinQuery(formParamList);
+        joinTemplate.joinQuery(formParamList,new String[]{
+                "http"
+        });
 
         return PaginationBuilder.build(pagination,formParamList);
     }

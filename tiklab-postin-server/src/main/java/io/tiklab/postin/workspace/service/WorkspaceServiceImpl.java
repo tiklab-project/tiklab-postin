@@ -275,7 +275,9 @@ public class WorkspaceServiceImpl implements WorkspaceService {
     public List<Workspace> findAllWorkspace() {
         List<WorkspaceEntity> workspaceEntityList =  workspaceDao.findAllWorkspace();
 
-        joinTemplate.joinQuery(workspaceEntityList);
+        joinTemplate.joinQuery(workspaceEntityList,new String[]{
+                "user"
+        });
 
         return BeanMapper.mapList(workspaceEntityList,Workspace.class);
     }
@@ -298,7 +300,9 @@ public class WorkspaceServiceImpl implements WorkspaceService {
             }
         }
 
-        joinTemplate.joinQuery(workspaceList);
+        joinTemplate.joinQuery(workspaceList,new String[]{
+                "user"
+        });
 
         return workspaceList;
     }
@@ -310,7 +314,9 @@ public class WorkspaceServiceImpl implements WorkspaceService {
 
         List<Workspace> workspaceList = BeanMapper.mapList(pagination.getDataList(),Workspace.class);
 
-        joinTemplate.joinQuery(workspaceList);
+        joinTemplate.joinQuery(workspaceList,new String[]{
+                "user"
+        });
         return PaginationBuilder.build(pagination,workspaceList);
     }
 
@@ -364,7 +370,9 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         }
 
 
-        joinTemplate.joinQuery(arrayList);
+        joinTemplate.joinQuery(arrayList,new String[]{
+                "user"
+        });
 
         return arrayList;
     }

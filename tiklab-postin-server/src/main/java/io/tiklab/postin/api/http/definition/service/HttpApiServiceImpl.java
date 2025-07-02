@@ -294,7 +294,9 @@ public class HttpApiServiceImpl implements HttpApiService {
             httpApi.setResponseResultList(apiResponseList);
         }
 
-        joinTemplate.joinQuery(httpApi);
+        joinTemplate.joinQuery(httpApi,new String[]{
+                "apix"
+        });
 
         Apix apix = apixService.findApix(id);
         httpApi.setApix(apix);
@@ -311,7 +313,9 @@ public class HttpApiServiceImpl implements HttpApiService {
 
         List<HttpApi> httpApiList = BeanMapper.mapList(httpApiEntityList, HttpApi.class);
 
-        joinTemplate.joinQuery(httpApiList);
+        joinTemplate.joinQuery(httpApiList,new String[]{
+                "apix"
+        });
 
         return httpApiList;
         }
@@ -322,7 +326,9 @@ public class HttpApiServiceImpl implements HttpApiService {
 
         List<HttpApi> httpApiList = BeanMapper.mapList(httpApiEntityList, HttpApi.class);
 
-        joinTemplate.joinQuery(httpApiList);
+        joinTemplate.joinQuery(httpApiList,new String[]{
+                "apix"
+        });
 
         ArrayList<HttpApi> newApiList = new ArrayList<>();
 
@@ -356,7 +362,9 @@ public class HttpApiServiceImpl implements HttpApiService {
 
         List<HttpApi> httpApis = BeanMapper.mapList(httpApiPage.getDataList(), HttpApi.class);
 
-        joinTemplate.joinQuery(httpApis);
+        joinTemplate.joinQuery(httpApis,new String[]{
+                "apix"
+        });
 
         return  PaginationBuilder.build(httpApiPage,httpApis);
     }
@@ -401,7 +409,9 @@ public class HttpApiServiceImpl implements HttpApiService {
 
         List<HttpApi> httpApiList = BeanMapper.mapList(pagination.getDataList(), HttpApi.class);
 
-        joinTemplate.joinQuery(httpApiList);
+        joinTemplate.joinQuery(httpApiList,new String[]{
+                "apix"
+        });
 
         return PaginationBuilder.build(pagination, httpApiList);
     }

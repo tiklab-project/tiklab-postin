@@ -68,8 +68,6 @@ public class ApiResponseServiceImpl implements ApiResponseService {
 
         ApiResponse apiResponse = BeanMapper.map(apiResponseEntity, ApiResponse.class);
 
-        joinTemplate.joinQuery(apiResponse);
-
         return apiResponse;
     }
 
@@ -79,8 +77,6 @@ public class ApiResponseServiceImpl implements ApiResponseService {
 
         List<ApiResponse> apiResponseList =  BeanMapper.mapList(apiResponseEntityList, ApiResponse.class);
 
-        joinTemplate.joinQuery(apiResponseList);
-
         return apiResponseList;
     }
 
@@ -89,8 +85,6 @@ public class ApiResponseServiceImpl implements ApiResponseService {
         List<ApiResponseEntity> apiResponseEntityList = apiResponseDao.findApiResponseList(apiResponseQuery);
 
         List<ApiResponse> apiResponseList = BeanMapper.mapList(apiResponseEntityList, ApiResponse.class);
-
-        joinTemplate.joinQuery(apiResponseList);
 
         return apiResponseList;
     }
@@ -102,7 +96,6 @@ public class ApiResponseServiceImpl implements ApiResponseService {
 
         List<ApiResponse> apiResponseList = BeanMapper.mapList(pagination.getDataList(), ApiResponse.class);
 
-        joinTemplate.joinQuery(apiResponseList);
 
         return PaginationBuilder.build(pagination, apiResponseList);
     }

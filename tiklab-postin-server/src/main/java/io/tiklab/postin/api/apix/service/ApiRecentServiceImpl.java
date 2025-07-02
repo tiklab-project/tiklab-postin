@@ -99,7 +99,11 @@ public class ApiRecentServiceImpl implements ApiRecentService {
     public ApiRecent findApiRecent(@NotNull String id) {
         ApiRecent apiRecent = findOne(id);
 
-        joinTemplate.joinQuery(apiRecent);
+        joinTemplate.joinQuery(apiRecent,new String[]{
+                "workspace",
+                "apix",
+                "user"
+        });
 
         return apiRecent;
     }
@@ -109,7 +113,11 @@ public class ApiRecentServiceImpl implements ApiRecentService {
         List<ApiRecentEntity> apiRecentEntityList =  apiRecentDao.findAllApiRecent();
         List<ApiRecent> apiRecentList =  BeanMapper.mapList(apiRecentEntityList,ApiRecent.class);
 
-        joinTemplate.joinQuery(apiRecentList);
+        joinTemplate.joinQuery(apiRecentList,new String[]{
+                "workspace",
+                "apix",
+                "user"
+        });
 
         return apiRecentList;
     }
@@ -151,7 +159,11 @@ public class ApiRecentServiceImpl implements ApiRecentService {
         apiRecentQuery.setUserId(LoginContext.getLoginId());
         Pagination<ApiRecentEntity>  pagination = apiRecentDao.findApiRecentPage(apiRecentQuery);
         List<ApiRecent> apiRecentList = BeanMapper.mapList(pagination.getDataList(),ApiRecent.class);
-        joinTemplate.joinQuery(apiRecentList);
+        joinTemplate.joinQuery(apiRecentList,new String[]{
+                "workspace",
+                "apix",
+                "user"
+        });
 
         for(ApiRecent apiRecent:apiRecentList){
 

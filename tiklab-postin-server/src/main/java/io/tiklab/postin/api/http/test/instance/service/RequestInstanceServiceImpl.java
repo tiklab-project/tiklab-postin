@@ -66,7 +66,9 @@ public class RequestInstanceServiceImpl implements RequestInstanceService {
     public RequestInstance findRequestInstance(@NotNull String id) {
         RequestInstance requestInstance = findOne(id);
 
-        joinTemplate.joinQuery(requestInstance);
+        joinTemplate.joinQuery(requestInstance, new String[]{
+                "httpInstance"
+        });
         return requestInstance;
     }
 
@@ -76,7 +78,9 @@ public class RequestInstanceServiceImpl implements RequestInstanceService {
 
         List<RequestInstance> requestInstanceList =  BeanMapper.mapList(requestInstanceEntityList, RequestInstance.class);
 
-        joinTemplate.joinQuery(requestInstanceList);
+        joinTemplate.joinQuery(requestInstanceList, new String[]{
+                "httpInstance"
+        });
         return requestInstanceList;
     }
 
@@ -86,7 +90,9 @@ public class RequestInstanceServiceImpl implements RequestInstanceService {
 
         List<RequestInstance> requestInstanceList = BeanMapper.mapList(requestInstanceEntityList, RequestInstance.class);
 
-        joinTemplate.joinQuery(requestInstanceList);
+        joinTemplate.joinQuery(requestInstanceList, new String[]{
+                "httpInstance"
+        });
 
         return requestInstanceList;
     }
@@ -98,7 +104,9 @@ public class RequestInstanceServiceImpl implements RequestInstanceService {
 
         List<RequestInstance> requestInstanceList = BeanMapper.mapList(pagination.getDataList(), RequestInstance.class);
 
-        joinTemplate.joinQuery(requestInstanceList);
+        joinTemplate.joinQuery(requestInstanceList, new String[]{
+                "httpInstance"
+        });
 
         return PaginationBuilder.build(pagination, requestInstanceList);
     }

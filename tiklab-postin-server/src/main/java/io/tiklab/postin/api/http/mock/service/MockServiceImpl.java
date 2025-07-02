@@ -141,7 +141,10 @@ public class MockServiceImpl implements MockService {
     public Mock findMock(@NotNull String id) {
         Mock mock = findOne(id);
 
-        joinTemplate.joinQuery(mock);
+        joinTemplate.joinQuery(mock,new String[]{
+                "http",
+                "createUser"
+        });
         return mock;
     }
 
@@ -151,7 +154,10 @@ public class MockServiceImpl implements MockService {
 
         List<Mock> mockList =  BeanMapper.mapList(mockEntityList,Mock.class);
 
-        joinTemplate.joinQuery(mockList);
+        joinTemplate.joinQuery(mockList,new String[]{
+                "http",
+                "createUser"
+        });
 
         return mockList;
     }
@@ -162,7 +168,10 @@ public class MockServiceImpl implements MockService {
 
         List<Mock> mockList = BeanMapper.mapList(mockEntityList,Mock.class);
 
-        joinTemplate.joinQuery(mockList);
+        joinTemplate.joinQuery(mockList,new String[]{
+                "http",
+                "createUser"
+        });
 
         return mockList;
     }
@@ -174,7 +183,10 @@ public class MockServiceImpl implements MockService {
 
         List<Mock> mockList = BeanMapper.mapList(pagination.getDataList(),Mock.class);
 
-        joinTemplate.joinQuery(mockList);
+        joinTemplate.joinQuery(mockList,new String[]{
+                "http",
+                "createUser"
+        });
 
         return PaginationBuilder.build(pagination,mockList);
     }

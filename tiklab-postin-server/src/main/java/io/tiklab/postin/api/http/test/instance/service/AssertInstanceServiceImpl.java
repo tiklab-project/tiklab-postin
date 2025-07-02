@@ -68,7 +68,9 @@ public class AssertInstanceServiceImpl implements AssertInstanceService {
     public AssertInstance findAssertInstance(@NotNull String id) {
         AssertInstance assertInstance = findOne(id);
 
-        joinTemplate.joinQuery(assertInstance);
+        joinTemplate.joinQuery(assertInstance,new String[]{
+                "httpInstance"
+        });
         return assertInstance;
     }
 
@@ -78,7 +80,9 @@ public class AssertInstanceServiceImpl implements AssertInstanceService {
 
         List<AssertInstance> assertInstanceList =  BeanMapper.mapList(assertInstanceEntityList, AssertInstance.class);
 
-        joinTemplate.joinQuery(assertInstanceList);
+        joinTemplate.joinQuery(assertInstanceList,new String[]{
+                "httpInstance"
+        });
         return assertInstanceList;
     }
 
@@ -88,7 +92,9 @@ public class AssertInstanceServiceImpl implements AssertInstanceService {
 
         List<AssertInstance> assertInstanceList = BeanMapper.mapList(assertInstanceEntityList, AssertInstance.class);
 
-        joinTemplate.joinQuery(assertInstanceList);
+        joinTemplate.joinQuery(assertInstanceList,new String[]{
+                "httpInstance"
+        });
 
         return assertInstanceList;
     }
@@ -100,7 +106,9 @@ public class AssertInstanceServiceImpl implements AssertInstanceService {
 
         List<AssertInstance> assertInstanceList = BeanMapper.mapList(pagination.getDataList(), AssertInstance.class);
 
-        joinTemplate.joinQuery(assertInstanceList);
+        joinTemplate.joinQuery(assertInstanceList,new String[]{
+                "httpInstance"
+        });
 
         return PaginationBuilder.build(pagination, assertInstanceList);
     }

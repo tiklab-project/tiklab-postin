@@ -67,7 +67,6 @@ public class RequestMockServiceImpl implements RequestMockService {
     public RequestMock findRequestMock(@NotNull String id) {
         RequestMock requestMock = findOne(id);
 
-        joinTemplate.joinQuery(requestMock);
         return requestMock;
     }
 
@@ -77,7 +76,6 @@ public class RequestMockServiceImpl implements RequestMockService {
 
         List<RequestMock> requestMockList =  BeanMapper.mapList(requestMockEntityList, RequestMock.class);
 
-        joinTemplate.joinQuery(requestMockList);
         return requestMockList;
     }
 
@@ -87,7 +85,6 @@ public class RequestMockServiceImpl implements RequestMockService {
 
         List<RequestMock> requestMockList = BeanMapper.mapList(requestMockEntityList, RequestMock.class);
 
-        joinTemplate.joinQuery(requestMockList);
 
         return requestMockList;
     }
@@ -99,7 +96,6 @@ public class RequestMockServiceImpl implements RequestMockService {
 
         List<RequestMock> requestMockList = BeanMapper.mapList(pagination.getDataList(), RequestMock.class);
 
-        joinTemplate.joinQuery(requestMockList);
 
         return PaginationBuilder.build(pagination, requestMockList);
     }

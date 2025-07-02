@@ -77,7 +77,6 @@ public class ApiStatusServiceImpl implements ApiStatusService {
     public ApiStatus findApiStatus(@NotNull String id) {
         ApiStatus apiStatus = findOne(id);
 
-        joinTemplate.joinQuery(apiStatus);
         return apiStatus;
     }
 
@@ -87,7 +86,6 @@ public class ApiStatusServiceImpl implements ApiStatusService {
 
         List<ApiStatus> apiStatusList =  BeanMapper.mapList(apiStatusEntityList,ApiStatus.class);
 
-        joinTemplate.joinQuery(apiStatusList);
         return apiStatusList;
     }
 
@@ -97,7 +95,6 @@ public class ApiStatusServiceImpl implements ApiStatusService {
 
         List<ApiStatus> apiStatusList = BeanMapper.mapList(apiStatusEntityList,ApiStatus.class);
 
-        joinTemplate.joinQuery(apiStatusList);
 
         return apiStatusList;
     }
@@ -107,8 +104,6 @@ public class ApiStatusServiceImpl implements ApiStatusService {
         Pagination<ApiStatusEntity>  pagination = apiStatusDao.findApiStatusPage(apiStatusQuery);
 
         List<ApiStatus> apiStatusList = BeanMapper.mapList(pagination.getDataList(),ApiStatus.class);
-
-        joinTemplate.joinQuery(apiStatusList);
 
         return PaginationBuilder.build(pagination,apiStatusList);
     }

@@ -68,7 +68,9 @@ public class EnumParamServiceImpl implements EnumParamService {
     public EnumParam findEnumParam(@NotNull String id) {
         EnumParam enumParam = findOne(id);
 
-        joinTemplate.joinQuery(enumParam);
+        joinTemplate.joinQuery(enumParam,new String[]{
+                "dataStructure"
+        });
         return enumParam;
     }
 
@@ -78,7 +80,9 @@ public class EnumParamServiceImpl implements EnumParamService {
 
         List<EnumParam> enumParamList =  BeanMapper.mapList(enumParamEntityList,EnumParam.class);
 
-        joinTemplate.joinQuery(enumParamList);
+        joinTemplate.joinQuery(enumParamList,new String[]{
+                "dataStructure"
+        });
         return enumParamList;
     }
 
@@ -88,7 +92,9 @@ public class EnumParamServiceImpl implements EnumParamService {
 
         List<EnumParam> enumParamList = BeanMapper.mapList(enumParamEntityList,EnumParam.class);
 
-        joinTemplate.joinQuery(enumParamList);
+        joinTemplate.joinQuery(enumParamList,new String[]{
+                "dataStructure"
+        });
 
         return enumParamList;
     }
@@ -100,7 +106,9 @@ public class EnumParamServiceImpl implements EnumParamService {
 
         List<EnumParam> enumParamList = BeanMapper.mapList(pagination.getDataList(),EnumParam.class);
 
-        joinTemplate.joinQuery(enumParamList);
+        joinTemplate.joinQuery(enumParamList,new String[]{
+                "dataStructure"
+        });
 
         return PaginationBuilder.build(pagination,enumParamList);
     }

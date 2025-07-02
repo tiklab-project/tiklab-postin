@@ -142,7 +142,11 @@ public class NodeServiceImpl implements NodeService {
     @Override
     public Node findNode(@NotNull String id) {
         Node node = findOne(id);
-        joinTemplate.joinQuery(node);
+        joinTemplate.joinQuery(node,new String[]{
+                "workspace",
+                "createUser",
+                "updateUser"
+        });
 
         //递归查找子节点
         List<Node> nodeList = findChildren(id);
@@ -172,7 +176,11 @@ public class NodeServiceImpl implements NodeService {
 
         List<Node> nodeList = BeanMapper.mapList(nodeEntityList,Node.class);
 
-        joinTemplate.joinQuery(nodeList);
+        joinTemplate.joinQuery(nodeList,new String[]{
+                "workspace",
+                "createUser",
+                "updateUser"
+        });
 
         return nodeList;
     }
@@ -190,7 +198,11 @@ public class NodeServiceImpl implements NodeService {
 
         List<Node> nodeList = BeanMapper.mapList(nodeEntityList,Node.class);
 
-        joinTemplate.joinQuery(nodeList);
+        joinTemplate.joinQuery(nodeList,new String[]{
+                "workspace",
+                "createUser",
+                "updateUser"
+        });
 
         return nodeList;
     }
@@ -199,7 +211,11 @@ public class NodeServiceImpl implements NodeService {
     public Pagination<Node> findNodePage(NodeQuery nodeQuery) {
         Pagination<NodeEntity>  pagination = nodeDao.findNodePage(nodeQuery);
         List<Node> nodeList = BeanMapper.mapList(pagination.getDataList(),Node.class);
-        joinTemplate.joinQuery(nodeList);
+        joinTemplate.joinQuery(nodeList,new String[]{
+                "workspace",
+                "createUser",
+                "updateUser"
+        });
         return PaginationBuilder.build(pagination,nodeList);
     }
 

@@ -55,7 +55,9 @@ public class RawResponseServiceImpl implements RawResponseService {
 
         RawResponse rawResponse = BeanMapper.map(rawResponseEntity, RawResponse.class);
 
-        joinTemplate.joinQuery(rawResponse);
+        joinTemplate.joinQuery(rawResponse,new String[]{
+                "http"
+        });
 
         return rawResponse;
     }
@@ -66,7 +68,9 @@ public class RawResponseServiceImpl implements RawResponseService {
 
         List<RawResponse> rawResponseList =  BeanMapper.mapList(rawResponseEntityList,RawResponse.class);
 
-        joinTemplate.joinQuery(rawResponseList);
+        joinTemplate.joinQuery(rawResponseList,new String[]{
+                "http"
+        });
 
         return rawResponseList;
     }
@@ -77,7 +81,9 @@ public class RawResponseServiceImpl implements RawResponseService {
 
         List<RawResponse> rawResponseList = BeanMapper.mapList(rawResponseEntityList,RawResponse.class);
 
-        joinTemplate.joinQuery(rawResponseList);
+        joinTemplate.joinQuery(rawResponseList,new String[]{
+                "http"
+        });
 
         return rawResponseList;
     }
@@ -89,7 +95,9 @@ public class RawResponseServiceImpl implements RawResponseService {
 
         List<RawResponse> rawResponseList = BeanMapper.mapList(pagination.getDataList(),RawResponse.class);
 
-        joinTemplate.joinQuery(rawResponseList);
+        joinTemplate.joinQuery(rawResponseList,new String[]{
+                "http"
+        });
 
         return PaginationBuilder.build(pagination,rawResponseList);
     }

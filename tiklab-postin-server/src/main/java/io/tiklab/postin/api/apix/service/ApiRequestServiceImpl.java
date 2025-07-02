@@ -85,9 +85,6 @@ public class ApiRequestServiceImpl implements ApiRequestService {
     @Override
     public ApiRequest findApiRequest(@NotNull String id) {
         ApiRequest apiRequest = findOne(id);
-
-        joinTemplate.joinQuery(apiRequest);
-
         return apiRequest;
     }
 
@@ -96,8 +93,6 @@ public class ApiRequestServiceImpl implements ApiRequestService {
         List<ApiRequestEntity> apiRequestEntityList =  apiRequestDao.findAllApiRequest();
 
         List<ApiRequest> apiRequestList =  BeanMapper.mapList(apiRequestEntityList,ApiRequest.class);
-
-        joinTemplate.joinQuery(apiRequestList);
 
         return apiRequestList;
     }
@@ -108,8 +103,6 @@ public class ApiRequestServiceImpl implements ApiRequestService {
 
         List<ApiRequest> apiRequestList = BeanMapper.mapList(apiRequestEntityList,ApiRequest.class);
 
-        joinTemplate.joinQuery(apiRequestList);
-
         return apiRequestList;
     }
 
@@ -118,8 +111,6 @@ public class ApiRequestServiceImpl implements ApiRequestService {
         Pagination<ApiRequestEntity>  pagination = apiRequestDao.findApiRequestPage(apiRequestQuery);
 
         List<ApiRequest> apiRequestList = BeanMapper.mapList(pagination.getDataList(),ApiRequest.class);
-
-        joinTemplate.joinQuery(apiRequestList);
 
         return PaginationBuilder.build(pagination,apiRequestList);
     }

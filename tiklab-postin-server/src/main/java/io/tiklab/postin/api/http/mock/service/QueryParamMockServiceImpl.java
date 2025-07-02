@@ -65,7 +65,9 @@ public class QueryParamMockServiceImpl implements QueryParamMockService {
 
         QueryParamMock queryParamMock = BeanMapper.map(queryParamMockEntity, QueryParamMock.class);
 
-        joinTemplate.joinQuery(queryParamMock);
+        joinTemplate.joinQuery(queryParamMock,new String[]{
+                "mock"
+        });
 
         return queryParamMock;
     }
@@ -76,7 +78,9 @@ public class QueryParamMockServiceImpl implements QueryParamMockService {
 
         List<QueryParamMock> queryParamMockList =  BeanMapper.mapList(queryParamMockEntityList,QueryParamMock.class);
 
-        joinTemplate.joinQuery(queryParamMockList);
+        joinTemplate.joinQuery(queryParamMockList,new String[]{
+                "mock"
+        });
 
         return queryParamMockList;
     }
@@ -87,7 +91,9 @@ public class QueryParamMockServiceImpl implements QueryParamMockService {
 
         List<QueryParamMock> queryParamMockList = BeanMapper.mapList(queryParamMockEntityList,QueryParamMock.class);
 
-        joinTemplate.joinQuery(queryParamMockList);
+        joinTemplate.joinQuery(queryParamMockList,new String[]{
+                "mock"
+        });
 
         return queryParamMockList;
     }
@@ -99,7 +105,9 @@ public class QueryParamMockServiceImpl implements QueryParamMockService {
 
         List<QueryParamMock> queryParamMockList = BeanMapper.mapList(pagination.getDataList(),QueryParamMock.class);
 
-        joinTemplate.joinQuery(queryParamMockList);
+        joinTemplate.joinQuery(queryParamMockList,new String[]{
+                "mock"
+        });
 
         return PaginationBuilder.build(pagination,queryParamMockList);
     }

@@ -124,7 +124,10 @@ public class HttpInstanceServiceImpl implements TestInstanceService {
     public HttpInstance findTestInstance(@NotNull String id) {
         HttpInstance httpInstance = findOne(id);
 
-        joinTemplate.joinQuery(httpInstance);
+        joinTemplate.joinQuery(httpInstance,new String[]{
+                "httpCase",
+                "user"
+        });
         return httpInstance;
     }
 
@@ -162,7 +165,10 @@ public class HttpInstanceServiceImpl implements TestInstanceService {
 
         List<HttpInstance> httpInstanceList =  BeanMapper.mapList(httpInstanceEntityList, HttpInstance.class);
 
-        joinTemplate.joinQuery(httpInstanceList);
+        joinTemplate.joinQuery(httpInstanceList,new String[]{
+                "httpCase",
+                "user"
+        });
         return httpInstanceList;
     }
 
@@ -171,7 +177,10 @@ public class HttpInstanceServiceImpl implements TestInstanceService {
         List<HttpInstanceEntity> httpInstanceEntityList = httpInstanceDao.findTestInstanceList(httpInstanceQuery);
         List<HttpInstance> httpInstanceList = BeanMapper.mapList(httpInstanceEntityList, HttpInstance.class);
 //        httpInstanceList.sort(Comparator.comparing(HttpInstance::getCreateTime,Comparator.reverseOrder()));
-        joinTemplate.joinQuery(httpInstanceList);
+        joinTemplate.joinQuery(httpInstanceList,new String[]{
+                "httpCase",
+                "user"
+        });
 
         List<HttpInstance> httpInstances = httpInstanceList.stream().map(httpInstance -> {
             RequestInstance requestInstance = requestInstanceService.findRequestInstance(httpInstance.getId());

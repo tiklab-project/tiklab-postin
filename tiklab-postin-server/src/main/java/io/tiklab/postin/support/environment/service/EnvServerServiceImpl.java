@@ -76,7 +76,6 @@ public class EnvServerServiceImpl implements EnvServerService {
     public EnvServer findEnvServer(@NotNull String id) {
         EnvServer envServer = findOne(id);
 
-        joinTemplate.joinQuery(envServer);
         return envServer;
     }
 
@@ -86,7 +85,6 @@ public class EnvServerServiceImpl implements EnvServerService {
 
         List<EnvServer> envServerList =  BeanMapper.mapList(envServerEntityList,EnvServer.class);
 
-        joinTemplate.joinQuery(envServerList);
         return envServerList;
     }
 
@@ -96,7 +94,6 @@ public class EnvServerServiceImpl implements EnvServerService {
 
         List<EnvServer> envServerList = BeanMapper.mapList(envServerEntityList,EnvServer.class);
 
-        joinTemplate.joinQuery(envServerList);
 
         return envServerList;
     }
@@ -108,7 +105,6 @@ public class EnvServerServiceImpl implements EnvServerService {
 
         List<EnvServer> envServerList = BeanMapper.mapList(pagination.getDataList(),EnvServer.class);
 
-        joinTemplate.joinQuery(envServerList);
 
         return PaginationBuilder.build(pagination,envServerList);
     }

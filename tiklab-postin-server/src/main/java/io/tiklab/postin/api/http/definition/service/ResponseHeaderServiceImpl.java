@@ -65,7 +65,9 @@ public class ResponseHeaderServiceImpl implements ResponseHeaderService {
 
         ResponseHeader responseHeader = BeanMapper.map(responseHeaderEntity, ResponseHeader.class);
 
-        joinTemplate.joinQuery(responseHeader);
+        joinTemplate.joinQuery(responseHeader,new String[]{
+                "http"
+        });
 
         return responseHeader;
     }
@@ -76,7 +78,9 @@ public class ResponseHeaderServiceImpl implements ResponseHeaderService {
 
         List<ResponseHeader> responseHeaderList = BeanMapper.mapList(responseHeaderEntityList, ResponseHeader.class);
 
-        joinTemplate.joinQuery(responseHeaderList);
+        joinTemplate.joinQuery(responseHeaderList,new String[]{
+                "http"
+        });
 
         return responseHeaderList;
     }
@@ -87,7 +91,9 @@ public class ResponseHeaderServiceImpl implements ResponseHeaderService {
 
         List<ResponseHeader> responseHeaderList = BeanMapper.mapList(responseHeaderEntityList, ResponseHeader.class);
 
-        joinTemplate.joinQuery(responseHeaderList);
+        joinTemplate.joinQuery(responseHeaderList,new String[]{
+                "http"
+        });
 
         return responseHeaderList;
     }
@@ -99,7 +105,9 @@ public class ResponseHeaderServiceImpl implements ResponseHeaderService {
 
         List<ResponseHeader> responseHeaderList = BeanMapper.mapList(pagination.getDataList(), ResponseHeader.class);
 
-        joinTemplate.joinQuery(responseHeaderList);
+        joinTemplate.joinQuery(responseHeaderList,new String[]{
+                "http"
+        });
 
         return PaginationBuilder.build(pagination, responseHeaderList);
     }

@@ -63,8 +63,6 @@ public class RequestHeaderServiceImpl implements RequestHeaderService {
 
         RequestHeader requestHeader = BeanMapper.map(requestHeaderEntity, RequestHeader.class);
 
-        joinTemplate.joinQuery(requestHeader);
-
         return requestHeader;
     }
 
@@ -73,8 +71,6 @@ public class RequestHeaderServiceImpl implements RequestHeaderService {
         List<RequestHeaderEntity> requestHeaderEntityList =  requestHeaderDao.findAllRequestHeader();
 
         List<RequestHeader> requestHeaderList = BeanMapper.mapList(requestHeaderEntityList, RequestHeader.class);
-
-        joinTemplate.joinQuery(requestHeaderList);
 
         return requestHeaderList;
     }
@@ -85,7 +81,6 @@ public class RequestHeaderServiceImpl implements RequestHeaderService {
 
         List<RequestHeader> requestHeaderList = BeanMapper.mapList(requestHeaderEntityList, RequestHeader.class);
 
-        joinTemplate.joinQuery(requestHeaderList);
 
         return requestHeaderList;
     }
@@ -97,7 +92,6 @@ public class RequestHeaderServiceImpl implements RequestHeaderService {
 
         List<RequestHeader> requestHeaderList = BeanMapper.mapList(pagination.getDataList(), RequestHeader.class);
 
-        joinTemplate.joinQuery(requestHeaderList);
 
         return PaginationBuilder.build(pagination, requestHeaderList);
     }

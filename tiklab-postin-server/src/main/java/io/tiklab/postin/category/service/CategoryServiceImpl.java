@@ -103,7 +103,6 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Category findCategory(@NotNull String id) {
         Category category = findOne(id);
-        joinTemplate.joinQuery(category);
 
         if(category!=null){
             Node node = nodeService.findNode(id);
@@ -162,7 +161,6 @@ public class CategoryServiceImpl implements CategoryService {
 
         List<Category> categoryList = BeanMapper.mapList(categoryEntityList,Category.class);
 
-        joinTemplate.joinQuery(categoryList);
 
         return categoryList;
     }
@@ -181,8 +179,6 @@ public class CategoryServiceImpl implements CategoryService {
         List<Category> categoryList = BeanMapper.mapList(categoryEntityList,Category.class);
 
 
-        joinTemplate.joinQuery(categoryList);
-
         return categoryList;
     }
 
@@ -193,7 +189,6 @@ public class CategoryServiceImpl implements CategoryService {
 
         List<Category> categoryList = BeanMapper.mapList(pagination.getDataList(),Category.class);
 
-        joinTemplate.joinQuery(categoryList);
 
         return PaginationBuilder.build(pagination,categoryList);
     }

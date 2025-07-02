@@ -66,7 +66,9 @@ public class ResponseInstanceServiceImpl implements ResponseInstanceService {
     public ResponseInstance findResponseInstance(@NotNull String id) {
         ResponseInstance responseInstance = findOne(id);
 
-        joinTemplate.joinQuery(responseInstance);
+        joinTemplate.joinQuery(responseInstance,new String[]{
+                "httpInstance"
+        });
         return responseInstance;
     }
 
@@ -76,7 +78,9 @@ public class ResponseInstanceServiceImpl implements ResponseInstanceService {
 
         List<ResponseInstance> responseInstanceList =  BeanMapper.mapList(responseInstanceEntityList, ResponseInstance.class);
 
-        joinTemplate.joinQuery(responseInstanceList);
+        joinTemplate.joinQuery(responseInstanceList,new String[]{
+                "httpInstance"
+        });
         return responseInstanceList;
     }
 
@@ -86,7 +90,9 @@ public class ResponseInstanceServiceImpl implements ResponseInstanceService {
 
         List<ResponseInstance> responseInstanceList = BeanMapper.mapList(responseInstanceEntityList, ResponseInstance.class);
 
-        joinTemplate.joinQuery(responseInstanceList);
+        joinTemplate.joinQuery(responseInstanceList,new String[]{
+                "httpInstance"
+        });
 
         return responseInstanceList;
     }
@@ -98,7 +104,9 @@ public class ResponseInstanceServiceImpl implements ResponseInstanceService {
 
         List<ResponseInstance> responseInstanceList = BeanMapper.mapList(pagination.getDataList(), ResponseInstance.class);
 
-        joinTemplate.joinQuery(responseInstanceList);
+        joinTemplate.joinQuery(responseInstanceList,new String[]{
+                "httpInstance"
+        });
 
         return PaginationBuilder.build(pagination, responseInstanceList);
     }

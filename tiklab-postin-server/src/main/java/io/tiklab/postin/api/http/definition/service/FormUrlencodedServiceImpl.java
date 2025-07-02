@@ -81,7 +81,9 @@ public class FormUrlencodedServiceImpl implements FormUrlencodedService {
     public FormUrlencoded findFormUrlencoded(@NotNull String id) {
         FormUrlencoded formUrlencoded = findOne(id);
 
-        joinTemplate.joinQuery(formUrlencoded);
+        joinTemplate.joinQuery(formUrlencoded,new String[]{
+                "http"
+        });
 
         return formUrlencoded;
     }
@@ -92,7 +94,9 @@ public class FormUrlencodedServiceImpl implements FormUrlencodedService {
 
         List<FormUrlencoded> formUrlencodedList =  BeanMapper.mapList(formUrlencodedEntityList,FormUrlencoded.class);
 
-        joinTemplate.joinQuery(formUrlencodedList);
+        joinTemplate.joinQuery(formUrlencodedList,new String[]{
+                "http"
+        });
 
         return formUrlencodedList;
     }
@@ -103,7 +107,9 @@ public class FormUrlencodedServiceImpl implements FormUrlencodedService {
 
         List<FormUrlencoded> formUrlencodedList = BeanMapper.mapList(formUrlencodedEntityList,FormUrlencoded.class);
 
-        joinTemplate.joinQuery(formUrlencodedList);
+        joinTemplate.joinQuery(formUrlencodedList,new String[]{
+                "http"
+        });
 
         return formUrlencodedList;
     }
@@ -114,7 +120,9 @@ public class FormUrlencodedServiceImpl implements FormUrlencodedService {
 
         List<FormUrlencoded> formUrlencodedList = BeanMapper.mapList(pagination.getDataList(),FormUrlencoded.class);
 
-        joinTemplate.joinQuery(formUrlencodedList);
+        joinTemplate.joinQuery(formUrlencodedList,new String[]{
+                "http"
+        });
 
         return PaginationBuilder.build(pagination,formUrlencodedList);
     }

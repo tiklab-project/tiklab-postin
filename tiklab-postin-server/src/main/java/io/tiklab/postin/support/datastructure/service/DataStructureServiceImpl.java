@@ -133,7 +133,10 @@ public class DataStructureServiceImpl implements DataStructureService {
     public DataStructure findDataStructure(@NotNull String id) {
         DataStructure dataStructure = findOne(id);
 
-        joinTemplate.joinQuery(dataStructure);
+        joinTemplate.joinQuery(dataStructure,new String[]{
+                "workspace",
+                "createUser"
+        });
         return dataStructure;
     }
 
@@ -143,7 +146,10 @@ public class DataStructureServiceImpl implements DataStructureService {
 
         List<DataStructure> dataStructureList =  BeanMapper.mapList(dataStructureEntityList,DataStructure.class);
 
-        joinTemplate.joinQuery(dataStructureList);
+        joinTemplate.joinQuery(dataStructureList,new String[]{
+                "workspace",
+                "createUser"
+        });
         return dataStructureList;
     }
 
@@ -151,7 +157,10 @@ public class DataStructureServiceImpl implements DataStructureService {
     public List<DataStructure> findDataStructureList(DataStructureQuery dataStructureQuery) {
         List<DataStructureEntity> dataStructureEntityList = dataStructureDao.findDataStructureList(dataStructureQuery);
         List<DataStructure> dataStructureList = BeanMapper.mapList(dataStructureEntityList,DataStructure.class);
-        joinTemplate.joinQuery(dataStructureList);
+        joinTemplate.joinQuery(dataStructureList,new String[]{
+                "workspace",
+                "createUser"
+        });
 
         if(dataStructureQuery.getIsNotIncludeId()!=null){
             dataStructureList.removeIf(dataStructure -> dataStructure.getId().equals(dataStructureQuery.getIsNotIncludeId()));
@@ -167,7 +176,10 @@ public class DataStructureServiceImpl implements DataStructureService {
 
         List<DataStructure> dataStructureList = BeanMapper.mapList(pagination.getDataList(),DataStructure.class);
 
-        joinTemplate.joinQuery(dataStructureList);
+        joinTemplate.joinQuery(dataStructureList,new String[]{
+                "workspace",
+                "createUser"
+        });
 
         return PaginationBuilder.build(pagination,dataStructureList);
     }

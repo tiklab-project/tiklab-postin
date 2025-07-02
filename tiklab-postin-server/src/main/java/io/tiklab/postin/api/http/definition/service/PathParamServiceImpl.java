@@ -62,8 +62,6 @@ public class PathParamServiceImpl implements PathParamService {
 
         PathParam pathParam = BeanMapper.map(pathParamEntity, PathParam.class);
 
-        joinTemplate.joinQuery(pathParam);
-
         return pathParam;
     }
 
@@ -72,8 +70,6 @@ public class PathParamServiceImpl implements PathParamService {
         List<PathParamEntity> pathParamEntityList =  pathParamDao.findAllPathParam();
 
         List<PathParam> pathParamList = BeanMapper.mapList(pathParamEntityList, PathParam.class);
-
-        joinTemplate.joinQuery(pathParamList);
 
         return pathParamList;
     }
@@ -84,8 +80,6 @@ public class PathParamServiceImpl implements PathParamService {
 
         List<PathParam> pathParamList = BeanMapper.mapList(pathParamEntityList, PathParam.class);
 
-        joinTemplate.joinQuery(pathParamList);
-
         return pathParamList;
     }
 
@@ -95,8 +89,6 @@ public class PathParamServiceImpl implements PathParamService {
         Pagination<PathParamEntity>  pagination = pathParamDao.findPathParamPage(pathParamQuery);
 
         List<PathParam> pathParamList = BeanMapper.mapList(pagination.getDataList(), PathParam.class);
-
-        joinTemplate.joinQuery(pathParamList);
 
         return PaginationBuilder.build(pagination, pathParamList);
     }

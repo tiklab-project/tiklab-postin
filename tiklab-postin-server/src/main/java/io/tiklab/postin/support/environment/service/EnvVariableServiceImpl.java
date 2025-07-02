@@ -76,7 +76,6 @@ public class EnvVariableServiceImpl implements EnvVariableService {
     public EnvVariable findEnvVariable(@NotNull String id) {
         EnvVariable envVariable = findOne(id);
 
-        joinTemplate.joinQuery(envVariable);
         return envVariable;
     }
 
@@ -86,7 +85,6 @@ public class EnvVariableServiceImpl implements EnvVariableService {
 
         List<EnvVariable> envVariableList =  BeanMapper.mapList(envVariableEntityList,EnvVariable.class);
 
-        joinTemplate.joinQuery(envVariableList);
         return envVariableList;
     }
 
@@ -96,7 +94,6 @@ public class EnvVariableServiceImpl implements EnvVariableService {
 
         List<EnvVariable> envVariableList = BeanMapper.mapList(envVariableEntityList,EnvVariable.class);
 
-        joinTemplate.joinQuery(envVariableList);
 
         return envVariableList;
     }
@@ -108,7 +105,6 @@ public class EnvVariableServiceImpl implements EnvVariableService {
 
         List<EnvVariable> envVariableList = BeanMapper.mapList(pagination.getDataList(),EnvVariable.class);
 
-        joinTemplate.joinQuery(envVariableList);
 
         return PaginationBuilder.build(pagination,envVariableList);
     }

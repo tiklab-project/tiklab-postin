@@ -108,7 +108,10 @@ public class WorkspaceFollowServiceImpl implements WorkspaceFollowService {
 
         List<WorkspaceFollow> workspaceFollowList = BeanMapper.mapList(workspaceFollowEntityList,WorkspaceFollow.class);
 
-        joinTemplate.joinQuery(workspaceFollowList);
+        joinTemplate.joinQuery(workspaceFollowList, new String[]{
+                "workspace",
+                "user"
+        });
 
         //设置是否关注
         if(CollectionUtils.isNotEmpty(workspaceFollowList)){

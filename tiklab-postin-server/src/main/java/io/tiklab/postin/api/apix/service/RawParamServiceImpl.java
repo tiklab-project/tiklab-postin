@@ -58,8 +58,6 @@ public class RawParamServiceImpl implements RawParamService {
 
         RawParam rawParam = BeanMapper.map(rawParamEntity, RawParam.class);
 
-        joinTemplate.joinQuery(rawParam);
-
         return rawParam;
     }
 
@@ -68,8 +66,6 @@ public class RawParamServiceImpl implements RawParamService {
         List<RawParamEntity> rawParamEntityList =  rawParamDao.findAllRawParam();
 
         List<RawParam> rawParamList =  BeanMapper.mapList(rawParamEntityList, RawParam.class);
-
-        joinTemplate.joinQuery(rawParamList);
 
         return rawParamList;
     }
@@ -80,8 +76,6 @@ public class RawParamServiceImpl implements RawParamService {
 
         List<RawParam> rawParamList = BeanMapper.mapList(rawParamEntityList, RawParam.class);
 
-        joinTemplate.joinQuery(rawParamList);
-
         return rawParamList;
     }
 
@@ -91,8 +85,6 @@ public class RawParamServiceImpl implements RawParamService {
         Pagination<RawParamEntity>  pagination = rawParamDao.findRawParamPage(rawParamQuery);
 
         List<RawParam> rawParamList = BeanMapper.mapList(pagination.getDataList(), RawParam.class);
-
-        joinTemplate.joinQuery(rawParamList);
 
         return PaginationBuilder.build(pagination, rawParamList);
     }

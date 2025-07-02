@@ -77,7 +77,9 @@ public class JsonParamMockServiceImpl implements JsonParamMockService {
     public JsonParamMock findJsonParamMock(@NotNull String id) {
         JsonParamMock jsonParamMock = findOne(id);
 
-        joinTemplate.joinQuery(jsonParamMock);
+        joinTemplate.joinQuery(jsonParamMock,new String[]{
+                "mock"
+        });
         return jsonParamMock;
     }
 
@@ -87,7 +89,9 @@ public class JsonParamMockServiceImpl implements JsonParamMockService {
 
         List<JsonParamMock> jsonParamMockList =  BeanMapper.mapList(jsonParamMockEntityList,JsonParamMock.class);
 
-        joinTemplate.joinQuery(jsonParamMockList);
+        joinTemplate.joinQuery(jsonParamMockList,new String[]{
+                "mock"
+        });
         return jsonParamMockList;
     }
 
@@ -97,7 +101,9 @@ public class JsonParamMockServiceImpl implements JsonParamMockService {
 
         List<JsonParamMock> jsonParamMockList = BeanMapper.mapList(jsonParamMockEntityList,JsonParamMock.class);
 
-        joinTemplate.joinQuery(jsonParamMockList);
+        joinTemplate.joinQuery(jsonParamMockList,new String[]{
+                "mock"
+        });
 
         return jsonParamMockList;
     }
@@ -109,7 +115,9 @@ public class JsonParamMockServiceImpl implements JsonParamMockService {
 
         List<JsonParamMock> jsonParamMockList = BeanMapper.mapList(pagination.getDataList(),JsonParamMock.class);
 
-        joinTemplate.joinQuery(jsonParamMockList);
+        joinTemplate.joinQuery(jsonParamMockList,new String[]{
+                "mock"
+        });
 
         return PaginationBuilder.build(pagination,jsonParamMockList);
     }

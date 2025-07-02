@@ -131,7 +131,6 @@ public class ShareServiceImpl implements ShareService {
     public Share findShare(@NotNull String id) {
         Share share = findOne(id);
 
-        joinTemplate.joinQuery(share);
         List<String> nodeIds = getNodeIds(id);
         if(CollectionUtils.isNotEmpty(nodeIds)){
             share.setNodeIds(nodeIds);
@@ -155,8 +154,6 @@ public class ShareServiceImpl implements ShareService {
         List<ShareEntity> shareEntityList = shareDao.findShareList(shareQuery);
 
         List<Share> shareList = BeanMapper.mapList(shareEntityList,Share.class);
-
-        joinTemplate.joinQuery(shareList);
 
         return shareList;
     }

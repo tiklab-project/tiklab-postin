@@ -80,7 +80,6 @@ public class EnvironmentServiceImpl implements EnvironmentService {
     public Environment findEnvironment(@NotNull String id) {
         Environment environment = findOne(id);
 
-        joinTemplate.joinQuery(environment);
         return environment;
     }
 
@@ -90,7 +89,6 @@ public class EnvironmentServiceImpl implements EnvironmentService {
 
         List<Environment> environmentList =  BeanMapper.mapList(environmentEntityList,Environment.class);
 
-        joinTemplate.joinQuery(environmentList);
         return environmentList;
     }
 
@@ -100,7 +98,6 @@ public class EnvironmentServiceImpl implements EnvironmentService {
 
         List<Environment> environmentList = BeanMapper.mapList(environmentEntityList,Environment.class);
 
-        joinTemplate.joinQuery(environmentList);
 
         return environmentList;
     }
@@ -112,7 +109,6 @@ public class EnvironmentServiceImpl implements EnvironmentService {
 
         List<Environment> environmentList = BeanMapper.mapList(pagination.getDataList(),Environment.class);
 
-        joinTemplate.joinQuery(environmentList);
 
         return PaginationBuilder.build(pagination,environmentList);
     }

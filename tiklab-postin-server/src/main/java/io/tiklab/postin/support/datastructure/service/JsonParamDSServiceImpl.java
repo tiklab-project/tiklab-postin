@@ -73,7 +73,6 @@ public class JsonParamDSServiceImpl implements JsonParamDSService {
     public JsonParamDS findJsonParamDS(@NotNull String id) {
         JsonParamDS jsonParamDS = findOne(id);
 
-        joinTemplate.joinQuery(jsonParamDS);
         return jsonParamDS;
     }
 
@@ -83,7 +82,6 @@ public class JsonParamDSServiceImpl implements JsonParamDSService {
 
         List<JsonParamDS> jsonParamDSList =  BeanMapper.mapList(jsonParamDSEntityList,JsonParamDS.class);
 
-        joinTemplate.joinQuery(jsonParamDSList);
         return jsonParamDSList;
     }
 
@@ -92,8 +90,6 @@ public class JsonParamDSServiceImpl implements JsonParamDSService {
         List<JsonParamDSEntity> jsonParamDSEntityList = jsonParamDSDao.findJsonParamDSList(jsonParamDSQuery);
 
         List<JsonParamDS> jsonParamDSList = BeanMapper.mapList(jsonParamDSEntityList,JsonParamDS.class);
-
-        joinTemplate.joinQuery(jsonParamDSList);
 
         return jsonParamDSList;
     }
@@ -105,7 +101,6 @@ public class JsonParamDSServiceImpl implements JsonParamDSService {
 
         List<JsonParamDS> jsonParamDSList = BeanMapper.mapList(pagination.getDataList(),JsonParamDS.class);
 
-        joinTemplate.joinQuery(jsonParamDSList);
 
         return PaginationBuilder.build(pagination,jsonParamDSList);
     }

@@ -54,7 +54,9 @@ public class ResponseResultMockServiceImpl implements ResponseResultMockService 
 
         ResponseResultMock responseResultMock = BeanMapper.map(responseResultMockEntity, ResponseResultMock.class);
 
-        joinTemplate.joinQuery(responseResultMock);
+        joinTemplate.joinQuery(responseResultMock,new String[]{
+                "mock"
+        });
 
         return responseResultMock;
     }
@@ -65,7 +67,9 @@ public class ResponseResultMockServiceImpl implements ResponseResultMockService 
 
         List<ResponseResultMock> responseResultMockList =  BeanMapper.mapList(responseResultMockEntityList, ResponseResultMock.class);
 
-        joinTemplate.joinQuery(responseResultMockList);
+        joinTemplate.joinQuery(responseResultMockList,new String[]{
+                "mock"
+        });
 
         return responseResultMockList;
     }
@@ -76,7 +80,9 @@ public class ResponseResultMockServiceImpl implements ResponseResultMockService 
 
         List<ResponseResultMock> responseResultMockList = BeanMapper.mapList(responseResultMockEntityList, ResponseResultMock.class);
 
-        joinTemplate.joinQuery(responseResultMockList);
+        joinTemplate.joinQuery(responseResultMockList,new String[]{
+                "mock"
+        });
 
         return responseResultMockList;
     }
@@ -88,7 +94,9 @@ public class ResponseResultMockServiceImpl implements ResponseResultMockService 
 
         List<ResponseResultMock> responseResultMockList = BeanMapper.mapList(pagination.getDataList(), ResponseResultMock.class);
 
-        joinTemplate.joinQuery(responseResultMockList);
+        joinTemplate.joinQuery(responseResultMockList,new String[]{
+                "mock"
+        });
 
         return PaginationBuilder.build(pagination, responseResultMockList);
     }
