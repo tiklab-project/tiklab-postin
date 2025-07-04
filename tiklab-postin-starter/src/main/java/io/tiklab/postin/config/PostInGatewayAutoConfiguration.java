@@ -1,34 +1,14 @@
 package io.tiklab.postin.config;
 
-import io.tiklab.eam.author.Authenticator;
-
-import io.tiklab.eam.client.author.handler.DefaultAuthorHandler;
 import io.tiklab.gateway.config.GatewayConfig;
 import io.tiklab.gateway.config.IgnoreConfig;
 import io.tiklab.gateway.config.IgnoreConfigBuilder;
-import io.tiklab.gateway.handler.author.AuthorHandler;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 
 @Configuration
 public class PostInGatewayAutoConfiguration {
-
-    @Value("${soular.address:null}")
-    String authAddress;
-
-    @Value("${soular.embbed.enable:false}")
-    Boolean enableEam;
-
-    @Bean
-    AuthorHandler authorHandler(Authenticator authenticator, IgnoreConfig ignoreConfig){
-        DefaultAuthorHandler authorHandler = new DefaultAuthorHandler();
-        authorHandler.setAuthenticator(authenticator);
-        authorHandler.setIgnoreConfig(ignoreConfig);
-
-        return authorHandler;
-    }
 
     @Bean
     GatewayConfig gatewayConfig(IgnoreConfig ignoreConfig){
@@ -37,6 +17,7 @@ public class PostInGatewayAutoConfiguration {
 
         return gatewayConfig;
     }
+
 
     @Bean
     public IgnoreConfig authorConfig(){
