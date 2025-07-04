@@ -3,6 +3,9 @@ package io.tiklab.postin.support.imexport.type.openapi;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.stereotype.Component;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 
 /**
  * 公共方法
@@ -66,6 +69,53 @@ public class OpenApiCommonFn {
         }
         return current;
     }
+
+
+    /**
+     * 解析各种格式的 statusCode 字符串，转换为整数类型的 HTTP 状态码。
+     *
+     * @param statusCodeStr 原始的状态码字符串，可能为 "200", "default", "x-200:修改成功", "4XX" 等。
+     * @return 解析后的整数 HTTP 状态码。如果无法解析，返回一个安全的默认值（如 200）。
+     */
+    public int parseHttpStatusCode(String statusCodeStr) {
+        // 定义一个安全的默认值
+        final int DEFAULT_CODE = 200;
+
+        if (statusCodeStr == null || statusCodeStr.trim().isEmpty()) {
+            return DEFAULT_CODE;
+        }
+
+        // 1. 处理 "default"
+        if ("default".equalsIgnoreCase(statusCodeStr)) {
+            return DEFAULT_CODE;
+        }
+
+        // 2. 尝试直接转换为整数 (处理 "200", "404" 等情况)
+        try {
+            return Integer.parseInt(statusCodeStr);
+        } catch (NumberFormatException e) {
+            // 如果直接转换失败，说明是复合格式，继续下一步处理
+        }
+
+        // 3. 使用正则表达式处理 "x-200:修改成功" 或 "2xx" 等复杂情况
+        //    这个正则表达式会从字符串中提取第一个出现的数字序列
+        Pattern pattern = Pattern.compile("\\d+");
+        Matcher matcher = pattern.matcher(statusCodeStr);
+
+        if (matcher.find()) {
+            // 提取找到的数字字符串并转换为整数
+            String numericPart = matcher.group(0);
+            // 如果是 "2XX" 这种，可以替换 "X" 为 "0"
+            if (numericPart.length() == 1 && statusCodeStr.toLowerCase().contains("xx")) {
+                numericPart = numericPart + "00";
+            }
+            return Integer.parseInt(numericPart);
+        }
+
+        // 4. 如果所有尝试都失败了，返回默认值
+        return DEFAULT_CODE;
+    }
+
 
 
 }

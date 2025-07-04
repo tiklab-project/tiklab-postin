@@ -34,7 +34,7 @@ public class HttpApiController {
     @Autowired
     private HttpApiService httpApiService;
 
-    @Value("${base.url:null}")
+    @Value("${external.url:null}")
     String serverUrl;
 
     @RequestMapping(path="/createHttpApi",method = RequestMethod.POST)

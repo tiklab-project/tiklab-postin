@@ -203,7 +203,7 @@ public class OpenApi31XImport extends AbstractOpenApiImport implements OpenApiPr
                 }
             }
         }catch (Exception e){
-            throw new ApplicationException(ErrorCode.IMPORT_ERROR,e.getMessage());
+//            throw new ApplicationException(ErrorCode.IMPORT_ERROR,e.getMessage());
         }
     }
 
@@ -562,11 +562,8 @@ public class OpenApi31XImport extends AbstractOpenApiImport implements OpenApiPr
             apiResponse.setName(statusCode);
             apiResponse.setId(apiId);
             apiResponse.setHttpId(apiId);
-            if(statusCode.equals("default")){
-                apiResponse.setHttpCode(200);
-            }else {
-                apiResponse.setHttpCode(Integer.parseInt(statusCode));
-            }
+
+            apiResponse.setHttpCode(openApiCommonFn.parseHttpStatusCode(statusCode));
 
             if(responseItem.containsKey("content")){
                 JSONObject content = responseItem.getJSONObject("content");

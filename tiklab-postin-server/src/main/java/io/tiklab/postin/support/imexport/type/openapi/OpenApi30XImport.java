@@ -633,11 +633,8 @@ public class OpenApi30XImport extends AbstractOpenApiImport implements OpenApiPr
             apiResponse.setName(statusCode);
             apiResponse.setId(apiId);
             apiResponse.setHttpId(apiId);
-            if(statusCode.equals("default")){
-                apiResponse.setHttpCode(200);
-            }else {
-                apiResponse.setHttpCode(Integer.parseInt(statusCode));
-            }
+            apiResponse.setHttpCode(openApiCommonFn.parseHttpStatusCode(statusCode));
+
 
             if(responseItem.containsKey("content")){
                 JSONObject content = responseItem.getJSONObject("content");
