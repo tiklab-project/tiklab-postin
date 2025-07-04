@@ -64,22 +64,26 @@ public class PostInUnit {
     }
 
     public void message(Map<String, String> map){
-        SendMessageNotice sendMessageNotice = new SendMessageNotice();
-        String jsonString = JSONObject.toJSONString(map);
+        try {
+            SendMessageNotice sendMessageNotice = new SendMessageNotice();
+            String jsonString = JSONObject.toJSONString(map);
 
-        sendMessageNotice.setSendId(LoginContext.getLoginId());
-        sendMessageNotice.setSiteData(jsonString);
-        sendMessageNotice.setEmailData(jsonString);
-        sendMessageNotice.setDingdingData(jsonString);
-        sendMessageNotice.setQywechatData(jsonString);
+            sendMessageNotice.setSendId(LoginContext.getLoginId());
+            sendMessageNotice.setSiteData(jsonString);
+            sendMessageNotice.setEmailData(jsonString);
+            sendMessageNotice.setDingdingData(jsonString);
+            sendMessageNotice.setQywechatData(jsonString);
 
-        sendMessageNotice.setId("MESSAGE_NOTICE_ID");
-        sendMessageNotice.setBaseUrl(baseUrl);
+            sendMessageNotice.setId("MESSAGE_NOTICE_ID");
+            sendMessageNotice.setBaseUrl(baseUrl);
 
-        sendMessageNotice.setLink(map.get("link"));
-        sendMessageNotice.setAction(map.get("workspaceName"));
+            sendMessageNotice.setLink(map.get("link"));
+            sendMessageNotice.setAction(map.get("workspaceName"));
 
-        sendMessageNoticeService.sendMessageNotice(sendMessageNotice);
+            sendMessageNoticeService.sendMessageNotice(sendMessageNotice);
+        }catch (Exception e){
+
+        }
     }
 
 

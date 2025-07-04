@@ -153,6 +153,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         map.put("link","/workspace/overview/${workspaceId}");
         //日志
         postInUnit.log(LOG_TYPE_CREATE_ID,"workspace",map);
+
         //消息
         postInUnit.message(map);
 
