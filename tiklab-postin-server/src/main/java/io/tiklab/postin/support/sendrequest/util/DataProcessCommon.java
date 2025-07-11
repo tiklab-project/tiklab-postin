@@ -39,31 +39,31 @@ public class DataProcessCommon {
         //网址中的参数
         String urlParameter=request.getQueryString();
 
-        // 解析 获取header url  method
+        // 解析获取header、url、method
         for (String pair : urlParameter.split("&")) {
-            String[] keyValue = pair.split("=", 2); // 限制只分成两个
+            String[] keyValue = pair.split("=", 2); // 限制只分成两个部分
 
             if (keyValue.length < 2) continue;
 
-            if (keyValue[0].equals("pi-header")) {
-                String headerValue = keyValue[1];
+            String key = keyValue[0];
+            String value = URLDecoder.decode(keyValue[1], "UTF-8"); // 对所有参数值进行URL解码
 
-                for (String headerPair : headerValue.split(",")) {
-                    String[] headerKeyValue = headerPair.split(":", 2); // 同样防止值中含 ":"
-                    if (headerKeyValue.length == 2) {
-                        headers.add(headerKeyValue[0], headerKeyValue[1]);
-                    }
-                }
-            }
-
-            if (keyValue[0].equals("pi-url")) {
-                Url = URLDecoder.decode(keyValue[1], "UTF-8");
-            }
-
-            if (keyValue[0].equals("pi-method")) {
-                method = keyValue[1];
+            switch (key) {
+                case "pi-header":
+                    parseHeaders(headers, value);
+                    break;
+                case "pi-url":
+                    Url = value;
+                    break;
+                case "pi-method":
+                    method = value;
+                    break;
+                default:
+                    // 忽略其他参数
+                    break;
             }
         }
+
 
 
         HttpRequest httpRequest = new HttpRequest();
@@ -73,6 +73,31 @@ public class DataProcessCommon {
 
         return httpRequest;
     }
+
+    /**
+     * 解析请求头字符串
+     * @param headers HttpHeaders对象
+     * @param headerValue 编码后的请求头字符串
+     */
+    private void parseHeaders(HttpHeaders headers, String headerValue) {
+        if (headerValue == null || headerValue.trim().isEmpty()) {
+            return;
+        }
+
+        for (String headerPair : headerValue.split(",")) {
+            String[] headerKeyValue = headerPair.split(":", 2); // 防止值中包含":"
+            if (headerKeyValue.length == 2) {
+                String headerKey = headerKeyValue[0].trim();
+                String headerVal = headerKeyValue[1].trim();
+
+                // 验证请求头名称不为空
+                if (!headerKey.isEmpty()) {
+                    headers.add(headerKey, headerVal);
+                }
+            }
+        }
+    }
+
 
     /**
      * 处理响应头，把请求过后的响应头，和基本信息 重新构造传出去

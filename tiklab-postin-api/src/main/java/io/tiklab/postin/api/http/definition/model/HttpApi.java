@@ -61,6 +61,9 @@ public class HttpApi extends BaseModel {
     @ApiProperty(name = "raw",desc="raw")
     private RawParam rawParam;
 
+    @ApiProperty(name = "auth",desc="认证")
+    private AuthParam auth;
+
     @ApiProperty(name = "responseHeaderList",desc="响应头列表")
     private List<ResponseHeader> responseHeaderList;
 
@@ -146,6 +149,14 @@ public class HttpApi extends BaseModel {
 
     public void setRawParam(RawParam rawParam) {
         this.rawParam = rawParam;
+    }
+
+    public AuthParam getAuth() {
+        return auth;
+    }
+
+    public void setAuth(AuthParam auth) {
+        this.auth = auth;
     }
 
     public List<ResponseHeader> getResponseHeaderList() {

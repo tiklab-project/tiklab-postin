@@ -21,4 +21,14 @@ public class MagicValue {
     public static final String REQUEST_BODY_TYPE_JSON="json";
     public static final String REQUEST_BODY_TYPE_RAW="raw";
 
+    public static final String AUTHENTICATION_TYPE_NONE="none";
+    public static final String AUTHENTICATION_TYPE_APIKEY="apikey";
+    public static final String AUTHENTICATION_TYPE_BEARER="bearer";
+    public static final String AUTHENTICATION_TYPE_BASIC="basic";
+    public static final String AUTHENTICATION_TYPE_JWT="jwt";
+    public static final String AUTHENTICATION_TYPE_DIGEST="digest";
+    public static final String AUTHENTICATION_TYPE_NTLM="ntlm";
+    public static final String AUTHENTICATION_TYPE_OAUTH1="oauth1";
+    public static final String AUTHENTICATION_TYPE_OAUTH2="oauth2";
+
 }

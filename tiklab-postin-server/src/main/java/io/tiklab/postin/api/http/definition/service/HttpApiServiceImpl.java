@@ -72,6 +72,9 @@ public class HttpApiServiceImpl implements HttpApiService {
     RawParamService rawParamService;
 
     @Autowired
+    AuthParamService authParamService;
+
+    @Autowired
     ResponseHeaderService responseHeaderService;
 
     @Autowired
@@ -226,7 +229,6 @@ public class HttpApiServiceImpl implements HttpApiService {
         String httpId = httpApi.getId();
 
 
-
         //获取请求头中的数据
         List<RequestHeader> requestHeaderList = requestHeaderService.findRequestHeaderList(new RequestHeaderQuery().setApiId(httpId));
         if(CollectionUtils.isNotEmpty(requestHeaderList)){
@@ -279,6 +281,12 @@ public class HttpApiServiceImpl implements HttpApiService {
                     httpApi.setRawParam(rawParam);
                 }
             }
+        }
+
+        //获取认证
+        AuthParam authParam = authParamService.findAuthParam(httpId);
+        if(!ObjectUtils.isEmpty(authParam)){
+            httpApi.setAuth(authParam);
         }
 
         //获取响应里的参数
