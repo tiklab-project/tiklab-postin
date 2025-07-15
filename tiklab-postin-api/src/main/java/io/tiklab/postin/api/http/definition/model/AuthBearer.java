@@ -19,8 +19,8 @@ public class AuthBearer extends BaseModel {
     @ApiProperty(name="apiId",desc="所属接口")
     private String apiId;
 
-    @ApiProperty(name="key",desc="固定的名字 Authorization")
-    private String key;
+    @ApiProperty(name="name",desc="固定的名字 Authorization")
+    private String name;
 
     @ApiProperty(name="value",desc="属性值")
     private String value;
@@ -41,12 +41,12 @@ public class AuthBearer extends BaseModel {
         this.apiId = apiId;
     }
 
-    public String getKey() {
-        return key;
+    public String getName() {
+        return name;
     }
 
-    public void setKey(String key) {
-        this.key = key;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getValue() {

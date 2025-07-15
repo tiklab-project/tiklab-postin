@@ -19,8 +19,8 @@ public class AuthApiKey extends BaseModel {
     @ApiProperty(name="apiId",desc="所属接口")
     private String apiId;
 
-    @ApiProperty(name="key",desc="自定义的属性名")
-    private String key;
+    @ApiProperty(name="name",desc="自定义的属性名")
+    private String name;
 
     @ApiProperty(name="value",desc="属性值")
     private String value;
@@ -44,12 +44,12 @@ public class AuthApiKey extends BaseModel {
         this.apiId = apiId;
     }
 
-    public String getKey() {
-        return key;
+    public String getName() {
+        return name;
     }
 
-    public void setKey(String key) {
-        this.key = key;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getValue() {

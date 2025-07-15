@@ -23,8 +23,8 @@ public class AuthBearerEntity implements Serializable {
     private String apiId;
 
     //属性名，固定的Authorization
-    @Column(name = "key")
-    private String key;
+    @Column(name = "name")
+    private String name;
 
     //属性值，Bearer <token>
     @Column(name = "value")
@@ -46,12 +46,12 @@ public class AuthBearerEntity implements Serializable {
         this.apiId = apiId;
     }
 
-    public String getKey() {
-        return key;
+    public String getName() {
+        return name;
     }
 
-    public void setKey(String key) {
-        this.key = key;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getValue() {

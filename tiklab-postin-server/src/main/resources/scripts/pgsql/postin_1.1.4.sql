@@ -10,14 +10,14 @@ CREATE TABLE postin_http_auth_apikey(
         id VARCHAR(32) PRIMARY KEY,
         api_id VARCHAR(32),
         apikey_in VARCHAR(8),
-        key VARCHAR(128),
+        name VARCHAR(128),
         value text
 );
 -- 创建 BearerToken认证 表
 CREATE TABLE postin_http_auth_bearer(
         id VARCHAR(32) PRIMARY KEY,
         api_id VARCHAR(32),
-        key VARCHAR(32),
+        name VARCHAR(32),
         value text
 );
 

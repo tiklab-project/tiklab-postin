@@ -23,8 +23,8 @@ public class AuthApiKeyEntity implements Serializable {
     private String apiId;
 
     //自定义的属性名
-    @Column(name = "key")
-    private String key;
+    @Column(name = "name")
+    private String name;
 
     //属性值
     @Column(name = "value")
@@ -51,12 +51,12 @@ public class AuthApiKeyEntity implements Serializable {
         this.apiId = apiId;
     }
 
-    public String getKey() {
-        return key;
+    public String getName() {
+        return name;
     }
 
-    public void setKey(String key) {
-        this.key = key;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getValue() {

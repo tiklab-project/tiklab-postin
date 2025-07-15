@@ -31,7 +31,7 @@ public class AuthBearerServiceImpl implements AuthBearerService {
 
     @Override
     public String createAuthBearer(@NotNull @Valid AuthBearer authBearer) {
-        authBearer.setKey("Authorization");
+        authBearer.setName("Authorization");
         AuthBearerEntity authBearerEntity = BeanMapper.map(authBearer, AuthBearerEntity.class);
 
         return authBearerDao.createAuthBearer(authBearerEntity);
