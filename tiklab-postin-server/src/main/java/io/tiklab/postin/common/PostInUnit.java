@@ -7,8 +7,8 @@ import io.tiklab.security.logging.logging.model.Logging;
 import io.tiklab.security.logging.logging.model.LoggingType;
 import io.tiklab.security.logging.logging.service.LoggingByTempService;
 import io.tiklab.user.user.model.User;
-import io.tiklab.user.user.service.UserService;
 import io.tiklab.eam.common.context.LoginContext;
+import io.tiklab.user.user.service.UserProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -23,7 +23,7 @@ import java.util.UUID;
 public class PostInUnit {
 
     @Autowired
-    UserService userService;
+    UserProcessor userService;
 
     @Value("${base.url:null}")
     String baseUrl;

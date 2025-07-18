@@ -19,7 +19,7 @@ import io.tiklab.postin.support.apistatus.model.ApiStatus;
 import io.tiklab.postin.support.apistatus.service.ApiStatusService;
 import io.tiklab.rpc.annotation.Exporter;
 import io.tiklab.user.user.model.User;
-import io.tiklab.user.user.service.UserService;
+import io.tiklab.user.user.service.UserProcessor;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -87,7 +87,7 @@ public class HttpApiServiceImpl implements HttpApiService {
     ApiStatusService apiStatusService;
 
     @Autowired
-    UserService userService;
+    UserProcessor userService;
 
     @Autowired
     MockService mockService;

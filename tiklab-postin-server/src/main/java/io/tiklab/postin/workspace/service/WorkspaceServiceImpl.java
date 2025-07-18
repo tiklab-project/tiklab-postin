@@ -33,7 +33,7 @@ import io.tiklab.user.dmUser.model.DmUser;
 import io.tiklab.user.dmUser.model.DmUserQuery;
 import io.tiklab.user.dmUser.service.DmUserService;
 import io.tiklab.user.user.model.User;
-import io.tiklab.user.user.service.UserService;
+import io.tiklab.user.user.service.UserProcessor;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -96,7 +96,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
     RoleUserService roleUserService;
 
     @Autowired
-    UserService userService;
+    UserProcessor userService;
 
 
 //    @Autowired

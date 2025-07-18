@@ -6,7 +6,7 @@ import io.tiklab.postin.support.system.model.SystemCount;
 import io.tiklab.privilege.role.service.RoleService;
 import io.tiklab.user.directory.service.UserDirService;
 import io.tiklab.user.orga.service.OrgaService;
-import io.tiklab.user.user.service.UserService;
+import io.tiklab.user.user.service.UserProcessor;
 import io.tiklab.user.usergroup.service.UserGroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 public class SystemCountServicelmpl implements SystemCountService {
 
     @Autowired
-    UserService userService;
+    UserProcessor userService;
 
     @Autowired
     OrgaService orgaService;
