@@ -1,5 +1,6 @@
 package io.tiklab.postin.workspace.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.tiklab.postin.annotation.ApiModel;
 import io.tiklab.postin.annotation.ApiProperty;
 import io.tiklab.toolkit.beans.annotation.Mapper;
@@ -13,6 +14,7 @@ import io.tiklab.privilege.role.model.PatchUser;
 import io.tiklab.user.user.model.User;
 
 import javax.validation.constraints.NotNull;
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -85,6 +87,10 @@ public class Workspace extends BaseModel {
     @ApiProperty(name="iconUrl",desc="图标地址",eg = "a.png")
     private String iconUrl;
 
+    @ApiProperty(name="createTime",desc="创建时间")
+    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
+    private Timestamp createTime;
+
 
     private Integer isFollow;
     private List<PatchUser> userList;
@@ -149,5 +155,13 @@ public class Workspace extends BaseModel {
 
     public void setUserList(List<PatchUser> userList) {
         this.userList = userList;
+    }
+
+    public Timestamp getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Timestamp createTime) {
+        this.createTime = createTime;
     }
 }

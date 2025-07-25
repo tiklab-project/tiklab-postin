@@ -41,6 +41,7 @@ import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.sql.Timestamp;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -118,6 +119,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         //创建项目
         WorkspaceEntity workspaceEntity = BeanMapper.map(workspace, WorkspaceEntity.class);
         workspaceEntity.setUserId(userId);
+        workspaceEntity.setCreateTime(new Timestamp(System.currentTimeMillis()));
         String workspaceId = workspaceDao.createWorkspace(workspaceEntity);
 
 

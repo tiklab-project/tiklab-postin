@@ -7,6 +7,7 @@ import io.tiklab.dal.jpa.annotation.Id;
 import io.tiklab.dal.jpa.annotation.Table;import io.tiklab.dal.jpa.annotation.Entity;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 
 /**
  * 空间 实体
@@ -34,6 +35,9 @@ public class WorkspaceEntity implements Serializable {
     // 是否可见
     @Column(name = "visibility")
     private Integer visibility;
+
+    @Column(name = "create_time")
+    private Timestamp createTime;
 
     // icon路径
     @Column(name = "icon_url",length = 256)
@@ -85,5 +89,13 @@ public class WorkspaceEntity implements Serializable {
 
     public void setIconUrl(String iconUrl) {
         this.iconUrl = iconUrl;
+    }
+
+    public Timestamp getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Timestamp createTime) {
+        this.createTime = createTime;
     }
 }

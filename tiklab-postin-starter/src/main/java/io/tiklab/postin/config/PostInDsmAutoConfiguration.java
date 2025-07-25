@@ -190,6 +190,13 @@ public class PostInDsmAutoConfiguration {
                 })
                 .get();
         versionList.add(dsmVersion);
+        dsmVersion = DsmVersionBuilder.instance()
+                .version("1.1.5")
+                .db(new String[]{
+                        "postin_1.1.5"
+                })
+                .get();
+        versionList.add(dsmVersion);
 
 
         return versionList;
