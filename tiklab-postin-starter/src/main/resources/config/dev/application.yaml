@@ -56,3 +56,10 @@ external:
   url: http://192.168.10.34:8090
 
 
+postin-agent:
+  name: agent-default   # 唯一
+  #  tenant: z2z5x9a5
+  #  websocket-url: "ws://172.13.1.18:8090/websocket"
+  websocket-url:  "ws://localhost:8090/websocket"
+#  websocket-url: "ws://testhubo.tiklab.cn/websocket"
+#  websocket-url: "ws://192.168.10.34:8082/websocket"

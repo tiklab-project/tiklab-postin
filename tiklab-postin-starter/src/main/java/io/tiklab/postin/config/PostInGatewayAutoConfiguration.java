@@ -85,7 +85,8 @@ public class PostInGatewayAutoConfiguration {
                         "/sql",
                         "/port",
                         "/docletReport",
-                        "/openapi/doc"
+                        "/openapi/doc",
+                        "/websocket"
 
                 })
                 .get();

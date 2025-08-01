@@ -1,5 +1,6 @@
 package io.tiklab.postin.support.environment.service;
 
+import com.alibaba.fastjson.JSONObject;
 import io.tiklab.core.page.Pagination;
 import io.tiklab.core.page.PaginationBuilder;
 import io.tiklab.dal.jpa.criterial.condition.DeleteCondition;
@@ -108,4 +109,24 @@ public class EnvVariableServiceImpl implements EnvVariableService {
 
         return PaginationBuilder.build(pagination,envVariableList);
     }
+
+    /**
+     * 获取变量
+     */
+    @Override
+    public JSONObject getVariable (String envId){
+        JSONObject variableJson = new JSONObject();
+
+        EnvVariableQuery variableQuery = new EnvVariableQuery();
+        variableQuery.setEnvId(envId);
+        List<EnvVariable> variableList = findEnvVariableList(variableQuery);
+        if(variableList!=null&&variableList.size()>0){
+            for(EnvVariable variable:variableList){
+                variableJson.put(variable.getName(),variable.getValue());
+            }
+        }
+
+        return variableJson;
+    }
+
 }

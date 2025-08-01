@@ -1,5 +1,6 @@
 package io.tiklab.postin.support.environment.service;
 
+import com.alibaba.fastjson.JSONObject;
 import io.tiklab.core.page.Pagination;
 import io.tiklab.postin.support.environment.model.EnvVariable;
 import io.tiklab.postin.support.environment.model.EnvVariableQuery;
@@ -76,4 +77,11 @@ public interface EnvVariableService {
     */
     Pagination<EnvVariable> findEnvVariablePage(EnvVariableQuery envVariableQuery);
 
+
+    /**
+     * 获取环境变量
+     * @param envId
+     * @return
+     */
+    JSONObject getVariable (String envId);
 }

@@ -50,7 +50,7 @@
 
         <tiklab-postin-exportpdf-plugin.version>1.0.1-SNAPSHOT</tiklab-postin-exportpdf-plugin.version>
         <tiklab-postin-version-plugin.version>1.0.1-SNAPSHOT</tiklab-postin-version-plugin.version>
-
+        <tiklab-postin-agent.version>1.0.2</tiklab-postin-agent.version>
         <!--第三方-->
         <xdoclet.version>1.2.3</xdoclet.version>
         <maven-invoker.version>3.1.0</maven-invoker.version>
@@ -58,6 +58,7 @@
         <hutool-all.version>4.5.1</hutool-all.version>
         <itextpdf.version>5.5.5</itextpdf.version>
         <itext-asian.version>5.2.0</itext-asian.version>
+        <quartz.version>2.3.2</quartz.version>
     </properties>
 
     <dependencyManagement>
@@ -242,6 +243,12 @@
                 <artifactId>tiklab-postin-server</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>io.tiklab</groupId>
+                <artifactId>tiklab-postin-agent-server</artifactId>
+                <version>${tiklab-postin-agent.version}</version>
+            </dependency>
+
 
             <!--第三方-->
             <dependency>
@@ -274,7 +281,11 @@
                 <artifactId>itext-asian</artifactId>
                 <version>${itext-asian.version}</version>
             </dependency>
-
+            <dependency>
+                <groupId>org.quartz-scheduler</groupId>
+                <artifactId>quartz</artifactId>
+                <version>${quartz.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
