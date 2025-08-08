@@ -64,12 +64,15 @@ public class CategoryAutoDao {
 //    public CategoryAutoEntity findCategory(String id){
 //        return jpaTemplate.findOne(CategoryAutoEntity.class,id);
 //    }
-    public CategoryAutoEntity findCategory(String id){
+    public CategoryAutoEntity findCategory(String id) {
         String sql = "SELECT name, id, workspace_id, parent_id " +
                 "FROM postin_node " +
                 "WHERE id = ? AND type = 'category'";
-        return jpaTemplate.getJdbcTemplate().queryForObject(sql, new Object[]{id}, new BeanPropertyRowMapper<>(CategoryAutoEntity.class));
+        List<CategoryAutoEntity> list = jpaTemplate.getJdbcTemplate()
+                .query(sql, new Object[]{id}, new BeanPropertyRowMapper<>(CategoryAutoEntity.class));
+        return list.isEmpty() ? null : list.get(0);
     }
+
 
 
     /**
