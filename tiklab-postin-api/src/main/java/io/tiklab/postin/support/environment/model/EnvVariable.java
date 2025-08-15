@@ -22,6 +22,9 @@ public class EnvVariable extends BaseModel {
     @ApiProperty(name="envId",desc="环境Id")
     private String envId;
 
+    @ApiProperty(name="workspaceId",desc="工作空间Id")
+    private String workspaceId;
+
     @ApiProperty(name="name",desc="变量名称")
     private String name;
 
@@ -49,6 +52,14 @@ public class EnvVariable extends BaseModel {
 
     public String getEnvId() {
         return envId;
+    }
+
+    public String getWorkspaceId() {
+        return workspaceId;
+    }
+
+    public void setWorkspaceId(String workspaceId) {
+        this.workspaceId = workspaceId;
     }
 
     public void setEnvId(String envId) {

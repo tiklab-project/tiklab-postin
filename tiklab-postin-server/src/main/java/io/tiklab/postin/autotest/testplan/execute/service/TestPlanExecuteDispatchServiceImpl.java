@@ -3,7 +3,10 @@ package io.tiklab.postin.autotest.testplan.execute.service;
 import com.alibaba.fastjson.JSONObject;
 import io.tiklab.postin.autotest.common.utils.TestUtil;
 import io.tiklab.postin.support.environment.model.EnvServer;
+import io.tiklab.postin.support.environment.model.EnvServerQuery;
+import io.tiklab.postin.support.environment.model.Environment;
 import io.tiklab.postin.support.environment.service.EnvServerService;
+import io.tiklab.postin.support.environment.service.EnvironmentService;
 import io.tiklab.rpc.annotation.Exporter;
 import io.tiklab.postin.common.MagicValue;
 import io.tiklab.postin.autotest.instance.model.Instance;
@@ -61,6 +64,8 @@ public class TestPlanExecuteDispatchServiceImpl implements TestPlanExecuteDispat
     TestPlanCaseInstanceBindService testPlanCaseInstanceBindService;
 
     @Autowired
+    EnvironmentService environmentService;
+    @Autowired
     EnvServerService apiEnvService;
 
 //    @Autowired
@@ -95,7 +100,10 @@ public class TestPlanExecuteDispatchServiceImpl implements TestPlanExecuteDispat
 
             //如果传进来的是apiEnvId，需要获取preUrl
             if(testPlanTestData.getApiEnvId()!=null){
-                EnvServer apiEnv = apiEnvService.findEnvServer(testPlanTestData.getApiEnvId());
+                EnvServerQuery envServerQuery = new EnvServerQuery();
+                envServerQuery.setEnvId(testPlanTestData.getApiEnvId());
+                List<EnvServer> envServerList = apiEnvService.findEnvServerList(envServerQuery);
+                EnvServer apiEnv = envServerList.get(0);
                 testPlanTestData.setApiPreUrl(apiEnv.getUrl());
             }
 
@@ -163,10 +171,10 @@ public class TestPlanExecuteDispatchServiceImpl implements TestPlanExecuteDispat
                 case MagicValue.CASE_TYPE_API_SCENE :
                     testPlanExecuteApiDispatch.exeApiScene(testPlanCaseInstanceBind, testPlanTestData);
                     break;
-
-                case MagicValue.CASE_TYPE_API_PERFORM :
-                    testPlanExecuteApiDispatch.exeApiPerform(testPlanCaseInstanceBind, testPlanTestData);
-                    break;
+//
+//                case MagicValue.CASE_TYPE_API_PERFORM :
+//                    testPlanExecuteApiDispatch.exeApiPerform(testPlanCaseInstanceBind, testPlanTestData);
+//                    break;
 
                 default:
                     break;

@@ -12,6 +12,7 @@ import io.tiklab.postin.autotest.test.service.TestCaseService;
 import io.tiklab.postin.autotest.category.service.CategoryAutoService;
 import io.tiklab.postin.autotest.http.scene.cases.dao.ApiSceneCaseDao;
 import io.tiklab.postin.autotest.http.scene.cases.entity.ApiSceneCaseEntity;
+import io.tiklab.postin.autotest.testplan.cases.service.TestPlanCaseService;
 import io.tiklab.postin.support.environment.service.EnvVariableService;
 import io.tiklab.toolkit.beans.BeanMapper;
 import io.tiklab.core.page.Pagination;
@@ -62,6 +63,9 @@ public class ApiSceneCaseServiceImpl implements ApiSceneCaseService {
     @Autowired
     ApiPerfStepService apiPerfStepService;
 
+
+    @Autowired
+    TestPlanCaseService testPlanCaseService;
 
     @Override
     public String createApiSceneCase(@NotNull @Valid ApiSceneCase apiSceneCase) {
@@ -194,7 +198,8 @@ public class ApiSceneCaseServiceImpl implements ApiSceneCaseService {
     public Boolean isApiSceneBind(String id) {
         Boolean apiSceneExist = apiPerfStepService.isApiSceneExist(id);
 
-        if(apiSceneExist){
+        Boolean caseExist = testPlanCaseService.isCaseExist(id);
+        if(apiSceneExist||caseExist){
             return true;
         }else {
             return false;

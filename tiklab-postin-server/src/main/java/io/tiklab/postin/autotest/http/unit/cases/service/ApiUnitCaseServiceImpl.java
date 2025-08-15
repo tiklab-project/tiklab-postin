@@ -9,6 +9,7 @@ import io.tiklab.postin.autotest.instance.service.InstanceService;
 import io.tiklab.postin.autotest.test.model.TestCase;
 import io.tiklab.postin.autotest.test.model.TestCaseQuery;
 import io.tiklab.postin.autotest.test.service.TestCaseService;
+import io.tiklab.postin.autotest.testplan.cases.service.TestPlanCaseService;
 import io.tiklab.toolkit.beans.BeanMapper;
 import io.tiklab.core.page.Pagination;
 import io.tiklab.core.page.PaginationBuilder;
@@ -81,6 +82,9 @@ public class ApiUnitCaseServiceImpl implements ApiUnitCaseService {
 
     @Autowired
     ApiSceneStepService apiSceneStepService;
+
+    @Autowired
+    TestPlanCaseService testPlanCaseService;
 
     @Override
     public String createApiUnitCase(@NotNull @Valid ApiUnitCase apiUnitCase) {
@@ -206,9 +210,9 @@ public class ApiUnitCaseServiceImpl implements ApiUnitCaseService {
     public Boolean isApiUnitBind(String id){
         Boolean apiSceneStepExist = apiSceneStepService.isApiUnitExist(id);
 
-//        Boolean caseExist = testPlanCaseService.isCaseExist(id);
+        Boolean caseExist = testPlanCaseService.isCaseExist(id);
 
-        if(apiSceneStepExist){
+        if(apiSceneStepExist||caseExist){
             return true;
         }else {
             return false;

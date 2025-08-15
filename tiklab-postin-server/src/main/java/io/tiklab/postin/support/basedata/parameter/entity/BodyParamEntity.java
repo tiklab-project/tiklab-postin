@@ -1,36 +1,34 @@
-package io.tiklab.postin.api.apix.entity;
+package io.tiklab.postin.support.basedata.parameter.entity;
 
 
-import io.tiklab.dal.jpa.annotation.Column;
-import io.tiklab.dal.jpa.annotation.GeneratorValue;
-import io.tiklab.dal.jpa.annotation.Id;
-import io.tiklab.dal.jpa.annotation.Table;import io.tiklab.dal.jpa.annotation.Entity;
+import io.tiklab.dal.jpa.annotation.*;
 
 import java.io.Serializable;
 
 /**
- * 请求头 实体
+ * 基础数据中的body公共参数 formdata/formurlencoded
+ * http协议
  */
 @Entity
-@Table(name="postin_api_request_header")
-public class RequestHeaderEntity implements Serializable {
+@Table(name="postin_basedata_body")
+public class BodyParamEntity implements Serializable {
 
     @Id
     @GeneratorValue(length = 12)
-    @Column(name = "id",length = 40)
+    @Column(name = "id")
     private String id;
 
     //所属接口
-    @Column(name = "api_id",length = 40)
-    private String apiId;
-
-    //所属空间用于项目级
-    @Column(name = "workspace_id",length = 40)
+    @Column(name = "workspace_id")
     private String workspaceId;
 
     //参数名称
-    @Column(name = "header_name",length = 64,notNull = true)
-    private String headerName;
+    @Column(name = "param_name",length = 64,notNull = true)
+    private String paramName;
+
+    //数据类型
+    @Column(name = "data_type",length = 32,notNull = true)
+    private String dataType;
 
     //是否必选
     @Column(name = "required",length = 2,notNull = true)
@@ -41,7 +39,7 @@ public class RequestHeaderEntity implements Serializable {
     private String desc;
 
     //示例值
-    @Column(name = "value",length = 128)
+    @Column(name = "value",length = 256)
     private String value;
 
     //排序
@@ -56,14 +54,6 @@ public class RequestHeaderEntity implements Serializable {
         this.id = id;
     }
 
-    public String getApiId() {
-        return apiId;
-    }
-
-    public void setApiId(String apiId) {
-        this.apiId = apiId;
-    }
-
     public String getWorkspaceId() {
         return workspaceId;
     }
@@ -72,12 +62,20 @@ public class RequestHeaderEntity implements Serializable {
         this.workspaceId = workspaceId;
     }
 
-    public String getHeaderName() {
-        return headerName;
+    public String getParamName() {
+        return paramName;
     }
 
-    public void setHeaderName(String headerName) {
-        this.headerName = headerName;
+    public void setParamName(String paramName) {
+        this.paramName = paramName;
+    }
+
+    public String getDataType() {
+        return dataType;
+    }
+
+    public void setDataType(String dataType) {
+        this.dataType = dataType;
     }
 
     public Integer getRequired() {

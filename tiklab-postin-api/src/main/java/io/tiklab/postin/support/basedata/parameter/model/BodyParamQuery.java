@@ -1,21 +1,17 @@
-package io.tiklab.postin.api.apix.model;
+package io.tiklab.postin.support.basedata.parameter.model;
 
+import io.tiklab.core.order.Order;
+import io.tiklab.core.order.OrderBuilders;
 import io.tiklab.core.page.Page;
 import io.tiklab.postin.annotation.ApiModel;
 import io.tiklab.postin.annotation.ApiProperty;
-import io.tiklab.core.order.Order;
-import io.tiklab.core.order.OrderBuilders;
 
 import java.util.List;
 
 @ApiModel
-public class QueryParamQuery {
+public class BodyParamQuery {
 
-    @ApiProperty(name="apiId",desc="所属接口")
-    private String apiId;
-
-    //所属空间用于项目级
-    @ApiProperty(name = "workspace_id")
+    @ApiProperty(name ="workspaceId",desc = "空间ID，精确匹配")
     private String workspaceId;
 
     @ApiProperty(name ="orderParams",desc = "排序参数")
@@ -23,15 +19,6 @@ public class QueryParamQuery {
 
     @ApiProperty(name ="pageParam",desc = "分页参数")
     private Page pageParam = new Page();
-
-    public String getApiId() {
-        return apiId;
-    }
-
-    public QueryParamQuery setApiId(String apiId) {
-        this.apiId = apiId;
-        return this;
-    }
 
     public String getWorkspaceId() {
         return workspaceId;

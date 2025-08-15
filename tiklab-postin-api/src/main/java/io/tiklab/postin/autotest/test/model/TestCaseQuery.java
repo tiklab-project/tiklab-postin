@@ -27,6 +27,9 @@ public class TestCaseQuery implements Serializable {
     @ApiProperty(name="仓库Id",desc="workspaceId")
     private String workspaceId;
 
+    @ApiProperty(name="接口Id",desc="apiId")
+    private String apiId;
+
     @ApiProperty(name = "testType", desc = "测试类型：api，app")
     private String testType;
 
@@ -88,6 +91,14 @@ public class TestCaseQuery implements Serializable {
 
     public void setWorkspaceId(String workspaceId) {
         this.workspaceId = workspaceId;
+    }
+
+    public String getApiId() {
+        return apiId;
+    }
+
+    public void setApiId(String apiId) {
+        this.apiId = apiId;
     }
 
     public String getTestType() {

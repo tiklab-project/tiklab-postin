@@ -21,6 +21,10 @@ public class EnvVariableEntity implements Serializable {
     @Column(name="env_id")
     private String envId;
 
+
+    @Column(name="workspace_id")
+    private String workspaceId;
+
     // 变量名称
     @Column(name = "name")
     private String name;
@@ -47,6 +51,14 @@ public class EnvVariableEntity implements Serializable {
 
     public void setEnvId(String envId) {
         this.envId = envId;
+    }
+
+    public String getWorkspaceId() {
+        return workspaceId;
+    }
+
+    public void setWorkspaceId(String workspaceId) {
+        this.workspaceId = workspaceId;
     }
 
     public String getName() {

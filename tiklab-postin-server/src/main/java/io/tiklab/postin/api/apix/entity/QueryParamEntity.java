@@ -24,6 +24,10 @@ public class QueryParamEntity implements Serializable {
     @Column(name = "api_id",length = 40)
     private String apiId;
 
+    //所属空间用于项目级
+    @Column(name = "workspace_id")
+    private String workspaceId;
+
     //参数名称
     @Column(name = "param_name",length = 64,notNull = true)
     private String paramName;
@@ -58,6 +62,14 @@ public class QueryParamEntity implements Serializable {
 
     public void setApiId(String apiId) {
         this.apiId = apiId;
+    }
+
+    public String getWorkspaceId() {
+        return workspaceId;
+    }
+
+    public void setWorkspaceId(String workspaceId) {
+        this.workspaceId = workspaceId;
     }
 
     public String getParamName() {

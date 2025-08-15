@@ -107,6 +107,7 @@ public class NodeDao {
                 .eq("node.type",        nodeQuery.getType())
                 .eq("node.parentId",    nodeQuery.getParentId())
                 .like("node.name",      nodeQuery.getName())
+                .in("node.type",        nodeQuery.getApiTypeList())
                 .orders(nodeQuery.getOrderParams())
                 .get();
 

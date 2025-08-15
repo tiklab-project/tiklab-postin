@@ -83,6 +83,7 @@ public class EnvVariableDao {
     public List<EnvVariableEntity> findEnvVariableList(EnvVariableQuery envVariableQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(EnvVariableEntity.class)
                 .eq("envId",envVariableQuery.getEnvId())
+                .eq("workspaceId",envVariableQuery.getWorkspaceId())
                 .orders(envVariableQuery.getOrderParams())
                 .get();
         return jpaTemplate.findList(queryCondition, EnvVariableEntity.class);
@@ -96,6 +97,7 @@ public class EnvVariableDao {
     public Pagination<EnvVariableEntity> findEnvVariablePage(EnvVariableQuery envVariableQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(EnvVariableEntity.class)
                 .eq("envId",envVariableQuery.getEnvId())
+                .eq("workspaceId",envVariableQuery.getWorkspaceId())
                 .pagination(envVariableQuery.getPageParam())
                 .orders(envVariableQuery.getOrderParams())
                 .get();

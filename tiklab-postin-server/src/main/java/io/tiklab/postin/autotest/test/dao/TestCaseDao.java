@@ -151,6 +151,7 @@ public class TestCaseDao {
         QueryBuilders queryBuilders = QueryBuilders.createQuery(TestCasesEntity.class)
                 .eq("workspaceId",testCaseQuery.getWorkspaceId())
                 .eq("categoryId", testCaseQuery.getCategoryId())
+                .eq("apiId",testCaseQuery.getApiId())
                 .eq("testType",testCaseQuery.getTestType())
                 .eq("caseType",testCaseQuery.getCaseType())
                 .eq("createUser",testCaseQuery.getCreateUser())
@@ -183,6 +184,7 @@ public class TestCaseDao {
     public Pagination<TestCasesEntity> findTestCasePage(TestCaseQuery testCaseQuery) {
         QueryBuilders queryBuilders = QueryBuilders.createQuery(TestCasesEntity.class)
                 .eq("workspaceId", testCaseQuery.getWorkspaceId())
+                .eq("apiId",testCaseQuery.getApiId())
                 .eq("testType", testCaseQuery.getTestType())
                 .eq("caseType", testCaseQuery.getCaseType())
                 .eq("status", testCaseQuery.getStatus())

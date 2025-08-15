@@ -85,6 +85,7 @@ public class QueryParamDao{
     public List<QueryParamEntity> findQueryParamList(QueryParamQuery queryParamQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(QueryParamEntity.class)
                 .eq("apiId", queryParamQuery.getApiId())
+                .eq("workspaceId", queryParamQuery.getWorkspaceId())
                 .orders(queryParamQuery.getOrderParams())
                 .get();
         return jpaTemplate.findList(queryCondition, QueryParamEntity.class);
@@ -98,6 +99,7 @@ public class QueryParamDao{
     public Pagination<QueryParamEntity> findQueryParamPage(QueryParamQuery queryParamQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(QueryParamEntity.class)
                 .eq("apiId", queryParamQuery.getApiId())
+                .eq("workspaceId", queryParamQuery.getWorkspaceId())
                 .pagination(queryParamQuery.getPageParam())
                 .orders(queryParamQuery.getOrderParams())
                 .get();
