@@ -160,25 +160,20 @@ public class OperateDatabaseServiceImpl implements OperateDatabaseService {
         DatabaseConnectConfig config = dbConnect.getConfig();
         String url = postInUnit.buildJdbcUrl(dbConnect.getType(), config);
 
-        try (Connection conn = DriverManager.getConnection(url, config.getUserName(), config.getPassword());
-             Statement stmt = conn.createStatement()) {
+        try (Connection conn = DriverManager.getConnection(
+                url, config.getUserName(), config.getPassword());
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(operateDatabase.getSqlText())) {
 
-            boolean hasResultSet = stmt.execute(operateDatabase.getSqlText());
-            if (!hasResultSet) {
-                return handleQuery(stmt) ;
-            }else {
-                return buildSuccessResult("data", "result", stmt.getResultSet());
-            }
+            // 只处理查询结果
+            return handleQuery(rs);
 
         } catch (SQLException e) {
             return buildErrorResult("SQL执行失败: " + e.getMessage());
         } catch (Exception e) {
             return buildErrorResult("系统错误: " + e.getMessage());
         }
-
-
     }
-
 
     /**
      * 参数验证
@@ -201,32 +196,21 @@ public class OperateDatabaseServiceImpl implements OperateDatabaseService {
     /**
      * 处理查询结果
      */
-    private Map<String, Object> handleQuery(Statement stmt) throws SQLException {
+    private Map<String, Object> handleQuery(ResultSet rs) throws SQLException {
         List<Map<String, Object>> rows = new ArrayList<>();
+        ResultSetMetaData meta = rs.getMetaData();
+        int colCount = meta.getColumnCount();
 
-        try (ResultSet rs = stmt.getResultSet()) {
-            ResultSetMetaData meta = rs.getMetaData();
-            int colCount = meta.getColumnCount();
-
-            while (rs.next()) {
-                Map<String, Object> row = new LinkedHashMap<>();
-                for (int i = 1; i <= colCount; i++) {
-                    row.put(meta.getColumnLabel(i), rs.getObject(i));
-                }
-                rows.add(row);
+        while (rs.next()) {
+            Map<String, Object> row = new LinkedHashMap<>();
+            for (int i = 1; i <= colCount; i++) {
+                row.put(meta.getColumnLabel(i), rs.getObject(i));
             }
+            rows.add(row);
         }
 
         return buildSuccessResult("query", "data", rows);
     }
-
-    /**
-     * 处理更新结果
-     */
-//    private Map<String, Object> handleUpdate(Statement stmt) throws SQLException {
-//        int updateCount = stmt.getUpdateCount();
-//        return buildSuccessResult("update", "affectedRows", updateCount);
-//    }
 
     /**
      * 构建成功结果
@@ -256,7 +240,6 @@ public class OperateDatabaseServiceImpl implements OperateDatabaseService {
     private boolean isBlank(String str) {
         return str == null || str.trim().isEmpty();
     }
-
 
 
 }
