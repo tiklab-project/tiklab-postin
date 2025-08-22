@@ -24,12 +24,6 @@ public class ApiRequest extends BaseModel {
     @ApiProperty(name="bodyType",desc="请求体类型")
     private java.lang.String bodyType;
 
-    @ApiProperty(name="preScript",desc="前置脚本")
-    private java.lang.String preScript;
-
-    @ApiProperty(name="afterScript",desc="后置脚本")
-    private java.lang.String afterScript;
-
     public java.lang.String getId() {
         return id;
     }
@@ -53,18 +47,6 @@ public class ApiRequest extends BaseModel {
     public void setBodyType(java.lang.String bodyType) {
         this.bodyType = bodyType;
     }
-    public java.lang.String getPreScript() {
-        return preScript;
-    }
 
-    public void setPreScript(java.lang.String preScript) {
-        this.preScript = preScript;
-    }
-    public java.lang.String getAfterScript() {
-        return afterScript;
-    }
 
-    public void setAfterScript(java.lang.String afterScript) {
-        this.afterScript = afterScript;
-    }
 }

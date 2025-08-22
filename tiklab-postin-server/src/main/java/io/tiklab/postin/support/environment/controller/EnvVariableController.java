@@ -1,5 +1,6 @@
 package io.tiklab.postin.support.environment.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import io.tiklab.core.Result;
 import io.tiklab.core.page.Pagination;
 import io.tiklab.postin.annotation.Api;
@@ -96,6 +97,13 @@ public class EnvVariableController {
         Pagination<EnvVariable> pagination = envVariableService.findEnvVariablePage(envVariableQuery);
 
         return Result.ok(pagination);
+    }
+
+    @RequestMapping(path = "/batchCreateVariable",method = RequestMethod.POST)
+    public Result<Void> batchCreateVariable(@RequestBody @Valid @NotNull JSONObject jsonObject){
+        envVariableService.batchCreateVariable(jsonObject);
+
+        return Result.ok();
     }
 
 }

@@ -96,6 +96,10 @@
             <artifactId>tiklab-dal-jpa</artifactId>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>io.tiklab</groupId>
+            <artifactId>tiklab-dsm-core</artifactId>
+        </dependency>
 
 
         <dependency>

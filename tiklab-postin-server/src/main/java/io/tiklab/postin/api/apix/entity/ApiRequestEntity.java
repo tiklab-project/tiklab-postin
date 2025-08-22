@@ -29,13 +29,6 @@ public class ApiRequestEntity implements Serializable {
     @Column(name = "body_type",length = 32)
     private String bodyType;
 
-    //前置脚本
-    @Column(name = "pre_script")
-    private String preScript;
-
-    //后置脚本
-    @Column(name = "after_script")
-    private String afterScript;
 
     public String getId() {
         return id;
@@ -61,19 +54,4 @@ public class ApiRequestEntity implements Serializable {
         this.bodyType = bodyType;
     }
 
-    public String getPreScript() {
-        return preScript;
-    }
-
-    public void setPreScript(String preScript) {
-        this.preScript = preScript;
-    }
-
-    public String getAfterScript() {
-        return afterScript;
-    }
-
-    public void setAfterScript(String afterScript) {
-        this.afterScript = afterScript;
-    }
 }

@@ -220,6 +220,11 @@
                 <artifactId>tiklab-dsm-spring-boot-starter</artifactId>
                 <version>${tiklab-dsm.version}</version>
             </dependency>
+            <dependency>
+                <groupId>io.tiklab</groupId>
+                <artifactId>tiklab-dsm-core</artifactId>
+                <version>${tiklab-dsm.version}</version>
+            </dependency>
 
 
             <!--业务-->

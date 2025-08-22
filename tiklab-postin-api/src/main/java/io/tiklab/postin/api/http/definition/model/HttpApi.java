@@ -64,6 +64,13 @@ public class HttpApi extends BaseModel {
     @ApiProperty(name = "auth",desc="认证")
     private AuthParam auth;
 
+    @ApiProperty(name = "preParamList",desc="前置参数列表")
+    private List<PreParam> preParamList;
+
+    @ApiProperty(name = "afterParamList",desc="后置参数列表")
+    private List<AfterParam> afterParamList;
+
+
     @ApiProperty(name = "responseHeaderList",desc="响应头列表")
     private List<ResponseHeader> responseHeaderList;
 
@@ -157,6 +164,22 @@ public class HttpApi extends BaseModel {
 
     public void setAuth(AuthParam auth) {
         this.auth = auth;
+    }
+
+    public List<PreParam> getPreParamList() {
+        return preParamList;
+    }
+
+    public void setPreParamList(List<PreParam> preParamList) {
+        this.preParamList = preParamList;
+    }
+
+    public List<AfterParam> getAfterParamList() {
+        return afterParamList;
+    }
+
+    public void setAfterParamList(List<AfterParam> afterParamList) {
+        this.afterParamList = afterParamList;
     }
 
     public List<ResponseHeader> getResponseHeaderList() {

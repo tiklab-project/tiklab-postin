@@ -13,7 +13,7 @@ DATA_HOME: ${user.home}/tiklab/tiklab-${app.name}
 #db
 jdbc:
   driverClassName: org.postgresql.Driver
-  url: jdbc:postgresql://172.10.1.10:5432/tiklab_postin?stringtype=unspecified
+  url: jdbc:postgresql://172.10.1.10:5432/tiklab_postin_test?stringtype=unspecified
   username: postgres
   password: darth2020
 

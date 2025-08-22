@@ -75,6 +75,12 @@ public class HttpApiServiceImpl implements HttpApiService {
     AuthParamService authParamService;
 
     @Autowired
+    PreParamService preParamService;
+
+    @Autowired
+    AfterParamService afterParamService;
+
+    @Autowired
     ResponseHeaderService responseHeaderService;
 
     @Autowired
@@ -287,6 +293,22 @@ public class HttpApiServiceImpl implements HttpApiService {
         AuthParam authParam = authParamService.findAuthParam(httpId);
         if(!ObjectUtils.isEmpty(authParam)){
             httpApi.setAuth(authParam);
+        }
+
+        //获取预处理参数
+        PreParamQuery preParamQuery = new PreParamQuery();
+        preParamQuery.setApiId(httpId);
+        List<PreParam> preParamList = preParamService.findPreParamList(preParamQuery);
+        if(!ObjectUtils.isEmpty(preParamList)){
+            httpApi.setPreParamList(preParamList);
+        }
+
+        //获取后置处理参数
+        AfterParamQuery afterParamQuery = new AfterParamQuery();
+        afterParamQuery.setApiId(httpId);
+        List<AfterParam> afterParamList = afterParamService.findAfterParamList(afterParamQuery);
+        if(!ObjectUtils.isEmpty(afterParamList)){
+            httpApi.setAfterParamList(afterParamList);
         }
 
         //获取响应里的参数

@@ -3,6 +3,7 @@ package io.tiklab.postin.common;
 import com.alibaba.fastjson.JSONObject;
 import io.tiklab.message.message.model.SendMessageNotice;
 import io.tiklab.message.message.service.SendMessageNoticeService;
+import io.tiklab.postin.support.dbconnect.model.DatabaseConnectConfig;
 import io.tiklab.security.logging.logging.model.Logging;
 import io.tiklab.security.logging.logging.model.LoggingType;
 import io.tiklab.security.logging.logging.service.LoggingByTempService;
@@ -108,5 +109,22 @@ public class PostInUnit {
         // 获取rid中的前12位
         return id.substring(0,12);
     }
+
+
+    public String buildJdbcUrl(String type, DatabaseConnectConfig config) {
+        String host = config.getHost();
+        int port = config.getPort();
+        String dbName = config.getDbName();
+
+        switch (type.toLowerCase()) {
+            case MagicValue.DATABASE_CONNECT_TYPE_POSTGRESQL:
+                return String.format("jdbc:postgresql://%s:%d/%s", host, port, dbName);
+            case MagicValue.DATABASE_CONNECT_TYPE_MYSQL:
+                return String.format("jdbc:mysql://%s:%d/%s?useSSL=false&serverTimezone=UTC", host, port, dbName);
+            default:
+                throw new IllegalArgumentException("不支持的数据库类型: " + type);
+        }
+    }
+
 
 }

@@ -246,8 +246,8 @@ public class ExportServiceImpl implements ExportService {
         json.put("header",requestHeader(httpApi.getHeaderList()));
         json.put("query",requestQuery(httpApi.getQueryList()));
         json.put("body",httpBody(httpApi));
-        json.put("preScript",apiRequest.getPreScript());
-        json.put("afterScript",apiRequest.getAfterScript());
+//        json.put("preScript",apiRequest.getPreScript());
+//        json.put("afterScript",apiRequest.getAfterScript());
 
         return json;
     }

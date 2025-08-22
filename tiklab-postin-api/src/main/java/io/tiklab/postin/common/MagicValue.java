@@ -7,7 +7,7 @@ public class MagicValue {
     public static final String PROTOCOL_TYPE_HTTP ="http";
     public static final String PROTOCOL_TYPE_WS ="ws";
 
-    // api method
+    // http method
     public static final String API_METHOD_TYPE_GET = "get";
     public static final String API_METHOD_TYPE_POST = "post";
     public static final String API_METHOD_TYPE_PUT = "put";
@@ -31,12 +31,18 @@ public class MagicValue {
     public static final String AUTHENTICATION_TYPE_OAUTH1="oauth1";
     public static final String AUTHENTICATION_TYPE_OAUTH2="oauth2";
 
+    // 前置后置 操作类型
+    public static final String OPERATION_TYPE_DATABASE = "database";
+    public static final String OPERATION_TYPE_SCRIPT = "script";
 
+
+    // 数据库连接类型
+    public static final String DATABASE_CONNECT_TYPE_POSTGRESQL = "postgresql";
+    public static final String DATABASE_CONNECT_TYPE_MYSQL = "mysql";
 
 
     //步骤断言的类型：变量，元素
     public static final String ASSERT_TYPE_VARIABLE = "variable";
-    public static final String ASSERT_TYPE_ELEMENT = "element";
 
     //值断言的比较
     public static final int EQUAL = 1;

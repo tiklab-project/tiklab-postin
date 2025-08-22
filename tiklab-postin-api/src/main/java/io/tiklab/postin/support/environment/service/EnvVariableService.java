@@ -77,6 +77,10 @@ public interface EnvVariableService {
     */
     Pagination<EnvVariable> findEnvVariablePage(EnvVariableQuery envVariableQuery);
 
+    /**
+     * 批量创建变量
+     */
+    void batchCreateVariable(JSONObject jsonObject);
 
     /**
      * 获取环境变量

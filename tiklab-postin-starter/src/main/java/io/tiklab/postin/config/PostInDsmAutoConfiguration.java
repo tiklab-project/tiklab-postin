@@ -3,6 +3,8 @@ package io.tiklab.postin.config;
 import io.tiklab.dsm.model.DsmConfig;
 import io.tiklab.dsm.model.DsmVersion;
 import io.tiklab.dsm.support.DsmVersionBuilder;
+import io.tiklab.postin.sql.InitAuthority;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -11,6 +13,9 @@ import java.util.List;
 
 @Configuration
 public class PostInDsmAutoConfiguration {
+
+    @Autowired
+    InitAuthority initAuthority;
 
     @Bean
     DsmConfig dsmConfig(){
@@ -213,6 +218,34 @@ public class PostInDsmAutoConfiguration {
                 })
                 .get();
         versionList.add(dsmVersion);
+
+        dsmVersion = DsmVersionBuilder.instance()
+                .version("1.1.8")
+                .db(new String[]{
+                        "postin_1.1.8"
+                })
+                .get();
+        versionList.add(dsmVersion);
+
+        DsmVersion privilege110 = DsmVersionBuilder.instance()
+                .version("privilegeGroup110")
+                .db(new String[]{
+                        "privilege-gorup_1.0.0",
+                }).get();
+        versionList.add(privilege110);
+
+        DsmVersion privilegePlatform110 = DsmVersionBuilder.instance()
+                .version("privilegePlatform110")
+                .db(new String[]{
+                        "privilege-platform_1.0.0",
+                }).get();
+        versionList.add(privilegePlatform110);
+
+        DsmVersion InitAuthority = DsmVersionBuilder.instance()
+                .version("InitAuthority110")
+                .task(initAuthority)
+                .get();
+        versionList.add(InitAuthority);
 
 
         return versionList;
