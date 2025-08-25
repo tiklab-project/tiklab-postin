@@ -3,7 +3,9 @@ package io.tiklab.postin.api.http.mock.servlet;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.github.javafaker.Faker;
+import org.springframework.stereotype.Service;
 
+@Service
 public class JsonGenerator {
 
     private static Faker faker = new Faker();

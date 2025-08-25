@@ -47,6 +47,9 @@ public class MockServletResponse {
     @Autowired
     ResponseHeaderService responseHeaderService;
 
+    @Autowired
+    JsonGenerator jsonGenerator;
+
     /**
      * mock中响应
      * @param mockId
@@ -136,7 +139,7 @@ public class MockServletResponse {
      */
     private String processApiBody(ApiResponse apiResponse){
         String jsonMockData = null;
-        JsonGenerator jsonGenerator = new JsonGenerator();
+
         if("json".equals(apiResponse.getDataType())){
             String jsonText = apiResponse.getJsonText();
             jsonMockData = jsonGenerator.generateJson(jsonText);
