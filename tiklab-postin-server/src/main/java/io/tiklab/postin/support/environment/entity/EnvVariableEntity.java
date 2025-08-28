@@ -2,9 +2,9 @@ package io.tiklab.postin.support.environment.entity;
 
 
 import io.tiklab.dal.jpa.annotation.*;
+import io.tiklab.postin.support.environment.model.EnvVariableQuery;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * 环境中变量 实体

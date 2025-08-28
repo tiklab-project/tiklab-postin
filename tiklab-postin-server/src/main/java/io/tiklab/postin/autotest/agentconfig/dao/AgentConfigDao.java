@@ -42,6 +42,36 @@ public class AgentConfigDao{
         jpaTemplate.update(agentConfigEntity);
     }
 
+
+    /**
+     * 禁用所有agent配置
+     */
+    public void disableAll() {
+        String sql = "update autotest_agent_config set enable = 0 where enable = 1";
+        jpaTemplate.getJdbcTemplate().update(sql);
+    }
+
+    /**
+     * 判断是否存在可用的agent配置
+     * @return
+     */
+    public boolean existsEnabled() {
+        String sql = "select count(1) from autotest_agent_config where enable = 1";
+        Integer count = jpaTemplate.getJdbcTemplate().queryForObject(sql, Integer.class);
+        return count != null && count > 0;
+    }
+
+    /**
+     * 启用agent配置
+     * @param id
+     */
+    public void enableById(String id) {
+        String sql = "update autotest_agent_config set enable = 1 where id = ?";
+        jpaTemplate.getJdbcTemplate().update(sql, id);
+    }
+
+
+
     /**
      * 删除agent配置
      * @param id
@@ -102,5 +132,21 @@ public class AgentConfigDao{
                 .pagination(agentConfigQuery.getPageParam())
                 .get();
         return jpaTemplate.findPage(queryCondition,AgentConfigEntity.class);
+    }
+
+
+    /**
+     * 获取执行agent
+     * @return
+     */
+    public AgentConfigEntity getExecuteAgent() {
+    	QueryCondition queryCondition = QueryBuilders.createQuery(AgentConfigEntity.class)
+                .eq("enable",1)
+                .get();
+    	List<AgentConfigEntity> agentList = jpaTemplate.findList(queryCondition,AgentConfigEntity.class);
+    	if(!agentList.isEmpty()) {
+    		return agentList.get(0);
+    	}
+    	return null;
     }
 }

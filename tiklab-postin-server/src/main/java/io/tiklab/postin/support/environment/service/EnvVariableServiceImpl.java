@@ -36,9 +36,29 @@ public class EnvVariableServiceImpl implements EnvVariableService {
     public String createEnvVariable(@NotNull @Valid EnvVariable envVariable) {
         EnvVariableEntity envVariableEntity = BeanMapper.map(envVariable, EnvVariableEntity.class);
 
-        return envVariableDao.createEnvVariable(envVariableEntity);
-    }
+        EnvVariableQuery envVariableQuery = new EnvVariableQuery();
+        envVariableQuery.setName(envVariable.getName());
 
+        if(envVariable.getEnvId()!=null){
+            envVariableQuery.setEnvId(envVariable.getEnvId());
+        }
+
+        if(envVariable.getWorkspaceId()!=null){
+            envVariableQuery.setWorkspaceId(envVariable.getWorkspaceId());
+        }
+
+        EnvVariableEntity existingEntity = envVariableDao.findOneByName(envVariableQuery);
+
+        if (existingEntity != null) {
+            // 已存在，更新值
+            existingEntity.setValue(envVariableEntity.getValue());
+            envVariableDao.updateEnvVariable(existingEntity);
+            return existingEntity.getId();
+        } else {
+            // 不存在，创建新记录
+            return envVariableDao.createEnvVariable(envVariableEntity);
+        }
+    }
     @Override
     public void updateEnvVariable(@NotNull @Valid EnvVariable envVariable) {
         EnvVariableEntity envVariableEntity = BeanMapper.map(envVariable, EnvVariableEntity.class);

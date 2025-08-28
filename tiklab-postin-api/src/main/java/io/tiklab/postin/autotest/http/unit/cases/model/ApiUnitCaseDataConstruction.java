@@ -12,32 +12,37 @@ import java.util.Map;
 @ApiModel
 public class ApiUnitCaseDataConstruction extends BaseModel{
 
-    //请求头
-    private Map headerMap;
+    private List<RequestHeaderUnit> headerList;
 
     //查询参数
     private List<QueryParamUnit> queryParamList;
 
+    // 请求体类型
+    private RequestBodyUnit requestBodyUnit;
     //mediaType
     private Map mediaTypeMap;
 
     //封装请求体数据
-    private String body;
+    private List<FormParamUnit> formList;
+    private List<FormUrlEncodedUnit> urlencodedList;
+    private JsonParamUnit jsonParam;
+    private String jsonStr;
+    private RawParamUnit rawParam;
 
     //调用前置脚本
-    private String preScript;
+    private List<PreParamUnit> preParamUnitList;
 
     //调用后置脚本
-    private String afterScript;
+    private List<AfterParamUnit> afterParamUnitList;
 
     private List<HashMap<String, Object>> assertList;
 
-    public Map getHeaderMap() {
-        return headerMap;
+    public List<RequestHeaderUnit> getHeaderList() {
+        return headerList;
     }
 
-    public void setHeaderMap(Map headerMap) {
-        this.headerMap = headerMap;
+    public void setHeaderList(List<RequestHeaderUnit> headerList) {
+        this.headerList = headerList;
     }
 
     public List<QueryParamUnit> getQueryParamList() {
@@ -56,28 +61,70 @@ public class ApiUnitCaseDataConstruction extends BaseModel{
         this.mediaTypeMap = mediaTypeMap;
     }
 
-    public String getAfterScript() {
-        return afterScript;
+    public RequestBodyUnit getRequestBodyUnit() {
+        return requestBodyUnit;
     }
 
-    public void setAfterScript(String afterScript) {
-        this.afterScript = afterScript;
+    public void setRequestBodyUnit(RequestBodyUnit requestBodyUnit) {
+        this.requestBodyUnit = requestBodyUnit;
     }
 
-    public String getBody() {
-        return body;
+    public JsonParamUnit getJsonParam() {
+        return jsonParam;
     }
 
-    public void setBody(String body) {
-        this.body = body;
+    public void setJsonParam(JsonParamUnit jsonParam) {
+        this.jsonParam = jsonParam;
     }
 
-    public String getPreScript() {
-        return preScript;
+    public String getJsonStr() {
+        return jsonStr;
     }
 
-    public void setPreScript(String preScript) {
-        this.preScript = preScript;
+    public void setJsonStr(String jsonStr) {
+        this.jsonStr = jsonStr;
+    }
+
+    public RawParamUnit getRawParam() {
+        return rawParam;
+    }
+
+    public void setRawParam(RawParamUnit rawParam) {
+        this.rawParam = rawParam;
+    }
+
+    public List<FormParamUnit> getFormList() {
+        return formList;
+    }
+
+    public void setFormList(List<FormParamUnit> formList) {
+        this.formList = formList;
+    }
+
+    public List<FormUrlEncodedUnit> getUrlencodedList() {
+        return urlencodedList;
+    }
+
+    public void setUrlencodedList(List<FormUrlEncodedUnit> urlencodedList) {
+        this.urlencodedList = urlencodedList;
+    }
+
+
+
+    public List<PreParamUnit> getPreParamUnitList() {
+        return preParamUnitList;
+    }
+
+    public void setPreParamUnitList(List<PreParamUnit> preParamUnitList) {
+        this.preParamUnitList = preParamUnitList;
+    }
+
+    public List<AfterParamUnit> getAfterParamUnitList() {
+        return afterParamUnitList;
+    }
+
+    public void setAfterParamUnitList(List<AfterParamUnit> afterParamUnitList) {
+        this.afterParamUnitList = afterParamUnitList;
     }
 
     public List<HashMap<String, Object>> getAssertList() {

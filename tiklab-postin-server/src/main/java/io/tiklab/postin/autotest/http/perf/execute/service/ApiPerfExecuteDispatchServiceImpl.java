@@ -2,6 +2,8 @@ package io.tiklab.postin.autotest.http.perf.execute.service;
 
 import com.alibaba.fastjson.JSONObject;
 import io.tiklab.core.exception.ApplicationException;
+import io.tiklab.postin.autotest.agentconfig.model.AgentConfig;
+import io.tiklab.postin.autotest.agentconfig.service.AgentConfigService;
 import io.tiklab.postin.autotest.common.utils.TestUtil;
 import io.tiklab.postin.autotest.http.perf.instance.model.ApiPerfInstance;
 import io.tiklab.postin.autotest.http.perf.instance.model.ApiPerfStepInstance;
@@ -91,6 +93,9 @@ public class ApiPerfExecuteDispatchServiceImpl implements ApiPerfExecuteDispatch
     @Autowired
     ApiPerfStepUnitCalcService apiPerfStepUnitCalcService;
 
+    @Autowired
+    AgentConfigService agentConfigService;
+
 
     private Map<String, ScheduledFuture<?>> scheduleFutureMap = new ConcurrentHashMap<>();
     //定时器，不断更新数据库结果的
@@ -167,20 +172,24 @@ public class ApiPerfExecuteDispatchServiceImpl implements ApiPerfExecuteDispatch
         String apiPerfId = apiPerfTestRequest.getApiPerfId();
 
         //获取agentId
-        String agentId = apiPerfTestRequest.getAgentId();
-        apiPerfIdAndAgentIdMap.put(apiPerfId,agentId);
+        AgentConfig executeAgent = agentConfigService.getExecuteAgent();
+        if(executeAgent!=null) {
+            String agentId = executeAgent.getId();
+            apiPerfIdAndAgentIdMap.put(apiPerfId, agentId);
 
-        //执行的数据 处理
-        ApiPerfTestRequest processApiPerfTestData = processApiPerfTestData(apiPerfTestRequest);
-//        apiPerfTestRequest.setApiPerfStepTestData(apiPerfStepTestData);
+            //执行的数据 处理
+            ApiPerfTestRequest processApiPerfTestData = processApiPerfTestData(apiPerfTestRequest);
 
-        //执行测试
-        JSONObject apiUnitObject = new JSONObject();
-        apiUnitObject.put("apiPerfTestRequest",processApiPerfTestData);
-        apiUnitObject.put("type",MagicValue.CASE_TYPE_API_PERFORM);
-        apiUnitObject.put("caseId",apiPerfId);
+            //执行测试
+            JSONObject apiUnitObject = new JSONObject();
+            apiUnitObject.put("apiPerfTestRequest", processApiPerfTestData);
+            apiUnitObject.put("type", MagicValue.CASE_TYPE_API_PERFORM);
+            apiUnitObject.put("caseId", apiPerfId);
 
-        wsTestService.sendMessageExe(agentId,apiUnitObject,null);
+            wsTestService.sendMessageExe(agentId, apiUnitObject, null);
+        }else {
+            throw new ApplicationException(ErrorCode.EXECUTE_CASE_ERROR, "没有可用的测试执行节点");
+        }
     }
 
     /**

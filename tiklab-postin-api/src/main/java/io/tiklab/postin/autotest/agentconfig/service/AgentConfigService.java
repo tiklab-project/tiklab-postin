@@ -89,5 +89,10 @@ public interface AgentConfigService {
      */
     String createConnect(@NotNull String agentId);
 
+    /**
+     * 获取执行的 agent
+     * @return
+     */
+    AgentConfig getExecuteAgent();
 
 }

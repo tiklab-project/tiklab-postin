@@ -85,33 +85,35 @@ public class ApiUnitExecuteDispatchServiceImpl implements ApiUnitExecuteDispatch
         String apiUnitId = apiUnitTestRequest.getApiUnitCase().getId();
         //准备测试的数据
         ApiUnitTestRequest processData = setApiUnitTestRequestData(apiUnitId, apiUnitTestRequest.getApiEnvId());
+        processData.setWorkspaceId(apiUnitTestRequest.getWorkspaceId());
 
-        ApiUnitInstance apiUnitInstance;
+        ApiUnitInstance apiUnitInstance = new ApiUnitInstance();
 
-        List<AgentConfig> agentConfigList = agentConfigService.getAgentList();
-        AgentConfig agentConfig = agentConfigList.get(0);
-        String agentId = agentConfig.getId();
+        AgentConfig executeAgent = agentConfigService.getExecuteAgent();
+        if(executeAgent!=null) {
+            String agentId = executeAgent.getId();
 
-        JSONObject apiUnitObject = new JSONObject();
-        apiUnitObject.put("apiUnitTestRequest",processData);
-        apiUnitObject.put("type",MagicValue.CASE_TYPE_API_UNIT);
-        apiUnitObject.put("caseId",apiUnitId);
+            JSONObject apiUnitObject = new JSONObject();
+            apiUnitObject.put("apiUnitTestRequest", processData);
+            apiUnitObject.put("type", MagicValue.CASE_TYPE_API_UNIT);
+            apiUnitObject.put("caseId", apiUnitId);
 
-        String futureId = agentId + "_" + MagicValue.CASE_TYPE_API_UNIT + "_" + apiUnitId;
-        wsTestService.sendMessageExe(agentId,apiUnitObject,futureId);
+            String futureId = agentId + "_" + MagicValue.CASE_TYPE_API_UNIT + "_" + apiUnitId;
+            wsTestService.sendMessageExe(agentId, apiUnitObject, futureId);
 
-        try {
-             // 从futureMap中获取CompletableFuture实例并获取结果
-             CompletableFuture<JSONObject> future =  WebSocketServiceImpl.futureMap.get(futureId);
-             JSONObject jsonObject = future.get();
-             JSONObject apiUnitInstanceObj = jsonObject.getJSONObject("apiUnitInstance");
-             apiUnitInstance = apiUnitInstanceObj.toJavaObject(ApiUnitInstance.class);
-            return apiUnitInstance;
-        } catch (InterruptedException | ExecutionException e) {
-            logger.info("执行出错");
+            try {
+                // 从futureMap中获取CompletableFuture实例并获取结果
+                CompletableFuture<JSONObject> future = WebSocketServiceImpl.futureMap.get(futureId);
+                JSONObject jsonObject = future.get();
+                JSONObject apiUnitInstanceObj = jsonObject.getJSONObject("apiUnitInstance");
+                apiUnitInstance = apiUnitInstanceObj.toJavaObject(ApiUnitInstance.class);
+                return apiUnitInstance;
+            } catch (InterruptedException | ExecutionException e) {
+                logger.info("执行出错");
+            }
         }
 
-        return null;
+        return apiUnitInstance;
     }
 
 

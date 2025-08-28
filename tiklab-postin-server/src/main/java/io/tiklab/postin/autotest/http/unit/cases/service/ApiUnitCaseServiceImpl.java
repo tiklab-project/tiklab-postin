@@ -10,6 +10,7 @@ import io.tiklab.postin.autotest.test.model.TestCase;
 import io.tiklab.postin.autotest.test.model.TestCaseQuery;
 import io.tiklab.postin.autotest.test.service.TestCaseService;
 import io.tiklab.postin.autotest.testplan.cases.service.TestPlanCaseService;
+import io.tiklab.postin.common.MagicValue;
 import io.tiklab.toolkit.beans.BeanMapper;
 import io.tiklab.core.page.Pagination;
 import io.tiklab.core.page.PaginationBuilder;
@@ -21,10 +22,7 @@ import org.springframework.util.ObjectUtils;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
 * 接口单元 服务
@@ -63,10 +61,10 @@ public class ApiUnitCaseServiceImpl implements ApiUnitCaseService {
     JsonParamUnitService jsonParamUnitService;
 
     @Autowired
-    PreScriptUnitService preScriptUnitService;
+    PreParamUnitService preParamUnitService;
 
     @Autowired
-    AfterScriptUnitService afterScriptUnitService;
+    AfterParamUnitService afterParamUnitService;
 
     @Autowired
     ResponseResultUnitUnitServiceImpl responseResultService;
@@ -138,7 +136,7 @@ public class ApiUnitCaseServiceImpl implements ApiUnitCaseService {
         //删除下面instance所有子表
 //        apiUnitInstanceService.deleteApiUnitInstanceByApiUnitId(id);
 
-        //接口定义
+        //定义
         apiApiUnitCaseDao.deleteApiUnitCase(id);
         requestHeaderUnitService.deleteAllRequestHeader(id);
         queryParamUnitService.deleteAllQueryParam(id);
@@ -146,8 +144,8 @@ public class ApiUnitCaseServiceImpl implements ApiUnitCaseService {
         formUrlencodedUnitService.deleteAllFormUrlencoded(id);
         jsonParamUnitService.deleteAllJsonParam(id);
         rawParamUnitService.deleteAllRawParam(id);
-        preScriptUnitService.deletePreScript(id);
-        afterScriptUnitService.deleteAfterScript(id);
+        preParamUnitService.deleteAllPreParamUnit(id);
+        afterParamUnitService.deleteAllAfterParamUnit(id);
         assertUnitService.deleteAllAssertCase(id);
         requestBodyUnitService.deleteRequestBody(id);
         responseHeaderUnitService.deleteAllResponseHeader(id);
@@ -257,31 +255,57 @@ public class ApiUnitCaseServiceImpl implements ApiUnitCaseService {
 
     @Override
     public ApiUnitCaseDataConstruction findApiUnitCaseExt(ApiUnitCase apiUnitCase) {
+        ApiUnitCaseDataConstruction apiUnitCaseDataConstruction = new ApiUnitCaseDataConstruction();
 
-        //封装请求头数据
-        Map headerMap = requestHeaderUnitService.jointHeader(apiUnitCase);
-        //封装param参数
+        //header
+        RequestHeaderUnitQuery requestHeaderUnitQuery = new RequestHeaderUnitQuery();
+        requestHeaderUnitQuery.setApiUnitId(apiUnitCase.getId());
+        List<RequestHeaderUnit> requestHeaderList = requestHeaderUnitService.findRequestHeaderList(requestHeaderUnitQuery);
+        apiUnitCaseDataConstruction.setHeaderList(requestHeaderList);
+
+        //Query
         QueryParamUnitQuery queryParamUnitQuery = new QueryParamUnitQuery();
         queryParamUnitQuery.setApiUnitId(apiUnitCase.getId());
         List<QueryParamUnit> queryParamList = queryParamUnitService.findQueryParamList(queryParamUnitQuery);
+        apiUnitCaseDataConstruction.setQueryParamList(queryParamList);
+
+        // body
+        RequestBodyUnit bodyType = requestBodyUnitService.findRequestBody(apiUnitCase.getId());
+        apiUnitCaseDataConstruction.setRequestBodyUnit(bodyType);
+
         //封装mediaType
         Map mediaType = jointMediaType(apiUnitCase);
-        //封装请求体数据
-        String body = bodyConstruction(apiUnitCase);
-        //获取前置脚本
-        String preScript = getPreScript(apiUnitCase);
-        //获取后置脚本
-        String afterScript = getAfterScript(apiUnitCase);
+        apiUnitCaseDataConstruction.setMediaTypeMap(mediaType);
+
+        switch (bodyType.getBodyType()){
+            case MagicValue.REQUEST_BODY_TYPE_FORMDATA:
+                List<FormParamUnit> formParamList = getFormData(apiUnitCase);
+                apiUnitCaseDataConstruction.setFormList(formParamList);
+                break;
+            case MagicValue.REQUEST_BODY_TYPE_FORM_URLENCODED:
+                List<FormUrlEncodedUnit> formUrlencodedList = getFormUrlencoded(apiUnitCase);
+                apiUnitCaseDataConstruction.setUrlencodedList(formUrlencodedList);
+                break;
+            case MagicValue.REQUEST_BODY_TYPE_JSON:
+                String jsonStr = getJson(apiUnitCase);
+                apiUnitCaseDataConstruction.setJsonStr(jsonStr);
+                break;
+            case MagicValue.REQUEST_BODY_TYPE_RAW:
+                RawParamUnit raw = getRaw(apiUnitCase);
+                apiUnitCaseDataConstruction.setRawParam(raw);
+                break;
+          }
+
+        //获取前置操作
+        List<PreParamUnit> preParamUnitList = getPre(apiUnitCase);
+        apiUnitCaseDataConstruction.setPreParamUnitList(preParamUnitList);
+
+        //获取后置操作
+        List<AfterParamUnit> afterParamUnitList = getAfter(apiUnitCase);
+        apiUnitCaseDataConstruction.setAfterParamUnitList(afterParamUnitList);
+
         //获取断言
         List<HashMap<String, Object>> assertList = getAssert(apiUnitCase);
-
-        ApiUnitCaseDataConstruction apiUnitCaseDataConstruction = new ApiUnitCaseDataConstruction();
-        apiUnitCaseDataConstruction.setHeaderMap(headerMap);
-        apiUnitCaseDataConstruction.setQueryParamList(queryParamList);
-        apiUnitCaseDataConstruction.setMediaTypeMap(mediaType);
-        apiUnitCaseDataConstruction.setBody(body);
-        apiUnitCaseDataConstruction.setPreScript(preScript);
-        apiUnitCaseDataConstruction.setAfterScript(afterScript);
         apiUnitCaseDataConstruction.setAssertList(assertList);
 
         return apiUnitCaseDataConstruction;
@@ -334,79 +358,25 @@ public class ApiUnitCaseServiceImpl implements ApiUnitCaseService {
 
 
     /**
-     *请求体参数拼接
-     * @param apiUnitCase 用例步骤
-     *
-     */
-    private String bodyConstruction(ApiUnitCase apiUnitCase){
-        RequestBodyUnit bodyType = requestBodyUnitService.findRequestBody(apiUnitCase.getId());
-       
-//        HashMap<String, Object> map = new HashMap<>();
-        String bodyStr = "";
-
-        if (!ObjectUtils.isEmpty(bodyType)){
-            switch (bodyType.getBodyType()){
-                case "formdata":
-                    return getFormData(apiUnitCase,bodyStr);
-
-                case "formUrlencoded":
-                    return getFormUrlencoded(apiUnitCase,bodyStr);
-
-                case "json":
-                    bodyStr=getJson(apiUnitCase);
-                    return bodyStr;
-
-                case "raw":
-                    return getRaw(apiUnitCase,bodyStr);
-
-            }
-        }
-
-        return null;
-    }
-
-
-    /**
      *  获取formData
      */
-    private String getFormData (ApiUnitCase apiUnitCase,String bodyStr){
+    private List<FormParamUnit>  getFormData (ApiUnitCase apiUnitCase){
         FormParamUnitQuery formParamUnitQuery = new FormParamUnitQuery();
         formParamUnitQuery.setApiUnitId(apiUnitCase.getId());
         List<FormParamUnit> formParamUnitList = formParamUnitService.findFormParamList(formParamUnitQuery);
 
-        if (CollectionUtils.isNotEmpty(formParamUnitList)){
-            for (int i = 0; i < formParamUnitList.size(); i++) {
-                FormParamUnit formParamUnit = formParamUnitList.get(i);
-                bodyStr += formParamUnit.getParamName() + "=" + formParamUnit.getValue();
-                if (i < formParamUnitList.size() - 1) {
-                    bodyStr += "&";
-                }
-            }
-        }
-
-        return bodyStr;
+        return formParamUnitList;
     }
 
     /**
      * 获取FormUrlDataMap
      */
-    private String getFormUrlencoded (ApiUnitCase apiUnitCase, String bodyStr){
+    private List<FormUrlEncodedUnit>  getFormUrlencoded (ApiUnitCase apiUnitCase){
         FormUrlencodedUnitQuery formUrlencodedUnitQuery = new FormUrlencodedUnitQuery();
         formUrlencodedUnitQuery.setApiUnitId(apiUnitCase.getId());
         List<FormUrlEncodedUnit> formUrlEncodedUnitList = formUrlencodedUnitService.findFormUrlencodedList(formUrlencodedUnitQuery);
 
-        if (CollectionUtils.isNotEmpty(formUrlEncodedUnitList)){
-
-            for (int i = 0; i < formUrlEncodedUnitList.size(); i++) {
-                FormUrlEncodedUnit formUrlencodedUnit = formUrlEncodedUnitList.get(i);
-                bodyStr += formUrlencodedUnit.getParamName() + "=" + formUrlencodedUnit.getValue();
-                if (i < formUrlEncodedUnitList.size() - 1) {
-                    bodyStr += "&";
-                }
-            }
-        }
-
-        return bodyStr;
+        return formUrlEncodedUnitList;
     }
 
     /**
@@ -422,42 +392,39 @@ public class ApiUnitCaseServiceImpl implements ApiUnitCaseService {
 
 
     //获取RawDataMap
-    private String getRaw(ApiUnitCase apiUnitCase, String bodyStr){
-
+    private RawParamUnit getRaw(ApiUnitCase apiUnitCase){
         //通过测试步骤方法的id查询
         RawParamUnit rawParamUnit = rawParamUnitService.findRawParam(apiUnitCase.getId());
-        if(!ObjectUtils.isEmpty(rawParamUnit)){
-            String raw = rawParamUnit.getRaw();
-            bodyStr = raw;
-        }
-
-        return bodyStr;
-    }
-
-
-
-    /**
-     * 获取前置脚本
-     */
-    private String getPreScript(ApiUnitCase apiUnitCase){
-        PreScriptUnit preScriptUnit = preScriptUnitService.findPreScript(apiUnitCase.getId());
-        if (preScriptUnit == null|| preScriptUnit.getScriptex()==null) {
-            return null;
-        }
-        return preScriptUnit.getScriptex();
+        return rawParamUnit;
     }
 
 
     /**
-     * 获取脚本
+     * 获取前置操作
      */
-    private String getAfterScript(ApiUnitCase apiUnitCase) {
-        AfterScriptUnit afterScriptUnit = afterScriptUnitService.findAfterScript(apiUnitCase.getId());
-        if (afterScriptUnit == null|| afterScriptUnit.getScriptex()==null) {
-            return null;
+    private List<PreParamUnit> getPre(ApiUnitCase apiUnitCase){
+        PreParamUnitQuery preParamUnitQuery = new PreParamUnitQuery();
+        preParamUnitQuery.setApiUnitId(apiUnitCase.getId());
+        List<PreParamUnit> preParamUnitList = preParamUnitService.findPreParamUnitList(preParamUnitQuery);
+        if (preParamUnitList == null||preParamUnitList.isEmpty()) {
+            return Collections.emptyList();
+        }else {
+            return preParamUnitList;
         }
+    }
 
-        return afterScriptUnit.getScriptex();
+    /**
+     * 获取脚本操作
+     */
+    private List<AfterParamUnit> getAfter(ApiUnitCase apiUnitCase) {
+        AfterParamUnitQuery afterParamUnitQuery = new AfterParamUnitQuery();
+        afterParamUnitQuery.setApiUnitId(apiUnitCase.getId());
+        List<AfterParamUnit> afterParamUnitList = afterParamUnitService.findAfterParamUnitList(afterParamUnitQuery);
+        if (afterParamUnitList == null||afterParamUnitList.isEmpty()) {
+            return Collections.emptyList();
+        }else {
+            return afterParamUnitList;
+        }
     }
 
     private List<HashMap<String,Object>> getAssert(ApiUnitCase apiUnitCase){

@@ -11,6 +11,8 @@ import java.util.List;
 @ApiModel
 public class EnvVariableQuery {
 
+    private String name;
+
     @ApiProperty(name ="envId",desc = "envId")
     private String envId;
 
@@ -22,6 +24,14 @@ public class EnvVariableQuery {
 
     @ApiProperty(name ="pageParam",desc = "分页参数")
     private Page pageParam = new Page();
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getEnvId() {
         return envId;

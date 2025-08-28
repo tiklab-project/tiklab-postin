@@ -13,6 +13,8 @@ public class MagicValue {
     public static final String API_METHOD_TYPE_PUT = "put";
     public static final String API_METHOD_TYPE_DELETE = "delete";
     public static final String API_METHOD_TYPE_PATCH = "patch";
+    public static final String API_METHOD_TYPE_OPTIONS = "options";
+    public static final String API_METHOD_TYPE_HEAD = "head";
 
     // request body type
     public static final String REQUEST_BODY_TYPE_NONE="none";

@@ -25,8 +25,6 @@ public class ApiPerfTestRequest extends BaseModel {
     @ApiProperty(name="apiPreUrl",desc="接口前置地址")
     private String apiPreUrl;
 
-    @ApiProperty(name="agentId",desc="选择的agent")
-    private String agentId;
 
     @ApiProperty(name="apiPerfCase",desc="性能测试用例")
     private ApiPerfCase apiPerfCase;
@@ -69,14 +67,6 @@ public class ApiPerfTestRequest extends BaseModel {
 
     public void setApiPreUrl(String apiPreUrl) {
         this.apiPreUrl = apiPreUrl;
-    }
-
-    public String getAgentId() {
-        return agentId;
-    }
-
-    public void setAgentId(String agentId) {
-        this.agentId = agentId;
     }
 
     public List<ApiPerfStepTestData> getApiPerfStepTestData() {

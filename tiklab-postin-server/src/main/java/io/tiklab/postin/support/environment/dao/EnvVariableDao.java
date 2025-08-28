@@ -10,8 +10,11 @@ import io.tiklab.postin.support.environment.model.EnvVariableQuery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,6 +35,38 @@ public class EnvVariableDao {
      */
     public String createEnvVariable(EnvVariableEntity envVariableEntity) {
         return jpaTemplate.save(envVariableEntity,String.class);
+    }
+
+    /**
+     * 根据名称查找
+     * @param query
+     * @return
+     */
+    public EnvVariableEntity findOneByName(EnvVariableQuery query) {
+        StringBuilder sql = new StringBuilder("SELECT * FROM postin_env_variable WHERE name = ?");
+        List<Object> params = new ArrayList<>();
+        params.add(query.getName());
+
+        if (query.getEnvId() != null) {
+            sql.append(" AND env_id = ?");
+            params.add(query.getEnvId());
+        }
+
+        if (query.getWorkspaceId() != null) {
+            sql.append(" AND workspace_id = ?");
+            params.add(query.getWorkspaceId());
+        }
+
+        try {
+            return jpaTemplate.getJdbcTemplate().queryForObject(
+                    sql.toString(),
+                    params.toArray(),
+                    new BeanPropertyRowMapper<>(EnvVariableEntity.class)
+            );
+        } catch (EmptyResultDataAccessException e) {
+            // 没有找到记录时返回null
+            return null;
+        }
     }
 
     /**

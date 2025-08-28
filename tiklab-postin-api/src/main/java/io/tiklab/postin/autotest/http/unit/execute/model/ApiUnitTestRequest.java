@@ -16,6 +16,9 @@ public class ApiUnitTestRequest extends BaseModel {
     @ApiProperty(name="apiUnitCase",desc="测试用例")
     private ApiUnitCase apiUnitCase;
 
+    @ApiProperty(name="workspaceId",desc="项目Id")
+    private String workspaceId;
+
     @ApiProperty(name="apiEnvId",desc="接口环境id")
     private String apiEnvId;
 
@@ -35,6 +38,14 @@ public class ApiUnitTestRequest extends BaseModel {
 
     public void setApiUnitCase(ApiUnitCase apiUnitCase) {
         this.apiUnitCase = apiUnitCase;
+    }
+
+    public String getWorkspaceId() {
+        return workspaceId;
+    }
+
+    public void setWorkspaceId(String workspaceId) {
+        this.workspaceId = workspaceId;
     }
 
     public String getApiEnvId() {

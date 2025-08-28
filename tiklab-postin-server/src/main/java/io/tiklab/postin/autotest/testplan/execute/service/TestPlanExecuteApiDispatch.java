@@ -130,15 +130,15 @@ public class TestPlanExecuteApiDispatch {
         return testPlanCaseInstanceBind;
     }
 
-    public void exeApiPerform(TestPlanCaseInstanceBind testPlanCaseInstanceBind, TestPlanTestData testPlanTestData){
-        ApiPerfTestRequest apiPerfTestRequest = new ApiPerfTestRequest();
-        apiPerfTestRequest.setApiPerfId(testPlanCaseInstanceBind.getCaseId());
-        apiPerfTestRequest.setApiEnvId(testPlanTestData.getApiEnvId());
-        //使用默认agent
-        apiPerfTestRequest.setAgentId("agent-default_localhost");
-
-        apiPerfExecuteDispatchService.executeStart(apiPerfTestRequest);
-    }
+//    public void exeApiPerform(TestPlanCaseInstanceBind testPlanCaseInstanceBind, TestPlanTestData testPlanTestData){
+//        ApiPerfTestRequest apiPerfTestRequest = new ApiPerfTestRequest();
+//        apiPerfTestRequest.setApiPerfId(testPlanCaseInstanceBind.getCaseId());
+//        apiPerfTestRequest.setApiEnvId(testPlanTestData.getApiEnvId());
+//        //使用默认agent
+//        apiPerfTestRequest.setAgentId("agent-default_localhost");
+//
+//        apiPerfExecuteDispatchService.executeStart(apiPerfTestRequest);
+//    }
 
 
     public TestPlanCaseInstanceBind apiPerformResult(TestPlanCaseInstanceBind testPlanCaseInstanceBind){

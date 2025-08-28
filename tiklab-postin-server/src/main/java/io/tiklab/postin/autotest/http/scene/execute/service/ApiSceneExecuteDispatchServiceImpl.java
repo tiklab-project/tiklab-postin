@@ -89,10 +89,9 @@ public class ApiSceneExecuteDispatchServiceImpl implements ApiSceneExecuteDispat
         List<EnvServer> envServerList = apiEnvService.findEnvServerList(envServerQuery);
         apiSceneTestRequest.setApiPreUrl(envServerList.get(0).getUrl());
 
-        List<AgentConfig> agentConfigList = agentConfigService.getAgentList();
-        if( CollectionUtils.isNotEmpty(agentConfigList)){
-            AgentConfig agentConfig = agentConfigList.get(0);
-            String agentId = agentConfig.getId();
+        AgentConfig executeAgent = agentConfigService.getExecuteAgent();
+        if(executeAgent!=null){
+            String agentId = executeAgent.getId();
 
             JSONObject apiUnitObject = new JSONObject();
             apiUnitObject.put("apiSceneTestRequest",apiSceneTestRequest);
@@ -113,7 +112,7 @@ public class ApiSceneExecuteDispatchServiceImpl implements ApiSceneExecuteDispat
                 throw new ApplicationException(("执行出错"));
             }
         }else {
-            throw new ApplicationException("不是内嵌agent，请到设置中配置agent");
+            throw new ApplicationException("未找到agent");
         }
     }
 

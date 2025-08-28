@@ -55,10 +55,25 @@ public class AgentConfigServiceImpl implements AgentConfigService {
 
     @Override
     public void updateAgentConfig(@NotNull @Valid AgentConfig agentConfig) {
-        AgentConfigEntity agentConfigEntity = BeanMapper.map(agentConfig, AgentConfigEntity.class);
-        agentConfigEntity.setUpdateTime(new Timestamp(System.currentTimeMillis()));
-        agentConfigDao.updateAgentConfig(agentConfigEntity);
+        AgentConfigEntity entity = BeanMapper.map(agentConfig, AgentConfigEntity.class);
+        entity.setUpdateTime(new Timestamp(System.currentTimeMillis()));
+
+        if (entity.getEnable() == 1) {
+            // 启用当前，先关闭所有
+            agentConfigDao.disableAll();
+            agentConfigDao.updateAgentConfig(entity);
+        } else {
+            agentConfigDao.updateAgentConfig(entity);
+
+            // 检查是否还有启用的
+            boolean hasEnabled = agentConfigDao.existsEnabled();
+            if (!hasEnabled) {
+                // 没有启用的，则默认打开 agent-default_localhost
+                agentConfigDao.enableById("agent-default_localhost");
+            }
+        }
     }
+
 
     @Override
     public void deleteAgentConfig(@NotNull String id) {
@@ -206,6 +221,16 @@ public class AgentConfigServiceImpl implements AgentConfigService {
         }
 
         return agentId;
+    }
+
+    @Override
+    public AgentConfig getExecuteAgent() {
+        AgentConfigEntity executeAgent = agentConfigDao.getExecuteAgent();
+
+        AgentConfig agentConfig = BeanMapper.map(executeAgent,AgentConfig.class);
+
+        return agentConfig;
+
     }
 
 }
