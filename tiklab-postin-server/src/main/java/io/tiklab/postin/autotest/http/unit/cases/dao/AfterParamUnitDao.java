@@ -107,7 +107,7 @@ public class AfterParamUnitDao {
 
     public int bigSort(String apiUnitId) {
         try {
-            String sql = "SELECT COALESCE(MAX(sort), 0) FROM postin_api_request_after WHERE api_unit_id = ?";
+            String sql = "SELECT COALESCE(MAX(sort), 0) FROM autotest_action_after WHERE api_unit_id = ?";
             Integer result = jpaTemplate.getJdbcTemplate().queryForObject(sql, Integer.class, apiUnitId);
             return result != null ? result : 0;
         } catch (Exception e) {
