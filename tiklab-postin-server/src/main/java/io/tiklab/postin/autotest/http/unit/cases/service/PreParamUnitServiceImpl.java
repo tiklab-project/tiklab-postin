@@ -55,17 +55,29 @@ public class PreParamUnitServiceImpl implements PreParamUnitService {
         switch (preParamUnit.getType()){
             case MagicValue.OPERATION_TYPE_DATABASE:
                 OperateDatabase operateDatabase = new OperateDatabase();
-                operateDatabase.setOperationId(id);
-                operateDatabase.setId(id);
-                operateDatabase.setSqlText("");
-                operateDatabase.setIsConsolePrint(0);
+                if(preParamUnit.getOperateDatabase()!=null){
+                    operateDatabase = preParamUnit.getOperateDatabase();
+                    operateDatabase.setOperationId(id);
+                    operateDatabase.setId(id);
+                }else {
+                    operateDatabase.setOperationId(id);
+                    operateDatabase.setId(id);
+                    operateDatabase.setSqlText("");
+                    operateDatabase.setIsConsolePrint(0);
+                }
                 operateDatabaseService.createOperateDatabase(operateDatabase);
                 break;
             case MagicValue.OPERATION_TYPE_SCRIPT:
                 OperateScript operateScript = new OperateScript();
-                operateScript.setOperationId(id);
-                operateScript.setId(id);
-                operateScript.setScriptText("");
+                if(preParamUnit.getOperateScript()!=null){
+                    operateScript = preParamUnit.getOperateScript();
+                    operateScript.setOperationId(id);
+                    operateScript.setId(id);
+                }else {
+                    operateScript.setOperationId(id);
+                    operateScript.setId(id);
+                    operateScript.setScriptText("");
+                }
                 operateScriptService.createOperateScript(operateScript);
                 break;
             default:

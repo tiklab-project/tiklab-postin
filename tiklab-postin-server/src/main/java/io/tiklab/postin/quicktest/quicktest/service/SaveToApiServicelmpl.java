@@ -44,6 +44,13 @@ public class SaveToApiServicelmpl implements SaveToApiService {
     @Autowired
     private RawParamService rawParamService;
 
+    @Autowired
+    private PreParamService preParamService;
+
+    @Autowired
+    private AfterParamService afterParamService;
+
+
     @Override
     @Transactional
     public String saveToApi(SaveToApi saveToApi) {
@@ -68,6 +75,12 @@ public class SaveToApiServicelmpl implements SaveToApiService {
 
             // 处理原始参数
             processRawParam(saveToApi.getRaw(), httpApiId);
+
+
+            processPreParam(saveToApi.getPreParamList(), httpApiId);
+
+            // 处理后置参数
+            processAfterParam(saveToApi.getAfterParamList(), httpApiId);
 
             return httpApiId;
         } catch (Exception e) {
@@ -145,6 +158,27 @@ public class SaveToApiServicelmpl implements SaveToApiService {
         rawParam.setApiId(apiId);
         rawParam.setId(apiId);
         rawParamService.createRawParam(rawParam);
+    }
+
+    private void processPreParam(List<PreParam> preParams, String apiId) {
+        if (isEmpty(preParams)) {
+            return;
+        }
+
+        preParams.forEach(param -> {
+            param.setApiId(apiId);
+            preParamService.createPreParam(param);
+        });
+    }
+
+    private void processAfterParam(List<AfterParam> afterParams, String apiId) {
+        if (isEmpty(afterParams)) {
+            return;
+        }
+        afterParams.forEach(param -> {
+            param.setApiId(apiId);
+            afterParamService.createAfterParam(param);
+        });
     }
 
     private <T> boolean isEmpty(List<T> list) {

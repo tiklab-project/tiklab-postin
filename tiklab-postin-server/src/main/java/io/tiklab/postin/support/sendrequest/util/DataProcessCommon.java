@@ -1,21 +1,23 @@
 package io.tiklab.postin.support.sendrequest.util;
 
-import io.tiklab.core.exception.SystemException;
-import io.tiklab.postin.support.sendrequest.HttpRequest;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
-import org.springframework.web.client.HttpClientErrorException;
-
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.stream.Collectors;
+
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
+import org.springframework.web.client.HttpClientErrorException;
+
+import io.tiklab.core.exception.SystemException;
+import io.tiklab.postin.support.sendrequest.HttpRequest;
 
 /**
  * 数据处理

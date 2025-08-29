@@ -21,7 +21,11 @@ public class SaveToCase {
 
     private String json;
 
-    private String raw;
+    private RawParamUnit rawParam;
+
+    private List<PreParamUnit> preParamList;
+
+    private List<AfterParamUnit> afterParamList;
 
     private List<AssertUnit> assertList;
 
@@ -82,12 +86,28 @@ public class SaveToCase {
         this.json = json;
     }
 
-    public String getRaw() {
-        return raw;
+    public RawParamUnit getRawParam() {
+        return rawParam;
     }
 
-    public void setRaw(String raw) {
-        this.raw = raw;
+    public void setRawParam(RawParamUnit rawParam) {
+        this.rawParam = rawParam;
+    }
+
+    public List<PreParamUnit> getPreParamList() {
+        return preParamList;
+    }
+
+    public void setPreParamList(List<PreParamUnit> preParamList) {
+        this.preParamList = preParamList;
+    }
+
+    public List<AfterParamUnit> getAfterParamList() {
+        return afterParamList;
+    }
+
+    public void setAfterParamList(List<AfterParamUnit> afterParamList) {
+        this.afterParamList = afterParamList;
     }
 
     public List<AssertUnit> getAssertList() {

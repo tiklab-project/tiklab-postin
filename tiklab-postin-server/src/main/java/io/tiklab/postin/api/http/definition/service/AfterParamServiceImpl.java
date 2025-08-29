@@ -47,17 +47,29 @@ public class AfterParamServiceImpl implements AfterParamService {
         switch (afterParam.getType()){
             case MagicValue.OPERATION_TYPE_DATABASE:
                 OperateDatabase operateDatabase = new OperateDatabase();
-                operateDatabase.setOperationId(id);
-                operateDatabase.setId(id);
-                operateDatabase.setSqlText("");
-                operateDatabase.setIsConsolePrint(0);
+                if(afterParam.getOperateDatabase()!=null){
+                    operateDatabase = afterParam.getOperateDatabase();
+                    operateDatabase.setOperationId(id);
+                    operateDatabase.setId(id);
+                }else {
+                    operateDatabase.setOperationId(id);
+                    operateDatabase.setId(id);
+                    operateDatabase.setSqlText("");
+                    operateDatabase.setIsConsolePrint(0);
+                }
                 operateDatabaseService.createOperateDatabase(operateDatabase);
                 break;
             case MagicValue.OPERATION_TYPE_SCRIPT:
                 OperateScript operateScript = new OperateScript();
-                operateScript.setOperationId(id);
-                operateScript.setId(id);
-                operateScript.setScriptText("");
+                if(afterParam.getOperateScript()!=null){
+                    operateScript = afterParam.getOperateScript();
+                    operateScript.setOperationId(id);
+                    operateScript.setId(id);
+                }else {
+                    operateScript.setOperationId(id);
+                    operateScript.setId(id);
+                    operateScript.setScriptText("");
+                }
                 operateScriptService.createOperateScript(operateScript);
                 break;
             default:

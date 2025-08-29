@@ -50,6 +50,16 @@ public class OperateDatabaseServiceImpl implements OperateDatabaseService {
     public String createOperateDatabase(@NotNull @Valid OperateDatabase operateDatabase) {
         OperateDatabaseEntity operateDatabaseEntity = BeanMapper.map(operateDatabase, OperateDatabaseEntity.class);
         String id = operateDatabaseDao.createOperateDatabase(operateDatabaseEntity);
+
+        List<OperateDatabaseVariable> variableList = operateDatabase.getVariableList();
+        if(variableList != null && !variableList.isEmpty()){
+            for(OperateDatabaseVariable variable : variableList){
+                variable.setOperationId(operateDatabase.getOperationId());
+                operateDatabaseVariableService.createOperateDatabaseVariable(variable);
+            }
+        }
+
+
         return id;
     }
 
