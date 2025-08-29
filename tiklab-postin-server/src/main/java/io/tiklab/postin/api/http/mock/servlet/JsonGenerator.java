@@ -1,14 +1,15 @@
 package io.tiklab.postin.api.http.mock.servlet;
 
+import org.springframework.stereotype.Service;
+
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.github.javafaker.Faker;
-import org.springframework.stereotype.Service;
 
 @Service
 public class JsonGenerator {
 
-    private static Faker faker = new Faker();
+    private Faker faker = new Faker();
 
     /**
      * 生成raw 文本
@@ -94,7 +95,7 @@ public class JsonGenerator {
      * @param mockType
      * @return
      */
-    private static Object generateMockValue(String mockType) {
+    private Object generateMockValue(String mockType) {
         switch(mockType) {
             case "@ip":
                 return faker.internet().ipV4Address();
