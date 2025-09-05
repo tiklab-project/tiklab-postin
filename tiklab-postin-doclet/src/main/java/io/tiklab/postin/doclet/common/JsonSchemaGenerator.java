@@ -42,11 +42,14 @@ public class JsonSchemaGenerator {
             if (isPrimitiveType(field.getType())) {
                 fieldProperties.put("type", getFieldType(field.getType()));
             } else if (isListType(field.getType())) {
-                // 处理列表类型
+                // 处理列表类型 - 使用properties.ITEMS结构以保持一致性
                 Type listType = ((ParameterizedType) field.getGenericType()).getActualTypeArguments()[0];
                 Class<?> listGenericType = (Class<?>) listType;
                 fieldProperties.put("type", "array");
-                fieldProperties.put("items", getPropertiesMap(listGenericType));
+                // 使用properties.ITEMS结构而不是标准的items属性
+                Map<String, Object> itemsProperties = new HashMap<>();
+                itemsProperties.put("ITEMS", getPropertiesMap(listGenericType));
+                fieldProperties.put("properties", itemsProperties);
             } else {
                 // 处理嵌套对象
                 fieldProperties.put("$ref", "#/definitions/" + field.getType().getSimpleName());

@@ -202,9 +202,10 @@ public class GeneratorSchema {
         } else {
             itemsSchema.put("type", "object");
         }
-        JSONObject itemsWithProperties = new JSONObject();
-        itemsWithProperties.put("ITEMS", itemsSchema);
-        schema.put("properties", itemsWithProperties);
+        // 保持原有的结构以兼容前端代码：properties.ITEMS
+        JSONObject properties = new JSONObject();
+        properties.put("ITEMS", itemsSchema);
+        schema.put("properties", properties);
         return schema;
     }
 
@@ -241,6 +242,7 @@ public class GeneratorSchema {
         }
         processedTypes.add(typeName);
         schema.put("type", "object");
+        
         if (typeName.startsWith("io.tiklab.core.Result")) {
             // 构造 Result 的结构：code, message, data
             JSONObject properties = new JSONObject();
@@ -267,11 +269,126 @@ public class GeneratorSchema {
 
             schema.put("properties", properties);
         } else if (depth < MAX_DEPTH - 1) {
-            // 这里可扩展为反射获取类的详细字段信息
-            schema.put("description", "to deep");
+            // 尝试通过反射获取类的详细字段信息
+            try {
+                Class<?> clazz = Class.forName(typeName);
+                JSONObject properties = new JSONObject();
+                
+                // 获取所有声明的字段
+                java.lang.reflect.Field[] fields = clazz.getDeclaredFields();
+                for (java.lang.reflect.Field field : fields) {
+                    String fieldName = field.getName();
+                    Class<?> fieldType = field.getType();
+                    
+                    // 跳过静态字段和合成字段
+                    if (java.lang.reflect.Modifier.isStatic(field.getModifiers()) || field.isSynthetic()) {
+                        continue;
+                    }
+                    
+                    JSONObject fieldSchema = new JSONObject();
+                    String fieldTypeName = fieldType.getName();
+                    
+                    // 尝试获取ApiProperty注解的描述信息
+                    try {
+                        io.tiklab.postin.annotation.ApiProperty apiProperty = field.getAnnotation(io.tiklab.postin.annotation.ApiProperty.class);
+                        if (apiProperty != null && apiProperty.desc() != null && !apiProperty.desc().trim().isEmpty()) {
+                            fieldSchema.put("description", apiProperty.desc());
+                        }
+                    } catch (Exception e) {
+                        // 忽略注解获取异常
+                    }
+                    
+                    // 处理基本类型和包装类型
+                    if (fieldType.isPrimitive()) {
+                        handlePrimitive(fieldType.getName(), fieldSchema);
+                    } else if (fieldTypeName.startsWith("java.lang.") || 
+                               fieldTypeName.equals("String") || 
+                               fieldTypeName.equals("Integer") || 
+                               fieldTypeName.equals("Boolean") || 
+                               fieldTypeName.equals("Long") || 
+                               fieldTypeName.equals("Double") || 
+                               fieldTypeName.equals("Float") || 
+                               fieldTypeName.equals("Byte") || 
+                               fieldTypeName.equals("Short") || 
+                               fieldTypeName.equals("Character")) {
+                        handleJavaLangType(fieldTypeName, fieldSchema);
+                    } else if (fieldTypeName.startsWith("java.util.List") || 
+                               fieldTypeName.startsWith("java.util.Set") || 
+                               fieldTypeName.startsWith("java.util.Collection")) {
+                        // 处理集合类型 - 保持与handleCollectionType方法一致的结构
+                        fieldSchema.put("type", "array");
+                        
+                        // 尝试获取泛型类型信息
+                        JSONObject itemsSchema = new JSONObject();
+                        try {
+                            java.lang.reflect.Type genericType = field.getGenericType();
+                            if (genericType instanceof java.lang.reflect.ParameterizedType) {
+                                java.lang.reflect.ParameterizedType paramType = (java.lang.reflect.ParameterizedType) genericType;
+                                java.lang.reflect.Type[] actualTypes = paramType.getActualTypeArguments();
+                                if (actualTypes.length > 0) {
+                                    String genericTypeName = actualTypes[0].getTypeName();
+                                    // 递归解析泛型类型
+                                    itemsSchema = generateSchema(genericTypeName, depth + 1);
+                                } else {
+                                    itemsSchema.put("type", "object");
+                                }
+                            } else {
+                                itemsSchema.put("type", "object");
+                            }
+                        } catch (Exception e) {
+                            // 如果获取泛型信息失败，使用默认的object类型
+                            itemsSchema.put("type", "object");
+                        }
+                        
+                        // 使用properties.ITEMS结构以保持一致性
+                        JSONObject fieldProperties = new JSONObject();
+                        fieldProperties.put("ITEMS", itemsSchema);
+                        fieldSchema.put("properties", fieldProperties);
+                    } else if (fieldTypeName.startsWith("java.util.Map")) {
+                        // 处理Map类型
+                        fieldSchema.put("type", "object");
+                        fieldSchema.put("additionalProperties", new JSONObject().put("type", "object"));
+                    } else if (fieldTypeName.equals("java.sql.Timestamp") || 
+                               fieldTypeName.equals("java.util.Date")) {
+                        fieldSchema.put("type", "string");
+                        fieldSchema.put("format", "date-time");
+                    } else {
+                        // 对于其他复杂类型，递归生成schema
+                        fieldSchema = generateSchema(fieldTypeName, depth + 1);
+                    }
+
+                    properties.put(fieldName, fieldSchema);
+                }
+                
+                if (!properties.isEmpty()) {
+                    schema.put("properties", properties);
+                } else {
+                    schema.put("description", "Class: " + typeName);
+                }
+                
+            } catch (ClassNotFoundException e) {
+                // 如果类无法找到，可能是泛型类型，尝试解析泛型参数
+                if (typeName.contains("<") && typeName.contains(">")) {
+                    int start = typeName.indexOf("<");
+                    int end = typeName.lastIndexOf(">");
+                    if (start > 0 && end > start) {
+                        String inner = typeName.substring(start + 1, end).trim();
+                        JSONObject innerSchema = generateSchema(inner, depth + 1);
+                        schema.put("description", "Generic type: " + typeName);
+                        // 可以在这里添加更多处理逻辑
+                    } else {
+                        schema.put("description", "Unable to resolve class: " + typeName);
+                    }
+                } else {
+                    schema.put("description", "Unable to resolve class: " + typeName);
+                }
+            } catch (Exception e) {
+                schema.put("description", "Error processing class: " + typeName + " - " + e.getMessage());
+            }
         } else {
-            schema.put("description", "to deep");
+            schema.put("description", "Maximum depth reached for: " + typeName);
         }
+        
         processedTypes.remove(typeName);
         return schema;
     }
@@ -279,9 +396,21 @@ public class GeneratorSchema {
     /* ********************* ApiPropertyMeta 处理 ********************* */
 
     public JSONObject generateSchema(ApiPropertyMeta propertyMeta, int depth) {
-        String dataType = propertyMeta.getApiProperty() != null
-                ? propertyMeta.getApiProperty().name() : "object";
-        return generateSchema(dataType, depth);
+        String dataType = propertyMeta.getDataType() != null 
+                ? propertyMeta.getDataType() : "object";
+        JSONObject schema = generateSchema(dataType, depth);
+        
+        // 添加描述信息
+        if (propertyMeta.getDesc() != null && !propertyMeta.getDesc().trim().isEmpty()) {
+            schema.put("description", propertyMeta.getDesc());
+        }
+        
+        // 添加是否必填信息
+        if (propertyMeta.isRequired()) {
+            schema.put("required", true);
+        }
+        
+        return schema;
     }
 
     /* ********************* 解析 Type 对象 ********************* */
