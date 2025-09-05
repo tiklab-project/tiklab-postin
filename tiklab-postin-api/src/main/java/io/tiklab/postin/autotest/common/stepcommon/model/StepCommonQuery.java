@@ -14,6 +14,9 @@ public class StepCommonQuery implements Serializable {
     @ApiProperty(name ="caseId",desc = "caseId，精确匹配")
     private String caseId;
 
+    @ApiProperty(name ="parentId",desc = "parentId，精确匹配")
+    private String parentId;
+
     @ApiProperty(name ="orderParams",desc = "排序参数")
     private List<Order> orderParams = OrderBuilders.instance().asc("sort").get();
 
@@ -22,9 +25,6 @@ public class StepCommonQuery implements Serializable {
 
     @ApiProperty(name ="caseType",desc = "caseType")
     private String caseType;
-
-    @ApiProperty(name ="isPlanEntry",desc = "是否从测试计划进入功能用例")
-    private Boolean isPlanEntry;
 
     @ApiProperty(name ="testPlanId",desc = "testPlanId")
     private String testPlanId;
@@ -61,14 +61,6 @@ public class StepCommonQuery implements Serializable {
         this.caseType = caseType;
     }
 
-    public Boolean getIsPlanEntry() {
-        return isPlanEntry;
-    }
-
-    public void setIsPlanEntry(Boolean planEntry) {
-        isPlanEntry = planEntry;
-    }
-
 
     public String getTestPlanId() {
         return testPlanId;
@@ -77,4 +69,14 @@ public class StepCommonQuery implements Serializable {
     public void setTestPlanId(String testPlanId) {
         this.testPlanId = testPlanId;
     }
+
+    public String getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(String parentId) {
+        this.parentId = parentId;
+    }
+
+
 }

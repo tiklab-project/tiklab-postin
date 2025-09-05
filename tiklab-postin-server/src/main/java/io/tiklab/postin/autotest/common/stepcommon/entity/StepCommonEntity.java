@@ -14,12 +14,16 @@ public class StepCommonEntity implements Serializable {
 
     @Id
     @GeneratorValue(length = 12)
-    @Column(name = "id",length = 32)
+    @Column(name = "id")
     private String id;
 
-    // 所属断言
+    // 关联的用例
     @Column(name = "case_id")
     private String caseId;
+
+    // 父级
+    @Column(name = "parent_id")
+    private String parentId;
 
     // 创建时间
     @Column(name = "create_time")
@@ -39,6 +43,14 @@ public class StepCommonEntity implements Serializable {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(String parentId) {
+        this.parentId = parentId;
     }
 
     public String getCaseId() {

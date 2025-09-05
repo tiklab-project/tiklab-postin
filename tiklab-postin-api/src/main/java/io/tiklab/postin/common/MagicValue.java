@@ -74,11 +74,15 @@ public class MagicValue {
     public static final String CASE_TYPE_API_UNIT = "api-unit";
     public static final String CASE_TYPE_API_SCENE = "api-scene";
     public static final String CASE_TYPE_API_PERFORM = "api-perform";
-    public static final String CASE_TYPE_APP = "app-scene";
-    public static final String CASE_TYPE_WEB = "web-scene";
-    public static final String CASE_TYPE_FUNCTION = "function";
-    public static final String CASE_TYPE_IF = "if";
     public static final String TEST_PLAN = "test-plan";
+
+    //测试步骤类型
+//    public static final String TEST_STEP_CASE= "case";
+    public static final String TEST_STEP_IF = "if";
+    public static final String TEST_STEP_SCRIPT = "script";
+    public static final String TEST_STEP_DATABASE = "database";
+    public static final String TEST_STEP_FOR = "for";
+
 
     public static final String TEST_API_PERFORM_STOP = "api-perform-stop";
 
@@ -97,11 +101,6 @@ public class MagicValue {
     public static final String IF_RELATION_AND = "and";
     //测试步骤中的if判断关系，或者
     public static final String IF_RELATION_OR = "or";
-
-    //app 测试平台
-    public static final String PLATFORM_ANDROID = "Android";
-    public static final String PLATFORM_IOS= "Ios";
-
 
     //测试状态
     //开始执行

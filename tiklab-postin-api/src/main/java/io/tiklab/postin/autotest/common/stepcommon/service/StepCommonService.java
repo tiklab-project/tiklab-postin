@@ -1,13 +1,15 @@
 package io.tiklab.postin.autotest.common.stepcommon.service;
 
+import java.util.List;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
 import io.tiklab.postin.autotest.common.stepcommon.model.StepCommon;
 import io.tiklab.postin.autotest.common.stepcommon.model.StepCommonQuery;
 import io.tiklab.toolkit.join.annotation.FindOne;
 import io.tiklab.toolkit.join.annotation.JoinProvider;
-
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import java.util.List;
+import io.tiklab.postin.autotest.common.stepcommon.model.StepCommonDragSortRequest;
 
 /**
 * 步骤公共 服务接口
@@ -32,7 +34,7 @@ public interface StepCommonService {
     * 删除步骤公共
     * @param id
     */
-    void deleteStepCommon(@NotNull String id,String caseType);
+    void deleteStepCommon(@NotNull String id);
 
     void deleteAllStepCommon(String caseId);
 
@@ -68,4 +70,11 @@ public interface StepCommonService {
      * @return
      */
     List<StepCommon> getStepCommonList(String caseId);
+
+    /**
+     * 拖拽排序步骤
+     * @param dragSortRequest 拖拽排序请求
+     */
+    void dragSortStepCommon(StepCommonDragSortRequest dragSortRequest);
+
 }

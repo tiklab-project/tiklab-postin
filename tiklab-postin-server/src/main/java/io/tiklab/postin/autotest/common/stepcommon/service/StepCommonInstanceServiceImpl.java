@@ -64,7 +64,7 @@ public class StepCommonInstanceServiceImpl implements StepCommonInstanceService 
                 apiUnitInstanceService.deleteApiUnitInstance(id);
                 break;
 
-            case MagicValue.CASE_TYPE_IF:
+            case MagicValue.TEST_STEP_IF:
                 ifJudgmentInstanceService.deleteIfJudgmentInstance(id);
         }
 

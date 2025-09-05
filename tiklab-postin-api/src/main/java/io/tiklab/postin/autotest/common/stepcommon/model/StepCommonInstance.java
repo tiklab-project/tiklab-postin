@@ -2,6 +2,7 @@ package io.tiklab.postin.autotest.common.stepcommon.model;
 
 import io.tiklab.core.BaseModel;
 import io.tiklab.postin.annotation.ApiModel;
+import io.tiklab.postin.annotation.ApiProperty;
 import io.tiklab.postin.autotest.common.ifjudgment.model.IfJudgmentInstance;
 import io.tiklab.postin.autotest.http.scene.instance.model.ApiSceneStepInstanceBind;
 import io.tiklab.postin.autotest.http.unit.instance.model.ApiUnitInstance;
@@ -17,6 +18,7 @@ import io.tiklab.toolkit.join.annotation.Join;
 public class StepCommonInstance extends BaseModel{
     private String id;
     private String instanceId;
+    private String parentId;
     private int result;
     private int sort;
     private String type;
@@ -39,6 +41,14 @@ public class StepCommonInstance extends BaseModel{
 
     public void setInstanceId(String instanceId) {
         this.instanceId = instanceId;
+    }
+
+    public String getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(String parentId) {
+        this.parentId = parentId;
     }
 
     public String getType() {

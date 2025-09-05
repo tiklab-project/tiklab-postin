@@ -29,7 +29,14 @@ public class PostInOpenApiAutoConfiguration {
                 "/apx/findApixList",
                 "/http/findHttpApi",
                 "/workspace/findWorkspace",
-                "/workspace/findWorkspaceList"
+                "/workspace/findWorkspaceList",
+                "/workspace/findAllWorkspace",
+                "/testPlan/findTestPlanList",
+                "/testPlan/findTestPlan",
+                "/environment/findEnvironmentList",
+                "/environment/findEnvironment",
+                "/testPlanTestDispatch/execute",
+                "/testPlanTestDispatch/exeResult"
         };
 
         return AllowConfigBuilder.instance()

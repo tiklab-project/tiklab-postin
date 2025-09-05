@@ -20,6 +20,10 @@ public class StepCommonInstanceEntity implements Serializable {
     @Column(name = "instance_id")
     private String instanceId;
 
+    // 父级
+    @Column(name = "parent_id")
+    private String parentId;
+
     // 类型
     @Column(name = "type")
     private String type;
@@ -38,6 +42,14 @@ public class StepCommonInstanceEntity implements Serializable {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(String parentId) {
+        this.parentId = parentId;
     }
 
     public String getInstanceId() {

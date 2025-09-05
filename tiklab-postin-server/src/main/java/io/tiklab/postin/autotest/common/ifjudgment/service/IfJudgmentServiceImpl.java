@@ -38,17 +38,12 @@ public class IfJudgmentServiceImpl implements IfJudgmentService {
 
     @Override
     public String createIfJudgment(@NotNull @Valid IfJudgment ifJudgment) {
-        //公共步骤 创建
-        StepCommon stepCommon = new StepCommon();
-        stepCommon.setCaseId(ifJudgment.getCaseId());
-        stepCommon.setType(MagicValue.CASE_TYPE_IF);
-        String stepId = stepCommonService.createStepCommon(stepCommon);
 
         IfJudgmentEntity ifJudgmentEntity = BeanMapper.map(ifJudgment, IfJudgmentEntity.class);
-        ifJudgmentEntity.setId(stepId);
-        ifJudgmentDao.createIfJudgment(ifJudgmentEntity);
 
-        return stepId;
+        String id = ifJudgmentDao.createIfJudgment(ifJudgmentEntity);
+
+        return id;
     }
 
     @Override

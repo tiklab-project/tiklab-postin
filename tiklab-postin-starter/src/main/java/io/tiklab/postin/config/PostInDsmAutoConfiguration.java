@@ -255,6 +255,15 @@ public class PostInDsmAutoConfiguration {
                 .get();
         versionList.add(dsmVersion);
 
+        dsmVersion = DsmVersionBuilder.instance()
+                .version("1.2.0")
+                .db(new String[]{
+                        "postin_1.2.0"
+                })
+                .get();
+        versionList.add(dsmVersion);
+
+
 
         return versionList;
     }

@@ -1,8 +1,11 @@
 package io.tiklab.postin.autotest.common.stepcommon.controller;
 
 import io.tiklab.core.Result;
+import io.tiklab.core.exception.ApplicationException;
+import io.tiklab.postin.common.ErrorCode;
 import io.tiklab.postin.autotest.common.stepcommon.model.StepCommon;
 import io.tiklab.postin.autotest.common.stepcommon.model.StepCommonQuery;
+import io.tiklab.postin.autotest.common.stepcommon.model.StepCommonDragSortRequest;
 import io.tiklab.postin.autotest.common.stepcommon.service.StepCommonService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,8 +53,8 @@ public class StepCommonController {
     @RequestMapping(path="/deleteStepCommon",method = RequestMethod.POST)
 //    @ApiMethod(name = "deleteStepCommon",desc = "删除公共步骤")
 //    @ApiParam(name = "id",desc = "id",required = true)
-    public Result<Void> deleteStepCommon(@NotNull String id,String caseType){
-        stepCommonService.deleteStepCommon(id,caseType);
+    public Result<Void> deleteStepCommon(@NotNull String id){
+        stepCommonService.deleteStepCommon(id);
 
         return Result.ok();
     }
@@ -74,5 +77,19 @@ public class StepCommonController {
         return Result.ok(stepCommonList);
     }
 
+    /**
+     * 拖拽排序步骤
+     * @param dragSortRequest 拖拽排序请求
+     * @return 操作结果
+     */
+    @RequestMapping(value = "/dragSort", method = RequestMethod.POST)
+    public Result<Void> dragSortStepCommon(@RequestBody @Valid StepCommonDragSortRequest dragSortRequest) {
+        try {
+            stepCommonService.dragSortStepCommon(dragSortRequest);
+            return Result.ok();
+        } catch (Exception e) {
+            throw new ApplicationException(ErrorCode.OTHER_ERROR, "拖拽排序步骤失败: " + e.getMessage());
+        }
+    }
 
 }
