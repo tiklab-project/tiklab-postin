@@ -48,6 +48,7 @@ public class ApiSceneStepServiceImpl implements ApiSceneStepService {
         StepCommon stepCommon = new StepCommon();
         stepCommon.setCaseId(apiSceneStep.getApiSceneId());
         stepCommon.setType(MagicValue.CASE_TYPE_API_SCENE);
+        stepCommon.setParentId(apiSceneStep.getParentId());
         String stepId = stepCommonService.createStepCommon(stepCommon);
 
         ApiSceneStepEntity apiSceneStepEntity = BeanMapper.map(apiSceneStep, ApiSceneStepEntity.class);

@@ -34,6 +34,9 @@ public class ApiSceneStep extends BaseModel{
 
     private ApiUnitCaseDataConstruction apiUnitCaseDataConstruction;
 
+
+    private String parentId;
+
     public String getId() {
         return id;
     }
@@ -64,5 +67,13 @@ public class ApiSceneStep extends BaseModel{
 
     public void setApiUnitCaseDataConstruction(ApiUnitCaseDataConstruction apiUnitCaseDataConstruction) {
         this.apiUnitCaseDataConstruction = apiUnitCaseDataConstruction;
+    }
+
+    public String getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(String parentId) {
+        this.parentId = parentId;
     }
 }
