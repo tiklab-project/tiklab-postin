@@ -271,6 +271,14 @@ public class PostInDsmAutoConfiguration {
                 .get();
         versionList.add(user200);
 
+        DsmVersion user201 = DsmVersionBuilder.instance()
+                .version("user_2.0.1")
+                .db(new String[]{
+                        "user_2.0.1"
+                })
+                .get();
+        versionList.add(user201);
+
         return versionList;
     }
 }
