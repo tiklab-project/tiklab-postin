@@ -60,7 +60,9 @@ public class PostInGatewayAutoConfiguration {
                         "/eam/auth/login",
                         "/message/messageItem/syncUpdateMessage",
                         "/message/messageItem/syncDeleteMessage",
-                        "/init/install/findStatus"
+                        "/init/install/findStatus",
+                        "/user/ldap/common/cfg/findLdapCfg",
+                        "/eam/ldap/passport/login"
 
                 })
                 .ignorePreUrls(new String[]{
