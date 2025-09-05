@@ -13,7 +13,7 @@ import java.util.Set;
 
 public class GeneratorSchema {
 
-    private static final int MAX_DEPTH = 5;
+    private static final int MAX_DEPTH = 4;
     // 用于避免循环引用
     private Set<String> processedTypes = new HashSet<>();
 
@@ -117,6 +117,10 @@ public class GeneratorSchema {
         }
         if (isMapType(dataType)) {
             return handleMapType(dataType, schema, depth);
+        }
+        // 特殊处理Pagination类型
+        if (dataType.startsWith("io.tiklab.core.Pagination") || dataType.startsWith("io.tiklab.core.page.Pagination") || dataType.startsWith("Pagination<")) {
+            return handlePaginationType(dataType, schema, depth);
         }
         return handleClassType(dataType, schema, depth);
     }
@@ -229,6 +233,11 @@ public class GeneratorSchema {
         }
         return schema;
     }
+    
+    private JSONObject handlePaginationType(String typeName, JSONObject schema, int depth) {
+        // 直接调用统一的Pagination Schema生成方法
+        return generatePaginationSchema(typeName, depth);
+    }
 
     /**
      * 针对普通类的处理，如果类型为 io.tiklab.core.Result 则构造一个包含 code、message、data 的 JSON Schema
@@ -237,7 +246,7 @@ public class GeneratorSchema {
         if (processedTypes.contains(typeName)) {
             JSONObject refSchema = new JSONObject();
             refSchema.put("type", "object");
-            refSchema.put("description", "Circular reference to " + typeName);
+            refSchema.put("description", "");
             return refSchema;
         }
         processedTypes.add(typeName);
@@ -374,19 +383,19 @@ public class GeneratorSchema {
                     if (start > 0 && end > start) {
                         String inner = typeName.substring(start + 1, end).trim();
                         JSONObject innerSchema = generateSchema(inner, depth + 1);
-                        schema.put("description", "Generic type: " + typeName);
+                        schema.put("description", "");
                         // 可以在这里添加更多处理逻辑
                     } else {
-                        schema.put("description", "Unable to resolve class: " + typeName);
+                        schema.put("description", "");
                     }
                 } else {
-                    schema.put("description", "Unable to resolve class: " + typeName);
+                    schema.put("description", "");
                 }
             } catch (Exception e) {
-                schema.put("description", "Error processing class: " + typeName + " - " + e.getMessage());
+                schema.put("description", "");
             }
         } else {
-            schema.put("description", "Maximum depth reached for: " + typeName);
+            schema.put("description", "");
         }
         
         processedTypes.remove(typeName);
@@ -425,6 +434,106 @@ public class GeneratorSchema {
             return schema;
         }
         String typeName = type.getTypeName();
+        
+        // 特殊处理Pagination类型
+        if (typeName.startsWith("io.tiklab.core.Pagination") || typeName.startsWith("io.tiklab.core.page.Pagination") || typeName.startsWith("Pagination<")) {
+            return generatePaginationSchema(type, depth);
+        }
+        
         return generateSchema(typeName, depth);
+    }
+    
+    /**
+     * 生成Pagination类型的Schema - 支持Type对象和字符串类型
+     */
+    private JSONObject generatePaginationSchema(Object typeOrName, int depth) {
+        JSONObject schema = new JSONObject();
+        schema.put("type", "object");
+        schema.put("description", "分页数据");
+        
+        JSONObject properties = new JSONObject();
+        
+        // 分页基本信息字段
+        JSONObject pageSizeSchema = new JSONObject();
+        pageSizeSchema.put("type", "integer");
+        pageSizeSchema.put("description", "每页大小");
+        properties.put("pageSize", pageSizeSchema);
+        
+        JSONObject currentPageSchema = new JSONObject();
+        currentPageSchema.put("type", "integer");
+        currentPageSchema.put("description", "当前页码");
+        properties.put("currentPage", currentPageSchema);
+        
+        JSONObject totalRecordSchema = new JSONObject();
+        totalRecordSchema.put("type", "integer");
+        totalRecordSchema.put("description", "总记录数");
+        properties.put("totalRecord", totalRecordSchema);
+        
+        JSONObject totalPageSchema = new JSONObject();
+        totalPageSchema.put("type", "integer");
+        totalPageSchema.put("description", "总页数");
+        properties.put("totalPage", totalPageSchema);
+        
+        JSONObject beginIndexSchema = new JSONObject();
+        beginIndexSchema.put("type", "integer");
+        beginIndexSchema.put("description", "开始索引");
+        properties.put("beginIndex", beginIndexSchema);
+        
+        JSONObject endIndexSchema = new JSONObject();
+        endIndexSchema.put("type", "integer");
+        endIndexSchema.put("description", "结束索引");
+        properties.put("endIndex", endIndexSchema);
+        
+        // 处理dataList字段 - 这是泛型数据列表
+        JSONObject dataListSchema = new JSONObject();
+        dataListSchema.put("type", "array");
+        dataListSchema.put("description", "数据列表");
+        
+        // 尝试获取泛型参数类型
+        JSONObject itemsSchema = new JSONObject();
+        try {
+            if (typeOrName instanceof Type) {
+                // 处理Type对象
+                Type type = (Type) typeOrName;
+                if (type instanceof java.lang.reflect.ParameterizedType) {
+                    java.lang.reflect.ParameterizedType paramType = (java.lang.reflect.ParameterizedType) type;
+                    java.lang.reflect.Type[] actualTypes = paramType.getActualTypeArguments();
+                    if (actualTypes.length > 0) {
+                        // 递归解析泛型类型，例如Workspace
+                        itemsSchema = parseType(actualTypes[0], depth + 1);
+                    } else {
+                        itemsSchema.put("type", "object");
+                    }
+                } else {
+                    itemsSchema.put("type", "object");
+                }
+            } else if (typeOrName instanceof String) {
+                // 处理字符串类型
+                String typeName = (String) typeOrName;
+                int start = typeName.indexOf("<");
+                int end = typeName.lastIndexOf(">");
+                if (start > 0 && end > start) {
+                    String inner = typeName.substring(start + 1, end).trim();
+                    // 递归解析泛型类型，例如Workspace
+                    itemsSchema = generateSchema(inner, depth + 1);
+                } else {
+                    itemsSchema.put("type", "object");
+                }
+            } else {
+                itemsSchema.put("type", "object");
+            }
+        } catch (Exception e) {
+            itemsSchema.put("type", "object");
+        }
+        
+        // 使用properties.ITEMS结构以保持一致性
+        JSONObject dataListProperties = new JSONObject();
+        dataListProperties.put("ITEMS", itemsSchema);
+        dataListSchema.put("properties", dataListProperties);
+        
+        properties.put("dataList", dataListSchema);
+        
+        schema.put("properties", properties);
+        return schema;
     }
 }
