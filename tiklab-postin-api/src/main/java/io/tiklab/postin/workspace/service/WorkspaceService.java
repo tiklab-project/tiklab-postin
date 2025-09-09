@@ -12,6 +12,7 @@ import io.tiklab.toolkit.join.annotation.FindOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.Map;
 
 /**
 * 空间 服务接口
@@ -80,6 +81,12 @@ public interface WorkspaceService {
      */
     List<Workspace> findWorkspaceJoinList(WorkspaceQuery workspaceQuery);
 
+
+    /**
+     * 获取项目数量 所有的，我创建的，我关注的
+     * @return
+     */
+    Map<String, Object> getWorkspaceNumber();
 
 
 }

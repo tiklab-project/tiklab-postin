@@ -326,59 +326,36 @@ public class WorkspaceServiceImpl implements WorkspaceService {
     @Override
     public List<Workspace> findWorkspaceJoinList(WorkspaceQuery workspaceQuery) {
 
-        //查询空间列表
         WorkspaceQuery processQuery = new WorkspaceQuery();
         processQuery.setWorkspaceName(workspaceQuery.getWorkspaceName());
         processQuery.setOrderParams(workspaceQuery.getOrderParams());
         List<Workspace> workspaceList = findWorkspaceList(processQuery);
 
-        //存储list
-        ArrayList<Workspace> arrayList = new ArrayList<>();
+        String loginId = LoginContext.getLoginId();
 
-        for(Workspace workspace : workspaceList){
+        // 查询用户加入的空间ID，减少多次数据库调用
+        DmUserQuery dmUserQuery = new DmUserQuery();
+        dmUserQuery.setUserId(loginId);
+        Set<String> joinedWorkspaceIds = dmUserService.findDmUserList(dmUserQuery)
+                .stream()
+                .map(DmUser::getDomainId)
+                .collect(Collectors.toSet());
 
+        // 过滤当前用户可见的空间
+        List<Workspace> result = workspaceList.stream()
+                .filter(ws -> ws.getVisibility() == 0 || joinedWorkspaceIds.contains(ws.getId()))
+                .collect(Collectors.toList());
 
-            //如果是公共：0，都能查看
-            if(workspace.getVisibility().equals(0)){
-                arrayList.add(workspace);
-            }else {
-                //查询dmuser list
-                DmUserQuery dmUserQuery = new DmUserQuery();
-                dmUserQuery.setUserId(workspaceQuery.getUserId());
-                dmUserQuery.setDomainId(workspace.getId());
-                List<DmUser> dmUserList = dmUserService.findDmUserList(dmUserQuery);
+        // 设置关注状态
+        Set<String> followedWorkspaceIds = new HashSet<>(getFollowedWorkspaceIds());
+        result.forEach(ws -> ws.setIsFollow(followedWorkspaceIds.contains(ws.getId()) ? 1 : 0));
 
-                if(dmUserList==null||dmUserList.size()==0){
-                    continue;
-                }
+        // 关联查询
+        joinTemplate.joinQuery(result, new String[]{"user"});
 
-                for(DmUser dmUser : dmUserList){
-                    //如果空间成员与当前人相同
-                    if(Objects.equals(dmUser.getUser().getId(), workspaceQuery.getUserId())){
-                        arrayList.add(workspace);
-                    }
-                }
-            }
-        }
-
-        // 获取所有关注的 Workspace 的 ID 列表
-        List<String> followedWorkspaceIds = getFollowedWorkspaceIds();
-        // 设置是否关注
-        for (Workspace workspace : arrayList) {
-            if (followedWorkspaceIds.contains(workspace.getId())) {
-                workspace.setIsFollow(1);
-            } else {
-                workspace.setIsFollow(0);
-            }
-        }
-
-
-        joinTemplate.joinQuery(arrayList,new String[]{
-                "user"
-        });
-
-        return arrayList;
+        return result;
     }
+
 
     /**
      * 获取当前用户关注的 Workspace 的 ID 列表
@@ -443,6 +420,27 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         user.setUserId(userId);
         user.setRoleType(roleType);
         return user;
+    }
+
+    @Override
+    public Map<String, Object> getWorkspaceNumber() {
+        HashMap<String, Object> numMap = new HashMap<>();
+
+        List<Workspace> workspaceJoinList = findWorkspaceJoinList(new WorkspaceQuery());
+        int size = workspaceJoinList.size();
+        numMap.put("all",size);
+
+        List<WorkspaceFollow> workspaceFollowList = workspaceFollowService.findWorkspaceFollowList(new WorkspaceFollowQuery());
+        int followSize = workspaceFollowList.size();
+        numMap.put("follow",followSize);
+
+        WorkspaceQuery workspaceQuery = new WorkspaceQuery();
+        workspaceQuery.setUserId(LoginContext.getLoginId());
+        List<Workspace> workspaceList = findWorkspaceList(workspaceQuery);
+        int mySize = workspaceList.size();
+        numMap.put("create",mySize);
+
+        return numMap;
     }
 
 }

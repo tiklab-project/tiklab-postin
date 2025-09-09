@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.Map;
 
 
 @RestController
@@ -110,5 +111,12 @@ public class WorkspaceController {
         return Result.ok(workspaceList);
     }
 
+    @RequestMapping(path = "/getWorkspaceNumber",method = RequestMethod.POST)
+    @ApiMethod(name = "getWorkspaceNumber",desc = "获取空间数量")
+    public Result<Map<String, Object>> getWorkspaceNumber(){
+        Map<String, Object> workspaceNumber = workspaceService.getWorkspaceNumber();
+
+        return Result.ok(workspaceNumber);
+    }
 
 }
