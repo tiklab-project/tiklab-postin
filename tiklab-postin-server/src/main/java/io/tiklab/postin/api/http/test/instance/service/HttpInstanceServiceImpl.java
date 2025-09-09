@@ -1,12 +1,12 @@
 package io.tiklab.postin.api.http.test.instance.service;
 
 import io.tiklab.postin.api.http.test.instance.dao.HttpInstanceDao;
+import io.tiklab.postin.api.http.test.instance.dao.RequestInstanceDao;
 import io.tiklab.postin.api.http.test.instance.entity.HttpInstanceEntity;
+import io.tiklab.postin.api.http.test.instance.entity.RequestInstanceEntity;
 
 import io.tiklab.postin.api.http.test.instance.model.*;
-import io.tiklab.core.page.Pagination;
 import io.tiklab.toolkit.beans.BeanMapper;
-import io.tiklab.core.page.PaginationBuilder;
 import io.tiklab.dal.jpa.criterial.condition.DeleteCondition;
 import io.tiklab.dal.jpa.criterial.conditionbuilder.DeleteBuilders;
 import io.tiklab.toolkit.join.JoinTemplate;
@@ -17,9 +17,9 @@ import org.springframework.stereotype.Service;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -30,6 +30,9 @@ public class HttpInstanceServiceImpl implements TestInstanceService {
 
     @Autowired
     HttpInstanceDao httpInstanceDao;
+
+    @Autowired
+    RequestInstanceDao requestInstanceDao;
 
     @Autowired
     JoinTemplate joinTemplate;
@@ -176,58 +179,69 @@ public class HttpInstanceServiceImpl implements TestInstanceService {
     public List<HttpInstance> findTestInstanceList(HttpInstanceQuery httpInstanceQuery) {
         List<HttpInstanceEntity> httpInstanceEntityList = httpInstanceDao.findTestInstanceList(httpInstanceQuery);
         List<HttpInstance> httpInstanceList = BeanMapper.mapList(httpInstanceEntityList, HttpInstance.class);
-//        httpInstanceList.sort(Comparator.comparing(HttpInstance::getCreateTime,Comparator.reverseOrder()));
+        
+        // 关联查询
         joinTemplate.joinQuery(httpInstanceList,new String[]{
                 "httpCase",
                 "user"
         });
 
-        List<HttpInstance> httpInstances = httpInstanceList.stream().map(httpInstance -> {
-            RequestInstance requestInstance = requestInstanceService.findRequestInstance(httpInstance.getId());
-            httpInstance.setRequestInstance(requestInstance);
-            return httpInstance;
-        }).collect(Collectors.toList());
+        // 批量查询RequestInstance
+        if (!httpInstanceList.isEmpty()) {
+            List<String> instanceIds = httpInstanceList.stream()
+                    .map(HttpInstance::getId)
+                    .collect(Collectors.toList());
+            
+            List<RequestInstanceEntity> requestInstanceEntities = requestInstanceDao.findRequestInstanceList(instanceIds);
+            List<RequestInstance> requestInstances = BeanMapper.mapList(requestInstanceEntities, RequestInstance.class);
+            
+            // 创建Map便于快速查找，使用httpInstance.id作为key
+            Map<String, RequestInstance> requestInstanceMap = requestInstances.stream()
+                    .collect(Collectors.toMap(
+                            requestInstance -> requestInstance.getHttpInstance().getId(),
+                            Function.identity(),
+                            (existing, replacement) -> existing
+                    ));
+            
+            // 设置RequestInstance
+            httpInstanceList.forEach(httpInstance -> {
+                RequestInstance requestInstance = requestInstanceMap.get(httpInstance.getId());
+                if (requestInstance != null) {
+                    httpInstance.setRequestInstance(requestInstance);
+                }
+            });
+        }
 
-
-        return httpInstances;
+        return httpInstanceList;
     }
-
 
 
     @Override
     public HashMap<String, List<HttpInstance>> findTestInstanceGroupByCreateTime(HttpInstanceQuery httpInstanceQuery) {
         List<HttpInstance> testInstanceList = findTestInstanceList(httpInstanceQuery);
 
-        // 创建一个 HashMap 用于将相同创建时间的实例分组
-        HashMap<String, List<HttpInstance>> groupedByCreateTime = new HashMap<>();
+        DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        
+        // 按创建日期分组
+        Map<String, List<HttpInstance>> groupedByDate = testInstanceList.stream()
+                .collect(Collectors.groupingBy(
+                        instance -> instance.getCreateTime().toLocalDateTime().toLocalDate().format(DATE_FORMATTER)
+                ));
 
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        // 对每个分组内的实例按创建时间倒序排序
+        groupedByDate.forEach((dateKey, instanceList) -> {
+            instanceList.sort((i1, i2) -> i2.getCreateTime().compareTo(i1.getCreateTime()));
+        });
 
-        for (HttpInstance httpInstance : testInstanceList) {
-            // 将 Timestamp 转换为 LocalDateTime，然后获取 LocalDate
-            LocalDate createDate = httpInstance.getCreateTime().toLocalDateTime().toLocalDate();
-            String createTimeKey = createDate.format(dateFormatter); // 格式化为字符串
-
-            // 如果 HashMap 中不存在该键，初始化一个新的列表
-            if (!groupedByCreateTime.containsKey(createTimeKey)) {
-                groupedByCreateTime.put(createTimeKey, new ArrayList<>());
-            }
-
-            // 将当前 HttpInstance 添加到对应的列表中
-            groupedByCreateTime.get(createTimeKey).add(httpInstance);
-        }
-
-        // 对 HashMap 按日期键降序排序
-        LinkedHashMap<String, List<HttpInstance>> sortedGroupedByCreateTime = groupedByCreateTime.entrySet().stream()
+        // 按日期键倒序排序并返回结果
+        return groupedByDate.entrySet().stream()
                 .sorted(Map.Entry.<String, List<HttpInstance>>comparingByKey().reversed())
                 .collect(Collectors.toMap(
                         Map.Entry::getKey,
                         Map.Entry::getValue,
                         (e1, e2) -> e1,
-                        LinkedHashMap::new // 保持插入顺序
+                        LinkedHashMap::new
                 ));
-
-        return sortedGroupedByCreateTime;
     }
 
 
