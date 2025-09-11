@@ -166,6 +166,12 @@ public class TestCaseServiceImpl implements TestCaseService {
         return testCaseNum;
     }
 
+    @Override
+    public int findTestCaseNumByWorkspaceId(String workspaceId) {
+        int testCaseNumByWorkspaceId = testCaseDao.findTestCaseNumByWorkspaceId(workspaceId);
+        return testCaseNumByWorkspaceId;
+    }
+
 
     @Override
     public HashMap<String, Integer> findDiffTypeCaseNum(String workspaceId) {

@@ -1,11 +1,8 @@
 package io.tiklab.postin.workspace.service;
 
 import io.tiklab.eam.common.context.LoginContext;
-import io.tiklab.postin.api.apix.model.Apix;
-import io.tiklab.postin.api.apix.model.ApixQuery;
 import io.tiklab.postin.api.apix.service.ApixService;
-import io.tiklab.postin.category.model.Category;
-import io.tiklab.postin.category.model.CategoryQuery;
+import io.tiklab.postin.autotest.test.service.TestCaseService;
 import io.tiklab.postin.category.service.CategoryService;
 import io.tiklab.postin.workspace.dao.WorkspaceRecentDao;
 import io.tiklab.postin.workspace.entity.WorkspaceRecentEntity;
@@ -15,14 +12,12 @@ import io.tiklab.toolkit.beans.BeanMapper;
 import io.tiklab.core.page.Pagination;
 import io.tiklab.core.page.PaginationBuilder;
 import io.tiklab.toolkit.join.JoinTemplate;
-import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -49,6 +44,9 @@ public class WorkspaceRecentServiceImpl implements WorkspaceRecentService {
 
     @Autowired
     ApixService apixService;
+
+    @Autowired
+    TestCaseService testCaseService;
 
     @Override
     public String createWorkspaceRecent(@NotNull @Valid WorkspaceRecent workspaceRecent) {
@@ -118,9 +116,9 @@ public class WorkspaceRecentServiceImpl implements WorkspaceRecentService {
         for(WorkspaceRecent workspaceRecent:workspaceRecentList){
             String workspaceId = workspaceRecent.getWorkspace().getId();
 
-            //获取分组的总数
-            int categoryNum = categoryService.findCategoryNum(workspaceId);
-            workspaceRecent.setCategoryNum(categoryNum);
+            //获取用例的总数
+            int caseNum = testCaseService.findTestCaseNumByWorkspaceId(workspaceId);
+            workspaceRecent.setCaseNum(caseNum);
 
             //获取接口总数
             int apiCount= apixService.findApixNum(workspaceId);
@@ -155,10 +153,9 @@ public class WorkspaceRecentServiceImpl implements WorkspaceRecentService {
         for(WorkspaceRecent workspaceRecent:workspaceRecentList){
             Workspace workspace = workspaceRecent.getWorkspace();
 
-            //获取分组的总数
-            int categoryNum = categoryService.findCategoryNum(workspace.getId());
-            workspaceRecent.setCategoryNum(categoryNum);
-
+            //获取用例的总数
+            int caseNum = testCaseService.findTestCaseNumByWorkspaceId(workspace.getId());
+            workspaceRecent.setCaseNum(caseNum);
             //获取接口总数
             int apiCount= apixService.findApixNum(workspace.getId());
             workspaceRecent.setApiNum(apiCount);

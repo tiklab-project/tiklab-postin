@@ -91,6 +91,8 @@ public class Workspace extends BaseModel {
     @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
     private Timestamp createTime;
 
+    private Integer apiNum;
+    private Integer caseNum;
 
     private Integer isFollow;
     private List<PatchUser> userList;
@@ -163,5 +165,21 @@ public class Workspace extends BaseModel {
 
     public void setCreateTime(Timestamp createTime) {
         this.createTime = createTime;
+    }
+
+    public Integer getApiNum() {
+        return apiNum;
+    }
+
+    public void setApiNum(Integer apiNum) {
+        this.apiNum = apiNum;
+    }
+
+    public Integer getCaseNum() {
+        return caseNum;
+    }
+
+    public void setCaseNum(Integer caseNum) {
+        this.caseNum = caseNum;
     }
 }

@@ -1,6 +1,8 @@
 package io.tiklab.postin.workspace.service;
 
+import io.tiklab.postin.api.apix.service.ApixService;
 import io.tiklab.postin.api.http.test.instance.service.TestInstanceService;
+import io.tiklab.postin.autotest.test.service.TestCaseService;
 import io.tiklab.postin.node.model.Node;
 import io.tiklab.postin.node.model.NodeQuery;
 import io.tiklab.postin.node.service.NodeService;
@@ -98,6 +100,12 @@ public class WorkspaceServiceImpl implements WorkspaceService {
 
     @Autowired
     UserProcessor userService;
+
+    @Autowired
+    ApixService apixService;
+
+    @Autowired
+    TestCaseService testCaseService;
 
 
 //    @Autowired
@@ -296,6 +304,12 @@ public class WorkspaceServiceImpl implements WorkspaceService {
 
         // 设置是否关注
         for (Workspace workspace : workspaceList) {
+            int apixNum = apixService.findApixNum(workspace.getId());
+            workspace.setApiNum(apixNum);
+
+            int testCaseNumByWorkspaceId = testCaseService.findTestCaseNumByWorkspaceId(workspace.getId());
+            workspace.setCaseNum(testCaseNumByWorkspaceId);
+
             if (followedWorkspaceIds.contains(workspace.getId())) {
                 workspace.setIsFollow(1);
             } else {

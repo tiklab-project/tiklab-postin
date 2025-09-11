@@ -1,6 +1,8 @@
 package io.tiklab.postin.workspace.service;
 
 import io.tiklab.eam.common.context.LoginContext;
+import io.tiklab.postin.api.apix.service.ApixService;
+import io.tiklab.postin.autotest.test.service.TestCaseService;
 import io.tiklab.postin.workspace.dao.WorkspaceFollowDao;
 import io.tiklab.postin.workspace.entity.WorkspaceFollowEntity;
 import io.tiklab.postin.workspace.model.Workspace;
@@ -35,6 +37,12 @@ public class WorkspaceFollowServiceImpl implements WorkspaceFollowService {
 
     @Autowired
     JoinTemplate joinTemplate;
+
+    @Autowired
+    ApixService apixService;
+
+    @Autowired
+    TestCaseService testCaseService;
 
     @Override
     public String createWorkspaceFollow(@NotNull @Valid WorkspaceFollow workspaceFollow) {
@@ -117,7 +125,14 @@ public class WorkspaceFollowServiceImpl implements WorkspaceFollowService {
         //设置是否关注
         if(CollectionUtils.isNotEmpty(workspaceFollowList)){
             for(WorkspaceFollow workspaceFollow: workspaceFollowList){
-                workspaceFollow.getWorkspace().setIsFollow(1);
+                Workspace workspace = workspaceFollow.getWorkspace();
+                workspace.setIsFollow(1);
+
+                int apixNum = apixService.findApixNum(workspace.getId());
+                workspace.setApiNum(apixNum);
+
+                int testCaseNumByWorkspaceId = testCaseService.findTestCaseNumByWorkspaceId(workspace.getId());
+                workspace.setCaseNum(testCaseNumByWorkspaceId);
             }
         }
 

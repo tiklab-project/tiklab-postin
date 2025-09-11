@@ -71,6 +71,8 @@ public interface TestCaseService {
      */
     int findTestCaseNumByCategoryId(String categoryId);
 
+    int findTestCaseNumByWorkspaceId(String workspaceId);
+
     /**
      * 查询不同测试类型的数量，功能，接口，ui，性能
      * @param workspaceId

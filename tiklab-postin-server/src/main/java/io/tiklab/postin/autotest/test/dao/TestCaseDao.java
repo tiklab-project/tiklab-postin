@@ -78,16 +78,27 @@ public class TestCaseDao {
     }
 
     /**
+     * 通用查询指定条件下的测试用例数量
+     */
+    private int findTestCaseNum(String column, String value) {
+        String sql = "SELECT COUNT(1) FROM autotest_testcase WHERE " + column + " = ?";
+        return jpaTemplate.getJdbcTemplate().queryForObject(sql, Integer.class, value);
+    }
+
+    /**
      * 查询指定目录下的测试用例数量
-     * @param categoryId
-     * @return
      */
     public int findTestCaseNumByCategoryId(String categoryId) {
-        String caseSql = "Select count(1) as total from autotest_testcase where category_id = '" + categoryId+ "'";
-        Integer caseTotal = jpaTemplate.getJdbcTemplate().queryForObject(caseSql, new Object[]{}, Integer.class);
-
-        return caseTotal;
+        return findTestCaseNum("category_id", categoryId);
     }
+
+    /**
+     * 查询指定空间下的测试用例数量
+     */
+    public int findTestCaseNumByWorkspaceId(String workspaceId) {
+        return findTestCaseNum("workspace_id", workspaceId);
+    }
+
 
 
     /**
