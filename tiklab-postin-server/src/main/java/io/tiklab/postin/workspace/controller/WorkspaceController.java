@@ -102,13 +102,13 @@ public class WorkspaceController {
         return Result.ok(pagination);
     }
 
-    @RequestMapping(path = "/findWorkspaceJoinList",method = RequestMethod.POST)
-//    @ApiMethod(name = "findWorkspaceJoinList",desc = "根据查询对象查询空间我参加的列表")
+    @RequestMapping(path = "/findWorkspacePageByType",method = RequestMethod.POST)
+//    @ApiMethod(name = "findWorkspacePageByType",desc = "根据查询对象查询空间我参加的列表")
 //     @ApiParam(name = "workspaceQuery",desc = "查询对象",required = true)
-    public Result<List<Workspace>> findWorkspaceJoinList(@RequestBody @Valid @NotNull WorkspaceQuery workspaceQuery){
-        List<Workspace> workspaceList = workspaceService.findWorkspaceJoinList(workspaceQuery);
+    public Result< Pagination<Workspace>> findWorkspacePageByType(@RequestBody @Valid @NotNull WorkspaceQuery workspaceQuery){
+        Pagination<Workspace> workspacePageByType = workspaceService.findWorkspacePageByType(workspaceQuery);
 
-        return Result.ok(workspaceList);
+        return Result.ok(workspacePageByType);
     }
 
     @RequestMapping(path = "/getWorkspaceNumber",method = RequestMethod.POST)

@@ -44,6 +44,9 @@ public class WorkspaceFollowServiceImpl implements WorkspaceFollowService {
     @Autowired
     TestCaseService testCaseService;
 
+    @Autowired
+    WorkspaceService workspaceService;
+
     @Override
     public String createWorkspaceFollow(@NotNull @Valid WorkspaceFollow workspaceFollow) {
 
@@ -145,7 +148,21 @@ public class WorkspaceFollowServiceImpl implements WorkspaceFollowService {
 
         List<WorkspaceFollow> workspaceFollowList = BeanMapper.mapList(pagination.getDataList(),WorkspaceFollow.class);
 
-        joinTemplate.joinQuery(workspaceFollowList);
+
+        for(WorkspaceFollow workspaceFollow: workspaceFollowList){
+            String id = workspaceFollow.getWorkspace().getId();
+            Workspace workspace = workspaceService.findWorkspace(id);
+            workspace.setIsFollow(1);
+
+            int apixNum = apixService.findApixNum(workspace.getId());
+            workspace.setApiNum(apixNum);
+
+            int testCaseNumByWorkspaceId = testCaseService.findTestCaseNumByWorkspaceId(workspace.getId());
+            workspace.setCaseNum(testCaseNumByWorkspaceId);
+
+            workspaceFollow.setWorkspace(workspace);
+        }
+
 
         return PaginationBuilder.build(pagination,workspaceFollowList);
     }

@@ -1,18 +1,18 @@
 package io.tiklab.postin.workspace.service;
 
-import io.tiklab.postin.workspace.model.WorkspaceQuery;
-import io.tiklab.core.page.Pagination;
-
-import io.tiklab.postin.workspace.model.Workspace;
-import io.tiklab.toolkit.join.annotation.FindList;
-import io.tiklab.toolkit.join.annotation.JoinProvider;
-import io.tiklab.toolkit.join.annotation.FindAll;
-import io.tiklab.toolkit.join.annotation.FindOne;
+import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.util.List;
-import java.util.Map;
+
+import io.tiklab.core.page.Pagination;
+import io.tiklab.postin.workspace.model.Workspace;
+import io.tiklab.postin.workspace.model.WorkspaceQuery;
+import io.tiklab.toolkit.join.annotation.FindAll;
+import io.tiklab.toolkit.join.annotation.FindList;
+import io.tiklab.toolkit.join.annotation.FindOne;
+import io.tiklab.toolkit.join.annotation.JoinProvider;
 
 /**
 * 空间 服务接口
@@ -87,6 +87,13 @@ public interface WorkspaceService {
      * @return
      */
     Map<String, Object> getWorkspaceNumber();
+
+    /**
+     * 根据类型获取空间分页列表
+     * @param workspaceQuery 查询条件，包含type字段（all, create, follow）
+     * @return 分页结果
+     */
+    Pagination<Workspace> findWorkspacePageByType(WorkspaceQuery workspaceQuery);
 
 
 }

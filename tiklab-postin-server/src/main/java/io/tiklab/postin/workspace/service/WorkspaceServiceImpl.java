@@ -1,53 +1,65 @@
 package io.tiklab.postin.workspace.service;
 
-import io.tiklab.postin.api.apix.service.ApixService;
-import io.tiklab.postin.api.http.test.instance.service.TestInstanceService;
-import io.tiklab.postin.autotest.test.service.TestCaseService;
-import io.tiklab.postin.node.model.Node;
-import io.tiklab.postin.node.model.NodeQuery;
-import io.tiklab.postin.node.service.NodeService;
-import io.tiklab.postin.support.environment.model.EnvServer;
-import io.tiklab.postin.support.environment.service.EnvServerService;
-import io.tiklab.postin.workspace.dao.WorkspaceDao;
-import io.tiklab.postin.workspace.entity.WorkspaceEntity;
-import io.tiklab.eam.common.context.LoginContext;
-import io.tiklab.postin.category.model.Category;
-import io.tiklab.postin.category.model.CategoryQuery;
-import io.tiklab.postin.category.service.CategoryService;
-import io.tiklab.postin.support.apistatus.service.ApiStatusService;
-import io.tiklab.postin.support.datastructure.model.DataStructure;
-import io.tiklab.postin.support.datastructure.model.DataStructureQuery;
-import io.tiklab.postin.support.datastructure.service.DataStructureService;
-import io.tiklab.postin.common.PostInUnit;
-import io.tiklab.postin.support.environment.model.Environment;
-import io.tiklab.postin.support.environment.service.EnvironmentService;
-import io.tiklab.privilege.role.model.RoleUser;
-import io.tiklab.privilege.role.service.RoleUserService;
-import io.tiklab.toolkit.beans.BeanMapper;
-import io.tiklab.core.page.Pagination;
-import io.tiklab.core.page.PaginationBuilder;
-import io.tiklab.toolkit.join.JoinTemplate;
-import io.tiklab.postin.workspace.model.*;
-import io.tiklab.privilege.dmRole.service.DmRoleService;
-import io.tiklab.privilege.role.model.PatchUser;
-import io.tiklab.rpc.annotation.Exporter;
-import io.tiklab.user.dmUser.model.DmUser;
-import io.tiklab.user.dmUser.model.DmUserQuery;
-import io.tiklab.user.dmUser.service.DmUserService;
-import io.tiklab.user.user.model.User;
-import io.tiklab.user.user.service.UserProcessor;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import java.sql.Timestamp;
-import java.util.*;
-import java.util.stream.Collectors;
-
-import static io.tiklab.postin.common.EnumTemplateConstant.*;
+import io.tiklab.core.page.Pagination;
+import io.tiklab.core.page.PaginationBuilder;
+import io.tiklab.eam.common.context.LoginContext;
+import io.tiklab.postin.api.apix.service.ApixService;
+import io.tiklab.postin.api.http.test.instance.service.TestInstanceService;
+import io.tiklab.postin.autotest.test.service.TestCaseService;
+import io.tiklab.postin.category.model.Category;
+import io.tiklab.postin.category.service.CategoryService;
+import static io.tiklab.postin.common.EnumTemplateConstant.LOG_TYPE_CREATE_ID;
+import static io.tiklab.postin.common.EnumTemplateConstant.LOG_TYPE_UPDATE_ID;
+import io.tiklab.postin.common.PostInUnit;
+import io.tiklab.postin.node.model.Node;
+import io.tiklab.postin.node.model.NodeQuery;
+import io.tiklab.postin.node.service.NodeService;
+import io.tiklab.postin.support.apistatus.service.ApiStatusService;
+import io.tiklab.postin.support.datastructure.model.DataStructure;
+import io.tiklab.postin.support.datastructure.model.DataStructureQuery;
+import io.tiklab.postin.support.datastructure.service.DataStructureService;
+import io.tiklab.postin.support.environment.model.EnvServer;
+import io.tiklab.postin.support.environment.model.Environment;
+import io.tiklab.postin.support.environment.service.EnvServerService;
+import io.tiklab.postin.support.environment.service.EnvironmentService;
+import io.tiklab.postin.workspace.dao.WorkspaceDao;
+import io.tiklab.postin.workspace.entity.WorkspaceEntity;
+import io.tiklab.postin.workspace.model.Workspace;
+import io.tiklab.postin.workspace.model.WorkspaceFollow;
+import io.tiklab.postin.workspace.model.WorkspaceFollowQuery;
+import io.tiklab.postin.workspace.model.WorkspaceQuery;
+import io.tiklab.postin.workspace.model.WorkspaceRecent;
+import io.tiklab.postin.workspace.model.WorkspaceRecentQuery;
+import io.tiklab.privilege.dmRole.service.DmRoleService;
+import io.tiklab.privilege.role.model.PatchUser;
+import io.tiklab.privilege.role.model.RoleUser;
+import io.tiklab.privilege.role.service.RoleUserService;
+import io.tiklab.rpc.annotation.Exporter;
+import io.tiklab.toolkit.beans.BeanMapper;
+import io.tiklab.toolkit.join.JoinTemplate;
+import io.tiklab.user.dmUser.model.DmUser;
+import io.tiklab.user.dmUser.model.DmUserQuery;
+import io.tiklab.user.dmUser.service.DmUserService;
+import io.tiklab.user.user.model.User;
+import io.tiklab.user.user.service.UserProcessor;
 
 /**
 * 空间服务
@@ -278,8 +290,9 @@ public class WorkspaceServiceImpl implements WorkspaceService {
 
     @Override
     public Workspace findWorkspace(@NotNull String id) {
-
-        return findOne(id);
+        Workspace workspace = findOne(id);
+        joinTemplate.joinQuery(workspace, new String[]{"user"});
+        return workspace;
     }
 
     @Override
@@ -307,7 +320,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
             int apixNum = apixService.findApixNum(workspace.getId());
             workspace.setApiNum(apixNum);
 
-            int testCaseNumByWorkspaceId = testCaseService.findTestCaseNumByWorkspaceId(workspace.getId());
+            int testCaseNumByWorkspaceId = testCaseService.findTestCaseNum(workspace.getId());
             workspace.setCaseNum(testCaseNumByWorkspaceId);
 
             if (followedWorkspaceIds.contains(workspace.getId())) {
@@ -455,6 +468,132 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         numMap.put("create",mySize);
 
         return numMap;
+    }
+
+    @Override
+    public Pagination<Workspace> findWorkspacePageByType(WorkspaceQuery workspaceQuery) {
+        String type = workspaceQuery.getType();
+        String loginId = LoginContext.getLoginId();
+        
+        switch (type) {
+            case "create":
+                return findCreatedWorkspaces(workspaceQuery, loginId);
+            case "follow":
+                return findFollowedWorkspaces(workspaceQuery, loginId);
+            default:
+                return findAllVisibleWorkspaces(workspaceQuery, loginId);
+        }
+    }
+
+    /**
+     * 获取我创建的空间
+     */
+    private Pagination<Workspace> findCreatedWorkspaces(WorkspaceQuery workspaceQuery, String loginId) {
+        WorkspaceQuery createQuery = buildBaseQuery(workspaceQuery);
+        createQuery.setUserId(loginId);
+        
+        Pagination<WorkspaceEntity> pagination = workspaceDao.findWorkspacePage(createQuery);
+        List<Workspace> workspaceList = BeanMapper.mapList(pagination.getDataList(), Workspace.class);
+        
+        enrichWorkspaceData(workspaceList);
+        joinTemplate.joinQuery(workspaceList, new String[]{"user"});
+        
+        return PaginationBuilder.build(pagination, workspaceList);
+    }
+
+    /**
+     * 获取我关注的空间
+     */
+    private Pagination<Workspace> findFollowedWorkspaces(WorkspaceQuery workspaceQuery, String loginId) {
+        WorkspaceFollowQuery followQuery = new WorkspaceFollowQuery();
+        followQuery.setUserId(loginId);
+        followQuery.setOrderParams(workspaceQuery.getOrderParams());
+        followQuery.setPageParam(workspaceQuery.getPageParam());
+        
+        Pagination<WorkspaceFollow> followPagination = workspaceFollowService.findWorkspaceFollowPage(followQuery);
+        List<Workspace> workspaceList = extractWorkspacesFromFollows(followPagination.getDataList(), workspaceQuery.getWorkspaceName());
+        
+        return PaginationBuilder.build(followPagination, workspaceList);
+    }
+
+    /**
+     * 获取所有可见的空间（包括我加入的和公开的）
+     */
+    private Pagination<Workspace> findAllVisibleWorkspaces(WorkspaceQuery workspaceQuery, String loginId) {
+        WorkspaceQuery allQuery = buildBaseQuery(workspaceQuery);
+        Pagination<Workspace> workspacePage = findWorkspacePage(allQuery);
+        
+        Set<String> joinedWorkspaceIds = getJoinedWorkspaceIds(loginId);
+        List<Workspace> visibleWorkspaces = filterVisibleWorkspaces(workspacePage.getDataList(), joinedWorkspaceIds);
+        
+        enrichWorkspaceData(visibleWorkspaces);
+        joinTemplate.joinQuery(visibleWorkspaces, new String[]{"user"});
+        
+        workspacePage.setDataList(visibleWorkspaces);
+        return workspacePage;
+    }
+
+    /**
+     * 构建基础查询对象
+     */
+    private WorkspaceQuery buildBaseQuery(WorkspaceQuery originalQuery) {
+        WorkspaceQuery query = new WorkspaceQuery();
+        query.setWorkspaceName(originalQuery.getWorkspaceName());
+        query.setOrderParams(originalQuery.getOrderParams());
+        query.setPageParam(originalQuery.getPageParam());
+        return query;
+    }
+
+    /**
+     * 从关注列表中提取工作空间
+     */
+    private List<Workspace> extractWorkspacesFromFollows(List<WorkspaceFollow> followList, String workspaceName) {
+        List<Workspace> workspaceList = followList.stream()
+                .map(WorkspaceFollow::getWorkspace)
+                .filter(workspace -> workspaceName == null || workspace.getWorkspaceName().contains(workspaceName))
+                .collect(Collectors.toList());
+        return workspaceList;
+    }
+
+    /**
+     * 获取用户加入的工作空间ID集合
+     */
+    private Set<String> getJoinedWorkspaceIds(String loginId) {
+        DmUserQuery dmUserQuery = new DmUserQuery();
+        dmUserQuery.setUserId(loginId);
+        return dmUserService.findDmUserList(dmUserQuery)
+                .stream()
+                .map(DmUser::getDomainId)
+                .collect(Collectors.toSet());
+    }
+
+    /**
+     * 过滤可见的工作空间
+     */
+    private List<Workspace> filterVisibleWorkspaces(List<Workspace> allWorkspaces, Set<String> joinedWorkspaceIds) {
+        return allWorkspaces.stream()
+                .filter(ws -> ws.getVisibility() == 0 || joinedWorkspaceIds.contains(ws.getId()))
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * 设置关注状态、API数量、用例数量
+     */
+    private void enrichWorkspaceData(List<Workspace> workspaceList) {
+        Set<String> followedWorkspaceIds = new HashSet<>(getFollowedWorkspaceIds());
+        
+        for (Workspace workspace : workspaceList) {
+            // 设置关注状态
+            workspace.setIsFollow(followedWorkspaceIds.contains(workspace.getId()) ? 1 : 0);
+            
+            // 设置API数量
+            int apiNum = apixService.findApixNum(workspace.getId());
+            workspace.setApiNum(apiNum);
+            
+            // 设置用例数量
+            int caseNum = testCaseService.findTestCaseNum(workspace.getId());
+            workspace.setCaseNum(caseNum);
+        }
     }
 
 }

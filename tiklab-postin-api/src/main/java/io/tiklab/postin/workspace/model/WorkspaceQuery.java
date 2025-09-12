@@ -19,8 +19,11 @@ public class WorkspaceQuery implements Serializable {
     @ApiProperty(name ="workspaceName",desc = "空间名称，模糊匹配")
     private String workspaceName;
 
+    @ApiProperty(name ="type",desc = "all,create,follow")
+    private String type;
+
     @ApiProperty(name ="orderParams",desc = "排序参数")
-    private List<Order> orderParams = OrderBuilders.instance().asc("workspaceName").get();
+    private List<Order> orderParams = OrderBuilders.instance().asc("createTime").get();
 
     @ApiProperty(name ="pageParam",desc = "分页参数")
     private Page pageParam = new Page();
@@ -56,5 +59,13 @@ public class WorkspaceQuery implements Serializable {
 
     public void setPageParam(Page pageParam) {
         this.pageParam = pageParam;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }
