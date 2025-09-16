@@ -53,7 +53,7 @@ auth:
     address: http://192.168.10.15:8080
 
 external:
-  url: http://192.168.10.34:8090
+  url: http://192.168.10.22:8090
 
 
 postin-agent:

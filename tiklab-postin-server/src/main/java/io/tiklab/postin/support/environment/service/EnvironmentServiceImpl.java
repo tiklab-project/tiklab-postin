@@ -18,6 +18,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 /**
 * 接口环境 服务
@@ -34,6 +35,13 @@ public class EnvironmentServiceImpl implements EnvironmentService {
     @Override
     public String createEnvironment(@NotNull @Valid Environment environment) {
         environment.setCreateTime(new Date());
+
+        //如果没有id，则生成一个随机的id
+        if(environment.getId()== null){
+            String randomKey = UUID.randomUUID().toString().replaceAll("", "").substring(0, 12).toUpperCase();
+            environment.setId(randomKey);
+        }
+
         EnvironmentEntity environmentEntity = BeanMapper.map(environment, EnvironmentEntity.class);
 
         return environmentDao.createEnvironment(environmentEntity);

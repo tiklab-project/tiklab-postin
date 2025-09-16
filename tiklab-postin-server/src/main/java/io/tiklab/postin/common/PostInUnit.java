@@ -26,7 +26,7 @@ public class PostInUnit {
     @Autowired
     UserProcessor userService;
 
-    @Value("${base.url:null}")
+    @Value("${external.url:null}")
     String baseUrl;
 
     @Autowired

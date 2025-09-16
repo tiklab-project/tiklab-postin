@@ -78,7 +78,9 @@ public class WorkspaceDao{
     public List<WorkspaceEntity> findWorkspaceList(WorkspaceQuery workspaceQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(WorkspaceEntity.class)
                 .eq("userId", workspaceQuery.getUserId())
+                .eq("visibility", workspaceQuery.getVisibility())
                 .like("workspaceName", workspaceQuery.getWorkspaceName())
+                .in("id", workspaceQuery.getIds())
                 .orders(workspaceQuery.getOrderParams())
                 .get();
         return jpaTemplate.findList(queryCondition, WorkspaceEntity.class);
@@ -92,7 +94,9 @@ public class WorkspaceDao{
     public Pagination<WorkspaceEntity> findWorkspacePage(WorkspaceQuery workspaceQuery) {
         QueryCondition queryCondition = QueryBuilders.createQuery(WorkspaceEntity.class)
                 .eq("userId", workspaceQuery.getUserId())
+                .eq("visibility", workspaceQuery.getVisibility())
                 .like("workspaceName", workspaceQuery.getWorkspaceName())
+                .in("id", workspaceQuery.getIds())
                 .pagination(workspaceQuery.getPageParam())
                 .orders(workspaceQuery.getOrderParams())
                 .get();

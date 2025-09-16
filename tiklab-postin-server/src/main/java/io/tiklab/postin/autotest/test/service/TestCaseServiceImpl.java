@@ -58,11 +58,13 @@ public class TestCaseServiceImpl implements TestCaseService {
     public String createTestCase(TestCase testCase) {
         TestCasesEntity testCasesEntity = BeanMapper.map(testCase, TestCasesEntity.class);
 
-        // 设置用例key,  项目key-用例编号
+        // 设置排序号
         int i = testCaseDao.bigSort(testCasesEntity.getWorkspaceId());
-        int num = i+1;
-        testCasesEntity.setSort(num);
-        testCasesEntity.setCaseKey("KEY-"+num);
+        testCasesEntity.setSort(i + 1);
+
+        // 生成随机固定8位Key
+        String randomKey = UUID.randomUUID().toString().replaceAll("", "").substring(0, 6).toUpperCase();
+        testCasesEntity.setCaseKey(randomKey);
 
         testCasesEntity.setStatus(0);
 

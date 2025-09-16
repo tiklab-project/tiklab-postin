@@ -19,7 +19,7 @@ import java.util.Date;
 public class EnvironmentEntity implements Serializable {
 
     @Id
-    @GeneratorValue(length = 12)
+//    @GeneratorValue(length = 12)
     @Column(name = "id")
     private String id;
 

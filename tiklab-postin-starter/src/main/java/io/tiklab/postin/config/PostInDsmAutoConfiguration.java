@@ -4,6 +4,8 @@ import io.tiklab.dsm.model.DsmConfig;
 import io.tiklab.dsm.model.DsmVersion;
 import io.tiklab.dsm.support.DsmVersionBuilder;
 import io.tiklab.postin.sql.InitAuthority;
+import io.tiklab.postin.sql.InitPostIn121;
+import io.tiklab.postin.sql.InitPostIn122;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,6 +18,13 @@ public class PostInDsmAutoConfiguration {
 
     @Autowired
     InitAuthority initAuthority;
+
+    @Autowired
+    InitPostIn121 initPostIn121;
+
+
+    @Autowired
+    InitPostIn122 initPostIn122;
 
     @Bean
     DsmConfig dsmConfig(){
@@ -286,6 +295,20 @@ public class PostInDsmAutoConfiguration {
                 })
                 .get();
         versionList.add(message200);
+
+        DsmVersion postin121 = DsmVersionBuilder.instance()
+                .version("1.2.1")
+                .task(initPostIn121)
+                .get();
+        versionList.add(postin121);
+
+
+        DsmVersion postin122 = DsmVersionBuilder.instance()
+                .version("1.2.2")
+                .task(initPostIn122)
+                .get();
+        versionList.add(postin122);
+
 
         return versionList;
     }

@@ -23,10 +23,13 @@ public class WorkspaceQuery implements Serializable {
     private String type;
 
     @ApiProperty(name ="orderParams",desc = "排序参数")
-    private List<Order> orderParams = OrderBuilders.instance().asc("createTime").get();
+    private List<Order> orderParams = OrderBuilders.instance().desc("createTime").get();
 
     @ApiProperty(name ="pageParam",desc = "分页参数")
     private Page pageParam = new Page();
+
+    private Integer visibility;
+    private String[] ids;
 
     public String getUserId() {
         return userId;
@@ -67,5 +70,21 @@ public class WorkspaceQuery implements Serializable {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public Integer getVisibility() {
+        return visibility;
+    }
+
+    public void setVisibility(Integer visibility) {
+        this.visibility = visibility;
+    }
+
+    public String[] getIds() {
+        return ids;
+    }
+
+    public void setIds(String[] ids) {
+        this.ids = ids;
     }
 }

@@ -126,7 +126,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
     @Autowired
     PostInUnit postInUnit;
 
-    @Value("${base.url:null}")
+    @Value("${external.url:http://localhost:9300}")
     String baseUrl;
 
 
@@ -156,7 +156,8 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         //初始化一个mock
         Environment environment = new Environment();
         environment.setWorkspaceId(workspaceId);
-        environment.setName("Mock");
+        environment.setId(workspaceId);
+        environment.setName("Mock环境");
         String envId = environmentService.createEnvironment(environment);
         EnvServer envServer = new EnvServer();
         envServer.setEnvId(envId);
@@ -311,35 +312,14 @@ public class WorkspaceServiceImpl implements WorkspaceService {
     public List<Workspace> findWorkspaceList(WorkspaceQuery workspaceQuery) {
         List<WorkspaceEntity> workspaceEntityList = workspaceDao.findWorkspaceList(workspaceQuery);
         List<Workspace> workspaceList = BeanMapper.mapList(workspaceEntityList, Workspace.class);
-
-        // 获取所有关注的 Workspace 的 ID 列表
-        List<String> followedWorkspaceIds = getFollowedWorkspaceIds();
-
-        // 设置是否关注
-        for (Workspace workspace : workspaceList) {
-            int apixNum = apixService.findApixNum(workspace.getId());
-            workspace.setApiNum(apixNum);
-
-            int testCaseNumByWorkspaceId = testCaseService.findTestCaseNum(workspace.getId());
-            workspace.setCaseNum(testCaseNumByWorkspaceId);
-
-            if (followedWorkspaceIds.contains(workspace.getId())) {
-                workspace.setIsFollow(1);
-            } else {
-                workspace.setIsFollow(0);
-            }
-        }
-
         joinTemplate.joinQuery(workspaceList,new String[]{
                 "user"
         });
-
         return workspaceList;
     }
 
     @Override
     public Pagination<Workspace> findWorkspacePage(WorkspaceQuery workspaceQuery) {
-
         Pagination<WorkspaceEntity>  pagination = workspaceDao.findWorkspacePage(workspaceQuery);
 
         List<Workspace> workspaceList = BeanMapper.mapList(pagination.getDataList(),Workspace.class);
@@ -489,10 +469,9 @@ public class WorkspaceServiceImpl implements WorkspaceService {
      * 获取我创建的空间
      */
     private Pagination<Workspace> findCreatedWorkspaces(WorkspaceQuery workspaceQuery, String loginId) {
-        WorkspaceQuery createQuery = buildBaseQuery(workspaceQuery);
-        createQuery.setUserId(loginId);
+        workspaceQuery.setUserId(loginId);
         
-        Pagination<WorkspaceEntity> pagination = workspaceDao.findWorkspacePage(createQuery);
+        Pagination<WorkspaceEntity> pagination = workspaceDao.findWorkspacePage(workspaceQuery);
         List<Workspace> workspaceList = BeanMapper.mapList(pagination.getDataList(), Workspace.class);
         
         enrichWorkspaceData(workspaceList);
@@ -517,34 +496,6 @@ public class WorkspaceServiceImpl implements WorkspaceService {
     }
 
     /**
-     * 获取所有可见的空间（包括我加入的和公开的）
-     */
-    private Pagination<Workspace> findAllVisibleWorkspaces(WorkspaceQuery workspaceQuery, String loginId) {
-        WorkspaceQuery allQuery = buildBaseQuery(workspaceQuery);
-        Pagination<Workspace> workspacePage = findWorkspacePage(allQuery);
-        
-        Set<String> joinedWorkspaceIds = getJoinedWorkspaceIds(loginId);
-        List<Workspace> visibleWorkspaces = filterVisibleWorkspaces(workspacePage.getDataList(), joinedWorkspaceIds);
-        
-        enrichWorkspaceData(visibleWorkspaces);
-        joinTemplate.joinQuery(visibleWorkspaces, new String[]{"user"});
-        
-        workspacePage.setDataList(visibleWorkspaces);
-        return workspacePage;
-    }
-
-    /**
-     * 构建基础查询对象
-     */
-    private WorkspaceQuery buildBaseQuery(WorkspaceQuery originalQuery) {
-        WorkspaceQuery query = new WorkspaceQuery();
-        query.setWorkspaceName(originalQuery.getWorkspaceName());
-        query.setOrderParams(originalQuery.getOrderParams());
-        query.setPageParam(originalQuery.getPageParam());
-        return query;
-    }
-
-    /**
      * 从关注列表中提取工作空间
      */
     private List<Workspace> extractWorkspacesFromFollows(List<WorkspaceFollow> followList, String workspaceName) {
@@ -553,6 +504,41 @@ public class WorkspaceServiceImpl implements WorkspaceService {
                 .filter(workspace -> workspaceName == null || workspace.getWorkspaceName().contains(workspaceName))
                 .collect(Collectors.toList());
         return workspaceList;
+    }
+
+    /**
+     * 获取所有可见的空间（包括我加入的和公开的）
+     */
+    private Pagination<Workspace> findAllVisibleWorkspaces(WorkspaceQuery workspaceQuery, String loginId) {
+        workspaceQuery.setVisibility(0);
+        List<Workspace> list = findWorkspaceList(workspaceQuery);
+
+        // 1. 可见的 workspace ids
+        Set<String> visibleIds = list.stream()
+                .map(Workspace::getId)
+                .collect(Collectors.toSet());
+
+        // 2. 用户加入的 workspace ids
+        Set<String> joinedIds = getJoinedWorkspaceIds(loginId);
+
+        // 3. 合并
+        Set<String> allIds = new HashSet<>();
+        allIds.addAll(visibleIds);
+        allIds.addAll(joinedIds);
+
+        // 4. 根据合并后的 id 查询完整 workspace 信息
+        WorkspaceQuery allQuery = new WorkspaceQuery();
+        allQuery.setIds(allIds.toArray(new String[0]));
+        allQuery.setOrderParams(workspaceQuery.getOrderParams());
+        allQuery.setPageParam(workspaceQuery.getPageParam());
+        allQuery.setWorkspaceName(workspaceQuery.getWorkspaceName());
+        Pagination<WorkspaceEntity> pagination = workspaceDao.findWorkspacePage(allQuery);
+        List<Workspace> workspaceList = BeanMapper.mapList(pagination.getDataList(), Workspace.class);
+
+        enrichWorkspaceData(workspaceList);
+        joinTemplate.joinQuery(workspaceList, new String[]{"user"});
+
+        return PaginationBuilder.build(pagination, workspaceList);
     }
 
     /**
@@ -567,14 +553,6 @@ public class WorkspaceServiceImpl implements WorkspaceService {
                 .collect(Collectors.toSet());
     }
 
-    /**
-     * 过滤可见的工作空间
-     */
-    private List<Workspace> filterVisibleWorkspaces(List<Workspace> allWorkspaces, Set<String> joinedWorkspaceIds) {
-        return allWorkspaces.stream()
-                .filter(ws -> ws.getVisibility() == 0 || joinedWorkspaceIds.contains(ws.getId()))
-                .collect(Collectors.toList());
-    }
 
     /**
      * 设置关注状态、API数量、用例数量
