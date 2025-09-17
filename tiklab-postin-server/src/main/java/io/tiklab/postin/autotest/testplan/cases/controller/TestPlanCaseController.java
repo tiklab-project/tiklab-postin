@@ -108,6 +108,17 @@ public class TestPlanCaseController {
 
     }
 
+    @RequestMapping(path="/findPlanCaseNum",method = RequestMethod.POST)
+//    @ApiMethod(name = "findPlanCaseNum",desc = "通过testPlanId查询当前计划绑定的用例数量")
+//    @ApiParam(name = "testPlanId",desc = "testPlanId",required = true)
+    public Result<Integer> findPlanCaseNum(@NotNull String testPlanId){
+        int planCaseNum = testPlanCaseService.findPlanCaseNum(testPlanId);
+
+        return Result.ok(planCaseNum);
+
+    }
+
+
 
     @RequestMapping(path="/isCaseExist",method = RequestMethod.POST)
 //    @ApiMethod(name = "isCaseExist",desc = "判断用例是否被绑定")
