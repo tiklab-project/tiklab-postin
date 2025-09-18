@@ -140,7 +140,10 @@ public class DataProcessCommon {
         //响应体
         try {
             ServletOutputStream outputStream = response.getOutputStream();
-            outputStream.write(responseEntity.getBody());
+            byte[] body = responseEntity.getBody();
+            if (body != null) {
+                outputStream.write(body);
+            }
             outputStream.flush();
         } catch (IOException e) {
             throw new SystemException(e);
@@ -183,7 +186,10 @@ public class DataProcessCommon {
 
         //响应体
         try (ServletOutputStream outputStream = response.getOutputStream()) {
-            outputStream.write(errorResponse.getResponseBodyAsString().getBytes());
+            String responseBody = errorResponse.getResponseBodyAsString();
+            if (responseBody != null) {
+                outputStream.write(responseBody.getBytes());
+            }
             outputStream.flush();
         } catch (IOException e) {
             throw new SystemException(e);

@@ -15,7 +15,7 @@ public class MagicValue {
     public static final String API_METHOD_TYPE_PATCH = "patch";
     public static final String API_METHOD_TYPE_OPTIONS = "options";
     public static final String API_METHOD_TYPE_HEAD = "head";
-    public static final String API_METHOD_TYPE_TRACE = "trace";
+//    public static final String API_METHOD_TYPE_TRACE = "trace";
 
     // request body type
     public static final String REQUEST_BODY_TYPE_NONE="none";

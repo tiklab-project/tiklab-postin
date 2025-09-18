@@ -59,11 +59,11 @@ public class SendRequestServlet extends HttpServlet {
             case MagicValue.API_METHOD_TYPE_GET:
             case MagicValue.API_METHOD_TYPE_HEAD:
             case MagicValue.API_METHOD_TYPE_OPTIONS:
-            case MagicValue.API_METHOD_TYPE_TRACE:
-            case MagicValue.API_METHOD_TYPE_DELETE:
+//            case MagicValue.API_METHOD_TYPE_TRACE:
                 // 无请求体的方法
                 baseHttpDispatcher.dispatchWithoutBody(response, httpRequest);
                 break;
+            case MagicValue.API_METHOD_TYPE_DELETE:
             case MagicValue.API_METHOD_TYPE_POST:
             case MagicValue.API_METHOD_TYPE_PUT:
             case MagicValue.API_METHOD_TYPE_PATCH:
