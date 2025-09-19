@@ -30,7 +30,7 @@ import java.util.Map;
 
 /**
 * 拦截request接口，发送请求
-* 支持所有标准HTTP方法：GET, POST, PUT, DELETE, PATCH, HEAD, OPTIONS, TRACE
+* 支持所有标准HTTP方法：GET, POST, PUT, DELETE, PATCH, HEAD, OPTIONS
 */
 @WebServlet(name = "request",urlPatterns = "/request")
 public class SendRequestServlet extends HttpServlet {
@@ -59,7 +59,6 @@ public class SendRequestServlet extends HttpServlet {
             case MagicValue.API_METHOD_TYPE_GET:
             case MagicValue.API_METHOD_TYPE_HEAD:
             case MagicValue.API_METHOD_TYPE_OPTIONS:
-//            case MagicValue.API_METHOD_TYPE_TRACE:
                 // 无请求体的方法
                 baseHttpDispatcher.dispatchWithoutBody(response, httpRequest);
                 break;

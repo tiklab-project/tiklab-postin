@@ -1,14 +1,25 @@
 package io.tiklab.postin.autotest.http.unit.cases.service;
 
-import io.tiklab.postin.autotest.http.unit.cases.model.*;
-import io.tiklab.postin.autotest.test.service.TestCaseService;
-import io.tiklab.postin.common.MagicValue;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import io.tiklab.postin.autotest.http.unit.cases.model.AfterParamUnit;
+import io.tiklab.postin.autotest.http.unit.cases.model.ApiUnitCase;
+import io.tiklab.postin.autotest.http.unit.cases.model.AssertUnit;
+import io.tiklab.postin.autotest.http.unit.cases.model.FormParamUnit;
+import io.tiklab.postin.autotest.http.unit.cases.model.FormUrlEncodedUnit;
+import io.tiklab.postin.autotest.http.unit.cases.model.PreParamUnit;
+import io.tiklab.postin.autotest.http.unit.cases.model.QueryParamUnit;
+import io.tiklab.postin.autotest.http.unit.cases.model.RawParamUnit;
+import io.tiklab.postin.autotest.http.unit.cases.model.RequestBodyUnit;
+import io.tiklab.postin.autotest.http.unit.cases.model.RequestHeaderUnit;
+import io.tiklab.postin.autotest.http.unit.cases.model.SaveToCase;
+import io.tiklab.postin.autotest.test.service.TestCaseService;
+import io.tiklab.postin.common.MagicValue;
 
 @Service
 public class SaveToCaseServiceImpl implements SaveToCaseService {
@@ -116,13 +127,22 @@ public class SaveToCaseServiceImpl implements SaveToCaseService {
 
         // 更新请求体类型
         RequestBodyUnit requestBody = new RequestBodyUnit();
-        requestBody.setBodyType("raw");
+        // json 和 raw 类型都设置为 raw
+        if (MagicValue.REQUEST_BODY_TYPE_JSON.equals(bodyType) || MagicValue.REQUEST_BODY_TYPE_RAW.equals(bodyType)) {
+            requestBody.setBodyType(MagicValue.REQUEST_BODY_TYPE_RAW);
+        } else {
+            requestBody.setBodyType(bodyType);
+        }
         requestBody.setApiUnitId(apiUnitId);
         requestBody.setId(apiUnitId);
         requestBodyUnitService.updateRequestBody(requestBody);
 
         // 根据不同类型保存请求体数据
         switch (bodyType) {
+            case MagicValue.REQUEST_BODY_TYPE_NONE:
+                // none类型不需要保存任何请求体数据
+                break;
+
             case MagicValue.REQUEST_BODY_TYPE_FORMDATA:
                 saveFormData(apiUnitId, saveToCase.getFormDataList());
                 break;
