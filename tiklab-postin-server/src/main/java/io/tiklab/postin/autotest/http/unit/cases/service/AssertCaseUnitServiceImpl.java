@@ -19,7 +19,7 @@ import java.util.List;
 * 断言 服务
 */
 @Service
-public class AssertCaseUnitUnitServiceImpl implements AssertUnitService {
+public class AssertCaseUnitServiceImpl implements AssertUnitService {
 
     @Autowired
     AssertCaseUnitDao assertCaseUnitDao;

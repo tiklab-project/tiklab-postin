@@ -20,7 +20,7 @@ import java.util.List;
 * raw类型 服务
 */
 @Service
-public class RawParamUnitUnitServiceImpl implements RawParamUnitService {
+public class RawParamUnitServiceImpl implements RawParamUnitService {
 
     @Autowired
     RawParamUnitDao rawParamUnitDao;

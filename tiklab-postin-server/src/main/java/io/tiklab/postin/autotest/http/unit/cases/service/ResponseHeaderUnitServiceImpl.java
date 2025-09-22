@@ -21,7 +21,7 @@ import java.util.List;
 * 响应头 服务
 */
 @Service
-public class ResponseHeaderUnitUnitServiceImpl implements ResponseHeaderUnitService {
+public class ResponseHeaderUnitServiceImpl implements ResponseHeaderUnitService {
 
     @Autowired
     ResponseHeaderUnitDao responseHeaderUnitDao;

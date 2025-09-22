@@ -15,7 +15,6 @@ import io.tiklab.toolkit.beans.BeanMapper;
 import io.tiklab.core.page.Pagination;
 import io.tiklab.core.page.PaginationBuilder;
 import io.tiklab.toolkit.join.JoinTemplate;
-import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
@@ -67,7 +66,7 @@ public class ApiUnitCaseServiceImpl implements ApiUnitCaseService {
     AfterParamUnitService afterParamUnitService;
 
     @Autowired
-    ResponseResultUnitUnitServiceImpl responseResultService;
+    ResponseResultUnitServiceImpl responseResultService;
 
     @Autowired
     ResponseHeaderUnitService responseHeaderUnitService;

@@ -21,7 +21,7 @@ import java.util.List;
 * 请求中json  服务
 */
 @Service
-public class JsonParamUnitUnitServiceImpl implements JsonParamUnitService {
+public class JsonParamUnitServiceImpl implements JsonParamUnitService {
 
     @Autowired
     JsonParamUnitDao jsonParamUnitDao;

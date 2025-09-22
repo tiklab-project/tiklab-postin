@@ -23,7 +23,7 @@ import java.util.List;
 * 请求体 服务
 */
 @Service
-public class RequestBodyUnitUnitServiceImpl implements RequestBodyUnitService {
+public class RequestBodyUnitServiceImpl implements RequestBodyUnitService {
 
     @Autowired
     RequestBodyUnitDao requestBodyUnitDao;

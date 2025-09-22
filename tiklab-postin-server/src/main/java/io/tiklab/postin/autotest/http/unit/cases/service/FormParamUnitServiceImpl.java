@@ -19,7 +19,7 @@ import java.util.List;
 * form-data 服务
 */
 @Service
-public class FormParamUnitUnitServiceImpl implements FormParamUnitService {
+public class FormParamUnitServiceImpl implements FormParamUnitService {
 
     @Autowired
     FormParamUnitDao formParamUnitDao;

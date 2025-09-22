@@ -23,7 +23,7 @@ import java.util.Map;
 * RequestHeaderServiceImpl
 */
 @Service
-public class RequestHeaderUnitUnitServiceImpl implements RequestHeaderUnitService {
+public class RequestHeaderUnitServiceImpl implements RequestHeaderUnitService {
 
     @Autowired
     RequestHeaderUnitDao requestHeaderUnitDao;

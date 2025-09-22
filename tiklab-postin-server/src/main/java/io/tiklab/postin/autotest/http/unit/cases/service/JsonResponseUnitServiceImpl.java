@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 * 响应中json 服务
 */
 @Service
-public class JsonResponseUnitUnitServiceImpl implements JsonResponseUnitService {
+public class JsonResponseUnitServiceImpl implements JsonResponseUnitService {
 
     @Autowired
     JsonResponseUnitDao jsonResponseUnitDao;

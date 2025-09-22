@@ -22,7 +22,7 @@ import java.util.List;
 * 响应结果 服务
 */
 @Service
-public class ResponseResultUnitUnitServiceImpl implements ResponseResultUnitService {
+public class ResponseResultUnitServiceImpl implements ResponseResultUnitService {
 
     @Autowired
     ResponseResultUnitDao responseResultUnitDao;

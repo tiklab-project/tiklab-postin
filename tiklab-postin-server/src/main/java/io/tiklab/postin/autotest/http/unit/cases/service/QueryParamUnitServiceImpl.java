@@ -21,7 +21,7 @@ import java.util.List;
 * query 服务
 */
 @Service
-public class QueryParamUnitUnitServiceImpl implements QueryParamUnitService {
+public class QueryParamUnitServiceImpl implements QueryParamUnitService {
 
     @Autowired
     QueryParamUnitDao queryParamUnitDao;

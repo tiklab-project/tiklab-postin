@@ -19,7 +19,7 @@ import java.util.List;
 * 响应中raw 服务
 */
 @Service
-public class RawResponseUnitUnitServiceImpl implements RawResponseUnitService {
+public class RawResponseUnitServiceImpl implements RawResponseUnitService {
 
     @Autowired
     RawResponseUnitDao rawResponseUnitDao;

@@ -21,7 +21,7 @@ import java.util.List;
 * form-urlencoded 服务
 */
 @Service
-public class FormUrlencodedUnitUnitServiceImpl implements FormUrlencodedUnitService {
+public class FormUrlencodedUnitServiceImpl implements FormUrlencodedUnitService {
 
     @Autowired
     FormUrlencodedUnitDao formUrlencodedUnitDao;
