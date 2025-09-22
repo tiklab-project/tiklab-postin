@@ -88,7 +88,7 @@ public class TestReportServiceImpl implements TestReportService {
     public TestReport findTestReport(@NotNull String id) {
         TestReport testReport = findOne(id);
 
-        joinTemplate.joinQuery(testReport);
+        joinTemplate.joinQuery(testReport, new String[]{"testPlan","createUser"});
         return testReport;
     }
 

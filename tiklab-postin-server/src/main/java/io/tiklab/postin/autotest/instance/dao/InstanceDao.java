@@ -331,7 +331,7 @@ public class InstanceDao {
                 "    SUM(CASE WHEN status = 'fail' THEN 1 ELSE 0 END) AS fail_count, " +
                 "    SUM(CASE WHEN status = 'success' THEN 1 ELSE 0 END) AS success_count " +
                 "FROM " +
-                "    teston_instance " +
+                "    autotest_instance " +
                 "WHERE " +
                 "    test_plan_id = ? " +
                 "    AND create_time >= ? " +

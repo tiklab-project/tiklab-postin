@@ -2,22 +2,12 @@ package io.tiklab.postin.autotest.http.unit.cases.service;
 
 import java.util.List;
 
+import io.tiklab.postin.autotest.http.unit.cases.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import io.tiklab.postin.autotest.http.unit.cases.model.AfterParamUnit;
-import io.tiklab.postin.autotest.http.unit.cases.model.ApiUnitCase;
-import io.tiklab.postin.autotest.http.unit.cases.model.AssertUnit;
-import io.tiklab.postin.autotest.http.unit.cases.model.FormParamUnit;
-import io.tiklab.postin.autotest.http.unit.cases.model.FormUrlEncodedUnit;
-import io.tiklab.postin.autotest.http.unit.cases.model.PreParamUnit;
-import io.tiklab.postin.autotest.http.unit.cases.model.QueryParamUnit;
-import io.tiklab.postin.autotest.http.unit.cases.model.RawParamUnit;
-import io.tiklab.postin.autotest.http.unit.cases.model.RequestBodyUnit;
-import io.tiklab.postin.autotest.http.unit.cases.model.RequestHeaderUnit;
-import io.tiklab.postin.autotest.http.unit.cases.model.SaveToCase;
 import io.tiklab.postin.autotest.test.service.TestCaseService;
 import io.tiklab.postin.common.MagicValue;
 
@@ -38,6 +28,9 @@ public class SaveToCaseServiceImpl implements SaveToCaseService {
     QueryParamUnitService queryParamUnitService;
 
     @Autowired
+    PathParamUnitService pathParamUnitService;
+
+    @Autowired
     RequestBodyUnitService requestBodyUnitService;
 
     @Autowired
@@ -51,6 +44,9 @@ public class SaveToCaseServiceImpl implements SaveToCaseService {
 
     @Autowired
     RawParamUnitService rawParamUnitService;
+
+    @Autowired
+    AuthParamUnitService authParamUnitService;
 
     @Autowired
     PreParamUnitService preParamUnitService;
@@ -77,8 +73,12 @@ public class SaveToCaseServiceImpl implements SaveToCaseService {
             // 保存查询参数
             saveQueryParams(apiUnitId, saveToCase.getQueryList());
 
+            savePathParams(apiUnitId, saveToCase.getPathList());
+
             // 保存请求体
             saveRequestBody(apiUnitId, saveToCase);
+
+            saveAuthParam(apiUnitId, saveToCase.getAuthParam());
 
             // 保存前置参数
             savePreParams(apiUnitId, saveToCase.getPreParamList());
@@ -116,6 +116,17 @@ public class SaveToCaseServiceImpl implements SaveToCaseService {
         for (QueryParamUnit queryParam : queryList) {
             queryParam.setApiUnit(newApiUnitCase(apiUnitId));
             queryParamUnitService.createQueryParam(queryParam);
+        }
+    }
+
+    private void savePathParams(String apiUnitId, List<PathParamUnit> pathParamList) {
+        if (pathParamList == null || pathParamList.isEmpty()) {
+            return;
+        }
+
+        for (PathParamUnit pathParam : pathParamList) {
+            pathParam.setApiUnitId(apiUnitId);
+            pathParamUnitService.createPathParamUnit(pathParam);
         }
     }
 
@@ -209,6 +220,15 @@ public class SaveToCaseServiceImpl implements SaveToCaseService {
         }
 
         rawParamUnitService.updateRawParam(rawParam);
+    }
+
+    private void saveAuthParam(String apiUnitId, AuthParamUnit authParam) {
+        if (authParam == null) {
+            return;
+        }
+        authParam.setApiUnitId(apiUnitId);
+        authParam.setId(apiUnitId);
+        authParamUnitService.createAuthParamUnit(authParam);
     }
 
     private void savePreParams(String apiUnitId, List<PreParamUnit> preParamList) {

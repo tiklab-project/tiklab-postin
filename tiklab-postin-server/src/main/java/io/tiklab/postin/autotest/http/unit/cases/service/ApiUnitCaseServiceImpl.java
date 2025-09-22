@@ -48,6 +48,9 @@ public class ApiUnitCaseServiceImpl implements ApiUnitCaseService {
     QueryParamUnitService queryParamUnitService;
 
     @Autowired
+    PathParamUnitService pathParamUnitService;
+
+    @Autowired
     RawParamUnitService rawParamUnitService;
 
     @Autowired
@@ -58,6 +61,9 @@ public class ApiUnitCaseServiceImpl implements ApiUnitCaseService {
 
     @Autowired
     JsonParamUnitService jsonParamUnitService;
+
+    @Autowired
+    AuthParamUnitService authParamUnitService;
 
     @Autowired
     PreParamUnitService preParamUnitService;
@@ -268,6 +274,12 @@ public class ApiUnitCaseServiceImpl implements ApiUnitCaseService {
         List<QueryParamUnit> queryParamList = queryParamUnitService.findQueryParamList(queryParamUnitQuery);
         apiUnitCaseDataConstruction.setQueryParamList(queryParamList);
 
+        //path
+        PathParamUnitQuery pathParamUnitQuery = new PathParamUnitQuery();
+        pathParamUnitQuery.setApiUnitId(apiUnitCase.getId());
+        List<PathParamUnit> pathParamUnitList = pathParamUnitService.findPathParamUnitList(pathParamUnitQuery);
+        apiUnitCaseDataConstruction.setPathParamList(pathParamUnitList);
+
         // body
         RequestBodyUnit bodyType = requestBodyUnitService.findRequestBody(apiUnitCase.getId());
         apiUnitCaseDataConstruction.setRequestBodyUnit(bodyType);
@@ -293,7 +305,11 @@ public class ApiUnitCaseServiceImpl implements ApiUnitCaseService {
                 RawParamUnit raw = getRaw(apiUnitCase);
                 apiUnitCaseDataConstruction.setRawParam(raw);
                 break;
-          }
+        }
+
+        //认证
+        AuthParamUnit authParam = authParamUnitService.findAuthParamUnit(apiUnitCase.getId());
+        apiUnitCaseDataConstruction.setAuthParam(authParam);
 
         //获取前置操作
         List<PreParamUnit> preParamUnitList = getPre(apiUnitCase);

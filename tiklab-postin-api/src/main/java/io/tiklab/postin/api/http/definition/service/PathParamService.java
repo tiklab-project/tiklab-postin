@@ -1,7 +1,6 @@
 package io.tiklab.postin.api.http.definition.service;
 
 import io.tiklab.core.page.Pagination;
-import io.tiklab.postin.api.apix.model.RequestHeader;
 import io.tiklab.postin.api.http.definition.model.PathParam;
 import io.tiklab.postin.api.http.definition.model.PathParamQuery;
 import io.tiklab.toolkit.join.annotation.FindAll;
@@ -15,7 +14,7 @@ import java.util.List;
 /**
 * Path服务接口
 */
-@JoinProvider(model = RequestHeader.class)
+@JoinProvider(model = PathParam.class)
 public interface PathParamService {
 
     /**

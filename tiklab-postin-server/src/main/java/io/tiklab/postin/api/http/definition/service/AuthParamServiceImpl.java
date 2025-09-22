@@ -67,6 +67,12 @@ public class AuthParamServiceImpl implements AuthParamService {
                 AuthApiKey authApiKey = authApiKeyService.findAuthApiKey(authParam.getApiId());
                 if(authApiKey == null){
                     authApiKeyService.createAuthApiKey(authParam.getApiKey());
+
+                    //删除另一个
+                    AuthBearer bearer = authBearerService.findAuthBearer(authParam.getApiId());
+                    if(bearer != null){
+                        authBearerService.deleteAuthBearer(bearer.getId());
+                    }
                 }else {
                     authApiKeyService.updateAuthApiKey(authParam.getApiKey());
                 }
@@ -75,6 +81,12 @@ public class AuthParamServiceImpl implements AuthParamService {
                 AuthBearer authBearer = authBearerService.findAuthBearer(authParam.getApiId());
                 if(authBearer == null){
                     authBearerService.createAuthBearer(authParam.getBearer());
+
+                    //删除另一个
+                    AuthApiKey apiKey = authApiKeyService.findAuthApiKey(authParam.getApiId());
+                    if(apiKey != null){
+                        authApiKeyService.deleteAuthApiKey(apiKey.getId());
+                    }
                 }else {
                     authBearerService.updateAuthBearer(authParam.getBearer());
                 }

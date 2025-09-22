@@ -15,7 +15,7 @@ import java.util.List;
 /**
 * 认证（主）服务接口
 */
-@JoinProvider(model = RequestHeader.class)
+@JoinProvider(model = AuthParam.class)
 public interface AuthParamService {
 
     /**

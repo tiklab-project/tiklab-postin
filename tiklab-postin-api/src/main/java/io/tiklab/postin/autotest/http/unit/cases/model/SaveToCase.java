@@ -13,6 +13,8 @@ public class SaveToCase {
 
     private List<QueryParamUnit> queryList;
 
+    private List<PathParamUnit> pathList;
+
     private String bodyType;
 
     private List<FormParamUnit> formDataList;
@@ -22,6 +24,8 @@ public class SaveToCase {
     private String json;
 
     private RawParamUnit rawParam;
+
+    private AuthParamUnit authParam;
 
     private List<PreParamUnit> preParamList;
 
@@ -116,5 +120,21 @@ public class SaveToCase {
 
     public void setAssertList(List<AssertUnit> assertList) {
         this.assertList = assertList;
+    }
+
+    public List<PathParamUnit> getPathList() {
+        return pathList;
+    }
+
+    public void setPathList(List<PathParamUnit> pathList) {
+        this.pathList = pathList;
+    }
+
+    public AuthParamUnit getAuthParam() {
+        return authParam;
+    }
+
+    public void setAuthParam(AuthParamUnit authParam) {
+        this.authParam = authParam;
     }
 }

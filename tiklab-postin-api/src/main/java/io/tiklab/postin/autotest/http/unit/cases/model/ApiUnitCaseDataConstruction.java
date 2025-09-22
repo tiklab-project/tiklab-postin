@@ -17,6 +17,8 @@ public class ApiUnitCaseDataConstruction extends BaseModel{
     //查询参数
     private List<QueryParamUnit> queryParamList;
 
+    private List<PathParamUnit> pathParamList;
+
     // 请求体类型
     private RequestBodyUnit requestBodyUnit;
     //mediaType
@@ -28,6 +30,8 @@ public class ApiUnitCaseDataConstruction extends BaseModel{
     private JsonParamUnit jsonParam;
     private String jsonStr;
     private RawParamUnit rawParam;
+
+    private AuthParamUnit authParam;
 
     //调用前置脚本
     private List<PreParamUnit> preParamUnitList;
@@ -133,5 +137,21 @@ public class ApiUnitCaseDataConstruction extends BaseModel{
 
     public void setAssertList(List<HashMap<String, Object>> assertList) {
         this.assertList = assertList;
+    }
+
+    public List<PathParamUnit> getPathParamList() {
+        return pathParamList;
+    }
+
+    public void setPathParamList(List<PathParamUnit> pathParamList) {
+        this.pathParamList = pathParamList;
+    }
+
+    public AuthParamUnit getAuthParam() {
+        return authParam;
+    }
+
+    public void setAuthParam(AuthParamUnit authParam) {
+        this.authParam = authParam;
     }
 }

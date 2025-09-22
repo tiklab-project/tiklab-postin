@@ -54,7 +54,7 @@ public class TestReport extends BaseModel {
     private User createUser;
 
     @ApiProperty(name="createTime",desc="创建时间")
-    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss", timezone = "GMT+8")
     private Timestamp createTime;
 
     @ApiProperty(name="desc",desc="描述")
