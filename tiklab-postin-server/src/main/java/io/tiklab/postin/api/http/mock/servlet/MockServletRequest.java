@@ -370,7 +370,7 @@ public class MockServletRequest {
                 String jsonKey = jsonParamMock.getExp();
                 String jsonValue = jsonParamMock.getValue();
 
-                Object jsonDataValue =  JSONPath.read(jsonData,"$."+jsonKey);
+                Object jsonDataValue =  JSONPath.read(jsonData,jsonKey);
 
                 if(!jsonValue.equals(jsonDataValue)){
                     bodyStatus = false;

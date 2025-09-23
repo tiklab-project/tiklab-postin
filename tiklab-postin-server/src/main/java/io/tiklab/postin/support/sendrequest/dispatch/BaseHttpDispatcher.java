@@ -4,6 +4,7 @@ import io.tiklab.postin.support.sendrequest.HttpRequest;
 import io.tiklab.postin.support.sendrequest.util.DataProcessCommon;
 import io.tiklab.postin.support.sendrequest.util.HttpMethodUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -26,6 +27,7 @@ import java.time.Instant;
 public class BaseHttpDispatcher {
 
     @Autowired
+    @Qualifier("sendRequestRestTemplate")
     protected RestTemplate restTemplate;
 
     @Autowired
