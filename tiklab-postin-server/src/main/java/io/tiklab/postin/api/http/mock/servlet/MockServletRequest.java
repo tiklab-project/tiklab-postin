@@ -3,14 +3,10 @@ package io.tiklab.postin.api.http.mock.servlet;
 import com.alibaba.fastjson.JSONPath;
 import io.tiklab.core.exception.ApplicationException;
 import io.tiklab.postin.api.apix.model.Apix;
-import io.tiklab.postin.api.apix.model.ApixQuery;
 import io.tiklab.postin.api.apix.service.ApixService;
 import io.tiklab.postin.api.http.definition.service.HttpApiService;
 import io.tiklab.postin.api.http.mock.model.*;
 import io.tiklab.postin.api.http.mock.service.*;
-import io.tiklab.postin.category.model.Category;
-import io.tiklab.postin.category.model.CategoryQuery;
-import io.tiklab.postin.category.service.CategoryService;
 import io.tiklab.postin.common.ErrorCode;
 import io.tiklab.postin.common.MagicValue;
 import io.tiklab.postin.node.model.Node;
@@ -18,7 +14,6 @@ import io.tiklab.postin.node.model.NodeQuery;
 import io.tiklab.postin.node.service.NodeService;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.tomcat.util.http.fileupload.FileItem;
-import org.apache.tomcat.util.http.fileupload.RequestContext;
 import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletRequestContext;
@@ -32,7 +27,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * mock
@@ -43,9 +37,6 @@ public class MockServletRequest {
 
     @Autowired
     MockService mockService;
-
-    @Autowired
-    CategoryService categoryService;
 
     @Autowired
     ApixService apixService;
