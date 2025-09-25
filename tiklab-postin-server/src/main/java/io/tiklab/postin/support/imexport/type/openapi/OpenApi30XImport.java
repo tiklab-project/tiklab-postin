@@ -199,6 +199,9 @@ public class OpenApi30XImport extends AbstractOpenApiImport implements OpenApiPr
                     //解析响应参数
                     analysisResponse(methodInfo,apiId,allJson);
 
+                    //解析安全认证配置
+                    analysisSecurity(methodInfo,apiId,allJson);
+
                 }
             }
         }catch (Exception e){
@@ -314,7 +317,7 @@ public class OpenApi30XImport extends AbstractOpenApiImport implements OpenApiPr
         RequestHeader requestHeader = new RequestHeader();
         requestHeader.setApiId(methodId);
         requestHeader.setHeaderName(headerObj.getString("name"));
-        requestHeader.setRequired(headerObj.getBoolean("required")?1:0);
+        requestHeader.setRequired(openApiCommonFn.getRequired(headerObj, false) ? 1 : 0);
         if(headerObj.containsKey("description")){
             requestHeader.setDesc(headerObj.getString("description"));
         }
@@ -327,7 +330,7 @@ public class OpenApi30XImport extends AbstractOpenApiImport implements OpenApiPr
         QueryParam queryParam = new QueryParam();
         queryParam.setApiId(methodId);
         queryParam.setParamName(queryObj.getString("name"));
-        queryParam.setRequired(queryObj.getBoolean("required")?1:0);
+        queryParam.setRequired(openApiCommonFn.getRequired(queryObj, false) ? 1 : 0);
         if(queryObj.containsKey("description")) {
             queryParam.setDesc(queryObj.getString("description"));
         }
@@ -355,7 +358,7 @@ public class OpenApi30XImport extends AbstractOpenApiImport implements OpenApiPr
 
         // 设置 required
         if (pathObj.containsKey("required")) {
-            pathParam.setRequired(pathObj.getBoolean("required") ? 1 : 0);
+            pathParam.setRequired(openApiCommonFn.getRequired(pathObj, true) ? 1 : 0);
         } else {
             throw new IllegalArgumentException("Path parameter must have a 'required' field");
         }
@@ -449,7 +452,7 @@ public class OpenApi30XImport extends AbstractOpenApiImport implements OpenApiPr
 
                 // 检查并设置是否必填
                 if (field.containsKey("required")) {
-                    formParams.setRequired(field.getBoolean("required") ? 1 : 0);
+                    formParams.setRequired(openApiCommonFn.getRequired(field, false) ? 1 : 0);
                 } else {
                     formParams.setRequired(0); // 默认为非必填
                 }
@@ -489,7 +492,7 @@ public class OpenApi30XImport extends AbstractOpenApiImport implements OpenApiPr
 
                 // 检查并设置是否必填
                 if (field.containsKey("required")) {
-                    formUrlencoded.setRequired(field.getBoolean("required") ? 1 : 0);
+                    formUrlencoded.setRequired(openApiCommonFn.getRequired(field, false) ? 1 : 0);
                 } else {
                     formUrlencoded.setRequired(0); // 默认为非必填
                 }
@@ -505,6 +508,7 @@ public class OpenApi30XImport extends AbstractOpenApiImport implements OpenApiPr
             }
         }
     }
+
 
     /**
      * 处理JSON类型的请求体
@@ -560,11 +564,11 @@ public class OpenApi30XImport extends AbstractOpenApiImport implements OpenApiPr
                     
                     // 设置是否必填
                     if (property.containsKey("required")) {
-                        propertySchema.put("required", property.getBoolean("required"));
+                        propertySchema.put("required", openApiCommonFn.getRequired(property, false));
                     }
                     
                     // 处理3.0的nullable
-                    if (property.containsKey("nullable") && property.getBoolean("nullable")) {
+                    if (property.containsKey("nullable") && openApiCommonFn.getRequired(property, false)) {
                         propertySchema.put("nullable", true);
                     }
                     
@@ -641,13 +645,21 @@ public class OpenApi30XImport extends AbstractOpenApiImport implements OpenApiPr
 
                 // 获取 content 的第一个 mediaType
                 String firstMediaType = content.keySet().iterator().next();
+                JSONObject mediaTypeObj = content.getJSONObject(firstMediaType);
 
-                // 获取第一个 mediaType 对应的 schema
-                String txt = processSchema(content.getJSONObject(firstMediaType), allJson);
-
-                // 设置并保存 API 响应
-                apiResponse.setRawText(txt);
-                apiResponse.setDataType("raw");
+                // 根据媒体类型设置数据类型和内容
+                if (MagicValue.MEDIA_TYPE_JSON.equals(firstMediaType)) {
+                    // JSON 响应，进行结构化处理
+                    String jsonSchema = openApiCommonFn.processJsonSchema(mediaTypeObj, allJson, false);
+                    apiResponse.setDataType("json");
+                    apiResponse.setJsonText(jsonSchema);
+                } else {
+                    // 其他类型响应，使用原始文本
+                    String txt = processSchema(mediaTypeObj, allJson);
+                    apiResponse.setDataType("raw");
+                    apiResponse.setRawText(txt);
+                }
+                
                 apiResponseService.createApiResponse(apiResponse);
             }
 

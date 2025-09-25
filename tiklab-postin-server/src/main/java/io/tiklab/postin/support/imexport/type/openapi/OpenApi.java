@@ -1,14 +1,16 @@
 package io.tiklab.postin.support.imexport.type.openapi;
 
 
-import com.alibaba.fastjson.JSONObject;
-import io.tiklab.core.exception.ApplicationException;
-import io.tiklab.postin.common.ErrorCode;
-import io.tiklab.postin.support.imexport.common.FunctionImport;
+import java.io.InputStream;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.io.InputStream;
+import com.alibaba.fastjson.JSONObject;
+
+import io.tiklab.core.exception.ApplicationException;
+import io.tiklab.postin.common.ErrorCode;
+import io.tiklab.postin.support.imexport.common.FunctionImport;
 
 /**
  * OpenApi3 导入
@@ -20,6 +22,9 @@ public class OpenApi {
     FunctionImport functionImport;
 
     @Autowired
+    OpenApiCommonFn openApiCommonFn;
+
+    @Autowired
     OpenApi30XImport api30XImport;
 
     @Autowired
@@ -29,6 +34,11 @@ public class OpenApi {
     public void analysisOpenApi(String workspaceId, InputStream stream) {
         try {
             JSONObject allJson = functionImport.getJsonData(stream);
+
+            // 验证OpenAPI文档结构
+            if (!openApiCommonFn.validateOpenApiDocument(allJson)) {
+                throw new ApplicationException(ErrorCode.IMPORT_ERROR, "无效的OpenAPI文档格式");
+            }
 
             // 获取 OpenAPI 版本号
             String openApiVersion = allJson.getString("openapi");

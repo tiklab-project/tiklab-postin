@@ -1,17 +1,14 @@
 package io.tiklab.postin.support.imexport.type.postman;
 
 import java.io.InputStream;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
-import io.tiklab.postin.api.http.definition.model.PathParam;
-import io.tiklab.postin.api.http.definition.service.PathParamService;
-import io.tiklab.postin.common.MagicValue;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -23,20 +20,28 @@ import io.tiklab.postin.api.apix.model.QueryParam;
 import io.tiklab.postin.api.apix.model.RawParam;
 import io.tiklab.postin.api.apix.model.RequestHeader;
 import io.tiklab.postin.api.apix.service.ApiRequestService;
-import io.tiklab.postin.api.apix.service.ApixService;
 import io.tiklab.postin.api.apix.service.QueryParamService;
 import io.tiklab.postin.api.apix.service.RawParamService;
 import io.tiklab.postin.api.apix.service.RequestHeaderService;
+import io.tiklab.postin.api.http.definition.model.AuthApiKey;
+import io.tiklab.postin.api.http.definition.model.AuthBearer;
+import io.tiklab.postin.api.http.definition.model.AuthParam;
 import io.tiklab.postin.api.http.definition.model.FormParam;
 import io.tiklab.postin.api.http.definition.model.FormUrlencoded;
 import io.tiklab.postin.api.http.definition.model.HttpApi;
+import io.tiklab.postin.api.http.definition.model.PathParam;
+import io.tiklab.postin.api.http.definition.service.AuthParamService;
 import io.tiklab.postin.api.http.definition.service.FormParamService;
 import io.tiklab.postin.api.http.definition.service.FormUrlencodedService;
 import io.tiklab.postin.api.http.definition.service.HttpApiService;
+import io.tiklab.postin.api.http.definition.service.PathParamService;
 import io.tiklab.postin.category.model.Category;
 import io.tiklab.postin.category.service.CategoryService;
 import io.tiklab.postin.common.ErrorCode;
+import io.tiklab.postin.common.MagicValue;
 import io.tiklab.postin.node.model.Node;
+import io.tiklab.postin.support.environment.model.EnvVariable;
+import io.tiklab.postin.support.environment.service.EnvVariableService;
 import io.tiklab.postin.support.imexport.common.FunctionImport;
 import io.tiklab.postin.workspace.model.Workspace;
 
@@ -48,13 +53,33 @@ import io.tiklab.postin.workspace.model.Workspace;
 public class PostmanImport {
 
     private static final Logger logger = LoggerFactory.getLogger(PostmanImport.class);
+    
+    // Postman 2.1 常量
+    private static final String DEFAULT_API_NAME = "未命名API";
+    private static final String DEFAULT_CATEGORY_NAME = "导入的Collection";
+    private static final String DEFAULT_PATH = "/";
+    private static final String DEFAULT_METHOD = "GET";
+    
+    // 请求体类型映射
+    private static final String BODY_MODE_RAW = "raw";
+    private static final String BODY_MODE_FORMDATA = "formdata";
+    private static final String BODY_MODE_URLENCODED = "urlencoded";
+    private static final String BODY_MODE_FILE = "file";
+    private static final String BODY_MODE_NONE = "none";
+    
+    // 认证类型 - 使用MagicValue中定义的常量
+    private static final String AUTH_TYPE_BEARER = MagicValue.AUTHENTICATION_TYPE_BEARER;
+    private static final String AUTH_TYPE_APIKEY = MagicValue.AUTHENTICATION_TYPE_APIKEY;
+    
+    // 全局变量存储
+    private JSONArray globalVariables;
+    // Collection级别的认证信息
+    private JSONObject collectionAuth;
 
     @Autowired
     private FunctionImport functionImport;
     @Autowired
     private CategoryService categoryService;
-    @Autowired
-    private ApixService apixService;
     @Autowired
     private HttpApiService httpApiService;
     @Autowired
@@ -71,6 +96,11 @@ public class PostmanImport {
     private FormUrlencodedService formUrlencodedService;
     @Autowired
     private RawParamService rawParamService;
+    @Autowired
+    private AuthParamService authParamService;
+
+    @Autowired
+    EnvVariableService envVariableService;
 
     private String workspaceId;
     private String rootCategoryId;
@@ -82,32 +112,24 @@ public class PostmanImport {
      * @param stream Postman collection文件流
      */
     public void analysisPostmanData(String workspaceId, InputStream stream) {
-        if (StringUtils.isEmpty(workspaceId)) {
-            throw new ApplicationException(ErrorCode.IMPORT_ERROR,"工作空间ID不能为空");
-        }
-
+        validateWorkspaceId(workspaceId);
         this.workspaceId = workspaceId;
         logger.info("开始导入Postman数据到工作空间: {}", workspaceId);
 
         try {
-            JSONObject jsonObject = functionImport.getJsonData(stream);
-            if (jsonObject == null) {
-                throw new ApplicationException(ErrorCode.IMPORT_ERROR, "无法解析Postman数据");
-            }
-
-            // 验证数据格式
+            JSONObject jsonObject = parseJsonData(stream);
             validatePostmanData(jsonObject);
 
-            // 解析collection信息
-            JSONObject info = jsonObject.getJSONObject("info");
-            String categoryName = getStringOrDefault(info, "name", "导入的Collection");
-
-            // 创建根分组
+            // 解析全局变量和认证信息
+            parseGlobalVariables(jsonObject);
+            parseCollectionAuth(jsonObject);
+            
+            // 创建根分组并导入数据
+            String categoryName = getStringOrDefault(jsonObject.getJSONObject("info"), "name", DEFAULT_CATEGORY_NAME);
             this.rootCategoryId = createRootCategory(categoryName);
-
-            // 解析并导入数据
             analysisData(jsonObject, this.rootCategoryId);
 
+            logger.info("Postman数据导入完成，共处理工作空间: {}", workspaceId);
         } catch (ApplicationException e) {
             throw e;
         } catch (Exception e) {
@@ -117,16 +139,63 @@ public class PostmanImport {
     }
 
     /**
+     * 解析全局变量
+     */
+    private void parseGlobalVariables(JSONObject jsonObject) {
+        this.globalVariables = jsonObject.getJSONArray("variable");
+        if (this.globalVariables != null) {
+            logger.info("发现 {} 个全局变量", this.globalVariables.size());
+            
+            // 将Postman的全局变量保存到环境变量系统
+            for (int i = 0; i < this.globalVariables.size(); i++) {
+                try {
+                    JSONObject variableObj = this.globalVariables.getJSONObject(i);
+                    if (variableObj == null) {
+                        continue;
+                    }
+                    
+                    String name = getStringOrDefault(variableObj, "key", "");
+                    String value = getStringOrDefault(variableObj, "value", "");
+                    String type = getStringOrDefault(variableObj, "type", "string");
+                    
+                    if (StringUtils.hasText(name)) {
+                        EnvVariable envVariable = new EnvVariable();
+                        envVariable.setWorkspaceId(workspaceId);
+                        envVariable.setName(name);
+                        envVariable.setValue(value);
+                        envVariable.setDesc("从Postman导入的全局变量，类型: " + type);
+                        
+                        // 保存环境变量
+                        envVariableService.createEnvVariable(envVariable);
+                        logger.debug("保存全局变量: {} = {}", name, value);
+                    }
+                } catch (Exception e) {
+                    logger.warn("保存全局变量时出错: {}", e.getMessage());
+                }
+            }
+        }
+    }
+
+    /**
+     * 解析Collection级别的认证信息
+     */
+    private void parseCollectionAuth(JSONObject jsonObject) {
+        this.collectionAuth = jsonObject.getJSONObject("auth");
+        if (this.collectionAuth != null && !this.collectionAuth.isEmpty()) {
+            logger.info("发现Collection级别的认证信息");
+        }
+    }
+
+    /**
      * 提取描述信息，支持多种格式
      */
     private String extractDescription(JSONObject info) {
         // 尝试从description字段获取
         Object desc = info.get("description");
-        if (desc instanceof String) {
-            return (String) desc;
-        } else if (desc instanceof JSONObject) {
+        if (desc instanceof String str) {
+            return str;
+        } else if (desc instanceof JSONObject descObj) {
             // 有些Postman导出可能是对象格式
-            JSONObject descObj = (JSONObject) desc;
             return getStringOrDefault(descObj, "content", "");
         }
         return "";
@@ -155,27 +224,50 @@ public class PostmanImport {
     }
 
     /**
+     * 验证工作空间ID
+     */
+    private void validateWorkspaceId(String workspaceId) {
+        if (!StringUtils.hasText(workspaceId)) {
+            throw new ApplicationException(ErrorCode.IMPORT_ERROR, "工作空间ID不能为空");
+        }
+    }
+
+    /**
+     * 解析JSON数据
+     */
+    private JSONObject parseJsonData(InputStream stream) {
+        try {
+            JSONObject jsonObject = functionImport.getJsonData(stream);
+            if (jsonObject == null) {
+                throw new ApplicationException(ErrorCode.IMPORT_ERROR, "无法解析Postman数据");
+            }
+            return jsonObject;
+        } catch (Exception e) {
+            throw new ApplicationException(ErrorCode.IMPORT_ERROR, "解析Postman数据失败: " + e.getMessage(), e);
+        }
+    }
+
+    /**
      * 验证Postman数据格式
      */
     private void validatePostmanData(JSONObject jsonObject) {
         if (jsonObject == null) {
-            throw new ApplicationException(ErrorCode.IMPORT_ERROR,"Postman数据为空");
+            throw new ApplicationException(ErrorCode.IMPORT_ERROR, "Postman数据为空");
         }
 
         if (!jsonObject.containsKey("info")) {
-            throw new ApplicationException(ErrorCode.IMPORT_ERROR,"无效的Postman collection格式：缺少info字段");
+            throw new ApplicationException(ErrorCode.IMPORT_ERROR, "无效的Postman collection格式：缺少info字段");
         }
 
         JSONObject info = jsonObject.getJSONObject("info");
         if (info == null) {
-            throw new ApplicationException(ErrorCode.IMPORT_ERROR,"info字段不能为空");
+            throw new ApplicationException(ErrorCode.IMPORT_ERROR, "info字段不能为空");
         }
 
         String name = info.getString("name");
         if (!StringUtils.hasText(name)) {
-            throw new ApplicationException(ErrorCode.IMPORT_ERROR,"Postman collection名称不能为空");
+            throw new ApplicationException(ErrorCode.IMPORT_ERROR, "Postman collection名称不能为空");
         }
-
     }
 
     /**
@@ -206,7 +298,7 @@ public class PostmanImport {
      */
     private String buildPath(JSONArray pathArray) {
         if (pathArray == null || pathArray.isEmpty()) {
-            return "/";
+            return DEFAULT_PATH;
         }
 
         StringBuilder path = new StringBuilder();
@@ -221,7 +313,7 @@ public class PostmanImport {
             }
         }
 
-        return path.length() == 0 ? "/" : path.toString();
+        return path.length() == 0 ? DEFAULT_PATH : path.toString();
     }
 
     /**
@@ -306,7 +398,7 @@ public class PostmanImport {
      * 处理API请求
      */
     private void processApiRequest(JSONObject item, String categoryId) {
-        String name = getStringOrDefault(item, "name", "未命名API");
+        String name = getStringOrDefault(item, "name", DEFAULT_API_NAME);
         JSONObject request = item.getJSONObject("request");
 
         if (request == null) {
@@ -314,27 +406,70 @@ public class PostmanImport {
             return;
         }
 
-        String method = getStringOrDefault(request, "method", "GET").toUpperCase();
-        String description = extractDescription(item);
+        try {
+            String method = validateAndNormalizeMethod(getStringOrDefault(request, "method", DEFAULT_METHOD));
+            String description = extractDescription(item);
 
-        // 解析URL
-        UrlInfo urlInfo = parseUrl(request);
+            // 解析URL
+            UrlInfo urlInfo = parseUrl(request);
+            validateUrlInfo(urlInfo, name);
 
-        // 创建API
-        String apiId = createHttpApi(categoryId, name, urlInfo.path, method, description);
+            // 创建API
+            String apiId = createHttpApi(categoryId, name, urlInfo.path, method, description);
 
-        // 处理请求头
-        processRequestHeaders(request, apiId);
+            // 处理各种参数
+            processRequestHeaders(request, apiId);
+            processQueryParameters(urlInfo, apiId);
+            processPathParameters(urlInfo, apiId);
+            processRequestBody(request, apiId);
+            processAuthentication(request, apiId);
 
-        // 处理查询参数
-        processQueryParameters(urlInfo, apiId);
+            logger.debug("成功处理API请求: {} {}", method, urlInfo.path);
+        } catch (Exception e) {
+            logger.error("处理API请求失败: {}, 错误: {}", name, e.getMessage());
+            throw new ApplicationException(ErrorCode.IMPORT_ERROR, "处理API请求失败: " + name, e);
+        }
+    }
 
-        // 处理路径参数
-        processPathParameters(urlInfo, apiId);
+    /**
+     * 验证并标准化HTTP方法
+     */
+    private String validateAndNormalizeMethod(String method) {
+        if (!StringUtils.hasText(method)) {
+            return DEFAULT_METHOD;
+        }
+        
+        String normalizedMethod = method.toUpperCase();
+        // 验证是否为有效的HTTP方法
+        if (!isValidHttpMethod(normalizedMethod)) {
+            logger.warn("无效的HTTP方法: {}, 使用默认方法GET", method);
+            return DEFAULT_METHOD;
+        }
+        
+        return normalizedMethod;
+    }
 
-        // 处理请求体
-        processRequestBody(request, apiId);
+    /**
+     * 检查是否为有效的HTTP方法
+     */
+    private boolean isValidHttpMethod(String method) {
+        return "GET".equals(method) || "POST".equals(method) || "PUT".equals(method) ||
+               "DELETE".equals(method) || "PATCH".equals(method) || "HEAD".equals(method) ||
+               "OPTIONS".equals(method);
+    }
 
+    /**
+     * 验证URL信息
+     */
+    private void validateUrlInfo(UrlInfo urlInfo, String apiName) {
+        if (urlInfo == null) {
+            throw new ApplicationException(ErrorCode.IMPORT_ERROR, "URL信息为空: " + apiName);
+        }
+        
+        if (!StringUtils.hasText(urlInfo.path)) {
+            logger.warn("API {} 的路径为空，使用默认路径", apiName);
+            urlInfo.path = DEFAULT_PATH;
+        }
     }
 
     /**
@@ -353,38 +488,62 @@ public class PostmanImport {
         UrlInfo urlInfo = new UrlInfo();
         Object urlObj = request.get("url");
 
-        if (urlObj instanceof String) {
+        if (urlObj instanceof String url) {
             // 简单字符串URL
-            String url = (String) urlObj;
             urlInfo.path = extractPathFromUrl(url);
-        } else if (urlObj instanceof JSONObject) {
-            // 对象格式URL
-            JSONObject urlObject = (JSONObject) urlObj;
-
-            // 解析路径
-            JSONArray pathArray = urlObject.getJSONArray("path");
-            urlInfo.path = buildPath(pathArray);
+        } else if (urlObj instanceof JSONObject urlObject) {
+            // 对象格式URL - Postman 2.1标准格式
+            
+            // 优先使用raw字段，如果没有则构建
+            String rawUrl = getStringOrDefault(urlObject, "raw", "");
+            if (StringUtils.hasText(rawUrl)) {
+                urlInfo.path = extractPathFromUrl(rawUrl);
+            } else {
+                // 解析路径数组
+                JSONArray pathArray = urlObject.getJSONArray("path");
+                urlInfo.path = buildPath(pathArray);
+            }
 
             // 解析查询参数
-            JSONArray queryArray = urlObject.getJSONArray("query");
-            if (queryArray != null) {
-                for (int i = 0; i < queryArray.size(); i++) {
-                    urlInfo.queryParams.add(queryArray.getJSONObject(i));
-                }
-            }
-
+            parseQueryParams(urlObject, urlInfo);
+            
             // 解析路径参数
-            JSONArray variableArray = urlObject.getJSONArray("variable");
-            if (variableArray != null) {
-                for (int i = 0; i < variableArray.size(); i++) {
-                    urlInfo.pathParams.add(variableArray.getJSONObject(i));
-                }
-            }
+            parsePathParams(urlObject, urlInfo);
         } else {
-            urlInfo.path = "/";
+            urlInfo.path = DEFAULT_PATH;
         }
 
         return urlInfo;
+    }
+
+    /**
+     * 解析查询参数
+     */
+    private void parseQueryParams(JSONObject urlObject, UrlInfo urlInfo) {
+        JSONArray queryArray = urlObject.getJSONArray("query");
+        if (queryArray != null) {
+            for (int i = 0; i < queryArray.size(); i++) {
+                JSONObject queryObj = queryArray.getJSONObject(i);
+                if (queryObj != null) {
+                    urlInfo.queryParams.add(queryObj);
+                }
+            }
+        }
+    }
+
+    /**
+     * 解析路径参数
+     */
+    private void parsePathParams(JSONObject urlObject, UrlInfo urlInfo) {
+        JSONArray variableArray = urlObject.getJSONArray("variable");
+        if (variableArray != null) {
+            for (int i = 0; i < variableArray.size(); i++) {
+                JSONObject variableObj = variableArray.getJSONObject(i);
+                if (variableObj != null) {
+                    urlInfo.pathParams.add(variableObj);
+                }
+            }
+        }
     }
 
     /**
@@ -392,29 +551,66 @@ public class PostmanImport {
      */
     private String extractPathFromUrl(String url) {
         if (!StringUtils.hasText(url)) {
-            return "/";
+            return DEFAULT_PATH;
         }
 
-        // 移除变量占位符 {{variable}}
+        // 移除Postman变量占位符 {{variable}}
         url = url.replaceAll("\\{\\{[^}]+\\}\\}", "");
 
-        // 简单解析，提取路径部分
         try {
+            String path;
             if (url.startsWith("http")) {
+                // 完整URL，提取路径部分
                 java.net.URL parsedUrl = new java.net.URL(url);
-                return StringUtils.hasText(parsedUrl.getPath()) ? parsedUrl.getPath() : "/";
+                path = parsedUrl.getPath();
             } else {
-                // 相对路径
-                int queryIndex = url.indexOf('?');
-                if (queryIndex > 0) {
-                    url = url.substring(0, queryIndex);
-                }
-                return url.startsWith("/") ? url : "/" + url;
+                // 相对路径或简单路径
+                path = extractPathFromRelativeUrl(url);
             }
-        } catch (Exception e) {
+            
+            // 处理路径参数，将:param转换为{param}
+            if (StringUtils.hasText(path)) {
+                path = convertPathParameters(path);
+            }
+            
+            return StringUtils.hasText(path) ? path : DEFAULT_PATH;
+        } catch (java.net.MalformedURLException e) {
             logger.warn("解析URL失败: {}, 使用默认路径", url);
-            return "/";
+            return DEFAULT_PATH;
         }
+    }
+
+    /**
+     * 从相对URL中提取路径
+     */
+    private String extractPathFromRelativeUrl(String url) {
+        // 移除查询参数
+        int queryIndex = url.indexOf('?');
+        if (queryIndex > 0) {
+            url = url.substring(0, queryIndex);
+        }
+        
+        // 移除锚点
+        int anchorIndex = url.indexOf('#');
+        if (anchorIndex > 0) {
+            url = url.substring(0, anchorIndex);
+        }
+        
+        // 确保路径以/开头
+        return url.startsWith("/") ? url : "/" + url;
+    }
+
+    /**
+     * 转换路径参数，将:param格式转换为{param}格式
+     */
+    private String convertPathParameters(String path) {
+        if (!StringUtils.hasText(path)) {
+            return path;
+        }
+
+        // 使用正则表达式将:param转换为{param}
+        // 匹配:后面跟着字母、数字、下划线的参数名
+        return path.replaceAll(":([a-zA-Z_][a-zA-Z0-9_]*)", "{$1}");
     }
 
     /**
@@ -514,6 +710,7 @@ public class PostmanImport {
                 queryParam.setApiId(apiId);
                 queryParam.setParamName(paramName);
                 queryParam.setValue(getStringOrDefault(queryObj, "value", ""));
+                // 修复逻辑：disabled为false表示启用，启用时required为1
                 queryParam.setRequired(getBooleanOrDefault(queryObj, "disabled", false) ? 0 : 1);
                 queryParam.setDesc(getStringOrDefault(queryObj, "description", ""));
 
@@ -560,7 +757,7 @@ public class PostmanImport {
         }
 
         JSONObject body = request.getJSONObject("body");
-        if (body == null) {
+        if (body == null || body.isEmpty()) {
             updateApiRequest(MagicValue.REQUEST_BODY_TYPE_NONE, apiId);
             return;
         }
@@ -572,20 +769,213 @@ public class PostmanImport {
 
         try {
             switch (bodyType) {
-                case MagicValue.REQUEST_BODY_TYPE_FORMDATA:
-                    processFormData(body, apiId);
-                    break;
-                case MagicValue.REQUEST_BODY_TYPE_FORM_URLENCODED:
-                    processFormUrlencoded(body, apiId);
-                    break;
-                case MagicValue.REQUEST_BODY_TYPE_RAW:
-                    processRawBody(body, apiId);
-                    break;
+                case MagicValue.REQUEST_BODY_TYPE_FORMDATA -> processFormData(body, apiId);
+                case MagicValue.REQUEST_BODY_TYPE_FORM_URLENCODED -> processFormUrlencoded(body, apiId);
+                case MagicValue.REQUEST_BODY_TYPE_RAW -> processRawBody(body, apiId);
+                default -> logger.debug("未处理的请求体类型: {}", bodyType);
             }
         } catch (Exception e) {
             logger.warn("处理请求体时出错: {}", e.getMessage());
         }
     }
+
+    /**
+     * 处理认证信息
+     */
+    private void processAuthentication(JSONObject request, String apiId) {
+        JSONObject auth = null;
+        
+        // 优先使用请求级别的认证，如果没有则使用Collection级别的认证
+        if (request.containsKey("auth")) {
+            auth = request.getJSONObject("auth");
+        } else if (this.collectionAuth != null) {
+            auth = this.collectionAuth;
+        }
+        
+        if (auth == null || auth.isEmpty()) {
+            return;
+        }
+
+        String authType = getStringOrDefault(auth, "type", "");
+        if (!StringUtils.hasText(authType)) {
+            return;
+        }
+
+        try {
+            switch (authType.toLowerCase()) {
+                case AUTH_TYPE_BEARER -> processBearerAuth(auth, apiId);
+                case AUTH_TYPE_APIKEY -> processApiKeyAuth(auth, apiId);
+                default -> logger.debug("不支持的认证类型: {}, 仅支持bearer和apikey", authType);
+            }
+        } catch (Exception e) {
+            logger.warn("处理认证信息时出错: {}", e.getMessage());
+        }
+    }
+
+    /**
+     * 处理Bearer Token认证
+     */
+    private void processBearerAuth(JSONObject auth, String apiId) {
+        JSONArray bearerArray = auth.getJSONArray("bearer");
+        if (bearerArray == null || bearerArray.isEmpty()) {
+            return;
+        }
+
+        for (int i = 0; i < bearerArray.size(); i++) {
+            JSONObject bearerObj = bearerArray.getJSONObject(i);
+            if (bearerObj == null) {
+                continue;
+            }
+
+            String key = getStringOrDefault(bearerObj, "key", "");
+            String value = getStringOrDefault(bearerObj, "value", "");
+            
+            if ("token".equals(key) && StringUtils.hasText(value)) {
+                try {
+                    // 创建AuthParam主记录
+                    AuthParam authParam = new AuthParam();
+                    authParam.setApiId(apiId);
+                    authParam.setType(MagicValue.AUTHENTICATION_TYPE_BEARER);
+
+                    // 创建AuthBearer子记录
+                    AuthBearer authBearer = new AuthBearer();
+                    authBearer.setApiId(apiId);
+                    authBearer.setName("Authorization");
+                    authBearer.setValue("Bearer " + resolveVariable(value));
+                    authParam.setBearer(authBearer);
+
+                    // 保存认证信息
+                    authParamService.createAuthParam(authParam);
+                    logger.debug("添加Bearer Token认证");
+                } catch (Exception e) {
+                    logger.warn("创建Bearer Token认证失败: {}", e.getMessage());
+                }
+                break;
+            }
+        }
+    }
+
+    /**
+     * 处理API Key认证
+     */
+    private void processApiKeyAuth(JSONObject auth, String apiId) {
+        JSONArray apiKeyArray = auth.getJSONArray("apikey");
+        if (apiKeyArray == null || apiKeyArray.isEmpty()) {
+            return;
+        }
+
+        String key = "";
+        String value = "";
+        String in = "header"; // 默认在header中
+
+        for (int i = 0; i < apiKeyArray.size(); i++) {
+            JSONObject apiKeyObj = apiKeyArray.getJSONObject(i);
+            if (apiKeyObj == null) {
+                continue;
+            }
+
+            String fieldKey = getStringOrDefault(apiKeyObj, "key", "");
+            String fieldValue = getStringOrDefault(apiKeyObj, "value", "");
+            
+            switch (fieldKey) {
+                case "key" -> key = fieldValue;
+                case "value" -> value = fieldValue;
+                case "in" -> in = fieldValue;
+                default -> logger.debug("未知的API Key字段: {}", fieldKey);
+            }
+        }
+
+        if (StringUtils.hasText(key) && StringUtils.hasText(value)) {
+            try {
+                // 创建AuthParam主记录
+                AuthParam authParam = new AuthParam();
+                authParam.setApiId(apiId);
+                authParam.setType(MagicValue.AUTHENTICATION_TYPE_APIKEY);
+
+                // 创建AuthApiKey子记录
+                AuthApiKey authApiKey = new AuthApiKey();
+                authApiKey.setApiId(apiId);
+                authApiKey.setName(key);
+                authApiKey.setValue(resolveVariable(value));
+                authApiKey.setApikeyIn(in);
+                authParam.setApiKey(authApiKey);
+
+                // 保存认证信息
+                authParamService.createAuthParam(authParam);
+                logger.debug("添加API Key认证: {} in {}", key, in);
+            } catch (Exception e) {
+                logger.warn("创建API Key认证失败: {}", e.getMessage());
+            }
+        }
+    }
+
+    /**
+     * 解析变量引用，将{{variable}}替换为实际值
+     */
+    private String resolveVariable(String value) {
+        if (!StringUtils.hasText(value)) {
+            return value;
+        }
+
+        // 处理{{variable}}格式的变量引用
+        if (value.contains("{{") && value.contains("}}")) {
+            try {
+                // 使用正则表达式提取变量名
+                java.util.regex.Pattern pattern = java.util.regex.Pattern.compile("\\{\\{([^}]+)\\}\\}");
+                java.util.regex.Matcher matcher = pattern.matcher(value);
+                
+                StringBuffer result = new StringBuffer();
+                while (matcher.find()) {
+                    String variableName = matcher.group(1);
+                    String variableValue = getVariableValue(variableName);
+                    matcher.appendReplacement(result, java.util.regex.Matcher.quoteReplacement(variableValue));
+                }
+                matcher.appendTail(result);
+                
+                return result.toString();
+            } catch (Exception e) {
+                logger.warn("解析变量引用失败: {}, 使用原始值", e.getMessage());
+                return value;
+            }
+        }
+
+        return value;
+    }
+
+    /**
+     * 获取变量值，直接从已解析的全局变量中获取
+     */
+    private String getVariableValue(String variableName) {
+        if (!StringUtils.hasText(variableName)) {
+            return "{{" + variableName + "}}";
+        }
+
+        // 直接从已解析的全局变量中查找
+        if (this.globalVariables != null) {
+            for (int i = 0; i < this.globalVariables.size(); i++) {
+                try {
+                    JSONObject variableObj = this.globalVariables.getJSONObject(i);
+                    if (variableObj == null) {
+                        continue;
+                    }
+                    
+                    String name = getStringOrDefault(variableObj, "key", "");
+                    String value = getStringOrDefault(variableObj, "value", "");
+                    
+                    if (variableName.equals(name) && StringUtils.hasText(value)) {
+                        logger.debug("找到全局变量: {} = {}", variableName, value);
+                        return value;
+                    }
+                } catch (Exception e) {
+                    logger.debug("解析全局变量时出错: {}", e.getMessage());
+                }
+            }
+        }
+
+        // 如果找不到，返回原始变量引用
+        return "{{" + variableName + "}}";
+    }
+
 
     /**
      * 更新API请求信息
@@ -734,10 +1124,10 @@ public class PostmanImport {
         }
 
         return switch (postmanBodyType.toLowerCase()) {
-            case "raw" -> MagicValue.REQUEST_BODY_TYPE_RAW;
-            case "form-data" -> MagicValue.REQUEST_BODY_TYPE_FORMDATA;
-            case "urlencoded" -> MagicValue.REQUEST_BODY_TYPE_FORM_URLENCODED;
-            case "file" -> MagicValue.REQUEST_BODY_TYPE_NONE;
+            case BODY_MODE_RAW -> MagicValue.REQUEST_BODY_TYPE_RAW;
+            case BODY_MODE_FORMDATA -> MagicValue.REQUEST_BODY_TYPE_FORMDATA;
+            case BODY_MODE_URLENCODED -> MagicValue.REQUEST_BODY_TYPE_FORM_URLENCODED;
+            case BODY_MODE_FILE, BODY_MODE_NONE -> MagicValue.REQUEST_BODY_TYPE_NONE;
             default -> MagicValue.REQUEST_BODY_TYPE_NONE;
         };
     }

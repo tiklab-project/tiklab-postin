@@ -1,45 +1,38 @@
 package io.tiklab.postin.support.imexport.type.openapi;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+
 import io.tiklab.core.exception.ApplicationException;
-import io.tiklab.postin.api.apix.model.ApiRequest;
-import io.tiklab.postin.api.apix.model.Apix;
-import io.tiklab.postin.api.apix.model.QueryParam;
-import io.tiklab.postin.api.apix.model.RawParam;
-import io.tiklab.postin.api.apix.model.RequestHeader;
-import io.tiklab.postin.api.apix.service.ApiRequestService;
-import io.tiklab.postin.api.apix.service.QueryParamService;
-import io.tiklab.postin.api.apix.service.RawParamService;
-import io.tiklab.postin.api.apix.service.RequestHeaderService;
 import io.tiklab.postin.api.http.definition.model.ApiResponse;
-import io.tiklab.postin.api.http.definition.model.FormParam;
-import io.tiklab.postin.api.http.definition.model.FormUrlencoded;
-import io.tiklab.postin.api.http.definition.model.HttpApi;
-import io.tiklab.postin.api.http.definition.model.PathParam;
+import io.tiklab.postin.api.http.definition.model.AuthApiKey;
+import io.tiklab.postin.api.http.definition.model.AuthBearer;
+import io.tiklab.postin.api.http.definition.model.AuthParam;
 import io.tiklab.postin.api.http.definition.service.ApiResponseService;
-import io.tiklab.postin.api.http.definition.service.FormParamService;
-import io.tiklab.postin.api.http.definition.service.FormUrlencodedService;
-import io.tiklab.postin.api.http.definition.service.HttpApiService;
-import io.tiklab.postin.api.http.definition.service.PathParamService;
+import io.tiklab.postin.api.http.definition.service.AuthApiKeyService;
+import io.tiklab.postin.api.http.definition.service.AuthBearerService;
+import io.tiklab.postin.api.http.definition.service.AuthParamService;
 import io.tiklab.postin.category.model.Category;
 import io.tiklab.postin.category.service.CategoryService;
 import io.tiklab.postin.common.ErrorCode;
 import io.tiklab.postin.common.MagicValue;
 import io.tiklab.postin.node.model.Node;
-import io.tiklab.postin.support.imexport.common.FunctionImport;
 import io.tiklab.postin.workspace.model.Workspace;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
 
 /**
  * OpenAPI导入的抽象基类
  */
 public abstract class AbstractOpenApiImport {
+
+    protected static final Logger logger = LoggerFactory.getLogger(AbstractOpenApiImport.class);
 
     @Autowired
     protected OpenApiCommonFn openApiCommonFn;
@@ -49,6 +42,15 @@ public abstract class AbstractOpenApiImport {
 
     @Autowired
     protected ApiResponseService apiResponseService;
+
+    @Autowired
+    protected AuthParamService authParamService;
+
+    @Autowired
+    protected AuthApiKeyService authApiKeyService;
+
+    @Autowired
+    protected AuthBearerService authBearerService;
 
     /**
      * 创建分组
@@ -143,6 +145,9 @@ public abstract class AbstractOpenApiImport {
 
                     //解析响应参数
                     analysisResponse(methodInfo, apiId, allJson);
+
+                    //解析安全认证配置
+                    analysisSecurity(methodInfo, apiId, allJson);
                 }
             }
         } catch (Exception e) {
@@ -259,6 +264,113 @@ public abstract class AbstractOpenApiImport {
                 apiResponse.setDataType("raw");
                 apiResponseService.createApiResponse(apiResponse);
             }
+        }
+    }
+
+    /**
+     * 解析安全认证配置
+     * @param methodInfo 方法信息
+     * @param apiId API ID
+     * @param allJson 完整的OpenAPI文档
+     */
+    protected void analysisSecurity(JSONObject methodInfo, String apiId, JSONObject allJson) {
+        try {
+            JSONObject securityInfo = openApiCommonFn.processSecurity(methodInfo, allJson);
+            if (securityInfo.isEmpty()) {
+                return;
+            }
+
+            JSONObject securitySchemes = openApiCommonFn.getSecuritySchemes(allJson);
+            if (securitySchemes.isEmpty()) {
+                logger.warn("API {} 配置了安全认证但未找到对应的安全方案", apiId);
+                return;
+            }
+
+            // 处理每个安全方案
+            for (String schemeName : securityInfo.keySet()) {
+                if (!securitySchemes.containsKey(schemeName)) {
+                    logger.warn("未找到安全方案: {}", schemeName);
+                    continue;
+                }
+
+                JSONObject scheme = securitySchemes.getJSONObject(schemeName);
+                String type = scheme.getString("type");
+
+                switch (type) {
+                    case MagicValue.AUTHENTICATION_TYPE_APIKEY:
+                        processApiKeyAuth(scheme, apiId);
+                        break;
+                    case OpenApiCommonFn.SECURITY_TYPE_HTTP:
+                        String schemeType = scheme.getString("scheme");
+                        if (OpenApiCommonFn.SECURITY_SCHEME_BEARER.equalsIgnoreCase(schemeType)) {
+                            processBearerAuth(scheme, apiId);
+                        }
+                        break;
+                    default:
+                        logger.debug("不支持的安全认证类型: {}", type);
+                        break;
+                }
+            }
+        } catch (Exception e) {
+            logger.warn("处理安全认证配置时出错: {}", e.getMessage());
+        }
+    }
+
+    /**
+     * 处理API Key认证
+     */
+    private void processApiKeyAuth(JSONObject scheme, String apiId) {
+        try {
+            String name = scheme.getString("name");
+            String in = scheme.getString("in");
+
+            // 创建AuthParam主记录
+            AuthParam authParam = new AuthParam();
+            authParam.setId(apiId);
+            authParam.setApiId(apiId);
+            authParam.setType(MagicValue.AUTHENTICATION_TYPE_APIKEY);
+
+            // 创建AuthApiKey子记录
+            AuthApiKey authApiKey = new AuthApiKey();
+            authApiKey.setId(apiId);
+            authApiKey.setApiId(apiId);
+            authApiKey.setName(name);
+            authApiKey.setValue(""); // 默认空值，用户需要手动填写
+            authApiKey.setApikeyIn(in);
+            authParam.setApiKey(authApiKey);
+
+            // 保存认证信息
+            authParamService.createAuthParam(authParam);
+            logger.debug("添加API Key认证: {} in {}", name, in);
+        } catch (Exception e) {
+            logger.warn("创建API Key认证失败: {}", e.getMessage());
+        }
+    }
+
+    /**
+     * 处理Bearer Token认证
+     */
+    private void processBearerAuth(JSONObject scheme, String apiId) {
+        try {
+            // 创建AuthParam主记录
+            AuthParam authParam = new AuthParam();
+            authParam.setId(apiId);
+            authParam.setApiId(apiId);
+            authParam.setType(MagicValue.AUTHENTICATION_TYPE_BEARER);
+
+            // 创建AuthBearer子记录
+            AuthBearer authBearer = new AuthBearer();
+            authBearer.setId(apiId);
+            authBearer.setApiId(apiId);
+            authBearer.setName("Authorization");
+            authBearer.setValue("Bearer "); // 默认格式，用户需要填写token
+            authParam.setBearer(authBearer);
+
+            // 保存认证信息
+            authParamService.createAuthParam(authParam);
+            logger.debug("添加Bearer Token认证");
+        } catch (Exception e) {
+            logger.warn("创建Bearer Token认证失败: {}", e.getMessage());
         }
     }
 } 
