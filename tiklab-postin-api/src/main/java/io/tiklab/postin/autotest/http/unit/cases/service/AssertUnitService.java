@@ -3,6 +3,10 @@ package io.tiklab.postin.autotest.http.unit.cases.service;
 import io.tiklab.core.page.Pagination;
 import io.tiklab.postin.autotest.http.unit.cases.model.AssertUnit;
 import io.tiklab.postin.autotest.http.unit.cases.model.AssertUnitQuery;
+import io.tiklab.toolkit.join.annotation.FindAll;
+import io.tiklab.toolkit.join.annotation.FindList;
+import io.tiklab.toolkit.join.annotation.FindOne;
+import io.tiklab.toolkit.join.annotation.JoinProvider;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -11,6 +15,7 @@ import java.util.List;
 /**
 * 断言 服务接口
 */
+@JoinProvider(model = AssertUnit.class)
 public interface AssertUnitService {
 
     /**
@@ -33,9 +38,9 @@ public interface AssertUnitService {
     void deleteAssertCase(@NotNull String id);
 
     void deleteAllAssertCase( String caseId);
-
+    @FindOne
     AssertUnit findOne(@NotNull String id);
-
+    @FindList
     List<AssertUnit> findList(List<String> idList);
 
     /**
@@ -49,6 +54,7 @@ public interface AssertUnitService {
     * 查找所有断言
     * @return
     */
+    @FindAll
     List<AssertUnit> findAllAssertCase();
 
     /**

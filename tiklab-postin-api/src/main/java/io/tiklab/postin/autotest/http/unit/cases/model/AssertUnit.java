@@ -15,7 +15,7 @@ import javax.validation.constraints.NotNull;
  * 断言 模型
  */
 @ApiModel
-@Mapper
+@Mapper(targetName = "io.tiklab.postin.autotest.http.unit.cases.entity.AssertCaseUnitEntity")
 @Join
 public class AssertUnit extends BaseModel{
 
