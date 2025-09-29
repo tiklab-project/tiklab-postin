@@ -5,7 +5,6 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Set;
 
-import io.tiklab.postin.api.http.definition.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -25,6 +24,14 @@ import io.tiklab.postin.api.apix.service.JsonParamService;
 import io.tiklab.postin.api.apix.service.QueryParamService;
 import io.tiklab.postin.api.apix.service.RawParamService;
 import io.tiklab.postin.api.apix.service.RequestHeaderService;
+import io.tiklab.postin.api.http.definition.model.ApiResponse;
+import io.tiklab.postin.api.http.definition.model.AuthApiKey;
+import io.tiklab.postin.api.http.definition.model.AuthBearer;
+import io.tiklab.postin.api.http.definition.model.AuthParam;
+import io.tiklab.postin.api.http.definition.model.FormParam;
+import io.tiklab.postin.api.http.definition.model.FormUrlencoded;
+import io.tiklab.postin.api.http.definition.model.HttpApi;
+import io.tiklab.postin.api.http.definition.model.PathParam;
 import io.tiklab.postin.api.http.definition.service.ApiResponseService;
 import io.tiklab.postin.api.http.definition.service.AuthParamService;
 import io.tiklab.postin.api.http.definition.service.FormParamService;
@@ -282,20 +289,26 @@ public class Swagger2Import {
                     addHeader(parameter,apiId);
                     break;
                 case "body":
-                    if ("application/json".equals(mimeType)) {
-                        addJson(parameter, apiId, allJson);
-                    } else {
-                        addRaw(parameter,apiId,mimeType,allJson);
+                    // 只有当mimeType不是"none"时才处理body参数
+                    if (!"none".equals(mimeType)) {
+                        if ("application/json".equals(mimeType)) {
+                            addJson(parameter, apiId, allJson);
+                        } else {
+                            addRaw(parameter,apiId,mimeType,allJson);
+                        }
                     }
                     break;
                 case "formData":
-                    // 根据consumes类型决定如何处理formData参数
-                    if ("application/x-www-form-urlencoded".equals(mimeType)) {
-                        // 如果consumes是form-urlencoded，但参数in是formData，按form-urlencoded处理
-                        addFormUrlencoded(parameter,apiId);
-                    } else {
-                        // 默认按multipart/form-data处理
-                        addFormData(parameter,apiId);
+                    // 只有当mimeType不是"none"时才处理formData参数
+                    if (!"none".equals(mimeType)) {
+                        // 根据consumes类型决定如何处理formData参数
+                        if ("application/x-www-form-urlencoded".equals(mimeType)) {
+                            // 如果consumes是form-urlencoded，但参数in是formData，按form-urlencoded处理
+                            addFormUrlencoded(parameter,apiId);
+                        } else {
+                            // 默认按multipart/form-data处理
+                            addFormData(parameter,apiId);
+                        }
                     }
                     break;
             }
@@ -372,18 +385,22 @@ public class Swagger2Import {
      */
     public void addRequest(String consumes,String methodId){
         String bodyType;
-        switch (consumes){
-            case "multipart/form-data":
-                bodyType= MagicValue.REQUEST_BODY_TYPE_FORMDATA;
-                break;
-            case "application/x-www-form-urlencoded":
-                bodyType = MagicValue.REQUEST_BODY_TYPE_FORM_URLENCODED;
-                break;
-            case "application/json":
-                bodyType = MagicValue.REQUEST_BODY_TYPE_JSON;
-                break;
-            default:
-                bodyType= MagicValue.REQUEST_BODY_TYPE_RAW;
+        if (consumes == null || "none".equals(consumes)) {
+            bodyType = MagicValue.REQUEST_BODY_TYPE_NONE;
+        } else {
+            switch (consumes){
+                case "multipart/form-data":
+                    bodyType= MagicValue.REQUEST_BODY_TYPE_FORMDATA;
+                    break;
+                case "application/x-www-form-urlencoded":
+                    bodyType = MagicValue.REQUEST_BODY_TYPE_FORM_URLENCODED;
+                    break;
+                case "application/json":
+                    bodyType = MagicValue.REQUEST_BODY_TYPE_JSON;
+                    break;
+                default:
+                    bodyType= MagicValue.REQUEST_BODY_TYPE_NONE;
+            }
         }
 
         ApiRequest apiRequest = new ApiRequest();

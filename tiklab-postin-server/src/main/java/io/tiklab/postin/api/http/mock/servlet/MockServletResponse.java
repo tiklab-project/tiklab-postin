@@ -1,5 +1,17 @@
 package io.tiklab.postin.api.http.mock.servlet;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Objects;
+import java.util.Random;
+
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import io.tiklab.core.exception.ApplicationException;
 import io.tiklab.postin.api.http.definition.model.ApiResponse;
 import io.tiklab.postin.api.http.definition.model.ApiResponseQuery;
 import io.tiklab.postin.api.http.definition.model.ResponseHeader;
@@ -13,17 +25,7 @@ import io.tiklab.postin.api.http.mock.model.ResponseResultMock;
 import io.tiklab.postin.api.http.mock.service.ResponseHeaderMockService;
 import io.tiklab.postin.api.http.mock.service.ResponseMockService;
 import io.tiklab.postin.api.http.mock.service.ResponseResultMockService;
-import io.tiklab.core.exception.ApplicationException;
 import io.tiklab.postin.common.ErrorCode;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.List;
-import java.util.Objects;
-import java.util.Random;
 
 /**
  * mock
@@ -127,27 +129,25 @@ public class MockServletResponse {
      */
     private String processMockBody(String mockId){
         ResponseResultMock responseResultMock = responseResultMockService.findResponseResultMock(mockId);
-        if(responseResultMock != null){
+        if(responseResultMock != null && responseResultMock.getResult() != null){
             return responseResultMock.getResult();
         }
 
-        return null;
+        // 如果找不到mock数据，返回默认的空JSON对象
+        return "{}";
     }
 
     /**
      * 处理 接口定义 中响应体
      */
     private String processApiBody(ApiResponse apiResponse){
-        String jsonMockData = null;
-
         if("json".equals(apiResponse.getDataType())){
             String jsonText = apiResponse.getJsonText();
-            jsonMockData = jsonGenerator.generateJson(jsonText);
+            return jsonGenerator.generateJson(jsonText);
         }else {
             String rawText = apiResponse.getRawText();
-            jsonMockData =jsonGenerator.generateRaw(rawText);
+            return jsonGenerator.generateRaw(rawText);
         }
-        return jsonMockData;
     }
 
     /**
@@ -225,8 +225,14 @@ public class MockServletResponse {
     public void setBody(String bodyData,  HttpServletResponse response)  {
         try {
             ServletOutputStream servletOutputStream = response.getOutputStream();
-            servletOutputStream.write(bodyData.getBytes("UTF-8"));
-        }catch (Exception e){
+            // 添加null检查，避免空指针异常
+            if (bodyData != null) {
+                servletOutputStream.write(bodyData.getBytes("UTF-8"));
+            } else {
+                // 如果bodyData为null，写入空字符串
+                servletOutputStream.write("".getBytes("UTF-8"));
+            }
+        } catch (IOException e) {
             throw new ApplicationException(ErrorCode.EXECUTE_ERROR,"set response body error :"+e.getMessage());
         }
 

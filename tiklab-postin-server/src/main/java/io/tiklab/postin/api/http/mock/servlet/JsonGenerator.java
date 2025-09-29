@@ -33,26 +33,52 @@ public class JsonGenerator {
     public  String generateJson(String schemaStr) {
         JSONObject schemaObject = JSONObject.parseObject(schemaStr);
 
-        JSONObject generatedData = generateData(schemaObject);
+        Object generatedData = generateData(schemaObject);
 
-        return generatedData.toJSONString();
+        if (generatedData instanceof JSONObject jsonObject) {
+            return jsonObject.toJSONString();
+        } else if (generatedData instanceof JSONArray jsonArray) {
+            return jsonArray.toJSONString();
+        } else {
+            // 对于基本类型，直接转换为JSON字符串
+            return JSONObject.toJSONString(generatedData);
+        }
     }
 
     private  <T> T generateData(JSONObject schema) {
+        if (schema == null) {
+            return null;
+        }
+        
         String type = schema.getString("type");
+        if (type == null) {
+            type = "string"; // 默认类型
+        }
 
         if ("object".equals(type)) {
             JSONObject jsonObject = new JSONObject();
             JSONObject properties = schema.getJSONObject("properties");
-            for (String propKey : properties.keySet()) {
-                JSONObject propSchema = properties.getJSONObject(propKey);
-
-                jsonObject.put(propKey, generateData(propSchema));
-
+            if (properties != null) {
+                for (String propKey : properties.keySet()) {
+                    if (propKey != null) {
+                        JSONObject propSchema = properties.getJSONObject(propKey);
+                        jsonObject.put(propKey, generateData(propSchema));
+                    }
+                }
             }
             return (T) jsonObject;
         } else if ("array".equals(type)) {
-            JSONObject itemsSchema = schema.getJSONObject("properties").getJSONObject("ITEMS");
+            JSONObject properties = schema.getJSONObject("properties");
+            JSONObject itemsSchema = null;
+            if (properties != null) {
+                itemsSchema = properties.getJSONObject("ITEMS");
+            }
+            if (itemsSchema == null) {
+                // 如果没有找到ITEMS，创建一个默认的字符串类型schema
+                itemsSchema = new JSONObject();
+                itemsSchema.put("type", "string");
+            }
+            
             JSONArray array = new JSONArray();
             int length = faker.random().nextInt(5) + 1;
             for (int i = 0; i < length; i++) {
@@ -60,15 +86,13 @@ public class JsonGenerator {
             }
             return (T) array;
         } else {
-            Object value = null;
-            if(schema.getJSONObject("mock")!=null){
-                String  mockType= schema.getJSONObject("mock").getString("mock");
-                value= generateMockValue(mockType);
-            }else {
-                value= generateType(type);
+            JSONObject mockObj = schema.getJSONObject("mock");
+            if (mockObj != null) {
+                String mockType = mockObj.getString("mock");
+                return (T) generateMockValue(mockType);
+            } else {
+                return (T) generateType(type);
             }
-
-            return (T) value;
         }
     }
 
@@ -76,6 +100,10 @@ public class JsonGenerator {
      * 数据类型自动生成数据
      */
     private <T> Object generateType(String type) {
+        if (type == null) {
+            return faker.lorem().word();
+        }
+        
         switch(type) {
             case "integer":
                 return faker.number().numberBetween(1, 100);
@@ -86,7 +114,7 @@ public class JsonGenerator {
             case "boolean":
                 return faker.bool().bool();
             default:
-                return "null";
+                return faker.name();
         }
 
     }
@@ -96,6 +124,10 @@ public class JsonGenerator {
      * @return
      */
     private Object generateMockValue(String mockType) {
+        if (mockType == null) {
+            return faker.lorem().word();
+        }
+        
         switch(mockType) {
             case "@ip":
                 return faker.internet().ipV4Address();
