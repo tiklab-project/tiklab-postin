@@ -233,7 +233,8 @@ public class ApixServiceImpl implements ApixService {
         List<ApiList> apixList = BeanMapper.mapList(pagination.getDataList(), ApiList.class);
         joinTemplate.joinQuery(apixList,new String[]{
                 "status",
-                "executor"
+                "executor",
+                "createUser"
         });
 
         return PaginationBuilder.build(pagination, apixList);

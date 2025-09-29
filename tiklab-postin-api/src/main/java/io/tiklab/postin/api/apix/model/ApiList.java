@@ -2,6 +2,7 @@ package io.tiklab.postin.api.apix.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.tiklab.core.BaseModel;
+import io.tiklab.postin.annotation.ApiModel;
 import io.tiklab.postin.annotation.ApiProperty;
 import io.tiklab.postin.support.apistatus.model.ApiStatus;
 import io.tiklab.toolkit.beans.annotation.Mapper;
@@ -13,14 +14,24 @@ import io.tiklab.user.user.model.User;
 
 import java.sql.Timestamp;
 
+@ApiModel
 @Mapper(targetName = "io.tiklab.postin.api.apix.entity.ApiListEntity")
 @Join
 public class ApiList extends BaseModel{
     private String id;
     private String name;
+    private String path;
     private String protocolType;
     private String methodType;
-    private String path;
+
+    @Mappings({
+            @Mapping(source = "createUser.id",target = "createUser")
+    })
+    @JoinField(key = "id")
+    private User createUser;
+
+    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
+    private java.sql.Timestamp createTime;
 
     @Mappings({
             @Mapping(source = "status.id",target = "statusId")
@@ -29,22 +40,13 @@ public class ApiList extends BaseModel{
     private ApiStatus status;
 
     @Mappings({
-            @Mapping(source = "executor.id",target = "executor")
+            @Mapping(source = "executor.id",target = "executorId")
     })
     @JoinField(key = "id")
     private User executor;
 
     @ApiProperty(name="desc",desc="描述")
     private String desc;
-
-    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
-    private java.sql.Timestamp createTime;
-
-    @Mappings({
-            @Mapping(source = "createUser.id",target = "createUser")
-    })
-    @JoinField(key = "id")
-    private User createUser;
 
     public String getId() {
         return id;

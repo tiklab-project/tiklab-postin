@@ -38,16 +38,16 @@ public class ApiListEntity implements Serializable {
     private String createUser;
 
     //更新人
-    @Column(name = "update_user",length = 32 )
-    private String updateUser;
+//    @Column(name = "update_user",length = 32 )
+//    private String updateUser;
 
     //创建时间
     @Column(name = "create_time")
     private Timestamp createTime;
 
-    //更新时间
-    @Column(name = "update_time",length = 4)
-    private Timestamp updateTime;
+//    //更新时间
+//    @Column(name = "update_time",length = 4)
+//    private Timestamp updateTime;
 
     //状态
     @Column(name = "status_id")
@@ -55,7 +55,7 @@ public class ApiListEntity implements Serializable {
 
     //负责人
     @Column(name = "executor_id")
-    private String executor;
+    private String executorId;
 
     @Column(name = "description",length = 256)
     private String desc;
@@ -108,13 +108,6 @@ public class ApiListEntity implements Serializable {
         this.createUser = createUser;
     }
 
-    public String getUpdateUser() {
-        return updateUser;
-    }
-
-    public void setUpdateUser(String updateUser) {
-        this.updateUser = updateUser;
-    }
 
     public Timestamp getCreateTime() {
         return createTime;
@@ -124,13 +117,6 @@ public class ApiListEntity implements Serializable {
         this.createTime = createTime;
     }
 
-    public Timestamp getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Timestamp updateTime) {
-        this.updateTime = updateTime;
-    }
 
     public String getStatusId() {
         return statusId;
@@ -140,12 +126,12 @@ public class ApiListEntity implements Serializable {
         this.statusId = statusId;
     }
 
-    public String getExecutor() {
-        return executor;
+    public String getExecutorId() {
+        return executorId;
     }
 
-    public void setExecutor(String executor) {
-        this.executor = executor;
+    public void setExecutorId(String executorId) {
+        this.executorId = executorId;
     }
 
     public String getDesc() {
