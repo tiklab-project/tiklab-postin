@@ -131,6 +131,9 @@ public class SaveToApiServicelmpl implements SaveToApiService {
             if(param.getDataType()==null){
                 param.setDataType("text");
             }
+            if(param.getRequired()== null){
+                param.setRequired(1);
+            }
             formParamService.createFormParam(param);
         });
     }
@@ -145,6 +148,9 @@ public class SaveToApiServicelmpl implements SaveToApiService {
             param.setHttp(httpApi);
             if(param.getDataType()==null){
                 param.setDataType("string");
+            }
+            if(param.getRequired()== null){
+                param.setRequired(1);
             }
             formUrlencodedService.createFormUrlencoded(param);
         });
