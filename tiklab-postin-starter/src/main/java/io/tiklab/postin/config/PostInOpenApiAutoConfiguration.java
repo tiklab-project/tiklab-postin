@@ -36,7 +36,9 @@ public class PostInOpenApiAutoConfiguration {
                 "/environment/findEnvironmentList",
                 "/environment/findEnvironment",
                 "/testPlanTestDispatch/execute",
-                "/testPlanTestDispatch/exeResult"
+                "/testPlanTestDispatch/exeResult",
+                "/docletReport/moduleReport"
+
         };
 
         return AllowConfigBuilder.instance()

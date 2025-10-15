@@ -41,8 +41,6 @@ public class WorkspaceController {
 
 
     @RequestMapping(path="/createWorkspace",method = RequestMethod.POST)
-//    @ApiMethod(name = "createWorkspace",desc = "创建空间")
-//     @ApiParam(name = "workspace",desc = "空间DTO",required = true)
     public Result<String> createWorkspace(@RequestBody @NotNull @Valid @ApiParam Workspace workspace) throws Exception {
         String id = workspaceService.createWorkspace(workspace);
 
