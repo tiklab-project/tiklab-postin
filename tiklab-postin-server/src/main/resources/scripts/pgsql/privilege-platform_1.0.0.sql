@@ -113,8 +113,7 @@ INSERT INTO pcs_prc_function (id, name, code, parent_function_id, sort, type) VA
 
 
 -- 项目设置
-INSERT INTO pcs_prc_function_group (id, name, code, function_ids, sort, type)
-VALUES ('pi_setting', '设置', 'pi_setting', 'domain_user,domain_role', 100, 2);
+INSERT INTO pcs_prc_function_group (id, name, code, function_ids, sort, type) VALUES ('pi_setting', '设置', 'pi_setting', 'domain_user,domain_role', 100, 2);
 
 -- 成员
 INSERT INTO pcs_prc_function (id, name, code, parent_function_id, sort, type) VALUES ('domain_user', '用户', 'domain_user', NULL, 1, '2');

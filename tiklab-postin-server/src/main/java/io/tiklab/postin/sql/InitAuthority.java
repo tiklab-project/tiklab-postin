@@ -122,7 +122,6 @@ public class InitAuthority implements DsmProcessTask {
 
     private final String[] domainAdminFunctionIds = new String[]{
 
-            // 系统全局设置权限
             "pi_setting","domain_user","domain_role",
             "domain_user_add", "domain_user_delete", "domain_user_update",
             "domain_role_add", "domain_role_delete", "domain_role_update", "domain_role_user_add", "domain_role_user_delete", "domain_role_permission_update", "domain_role_update_default",

@@ -97,6 +97,9 @@ public class Workspace extends BaseModel {
     private Integer isFollow;
     private List<PatchUser> userList;
 
+    //删除权限
+    private Boolean deletePermission;
+
     public java.lang.String getId() {
         return id;
     }
@@ -181,5 +184,13 @@ public class Workspace extends BaseModel {
 
     public void setCaseNum(Integer caseNum) {
         this.caseNum = caseNum;
+    }
+
+    public Boolean getDeletePermission() {
+        return deletePermission;
+    }
+
+    public void setDeletePermission(Boolean deletePermission) {
+        this.deletePermission = deletePermission;
     }
 }

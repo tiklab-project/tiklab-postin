@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import io.tiklab.privilege.permission.service.PermissionService;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -119,6 +120,8 @@ public class WorkspaceServiceImpl implements WorkspaceService {
     @Autowired
     TestCaseService testCaseService;
 
+    @Autowired
+    PermissionService permissionService;
 
 //    @Autowired
 //    DssClient disClient;
@@ -559,7 +562,11 @@ public class WorkspaceServiceImpl implements WorkspaceService {
      */
     private void enrichWorkspaceData(List<Workspace> workspaceList) {
         Set<String> followedWorkspaceIds = new HashSet<>(getFollowedWorkspaceIds());
-        
+
+        String loginId = LoginContext.getLoginId();
+        // 判断当前用户是否拥有删除修改权限
+        Map<String, Set<String>> domainListPermissions = permissionService.findDomainListPermissions(loginId, workspaceList.stream().map(Workspace::getId).collect(Collectors.toList()));
+
         for (Workspace workspace : workspaceList) {
             // 设置关注状态
             workspace.setIsFollow(followedWorkspaceIds.contains(workspace.getId()) ? 1 : 0);
@@ -571,6 +578,14 @@ public class WorkspaceServiceImpl implements WorkspaceService {
             // 设置用例数量
             int caseNum = testCaseService.findTestCaseNum(workspace.getId());
             workspace.setCaseNum(caseNum);
+
+
+            // 判断当前用户是否拥有删除权限
+            if (domainListPermissions.get(workspace.getId()).contains("project_basic_info_delete")){
+                workspace.setDeletePermission( true);
+            }else {
+                workspace.setDeletePermission( false);
+            }
         }
     }
 
