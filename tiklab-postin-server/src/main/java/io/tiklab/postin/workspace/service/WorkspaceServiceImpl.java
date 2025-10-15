@@ -581,11 +581,13 @@ public class WorkspaceServiceImpl implements WorkspaceService {
 
 
             // 判断当前用户是否拥有删除权限
-            if (domainListPermissions.get(workspace.getId()).contains("project_basic_info_delete")){
-                workspace.setDeletePermission( true);
-            }else {
-                workspace.setDeletePermission( false);
+            Set<String> permissions = domainListPermissions.get(workspace.getId());
+            if (permissions != null && permissions.contains("project_basic_info_delete")) {
+                workspace.setDeletePermission(true);
+            } else {
+                workspace.setDeletePermission(false);
             }
+
         }
     }
 
