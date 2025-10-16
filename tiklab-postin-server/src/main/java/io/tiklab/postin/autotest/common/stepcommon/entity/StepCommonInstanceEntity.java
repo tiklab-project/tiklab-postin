@@ -36,6 +36,9 @@ public class StepCommonInstanceEntity implements Serializable {
     @Column(name = "sort")
     private Integer sort;
 
+    @Column(name = "name")
+    private String name;
+
     public String getId() {
         return id;
     }
@@ -82,5 +85,13 @@ public class StepCommonInstanceEntity implements Serializable {
 
     public void setSort(Integer sort) {
         this.sort = sort;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

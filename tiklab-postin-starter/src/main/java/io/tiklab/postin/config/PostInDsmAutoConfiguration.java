@@ -342,6 +342,14 @@ public class PostInDsmAutoConfiguration {
                 .get();
         versionList.add(licence200);
 
+        dsmVersion = DsmVersionBuilder.instance()
+                .version("1.2.4")
+                .db(new String[]{
+                        "postin_1.2.4"
+                })
+                .get();
+        versionList.add(dsmVersion);
+
         return versionList;
     }
 }

@@ -31,6 +31,9 @@ public class StepCommon extends BaseModel{
     @ApiProperty(name="caseId",desc="caseId")
     private String caseId;
 
+    @ApiProperty(name="name",desc="名称，自定义脚本，数据库操作 使用")
+    private String name;
+
     @ApiProperty(name = "parentId",desc="父级id")
     private String parentId;
 
@@ -67,6 +70,14 @@ public class StepCommon extends BaseModel{
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getType() {

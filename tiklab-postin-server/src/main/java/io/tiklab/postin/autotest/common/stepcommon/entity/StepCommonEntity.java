@@ -37,6 +37,9 @@ public class StepCommonEntity implements Serializable {
     @Column(name = "sort")
     private Integer sort;
 
+    @Column(name = "name")
+    private String name;
+
     public String getId() {
         return id;
     }
@@ -83,5 +86,13 @@ public class StepCommonEntity implements Serializable {
 
     public void setCreateTime(Timestamp createTime) {
         this.createTime = createTime;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

@@ -19,6 +19,7 @@ public class StepCommonInstance extends BaseModel{
     private String id;
     private String instanceId;
     private String parentId;
+    private String name;
     private int result;
     private int sort;
     private String type;
@@ -33,6 +34,14 @@ public class StepCommonInstance extends BaseModel{
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getInstanceId() {
