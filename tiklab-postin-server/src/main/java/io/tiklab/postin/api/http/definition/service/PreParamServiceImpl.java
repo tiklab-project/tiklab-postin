@@ -107,6 +107,8 @@ public class PreParamServiceImpl implements PreParamService {
     @Override
     public void deletePreParam(@NotNull String id) {
         PreParam preParam = findPreParam(id);
+        String apiId = preParam.getApiId();
+        int deletedSort = preParam.getSort();
 
         switch (preParam.getType()){
             case MagicValue.OPERATION_TYPE_DATABASE:
@@ -119,6 +121,9 @@ public class PreParamServiceImpl implements PreParamService {
         }
 
         preParamDao.deletePreParam(id);
+        
+        // 删除后更新排序：将排序值大于被删除项的所有记录的排序值减1
+        preParamDao.updateSortAfterDelete(apiId, deletedSort);
     }
 
     @Override
@@ -177,5 +182,30 @@ public class PreParamServiceImpl implements PreParamService {
         List<PreParam> preParamList = BeanMapper.mapList(pagination.getDataList(), PreParam.class);
 
         return PaginationBuilder.build(pagination, preParamList);
+    }
+
+    @Override
+    public void updatePreParamSort(@NotNull String id, @NotNull Integer newSort) {
+        PreParam preParam = findPreParam(id);
+        if (preParam == null) {
+            return;
+        }
+        
+        String apiId = preParam.getApiId();
+        int oldSort = preParam.getSort();
+        
+        // 如果排序值没有变化，直接返回
+        if (oldSort == newSort) {
+            return;
+        }
+        
+        // 先更新其他记录的排序
+        preParamDao.updateSortAfterDrag(apiId, oldSort, newSort);
+        
+        // 再更新当前记录的排序
+        PreParamEntity preParamEntity = new PreParamEntity();
+        preParamEntity.setId(id);
+        preParamEntity.setSort(newSort);
+        preParamDao.updatePreParam(preParamEntity);
     }
 }

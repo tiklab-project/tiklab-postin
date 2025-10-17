@@ -219,6 +219,7 @@ public class CategoryAutoServiceImpl implements CategoryAutoService {
             TestCaseQuery testCaseQuery = new TestCaseQuery();
             testCaseQuery.setCategoryId(category.getId());
             testCaseQuery.setCaseType(categoryAutoQuery.getCaseType());
+            testCaseQuery.setName(categoryAutoQuery.getName());
             List<TestCase> testCaseList = testCaseService.findTestCaseList(testCaseQuery);
             category.setCaseNum(testCaseList.size());
             category.setNodeList(testCaseList);

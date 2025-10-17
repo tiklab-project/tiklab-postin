@@ -74,4 +74,11 @@ public interface PreParamUnitService {
     */
     Pagination<PreParamUnit> findPreParamUnitPage(PreParamUnitQuery preParamUnitQuery);
 
+    /**
+     * 拖拽排序更新
+     * @param id 操作ID
+     * @param newSort 新的排序值
+     */
+    void updatePreParamUnitSort(@NotNull String id, @NotNull Integer newSort);
+
 }

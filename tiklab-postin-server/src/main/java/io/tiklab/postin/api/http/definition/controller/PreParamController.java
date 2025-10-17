@@ -75,5 +75,12 @@ public class PreParamController {
     }
 
 
+    @RequestMapping(path = "/updatePreParamSort",method = RequestMethod.POST)
+    public Result<Void> updatePreParamSort( @NotNull String id,  @NotNull Integer newSort){
+        preParamService.updatePreParamSort(id, newSort);
+
+        return Result.ok();
+    }
+
 
 }

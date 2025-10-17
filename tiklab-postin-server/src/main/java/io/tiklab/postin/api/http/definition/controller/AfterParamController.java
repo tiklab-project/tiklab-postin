@@ -74,6 +74,12 @@ public class AfterParamController {
         return Result.ok(afterParamList);
     }
 
+    @RequestMapping(path = "/updateAfterParamSort",method = RequestMethod.POST)
+    public Result<Void> updateAfterParamSort( @NotNull String id,  @NotNull Integer newSort){
+        afterParamService.updateAfterParamSort(id, newSort);
+
+        return Result.ok();
+    }
 
 
 }

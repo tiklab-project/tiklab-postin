@@ -74,6 +74,12 @@ public class AfterParamUnitController {
         return Result.ok(afterParamUnitList);
     }
 
+    @RequestMapping(path = "/updateAfterParamUnitSort",method = RequestMethod.POST)
+    public Result<Void> updateAfterParamUnitSort( @NotNull String id,  @NotNull Integer newSort){
+        afterParamUnitService.updateAfterParamUnitSort(id, newSort);
+        return Result.ok();
+    }
+
 
 
 }

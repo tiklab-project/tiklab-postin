@@ -2,13 +2,10 @@ package io.tiklab.postin.autotest.http.unit.cases.service;
 
 import io.tiklab.core.page.Pagination;
 import io.tiklab.core.page.PaginationBuilder;
-import io.tiklab.dal.jpa.criterial.condition.DeleteCondition;
-import io.tiklab.dal.jpa.criterial.conditionbuilder.DeleteBuilders;
 import io.tiklab.postin.api.http.definition.model.OperateDatabase;
 import io.tiklab.postin.api.http.definition.model.OperateScript;
 import io.tiklab.postin.api.http.definition.service.OperateDatabaseService;
 import io.tiklab.postin.api.http.definition.service.OperateScriptService;
-import io.tiklab.postin.api.http.definition.service.PreParamService;
 import io.tiklab.postin.autotest.http.unit.cases.dao.PreParamUnitDao;
 import io.tiklab.postin.autotest.http.unit.cases.entity.PreParamUnitEntity;
 import io.tiklab.postin.autotest.http.unit.cases.model.PreParamUnit;
@@ -108,6 +105,8 @@ public class PreParamUnitServiceImpl implements PreParamUnitService {
     @Override
     public void deletePreParamUnit(@NotNull String id) {
         PreParamUnit preParamUnit = findPreParamUnit(id);
+        String apiUnitId = preParamUnit.getApiUnitId();
+        int deletedSort = preParamUnit.getSort();
 
         switch (preParamUnit.getType()){
             case MagicValue.OPERATION_TYPE_DATABASE:
@@ -120,6 +119,9 @@ public class PreParamUnitServiceImpl implements PreParamUnitService {
         }
 
         preParamUnitDao.deletePreParamUnit(id);
+        
+        // 删除后更新排序：将排序值大于被删除项的所有记录的排序值减1
+        preParamUnitDao.updateSortAfterDelete(apiUnitId, deletedSort);
     }
 
     @Override
@@ -186,5 +188,30 @@ public class PreParamUnitServiceImpl implements PreParamUnitService {
         List<PreParamUnit> preParamUnitList = BeanMapper.mapList(pagination.getDataList(), PreParamUnit.class);
 
         return PaginationBuilder.build(pagination, preParamUnitList);
+    }
+
+    @Override
+    public void updatePreParamUnitSort(@NotNull String id, @NotNull Integer newSort) {
+        PreParamUnit preParamUnit = findPreParamUnit(id);
+        if (preParamUnit == null) {
+            return;
+        }
+        
+        String apiUnitId = preParamUnit.getApiUnitId();
+        int oldSort = preParamUnit.getSort();
+        
+        // 如果排序值没有变化，直接返回
+        if (oldSort == newSort) {
+            return;
+        }
+        
+        // 先更新其他记录的排序
+        preParamUnitDao.updateSortAfterDrag(apiUnitId, oldSort, newSort);
+        
+        // 再更新当前记录的排序
+        PreParamUnitEntity preParamUnitEntity = new PreParamUnitEntity();
+        preParamUnitEntity.setId(id);
+        preParamUnitEntity.setSort(newSort);
+        preParamUnitDao.updatePreParamUnit(preParamUnitEntity);
     }
 }

@@ -74,4 +74,11 @@ public interface AfterParamUnitService {
     */
     Pagination<AfterParamUnit> findAfterParamUnitPage(AfterParamUnitQuery afterParamUnitQuery);
 
+    /**
+     * 拖拽排序更新
+     * @param id 操作ID
+     * @param newSort 新的排序值
+     */
+    void updateAfterParamUnitSort(@NotNull String id, @NotNull Integer newSort);
+
 }

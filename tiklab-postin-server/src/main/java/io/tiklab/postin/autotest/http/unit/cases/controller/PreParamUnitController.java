@@ -74,6 +74,11 @@ public class PreParamUnitController {
         return Result.ok(preParamUnitList);
     }
 
+    @RequestMapping(path = "/updatePreParamUnitSort",method = RequestMethod.POST)
+    public Result<Void> updatePreParamUnitSort( @NotNull String id,  @NotNull Integer newSort){
+        preParamUnitService.updatePreParamUnitSort(id, newSort);
+        return Result.ok();
+    }
 
 
 }

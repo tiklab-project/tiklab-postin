@@ -68,10 +68,17 @@ public interface AfterParamService {
     List<AfterParam> findAfterParamList(AfterParamQuery afterParamQuery);
 
     /**
-    * 按分页查询后置操作
-    * @param afterParamQuery
-    * @return
-    */
+     * 按分页查询后置操作
+     * @param afterParamQuery
+     * @return
+     */
     Pagination<AfterParam> findAfterParamPage(AfterParamQuery afterParamQuery);
+
+    /**
+     * 拖拽排序更新
+     * @param id 操作ID
+     * @param newSort 新的排序值
+     */
+    void updateAfterParamSort(@NotNull String id, @NotNull Integer newSort);
 
 }

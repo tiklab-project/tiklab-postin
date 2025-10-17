@@ -113,4 +113,40 @@ public class PreParamUnitDao {
             return 0;
         }
     }
+
+    /**
+     * 批量更新排序
+     * @param apiUnitId API单元ID
+     * @param deletedSort 被删除的排序值
+     */
+    public void updateSortAfterDelete(String apiUnitId, int deletedSort) {
+        try {
+            String sql = "UPDATE autotest_action_pre SET sort = sort - 1 WHERE api_unit_id = ? AND sort > ?";
+            jpaTemplate.getJdbcTemplate().update(sql, apiUnitId, deletedSort);
+        } catch (Exception e) {
+            logger.error("更新前置操作单元排序失败", e);
+        }
+    }
+
+    /**
+     * 批量更新排序（拖拽排序）
+     * @param apiUnitId API单元ID
+     * @param oldSort 原排序值
+     * @param newSort 新排序值
+     */
+    public void updateSortAfterDrag(String apiUnitId, int oldSort, int newSort) {
+        try {
+            if (oldSort < newSort) {
+                // 向下拖拽：将oldSort+1到newSort之间的记录排序值减1
+                String sql = "UPDATE autotest_action_pre SET sort = sort - 1 WHERE api_unit_id = ? AND sort > ? AND sort <= ?";
+                jpaTemplate.getJdbcTemplate().update(sql, apiUnitId, oldSort, newSort);
+            } else if (oldSort > newSort) {
+                // 向上拖拽：将newSort到oldSort-1之间的记录排序值加1
+                String sql = "UPDATE autotest_action_pre SET sort = sort + 1 WHERE api_unit_id = ? AND sort >= ? AND sort < ?";
+                jpaTemplate.getJdbcTemplate().update(sql, apiUnitId, newSort, oldSort);
+            }
+        } catch (Exception e) {
+            logger.error("拖拽排序更新失败", e);
+        }
+    }
 }

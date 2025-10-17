@@ -172,6 +172,11 @@ public class InstanceDao {
             sql.append(" AND i.workspace_id = ?");
             params.add(instanceQuery.getWorkspaceId());
         }
+        if (instanceQuery.getTestPlanId() != null) {
+            sql.append(" AND i.test_plan_id = ?");
+            params.add(instanceQuery.getTestPlanId());
+        }
+
         if (instanceQuery.getCaseId() != null) {
             sql.append(" AND i.case_id = ?");
             params.add(instanceQuery.getCaseId());

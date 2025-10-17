@@ -237,10 +237,9 @@ public class TestCaseDao {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT ")
                 .append("COUNT(*) AS total_count, ")
-                .append("COUNT(CASE WHEN test_type = 'perform' THEN 1 END) AS perform_count, ")
-                .append("COUNT(CASE WHEN test_type = 'api' THEN 1 END) AS api_count, ")
-                .append("COUNT(CASE WHEN test_type = 'function' THEN 1 END) AS function_count, ")
-                .append("COUNT(CASE WHEN test_type = 'ui' THEN 1 END) AS ui_count ")
+                .append("COUNT(CASE WHEN case_type = 'api-perform' THEN 1 END) AS perform_count, ")
+                .append("COUNT(CASE WHEN case_type = 'api-scene' THEN 1 END) AS scene_count, ")
+                .append("COUNT(CASE WHEN case_type = 'api-unit' THEN 1 END) AS unit_count ")
                 .append("FROM autotest_testcase WHERE 1=1 ");
 
         List<Object> params = new ArrayList<>();
@@ -248,6 +247,11 @@ public class TestCaseDao {
         if (testCaseQuery.getWorkspaceId() != null) {
             sql.append("AND workspace_id = ? ");
             params.add(testCaseQuery.getWorkspaceId());
+        }
+
+        if (testCaseQuery.getCategoryId() != null) {
+            sql.append("AND category_id = ? ");
+            params.add(testCaseQuery.getCategoryId());
         }
 
         if (testCaseQuery.getCreateUser() != null && !testCaseQuery.getCreateUser().isEmpty()) {
@@ -273,9 +277,8 @@ public class TestCaseDao {
         HashMap<String, Integer> resultMap = new HashMap<>();
         resultMap.put("total", ((Number) result.get("total_count")).intValue());
         resultMap.put("perform", ((Number) result.get("perform_count")).intValue());
-        resultMap.put("api", ((Number) result.get("api_count")).intValue());
-        resultMap.put("function", ((Number) result.get("function_count")).intValue());
-        resultMap.put("ui", ((Number) result.get("ui_count")).intValue());
+        resultMap.put("scene", ((Number) result.get("scene_count")).intValue());
+        resultMap.put("unit", ((Number) result.get("unit_count")).intValue());
 
         return resultMap;
     }

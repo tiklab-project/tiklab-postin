@@ -2,8 +2,6 @@ package io.tiklab.postin.autotest.http.unit.cases.service;
 
 import io.tiklab.core.page.Pagination;
 import io.tiklab.core.page.PaginationBuilder;
-import io.tiklab.dal.jpa.criterial.condition.DeleteCondition;
-import io.tiklab.dal.jpa.criterial.conditionbuilder.DeleteBuilders;
 import io.tiklab.postin.api.http.definition.model.OperateDatabase;
 import io.tiklab.postin.api.http.definition.model.OperateScript;
 import io.tiklab.postin.api.http.definition.service.OperateDatabaseService;
@@ -103,6 +101,8 @@ public class AfterParamUnitServiceImpl implements AfterParamUnitService {
     @Override
     public void deleteAfterParamUnit(@NotNull String id) {
         AfterParamUnit afterParamUnit = findAfterParamUnit(id);
+        String apiUnitId = afterParamUnit.getApiUnitId();
+        int deletedSort = afterParamUnit.getSort();
 
         switch (afterParamUnit.getType()){
             case MagicValue.OPERATION_TYPE_DATABASE:
@@ -114,8 +114,10 @@ public class AfterParamUnitServiceImpl implements AfterParamUnitService {
             default:
         }
 
-
         afterParamUnitDao.deleteAfterParamUnit(id);
+        
+        // 删除后更新排序：将排序值大于被删除项的所有记录的排序值减1
+        afterParamUnitDao.updateSortAfterDelete(apiUnitId, deletedSort);
     }
 
     @Override
@@ -181,5 +183,30 @@ public class AfterParamUnitServiceImpl implements AfterParamUnitService {
         List<AfterParamUnit> afterParamUnitList = BeanMapper.mapList(pagination.getDataList(), AfterParamUnit.class);
 
         return PaginationBuilder.build(pagination, afterParamUnitList);
+    }
+
+    @Override
+    public void updateAfterParamUnitSort(@NotNull String id, @NotNull Integer newSort) {
+        AfterParamUnit afterParamUnit = findAfterParamUnit(id);
+        if (afterParamUnit == null) {
+            return;
+        }
+        
+        String apiUnitId = afterParamUnit.getApiUnitId();
+        int oldSort = afterParamUnit.getSort();
+        
+        // 如果排序值没有变化，直接返回
+        if (oldSort == newSort) {
+            return;
+        }
+        
+        // 先更新其他记录的排序
+        afterParamUnitDao.updateSortAfterDrag(apiUnitId, oldSort, newSort);
+        
+        // 再更新当前记录的排序
+        AfterParamUnitEntity afterParamUnitEntity = new AfterParamUnitEntity();
+        afterParamUnitEntity.setId(id);
+        afterParamUnitEntity.setSort(newSort);
+        afterParamUnitDao.updateAfterParamUnit(afterParamUnitEntity);
     }
 }

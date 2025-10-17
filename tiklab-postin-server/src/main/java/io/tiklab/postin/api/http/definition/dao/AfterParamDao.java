@@ -1,5 +1,12 @@
 package io.tiklab.postin.api.http.definition.dao;
 
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
 import io.tiklab.core.page.Pagination;
 import io.tiklab.dal.jpa.JpaTemplate;
 import io.tiklab.dal.jpa.criterial.condition.DeleteCondition;
@@ -7,12 +14,6 @@ import io.tiklab.dal.jpa.criterial.condition.QueryCondition;
 import io.tiklab.dal.jpa.criterial.conditionbuilder.QueryBuilders;
 import io.tiklab.postin.api.http.definition.entity.AfterParamEntity;
 import io.tiklab.postin.api.http.definition.model.AfterParamQuery;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 /**
  * 后置操作 数据访问
@@ -112,6 +113,42 @@ public class AfterParamDao {
             return result != null ? result : 0;
         } catch (Exception e) {
             return 0;
+        }
+    }
+
+    /**
+     * 批量更新排序
+     * @param apiId API ID
+     * @param deletedSort 被删除的排序值
+     */
+    public void updateSortAfterDelete(String apiId, int deletedSort) {
+        try {
+            String sql = "UPDATE postin_api_request_after SET sort = sort - 1 WHERE api_id = ? AND sort > ?";
+            jpaTemplate.getJdbcTemplate().update(sql, apiId, deletedSort);
+        } catch (Exception e) {
+            logger.error("更新后置操作排序失败", e);
+        }
+    }
+
+    /**
+     * 批量更新排序（拖拽排序）
+     * @param apiId API ID
+     * @param oldSort 原排序值
+     * @param newSort 新排序值
+     */
+    public void updateSortAfterDrag(String apiId, int oldSort, int newSort) {
+        try {
+            if (oldSort < newSort) {
+                // 向下拖拽：将oldSort+1到newSort之间的记录排序值减1
+                String sql = "UPDATE postin_api_request_after SET sort = sort - 1 WHERE api_id = ? AND sort > ? AND sort <= ?";
+                jpaTemplate.getJdbcTemplate().update(sql, apiId, oldSort, newSort);
+            } else if (oldSort > newSort) {
+                // 向上拖拽：将newSort到oldSort-1之间的记录排序值加1
+                String sql = "UPDATE postin_api_request_after SET sort = sort + 1 WHERE api_id = ? AND sort >= ? AND sort < ?";
+                jpaTemplate.getJdbcTemplate().update(sql, apiId, newSort, oldSort);
+            }
+        } catch (Exception e) {
+            logger.error("拖拽排序更新失败", e);
         }
     }
 }

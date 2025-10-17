@@ -68,10 +68,17 @@ public interface PreParamService {
     List<PreParam> findPreParamList(PreParamQuery preParamQuery);
 
     /**
-    * 按分页查询前置操作
-    * @param preParamQuery
-    * @return
-    */
+     * 按分页查询前置操作
+     * @param preParamQuery
+     * @return
+     */
     Pagination<PreParam> findPreParamPage(PreParamQuery preParamQuery);
+
+    /**
+     * 拖拽排序更新
+     * @param id 操作ID
+     * @param newSort 新的排序值
+     */
+    void updatePreParamSort(@NotNull String id, @NotNull Integer newSort);
 
 }

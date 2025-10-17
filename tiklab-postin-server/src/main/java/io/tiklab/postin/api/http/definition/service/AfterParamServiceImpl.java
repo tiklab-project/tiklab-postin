@@ -98,6 +98,8 @@ public class AfterParamServiceImpl implements AfterParamService {
     @Override
     public void deleteAfterParam(@NotNull String id) {
         AfterParam afterParam = findAfterParam(id);
+        String apiId = afterParam.getApiId();
+        int deletedSort = afterParam.getSort();
 
         switch (afterParam.getType()){
             case MagicValue.OPERATION_TYPE_DATABASE:
@@ -109,8 +111,10 @@ public class AfterParamServiceImpl implements AfterParamService {
             default:
         }
 
-
         afterParamDao.deleteAfterParam(id);
+        
+        // 删除后更新排序：将排序值大于被删除项的所有记录的排序值减1
+        afterParamDao.updateSortAfterDelete(apiId, deletedSort);
     }
 
     @Override
@@ -169,5 +173,30 @@ public class AfterParamServiceImpl implements AfterParamService {
         List<AfterParam> afterParamList = BeanMapper.mapList(pagination.getDataList(), AfterParam.class);
 
         return PaginationBuilder.build(pagination, afterParamList);
+    }
+
+    @Override
+    public void updateAfterParamSort(@NotNull String id, @NotNull Integer newSort) {
+        AfterParam afterParam = findAfterParam(id);
+        if (afterParam == null) {
+            return;
+        }
+        
+        String apiId = afterParam.getApiId();
+        int oldSort = afterParam.getSort();
+        
+        // 如果排序值没有变化，直接返回
+        if (oldSort == newSort) {
+            return;
+        }
+        
+        // 先更新其他记录的排序
+        afterParamDao.updateSortAfterDrag(apiId, oldSort, newSort);
+        
+        // 再更新当前记录的排序
+        AfterParamEntity afterParamEntity = new AfterParamEntity();
+        afterParamEntity.setId(id);
+        afterParamEntity.setSort(newSort);
+        afterParamDao.updateAfterParam(afterParamEntity);
     }
 }
