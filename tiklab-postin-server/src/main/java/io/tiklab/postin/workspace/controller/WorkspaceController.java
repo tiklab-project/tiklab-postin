@@ -110,7 +110,7 @@ public class WorkspaceController {
     }
 
     @RequestMapping(path = "/getWorkspaceNumber",method = RequestMethod.POST)
-    @ApiMethod(name = "getWorkspaceNumber",desc = "获取空间数量")
+//    @ApiMethod(name = "getWorkspaceNumber",desc = "获取空间数量")
     public Result<Map<String, Object>> getWorkspaceNumber(){
         Map<String, Object> workspaceNumber = workspaceService.getWorkspaceNumber();
 
