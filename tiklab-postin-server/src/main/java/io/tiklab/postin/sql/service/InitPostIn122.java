@@ -1,12 +1,9 @@
-package io.tiklab.postin.sql;
+package io.tiklab.postin.sql.service;
 
 
 import io.tiklab.dsm.support.DsmProcessTask;
-import io.tiklab.postin.support.environment.model.EnvServer;
-import io.tiklab.postin.support.environment.model.Environment;
 import io.tiklab.postin.support.environment.service.EnvServerService;
 import io.tiklab.postin.support.environment.service.EnvironmentService;
-import io.tiklab.postin.workspace.model.Workspace;
 import io.tiklab.postin.workspace.service.WorkspaceService;
 import org.apache.commons.lang.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

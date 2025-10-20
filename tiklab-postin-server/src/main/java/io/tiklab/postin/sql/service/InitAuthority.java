@@ -1,4 +1,4 @@
-package io.tiklab.postin.sql;
+package io.tiklab.postin.sql.service;
 
 
 import io.tiklab.core.utils.UuidGenerator;

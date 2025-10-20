@@ -3,10 +3,10 @@ package io.tiklab.postin.config;
 import io.tiklab.dsm.model.DsmConfig;
 import io.tiklab.dsm.model.DsmVersion;
 import io.tiklab.dsm.support.DsmVersionBuilder;
-import io.tiklab.postin.sql.InitAuthority;
-import io.tiklab.postin.sql.InitAuthorityTwo;
-import io.tiklab.postin.sql.InitPostIn121;
-import io.tiklab.postin.sql.InitPostIn122;
+import io.tiklab.postin.sql.service.InitAuthority;
+import io.tiklab.postin.sql.service.InitAuthorityTwo;
+import io.tiklab.postin.sql.service.InitPostIn121;
+import io.tiklab.postin.sql.service.InitPostIn122;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -239,7 +239,7 @@ public class PostInDsmAutoConfiguration {
                 })
                 .get();
         versionList.add(dsmVersion);
-
+//
         DsmVersion privilege110 = DsmVersionBuilder.instance()
                 .version("privilegeGroup110")
                 .db(new String[]{
