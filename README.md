@@ -136,9 +136,20 @@ Postin 的优势包括简洁的界面，私有部署一键安装，开源免费�
 - Maven 3.4+
 
 ### 克隆仓库
-```bash
+```
 git clone 仓库地址
 cd tiklab-postin
+```
+
+配置maven的setrings.xml文件的远程仓库为以下内容
+
+```
+<mirror>
+    <id>hadess</id>
+    <name>hadess</name>
+    <url>https://mirror.tiklab.net/repository/tiklab-maven</url>  
+    <mirrorOf>*</mirrorOf>
+</mirror>
 ```
 
 ### 构建项目
