@@ -45,6 +45,13 @@ public class Node extends BaseModel {
     @ApiProperty(name = "parentId", desc = "上级")
     private String parentId;
 
+    @ApiProperty(name = "parent", desc = "上级")
+    @Mappings({
+            @Mapping(source = "parent.id",target = "parentId")
+    })
+    @JoinField(key = "id")
+    private Node parent;
+
     @ApiProperty(name = "type", desc = "类型")
     private String type;
 
@@ -185,6 +192,14 @@ public class Node extends BaseModel {
 
     public void setChildren(List<Node> children) {
         this.children = children;
+    }
+
+    public Node getParent() {
+        return parent;
+    }
+
+    public void setParent(Node parent) {
+        this.parent = parent;
     }
 }
 

@@ -190,11 +190,6 @@ public class MockServletResponse {
         //添加随机毫秒
         int randomDelay = new Random().nextInt(1000);
         int time = delayTime + randomDelay;
-        try {
-            Thread.sleep(time);
-        } catch (InterruptedException e) {
-            throw new ApplicationException(e);
-        }
 
         String result = String.format("statusCode=%s,time=%d,size=%d", httpCode, time,length);
 

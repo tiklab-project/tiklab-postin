@@ -1,5 +1,15 @@
 package io.tiklab.postin.autotest.instance.service;
 
+import java.sql.Timestamp;
+import java.util.List;
+import java.util.Map;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import io.tiklab.core.page.Pagination;
 import io.tiklab.core.page.PaginationBuilder;
 import io.tiklab.eam.common.context.LoginContext;
@@ -15,14 +25,6 @@ import io.tiklab.postin.common.MagicValue;
 import io.tiklab.toolkit.beans.BeanMapper;
 import io.tiklab.toolkit.join.JoinTemplate;
 import io.tiklab.user.user.model.User;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import java.sql.Timestamp;
-import java.util.List;
-import java.util.Objects;
 
 /**
 * 公共实例 服务
@@ -233,6 +235,21 @@ public class InstanceServiceImpl implements InstanceService {
     @Override
     public InstanceStatusSummary getInstanceStatusSummary(InstanceQuery instanceQuery) {
         return instanceDao.getInstanceStatusSummary(instanceQuery);
+    }
+
+    @Override
+    public Instance getRecentExecuteInstance(String caseId) {
+        InstanceEntity instanceEntity = instanceDao.getRecentExecuteInstanceEntity(caseId);
+        if (instanceEntity != null) {
+            return BeanMapper.map(instanceEntity, Instance.class);
+        }
+        return null;
+    }
+
+    @Override
+    public Map<String, Integer> getInstanceNumByWorkspaceId(String workspaceId) {
+        Map<String, Integer> result = instanceDao.getInstanceNumByWorkspaceId(workspaceId);
+        return result;
     }
 
 

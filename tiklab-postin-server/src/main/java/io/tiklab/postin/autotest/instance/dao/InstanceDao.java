@@ -1,13 +1,13 @@
 package io.tiklab.postin.autotest.instance.dao;
 
-import io.tiklab.core.page.Pagination;
-import io.tiklab.dal.jpa.JpaTemplate;
-import io.tiklab.dal.jpa.criterial.condition.DeleteCondition;
-import io.tiklab.dal.jpa.criterial.condition.QueryCondition;
-import io.tiklab.dal.jpa.criterial.conditionbuilder.QueryBuilders;
-import io.tiklab.postin.autotest.instance.entity.InstanceEntity;
-import io.tiklab.postin.autotest.instance.model.InstanceQuery;
-import io.tiklab.postin.autotest.instance.model.InstanceStatusSummary;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 import org.apache.commons.lang.ArrayUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,12 +17,14 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import io.tiklab.core.page.Pagination;
+import io.tiklab.dal.jpa.JpaTemplate;
+import io.tiklab.dal.jpa.criterial.condition.DeleteCondition;
+import io.tiklab.dal.jpa.criterial.condition.QueryCondition;
+import io.tiklab.dal.jpa.criterial.conditionbuilder.QueryBuilders;
+import io.tiklab.postin.autotest.instance.entity.InstanceEntity;
+import io.tiklab.postin.autotest.instance.model.InstanceQuery;
+import io.tiklab.postin.autotest.instance.model.InstanceStatusSummary;
 
 /**
  * 公共实例 数据访问
@@ -215,7 +217,7 @@ public class InstanceDao {
                     .map(id -> "?")
                     .collect(Collectors.joining(", "));
 
-            sql.append("AND i.type IN (").append(placeholders).append(") ");
+            sql.append(" AND i.type IN (").append(placeholders).append(") ");
 
             params.addAll(Arrays.asList(instanceQuery.getTypeList()));
         }
@@ -231,6 +233,32 @@ public class InstanceDao {
         return page;
     }
 
+
+    public Map<String, Integer> getInstanceNumByWorkspaceId(String workspaceId) {
+        Map<String, Integer> result = new HashMap<>();
+        
+        // 获取api-unit类型的实例数量
+        String apiUnitSql = "SELECT COUNT(1) as total FROM autotest_instance WHERE workspace_id = ? AND type = 'api-unit'";
+        Integer apiUnitCount = jpaTemplate.getJdbcTemplate().queryForObject(apiUnitSql, new Object[]{workspaceId}, Integer.class);
+        result.put("apiUnit", apiUnitCount != null ? apiUnitCount : 0);
+        
+        // 获取api-sence类型的实例数量
+        String apiSenceSql = "SELECT COUNT(1) as total FROM autotest_instance WHERE workspace_id = ? AND type = 'api-scene'";
+        Integer apiSenceCount = jpaTemplate.getJdbcTemplate().queryForObject(apiSenceSql, new Object[]{workspaceId}, Integer.class);
+        result.put("apiScene", apiSenceCount != null ? apiSenceCount : 0);
+        
+        // 获取api-perform类型的实例数量
+        String apiPerformSql = "SELECT COUNT(1) as total FROM autotest_instance WHERE workspace_id = ? AND type = 'api-perform'";
+        Integer apiPerformCount = jpaTemplate.getJdbcTemplate().queryForObject(apiPerformSql, new Object[]{workspaceId}, Integer.class);
+        result.put("apiPerform", apiPerformCount != null ? apiPerformCount : 0);
+        
+        // 获取总数
+        String totalSql = "SELECT COUNT(1) as total FROM autotest_instance WHERE workspace_id = ?";
+        Integer totalCount = jpaTemplate.getJdbcTemplate().queryForObject(totalSql, new Object[]{workspaceId}, Integer.class);
+        result.put("total", totalCount != null ? totalCount : 0);
+        
+        return result;
+    }
 
 
 
@@ -278,6 +306,18 @@ public class InstanceDao {
             return null;
         }
     }
+
+    public InstanceEntity getRecentExecuteInstanceEntity(String caseId) {
+        try {
+            String exeSql = "SELECT * FROM autotest_instance WHERE case_id =  ?  ORDER BY execute_number DESC LIMIT 1;";
+            return jpaTemplate.getJdbcTemplate().queryForObject(exeSql, new Object[]{caseId}, new BeanPropertyRowMapper<>(InstanceEntity.class));
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
+    }
+
+
+
     /**
      * test plan
      * 获取最近一次执行历史id

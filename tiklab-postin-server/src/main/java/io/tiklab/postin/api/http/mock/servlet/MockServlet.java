@@ -103,7 +103,7 @@ public class MockServlet extends HttpServlet {
 
     private void sendMock(HttpServletRequest request, HttpServletResponse response) throws IOException {
         //浏览器用utf8来解析返回的数据
-        response.setContentType("text/html;charset=utf-8");
+        response.setContentType("application/json;charset=utf-8");
         //servlet用UTF-8转码，而不是用默认的ISO8859
         response.setCharacterEncoding("utf-8");
 

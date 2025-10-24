@@ -1,5 +1,11 @@
 package io.tiklab.postin.autotest.instance.service;
 
+import java.util.List;
+import java.util.Map;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
 import io.tiklab.core.page.Pagination;
 import io.tiklab.postin.autotest.instance.model.Instance;
 import io.tiklab.postin.autotest.instance.model.InstanceQuery;
@@ -8,10 +14,6 @@ import io.tiklab.toolkit.join.annotation.FindAll;
 import io.tiklab.toolkit.join.annotation.FindList;
 import io.tiklab.toolkit.join.annotation.FindOne;
 import io.tiklab.toolkit.join.annotation.JoinProvider;
-
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import java.util.List;
 
 /**
 * 公共实例 服务模型
@@ -149,5 +151,17 @@ public interface InstanceService {
      * 获取历史的执行状态统计
      */
     InstanceStatusSummary getInstanceStatusSummary(InstanceQuery instanceQuery);
+
+    /**
+     * 获取用例的最近一次执行历史实体
+     * @param caseId 用例ID
+     * @return 最近一次执行历史实体
+     */
+    Instance getRecentExecuteInstance(String caseId);
+
+    /**
+     * 获取历史数量
+     */
+    Map<String,Integer> getInstanceNumByWorkspaceId(String workspaceId);
 
 }

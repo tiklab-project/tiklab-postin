@@ -145,7 +145,8 @@ public class NodeServiceImpl implements NodeService {
         joinTemplate.joinQuery(node,new String[]{
                 "workspace",
                 "createUser",
-                "updateUser"
+                "updateUser",
+                "parent"
         });
 
         //递归查找子节点

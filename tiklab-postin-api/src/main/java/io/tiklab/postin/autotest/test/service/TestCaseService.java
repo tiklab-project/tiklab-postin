@@ -129,5 +129,12 @@ public interface TestCaseService {
      */
      HashMap<String, Integer> findCreateUserAndDirectorNum(String workspaceId);
 
+    /**
+     * 根据接口ID查询TestCase数量
+     * @param apiId 接口ID
+     * @return TestCase数量
+     */
+    Integer findTestCaseNumByApiId(String apiId);
+
 
 }

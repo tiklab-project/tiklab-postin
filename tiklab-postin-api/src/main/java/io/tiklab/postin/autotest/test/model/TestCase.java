@@ -1,10 +1,16 @@
 package io.tiklab.postin.autotest.test.model;
 
+import java.sql.Timestamp;
+
+import javax.validation.constraints.NotNull;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
+
 import io.tiklab.core.BaseModel;
 import io.tiklab.postin.annotation.ApiModel;
 import io.tiklab.postin.annotation.ApiProperty;
 import io.tiklab.postin.autotest.category.model.CategoryAuto;
+import io.tiklab.postin.autotest.instance.model.Instance;
 import io.tiklab.postin.workspace.model.Workspace;
 import io.tiklab.toolkit.beans.annotation.Mapper;
 import io.tiklab.toolkit.beans.annotation.Mapping;
@@ -12,10 +18,6 @@ import io.tiklab.toolkit.beans.annotation.Mappings;
 import io.tiklab.toolkit.join.annotation.Join;
 import io.tiklab.toolkit.join.annotation.JoinField;
 import io.tiklab.user.user.model.User;
-
-import javax.validation.constraints.NotNull;
-import java.sql.Timestamp;
-import java.util.Map;
 
 /**
  * 测试用例 模型
@@ -103,6 +105,9 @@ public class TestCase extends BaseModel{
 
     @ApiProperty(name="priorityLevel",desc="优先级")
     private Integer priorityLevel;
+
+    @ApiProperty(name="recentInstance",desc="最近一次执行历史")
+    private Instance recentInstance;
 
 
     public String getId() {
@@ -251,5 +256,12 @@ public class TestCase extends BaseModel{
         this.workspace = workspace;
     }
 
+    public Instance getRecentInstance() {
+        return recentInstance;
+    }
+
+    public void setRecentInstance(Instance recentInstance) {
+        this.recentInstance = recentInstance;
+    }
 
 }

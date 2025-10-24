@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/instance")
@@ -90,6 +91,11 @@ public class InstanceController {
 
         return Result.ok(pagination);
     }
-    
+
+    @RequestMapping(path = "/getInstanceNumByWorkspaceId",method = RequestMethod.POST)
+    public Result<Map<String,Integer>> getInstanceNumByWorkspaceId(String workspaceId){
+        Map<String,Integer> result = instanceService.getInstanceNumByWorkspaceId(workspaceId);
+        return Result.ok(result);
+    }
 
 }

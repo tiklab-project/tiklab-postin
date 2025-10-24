@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -116,6 +117,12 @@ public class HttpApiController {
     public Result<String> findMockUrl(){
 
         return Result.ok(serverUrl);
+    }
+
+    @RequestMapping(path = "/findCountByApiId",method = RequestMethod.POST)
+    public Result<Map<String, Integer>> findCountByApiId(@NotNull String apiId){
+        Map<String, Integer> countById = httpApiService.findCountById(apiId);
+        return Result.ok(countById);
     }
 
 }

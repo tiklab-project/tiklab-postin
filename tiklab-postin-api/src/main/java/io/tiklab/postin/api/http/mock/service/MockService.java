@@ -1,17 +1,17 @@
 package io.tiklab.postin.api.http.mock.service;
 
-import io.tiklab.core.page.Pagination;
-
-import io.tiklab.postin.api.http.mock.model.Mock;
-import io.tiklab.postin.api.http.mock.model.MockQuery;
-import io.tiklab.toolkit.join.annotation.FindList;
-import io.tiklab.toolkit.join.annotation.JoinProvider;
-import io.tiklab.toolkit.join.annotation.FindAll;
-import io.tiklab.toolkit.join.annotation.FindOne;
+import java.util.List;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.util.List;
+
+import io.tiklab.core.page.Pagination;
+import io.tiklab.postin.api.http.mock.model.Mock;
+import io.tiklab.postin.api.http.mock.model.MockQuery;
+import io.tiklab.toolkit.join.annotation.FindAll;
+import io.tiklab.toolkit.join.annotation.FindList;
+import io.tiklab.toolkit.join.annotation.FindOne;
+import io.tiklab.toolkit.join.annotation.JoinProvider;
 
 /**
 * 用户服务接口
@@ -78,5 +78,12 @@ public interface MockService {
     * @return
     */
     Pagination<Mock> findMockPage(MockQuery mockQuery);
+
+    /**
+     * 根据接口ID查询Mock数量
+     * @param httpId 接口ID
+     * @return Mock数量
+     */
+    Integer findMockNumByApiId(String httpId);
 
 }

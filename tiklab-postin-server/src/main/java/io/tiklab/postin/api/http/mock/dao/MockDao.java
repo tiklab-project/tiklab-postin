@@ -1,18 +1,19 @@
 package io.tiklab.postin.api.http.mock.dao;
 
-import io.tiklab.postin.api.http.mock.entity.MockEntity;
-import io.tiklab.dal.jpa.criterial.condition.DeleteCondition;
-import io.tiklab.postin.api.http.mock.model.MockQuery;
-import io.tiklab.core.page.Pagination;
-import io.tiklab.dal.jpa.JpaTemplate;
-import io.tiklab.dal.jpa.criterial.condition.QueryCondition;
-import io.tiklab.dal.jpa.criterial.conditionbuilder.QueryBuilders;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import io.tiklab.core.page.Pagination;
+import io.tiklab.dal.jpa.JpaTemplate;
+import io.tiklab.dal.jpa.criterial.condition.DeleteCondition;
+import io.tiklab.dal.jpa.criterial.condition.QueryCondition;
+import io.tiklab.dal.jpa.criterial.conditionbuilder.QueryBuilders;
+import io.tiklab.postin.api.http.mock.entity.MockEntity;
+import io.tiklab.postin.api.http.mock.model.MockQuery;
 
 /**
  * mock 数据访问
@@ -107,5 +108,19 @@ public class MockDao{
                 .orders(mockQuery.getOrderParams())
                 .get();
         return jpaTemplate.findPage(queryCondition, MockEntity.class);
+    }
+
+
+    public Integer findMockNumByApiId(String httpId) {
+        String countSql = "SELECT COUNT(1) as total FROM postin_http_mock WHERE http_id = ?";
+        try {
+            Integer count = jpaTemplate.getJdbcTemplate().queryForObject(countSql, new Object[]{httpId}, Integer.class);
+            if(count == null){
+                return 0;
+            }
+            return count;
+        } catch (Exception e) {
+            return 0;
+        }
     }
 }

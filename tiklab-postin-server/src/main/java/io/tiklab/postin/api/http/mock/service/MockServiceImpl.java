@@ -1,7 +1,5 @@
 package io.tiklab.postin.api.http.mock.service;
 
-import io.tiklab.dal.jpa.criterial.condition.DeleteCondition;
-import io.tiklab.dal.jpa.criterial.conditionbuilder.DeleteBuilders;
 import io.tiklab.postin.api.http.mock.dao.MockDao;
 import io.tiklab.postin.api.http.mock.entity.MockEntity;
 import io.tiklab.postin.api.http.mock.model.Mock;
@@ -190,4 +188,11 @@ public class MockServiceImpl implements MockService {
 
         return PaginationBuilder.build(pagination,mockList);
     }
+
+    @Override
+    public Integer findMockNumByApiId(String httpId) {
+        return mockDao.findMockNumByApiId(httpId);
+    }
+
+    
 }

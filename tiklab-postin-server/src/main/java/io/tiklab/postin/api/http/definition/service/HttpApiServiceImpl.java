@@ -1,34 +1,67 @@
 package io.tiklab.postin.api.http.definition.service;
 
-import io.tiklab.postin.api.apix.model.*;
-import io.tiklab.postin.api.apix.service.*;
-import io.tiklab.postin.api.http.definition.dao.HttpApiDao;
-import io.tiklab.postin.api.http.definition.entity.HttpApiEntity;
-import io.tiklab.postin.api.http.definition.model.*;
-import io.tiklab.postin.common.MagicValue;
-import io.tiklab.postin.common.PostInUnit;
-import io.tiklab.postin.node.model.Node;
-import io.tiklab.postin.node.service.NodeService;
-import io.tiklab.postin.workspace.model.Workspace;
-import io.tiklab.toolkit.beans.BeanMapper;
-import io.tiklab.core.page.Pagination;
-import io.tiklab.core.page.PaginationBuilder;
-import io.tiklab.toolkit.join.JoinTemplate;
-import io.tiklab.postin.api.http.mock.service.MockService;
-import io.tiklab.postin.support.apistatus.model.ApiStatus;
-import io.tiklab.postin.support.apistatus.service.ApiStatusService;
-import io.tiklab.rpc.annotation.Exporter;
-import io.tiklab.user.user.model.User;
-import io.tiklab.user.user.service.UserProcessor;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.List;
+import io.tiklab.core.page.Pagination;
+import io.tiklab.core.page.PaginationBuilder;
+import io.tiklab.postin.api.apix.model.ApiRequest;
+import io.tiklab.postin.api.apix.model.Apix;
+import io.tiklab.postin.api.apix.model.ApixQuery;
+import io.tiklab.postin.api.apix.model.JsonParam;
+import io.tiklab.postin.api.apix.model.QueryParam;
+import io.tiklab.postin.api.apix.model.QueryParamQuery;
+import io.tiklab.postin.api.apix.model.RawParam;
+import io.tiklab.postin.api.apix.model.RequestHeader;
+import io.tiklab.postin.api.apix.model.RequestHeaderQuery;
+import io.tiklab.postin.api.apix.service.ApiRequestService;
+import io.tiklab.postin.api.apix.service.ApixService;
+import io.tiklab.postin.api.apix.service.JsonParamService;
+import io.tiklab.postin.api.apix.service.QueryParamService;
+import io.tiklab.postin.api.apix.service.RawParamService;
+import io.tiklab.postin.api.apix.service.RequestHeaderService;
+import io.tiklab.postin.api.http.definition.dao.HttpApiDao;
+import io.tiklab.postin.api.http.definition.entity.HttpApiEntity;
+import io.tiklab.postin.api.http.definition.model.AfterParam;
+import io.tiklab.postin.api.http.definition.model.AfterParamQuery;
+import io.tiklab.postin.api.http.definition.model.ApiResponse;
+import io.tiklab.postin.api.http.definition.model.ApiResponseQuery;
+import io.tiklab.postin.api.http.definition.model.AuthParam;
+import io.tiklab.postin.api.http.definition.model.FormParam;
+import io.tiklab.postin.api.http.definition.model.FormParamQuery;
+import io.tiklab.postin.api.http.definition.model.FormUrlencoded;
+import io.tiklab.postin.api.http.definition.model.FormUrlencodedQuery;
+import io.tiklab.postin.api.http.definition.model.HttpApi;
+import io.tiklab.postin.api.http.definition.model.HttpApiQuery;
+import io.tiklab.postin.api.http.definition.model.PathParam;
+import io.tiklab.postin.api.http.definition.model.PathParamQuery;
+import io.tiklab.postin.api.http.definition.model.PreParam;
+import io.tiklab.postin.api.http.definition.model.PreParamQuery;
+import io.tiklab.postin.api.http.definition.model.ResponseHeader;
+import io.tiklab.postin.api.http.definition.model.ResponseHeaderQuery;
+import io.tiklab.postin.api.http.mock.service.MockService;
+import io.tiklab.postin.autotest.test.service.TestCaseService;
+import io.tiklab.postin.common.MagicValue;
+import io.tiklab.postin.common.PostInUnit;
+import io.tiklab.postin.node.model.Node;
+import io.tiklab.postin.node.service.NodeService;
+import io.tiklab.postin.support.apistatus.model.ApiStatus;
+import io.tiklab.postin.support.apistatus.service.ApiStatusService;
+import io.tiklab.rpc.annotation.Exporter;
+import io.tiklab.toolkit.beans.BeanMapper;
+import io.tiklab.toolkit.join.JoinTemplate;
+import io.tiklab.user.user.model.User;
+import io.tiklab.user.user.service.UserProcessor;
 
 /**
  * 定义
@@ -103,6 +136,9 @@ public class HttpApiServiceImpl implements HttpApiService {
 
     @Autowired
     NodeService nodeService;
+
+    @Autowired
+    TestCaseService testCaseService;
 
     @Override
     public String createHttpApi(@NotNull @Valid HttpApi httpApi) {
@@ -427,6 +463,21 @@ public class HttpApiServiceImpl implements HttpApiService {
         }
 
         return arrayList;
+    }
+
+    @Override
+    public Map<String, Integer> findCountById(String apiId) {
+        Map<String, Integer> result = new HashMap<>();
+        
+        // 查询Mock数量
+        Integer mockCount = mockService.findMockNumByApiId(apiId);
+        result.put("mockNum", mockCount != null ? mockCount : 0);
+        
+        // 查询TestCase数量
+        Integer testCaseCount = testCaseService.findTestCaseNumByApiId(apiId);
+        result.put("caseNum", testCaseCount != null ? testCaseCount : 0);
+        
+        return result;
     }
 
     /**

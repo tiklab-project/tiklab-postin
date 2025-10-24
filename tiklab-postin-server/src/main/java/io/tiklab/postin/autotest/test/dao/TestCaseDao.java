@@ -1,5 +1,19 @@
 package io.tiklab.postin.autotest.test.dao;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import org.apache.commons.lang.ArrayUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
 import io.tiklab.core.page.Pagination;
 import io.tiklab.dal.jpa.JpaTemplate;
 import io.tiklab.dal.jpa.criterial.condition.DeleteCondition;
@@ -7,14 +21,6 @@ import io.tiklab.dal.jpa.criterial.condition.QueryCondition;
 import io.tiklab.dal.jpa.criterial.conditionbuilder.QueryBuilders;
 import io.tiklab.postin.autotest.test.entity.TestCasesEntity;
 import io.tiklab.postin.autotest.test.model.TestCaseQuery;
-import org.apache.commons.lang.ArrayUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
-
-import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * 测试用例 数据访问
@@ -311,6 +317,20 @@ public class TestCaseDao {
         String sql = "SELECT COUNT(*) FROM autotest_testcase WHERE workspace_id = ? AND director = ?";
         try {
             return jpaTemplate.getJdbcTemplate().queryForObject(sql, Integer.class, workspaceId, director);
+        } catch (Exception e) {
+            return 0;
+        }
+    }
+
+
+    public Integer findTestCaseNumByApiId(String apiId) {
+        String sql = "SELECT COUNT(1) as total FROM autotest_testcase WHERE api_id = ?";
+        try {
+            Integer count = jpaTemplate.getJdbcTemplate().queryForObject(sql, new Object[]{apiId}, Integer.class);
+            if(count == null){
+                return 0;
+            }
+            return count;
         } catch (Exception e) {
             return 0;
         }

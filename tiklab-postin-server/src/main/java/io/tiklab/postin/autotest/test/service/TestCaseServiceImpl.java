@@ -1,5 +1,15 @@
 package io.tiklab.postin.autotest.test.service;
 
+import java.sql.Timestamp;
+import java.util.HashMap;
+import java.util.List;
+import java.util.UUID;
+
+import javax.validation.constraints.NotNull;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import io.tiklab.core.page.Pagination;
 import io.tiklab.core.page.PaginationBuilder;
 import io.tiklab.dal.jpa.criterial.condition.DeleteCondition;
@@ -9,7 +19,6 @@ import io.tiklab.postin.autotest.http.perf.cases.service.ApiPerfCaseService;
 import io.tiklab.postin.autotest.http.scene.cases.service.ApiSceneCaseService;
 import io.tiklab.postin.autotest.http.unit.cases.service.ApiUnitCaseService;
 import io.tiklab.postin.autotest.instance.model.Instance;
-import io.tiklab.postin.autotest.instance.model.InstanceQuery;
 import io.tiklab.postin.autotest.instance.service.InstanceService;
 import io.tiklab.postin.autotest.test.dao.TestCaseDao;
 import io.tiklab.postin.autotest.test.entity.TestCasesEntity;
@@ -17,16 +26,8 @@ import io.tiklab.postin.autotest.test.model.TestCase;
 import io.tiklab.postin.autotest.test.model.TestCaseQuery;
 import io.tiklab.postin.common.MagicValue;
 import io.tiklab.rpc.annotation.Exporter;
-
 import io.tiklab.toolkit.beans.BeanMapper;
 import io.tiklab.toolkit.join.JoinTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import javax.validation.constraints.NotNull;
-import java.sql.Timestamp;
-import java.util.*;
-import java.util.stream.Collectors;
 
 /**
 * 测试用例 服务
@@ -231,9 +232,9 @@ public class TestCaseServiceImpl implements TestCaseService {
                 "director"
         });
 
-//        List<TestCase> newTestCaseList = recentInstance(testCaseList);
+        List<TestCase> newTestCaseList = recentInstance(testCaseList);
 
-        return PaginationBuilder.build(pagination, testCaseList);
+        return PaginationBuilder.build(pagination, newTestCaseList);
     }
 
     @Override
@@ -263,6 +264,33 @@ public class TestCaseServiceImpl implements TestCaseService {
         countMap.put("directorNum", directorNum);
 
         return countMap;
+    }
+
+    /**
+     * 为测试用例列表添加最近一次执行历史
+     */
+    private List<TestCase> recentInstance(List<TestCase> testCaseList) {
+        if (testCaseList == null || testCaseList.isEmpty()) {
+            return testCaseList;
+        }
+
+        for (TestCase testCase : testCaseList) {
+            try {
+                Instance recentInstance = instanceService.getRecentExecuteInstance(testCase.getId());
+                if (recentInstance != null) {
+                    testCase.setRecentInstance(recentInstance);
+                }
+            } catch (Exception e) {
+                // 如果获取失败，继续处理下一个用例
+            }
+        }
+
+        return testCaseList;
+    }
+
+    @Override
+    public Integer findTestCaseNumByApiId(String apiId) {
+        return testCaseDao.findTestCaseNumByApiId(apiId);
     }
 
 

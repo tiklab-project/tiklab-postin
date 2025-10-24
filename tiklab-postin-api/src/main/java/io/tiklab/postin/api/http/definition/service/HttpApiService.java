@@ -13,6 +13,7 @@ import io.tiklab.toolkit.join.annotation.FindOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.Map;
 
 /**
 * http协议 服务接口
@@ -81,6 +82,10 @@ public interface HttpApiService {
     List<HttpApi> findHttpApiListByApix(ApixQuery apixQuery);
 
 
+    /**
+     * 查询当前接口下的 用例，mock数量
+     */
+    Map<String, Integer> findCountById(String apiId);
 
 
 
