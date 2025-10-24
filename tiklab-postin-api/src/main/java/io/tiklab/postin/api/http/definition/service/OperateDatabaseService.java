@@ -1,7 +1,6 @@
 package io.tiklab.postin.api.http.definition.service;
 
 import io.tiklab.core.page.Pagination;
-import io.tiklab.postin.api.apix.model.RequestHeader;
 import io.tiklab.postin.api.http.definition.model.OperateDatabase;
 import io.tiklab.postin.api.http.definition.model.OperateDatabaseQuery;
 import io.tiklab.toolkit.join.annotation.FindAll;
@@ -16,7 +15,7 @@ import java.util.Map;
 /**
 * 数据库操作 服务接口
 */
-@JoinProvider(model = RequestHeader.class)
+@JoinProvider(model = OperateDatabase.class)
 public interface OperateDatabaseService {
 
     /**

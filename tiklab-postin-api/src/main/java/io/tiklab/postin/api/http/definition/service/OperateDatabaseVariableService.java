@@ -15,7 +15,7 @@ import java.util.List;
 /**
 * 数据库操作中的环境 服务接口
 */
-@JoinProvider(model = RequestHeader.class)
+@JoinProvider(model = OperateDatabaseVariable.class)
 public interface OperateDatabaseVariableService {
 
     /**

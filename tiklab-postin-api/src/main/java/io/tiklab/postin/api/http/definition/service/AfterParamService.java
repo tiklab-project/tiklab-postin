@@ -15,7 +15,7 @@ import java.util.List;
 /**
 * 后置操作（主）服务接口
 */
-@JoinProvider(model = RequestHeader.class)
+@JoinProvider(model = AfterParam.class)
 public interface AfterParamService {
 
     /**
