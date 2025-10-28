@@ -1,21 +1,21 @@
 package io.tiklab.postin.autotest.http.unit.instance.service;
 
+import java.util.List;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import io.tiklab.core.page.Pagination;
+import io.tiklab.core.page.PaginationBuilder;
 import io.tiklab.postin.autotest.http.unit.instance.dao.AssertInstanceUnitDao;
 import io.tiklab.postin.autotest.http.unit.instance.entity.AssertInstanceUnitEntity;
 import io.tiklab.postin.autotest.http.unit.instance.model.AssertInstanceUnit;
 import io.tiklab.postin.autotest.http.unit.instance.model.AssertInstanceUnitQuery;
-import io.tiklab.core.page.PaginationBuilder;
-
-
-import io.tiklab.core.page.Pagination;
 import io.tiklab.toolkit.beans.BeanMapper;
 import io.tiklab.toolkit.join.JoinTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import java.util.List;
 
 /**
 * 断言实例 服务
@@ -48,7 +48,10 @@ public class AssertInstanceUnitServiceImpl implements AssertInstanceUnitService 
         assertInstanceUnitDao.deleteAssertInstance(id);
     }
 
-
+    @Override
+    public void deleteAllAssertInstanceByInstanceId(@NotNull String instanceId) {
+        assertInstanceUnitDao.deleteAllAssertInstanceByInstanceId(instanceId);
+    }
 
     @Override
     public AssertInstanceUnit findOne(String id) {

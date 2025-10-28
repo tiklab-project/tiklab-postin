@@ -33,6 +33,9 @@ public class ApiSceneTestRequest extends BaseModel {
     @ApiProperty(name="exeType",desc="当前执行的类型，用于测试计划中")
     private String exeType;
 
+    @ApiProperty(name="apiSceneTestResponse",desc="接口场景响应数据")
+    private ApiSceneTestResponse initApiSceneTestResponse;
+
     private List<StepCommon> stepCommonList;
 
     public ApiSceneCase getApiSceneCase() {
@@ -89,5 +92,13 @@ public class ApiSceneTestRequest extends BaseModel {
 
     public void setWorkspaceId(String workspaceId) {
         this.workspaceId = workspaceId;
+    }
+
+    public ApiSceneTestResponse getInitApiSceneTestResponse() {
+        return initApiSceneTestResponse;
+    }
+
+    public void setInitApiSceneTestResponse(ApiSceneTestResponse initApiSceneTestResponse) {
+        this.initApiSceneTestResponse = initApiSceneTestResponse;
     }
 }

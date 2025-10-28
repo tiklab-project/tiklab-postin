@@ -1,29 +1,30 @@
 package io.tiklab.postin.autotest.testplan.execute.service;
 
-import io.tiklab.postin.common.MagicValue;
+import java.util.Objects;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import io.tiklab.postin.autotest.http.perf.execute.model.ApiPerfTestRequest;
 import io.tiklab.postin.autotest.http.perf.execute.model.ApiPerfTestResponse;
 import io.tiklab.postin.autotest.http.perf.execute.service.ApiPerfExecuteDispatchService;
 import io.tiklab.postin.autotest.http.perf.instance.model.ApiPerfInstance;
 import io.tiklab.postin.autotest.http.perf.instance.service.ApiPerfInstanceService;
+import io.tiklab.postin.autotest.http.scene.cases.model.ApiSceneCase;
+import io.tiklab.postin.autotest.http.scene.execute.model.ApiSceneTestRequest;
+import io.tiklab.postin.autotest.http.scene.execute.model.ApiSceneTestResponse;
+import io.tiklab.postin.autotest.http.scene.execute.service.ApiSceneExecuteDispatchService;
+import io.tiklab.postin.autotest.http.scene.instance.model.ApiSceneInstance;
+import io.tiklab.postin.autotest.http.scene.instance.service.ApiSceneInstanceService;
+import io.tiklab.postin.autotest.http.unit.cases.model.ApiUnitCase;
+import io.tiklab.postin.autotest.http.unit.execute.model.ApiUnitTestRequest;
+import io.tiklab.postin.autotest.http.unit.execute.service.ApiUnitExecuteDispatchService;
+import io.tiklab.postin.autotest.http.unit.instance.model.ApiUnitInstance;
+import io.tiklab.postin.autotest.http.unit.instance.service.ApiUnitInstanceService;
 import io.tiklab.postin.autotest.testplan.execute.model.TestPlanTestData;
 import io.tiklab.postin.autotest.testplan.instance.model.TestPlanCaseInstanceBind;
 import io.tiklab.postin.autotest.testplan.instance.service.TestPlanCaseInstanceBindService;
-import io.tiklab.postin.autotest.http.scene.cases.model.ApiSceneCase;
-import io.tiklab.postin.autotest.http.scene.instance.model.ApiSceneInstance;
-import io.tiklab.postin.autotest.http.scene.execute.model.ApiSceneTestRequest;
-import io.tiklab.postin.autotest.http.scene.execute.model.ApiSceneTestResponse;
-import io.tiklab.postin.autotest.http.scene.instance.service.ApiSceneInstanceService;
-import io.tiklab.postin.autotest.http.scene.execute.service.ApiSceneExecuteDispatchService;
-import io.tiklab.postin.autotest.http.unit.cases.model.ApiUnitCase;
-import io.tiklab.postin.autotest.http.unit.instance.model.ApiUnitInstance;
-import io.tiklab.postin.autotest.http.unit.execute.model.ApiUnitTestRequest;
-import io.tiklab.postin.autotest.http.unit.instance.service.ApiUnitInstanceService;
-import io.tiklab.postin.autotest.http.unit.execute.service.ApiUnitExecuteDispatchService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
-import java.util.Objects;
+import io.tiklab.postin.common.MagicValue;
 
 /**
  * 测试计划中接口的执行测试
@@ -97,7 +98,7 @@ public class TestPlanExecuteApiDispatch {
      * @param testPlanTestData
      * @return
      */
-    public TestPlanCaseInstanceBind exeApiScene(TestPlanCaseInstanceBind testPlanCaseInstanceBind, TestPlanTestData testPlanTestData){
+    public void exeApiScene(TestPlanCaseInstanceBind testPlanCaseInstanceBind, TestPlanTestData testPlanTestData){
         ApiSceneTestRequest apiSceneTestRequest = new ApiSceneTestRequest();
 
         ApiSceneCase apiSceneCase = new ApiSceneCase();
@@ -107,27 +108,29 @@ public class TestPlanExecuteApiDispatch {
         apiSceneTestRequest.setApiSceneCase(apiSceneCase);
         apiSceneTestRequest.setApiEnvId(testPlanTestData.getApiEnvId());
 
-        try {
-            //执行
-            ApiSceneTestResponse apiSceneTestResponse = apiSceneExecuteDispatchService.executeStart(apiSceneTestRequest);
-            ApiSceneInstance apiSceneInstance = apiSceneTestResponse.getApiSceneInstance();
+        apiSceneExecuteDispatchService.executeStart(apiSceneTestRequest);
 
-            //保存历史
-            String apiSceneInstanceId = apiSceneInstanceService.createApiSceneInstance(apiSceneInstance);
-            //步骤历史
-            apiSceneInstanceService.createWebStepInstance(apiSceneTestResponse.getStepCommonInstanceList(),apiSceneInstanceId);
+//        try {
+//            //执行
+//            ApiSceneTestResponse apiSceneTestResponse = apiSceneExecuteDispatchService.executeStart(apiSceneTestRequest);
+//            ApiSceneInstance apiSceneInstance = apiSceneTestResponse.getApiSceneInstance();
+//
+//            //保存历史
+//            String apiSceneInstanceId = apiSceneInstanceService.createApiSceneInstance(apiSceneInstance);
+//            //步骤历史
+//            apiSceneInstanceService.createWebStepInstance(apiSceneTestResponse.getStepCommonInstanceList(),apiSceneInstanceId);
+//
+//            //测试计划历史 与 绑定用例的历史 公共历史
+//            testPlanCaseInstanceBind.setCaseInstanceId(apiSceneInstanceId);
+//            testPlanCaseInstanceBind.setResult(apiSceneTestResponse.getApiSceneInstance().getResult());
+//            testPlanCaseInstanceBind.setStatus(0);
+//            testPlanCaseInstanceBind.setElapsedTime(apiSceneTestResponse.getApiSceneInstance().getElapsedTime());
+//            testPlanCaseInstanceBindService.updateTestPlanCaseInstanceBind(testPlanCaseInstanceBind);
+//        }catch (Exception e){
+//            testPlanCaseInstanceBind.setStatus(0);
+//        }
 
-            //测试计划历史 与 绑定用例的历史 公共历史
-            testPlanCaseInstanceBind.setCaseInstanceId(apiSceneInstanceId);
-            testPlanCaseInstanceBind.setResult(apiSceneTestResponse.getApiSceneInstance().getResult());
-            testPlanCaseInstanceBind.setStatus(0);
-            testPlanCaseInstanceBind.setElapsedTime(apiSceneTestResponse.getApiSceneInstance().getElapsedTime());
-            testPlanCaseInstanceBindService.updateTestPlanCaseInstanceBind(testPlanCaseInstanceBind);
-        }catch (Exception e){
-            testPlanCaseInstanceBind.setStatus(0);
-        }
-
-        return testPlanCaseInstanceBind;
+//        return testPlanCaseInstanceBind;
     }
 
 //    public void exeApiPerform(TestPlanCaseInstanceBind testPlanCaseInstanceBind, TestPlanTestData testPlanTestData){
@@ -140,6 +143,52 @@ public class TestPlanExecuteApiDispatch {
 //        apiPerfExecuteDispatchService.executeStart(apiPerfTestRequest);
 //    }
 
+
+    public TestPlanCaseInstanceBind apiSceneResult(TestPlanCaseInstanceBind testPlanCaseInstanceBind){
+        String caseId = testPlanCaseInstanceBind.getCaseId();
+
+        try {
+            ApiSceneTestResponse apiSceneTestResponse = apiSceneExecuteDispatchService.getResult(caseId);
+            if(apiSceneTestResponse != null && apiSceneTestResponse.getApiSceneInstance() != null){
+                ApiSceneInstance apiSceneInstance = apiSceneTestResponse.getApiSceneInstance();
+
+                Integer elapsedTime = apiSceneInstance.getElapsedTime();
+                testPlanCaseInstanceBind.setElapsedTime(elapsedTime);
+                Integer result = apiSceneInstance.getResult();
+
+                // result: 2-运行中, 1-成功, 0-失败
+                if(Objects.equals(result, 2)){
+                    testPlanCaseInstanceBind.setStatus(1); // 运行中
+                }else {
+                    testPlanCaseInstanceBind.setStatus(0); // 已完成（成功或失败）
+                }
+
+                if(Objects.equals(result, 1)){
+                    testPlanCaseInstanceBind.setResult(1); // 成功
+                }else if(Objects.equals(result, 0)){
+                    testPlanCaseInstanceBind.setResult(0); // 失败
+                }
+
+                if(!Objects.equals(result, 2)){
+                    String apiSceneInstanceId = apiSceneInstanceService.createApiSceneInstance(apiSceneInstance);
+                    // 保存步骤实例列表
+                    if(apiSceneTestResponse.getStepCommonInstanceList() != null){
+                        apiSceneInstanceService.createWebStepInstance(apiSceneTestResponse.getStepCommonInstanceList(), apiSceneInstanceId);
+                    }
+                    testPlanCaseInstanceBind.setCaseInstanceId(apiSceneInstanceId);
+                    testPlanCaseInstanceBindService.updateTestPlanCaseInstanceBind(testPlanCaseInstanceBind);
+                }
+
+            }else {
+                testPlanCaseInstanceBind.setResult(0);
+            }
+
+        }catch (Exception e){
+            testPlanCaseInstanceBind.setStatus(0);
+        }
+
+        return testPlanCaseInstanceBind;
+    }
 
     public TestPlanCaseInstanceBind apiPerformResult(TestPlanCaseInstanceBind testPlanCaseInstanceBind){
         String caseId = testPlanCaseInstanceBind.getCaseId();

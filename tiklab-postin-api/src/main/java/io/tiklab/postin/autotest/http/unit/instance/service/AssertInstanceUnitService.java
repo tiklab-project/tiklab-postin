@@ -1,13 +1,14 @@
 package io.tiklab.postin.autotest.http.unit.instance.service;
 
 
-import io.tiklab.core.page.Pagination;
-import io.tiklab.postin.autotest.http.unit.instance.model.AssertInstanceUnit;
-import io.tiklab.postin.autotest.http.unit.instance.model.AssertInstanceUnitQuery;
+import java.util.List;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.util.List;
+
+import io.tiklab.core.page.Pagination;
+import io.tiklab.postin.autotest.http.unit.instance.model.AssertInstanceUnit;
+import io.tiklab.postin.autotest.http.unit.instance.model.AssertInstanceUnitQuery;
 
 /**
 * 断言实例 服务接口
@@ -28,10 +29,16 @@ public interface AssertInstanceUnitService {
     void updateAssertInstance(@NotNull @Valid AssertInstanceUnit assertInstanceUnit);
 
     /**
-    * 删除断言实例
-    * @param id
-    */
+     * 删除断言实例
+     * @param id
+     */
     void deleteAssertInstance(@NotNull String id);
+
+    /**
+     * 根据实例ID删除所有断言实例
+     * @param instanceId
+     */
+    void deleteAllAssertInstanceByInstanceId(@NotNull String instanceId);
 
     AssertInstanceUnit findOne(@NotNull String id);
 

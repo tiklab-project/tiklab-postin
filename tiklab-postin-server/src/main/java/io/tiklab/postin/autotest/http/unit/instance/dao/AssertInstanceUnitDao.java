@@ -1,18 +1,20 @@
 package io.tiklab.postin.autotest.http.unit.instance.dao;
 
-import io.tiklab.dal.jpa.criterial.condition.QueryCondition;
-import io.tiklab.dal.jpa.criterial.conditionbuilder.QueryBuilders;
-import io.tiklab.core.page.Pagination;
-import io.tiklab.dal.jpa.criterial.condition.DeleteCondition;
-import io.tiklab.dal.jpa.JpaTemplate;
-import io.tiklab.postin.autotest.http.unit.instance.entity.AssertInstanceUnitEntity;
-import io.tiklab.postin.autotest.http.unit.instance.model.AssertInstanceUnitQuery;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import io.tiklab.core.page.Pagination;
+import io.tiklab.dal.jpa.JpaTemplate;
+import io.tiklab.dal.jpa.criterial.condition.DeleteCondition;
+import io.tiklab.dal.jpa.criterial.condition.QueryCondition;
+import io.tiklab.dal.jpa.criterial.conditionbuilder.DeleteBuilders;
+import io.tiklab.dal.jpa.criterial.conditionbuilder.QueryBuilders;
+import io.tiklab.postin.autotest.http.unit.instance.entity.AssertInstanceUnitEntity;
+import io.tiklab.postin.autotest.http.unit.instance.model.AssertInstanceUnitQuery;
 
 /**
  * 断言实例 舒服访问
@@ -51,6 +53,17 @@ public class AssertInstanceUnitDao {
     }
 
     public void deleteAssertInstance(DeleteCondition deleteCondition){
+        jpaTemplate.delete(deleteCondition);
+    }
+
+    /**
+     * 根据实例ID删除所有断言实例
+     * @param instanceId
+     */
+    public void deleteAllAssertInstanceByInstanceId(String instanceId){
+        DeleteCondition deleteCondition = DeleteBuilders.createDelete(AssertInstanceUnitEntity.class)
+                .eq("instanceId", instanceId)
+                .get();
         jpaTemplate.delete(deleteCondition);
     }
 

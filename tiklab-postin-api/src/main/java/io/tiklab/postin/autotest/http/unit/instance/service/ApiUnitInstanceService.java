@@ -1,5 +1,10 @@
 package io.tiklab.postin.autotest.http.unit.instance.service;
 
+import java.util.List;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
 import io.tiklab.core.page.Pagination;
 import io.tiklab.postin.autotest.http.unit.instance.model.ApiUnitInstance;
 import io.tiklab.postin.autotest.http.unit.instance.model.ApiUnitInstanceQuery;
@@ -7,10 +12,6 @@ import io.tiklab.toolkit.join.annotation.FindAll;
 import io.tiklab.toolkit.join.annotation.FindList;
 import io.tiklab.toolkit.join.annotation.FindOne;
 import io.tiklab.toolkit.join.annotation.JoinProvider;
-
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import java.util.List;
 
 /**
 * 接口单元实例 服务接口
@@ -87,5 +88,11 @@ public interface ApiUnitInstanceService {
      * @param apiUnitInstance
      */
     String saveApiUnitInstanceToSql(ApiUnitInstance apiUnitInstance);
+
+    /**
+     * 更新接口单元用例历史到数据库（包含深层次实例）
+     * @param apiUnitInstance
+     */
+    void updateApiUnitInstanceToSql(ApiUnitInstance apiUnitInstance);
 
 }

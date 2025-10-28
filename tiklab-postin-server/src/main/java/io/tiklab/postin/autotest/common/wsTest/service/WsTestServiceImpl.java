@@ -3,6 +3,7 @@ package io.tiklab.postin.autotest.common.wsTest.service;
 import com.alibaba.fastjson.JSONObject;
 import io.tiklab.postin.autotest.http.perf.execute.service.ApiPerfExecuteDispatchService;
 import io.tiklab.postin.autotest.common.wstest.WsTestService;
+import io.tiklab.postin.autotest.http.scene.execute.service.ApiSceneExecuteDispatchService;
 import io.tiklab.postin.common.MagicValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +24,9 @@ public class WsTestServiceImpl implements WsTestService {
 
     @Autowired
     ApiPerfExecuteDispatchService apiPerfExecuteDispatchService;
+
+    @Autowired
+    ApiSceneExecuteDispatchService apiSceneExecuteDispatchService;
 
     /**
      * 发送信息
@@ -63,7 +67,13 @@ public class WsTestServiceImpl implements WsTestService {
             apiPerfExecuteDispatchService.getAgentTestData(jsonMsg);
         }
 
+        if(type.equals(MagicValue.CASE_TYPE_API_SCENE)){
+            apiSceneExecuteDispatchService.getAgentTestData(jsonMsg);
+        }
+
     }
+
+
 
 
 }

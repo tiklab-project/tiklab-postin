@@ -28,7 +28,7 @@ public class StepCommonInstanceEntity implements Serializable {
     @Column(name = "type")
     private String type;
 
-    // 排序
+    // 结果  成功1  失败0，待执行 2
     @Column(name = "result")
     private Integer result;
 

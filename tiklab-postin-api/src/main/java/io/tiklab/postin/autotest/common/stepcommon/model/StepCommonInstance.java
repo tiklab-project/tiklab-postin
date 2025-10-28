@@ -20,6 +20,7 @@ public class StepCommonInstance extends BaseModel{
     private String instanceId;
     private String parentId;
     private String name;
+    @ApiProperty(name="result",desc="成功 1，失败 0，待执行 2")
     private int result;
     private int sort;
     private String type;

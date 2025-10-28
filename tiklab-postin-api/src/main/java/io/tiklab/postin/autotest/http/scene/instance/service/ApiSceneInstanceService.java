@@ -1,5 +1,10 @@
 package io.tiklab.postin.autotest.http.scene.instance.service;
 
+import java.util.List;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
 import io.tiklab.core.page.Pagination;
 import io.tiklab.postin.autotest.common.stepcommon.model.StepCommonInstance;
 import io.tiklab.postin.autotest.http.scene.execute.model.ApiSceneTestResponse;
@@ -9,10 +14,6 @@ import io.tiklab.toolkit.join.annotation.FindAll;
 import io.tiklab.toolkit.join.annotation.FindList;
 import io.tiklab.toolkit.join.annotation.FindOne;
 import io.tiklab.toolkit.join.annotation.JoinProvider;
-
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import java.util.List;
 
 /**
 * 接口场景历史实例 服务接口
@@ -83,5 +84,12 @@ public interface ApiSceneInstanceService {
     String saveApiSceneInstanceToSql(ApiSceneInstance apiSceneInstance, ApiSceneTestResponse apiSceneTestResponse);
 
     void createWebStepInstance(List<StepCommonInstance> stepCommonInstanceList, String apiSceneInstanceId);
+
+    /**
+     * 更新步骤实例
+     * @param stepCommonInstanceList
+     * @param apiSceneInstanceId
+     */
+    void updateWebStepInstance(List<StepCommonInstance> stepCommonInstanceList, String apiSceneInstanceId);
 
 }

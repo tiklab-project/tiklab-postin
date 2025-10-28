@@ -489,6 +489,7 @@ public class ApiPerfExecuteDispatchServiceImpl implements ApiPerfExecuteDispatch
 
         StepCommonQuery stepCommonQuery = new StepCommonQuery();
         stepCommonQuery.setCaseId(caseId);
+        //只获取 接口用例
         stepCommonQuery.setCaseType(MagicValue.CASE_TYPE_API_SCENE);
         List<StepCommon> stepCommonList = stepCommonService.findStepCommonList(stepCommonQuery);
         apiSceneTestRequest.setStepCommonList(stepCommonList);

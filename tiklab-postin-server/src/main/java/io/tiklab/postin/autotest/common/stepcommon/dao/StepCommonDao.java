@@ -99,6 +99,7 @@ public class StepCommonDao {
         QueryCondition queryCondition = QueryBuilders.createQuery(StepCommonEntity.class)
                 .eq("caseId",stepCommonQuery.getCaseId())
                 .eq("parentId",stepCommonQuery.getParentId())
+                .eq("type",stepCommonQuery.getCaseType())
                 .orders(stepCommonQuery.getOrderParams())
                 .get();
         return jpaTemplate.findList(queryCondition, StepCommonEntity.class);

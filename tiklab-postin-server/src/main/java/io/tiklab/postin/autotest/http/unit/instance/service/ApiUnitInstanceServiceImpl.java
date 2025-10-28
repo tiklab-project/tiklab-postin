@@ -1,27 +1,32 @@
 package io.tiklab.postin.autotest.http.unit.instance.service;
 
-import io.tiklab.postin.autotest.http.unit.instance.dao.ApiUnitInstanceDao;
-import io.tiklab.postin.autotest.http.unit.instance.entity.ApiUnitInstanceEntity;
-import io.tiklab.postin.autotest.http.unit.instance.model.*;
-import io.tiklab.toolkit.beans.BeanMapper;
-import io.tiklab.core.page.Pagination;
-import io.tiklab.core.page.PaginationBuilder;
-import io.tiklab.dal.jpa.criterial.condition.DeleteCondition;
-import io.tiklab.dal.jpa.criterial.conditionbuilder.DeleteBuilders;
-import io.tiklab.toolkit.join.JoinTemplate;
-
-import io.tiklab.eam.common.context.LoginContext;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import io.tiklab.core.page.Pagination;
+import io.tiklab.core.page.PaginationBuilder;
+import io.tiklab.dal.jpa.criterial.condition.DeleteCondition;
+import io.tiklab.dal.jpa.criterial.conditionbuilder.DeleteBuilders;
+import io.tiklab.eam.common.context.LoginContext;
+import io.tiklab.postin.autotest.http.unit.instance.dao.ApiUnitInstanceDao;
+import io.tiklab.postin.autotest.http.unit.instance.entity.ApiUnitInstanceEntity;
+import io.tiklab.postin.autotest.http.unit.instance.model.ApiUnitInstance;
+import io.tiklab.postin.autotest.http.unit.instance.model.ApiUnitInstanceQuery;
+import io.tiklab.postin.autotest.http.unit.instance.model.AssertInstanceUnit;
+import io.tiklab.postin.autotest.http.unit.instance.model.AssertInstanceUnitQuery;
+import io.tiklab.postin.autotest.http.unit.instance.model.RequestInstanceUnit;
+import io.tiklab.postin.autotest.http.unit.instance.model.ResponseInstanceUnit;
+import io.tiklab.toolkit.beans.BeanMapper;
+import io.tiklab.toolkit.join.JoinTemplate;
 
 /**
  * 接口单元实例 服务
@@ -243,6 +248,43 @@ public class ApiUnitInstanceServiceImpl implements ApiUnitInstanceService {
 
 
         return apiUnitInstanceId;
+    }
+
+    @Override
+    public void updateApiUnitInstanceToSql(ApiUnitInstance apiUnitInstance) {
+        String apiUnitInstanceId = apiUnitInstance.getId();
+        
+        // 更新API单元实例本身
+        updateApiUnitInstance(apiUnitInstance);
+
+        // 更新请求实例
+        RequestInstanceUnit requestInstanceUnit = apiUnitInstance.getRequestInstance();
+        if (requestInstanceUnit != null) {
+            requestInstanceUnit.setId(apiUnitInstanceId);
+            requestInstanceUnit.setApiUnitInstance(new ApiUnitInstance().setId(apiUnitInstanceId));
+            requestInstanceUnitService.updateRequestInstance(requestInstanceUnit);
+        }
+
+        // 更新响应实例
+        ResponseInstanceUnit responseInstanceUnit = apiUnitInstance.getResponseInstance();
+        if (responseInstanceUnit != null) {
+            responseInstanceUnit.setId(apiUnitInstanceId);
+            responseInstanceUnit.setApiUnitInstance(new ApiUnitInstance().setId(apiUnitInstanceId));
+            responseInstanceUnitService.updateResponseInstance(responseInstanceUnit);
+
+            // 处理断言实例 - 先删除所有现有断言，再创建新的
+            List<AssertInstanceUnit> assertInstanceUnitList = responseInstanceUnit.getAssertInstanceList();
+            if(assertInstanceUnitList != null && !assertInstanceUnitList.isEmpty()){
+                // 删除现有断言实例
+                assertInstanceUnitService.deleteAllAssertInstanceByInstanceId(apiUnitInstanceId);
+                
+                // 创建新的断言实例
+                for(AssertInstanceUnit assertInstanceUnit : assertInstanceUnitList){
+                    assertInstanceUnit.setInstanceId(apiUnitInstanceId);
+                    assertInstanceUnitService.createAssertInstance(assertInstanceUnit);
+                }
+            }
+        }
     }
 
 

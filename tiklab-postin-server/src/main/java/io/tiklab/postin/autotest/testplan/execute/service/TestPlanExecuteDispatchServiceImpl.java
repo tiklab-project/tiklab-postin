@@ -1,18 +1,29 @@
 package io.tiklab.postin.autotest.testplan.execute.service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+import org.apache.commons.collections.CollectionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.alibaba.fastjson.JSONObject;
+
 import io.tiklab.postin.autotest.common.utils.TestUtil;
-import io.tiklab.postin.support.environment.model.EnvServer;
-import io.tiklab.postin.support.environment.model.EnvServerQuery;
-import io.tiklab.postin.support.environment.model.Environment;
-import io.tiklab.postin.support.environment.service.EnvServerService;
-import io.tiklab.postin.support.environment.service.EnvironmentService;
-import io.tiklab.rpc.annotation.Exporter;
-import io.tiklab.postin.common.MagicValue;
 import io.tiklab.postin.autotest.instance.model.Instance;
 import io.tiklab.postin.autotest.instance.service.InstanceService;
 import io.tiklab.postin.autotest.testplan.cases.model.PlanCase;
 import io.tiklab.postin.autotest.testplan.cases.model.TestPlan;
+import io.tiklab.postin.autotest.testplan.cases.model.TestPlanCaseQuery;
+import io.tiklab.postin.autotest.testplan.cases.service.TestPlanCaseService;
 import io.tiklab.postin.autotest.testplan.cases.service.TestPlanService;
 import io.tiklab.postin.autotest.testplan.execute.model.TestPlanTestData;
 import io.tiklab.postin.autotest.testplan.execute.model.TestPlanTestResponse;
@@ -20,18 +31,12 @@ import io.tiklab.postin.autotest.testplan.instance.model.TestPlanCaseInstanceBin
 import io.tiklab.postin.autotest.testplan.instance.model.TestPlanInstance;
 import io.tiklab.postin.autotest.testplan.instance.service.TestPlanCaseInstanceBindService;
 import io.tiklab.postin.autotest.testplan.instance.service.TestPlanInstanceService;
-import io.tiklab.postin.autotest.testplan.cases.model.TestPlanCaseQuery;
-import io.tiklab.postin.autotest.testplan.cases.service.TestPlanCaseService;
-import org.apache.commons.collections.CollectionUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import io.tiklab.postin.common.MagicValue;
+import io.tiklab.postin.support.environment.model.EnvServer;
+import io.tiklab.postin.support.environment.model.EnvServerQuery;
+import io.tiklab.postin.support.environment.service.EnvServerService;
+import io.tiklab.postin.support.environment.service.EnvironmentService;
+import io.tiklab.rpc.annotation.Exporter;
 
 /**
  * 测试计划测试调度
@@ -331,9 +336,14 @@ public class TestPlanExecuteDispatchServiceImpl implements TestPlanExecuteDispat
         for (TestPlanCaseInstanceBind testPlanCaseInstanceBind : testPlanCaseInstanceList) {
             String caseType = testPlanCaseInstanceBind.getCaseType();
             switch (caseType) {
-                case MagicValue.CASE_TYPE_API_PERFORM :
-                    testPlanExecuteApiDispatch.apiPerformResult(testPlanCaseInstanceBind);
+                case MagicValue.CASE_TYPE_API_SCENE:
+                    testPlanExecuteApiDispatch.apiSceneResult(testPlanCaseInstanceBind);
+                    break;
+//                case MagicValue.CASE_TYPE_API_PERFORM:
+//                    testPlanExecuteApiDispatch.apiPerformResult(testPlanCaseInstanceBind);
+//                    break;
                 default:
+
                     break;
             }
         }
