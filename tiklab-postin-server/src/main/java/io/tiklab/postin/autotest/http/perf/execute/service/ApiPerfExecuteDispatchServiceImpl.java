@@ -5,10 +5,8 @@ import io.tiklab.core.exception.ApplicationException;
 import io.tiklab.postin.autotest.agentconfig.model.AgentConfig;
 import io.tiklab.postin.autotest.agentconfig.service.AgentConfigService;
 import io.tiklab.postin.autotest.common.utils.TestUtil;
-import io.tiklab.postin.autotest.http.perf.instance.model.ApiPerfInstance;
-import io.tiklab.postin.autotest.http.perf.instance.model.ApiPerfStepInstance;
-import io.tiklab.postin.autotest.http.perf.instance.model.ApiPerfStepInstanceQuery;
-import io.tiklab.postin.autotest.http.perf.instance.model.ApiPerfStepUnitCalc;
+import io.tiklab.postin.autotest.http.perf.instance.model.*;
+import io.tiklab.postin.autotest.http.perf.instance.service.ApiPerfInstanceReportService;
 import io.tiklab.postin.common.ErrorCode;
 import io.tiklab.postin.common.MagicValue;
 import io.tiklab.postin.support.environment.model.EnvServer;
@@ -42,6 +40,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.*;
 import java.util.concurrent.*;
 
@@ -91,11 +90,13 @@ public class ApiPerfExecuteDispatchServiceImpl implements ApiPerfExecuteDispatch
     ApiPerfStepInstanceService apiPerfStepInstanceService;
 
     @Autowired
+    ApiPerfInstanceReportService apiPerfInstanceReportService;
+
+    @Autowired
     ApiPerfStepUnitCalcService apiPerfStepUnitCalcService;
 
     @Autowired
     AgentConfigService agentConfigService;
-
 
     private Map<String, ScheduledFuture<?>> scheduleFutureMap = new ConcurrentHashMap<>();
     //定时器，不断更新数据库结果的
@@ -140,9 +141,10 @@ public class ApiPerfExecuteDispatchServiceImpl implements ApiPerfExecuteDispatch
                 updateApiPerfInstance(apiPerfTestResponse,apiPerfId);
 
                 if(!Objects.equals(apiPerfTestResponse.getApiPerfInstance().getStatus(), MagicValue.TEST_STATUS_START)){
+                    logger.info("apiPerfId:{},apiPerfInstanceId:{},status:{}",apiPerfId,apiPerfInstanceId,apiPerfTestResponse.getApiPerfInstance().getStatus());
                     closeThread(apiPerfId);
                 }
-            }, 1, 2, TimeUnit.SECONDS);
+            }, 1, 3, TimeUnit.SECONDS);
             scheduleFutureMap.put(apiPerfId, scheduledFuture);
         }catch (Exception e){
             //更新状态为失败
@@ -231,13 +233,32 @@ public class ApiPerfExecuteDispatchServiceImpl implements ApiPerfExecuteDispatch
 
         instanceService.createInstance(instance);
 
+
+        // 初始化执行明细
+        ApiPerfInstanceReport apiPerfInstanceReport = new ApiPerfInstanceReport();
+        apiPerfInstanceReport.setApiPerfInstanceId(apiPerfInstanceId);
+        apiPerfInstanceReport.setTimestamp(new Timestamp(System.currentTimeMillis()));
+        apiPerfInstanceReport.setTps(0.0);
+        apiPerfInstanceReport.setAvgElapsedTime(0.0);
+        apiPerfInstanceReport.setThreadCount(0);
+        apiPerfInstanceReport.setErrorRate("0.00%");
+        apiPerfInstanceReportService.createApiPerfInstanceReport(apiPerfInstanceReport);
+
+
         return apiPerfInstanceId;
     }
 
     @Override
     public ApiPerfInstance result(String apiPerfId) {
         String apiPerfInstanceId = instanceService.getRecentExecuteInstanceId(apiPerfId);
+
         ApiPerfInstance apiPerfInstance = apiPerfInstanceService.findApiPerfInstance(apiPerfInstanceId);
+
+        ApiPerfInstanceReportQuery apiPerfInstanceReport = new ApiPerfInstanceReportQuery();
+        apiPerfInstanceReport.setApiPerfInstanceId(apiPerfInstanceId);
+        List<ApiPerfInstanceReport> apiPerfInstanceReportList = apiPerfInstanceReportService.findApiPerfInstanceReportList(apiPerfInstanceReport);
+        apiPerfInstance.setApiPerfInstanceReportList(apiPerfInstanceReportList);
+
         return apiPerfInstance;
     }
 
@@ -247,19 +268,9 @@ public class ApiPerfExecuteDispatchServiceImpl implements ApiPerfExecuteDispatch
         String apiPerfId = apiPerfTestRequest.getApiPerfId();
         ApiPerfTestResponse apiPerfTestResponse = new ApiPerfTestResponse();
         try {
-            ArrayList<ApiPerfTestResponse> responseList = new ArrayList<>();
 
-            synchronized (perfTestResponseMap) {
-                perfTestResponseMap.forEach((caseId, response) -> {
-                    if (caseId.equals(apiPerfId)) {
-                        responseList.add(response);
-                    }
-                });
-            }
+             apiPerfTestResponse = perfTestResponseMap.get(apiPerfId);
 
-            apiPerfTestResponse = multiAgentProcess(responseList);
-
-            // If test has finished, remove the corresponding entries
             if (!Objects.equals(apiPerfTestResponse.getApiPerfInstance().getStatus(), MagicValue.TEST_STATUS_START)) {
                 synchronized (perfTestResponseMap) {
                     perfTestResponseMap.remove(apiPerfId);
@@ -307,50 +318,6 @@ public class ApiPerfExecuteDispatchServiceImpl implements ApiPerfExecuteDispatch
         return apiPerfInstance;
     }
 
-
-    /**
-     * 处理多个agent数据
-     * @param apiPerfTestResponseList
-     */
-    private ApiPerfTestResponse multiAgentProcess(ArrayList<ApiPerfTestResponse> apiPerfTestResponseList){
-
-        int total = 0;
-        Integer failNum=0;
-        Integer passNum=0;
-        List<String> statusList = new ArrayList<>();
-
-        ArrayList<ApiPerfStepInstance> allCalcList = new ArrayList<>();
-
-        for(ApiPerfTestResponse apiPerfTestResponse:apiPerfTestResponseList){
-            ApiPerfInstance apiPerfInstanceItem = apiPerfTestResponse.getApiPerfInstance();
-            total += apiPerfInstanceItem.getTotal();
-            failNum += apiPerfInstanceItem.getFailNum();
-            passNum += apiPerfInstanceItem.getPassNum();
-
-            statusList.add(apiPerfInstanceItem.getStatus());
-
-            allCalcList.addAll(apiPerfTestResponse.getApiPerfStepInstanceList());
-        }
-
-        ApiPerfInstance apiPerfInstance = new ApiPerfInstance();
-        apiPerfInstance.setTotal(total);
-        apiPerfInstance.setPassNum(passNum);
-        apiPerfInstance.setPassRate(testUtil.processRate(passNum,total));
-        apiPerfInstance.setFailNum(failNum);
-        apiPerfInstance.setErrorRate(testUtil.processRate(failNum,total));
-
-        if(statusList.contains(MagicValue.TEST_STATUS_START)){
-            apiPerfInstance.setStatus(MagicValue.TEST_STATUS_START);
-        }else {
-            apiPerfInstance.setStatus(MagicValue.TEST_STATUS_COMPLETE);
-        }
-
-        ApiPerfTestResponse allApiPerfTestResponse = new ApiPerfTestResponse();
-        allApiPerfTestResponse.setApiPerfInstance(apiPerfInstance);
-        allApiPerfTestResponse.setApiPerfStepInstanceList(allCalcList);
-
-        return allApiPerfTestResponse;
-    }
 
     /**
      * 更新实例
@@ -402,6 +369,12 @@ public class ApiPerfExecuteDispatchServiceImpl implements ApiPerfExecuteDispatch
                     }
                 }
             }
+
+            //创建实例明细
+            ApiPerfInstanceReport apiPerfInstanceReport = apiPerfTestResponse.getApiPerfInstanceReport();
+            apiPerfInstanceReport.setApiPerfInstanceId(apiPerfInstanceId);
+            apiPerfInstanceReportService.createApiPerfInstanceReport(apiPerfInstanceReport);
+
         }else {
             updateApiPerfInstanceStatus(apiPerfId,MagicValue.TEST_STATUS_FAIL);
         }
@@ -442,22 +415,6 @@ public class ApiPerfExecuteDispatchServiceImpl implements ApiPerfExecuteDispatch
         List<EnvServer> envServerList = apiEnvService.findEnvServerList(envServerQuery);
         String preUrl = envServerList.get(0).getUrl();
 
-
-        //查询所有关联的用例
-//        ApiPerfStepQuery apiPerfStepQuery = new ApiPerfStepQuery();
-//        apiPerfStepQuery.setApiPerfId(apiPerfId);
-//        List<ApiPerfStep> apiPerfStepList = apiPerfStepService.findApiPerfStepList(apiPerfStepQuery);
-
-        //如果没有场景直接结束
-//        if(apiPerfStepList==null||apiPerfStepList.size()==0){return new ArrayList<>();}
-
-//        List<ApiPerfStepTestData> ApiPerfStepTestDataList = new ArrayList<>();
-
-        //循环所有用例构造数据
-//        for(ApiPerfStep apiPerfStep:apiPerfStepList){
-//            ApiPerfStepTestData apiPerfStepTestData = new ApiPerfStepTestData();
-//            apiPerfStepTestData.setApiPerfStep(apiPerfStep);
-            //获取测试数据
         List<JSONObject> testDataList = apiPerfTestDataService.getTestData(apiPerfId);
         apiPerfTestRequest.setTestDataList(testDataList);
 
@@ -471,8 +428,6 @@ public class ApiPerfExecuteDispatchServiceImpl implements ApiPerfExecuteDispatch
             apiPerfTestRequest.setApiSceneTestRequest(apiSceneTestRequest);
         }
 
-//            ApiPerfStepTestDataList.add(apiPerfStepTestData);
-//        }
 
         return apiPerfTestRequest;
     }

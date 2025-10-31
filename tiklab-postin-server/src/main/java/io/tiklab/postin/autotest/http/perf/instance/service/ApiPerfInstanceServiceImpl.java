@@ -4,10 +4,7 @@ import io.tiklab.core.page.Pagination;
 import io.tiklab.core.page.PaginationBuilder;
 import io.tiklab.postin.autotest.http.perf.instance.dao.ApiPerfInstanceDao;
 import io.tiklab.postin.autotest.http.perf.instance.entity.ApiPerfInstanceEntity;
-import io.tiklab.postin.autotest.http.perf.instance.model.ApiPerfInstance;
-import io.tiklab.postin.autotest.http.perf.instance.model.ApiPerfInstanceQuery;
-import io.tiklab.postin.autotest.http.perf.instance.model.ApiPerfStepInstance;
-import io.tiklab.postin.autotest.http.perf.instance.model.ApiPerfStepInstanceQuery;
+import io.tiklab.postin.autotest.http.perf.instance.model.*;
 import io.tiklab.toolkit.beans.BeanMapper;
 import io.tiklab.toolkit.join.JoinTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +32,9 @@ public class ApiPerfInstanceServiceImpl implements ApiPerfInstanceService {
 
     @Autowired
     ApiPerfStepUnitCalcService apiPerfStepUnitCalcService;
+
+    @Autowired
+    ApiPerfInstanceReportService apiPerfInstanceReportService;
 
     @Override
     public String createApiPerfInstance(@NotNull @Valid ApiPerfInstance perfInstance) {
@@ -81,6 +81,13 @@ public class ApiPerfInstanceServiceImpl implements ApiPerfInstanceService {
         apiPerfStepInstanceQuery.setApiPerfInstanceId(id);
         List<ApiPerfStepInstance> apiPerfStepInstanceList = apiPerfStepInstanceService.findApiPerfStepInstanceList(apiPerfStepInstanceQuery);
         perfInstance.setApiPerfStepInstanceList(apiPerfStepInstanceList);
+
+
+        ApiPerfInstanceReportQuery apiPerfInstanceReport = new ApiPerfInstanceReportQuery();
+        apiPerfInstanceReport.setApiPerfInstanceId(id);
+        List<ApiPerfInstanceReport> apiPerfInstanceReportList = apiPerfInstanceReportService.findApiPerfInstanceReportList(apiPerfInstanceReport);
+        perfInstance.setApiPerfInstanceReportList(apiPerfInstanceReportList);
+
 
         return perfInstance;
     }

@@ -4,6 +4,7 @@ import io.tiklab.core.BaseModel;
 import io.tiklab.postin.annotation.ApiModel;
 import io.tiklab.postin.annotation.ApiProperty;
 import io.tiklab.postin.autotest.http.perf.instance.model.ApiPerfInstance;
+import io.tiklab.postin.autotest.http.perf.instance.model.ApiPerfInstanceReport;
 import io.tiklab.postin.autotest.http.perf.instance.model.ApiPerfStepInstance;
 
 import java.util.List;
@@ -20,6 +21,8 @@ public class ApiPerfTestResponse extends BaseModel {
     @ApiProperty(name="apiSceneInstanceList",desc="api 场景测试实例列表")
     private List<ApiPerfStepInstance> apiPerfStepInstanceList;
 
+    @ApiProperty(name="apiPerfInstanceReport",desc="压力测试实例报告明细")
+    private ApiPerfInstanceReport apiPerfInstanceReport;
 
     // 添加设置初始状态的方法
     public void setInitialState() {
@@ -43,5 +46,11 @@ public class ApiPerfTestResponse extends BaseModel {
         this.apiPerfStepInstanceList = apiPerfStepInstanceList;
     }
 
+    public ApiPerfInstanceReport getApiPerfInstanceReport() {
+        return apiPerfInstanceReport;
+    }
 
+    public void setApiPerfInstanceReport(ApiPerfInstanceReport apiPerfInstanceReport) {
+        this.apiPerfInstanceReport = apiPerfInstanceReport;
+    }
 }

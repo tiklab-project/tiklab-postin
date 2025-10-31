@@ -25,7 +25,7 @@ public class ApiPerfCaseEntity implements Serializable {
     @Column(name = "bind_case_Id")
     private String bindCaseId;
 
-    // 线程数
+    // 线程数,并发用户数
     @Column(name = "thread_count")
     private Integer threadCount;
 
@@ -33,17 +33,25 @@ public class ApiPerfCaseEntity implements Serializable {
     @Column(name = "execute_type")
     private Integer executeType;
 
-    // 执行次数
+    // 次数: 执行次数
     @Column(name = "execute_count")
     private Integer executeCount;
 
-    // 时间类型
+    // 时间: 时间类型
     @Column(name = "time_type")
     private String timeType;
 
-    // 时间数
+    // 时间: 时间数
     @Column(name = "time_count")
     private Integer timeCount;
+
+    // 并发用户数到达指定个数所花费的时间
+    @Column(name = "ramp_up")
+    private Integer rampUp;
+
+    // 分几步达到
+    @Column(name = "step")
+    private Integer step;
 
 
     public String getId() {
@@ -109,5 +117,21 @@ public class ApiPerfCaseEntity implements Serializable {
 
     public void setTimeCount(Integer timeCount) {
         this.timeCount = timeCount;
+    }
+
+    public Integer getRampUp() {
+        return rampUp;
+    }
+
+    public void setRampUp(Integer rampUp) {
+        this.rampUp = rampUp;
+    }
+
+    public Integer getStep() {
+        return step;
+    }
+
+    public void setStep(Integer step) {
+        this.step = step;
     }
 }

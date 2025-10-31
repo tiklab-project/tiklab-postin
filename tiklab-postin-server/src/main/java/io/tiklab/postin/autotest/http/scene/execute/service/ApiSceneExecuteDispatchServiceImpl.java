@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
@@ -32,8 +33,6 @@ import io.tiklab.postin.autotest.http.scene.execute.model.ApiSceneTestRequest;
 import io.tiklab.postin.autotest.http.scene.execute.model.ApiSceneTestResponse;
 import io.tiklab.postin.autotest.http.scene.instance.model.ApiSceneInstance;
 import io.tiklab.postin.autotest.http.scene.instance.service.ApiSceneInstanceService;
-import io.tiklab.postin.autotest.http.unit.cases.model.ApiUnitCase;
-import io.tiklab.postin.autotest.http.unit.instance.model.ApiUnitInstance;
 import io.tiklab.postin.autotest.instance.model.Instance;
 import io.tiklab.postin.autotest.instance.service.InstanceService;
 import io.tiklab.postin.common.ErrorCode;
@@ -75,6 +74,9 @@ public class ApiSceneExecuteDispatchServiceImpl implements ApiSceneExecuteDispat
     // 定时器，不断更新数据库结果
     private final ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(10);
     
+    // 异步执行线程池，用于执行测试任务
+    private final ExecutorService asyncExecutorService = Executors.newFixedThreadPool(20);
+    
     // 是否存在正在执行的场景测试
     private static final Set<String> apiSceneIdSet = new HashSet<>();
     
@@ -108,42 +110,45 @@ public class ApiSceneExecuteDispatchServiceImpl implements ApiSceneExecuteDispat
         String apiSceneInstanceId = initResponse.getApiSceneInstance().getId();
         apiSceneTestRequest.setInitApiSceneTestResponse(initResponse);
 
-        try {
-            long startTime = System.currentTimeMillis();
+        // 异步执行测试任务，不阻塞主线程
+        asyncExecutorService.execute(() -> {
+            try {
+                long startTime = System.currentTimeMillis();
 
-            // 执行场景测试
-            executeStart(apiSceneTestRequest);
+                // 执行场景测试
+                executeStart(apiSceneTestRequest);
 
-            //防止还没执行就开始获取结果保存
-            Thread.sleep(1100);
+                //防止还没执行就开始获取结果保存
+                Thread.sleep(1100);
 
-            //不断获取场景测试结果存入更新数据库
-            ScheduledFuture<?> scheduledFuture = scheduledExecutorService.scheduleAtFixedRate(() -> {
-                //获取数据
-                ApiSceneTestResponse apiSceneTestResponse = getResult(apiSceneId);
+                //不断获取场景测试结果存入更新数据库
+                ScheduledFuture<?> scheduledFuture = scheduledExecutorService.scheduleAtFixedRate(() -> {
+                    //获取数据
+                    ApiSceneTestResponse apiSceneTestResponse = getResult(apiSceneId);
 
-                long endTime = System.currentTimeMillis();
-                long elapsedTime = endTime - startTime - 1100;
-                apiSceneTestResponse.getApiSceneInstance().setElapsedTime((int)elapsedTime);
-                updateApiSceneInstance(apiSceneTestResponse, apiSceneId,apiSceneInstanceId);
+                    long endTime = System.currentTimeMillis();
+                    long elapsedTime = endTime - startTime - 1100;
+                    apiSceneTestResponse.getApiSceneInstance().setElapsedTime((int)elapsedTime);
+                    updateApiSceneInstance(apiSceneTestResponse, apiSceneId,apiSceneInstanceId);
 
-                if(!Objects.equals(apiSceneTestResponse.getApiSceneInstance().getResult(), 2)){
+                    if(!Objects.equals(apiSceneTestResponse.getApiSceneInstance().getResult(), 2)){
 
-                    closeThread(apiSceneId);
-                }
-            }, 1, 2, TimeUnit.SECONDS);
-            scheduleFutureMap.put(apiSceneId, scheduledFuture);
-        }catch (ApplicationException e){
-            //更新状态为失败
-            updateApiSceneInstanceStatus(apiSceneInstanceId, MagicValue.TEST_STATUS_FAIL);
-            throw e;
-        }catch (Exception e){
-            //更新状态为失败
-            updateApiSceneInstanceStatus(apiSceneInstanceId, MagicValue.TEST_STATUS_FAIL);
-            throw new ApplicationException(ErrorCode.EXECUTE_CASE_ERROR, e.getMessage());
-        }
+                        closeThread(apiSceneId);
+                    }
+                }, 1, 2, TimeUnit.SECONDS);
+                scheduleFutureMap.put(apiSceneId, scheduledFuture);
+            }catch (ApplicationException e){
+                //更新状态为失败
+                updateApiSceneInstanceStatus(apiSceneInstanceId, MagicValue.TEST_STATUS_FAIL);
+                logger.error("执行场景测试失败: {}", e.getMessage(), e);
+            }catch (Exception e){
+                //更新状态为失败
+                updateApiSceneInstanceStatus(apiSceneInstanceId, MagicValue.TEST_STATUS_FAIL);
+                logger.error("执行场景测试异常: {}", e.getMessage(), e);
+            }
+        });
 
-        // 返回初始化的响应，让前端立即显示
+        // 立即返回初始化的响应，让前端快速渲染
         return initResponse;
     }
 

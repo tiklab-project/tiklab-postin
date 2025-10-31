@@ -36,21 +36,26 @@ public class ApiPerfCase extends BaseModel{
     @JoinField(key = "id")
     private TestCase bindCase;
 
-    @ApiProperty(name="threadCount",desc="线程数")
+    @ApiProperty(name="threadCount",desc="线程数,并发用户数")
     private Integer threadCount;
 
     @ApiProperty(name="executeType",desc="执行类型，1:次数 2:时间")
     private Integer executeType;
 
-    @ApiProperty(name="executeCount",desc="执行次数")
+    @ApiProperty(name="executeCount",desc="次数：执行次数")
     private Integer executeCount;
 
-    @ApiProperty(name="timeType",desc="时间类型")
+    @ApiProperty(name="timeType",desc="时间：时间类型")
     private String timeType;
 
-    @ApiProperty(name="timeCount",desc="时间数")
+    @ApiProperty(name="timeCount",desc="时间：时间数")
     private Integer timeCount;
 
+    @ApiProperty(name="rampUp",desc=" 线程数到达指定个数所花费的时间")
+    private Integer rampUp;
+
+    @ApiProperty(name="step",desc="分几步达到")
+    private Integer step;
 
 //    @ApiProperty(name="stepNum",desc="步骤数量")
 //    private int stepNum;
@@ -120,5 +125,21 @@ public class ApiPerfCase extends BaseModel{
 
     public void setTimeCount(Integer timeCount) {
         this.timeCount = timeCount;
+    }
+
+    public Integer getRampUp() {
+        return rampUp;
+    }
+
+    public void setRampUp(Integer rampUp) {
+        this.rampUp = rampUp;
+    }
+
+    public Integer getStep() {
+        return step;
+    }
+
+    public void setStep(Integer step) {
+        this.step = step;
     }
 }

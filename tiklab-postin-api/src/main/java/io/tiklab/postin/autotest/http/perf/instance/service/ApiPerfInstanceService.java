@@ -3,6 +3,11 @@ package io.tiklab.postin.autotest.http.perf.instance.service;
 import io.tiklab.postin.autotest.http.perf.instance.model.ApiPerfInstance;
 import io.tiklab.postin.autotest.http.perf.instance.model.ApiPerfInstanceQuery;
 import io.tiklab.core.page.Pagination;
+import io.tiklab.postin.autotest.http.scene.instance.model.ApiSceneInstance;
+import io.tiklab.toolkit.join.annotation.FindAll;
+import io.tiklab.toolkit.join.annotation.FindList;
+import io.tiklab.toolkit.join.annotation.FindOne;
+import io.tiklab.toolkit.join.annotation.JoinProvider;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -11,6 +16,7 @@ import java.util.List;
 /**
 * 接口性能历史服务接口
 */
+@JoinProvider(model = ApiPerfInstance.class)
 public interface ApiPerfInstanceService {
 
     /**
@@ -31,9 +37,9 @@ public interface ApiPerfInstanceService {
     * @param id
     */
     void deleteApiPerfInstance(@NotNull String id);
-
+    @FindOne
     ApiPerfInstance findOne(@NotNull String id);
-
+    @FindList
     List<ApiPerfInstance> findList(List<String> idList);
 
     /**
@@ -47,6 +53,7 @@ public interface ApiPerfInstanceService {
     * 查找所有接口性能历史
     * @return
     */
+    @FindAll
     List<ApiPerfInstance> findAllApiPerfInstance();
 
     /**

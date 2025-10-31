@@ -70,11 +70,9 @@ public class TestPlanExecuteDispatchServiceImpl implements TestPlanExecuteDispat
 
     @Autowired
     EnvironmentService environmentService;
+
     @Autowired
     EnvServerService apiEnvService;
-
-//    @Autowired
-//    TestHuboUnit testHuboUnit;
 
     //任务线程池
     public final ExecutorService executorService = Executors.newCachedThreadPool();
@@ -113,7 +111,6 @@ public class TestPlanExecuteDispatchServiceImpl implements TestPlanExecuteDispat
             }
 
             if(CollectionUtils.isNotEmpty(executableCaseList)){
-
                 //并发执行
                 executorService.submit(() -> {
                     try{
@@ -130,6 +127,8 @@ public class TestPlanExecuteDispatchServiceImpl implements TestPlanExecuteDispat
                     }
                 });
             }
+
+
 
             return testPlanInstanceId;
         }
@@ -494,7 +493,6 @@ public class TestPlanExecuteDispatchServiceImpl implements TestPlanExecuteDispat
 
         instanceService.updateInstance(instance);
     }
-
 
     /**
      * 更新测试计划历史中的执行状态 0 未执行， 1 执行中

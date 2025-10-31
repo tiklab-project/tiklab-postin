@@ -53,6 +53,8 @@ public class ApiPerfInstance extends BaseModel{
     @ApiProperty(name="apiPerfStepInstance",desc="接口性能下的所有的接口详细数据")
     private List<ApiPerfStepInstance> apiPerfStepInstanceList;
 
+    @ApiProperty(name="apiPerfInstanceReport",desc="接口性能下详细数据")
+    private List<ApiPerfInstanceReport> apiPerfInstanceReportList;
 
     public String getId() {
         return id;
@@ -148,5 +150,13 @@ public class ApiPerfInstance extends BaseModel{
 
     public void setApiPerfStepInstanceList(List<ApiPerfStepInstance> apiPerfStepInstanceList) {
         this.apiPerfStepInstanceList = apiPerfStepInstanceList;
+    }
+
+    public List<ApiPerfInstanceReport> getApiPerfInstanceReportList() {
+        return apiPerfInstanceReportList;
+    }
+
+    public void setApiPerfInstanceReportList(List<ApiPerfInstanceReport> apiPerfInstanceReportList) {
+        this.apiPerfInstanceReportList = apiPerfInstanceReportList;
     }
 }
