@@ -357,14 +357,8 @@ public class ApiSceneExecuteDispatchServiceImpl implements ApiSceneExecuteDispat
 
                     if(type.equals(MagicValue.CASE_TYPE_API_SCENE)){
                         String name = stepCommon.getApiSceneStep().getApiUnit().getTestCase().getName();
-//                        ApiUnitInstance apiUnitInstance = new ApiUnitInstance();
-//                        apiUnitInstance.setApiUnit(apiUnit);
-//                        stepCommonInstance.setApiUnitInstance(apiUnitInstance);
-
                         stepCommonInstance.setName(name);
                     }
-
-
 
                     //默认待执行2
                     stepCommonInstance.setResult(2);
