@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.UUID;
 
 /**
 * 功能用例下步骤 服务
@@ -39,6 +40,12 @@ public class StepCommonInstanceServiceImpl implements StepCommonInstanceService 
 
     @Override
     public String createStepCommonInstance(@NotNull @Valid StepCommonInstance stepCommonInstance) {
+
+        //如果没有id，则生成一个随机的id
+        if(stepCommonInstance.getId()== null){
+            String randomKey = UUID.randomUUID().toString().replaceAll("", "").substring(0, 12).toUpperCase();
+            stepCommonInstance.setId(randomKey);
+        }
 
         StepCommonInstanceEntity stepCommonInstanceEntity = BeanMapper.map(stepCommonInstance, StepCommonInstanceEntity.class);
 

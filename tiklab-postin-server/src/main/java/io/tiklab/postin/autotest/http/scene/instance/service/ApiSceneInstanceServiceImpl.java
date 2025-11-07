@@ -7,6 +7,8 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,6 +43,8 @@ import io.tiklab.toolkit.join.JoinTemplate;
 */
 @Service
 public class ApiSceneInstanceServiceImpl implements ApiSceneInstanceService {
+
+    static Logger logger = LoggerFactory.getLogger(ApiSceneInstanceServiceImpl.class);
 
     @Autowired
     ApiSceneInstanceDao apiSceneInstanceDao;
@@ -205,8 +209,11 @@ public class ApiSceneInstanceServiceImpl implements ApiSceneInstanceService {
             stepCommonInstanceList.forEach(stepCommonInstance -> {
                 if(stepCommonInstance != null){
                     stepCommonInstance.setInstanceId(apiSceneInstanceId);
-                    
-                    if(stepCommonInstance.getId() != null){
+
+
+                    StepCommonInstance isExistInstance = stepCommonInstanceService.findStepCommonInstance(stepCommonInstance.getId());
+
+                    if(isExistInstance != null){
                         // 更新现有步骤实例
                         stepCommonInstanceService.updateStepCommonInstance(stepCommonInstance);
 
@@ -216,17 +223,12 @@ public class ApiSceneInstanceServiceImpl implements ApiSceneInstanceService {
                             apiUnitInstance.setId(stepCommonInstance.getId());
                             
                             // 检查是否已经有API单元实例数据
-                            try {
-                                ApiUnitInstance existingInstance = apiUnitInstanceService.findApiUnitInstance(stepCommonInstance.getId());
-                                if(existingInstance != null){
-                                    // 已存在，执行更新（包含深层次实例）
-                                    apiUnitInstanceService.updateApiUnitInstanceToSql(apiUnitInstance);
-                                } else {
-                                    // 不存在，执行创建
-                                    apiUnitInstanceService.saveApiUnitInstanceToSql(apiUnitInstance);
-                                }
-                            } catch (Exception e) {
-                                // 如果查询失败，说明不存在，执行创建
+                            ApiUnitInstance existingInstance = apiUnitInstanceService.findOne(stepCommonInstance.getId());
+                            if(existingInstance != null){
+                                // 已存在，执行更新（包含深层次实例）
+                                apiUnitInstanceService.updateApiUnitInstanceToSql(apiUnitInstance);
+                            } else {
+                                // 不存在，执行创建
                                 apiUnitInstanceService.saveApiUnitInstanceToSql(apiUnitInstance);
                             }
                         }
@@ -237,23 +239,18 @@ public class ApiSceneInstanceServiceImpl implements ApiSceneInstanceService {
                             ifJudgmentInstance.setId(stepCommonInstance.getId());
                             
                             // 检查是否已经有if判断实例数据
-                            try {
-                                IfJudgmentInstance existingInstance = ifJudgmentInstanceService.findIfJudgmentInstance(stepCommonInstance.getId());
-                                if(existingInstance != null){
-                                    // 已存在，执行更新
-                                    ifJudgmentInstanceService.updateIfJudgmentInstance(ifJudgmentInstance);
-                                } else {
-                                    // 不存在，执行创建
-                                    ifJudgmentInstance.setStepInstanceId(apiSceneInstanceId);
-                                    ifJudgmentInstanceService.createIfJudgmentInstance(ifJudgmentInstance);
-                                }
-                            } catch (Exception e) {
-                                // 如果查询失败，说明不存在，执行创建
+                            IfJudgmentInstance existingInstance = ifJudgmentInstanceService.findOne(stepCommonInstance.getId());
+                            if(existingInstance != null){
+                                // 已存在，执行更新
+                                ifJudgmentInstanceService.updateIfJudgmentInstance(ifJudgmentInstance);
+                            } else {
+                                // 不存在，执行创建
                                 ifJudgmentInstance.setStepInstanceId(apiSceneInstanceId);
                                 ifJudgmentInstanceService.createIfJudgmentInstance(ifJudgmentInstance);
                             }
                         }
                     } else {
+
                         // 创建新步骤实例
                         String stepInstanceId = stepCommonInstanceService.createStepCommonInstance(stepCommonInstance);
                         stepCommonInstance.setId(stepInstanceId);

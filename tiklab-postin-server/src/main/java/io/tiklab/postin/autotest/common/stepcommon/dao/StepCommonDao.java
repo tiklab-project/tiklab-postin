@@ -44,6 +44,29 @@ public class StepCommonDao {
     }
 
     /**
+     * 更新步骤的父级ID和排序（使用原生SQL确保null值也能正确更新）
+     * @param stepId 步骤ID
+     * @param parentId 父级ID（可以为null）
+     * @param sort 排序值
+     */
+    public void updateStepParentIdAndSort(String stepId, String parentId, Integer sort) {
+        try {
+            String sql;
+            Object[] params;
+            if (parentId == null) {
+                sql = "UPDATE autotest_case_step_common SET parent_id = NULL, sort = ? WHERE id = ?";
+                params = new Object[]{sort, stepId};
+            } else {
+                sql = "UPDATE autotest_case_step_common SET parent_id = ?, sort = ? WHERE id = ?";
+                params = new Object[]{parentId, sort, stepId};
+            }
+            jpaTemplate.getJdbcTemplate().update(sql, params);
+        } catch (Exception e) {
+            logger.error("更新步骤父级ID和排序失败", e);
+        }
+    }
+
+    /**
      * 删除公共步骤
      * @param id
      */
@@ -172,6 +195,116 @@ public class StepCommonDao {
             entity.setCreateTime(rs.getTimestamp("create_time"));
             return entity;
         });
+    }
+
+    /**
+     * 批量更新排序（删除后）
+     * @param caseId 用例ID
+     * @param parentId 父级ID
+     * @param deletedSort 被删除的排序值
+     */
+    public void updateSortAfterDelete(String caseId, String parentId, int deletedSort) {
+        try {
+            String sql;
+            Object[] params;
+            if (parentId == null || parentId.trim().isEmpty()) {
+                sql = "UPDATE autotest_case_step_common SET sort = sort - 1 WHERE case_id = ? AND (parent_id IS NULL OR parent_id = '') AND sort > ?";
+                params = new Object[]{caseId, deletedSort};
+            } else {
+                sql = "UPDATE autotest_case_step_common SET sort = sort - 1 WHERE case_id = ? AND parent_id = ? AND sort > ?";
+                params = new Object[]{caseId, parentId, deletedSort};
+            }
+            jpaTemplate.getJdbcTemplate().update(sql, params);
+        } catch (Exception e) {
+            logger.error("删除后更新排序失败", e);
+        }
+    }
+
+    /**
+     * 批量更新排序（同级拖拽排序）
+     * @param caseId 用例ID
+     * @param parentId 父级ID
+     * @param oldSort 原排序值
+     * @param newSort 新排序值
+     */
+    public void updateSortAfterDrag(String caseId, String parentId, int oldSort, int newSort) {
+        try {
+            String sql;
+            Object[] params;
+            
+            if (oldSort < newSort) {
+                // 向下拖拽：将oldSort+1到newSort之间的记录排序值减1
+                if (parentId == null || parentId.trim().isEmpty()) {
+                    sql = "UPDATE autotest_case_step_common SET sort = sort - 1 WHERE case_id = ? AND (parent_id IS NULL OR parent_id = '') AND sort > ? AND sort <= ?";
+                    params = new Object[]{caseId, oldSort, newSort};
+                } else {
+                    sql = "UPDATE autotest_case_step_common SET sort = sort - 1 WHERE case_id = ? AND parent_id = ? AND sort > ? AND sort <= ?";
+                    params = new Object[]{caseId, parentId, oldSort, newSort};
+                }
+            } else if (oldSort > newSort) {
+                // 向上拖拽：将newSort到oldSort-1之间的记录排序值加1
+                if (parentId == null || parentId.trim().isEmpty()) {
+                    sql = "UPDATE autotest_case_step_common SET sort = sort + 1 WHERE case_id = ? AND (parent_id IS NULL OR parent_id = '') AND sort >= ? AND sort < ?";
+                    params = new Object[]{caseId, newSort, oldSort};
+                } else {
+                    sql = "UPDATE autotest_case_step_common SET sort = sort + 1 WHERE case_id = ? AND parent_id = ? AND sort >= ? AND sort < ?";
+                    params = new Object[]{caseId, parentId, newSort, oldSort};
+                }
+            } else {
+                // 排序值相同，无需更新
+                return;
+            }
+            
+            jpaTemplate.getJdbcTemplate().update(sql, params);
+        } catch (Exception e) {
+            logger.error("拖拽排序更新失败", e);
+        }
+    }
+
+    /**
+     * 批量更新排序（源层级：移除步骤后）
+     * @param caseId 用例ID
+     * @param parentId 父级ID
+     * @param deletedSort 被删除的排序值
+     */
+    public void updateSortAfterRemoveFromLevel(String caseId, String parentId, int deletedSort) {
+        try {
+            String sql;
+            Object[] params;
+            if (parentId == null || parentId.trim().isEmpty()) {
+                sql = "UPDATE autotest_case_step_common SET sort = sort - 1 WHERE case_id = ? AND (parent_id IS NULL OR parent_id = '') AND sort > ?";
+                params = new Object[]{caseId, deletedSort};
+            } else {
+                sql = "UPDATE autotest_case_step_common SET sort = sort - 1 WHERE case_id = ? AND parent_id = ? AND sort > ?";
+                params = new Object[]{caseId, parentId, deletedSort};
+            }
+            jpaTemplate.getJdbcTemplate().update(sql, params);
+        } catch (Exception e) {
+            logger.error("从层级移除后更新排序失败", e);
+        }
+    }
+
+    /**
+     * 批量更新排序（目标层级：插入步骤前）
+     * @param caseId 用例ID
+     * @param parentId 父级ID
+     * @param targetSort 目标排序值
+     */
+    public void updateSortBeforeInsertToLevel(String caseId, String parentId, int targetSort) {
+        try {
+            String sql;
+            Object[] params;
+            if (parentId == null || parentId.trim().isEmpty()) {
+                sql = "UPDATE autotest_case_step_common SET sort = sort + 1 WHERE case_id = ? AND (parent_id IS NULL OR parent_id = '') AND sort >= ?";
+                params = new Object[]{caseId, targetSort};
+            } else {
+                sql = "UPDATE autotest_case_step_common SET sort = sort + 1 WHERE case_id = ? AND parent_id = ? AND sort >= ?";
+                params = new Object[]{caseId, parentId, targetSort};
+            }
+            jpaTemplate.getJdbcTemplate().update(sql, params);
+        } catch (Exception e) {
+            logger.error("插入层级前更新排序失败", e);
+        }
     }
 
 }

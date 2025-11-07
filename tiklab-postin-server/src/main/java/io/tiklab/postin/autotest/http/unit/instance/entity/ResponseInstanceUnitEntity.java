@@ -20,15 +20,15 @@ public class ResponseInstanceUnitEntity implements Serializable {
     private String id;
 
     //所属测试实例id
-    @Column(name = "api_unit_instance_id",length = 32)
+    @Column(name = "api_unit_instance_id")
     private String apiUnitInstanceId;
 
     //响应头
-    @Column(name = "response_header",length = 2048)
+    @Column(name = "response_header")
     private String responseHeader;
 
     //响应体
-    @Column(name = "response_body",length = 2048)
+    @Column(name = "response_body")
     private String responseBody;
 
     public String getId() {

@@ -2,10 +2,18 @@ package io.tiklab.postin.autotest.common.stepcommon.service;
 
 
 import java.sql.Timestamp;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import io.tiklab.postin.api.http.definition.model.OperateDatabase;
 import io.tiklab.postin.api.http.definition.model.OperateScript;
@@ -13,14 +21,12 @@ import io.tiklab.postin.api.http.definition.service.OperateDatabaseService;
 import io.tiklab.postin.api.http.definition.service.OperateScriptService;
 import io.tiklab.postin.autotest.common.forstep.model.ForStep;
 import io.tiklab.postin.autotest.common.forstep.service.ForStepService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import io.tiklab.postin.autotest.common.ifjudgment.model.IfJudgment;
 import io.tiklab.postin.autotest.common.ifjudgment.service.IfJudgmentService;
 import io.tiklab.postin.autotest.common.stepcommon.dao.StepCommonDao;
 import io.tiklab.postin.autotest.common.stepcommon.entity.StepCommonEntity;
 import io.tiklab.postin.autotest.common.stepcommon.model.StepCommon;
+import io.tiklab.postin.autotest.common.stepcommon.model.StepCommonDragSortRequest;
 import io.tiklab.postin.autotest.common.stepcommon.model.StepCommonQuery;
 import io.tiklab.postin.autotest.http.scene.cases.model.ApiSceneStep;
 import io.tiklab.postin.autotest.http.scene.cases.service.ApiSceneStepService;
@@ -29,7 +35,6 @@ import io.tiklab.postin.autotest.http.unit.cases.service.ApiUnitCaseService;
 import io.tiklab.postin.common.MagicValue;
 import io.tiklab.toolkit.beans.BeanMapper;
 import io.tiklab.toolkit.join.JoinTemplate;
-import io.tiklab.postin.autotest.common.stepcommon.model.StepCommonDragSortRequest;
 
 /**
 * 功能用例下步骤 服务
@@ -111,19 +116,13 @@ public class StepCommonServiceImpl implements StepCommonService {
         if(stepCommon== null){return;}
         Integer sort = stepCommon.getSort();
         String parentId = stepCommon.getParentId();
-
-        // 只更新当前层级下的排序
-        List<StepCommonEntity> currentLevelSteps = stepCommonDao.findStepCommonListByParentId(stepCommon.getCaseId(), parentId);
-        
-        for(StepCommonEntity stepCommonEntity: currentLevelSteps){
-            if(stepCommonEntity.getSort() > sort){
-                stepCommonEntity.setSort(stepCommonEntity.getSort()-1);
-                stepCommonDao.updateStepCommon(stepCommonEntity);
-            }
-        }
+        String caseId = stepCommon.getCaseId();
 
         // 删除步骤
         stepCommonDao.deleteStepCommon(id);
+        
+        // 批量更新当前层级下的排序
+        stepCommonDao.updateSortAfterDelete(caseId, parentId, sort);
         
         // 删除关联的子步骤
         String stepType = stepCommon.getType();
@@ -310,13 +309,18 @@ public class StepCommonServiceImpl implements StepCommonService {
         String sourceParentId = sourceStep.getParentId();
         Integer sourceSort = sourceStep.getSort();
 
+        // 规范化 parentId：将 null 和空字符串统一处理为 null（表示根层级）
+        String normalizedSourceParentId = normalizeParentId(sourceParentId);
+        String normalizedTargetParentId = normalizeParentId(targetParentId);
+
         // 判断是否为同级拖拽
-        boolean isSameLevel = Objects.equals(sourceParentId, targetParentId);
+        boolean isSameLevel = Objects.equals(normalizedSourceParentId, normalizedTargetParentId);
 
         if (isSameLevel) {
-            handleSameLevelDrag(caseId, sourceParentId, sourceStepId, sourceSort, targetSort);
+            handleSameLevelDrag(caseId, normalizedSourceParentId, sourceStepId, sourceSort, targetSort);
         } else {
-            handleCrossLevelDrag(caseId, sourceStepId, sourceParentId, sourceSort, targetParentId, targetSort);
+            // 跨层级拖拽时，使用规范化后的 parentId 进行批量更新，但使用规范化后的值更新步骤的 parentId
+            handleCrossLevelDrag(caseId, sourceStepId, normalizedSourceParentId, sourceSort, normalizedTargetParentId, targetSort);
         }
     }
 
@@ -331,44 +335,11 @@ public class StepCommonServiceImpl implements StepCommonService {
             return;
         }
 
-        List<StepCommonEntity> currentLevelSteps = stepCommonDao.findStepCommonListByParentId(caseId, parentId);
+        // 先批量更新其他记录的排序
+        stepCommonDao.updateSortAfterDrag(caseId, parentId, sourceSort, targetSort);
 
-        if (sourceSort < targetSort) {
-            // 向后拖拽：把前面的步骤拖到后面
-            for (StepCommonEntity step : currentLevelSteps) {
-                if (step.getId().equals(sourceStepId)) {
-                    continue;
-                }
-
-                Integer stepSort = step.getSort();
-                // 原来在源步骤后面、目标位置及之前的步骤，都要往前移
-                if (stepSort > sourceSort && stepSort <= targetSort) {
-                    step.setSort(stepSort - 1);
-                    stepCommonDao.updateStepCommon(step);
-                }
-            }
-
-            // 源步骤移到目标位置
-            updateStepSort(sourceStepId, targetSort);
-
-        } else {
-            // 向前拖拽：把后面的步骤拖到前面
-            for (StepCommonEntity step : currentLevelSteps) {
-                if (step.getId().equals(sourceStepId)) {
-                    continue;
-                }
-
-                Integer stepSort = step.getSort();
-                // 原来在目标位置及之后、源步骤之前的步骤，都要往后移
-                if (stepSort >= targetSort && stepSort < sourceSort) {
-                    step.setSort(stepSort + 1);
-                    stepCommonDao.updateStepCommon(step);
-                }
-            }
-
-            // 源步骤移到目标位置
-            updateStepSort(sourceStepId, targetSort);
-        }
+        // 再更新当前记录的排序
+        updateStepSort(sourceStepId, targetSort);
     }
 
     /**
@@ -377,42 +348,14 @@ public class StepCommonServiceImpl implements StepCommonService {
     private void handleCrossLevelDrag(String caseId, String sourceStepId, String sourceParentId,
                                       Integer sourceSort, String targetParentId, Integer targetSort) {
 
-        // 调整源层级：移除源步骤后，后面的步骤往前移
-        adjustSourceLevel(caseId, sourceParentId, sourceSort);
+        // 调整源层级：移除源步骤后，后面的步骤往前移）
+        stepCommonDao.updateSortAfterRemoveFromLevel(caseId, sourceParentId, sourceSort);
 
         // 调整目标层级：在目标位置插入，原位置及之后的步骤往后移
-        adjustTargetLevel(caseId, targetParentId, targetSort);
+        stepCommonDao.updateSortBeforeInsertToLevel(caseId, targetParentId, targetSort);
 
         // 更新源步骤的父级和排序
         updateStepParentAndSort(sourceStepId, targetParentId, targetSort);
-    }
-
-    /**
-     * 调整源层级排序（移除步骤后的排序调整）
-     */
-    private void adjustSourceLevel(String caseId, String sourceParentId, Integer sourceSort) {
-        List<StepCommonEntity> sourceLevelSteps = stepCommonDao.findStepCommonListByParentId(caseId, sourceParentId);
-
-        for (StepCommonEntity step : sourceLevelSteps) {
-            if (step.getSort() > sourceSort) {
-                step.setSort(step.getSort() - 1);
-                stepCommonDao.updateStepCommon(step);
-            }
-        }
-    }
-
-    /**
-     * 调整目标层级排序（插入步骤前的排序调整）
-     */
-    private void adjustTargetLevel(String caseId, String targetParentId, Integer targetSort) {
-        List<StepCommonEntity> targetLevelSteps = stepCommonDao.findStepCommonListByParentId(caseId, targetParentId);
-
-        for (StepCommonEntity step : targetLevelSteps) {
-            if (step.getSort() >= targetSort) {
-                step.setSort(step.getSort() + 1);
-                stepCommonDao.updateStepCommon(step);
-            }
-        }
     }
 
     /**
@@ -430,12 +373,20 @@ public class StepCommonServiceImpl implements StepCommonService {
      * 更新步骤父级和排序
      */
     private void updateStepParentAndSort(String stepId, String targetParentId, Integer targetSort) {
-        StepCommonEntity stepEntity = stepCommonDao.findStepCommon(stepId);
-        if (stepEntity != null) {
-            stepEntity.setParentId(targetParentId);
-            stepEntity.setSort(targetSort);
-            stepCommonDao.updateStepCommon(stepEntity);
+        // 使用原生SQL更新，确保null值也能正确更新
+        stepCommonDao.updateStepParentIdAndSort(stepId, targetParentId, targetSort);
+    }
+
+    /**
+     * 规范化 parentId：将 null、空字符串、"nullstring" 统一处理为 null（表示根层级）
+     * @param parentId 父级ID
+     * @return 规范化后的父级ID
+     */
+    private String normalizeParentId(String parentId) {
+        if (parentId == null || parentId.trim().isEmpty() || "nullstring".equals(parentId.trim())) {
+            return null;
         }
+        return parentId;
     }
 
 }

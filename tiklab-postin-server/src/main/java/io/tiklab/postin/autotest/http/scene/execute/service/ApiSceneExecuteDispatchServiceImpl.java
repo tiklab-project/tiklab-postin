@@ -105,10 +105,12 @@ public class ApiSceneExecuteDispatchServiceImpl implements ApiSceneExecuteDispat
 
         // 获取步骤列表用于创建初始化实例
         List<StepCommon> stepCommonList = getStepCommonList(apiSceneId);
-        
+        apiSceneTestRequest.setStepCommonList(stepCommonList);
+
         ApiSceneTestResponse initResponse = createInitInstance(stepCommonList, apiSceneId);
         String apiSceneInstanceId = initResponse.getApiSceneInstance().getId();
         apiSceneTestRequest.setInitApiSceneTestResponse(initResponse);
+
 
         // 异步执行测试任务，不阻塞主线程
         asyncExecutorService.execute(() -> {
@@ -162,8 +164,6 @@ public class ApiSceneExecuteDispatchServiceImpl implements ApiSceneExecuteDispat
     @Override
     public void executeStart(ApiSceneTestRequest apiSceneTestRequest){
         String apiSceneId = apiSceneTestRequest.getApiSceneCase().getId();
-        List<StepCommon> stepCommonList = getStepCommonList(apiSceneId);
-        apiSceneTestRequest.setStepCommonList(stepCommonList);
 
         JSONObject variable = variableService.getVariable(apiSceneTestRequest.getApiEnvId());
         apiSceneTestRequest.setVariableJson(variable);
@@ -296,7 +296,8 @@ public class ApiSceneExecuteDispatchServiceImpl implements ApiSceneExecuteDispat
             if(apiSceneTestResponse.getStepCommonInstanceList() != null){
                 apiSceneInstanceService.updateWebStepInstance(apiSceneTestResponse.getStepCommonInstanceList(), apiSceneInstanceId);
             }
-        
+
+
         }else {
             updateApiSceneInstanceStatus(apiSceneId,MagicValue.TEST_STATUS_FAIL);
         }
@@ -345,10 +346,10 @@ public class ApiSceneExecuteDispatchServiceImpl implements ApiSceneExecuteDispat
         if(CollectionUtils.isNotEmpty(stepCommonList)){
             for(StepCommon stepCommon : stepCommonList){
                 if(stepCommon != null) {
+                    String type = stepCommon.getType();
+
                     StepCommonInstance stepCommonInstance = new StepCommonInstance();
                     stepCommonInstance.setSort(stepCommonInstanceList.size()+1);
-
-                    String type = stepCommon.getType();
                     stepCommonInstance.setType(type);
 
                     if(type.equals(MagicValue.TEST_STEP_SCRIPT)||type.equals(MagicValue.TEST_STEP_DATABASE)){
@@ -362,7 +363,6 @@ public class ApiSceneExecuteDispatchServiceImpl implements ApiSceneExecuteDispat
 
                     //默认待执行2
                     stepCommonInstance.setResult(2);
-
                     stepCommonInstanceList.add(stepCommonInstance);
                 }
             }
@@ -402,7 +402,7 @@ public class ApiSceneExecuteDispatchServiceImpl implements ApiSceneExecuteDispat
     private List<StepCommon> getStepCommonList(String apiSceneId) {
         StepCommonQuery stepCommonQuery = new StepCommonQuery();
         stepCommonQuery.setCaseId(apiSceneId);
-        stepCommonQuery.setCaseType(MagicValue.CASE_TYPE_API_SCENE);
+//        stepCommonQuery.setCaseType(MagicValue.CASE_TYPE_API_SCENE);
         return stepCommonService.findStepCommonList(stepCommonQuery);
     }
 

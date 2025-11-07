@@ -110,12 +110,11 @@ public class OpenApi31XImport extends AbstractOpenApiImport implements OpenApiPr
         HashMap<String, String> categoryIdAndTag = new HashMap<>();
 
         try {
-            // 检查 tags 是否存在或为空
-            JSONArray tags = allJson.getJSONArray("tags");
-            if (tags == null || tags.isEmpty()) {
-                // 创建一个默认分组
+            // 检查全局 tags 是否存在或为空
+            JSONArray globalTags = allJson.getJSONArray("tags");
+            if (globalTags == null || globalTags.isEmpty()) {
+                // 如果没有全局tags，创建默认分组
                 String defaultCategoryName = openApiCommonFn.DEFAULT_CATEGORY_NAME;
-
                 Category category = new Category();
                 Node node = new Node();
                 Workspace workspace1 = new Workspace();
@@ -127,10 +126,17 @@ public class OpenApi31XImport extends AbstractOpenApiImport implements OpenApiPr
                 String defaultCategoryId = categoryService.createCategory(category);
                 categoryIdAndTag.put(defaultCategoryName, defaultCategoryId);
             } else {
-                // 处理正常的 tags
-                for (Object tag : tags) {
+                // 如果有全局tags，创建所有全局tags对应的分组
+                // 第一个tag作为公共分组（用于没有tags的接口）
+                String firstPublicTag = null;
+                for (Object tag : globalTags) {
                     JSONObject tagInfo = (JSONObject) tag;
                     String categoryName = tagInfo.getString("name");
+
+                    // 记录第一个tag作为公共分组
+                    if (firstPublicTag == null) {
+                        firstPublicTag = categoryName;
+                    }
 
                     // 导入分组
                     Category category = new Category();
@@ -143,6 +149,11 @@ public class OpenApi31XImport extends AbstractOpenApiImport implements OpenApiPr
 
                     String categoryId = categoryService.createCategory(category);
                     categoryIdAndTag.put(categoryName, categoryId);
+                }
+                
+                // 将第一个tag作为默认分组（用于没有tags的接口）
+                if (firstPublicTag != null) {
+                    categoryIdAndTag.put(openApiCommonFn.DEFAULT_CATEGORY_NAME, categoryIdAndTag.get(firstPublicTag));
                 }
             }
         }catch (Exception e){
@@ -186,11 +197,16 @@ public class OpenApi31XImport extends AbstractOpenApiImport implements OpenApiPr
                     if (tagsArray != null && !tagsArray.isEmpty()) {
                         tag = tagsArray.getString(0);
                     } else {
+                        // 没有tags的接口，使用默认分组（对应默认分组或第一个全局tag）
                         tag = openApiCommonFn.DEFAULT_CATEGORY_NAME;
                     }
 
-
                     String categoryId = categoryIdAndTag.get(tag);
+                    // 如果找不到对应的categoryId，使用默认分组作为兜底
+                    if (categoryId == null) {
+                        categoryId = categoryIdAndTag.get(openApiCommonFn.DEFAULT_CATEGORY_NAME);
+                    }
+                    
                     //创建基础数据
                     String apiId = addApi(workspaceId,categoryId, name, path, method, desc);
 
@@ -270,7 +286,7 @@ public class OpenApi31XImport extends AbstractOpenApiImport implements OpenApiPr
                 String in = parameter.getString("in");
                 switch (in){
                     case "path":
-                        addPath(parameter,apiId);
+                        addPath(parameter,apiId,allJson);
                         break;
                     case "query":
                         addQuery(parameter,apiId);
@@ -359,7 +375,7 @@ public class OpenApi31XImport extends AbstractOpenApiImport implements OpenApiPr
     }
 
 
-    private void addPath(JSONObject pathObj, String methodId) {
+    private void addPath(JSONObject pathObj, String methodId, JSONObject allJson) {
         // 健壮性检查
         if (pathObj == null || methodId == null) {
             throw new ApplicationException(ErrorCode.IMPORT_ERROR,"Path object or method ID cannot be null");
@@ -386,6 +402,11 @@ public class OpenApi31XImport extends AbstractOpenApiImport implements OpenApiPr
         // 设置 schema
         if (pathObj.containsKey("schema")) {
             JSONObject schema = pathObj.getJSONObject("schema");
+
+            // 解析 $ref 引用
+            if (schema.containsKey("$ref")) {
+                schema = openApiCommonFn.resolveRef(schema.getString("$ref"), allJson);
+            }
 
             // 设置 dataType
             if (schema.containsKey("type")) {
